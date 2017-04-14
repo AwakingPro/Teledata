@@ -1,0 +1,85 @@
+span.listTag {
+	height: 33px;
+	display: block;
+	border: 1px solid rgba(0,0,0,0.2);
+	margin-bottom: 15px;
+	text-align: center;
+	line-height: 33px;
+	background: rgba(0,0,0,0.1);
+	position: relative;
+}
+li.listUpload {
+    list-style: none;
+    padding: 5px;
+}
+li.listUpload:hover {
+    background: rgba(0,0,0,.1);
+}
+li.listUpload i{
+    margin-right: 10px;
+}
+.marB15{
+	margin-bottom: 15px !important;
+	height: 33px;
+}
+#AgC{
+	 visibility: hidden;
+}
+.minPanel{
+	    min-height: 340px;
+}
+#listTag .listTag .pk {
+    display: inline-block;
+    position: absolute;
+    right: 15px;
+    top: 5px;
+    background-color: #FFFFFF;
+    padding: 4px;
+	cursor: pointer;
+    visibility: hidden;
+}
+#listTag .listTag .pk.On {
+    color: yellow;
+    background-color: #000000;
+}
+#listTag .listTag .pk.Off {
+    color: #000000;
+}
+
+.spinner.loading {
+  padding: 25px;
+  position: relative;
+  text-align: center;
+}
+.spinner.loading:before {
+  content: "";
+  height: 60px;
+  width: 60px;
+  margin: -30px auto auto -30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-width: 8px;
+  border-style: solid;
+  border-color: #2180c0 #ccc #ccc;
+  border-radius: 100%;
+  animation: rotation .7s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  } to {
+    transform: rotate(359deg);
+  }
+}
+
+.dropzone .dz-preview.dz-file-preview .dz-image {
+    background: #999;
+    background: #ddd;
+    background-image: url(../carga/img/fondo.png);
+    background-size: 85%;
+    background-repeat: no-repeat;
+    background-position-x: 10px;
+    background-position-y: 9px;
+}

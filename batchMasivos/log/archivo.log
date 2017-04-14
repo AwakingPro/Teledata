@@ -1,0 +1,79 @@
+2016-08-16 23:45:03,254 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de var/www/batchMasivos/propertiesFalabella/pre_properties.properties
+2016-08-16 23:45:03,262 [FATAL] root - null
+2016-08-16 23:45:03,264 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-08-16 23:45:03,264 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de var/www/batchMasivos/propertiesFalabella/batch.properties
+2016-08-16 23:47:00,236 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de var/www/batchMasivos/propertiesFalabella/pre_properties.properties
+2016-08-16 23:47:00,247 [FATAL] root - null
+2016-08-16 23:47:00,249 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-11 23:00:14,230 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-11 23:00:14,275 [FATAL] root - null
+2016-09-11 23:00:14,286 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-11 23:00:14,286 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-11 23:07:20,147 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-11 23:07:20,182 [FATAL] root - null
+2016-09-11 23:07:20,185 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-11 23:07:20,186 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-11 23:09:49,202 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-11 23:09:49,235 [FATAL] root - null
+2016-09-11 23:09:49,253 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-11 23:09:49,256 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-11 23:12:37,329 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-11 23:12:37,370 [FATAL] root - null
+2016-09-11 23:12:37,374 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-11 23:12:37,374 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-11 23:15:04,615 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-11 23:15:04,654 [FATAL] root - null
+2016-09-11 23:15:04,662 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-11 23:15:04,662 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-11 23:25:15,215 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-11 23:25:15,254 [FATAL] root - null
+2016-09-11 23:25:15,262 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-11 23:25:15,262 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-11 23:29:07,591 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-11 23:29:07,623 [FATAL] root - null
+2016-09-11 23:29:07,629 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-11 23:29:07,629 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-11 23:36:15,920 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-11 23:36:15,943 [FATAL] root - null
+2016-09-11 23:36:15,945 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-11 23:36:15,945 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-11 23:46:36,207 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-11 23:46:36,242 [FATAL] root - null
+2016-09-11 23:46:36,245 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-11 23:46:36,245 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-11 23:46:44,085 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-11 23:46:44,118 [FATAL] root - null
+2016-09-11 23:46:44,131 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-11 23:46:44,131 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-12 00:05:35,807 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-12 00:05:35,843 [FATAL] root - null
+2016-09-12 00:05:35,846 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-12 00:05:35,847 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-12 00:11:54,933 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-12 00:11:54,965 [FATAL] root - null
+2016-09-12 00:11:54,971 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-12 00:11:54,971 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-12 00:13:18,141 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-12 00:13:18,178 [FATAL] root - null
+2016-09-12 00:13:18,187 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-12 00:13:18,187 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-12 00:16:27,937 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-12 00:16:27,958 [FATAL] root - null
+2016-09-12 00:16:27,962 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-12 00:16:27,962 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-12 00:18:41,567 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de /var/www/batchMasivos/propertiesFalabella/pre_properties.properties
+2016-09-12 00:18:41,602 [FATAL] root - null
+2016-09-12 00:18:41,611 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-12 00:18:41,612 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de /var/www/batchMasivos/propertiesFalabella/batch.properties
+2016-09-12 00:22:48,450 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-12 00:22:48,480 [FATAL] root - null
+2016-09-12 00:22:48,489 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-12 00:22:48,490 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/batch.properties
+2016-09-12 00:27:39,236 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de properties/pre_properties.properties
+2016-09-12 00:27:39,276 [FATAL] root - null
+2016-09-12 00:27:39,283 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-12 00:27:39,283 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de propertiesFalabella/batch.properties
+2016-09-14 19:22:19,900 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de /var/www/batchMasivos/propertiesFalabella/pre_properties.properties
+2016-09-14 19:22:19,942 [FATAL] root - null
+2016-09-14 19:22:19,945 [FATAL] root - Problemas al abrir conexion en ImplDao
+2016-09-14 19:22:19,946 [FATAL] root - Mensaje fatal: IOException: problema en Apertura y lectura de /var/www/batchMasivos/propertiesFalabella/batch.properties

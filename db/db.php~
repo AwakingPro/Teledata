@@ -1,0 +1,9 @@
+<?php 
+$host_name = '172.16.77.3';
+$user_name = 'root';
+$pass_word = 's9q7l5.,777';
+$database_name = 'foco';
+$conn = mysql_connect($host_name, $user_name, $pass_word) or die ('Error connecting to mysql');
+mysql_select_db($database_name);
+?>
+

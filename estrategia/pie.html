@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Documento sin título</title>
+</head>
+
+<body>
+ <script type="text/javascript">
+												window.onload = function () {
+													var chart = new CanvasJS.Chart("chartContainer",
+													{
+														title:{
+															fontFamily: "arial black"
+														},
+																animationEnabled: true,
+														legend: {
+															verticalAlign: "bottom",
+															horizontalAlign: "center"
+														},
+														theme: "theme1",
+														data: [
+														{        
+															type: "pie",
+														
+															dataPoints: [
+															  {  y: 52, label:"asd",color:"green"},
+																{  y: 44, },
+																{  y: 12, }
+															]
+														}
+														]
+													});
+													chart.render();
+												}
+												</script>
+												<script type="text/javascript" src="../canvas/canvasjs.min.js"></script>
+                                                <div id="chartContainer" style="height: 300px; width: 100%;"></div>
+                                                
+</body>
+</html>
