@@ -41,91 +41,13 @@ if (isset($_SESSION['cedente'])){
     <link href="../plugins/pace/pace.min.css" rel="stylesheet">
     <script src="../plugins/pace/pace.min.js"></script>
     <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+    <link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
+
     <style type="text/css">
-    .select1
-             {
-        width: 100%;
-        height: 30px;
-        border: solid;
-        border-color: #ccc;
-        background-color: #CEECF5;
-
-             }
-    .select2
-            {
-        width: 100%;
-        height: 30px;
-        border: solid;
-        border-color: #ccc;
-        background-color: #CCC;
-
-            }
-    .text1
-            {
-        width: 100%;
-        height: 30px;
-        border: solid;
-        border-color: #ccc;
-        background-color: #CEECF5;
-
-            }
-    .text2
-            {
-        width: 100%;
-        height: 30px;
-        border: solid;
-        border-color: #ccc;
-        background-color: #CCC;
-
-            }
-    .mostrar_condiciones
-           {
-           }
-    #midiv100
-           {
-            display: none;
-           }
-
-    #oculto
-           {
-            display: none;
-           }
-    #guardar
-           {
-            display: none;
-           }
-    #folder
-           {
-            display: none;
-           }
-    .modal {
-            display:    none;
-            position:   fixed;
-            z-index:    1000;
-            top:        0;
-            left:       0;
-            height:     100%;
-            width:      100%;
-            background: rgba( 255, 255, 255, .8 )
-            url('../img/gears.gif')
-            50% 50%
-            no-repeat;
-            }
-body.loading
-           {
-            overflow: hidden;
-           }
-body.loading .modal
-          {
-           display: block;
-          }
-
- #divtablapeq {
-    width: 500px;
-    }
- #divtablamed {
-    width: 600px;
-    }
+       
+#navbar .brand-title {
+    padding: 0 1.5em 0 5px;
+}
 
     </style>
 </head>
@@ -186,12 +108,12 @@ body.loading .modal
 									</div>
 								</div>
 								<div class="panel-body">
-									<h4>Bienvenido a Foco Estrategico</h4>
+									<h4>Teledata ERP</h4>
                   <br>
                   Para obtener ayuda descargue aquí el manual de usuario
-                  <a target="_blank" href="../manual/manual_de_usuario_software_cobranding_claro.pdf">
+                 
                   <i class="pli-information icon-lg icon-fw"></i> Ayuda
-                  </a>
+                  
 									
 								</div>
 							</div>

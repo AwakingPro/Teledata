@@ -20,7 +20,7 @@
             //$this->Server = "localhost";
             //$this->Pass = "";
             $this->User = "root";
-            $this->Database = "foco";
+            $this->Database = "teledata";
             if (!isset($_SESSION))
             {
                 session_start();

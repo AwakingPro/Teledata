@@ -24,107 +24,24 @@ $acceso = $objetoSession->login($_POST['usuario'],$_POST['password'],$conn,$data
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foco</title>
-
-
-    <!--STYLESHEET-->
-    <!--=================================================-->
-
-
-
-    <!--Bootstrap Stylesheet [ REQUIRED ]-->
+    <title>TELEDATA</title>
     <link href="css/bootstrap.min.css" rel="stylesheet">
-
-
-    <!--Nifty Stylesheet [ REQUIRED ]-->
     <link href="css/nifty.min.css" rel="stylesheet">
-
-    <!--Nifty Premium Icon [ DEMO ]-->
     <link href="css/demo/nifty-demo-icons.min.css" rel="stylesheet">
-
-
-    <!--Font Awesome [ OPTIONAL ]-->
     <link href="plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-
-
-    <!--Switchery [ OPTIONAL ]-->
     <link href="plugins/switchery/switchery.min.css" rel="stylesheet">
-
-
-    <!--Bootstrap Select [ OPTIONAL ]-->
-    <link href="plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
-
-
-    <!--Bootstrap Tags Input [ OPTIONAL ]-->
     <link href="plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.css" rel="stylesheet">
-
-
-    <!--Chosen [ OPTIONAL ]-->
     <link href="plugins/chosen/chosen.min.css" rel="stylesheet">
-
-
-    <!--noUiSlider [ OPTIONAL ]-->
     <link href="plugins/noUiSlider/nouislider.min.css" rel="stylesheet">
-
-
-    <!--Bootstrap Timepicker [ OPTIONAL ]-->
-    <link href="plugins/bootstrap-timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
-
-
-    <!--Bootstrap Datepicker [ OPTIONAL ]-->
-    <link href="plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
-
-
-    <!--Dropzone [ OPTIONAL ]-->
     <link href="plugins/dropzone/dropzone.css" rel="stylesheet">
-
-
-    <!--Summernote [ OPTIONAL ]-->
     <link href="plugins/summernote/summernote.min.css" rel="stylesheet">
-
-
-    <!--Demo [ DEMONSTRATION ]-->
     <link href="css/demo/nifty-demo.min.css" rel="stylesheet">
-      <script src="plugins/bootbox/bootbox.min.js"></script>
-
-
-
-
-    <!--SCRIPT-->
-    <!--=================================================-->
-
-    <!--Page Load Progress Bar [ OPTIONAL ]-->
+    <script src="plugins/bootbox/bootbox.min.js"></script>
     <link href="plugins/pace/pace.min.css" rel="stylesheet">
     <script src="plugins/pace/pace.min.js"></script>
     <script src='https://www.google.com/recaptcha/api.js?hl=es'></script>
-    <!--
-
-
-    REQUIRED
-    You must include this in your project.
-
-    RECOMMENDED
-    This category must be included but you may modify which plugins or components which should be included in your project.
-
-    OPTIONAL
-    Optional plugins. You may choose whether to include it in your project or not.
-
-    DEMONSTRATION
-    This is to be removed, used for demonstration purposes only. This category must not be included in your project.
-
-    SAMPLE
-    Some script samples which explain how to initialize plugins or components. This category should not be included in your project.
-
-
-    Detailed information and more samples can be found in the document.
-
-    -->
 
 </head>
-
-<!--TIPS-->
-<!--You may remove all ID or Class names which contain "demo-", they are only used for demonstration. -->
-
 <body>
 	<div id="container" class="cls-container">
 
@@ -139,7 +56,7 @@ $acceso = $objetoSession->login($_POST['usuario'],$_POST['password'],$conn,$data
 			<div class="cls-brand">
 				<a class="box-inline" href="index.php">
 					<!-- <img alt="Nifty Admin" src="img/logo.png" class="brand-icon"> -->
-					<span class="brand-title">  Foco | Software de Estrategia de Cobranza<span class="text-thin"></span></span>
+					<span class="brand-title">  TELEDATA ERP<span class="text-thin"></span></span>
 				</a>
 			</div>
 		</div>
@@ -247,8 +164,8 @@ $acceso = $objetoSession->login($_POST['usuario'],$_POST['password'],$conn,$data
     <script src="js/demo/bg-images.js"></script>
 
     <script src="plugins/bootbox/bootbox.min.js"></script>
-<script src="js/demo/ui-alerts.js"></script>
-        <script src="js/login/login.js"></script>
+    <script src="js/demo/ui-alerts.js"></script>
+    <script src="js/login/login.js"></script>
 
 
 

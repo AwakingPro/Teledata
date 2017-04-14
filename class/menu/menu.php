@@ -163,7 +163,7 @@ class Menu
     //$host_name = 'localhost';
     //$pass_word = '';
     $user_name = 'root';
-    $database_name = 'foco';
+    $database_name = 'teledata';
     $conn = mysql_connect($host_name, $user_name, $pass_word) or die ('Error connecting to mysql');
     mysql_select_db($database_name);
     $conn = mysql_connect($host_name, $user_name, $pass_word) or die ('Error connecting to mysql');

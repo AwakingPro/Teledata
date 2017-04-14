@@ -5,9 +5,8 @@
     <!--Logo-->
     <div class="navbar-header">
       <a href="../index.php" class="navbar-brand">
-        <img src="../img/logo.png" alt="Nifty Logo" class="brand-icon">
         <div class="brand-title">
-          <span class="brand-text">Foco Estrategico</span>
+        ERP | Teledata
         </div>
       </a>
     </div>
@@ -106,7 +105,7 @@
                 </a>
               </li>
               <li>
-                <a target="_blank" href="../manual/manual_de_usuario_software_cobranding_claro.pdf">
+                <a target="_blank" href="#">
                   <i class="pli-information icon-lg icon-fw"></i> Ayuda
                 </a>
               </li>
