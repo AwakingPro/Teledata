@@ -1,16 +1,24 @@
 $(document).ready(function(){
 
-    function VerServicios()
-    {
+    function VerServicios(){
         $.ajax({
             type: "POST",
             url: "../includes/clientes/MostrarServicios.php",
             data:"Rut="+$("#Rut").val(),
             success: function(response){
                 $('#DivServicios').html(response);
+                $("#tabla1").dataTable();
             }
         });    
     }
+    function LimpiarDatos(){
+        var Facturacion = "<b>Datos de Facturación</b><div class='list-divider'></div> Seleccione Cliente.";
+        
+        $('#DivServicios').html('Seleccione Cliente.');
+        $('#DatosTecnicos').html('');
+        $('#VerClientes').html(Facturacion);
+    }
+
 
 
     $("#Crear").click(function(){
@@ -23,7 +31,6 @@ $(document).ready(function(){
             url: "../includes/clientes/crear.php",
             data:data,
             success: function(response){
-                alert(response);
                 if(response==1){
                     $.niftyNoty({
                         type: 'success',
@@ -63,11 +70,19 @@ $(document).ready(function(){
                 $('#Dato').selectpicker('refresh');
             }
         }); 
+        LimpiarDatos();
+       
    }); 
 
    $(document).on('change', '#Dato', function() {
-        var data = "Rut="+$(this).val();
-        $("#Rut").val($(this).val());
+       $("#Rut").val($(this).val());
+       $("#buscar").prop('disabled',false);
+        
+   });
+
+   $(document).on('click', '#buscar', function() {
+        var Rut = $("#Rut").val();
+        var data = "Rut="+Rut;
         $.ajax({
             type: "POST",
             url: "../includes/clientes/VerCliente.php",
@@ -75,9 +90,13 @@ $(document).ready(function(){
             success: function(response){
                 $("#VerClientes").html(response);
                 VerServicios();
+                $('#DatosTecnicos').html('');
             }
         }); 
    });
+
+   
+
 
     $(document).on('click', '#AgregaProducto', function() {
         $.ajax({
@@ -99,7 +118,6 @@ $(document).ready(function(){
                                 var Rut = $("#Rut").val();
                                 var Descripcion = $("#Descripcion").val();
                                 var data = "Rut="+Rut+"&IdServicio="+IdServicio+"&Descripcion="+Descripcion+"&IdTipo="+IdTipo;
-                                alert(data);
                                 
                                 $.ajax({
                                     type: "POST",
@@ -115,6 +133,7 @@ $(document).ready(function(){
                                                 timer : 4000
                                             });
                                             VerServicios();
+                                            $('#DatosTecnicos').html('');
 
                                         }
                                         else{

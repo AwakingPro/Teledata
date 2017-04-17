@@ -42,6 +42,7 @@ if (isset($_SESSION['cedente'])){
     <script src="../plugins/pace/pace.min.js"></script>
     <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
     <link href="../css/themes/type-a/theme-mint.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet">
 
     <style type="text/css">
         #navbar .brand-title {
@@ -79,7 +80,7 @@ if (isset($_SESSION['cedente'])){
                     <div class="col-sm-12">
                         <div class="panel">
                             <div class="panel-body ">
-                                <div class="col-sm-3">
+                                <div class="col-sm-2">
                                     <div class="form-group">
                                         <label>Tipo de Búsqueda</label>
                                         <select class="selectpicker" id="TipoBusqueda"  data-live-search="true" data-width="100%">
@@ -89,12 +90,18 @@ if (isset($_SESSION['cedente'])){
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-sm-3">
+                                <div class="col-sm-4">
                                     <div class="form-group">
                                         <label>&nbsp;&nbsp;</label><br>
                                         <div id="Tipo">
                                             <input type="text"  disabled="disabled"  class="form-control" >
                                         </div> 
+                                    </div>
+                                </div>
+                                <div class="col-sm-2">
+                                    <div class="form-group">
+                                        <label>&nbsp;&nbsp;</label><br>
+                                        <button class="btn btn-mint col-sm-12 " disabled="disabled" id="buscar">Buscar</button>
                                     </div>
                                 </div>
                             </div>
@@ -107,14 +114,14 @@ if (isset($_SESSION['cedente'])){
                         <div class="tab-base ">
                             <ul class="nav nav-tabs ">
                                 <li class="active">
-                                    <a data-toggle="tab" href="#demo-lft-tab-1">Datos Facturación</a>
+                                    <a data-toggle="tab" href="#demo-lft-tab-1"><b>FACTURACION</b></a>
                                 </li>
                                 <li>
-                                    <a data-toggle="tab" href="#demo-lft-tab-2">Servicios Contratados &nbsp;&nbsp;<i class="fa fa-plus-square " id="AgregaProducto" ></i></a>
+                                    <a data-toggle="tab" href="#demo-lft-tab-2"><b>SERVICIOS</b> &nbsp;&nbsp;<i class="fa fa-plus-square " id="AgregaProducto" ></i></a>
                                 </li>
 
                                 <li>
-                                    <a data-toggle="tab" href="#demo-lft-tab-3">Productos Contratados &nbsp;&nbsp;</a>
+                                    <a data-toggle="tab" href="#demo-lft-tab-3"><b>PRODUCTOS</b> &nbsp;&nbsp;</a>
                                 </li>
                                 <li>
                                     <a data-toggle="tab" href="#demo-lft-tab-4">Datos de Contacto &nbsp;&nbsp;</a>
@@ -123,17 +130,17 @@ if (isset($_SESSION['cedente'])){
                             <div class="tab-content">
                                 <div id="demo-lft-tab-1" class="tab-pane fade active in">
                                     <div class="row">
-                                        <div id="VerClientes">Seleccione Cliente</div>
+                                        <div id="VerClientes"><b>Datos de Facturación</b><div class='list-divider'></div> Seleccione Cliente.</div>
                                         
                                        
                                     </div>
                                 </div>
                                 <div id="demo-lft-tab-2" class="tab-pane fade">
-                                    <div id="DivServicios">Agregue Servicios</div>
+                                    <div id="DivServicios"><b>Servicios Contratados</b><div class='list-divider'></div> Seleccione Cliente.</div>
                                     <div id="DatosTecnicos"></div>
                                 </div>
                                 <div id="demo-lft-tab-3" class="tab-pane fade">
-                                    <div id="mostrar_pagos_ocultar">Agregue Servicio</div>
+                                    <div id="mostrar_pagos_ocultar"><b>Productos Contratados</b><div class='list-divider'></div> Seleccione Cliente.</div>
                                 </div>
                                 <div id="demo-lft-tab-4" class="tab-pane fade">
                                     <div id="mostrar_gestion_total_ocultar">Datos Técnicos</div>
@@ -166,5 +173,6 @@ if (isset($_SESSION['cedente'])){
 <script src="../js/demo/ui-alerts.js"></script>
 <script src="../js/global/funciones-global.js"></script>
 <script src="../js/demo/ui-modals.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 </body>
 </html>
