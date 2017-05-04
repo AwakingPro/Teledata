@@ -63,6 +63,7 @@ $(document).ready(function(){
                                       ''+response.array.telefono+'',
                                       ''+response.array.contacto+'',
                                       ''+response.array.correo+'',
+                                      ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
                                     ]).draw(false).node();
 
                                       $( rowNode ).attr('id',response.array.id)
