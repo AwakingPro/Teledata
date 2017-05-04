@@ -90,13 +90,13 @@ if (isset($_SESSION['cedente'])){
                                                     
                                                             while($row = mysql_fetch_array($sql)){ 
                                                   
-                                                                echo "<tr id=".$row[0].">";
+                                                                echo "<tr class='text-center' id=".$row[0].">";
                                                                     echo "<td>".$row[1]."</td>";
                                                                     echo "<td>".$row[2]."</td>";
                                                                     echo "<td>".$row[3]."</td>";
                                                                     echo "<td>".$row[4]."</td>";
                                                                     echo "<td>".$row[5]."</td>";
-                                                                    echo '<td class="text-center"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i></td>';
+                                                                    echo '<td><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i></td>';
                                                                 echo "</tr>"; 
                    
                                                             }
