@@ -251,6 +251,7 @@ if (isset($_SESSION['cedente'])){
         <script src="../plugins/bootbox/bootbox.min.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <!-- <script src="../js/global/funciones-global.js"></script> -->
+        <script src="../js/global/validations.js"></script>
         <script src="../js/proveedores/Proveedor.js"></script>
     </body>
 </html>

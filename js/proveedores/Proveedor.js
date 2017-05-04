@@ -1,5 +1,13 @@
 $(document).ready(function(){
 
+    $(document).on('click', '.bootbox', function(event){
+        var classname = event.target.className;
+        classname = classname.replace(/ /g, '.');
+
+        if(classname && !$('.' + classname).parents('.modal-dialog').length)
+            bootbox.hideAll();
+}   );
+
     ProveedorTable = $('#ProveedorTable').DataTable({
         paging: false,
         iDisplayLength: 100,
@@ -35,63 +43,79 @@ $(document).ready(function(){
         bootbox.dialog({
             title: "Agregar Proovedor",
             message: $("#ProveedorForm").html(),
+            backdrop: true,
             buttons: {
                 success: {
                     label: "Guardar",
                     className: "btn-purple",
                     callback: function() {
                         var data = $('#storeProveedor').serialize();
-                        $.ajax({
-                            type: "POST",
-                            url: "../includes/proveedores/storeProveedor.php",
-                            data:data,
-                            success: function(response){
+                        var array = $('#storeProveedor').serializeArray();
 
-                                if(response.status == 1){
+                        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[1].value, 'Dirección') && ValidarString(array[2].value, 'Télefono') && ValidarString(array[3].value, 'Contacto') && ValidarCorreo(array[4].value)){
 
-                                    $.niftyNoty({
-                                        type: 'success',
-                                        icon : 'fa fa-check',
-                                        message : 'Registro Guardado Exitosamente',
-                                        container : 'floating',
-                                        timer : 3000
-                                    });
+                            $.ajax({
+                                type: "POST",
+                                url: "../includes/proveedores/storeProveedor.php",
+                                data:data,
+                                success: function(response){
 
-                                    var rowNode = ProveedorTable.row.add([
-                                      ''+response.array.nombre+'',
-                                      ''+response.array.direccion+'',
-                                      ''+response.array.telefono+'',
-                                      ''+response.array.contacto+'',
-                                      ''+response.array.correo+'',
-                                      ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
-                                    ]).draw(false).node();
+                                    if(response.status == 1){
 
-                                      $( rowNode ).attr('id',response.array.id)
+                                        $.niftyNoty({
+                                            type: 'success',
+                                            icon : 'fa fa-check',
+                                            message : 'Registro Guardado Exitosamente',
+                                            container : 'floating',
+                                            timer : 3000
+                                        });
 
-                                }else if(response.status == 2){
-                                    $.niftyNoty({
-                                        type: 'danger',
-                                        icon : 'fa fa-check',
-                                        message : 'Debe llenar todos los campos',
-                                        container : 'floating',
-                                        timer : 3000
-                                    });
-                                }else{
-                                    $.niftyNoty({
-                                        type: 'danger',
-                                        icon : 'fa fa-check',
-                                        message : 'Ocurrio un error en el Proceso',
-                                        container : 'floating',
-                                        timer : 3000
-                                    });
+                                        var rowNode = ProveedorTable.row.add([
+                                          ''+response.array.nombre+'',
+                                          ''+response.array.direccion+'',
+                                          ''+response.array.telefono+'',
+                                          ''+response.array.contacto+'',
+                                          ''+response.array.correo+'',
+                                          ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
+                                        ]).draw(false).node();
+
+                                        $( rowNode ).attr('id',response.array.id)
+
+                                    }else if(response.status == 2){
+
+                                        $.niftyNoty({
+                                            type: 'danger',
+                                            icon : 'fa fa-check',
+                                            message : 'Debe llenar todos los campos',
+                                            container : 'floating',
+                                            timer : 3000
+                                        });
+
+                                        // return false; // important to prevent close of dialog box
+                                    }else{
+
+                                        $.niftyNoty({
+                                            type: 'danger',
+                                            icon : 'fa fa-check',
+                                            message : 'Ocurrio un error en el Proceso',
+                                            container : 'floating',
+                                            timer : 3000
+                                        });
+
+                                        // return false; // important to prevent close of dialog box
+                                    }
+                                   
                                 }
-                               
-                            }
-                        });
+                            });
+                        }else{
+                            // return false; // important to prevent close of dialog box
+                        }
                     }
                 }
+            },onEscape: function () {
+                $('.bootbox.modal').modal('hide');
             }
-        }).off("shown.bs.modal");
+        })
     });
 
     $('body').on( 'click', '.Update', function () {
@@ -115,60 +139,68 @@ $(document).ready(function(){
         bootbox.dialog({
             title: "Actualizar Proveedor",
             message: Template,
+            backdrop: true,
             buttons: {
                 success: {
                     label: "Guardar",
                     className: "btn-purple",
                     callback: function() {
+
                         var data = $('#updateProveedor').serialize();
-                        $.ajax({
-                            type: "POST",
-                            url: "../includes/proveedores/updateProveedor.php",
-                            data:data,
-                            success: function(response){
+                        var array = $('#updateProveedor').serializeArray();
 
-                                if(response.status == 1){
+                        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Dirección') && ValidarString(array[3].value, 'Télefono') && ValidarString(array[4].value, 'Contacto') && ValidarCorreo(array[5].value)){
+                        
+                            $.ajax({
+                                type: "POST",
+                                url: "../includes/proveedores/updateProveedor.php",
+                                data:data,
+                                success: function(response){
 
-                                    $.niftyNoty({
-                                        type: 'success',
-                                        icon : 'fa fa-check',
-                                        message : 'Registro Actualizado Exitosamente',
-                                        container : 'floating',
-                                        timer : 3000
-                                    });
+                                    if(response.status == 1){
 
-                                    ObjectTR = $("#"+response.array.id);
-                                    console.log(objectTR);
-                                    ObjectTR.find("td").eq(0).html(response.array.nombre);
-                                    ObjectTR.find("td").eq(1).html(response.array.direccion);
-                                    ObjectTR.find("td").eq(2).html(response.array.telefono);
-                                    ObjectTR.find("td").eq(3).html(response.array.contacto);
-                                    ObjectTR.find("td").eq(4).html(response.array.correo);
-                                    
+                                        $.niftyNoty({
+                                            type: 'success',
+                                            icon : 'fa fa-check',
+                                            message : 'Registro Actualizado Exitosamente',
+                                            container : 'floating',
+                                            timer : 3000
+                                        });
 
-                                }else if(response.status == 2){
-                                    $.niftyNoty({
-                                        type: 'danger',
-                                        icon : 'fa fa-check',
-                                        message : 'Debe llenar todos los campos',
-                                        container : 'floating',
-                                        timer : 3000
-                                    });
-                                }else{
-                                    $.niftyNoty({
-                                        type: 'danger',
-                                        icon : 'fa fa-check',
-                                        message : 'Ocurrio un error en el Proceso',
-                                        container : 'floating',
-                                        timer : 3000
-                                    });
+                                        ObjectTR = $("#"+response.array.id);
+                                        ObjectTR.find("td").eq(0).html(response.array.nombre);
+                                        ObjectTR.find("td").eq(1).html(response.array.direccion);
+                                        ObjectTR.find("td").eq(2).html(response.array.telefono);
+                                        ObjectTR.find("td").eq(3).html(response.array.contacto);
+                                        ObjectTR.find("td").eq(4).html(response.array.correo);
+                                        
+
+                                    }else if(response.status == 2){
+                                        $.niftyNoty({
+                                            type: 'danger',
+                                            icon : 'fa fa-check',
+                                            message : 'Debe llenar todos los campos',
+                                            container : 'floating',
+                                            timer : 3000
+                                        });
+                                    }else{
+                                        $.niftyNoty({
+                                            type: 'danger',
+                                            icon : 'fa fa-check',
+                                            message : 'Ocurrio un error en el Proceso',
+                                            container : 'floating',
+                                            timer : 3000
+                                        });
+                                    }
+                                   
                                 }
-                               
-                            }
-                        });
+                            });
+                        }
                     }
                 }
+            },onEscape: function () {
+                $('.bootbox.modal').modal('hide');
             }
-        }).off("shown.bs.modal");
+        })
     });
 });
