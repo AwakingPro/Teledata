@@ -1,13 +1,5 @@
 $(document).ready(function(){
 
-    $(document).on('click', '.bootbox', function(event){
-        var classname = event.target.className;
-        classname = classname.replace(/ /g, '.');
-
-        if(classname && !$('.' + classname).parents('.modal-dialog').length)
-            bootbox.hideAll();
-}   );
-
     ProveedorTable = $('#ProveedorTable').DataTable({
         paging: false,
         iDisplayLength: 100,
@@ -39,168 +31,143 @@ $(document).ready(function(){
         }
     });
 
-    $('body').on( 'click', '#AddProveedor', function () {
-        bootbox.dialog({
-            title: "Agregar Proovedor",
-            message: $("#ProveedorForm").html(),
-            backdrop: true,
-            buttons: {
-                success: {
-                    label: "Guardar",
-                    className: "btn-purple",
-                    callback: function() {
-                        var data = $('#storeProveedor').serialize();
-                        var array = $('#storeProveedor').serializeArray();
+    $('body').on('click', '#guardarProveedor', function () {
 
-                        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[1].value, 'Dirección') && ValidarString(array[2].value, 'Télefono') && ValidarString(array[3].value, 'Contacto') && ValidarCorreo(array[4].value)){
+        var data = $('#storeProveedor').serialize();
+        var array = $('#storeProveedor').serializeArray();
 
-                            $.ajax({
-                                type: "POST",
-                                url: "../includes/proveedores/storeProveedor.php",
-                                data:data,
-                                success: function(response){
+        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[1].value, 'Dirección') && ValidarString(array[2].value, 'Télefono') && ValidarString(array[3].value, 'Contacto') && ValidarCorreo(array[4].value)){
 
-                                    if(response.status == 1){
+            $.ajax({
+                type: "POST",
+                url: "../includes/proveedores/storeProveedor.php",
+                data:data,
+                success: function(response){
 
-                                        $.niftyNoty({
-                                            type: 'success',
-                                            icon : 'fa fa-check',
-                                            message : 'Registro Guardado Exitosamente',
-                                            container : 'floating',
-                                            timer : 3000
-                                        });
+                    if(response.status == 1){
 
-                                        var rowNode = ProveedorTable.row.add([
-                                          ''+response.array.nombre+'',
-                                          ''+response.array.direccion+'',
-                                          ''+response.array.telefono+'',
-                                          ''+response.array.contacto+'',
-                                          ''+response.array.correo+'',
-                                          ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
-                                        ]).draw(false).node();
+                        $.niftyNoty({
+                            type: 'success',
+                            icon : 'fa fa-check',
+                            message : 'Registro Guardado Exitosamente',
+                            container : 'floating',
+                            timer : 3000
+                        });
 
-                                        $( rowNode ).attr('id',response.array.id).addClass('text-center')
+                        var rowNode = ProveedorTable.row.add([
+                          ''+response.array.nombre+'',
+                          ''+response.array.direccion+'',
+                          ''+response.array.telefono+'',
+                          ''+response.array.contacto+'',
+                          ''+response.array.correo+'',
+                          ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
+                        ]).draw(false).node();
 
-                                    }else if(response.status == 2){
+                        $( rowNode ).attr('id',response.array.id).addClass('text-center')
+                        $('.modal').modal('hide');
 
-                                        $.niftyNoty({
-                                            type: 'danger',
-                                            icon : 'fa fa-check',
-                                            message : 'Debe llenar todos los campos',
-                                            container : 'floating',
-                                            timer : 3000
-                                        });
+                    }else if(response.status == 2){
 
-                                        // return false; // important to prevent close of dialog box
-                                    }else{
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon : 'fa fa-check',
+                            message : 'Debe llenar todos los campos',
+                            container : 'floating',
+                            timer : 3000
+                        });
 
-                                        $.niftyNoty({
-                                            type: 'danger',
-                                            icon : 'fa fa-check',
-                                            message : 'Ocurrio un error en el Proceso',
-                                            container : 'floating',
-                                            timer : 3000
-                                        });
+                    }else{
 
-                                        // return false; // important to prevent close of dialog box
-                                    }
-                                   
-                                }
-                            });
-                        }else{
-                            // return false; // important to prevent close of dialog box
-                        }
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon : 'fa fa-check',
+                            message : 'Ocurrio un error en el Proceso',
+                            container : 'floating',
+                            timer : 3000
+                        });
+
                     }
                 }
-            },onEscape: function () {
-                $('.bootbox.modal').modal('hide');
-            }
-        })
+            });
+        }      
     });
 
     $('body').on( 'click', '.Update', function () {
+
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         ObjectTR.addClass("Selected");
-        var ObjectId= ObjectTR.attr("id");
-        var ObjectName = ObjectTR.find("td").eq(0);
-        var ObjectAddress = ObjectTR.find("td").eq(1);
-        var ObjectTelephone = ObjectTR.find("td").eq(2);
-        var ObjectContact = ObjectTR.find("td").eq(3);
-        var ObjectEmail = ObjectTR.find("td").eq(4);
-        var Template = $("#ProveedorFormUpdate").html();
-        Template = Template.replace("{ID}",ObjectId);
-        Template = Template.replace("{NOMBRE}",ObjectName.html());
-        Template = Template.replace("{DIRECCION}",ObjectAddress.html());
-        Template = Template.replace("{TELEFONO}",ObjectTelephone.html());
-        Template = Template.replace("{CONTACTO}",ObjectContact.html());
-        Template = Template.replace("{CORREO}",ObjectEmail.html());
+        var ObjectId = ObjectTR.attr("id");
+        var ObjectName = ObjectTR.find("td").eq(0).text();
+        var ObjectAddress = ObjectTR.find("td").eq(1).text();
+        var ObjectTelephone = ObjectTR.find("td").eq(2).text();
+        var ObjectContact = ObjectTR.find("td").eq(3).text();
+        var ObjectEmail = ObjectTR.find("td").eq(4).text();
+        $('#updateProveedor').find('input[name="id"]').val(ObjectId);
+        $('#updateProveedor').find('input[name="nombre"]').val(ObjectName);
+        $('#updateProveedor').find('textarea[name="direccion"]').text(ObjectAddress);
+        $('#updateProveedor').find('input[name="telefono"]').val(ObjectTelephone);
+        $('#updateProveedor').find('input[name="contacto"]').val(ObjectContact);
+        $('#updateProveedor').find('input[name="correo"]').val(ObjectEmail);
 
-        bootbox.dialog({
-            title: "Actualizar Proveedor",
-            message: Template,
-            backdrop: true,
-            buttons: {
-                success: {
-                    label: "Guardar",
-                    className: "btn-purple",
-                    callback: function() {
+        $('#ProveedorFormUpdate').modal('show');
+  
+    });
 
-                        var data = $('#updateProveedor').serialize();
-                        var array = $('#updateProveedor').serializeArray();
 
-                        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Dirección') && ValidarString(array[3].value, 'Télefono') && ValidarString(array[4].value, 'Contacto') && ValidarCorreo(array[5].value)){
+    $('body').on('click', '#actualizarProveedor', function () {
+
+        var data = $('#updateProveedor').serialize();
+        var array = $('#updateProveedor').serializeArray();
+
+        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Dirección') && ValidarString(array[3].value, 'Télefono') && ValidarString(array[4].value, 'Contacto') && ValidarCorreo(array[5].value)){
                         
-                            $.ajax({
-                                type: "POST",
-                                url: "../includes/proveedores/updateProveedor.php",
-                                data:data,
-                                success: function(response){
+            $.ajax({
+                type: "POST",
+                url: "../includes/proveedores/updateProveedor.php",
+                data:data,
+                success: function(response){
 
-                                    if(response.status == 1){
+                    if(response.status == 1){
 
-                                        $.niftyNoty({
-                                            type: 'success',
-                                            icon : 'fa fa-check',
-                                            message : 'Registro Actualizado Exitosamente',
-                                            container : 'floating',
-                                            timer : 3000
-                                        });
+                        $.niftyNoty({
+                            type: 'success',
+                            icon : 'fa fa-check',
+                            message : 'Registro Actualizado Exitosamente',
+                            container : 'floating',
+                            timer : 3000
+                        });
 
-                                        ObjectTR = $("#"+response.array.id);
-                                        ObjectTR.find("td").eq(0).html(response.array.nombre);
-                                        ObjectTR.find("td").eq(1).html(response.array.direccion);
-                                        ObjectTR.find("td").eq(2).html(response.array.telefono);
-                                        ObjectTR.find("td").eq(3).html(response.array.contacto);
-                                        ObjectTR.find("td").eq(4).html(response.array.correo);
-                                        
+                        ObjectTR = $("#"+response.array.id);
+                        ObjectTR.find("td").eq(0).html(response.array.nombre);
+                        ObjectTR.find("td").eq(1).html(response.array.direccion);
+                        ObjectTR.find("td").eq(2).html(response.array.telefono);
+                        ObjectTR.find("td").eq(3).html(response.array.contacto);
+                        ObjectTR.find("td").eq(4).html(response.array.correo);
+                        
+                        $('.modal').modal('hide');
+                        
 
-                                    }else if(response.status == 2){
-                                        $.niftyNoty({
-                                            type: 'danger',
-                                            icon : 'fa fa-check',
-                                            message : 'Debe llenar todos los campos',
-                                            container : 'floating',
-                                            timer : 3000
-                                        });
-                                    }else{
-                                        $.niftyNoty({
-                                            type: 'danger',
-                                            icon : 'fa fa-check',
-                                            message : 'Ocurrio un error en el Proceso',
-                                            container : 'floating',
-                                            timer : 3000
-                                        });
-                                    }
-                                   
-                                }
-                            });
-                        }
+                    }else if(response.status == 2){
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon : 'fa fa-check',
+                            message : 'Debe llenar todos los campos',
+                            container : 'floating',
+                            timer : 3000
+                        });
+                    }else{
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon : 'fa fa-check',
+                            message : 'Ocurrio un error en el Proceso',
+                            container : 'floating',
+                            timer : 3000
+                        });
                     }
+                   
                 }
-            },onEscape: function () {
-                $('.bootbox.modal').modal('hide');
-            }
-        })
+            });
+        }      
     });
 });

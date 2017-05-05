@@ -46,7 +46,137 @@ if (isset($_SESSION['cedente'])){
         <link href="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
     </head>
     <body>
-        <div id="container" class="effect mainnav-lg">
+
+
+        <div id="ProveedorForm" class="modal fade" tabindex="-1" role="dialog" id="load">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                        <h4 class="modal-title c-negro">Agregar Proveedor <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:20px">
+                            <form class="form-horizontal" id = "storeProveedor">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Nombre</label>
+                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm">
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Dirección</label>
+                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Télefono</label>
+                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm">
+                                    </div>
+                                </div>
+                                
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Contacto</label>
+                                        <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm">
+                                    </div>
+                                </div>
+                                
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Correo</label>
+                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-body -->
+                    <div class="modal-footer p-b-20 m-b-20">
+                        <div class="col-sm-12">                          
+                          <button type="button" class="btn btn-purple" id="guardarProveedor" name="guardarProveedor">Guardar</button>
+                        </div>
+                    </div></form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div id="ProveedorFormUpdate" class="modal fade" tabindex="-1" role="dialog" id="load">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                        <h4 class="modal-title c-negro">Actualizar Proveedor <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:20px">
+                            <form class="form-horizontal" id = "updateProveedor">
+                                <input type="hidden" id="id" name="id">
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Nombre</label>
+                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm">
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Dirección</label>
+                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Télefono</label>
+                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm">
+                                    </div>
+                                </div>
+                                
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Contacto</label>
+                                        <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm">
+                                    </div>
+                                </div>
+                                
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Correo</label>
+                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-body -->
+                    <div class="modal-footer p-b-20 m-b-20">
+                        <div class="col-sm-12">                          
+                          <button type="button" class="btn btn-purple" id="actualizarProveedor" name="actualizarProveedor">Actualizar</button>
+                        </div>
+                    </div></form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div id="container" class="effect mainnav-sm ">
 
             <?php
                 include("../layout/header.php");
@@ -69,7 +199,7 @@ if (isset($_SESSION['cedente'])){
                                         <div class="table-responsive">
                                             <div class="col-md-12">
 
-                                                <button id="AddProveedor" class="btn btn-success">Agregar</button>
+                                                <button data-toggle="modal" href="#ProveedorForm" class="btn btn-success">Agregar</button>
 
                                                 <table id="ProveedorTable" class="table table-striped table-bordered">
                                                     <thead>
@@ -84,12 +214,12 @@ if (isset($_SESSION['cedente'])){
                                                     </thead>
                                                     <tbody>
 
-                                                        <?php
+                                                        <?php 
 
                                                             $sql = mysql_query("SELECT * FROM mantenedor_proveedores");
-
-                                                            while($row = mysql_fetch_array($sql)){
-
+                                                    
+                                                            while($row = mysql_fetch_array($sql)){ 
+                                                  
                                                                 echo "<tr class='text-center' id=".$row[0].">";
                                                                     echo "<td>".$row[1]."</td>";
                                                                     echo "<td>".$row[2]."</td>";
@@ -97,18 +227,18 @@ if (isset($_SESSION['cedente'])){
                                                                     echo "<td>".$row[4]."</td>";
                                                                     echo "<td>".$row[5]."</td>";
                                                                     echo '<td><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i></td>';
-                                                                echo "</tr>";
-
+                                                                echo "</tr>"; 
+                   
                                                             }
-
-                                                        ?>
+                                                               
+                                                        ?>  
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
 
-                                        <script id="ProveedorForm" type="text/template">
-
+                                        <!-- <script id="ProveedorForm" type="text/template">
+                                            
                                             <div class="row" style="padding: 20px">
                                                 <form class="form-horizontal" id = "storeProveedor">
                                                     <div class="col-md-12">
@@ -135,7 +265,7 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm">
                                                         </div>
                                                     </div>
-
+                                                    
                                                     <div class="clearfix m-b-10"></div>
 
                                                     <div class="col-md-12">
@@ -144,7 +274,7 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm">
                                                         </div>
                                                     </div>
-
+                                                    
                                                     <div class="clearfix m-b-10"></div>
 
                                                     <div class="col-md-12">
@@ -153,14 +283,14 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm">
                                                         </div>
                                                     </div>
-
+                                                    
                                                 </form>
                                             </div>
 
-                                        </script>
+                                        </script> -->
 
-                                        <script id="ProveedorFormUpdate" type="text/template">
-
+                                        <!-- <script id="ProveedorFormUpdate" type="text/template">
+                                            
                                             <div class="row" style="padding: 20px">
                                                 <form class="form-horizontal" id = "updateProveedor">
                                                     <input type="hidden" id="id" name="id" value="{ID}">
@@ -188,7 +318,7 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" value="{TELEFONO}">
                                                         </div>
                                                     </div>
-
+                                                    
                                                     <div class="clearfix m-b-10"></div>
 
                                                     <div class="col-md-12">
@@ -197,7 +327,7 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm" value="{CONTACTO}">
                                                         </div>
                                                     </div>
-
+                                                    
                                                     <div class="clearfix m-b-10"></div>
 
                                                     <div class="col-md-12">
@@ -206,17 +336,17 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" value="{CORREO}">
                                                         </div>
                                                     </div>
-
+                                                    
                                                 </form>
                                             </div>
-
+                                            
                                         </script>
-
+ -->
                                     </div>
-                                </div>
+                                </div>  
                             </div>
-                        </div>
-                    </div>
+                        </div>   
+                    </div>        
                 </div>
                 <?php include("../layout/main-menu.php"); ?>
             </div>
@@ -240,7 +370,7 @@ if (isset($_SESSION['cedente'])){
         <script src="../js/demo/ui-alerts.js"></script>
 
         <script src="../plugins/audiojs/audio.min.js"></script>
-
+                                        
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
 
         <link href="../plugins/bootstrap-dataTables/jquery.dataTables.css" rel="stylesheet"  media="screen">
