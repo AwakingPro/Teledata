@@ -46,7 +46,7 @@ if (isset($_SESSION['cedente'])){
         <link href="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
     </head>
     <body>
-        <div id="container" class="effect mainnav-sm ">
+        <div id="container" class="effect mainnav-lg">
 
             <?php
                 include("../layout/header.php");
@@ -84,12 +84,12 @@ if (isset($_SESSION['cedente'])){
                                                     </thead>
                                                     <tbody>
 
-                                                        <?php 
+                                                        <?php
 
                                                             $sql = mysql_query("SELECT * FROM mantenedor_proveedores");
-                                                    
-                                                            while($row = mysql_fetch_array($sql)){ 
-                                                  
+
+                                                            while($row = mysql_fetch_array($sql)){
+
                                                                 echo "<tr class='text-center' id=".$row[0].">";
                                                                     echo "<td>".$row[1]."</td>";
                                                                     echo "<td>".$row[2]."</td>";
@@ -97,18 +97,18 @@ if (isset($_SESSION['cedente'])){
                                                                     echo "<td>".$row[4]."</td>";
                                                                     echo "<td>".$row[5]."</td>";
                                                                     echo '<td><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i></td>';
-                                                                echo "</tr>"; 
-                   
+                                                                echo "</tr>";
+
                                                             }
-                                                               
-                                                        ?>  
+
+                                                        ?>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
 
                                         <script id="ProveedorForm" type="text/template">
-                                            
+
                                             <div class="row" style="padding: 20px">
                                                 <form class="form-horizontal" id = "storeProveedor">
                                                     <div class="col-md-12">
@@ -135,7 +135,7 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm">
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="clearfix m-b-10"></div>
 
                                                     <div class="col-md-12">
@@ -144,7 +144,7 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm">
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="clearfix m-b-10"></div>
 
                                                     <div class="col-md-12">
@@ -153,14 +153,14 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm">
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </form>
                                             </div>
 
                                         </script>
 
                                         <script id="ProveedorFormUpdate" type="text/template">
-                                            
+
                                             <div class="row" style="padding: 20px">
                                                 <form class="form-horizontal" id = "updateProveedor">
                                                     <input type="hidden" id="id" name="id" value="{ID}">
@@ -188,7 +188,7 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" value="{TELEFONO}">
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="clearfix m-b-10"></div>
 
                                                     <div class="col-md-12">
@@ -197,7 +197,7 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm" value="{CONTACTO}">
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="clearfix m-b-10"></div>
 
                                                     <div class="col-md-12">
@@ -206,17 +206,17 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" value="{CORREO}">
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </form>
                                             </div>
-                                            
+
                                         </script>
 
                                     </div>
-                                </div>  
+                                </div>
                             </div>
-                        </div>   
-                    </div>        
+                        </div>
+                    </div>
                 </div>
                 <?php include("../layout/main-menu.php"); ?>
             </div>
@@ -240,7 +240,7 @@ if (isset($_SESSION['cedente'])){
         <script src="../js/demo/ui-alerts.js"></script>
 
         <script src="../plugins/audiojs/audio.min.js"></script>
-                                        
+
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
 
         <link href="../plugins/bootstrap-dataTables/jquery.dataTables.css" rel="stylesheet"  media="screen">

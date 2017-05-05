@@ -73,8 +73,8 @@ if (isset($_SESSION['cedente'])){
     </style>
 </head>
 <body>
-<div id="container" class="effect mainnav-sm ">
-    
+<div id="container" class="effect mainnav-lg">
+
 
     <?php
     include("../layout/header.php");
@@ -94,7 +94,7 @@ if (isset($_SESSION['cedente'])){
 							<h3 class="panel-title bg-mint">Nueva Venta </h3>
 						</div>
                     <div class="panel-body ">
-                        
+
                         <div class="row">
                             <div class="col-sm-5">
                                 <div class="col-md-12">
@@ -112,7 +112,7 @@ if (isset($_SESSION['cedente'])){
                                                             echo "<option value='$Rut'>".utf8_encode($Nombre)."</option>";
                                                         }
                                                     ?>
-                                                </select> 
+                                                </select>
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -128,7 +128,7 @@ if (isset($_SESSION['cedente'])){
                                             </div>
                                         </div>
                                     </form>
-                                </div>        
+                                </div>
                             </div>
                             <div class="col-sm-3">
                                 <div class="col-md-12">
@@ -152,10 +152,10 @@ if (isset($_SESSION['cedente'])){
                                             </div>
                                         </div>
                                     </form>
-                                </div>        
+                                </div>
                             </div>
                             <div class="col-sm-4">
-                               
+
                                     <div class="col-md-12">
                                          <div id="DivRojo">
                                         <form class="form-horizontal">
@@ -171,7 +171,7 @@ if (isset($_SESSION['cedente'])){
                                                 <div class="col-md-8" lateral>
                                                     <select   class="select1" id="SeleccioneFactura">
                                                         <option value='0'>FACTURA ELECTRONICA</option>
-                                                    </select>    
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -182,7 +182,7 @@ if (isset($_SESSION['cedente'])){
                                             </div>
                                         </form>
                                     </div>
-                                </div>           
+                                </div>
                             </div>
                         </div>
                         <div class="row">
@@ -203,12 +203,12 @@ if (isset($_SESSION['cedente'])){
 									</tr>
 								</thead>
 								<tbody>
-                                    <?php 
+                                    <?php
                                     $j=2;
                                     $i=0;
                                     while($i<$j){
 
-                                    
+
                                     ?>
 									<tr>
                                         <td><i class=' fa fa-plus-square'></i></td>
@@ -216,15 +216,15 @@ if (isset($_SESSION['cedente'])){
                                             <span class="text-xs">
                                             <select   class="select1" id="SeleccioneFactura">
                                                 <option value='0'>0015</option>
-                                            </select>  
-                                            </span> 
+                                            </select>
+                                            </span>
                                         </td>
 										<td>
                                             <span class="text-xs">
                                                 <select   class="select1" id="SeleccioneFactura">
                                                     <option value='0'>Insternet</option>
                                                     <option value='0'>Arriedo Equipos De Datos</option>
-                                                </select>  
+                                                </select>
                                             </span>
                                         </td>
 										<td>
@@ -241,7 +241,7 @@ if (isset($_SESSION['cedente'])){
                                                     <option value='0'>KG</option>
                                                     <option value='0'>LT</option>
                                                     <option value='0'>UF</option>
-                                                </select>  
+                                                </select>
                                             </span>
                                         </td>
 										<td>
@@ -264,21 +264,21 @@ if (isset($_SESSION['cedente'])){
                                                 <select   class="select1" id="SeleccioneFactura">
                                                     <option value='0'>AFECTO</option>
                                                     <option value='0'>EXCENTO</option>
-                                                </select> 
-                                            </span> 
+                                                </select>
+                                            </span>
                                         </td>
                                         <td>
                                             <span class="text-xs">
                                                 <input type="text" style="text-align:right; padding-right:10px;" value='0' class="select1" value="0">
-                                            </span>    
+                                            </span>
                                         </td>
 
 									</tr>
-                                    <?php 
+                                    <?php
                                     $i++;
                                     }
                                     ?>
-		
+
 									<tr>
                                         <td style="visibility: hidden; border-right:none;border-left:none;border-bottom:none;border-top:none; background-color:#FFFFFF;"></td>
 										<td style="visibility: hidden; border-right:none;border-left:none;border-bottom:none;border-top:none; background-color:#FFFFFF;"></td>
@@ -349,8 +349,8 @@ if (isset($_SESSION['cedente'])){
                                                 <input type="text" style="text-align:right; padding-right:10px;" value='0' class="select1">
                                             </span></td>
 									</tr>
-		
-						
+
+
 								</tbody>
 							</table>
                         </div>
@@ -358,7 +358,7 @@ if (isset($_SESSION['cedente'])){
                             <div class="col-md-12">
                                 <div class="col-md-6">
                                 </div>
-               
+
                                 <div class="col-md-3">
                                     <button class="btn btn-mint col-sm-12 "  id="buscar">Guardar </button>
 
@@ -372,8 +372,8 @@ if (isset($_SESSION['cedente'])){
                         </div>
                     </div>
                 </div>
-                
-            </div>        
+
+            </div>
         </div>
         <?php include("../layout/main-menu.php"); ?>
     </div>

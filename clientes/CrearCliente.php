@@ -44,7 +44,7 @@ if (isset($_SESSION['cedente'])){
     <link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
 
     <style type="text/css">
-       
+
 #navbar .brand-title {
     padding: 0 1.5em 0 5px;
 }
@@ -52,7 +52,7 @@ if (isset($_SESSION['cedente'])){
     </style>
 </head>
 <body>
-<div id="container" class="effect mainnav-sm ">
+<div id="container" class="effect mainnav-lg">
 
     <?php
     include("../layout/header.php");
@@ -100,7 +100,7 @@ if (isset($_SESSION['cedente'])){
                                                 <label>Rut</label>
                                                 <input type="text"  id="Rut"  class="form-control" >
                                             </div>
-                                        </div> 
+                                        </div>
                                         <div class="col-sm-1">
                                             <div class="form-group">
                                                 <label>DV</label>
@@ -123,13 +123,13 @@ if (isset($_SESSION['cedente'])){
                                                 <label>Dirección Comercial</label>
                                                 <input type="text"  id="Direccion"  class="form-control" >
                                             </div>
-                                        </div> 
+                                        </div>
                                         <div class="col-sm-2">
                                             <div class="form-group">
                                                 <label>&nbsp;&nbsp;&nbsp;&nbsp;</label><br>
                                                 <button  id="Crear">Guardar</button>
                                             </div>
-                                        </div>      
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="demo-lft-tab-2" class="tab-pane fade">
@@ -141,12 +141,12 @@ if (isset($_SESSION['cedente'])){
                                 <div id="demo-lft-tab-4" class="tab-pane fade">
                                     <div id="mostrar_gestion_total_ocultar">Datos Técnicos</div>
                                 </div>
-                          
+
                             </div>
-                        </div>  
+                        </div>
                     </div>
-                </div>   
-            </div>        
+                </div>
+            </div>
         </div>
         <?php include("../layout/main-menu.php"); ?>
     </div>

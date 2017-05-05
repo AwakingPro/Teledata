@@ -44,7 +44,7 @@ if (isset($_SESSION['cedente'])){
     <link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
 
     <style type="text/css">
-       
+
 #navbar .brand-title {
     padding: 0 1.5em 0 5px;
 }
@@ -52,7 +52,7 @@ if (isset($_SESSION['cedente'])){
     </style>
 </head>
 <body>
-  <div id="container" class="effect mainnav-sm aside-in">
+  <div id="container" class="effect mainnav-lg aside-in">
     <!--NAVBAR-->
     <!--===================================================-->
     <?php
@@ -86,7 +86,7 @@ if (isset($_SESSION['cedente'])){
 						  <div class="eq-height">
   						  <div class="col-sm-12 eq-box-sm">
                   <div class="panel">
-                  
+
 								<div class="panel-bg-cover">
 									<img class="img-responsive" src="../img/thumbs/img1.jpg" alt="Image">
 								</div>
@@ -103,7 +103,7 @@ if (isset($_SESSION['cedente'])){
 											<p class="text-muted mar-btm"><?php echo $_SESSION['cargoUsuario']; ?></p>
 										</div>
 										<div class="col-lg-5 text-lg-right">
-										
+
 										</div>
 									</div>
 								</div>
@@ -111,16 +111,16 @@ if (isset($_SESSION['cedente'])){
 									<h4>Teledata ERP</h4>
                   <br>
                   Para obtener ayuda descargue aquí el manual de usuario
-                 
+
                   <i class="pli-information icon-lg icon-fw"></i> Ayuda
-                  
-									
+
+
 								</div>
 							</div>
 
                       </div>
-                      
-              
+
+
 
                       <!--===================================================-->
       								<!--End Panel model-->

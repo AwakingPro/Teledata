@@ -59,7 +59,7 @@ if (isset($_SESSION['cedente'])){
     </style>
 </head>
 <body>
-<div id="container" class="effect mainnav-sm ">
+<div id="container" class="effect mainnav-lg">
 
     <?php
     include("../layout/header.php");
@@ -95,7 +95,7 @@ if (isset($_SESSION['cedente'])){
                                         <label>&nbsp;&nbsp;</label><br>
                                         <div id="Tipo">
                                             <input type="text"  disabled="disabled"  class="form-control" >
-                                        </div> 
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -106,7 +106,7 @@ if (isset($_SESSION['cedente'])){
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
                 <div class="row">
@@ -131,8 +131,8 @@ if (isset($_SESSION['cedente'])){
                                 <div id="demo-lft-tab-1" class="tab-pane fade active in">
                                     <div class="row">
                                         <div id="VerClientes"><b>Datos de Facturación</b><div class='list-divider'></div> Seleccione Cliente.</div>
-                                        
-                                       
+
+
                                     </div>
                                 </div>
                                 <div id="demo-lft-tab-2" class="tab-pane fade">
@@ -145,12 +145,12 @@ if (isset($_SESSION['cedente'])){
                                 <div id="demo-lft-tab-4" class="tab-pane fade">
                                     <div id="mostrar_gestion_total_ocultar">Datos Técnicos</div>
                                 </div>
-                          
+
                             </div>
-                        </div>  
+                        </div>
                     </div>
-                </div>   
-            </div>        
+                </div>
+            </div>
         </div>
         <?php include("../layout/main-menu.php"); ?>
     </div>
