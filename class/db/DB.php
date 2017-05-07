@@ -15,10 +15,10 @@
          * @return bool false on failure / mysqli MySQLi object instance on success
          */
         public function __construct(){
-            $this->Server = "192.168.1.8";
-            $this->Pass = "s9q7l5.,777";
-            //$this->Server = "localhost";
-            //$this->Pass = "";
+            //$this->Server = "192.168.1.8";
+            //$this->Pass = "s9q7l5.,777";
+            $this->Server = "localhost";
+            $this->Pass = "";
             $this->User = "root";
             $this->Database = "teledata";
             if (!isset($_SESSION))
