@@ -1,3 +1,5 @@
+<?php require_once('/../class/methods_global/methods.php'); ?>
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -19,9 +21,20 @@
         <link href="../plugins/morris-js/morris.min.css" rel="stylesheet">
         <link href="../css/demo/nifty-demo.min.css" rel="stylesheet">
         <link href="../plugins/pace/pace.min.css" rel="stylesheet">
-        <script src="../plugins/pace/pace.min.js"></script>
         <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
-        <link href="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
+        <link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
+        <link href="../plugins/bootstrap-dataTables/jquery.dataTables.css" rel="stylesheet"  media="screen">
+        <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+
+
+        <style type="text/css">
+
+            #navbar .brand-title {
+                padding: 0 1.5em 0 5px;
+            }
+
+        </style>
+
     </head>
     <body>
 
@@ -157,7 +170,7 @@
         <div id="container" class="effect mainnav-sm ">
 
             <?php
-               include("../layout/header.php");
+                include("../layout/header.php");
             ?>
 
             <div class="boxed">
@@ -192,24 +205,6 @@
                                                     </thead>
                                                     <tbody>
 
-                                                        <?php
-
-                                                            $sql = mysql_query("SELECT * FROM mantenedor_proveedores");
-
-                                                            while($row = mysql_fetch_array($sql)){
-
-                                                                echo "<tr class='text-center' id=".$row[0].">";
-                                                                    echo "<td>".$row[1]."</td>";
-                                                                    echo "<td>".$row[2]."</td>";
-                                                                    echo "<td>".$row[3]."</td>";
-                                                                    echo "<td>".$row[4]."</td>";
-                                                                    echo "<td>".$row[5]."</td>";
-                                                                    echo '<td><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i></td>';
-                                                                echo "</tr>";
-
-                                                            }
-
-                                                        ?>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -332,9 +327,10 @@
         </div>
 
         <!--SCRIPT-->
-
-        <script src="../js/funciones.js"></script>
+        
+        <script src="../js/jquery-2.2.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/funciones.js"></script>
         <script src="../plugins/fast-click/fastclick.min.js"></script>
         <script src="../js/nifty.min.js"></script>
         <script src="../plugins/morris-js/morris.min.js"></script>
@@ -346,20 +342,13 @@
         <script src="../js/demo/nifty-demo.min.js"></script>
         <script src="../plugins/bootbox/bootbox.min.js"></script>
         <script src="../js/demo/ui-alerts.js"></script>
-
         <script src="../plugins/audiojs/audio.min.js"></script>
-
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
-
-        <link href="../plugins/bootstrap-dataTables/jquery.dataTables.css" rel="stylesheet"  media="screen">
-
         <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
-        <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
-
         <script src="../plugins/bootbox/bootbox.min.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-        <!-- <script src="../js/global/funciones-global.js"></script> -->
         <script src="../js/global/validations.js"></script>
         <script src="../js/proveedores/Proveedor.js"></script>
+
     </body>
 </html>

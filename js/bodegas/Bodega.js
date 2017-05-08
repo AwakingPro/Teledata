@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    ProveedorTable = $('#ProveedorTable').DataTable({
+    BodegaTable = $('#BodegaTable').DataTable({
         paging: false,
         iDisplayLength: 100,
         processing: true,
@@ -33,17 +33,14 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
-        url: "../includes/proveedores/showProveedores.php",
+        url: "../includes/bodegas/showBodegas.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
 
-                var rowNode = ProveedorTable.row.add([
+                var rowNode = BodegaTable.row.add([
                   ''+array.nombre+'',
                   ''+array.direccion+'',
-                  ''+array.telefono+'',
-                  ''+array.contacto+'',
-                  ''+array.correo+'',
                   ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
                 ]).draw(false).node();
 
@@ -54,16 +51,16 @@ $(document).ready(function(){
         }
     });
 
-    $('body').on('click', '#guardarProveedor', function () {
+    $('body').on('click', '#guardarBodega', function () {
 
-        var data = $('#storeProveedor').serialize();
-        var array = $('#storeProveedor').serializeArray();
+        var data = $('#storeBodega').serialize();
+        var array = $('#storeBodega').serializeArray();
 
-        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[1].value, 'Dirección') && ValidarString(array[2].value, 'Télefono') && ValidarString(array[3].value, 'Contacto') && ValidarCorreo(array[4].value)){
+        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[1].value, 'Dirección')){
 
             $.ajax({
                 type: "POST",
-                url: "../includes/proveedores/storeProveedor.php",
+                url: "../includes/bodegas/storeBodega.php",
                 data:data,
                 success: function(response){
 
@@ -77,12 +74,9 @@ $(document).ready(function(){
                             timer : 3000
                         });
 
-                        var rowNode = ProveedorTable.row.add([
+                        var rowNode = BodegaTable.row.add([
                           ''+response.array.nombre+'',
                           ''+response.array.direccion+'',
-                          ''+response.array.telefono+'',
-                          ''+response.array.contacto+'',
-                          ''+response.array.correo+'',
                           ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
                         ]).draw(false).node();
 
@@ -123,31 +117,25 @@ $(document).ready(function(){
         var ObjectId = ObjectTR.attr("id");
         var ObjectName = ObjectTR.find("td").eq(0).text();
         var ObjectAddress = ObjectTR.find("td").eq(1).text();
-        var ObjectTelephone = ObjectTR.find("td").eq(2).text();
-        var ObjectContact = ObjectTR.find("td").eq(3).text();
-        var ObjectEmail = ObjectTR.find("td").eq(4).text();
-        $('#updateProveedor').find('input[name="id"]').val(ObjectId);
-        $('#updateProveedor').find('input[name="nombre"]').val(ObjectName);
-        $('#updateProveedor').find('textarea[name="direccion"]').text(ObjectAddress);
-        $('#updateProveedor').find('input[name="telefono"]').val(ObjectTelephone);
-        $('#updateProveedor').find('input[name="contacto"]').val(ObjectContact);
-        $('#updateProveedor').find('input[name="correo"]').val(ObjectEmail);
+        $('#updateBodega').find('input[name="id"]').val(ObjectId);
+        $('#updateBodega').find('input[name="nombre"]').val(ObjectName);
+        $('#updateBodega').find('textarea[name="direccion"]').text(ObjectAddress);
 
-        $('#ProveedorFormUpdate').modal('show');
+        $('#BodegaFormUpdate').modal('show');
   
     });
 
 
-    $('body').on('click', '#actualizarProveedor', function () {
+    $('body').on('click', '#actualizarBodega', function () {
 
-        var data = $('#updateProveedor').serialize();
-        var array = $('#updateProveedor').serializeArray();
+        var data = $('#updateBodega').serialize();
+        var array = $('#updateBodega').serializeArray();
 
-        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Dirección') && ValidarString(array[3].value, 'Télefono') && ValidarString(array[4].value, 'Contacto') && ValidarCorreo(array[5].value)){
+        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Dirección')){
                         
             $.ajax({
                 type: "POST",
-                url: "../includes/proveedores/updateProveedor.php",
+                url: "../includes/bodegas/updateBodega.php",
                 data:data,
                 success: function(response){
 
@@ -164,9 +152,6 @@ $(document).ready(function(){
                         ObjectTR = $("#"+response.array.id);
                         ObjectTR.find("td").eq(0).html(response.array.nombre);
                         ObjectTR.find("td").eq(1).html(response.array.direccion);
-                        ObjectTR.find("td").eq(2).html(response.array.telefono);
-                        ObjectTR.find("td").eq(3).html(response.array.contacto);
-                        ObjectTR.find("td").eq(4).html(response.array.correo);
                         
                         $('.modal').modal('hide');
                         
