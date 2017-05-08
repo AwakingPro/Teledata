@@ -41,6 +41,9 @@ $(document).ready(function(){
                 var rowNode = BodegaTable.row.add([
                   ''+array.nombre+'',
                   ''+array.direccion+'',
+                  ''+array.telefono+'',
+                  ''+array.personal_id+'',
+                  ''+array.correo+'',
                   ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
                 ]).draw(false).node();
 
@@ -56,7 +59,7 @@ $(document).ready(function(){
         var data = $('#storeBodega').serialize();
         var array = $('#storeBodega').serializeArray();
 
-        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[1].value, 'Dirección')){
+        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[1].value, 'Dirección') && ValidarString(array[2].value, 'Télefono') && ValidarCorreo(array[4].value)){
 
             $.ajax({
                 type: "POST",
@@ -77,6 +80,9 @@ $(document).ready(function(){
                         var rowNode = BodegaTable.row.add([
                           ''+response.array.nombre+'',
                           ''+response.array.direccion+'',
+                          ''+response.array.telefono+'',
+                          ''+response.array.personal_id+'',
+                          ''+response.array.correo+'',
                           ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
                         ]).draw(false).node();
 
@@ -117,9 +123,20 @@ $(document).ready(function(){
         var ObjectId = ObjectTR.attr("id");
         var ObjectName = ObjectTR.find("td").eq(0).text();
         var ObjectAddress = ObjectTR.find("td").eq(1).text();
+        var ObjectId = ObjectTR.attr("id");
+        var ObjectName = ObjectTR.find("td").eq(0).text();
+        var ObjectAddress = ObjectTR.find("td").eq(1).text();
+        var ObjectTelephone = ObjectTR.find("td").eq(2).text();
+        var ObjectPersonal = ObjectTR.find("td").eq(3).text();
+        var ObjectEmail = ObjectTR.find("td").eq(4).text();
         $('#updateBodega').find('input[name="id"]').val(ObjectId);
         $('#updateBodega').find('input[name="nombre"]').val(ObjectName);
         $('#updateBodega').find('textarea[name="direccion"]').text(ObjectAddress);
+        $('#updateBodega').find('input[name="telefono"]').val(ObjectTelephone);
+        $('#updateBodega').find('select[name="personal_id"]').val(ObjectPersonal);
+        $('#updateBodega').find('input[name="correo"]').val(ObjectEmail);
+
+        $('.selectpicker').selectpicker('refresh');
 
         $('#BodegaFormUpdate').modal('show');
   
@@ -131,8 +148,8 @@ $(document).ready(function(){
         var data = $('#updateBodega').serialize();
         var array = $('#updateBodega').serializeArray();
 
-        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Dirección')){
-                        
+        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Dirección') && ValidarString(array[3].value, 'Télefono') && ValidarCorreo(array[5].value)){
+       
             $.ajax({
                 type: "POST",
                 url: "../includes/bodegas/updateBodega.php",
@@ -152,6 +169,9 @@ $(document).ready(function(){
                         ObjectTR = $("#"+response.array.id);
                         ObjectTR.find("td").eq(0).html(response.array.nombre);
                         ObjectTR.find("td").eq(1).html(response.array.direccion);
+                        ObjectTR.find("td").eq(2).html(response.array.telefono);
+                        ObjectTR.find("td").eq(3).html(response.array.personal_id);
+                        ObjectTR.find("td").eq(4).html(response.array.correo);
                         
                         $('.modal').modal('hide');
                         

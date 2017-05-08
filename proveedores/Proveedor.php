@@ -195,12 +195,12 @@
                                                 <table id="ProveedorTable" class="table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
-                                                            <th>Nombre</th>
-                                                            <th>Dirección</th>
-                                                            <th>Télefono</th>
-                                                            <th>Contacto</th>
-                                                            <th>Correo</th>
-                                                            <th>Acción</th>
+                                                            <th class="text-center">Nombre</th>
+                                                            <th class="text-center">Dirección</th>
+                                                            <th class="text-center">Télefono</th>
+                                                            <th class="text-center">Contacto</th>
+                                                            <th class="text-center">Correo</th>
+                                                            <th class="text-center">Acción</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -344,7 +344,6 @@
         <script src="../js/demo/ui-alerts.js"></script>
         <script src="../plugins/audiojs/audio.min.js"></script>
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
-        <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
         <script src="../plugins/bootbox/bootbox.min.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="../js/global/validations.js"></script>

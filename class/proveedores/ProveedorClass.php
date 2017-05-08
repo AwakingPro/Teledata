@@ -1,7 +1,6 @@
 <?php
 
     include('../../class/methods_global/methods.php'); 
-
     header('Content-type: application/json');
 
     class Proveedor{
@@ -31,7 +30,7 @@
 
                 // if($data){
 
-                    $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono,'contacto' => $this->Contacto,'correo' => $this->Correo, 'data' => $data);
+                    $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono,'contacto' => $this->Contacto,'correo' => $this->Correo);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 

@@ -62,6 +62,46 @@
                                         <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección"></textarea>
                                     </div>
                                 </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Télefono</label>
+                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm">
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Responsable</label>
+                                        <div class="select">
+                                            <select class="selectpicker" name="personal_id" id="personal_id"  data-live-search="true" data-width="100%">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="K">K</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Correo</label>
+                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm">
+                                    </div>
+                                </div>
                             </form>
                         </div>
                     </div><!-- /.modal-body -->
@@ -98,6 +138,46 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Dirección</label>
                                         <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Télefono</label>
+                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm">
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Responsable</label>
+                                        <div class="select">
+                                            <select class="selectpicker" name="personal_id" id="personal_id"  data-live-search="true" data-width="100%">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                                <option value="6">6</option>
+                                                <option value="7">7</option>
+                                                <option value="8">8</option>
+                                                <option value="9">9</option>
+                                                <option value="K">K</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Correo</label>
+                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm">
                                     </div>
                                 </div>
                             </form>
@@ -140,9 +220,12 @@
                                                 <table id="BodegaTable" class="table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
-                                                            <th>Nombre</th>
-                                                            <th>Dirección</th>
-                                                            <th>Acción</th>
+                                                            <th class="text-center">Nombre</th>
+                                                            <th class="text-center">Dirección</th>
+                                                            <th class="text-center">Télefono</th>
+                                                            <th class="text-center">Responsable</th>
+                                                            <th class="text-center">Correo</th>
+                                                            <th class="text-center">Acción</th>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
@@ -180,11 +263,10 @@
         <script src="../js/demo/ui-alerts.js"></script>
         <script src="../plugins/audiojs/audio.min.js"></script>                        
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
-        <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
         <script src="../plugins/bootbox/bootbox.min.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="../js/global/validations.js"></script>
         <script src="../js/bodegas/Bodega.js"></script>
-        
+
     </body>
 </html>
