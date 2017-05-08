@@ -1,25 +1,3 @@
-<?php
-require_once('../db/db.php');
-include("../class/global/global.php");
-require_once('../class/session/session.php');
-$objetoSession = new Session('1,2,3,4,5,6',false); // 1,4
-//Para Id de Menu Actual (Menu Padre, Menu hijo)
-$objetoSession->crearVariableSession($array = array("idMenu" => "inicio,bien"));
-// ** Logout the current user. **
-$objetoSession->creaLogoutAction();
-if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true"))
-{
-  //to fully log out a visitor we need to clear the session varialbles
-    $objetoSession->borrarVariablesSession();
-    $objetoSession->logoutGoTo("../index.php");
-}
-$validar = $_SESSION['MM_UserGroup'];
-$objetoSession->creaMM_restrictGoTo();
-$usuario = $_SESSION['MM_Username'];
-if (isset($_SESSION['cedente'])){
-    $cedente = $_SESSION['cedente'];
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -91,16 +69,13 @@ if (isset($_SESSION['cedente'])){
 									<img class="img-responsive" src="../img/thumbs/img1.jpg" alt="Image">
 								</div>
 								<div class="panel-media">
-                  <?php if ($_SESSION['sexo_usuario'] == "F"){ ?>
-                  <img class="panel-media-img img-circle img-border-light" src="../img/av6.png" alt="Profile Picture">
-                  <?php }else{ ?>
                   <img class="panel-media-img img-circle img-border-light" src="../img/av1.png" alt="Profile Picture">
-                  <?php } ?>
+
 									<div class="row">
 										<div class="col-lg-7">
-											<h3 class="panel-media-heading"><?php echo $_SESSION['nombreUsuario']; ?></h3>
-											<a href="#" class="btn-link"><?php echo $_SESSION['emailUsuario']; ?></a>
-											<p class="text-muted mar-btm"><?php echo $_SESSION['cargoUsuario']; ?></p>
+											<h3 class="panel-media-heading"></h3>
+											<a href="#" class="btn-link"></a>
+											<p class="text-muted mar-btm"></p>
 										</div>
 										<div class="col-lg-5 text-lg-right">
 

@@ -61,13 +61,7 @@
 
         <!--Language selector-->
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-        <?php
-        if (isset($cedente) && $cedente != "" )
-        {
-          $navBar = new Omni();
-          $navBar->navBar($cedente);
-        }
-        ?>
+
         <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
         <!--End language selector-->
 
@@ -76,13 +70,9 @@
         <li id="dropdown-user" class="dropdown">
           <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
             <span class="pull-right">
-              <?php if ($_SESSION['sexo_usuario'] == "F"){ ?>
-              <img class="img-circle img-user media-object" src="../img/av6.png" alt="Profile Picture">
-              <?php }else{ ?>
               <img class="img-circle img-user media-object" src="../img/av1.png" alt="Profile Picture">
-              <?php } ?>
             </span>
-            <div class="username hidden-xs"><?php echo $_SESSION['nombreUsuario']; ?></div>
+            <div class="username hidden-xs">Nombre de Usuario</div>
           </a>
           <div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
             <!-- Dropdown heading  -->

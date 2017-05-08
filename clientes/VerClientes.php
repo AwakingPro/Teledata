@@ -1,25 +1,3 @@
-<?php
-require_once('../db/db.php');
-include("../class/global/global.php");
-require_once('../class/session/session.php');
-$objetoSession = new Session('1,2,3,4,5,6',false); // 1,4
-//Para Id de Menu Actual (Menu Padre, Menu hijo)
-$objetoSession->crearVariableSession($array = array("idMenu" => "inicio,bien"));
-// ** Logout the current user. **
-$objetoSession->creaLogoutAction();
-if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true"))
-{
-  //to fully log out a visitor we need to clear the session varialbles
-    $objetoSession->borrarVariablesSession();
-    $objetoSession->logoutGoTo("../index.php");
-}
-$validar = $_SESSION['MM_UserGroup'];
-$objetoSession->creaMM_restrictGoTo();
-$usuario = $_SESSION['MM_Username'];
-if (isset($_SESSION['cedente'])){
-    $cedente = $_SESSION['cedente'];
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

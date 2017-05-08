@@ -1,16 +1,14 @@
 $(document).ready(function(){
-  $('.enviarForm').click(function( event ){
-      //event.epreventDefault();
-      var usuario = $('input[name="usuario"]').val();
-      var password = $('input[name="password"]').val();
-      //var captcha = $('#g-recaptcha-response').val();
-      if((usuario == "") || (password == ""))
-      {
-        //alert('Debe completar todos los campos!');
-        bootbox.alert('Debe completar todos los campos!');
-        return false;
-      }else{
-        $("form").submit();
-      }
-  });
+	$('.enviarForm').click(function(){
+		$.postFormValues('ajax/login/session.php', function(data){
+			values = $.parseJSON(data);
+			if (values[0] ==true) {
+				window.location = values[1];
+			}else{
+				bootbox.alert('<h3 class="text-center">Usuario o Contraseña incorecctos</h3>');
+			}
+		});
+	});
 });
+
+

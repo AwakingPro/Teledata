@@ -1,0 +1,9 @@
+div.bg-img{
+	background-image: url('../img/bg-img/bg-img-2.jpg');
+}
+.pad-btm > h3{
+	margin-top: 0;
+}
+.height40{
+	height: 40px;
+}

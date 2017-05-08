@@ -1,25 +1,3 @@
-<?php
-require_once('../db/db.php');
-include("../class/global/global.php");
-require_once('../class/session/session.php');
-$objetoSession = new Session('1,2,3,4,5,6',false); // 1,4
-//Para Id de Menu Actual (Menu Padre, Menu hijo)
-$objetoSession->crearVariableSession($array = array("idMenu" => "inicio,bien"));
-// ** Logout the current user. **
-$objetoSession->creaLogoutAction();
-if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true"))
-{
-  //to fully log out a visitor we need to clear the session varialbles
-    $objetoSession->borrarVariablesSession();
-    $objetoSession->logoutGoTo("../index.php");
-}
-$validar = $_SESSION['MM_UserGroup'];
-$objetoSession->creaMM_restrictGoTo();
-$usuario = $_SESSION['MM_Username'];
-if (isset($_SESSION['cedente'])){
-    $cedente = $_SESSION['cedente'];
-}
-?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -81,7 +59,7 @@ if (isset($_SESSION['cedente'])){
                                         <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm">
                                     </div>
                                 </div>
-                                
+
                                 <div class="clearfix m-b-10"></div>
 
                                 <div class="col-md-12">
@@ -90,7 +68,7 @@ if (isset($_SESSION['cedente'])){
                                         <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm">
                                     </div>
                                 </div>
-                                
+
                                 <div class="clearfix m-b-10"></div>
 
                                 <div class="col-md-12">
@@ -103,7 +81,7 @@ if (isset($_SESSION['cedente'])){
                         </div>
                     </div><!-- /.modal-body -->
                     <div class="modal-footer p-b-20 m-b-20">
-                        <div class="col-sm-12">                          
+                        <div class="col-sm-12">
                           <button type="button" class="btn btn-purple" id="guardarProveedor" name="guardarProveedor">Guardar</button>
                         </div>
                     </div></form>
@@ -146,7 +124,7 @@ if (isset($_SESSION['cedente'])){
                                         <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm">
                                     </div>
                                 </div>
-                                
+
                                 <div class="clearfix m-b-10"></div>
 
                                 <div class="col-md-12">
@@ -155,7 +133,7 @@ if (isset($_SESSION['cedente'])){
                                         <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm">
                                     </div>
                                 </div>
-                                
+
                                 <div class="clearfix m-b-10"></div>
 
                                 <div class="col-md-12">
@@ -168,7 +146,7 @@ if (isset($_SESSION['cedente'])){
                         </div>
                     </div><!-- /.modal-body -->
                     <div class="modal-footer p-b-20 m-b-20">
-                        <div class="col-sm-12">                          
+                        <div class="col-sm-12">
                           <button type="button" class="btn btn-purple" id="actualizarProveedor" name="actualizarProveedor">Actualizar</button>
                         </div>
                     </div></form>
@@ -179,7 +157,7 @@ if (isset($_SESSION['cedente'])){
         <div id="container" class="effect mainnav-sm ">
 
             <?php
-                include("../layout/header.php");
+               include("../layout/header.php");
             ?>
 
             <div class="boxed">
@@ -214,12 +192,12 @@ if (isset($_SESSION['cedente'])){
                                                     </thead>
                                                     <tbody>
 
-                                                        <?php 
+                                                        <?php
 
                                                             $sql = mysql_query("SELECT * FROM mantenedor_proveedores");
-                                                    
-                                                            while($row = mysql_fetch_array($sql)){ 
-                                                  
+
+                                                            while($row = mysql_fetch_array($sql)){
+
                                                                 echo "<tr class='text-center' id=".$row[0].">";
                                                                     echo "<td>".$row[1]."</td>";
                                                                     echo "<td>".$row[2]."</td>";
@@ -227,18 +205,18 @@ if (isset($_SESSION['cedente'])){
                                                                     echo "<td>".$row[4]."</td>";
                                                                     echo "<td>".$row[5]."</td>";
                                                                     echo '<td><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i></td>';
-                                                                echo "</tr>"; 
-                   
+                                                                echo "</tr>";
+
                                                             }
-                                                               
-                                                        ?>  
+
+                                                        ?>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
 
                                         <!-- <script id="ProveedorForm" type="text/template">
-                                            
+
                                             <div class="row" style="padding: 20px">
                                                 <form class="form-horizontal" id = "storeProveedor">
                                                     <div class="col-md-12">
@@ -265,7 +243,7 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm">
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="clearfix m-b-10"></div>
 
                                                     <div class="col-md-12">
@@ -274,7 +252,7 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm">
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="clearfix m-b-10"></div>
 
                                                     <div class="col-md-12">
@@ -283,14 +261,14 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm">
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </form>
                                             </div>
 
                                         </script> -->
 
                                         <!-- <script id="ProveedorFormUpdate" type="text/template">
-                                            
+
                                             <div class="row" style="padding: 20px">
                                                 <form class="form-horizontal" id = "updateProveedor">
                                                     <input type="hidden" id="id" name="id" value="{ID}">
@@ -318,7 +296,7 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" value="{TELEFONO}">
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="clearfix m-b-10"></div>
 
                                                     <div class="col-md-12">
@@ -327,7 +305,7 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm" value="{CONTACTO}">
                                                         </div>
                                                     </div>
-                                                    
+
                                                     <div class="clearfix m-b-10"></div>
 
                                                     <div class="col-md-12">
@@ -336,17 +314,17 @@ if (isset($_SESSION['cedente'])){
                                                             <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" value="{CORREO}">
                                                         </div>
                                                     </div>
-                                                    
+
                                                 </form>
                                             </div>
-                                            
+
                                         </script>
  -->
                                     </div>
-                                </div>  
+                                </div>
                             </div>
-                        </div>   
-                    </div>        
+                        </div>
+                    </div>
                 </div>
                 <?php include("../layout/main-menu.php"); ?>
             </div>
@@ -370,7 +348,7 @@ if (isset($_SESSION['cedente'])){
         <script src="../js/demo/ui-alerts.js"></script>
 
         <script src="../plugins/audiojs/audio.min.js"></script>
-                                        
+
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
 
         <link href="../plugins/bootstrap-dataTables/jquery.dataTables.css" rel="stylesheet"  media="screen">

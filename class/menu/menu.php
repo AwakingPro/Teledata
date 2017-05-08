@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 class Menu
 {
   public function __construct($idMenu, $nivelUsuario)
