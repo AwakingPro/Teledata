@@ -79,7 +79,7 @@
 											<div class="row">
 												 <div class="col-md-12 form-group">
 													<label>Cliente</label>
-													<select name="" class="form-control">
+													<select name="" class="form-control" id="cliente">
 														<option value="">Seleccione...</option>
 													</select>
 												</div>
@@ -197,5 +197,6 @@
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/nifty.min.js"></script>
 	<script src="../plugins/bootbox/bootbox.min.js"></script>
+	<script src="../js/tickets/controller.js"></script>
 </body>
 </html>
