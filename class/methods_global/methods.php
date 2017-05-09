@@ -51,12 +51,12 @@
 					while ($fila = $resultado->fetch_assoc()) {
 						$rows[] = $fila;
 					}
-				    	$resultado->free();
+				    $resultado->free();
 				}
-		           		return $rows;
-		           	}else{
-		            		return 'No hay conexion';
-		            	}
+           		return $rows;
+           	}else{
+        		return 'No hay conexion';
+        	}
 		}
 
 		function listView($post) {

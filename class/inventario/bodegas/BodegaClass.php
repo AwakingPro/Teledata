@@ -1,6 +1,6 @@
 <?php
 
-    include('../../class/methods_global/methods.php'); 
+    include('../../../class/methods_global/methods.php'); 
     header('Content-type: application/json');
 
     class Bodega{
@@ -89,7 +89,19 @@
 
         function showBodegas(){
 
-            $query = 'SELECT * FROM mantenedor_bodegas';
+            $query = 'SELECT mantenedor_bodegas.*, usuarios.nombre as personal FROM mantenedor_bodegas INNER JOIN usuarios ON mantenedor_bodegas.personal_id = usuarios.id';
+            $run = new Method;
+            $data = $run->select($query);
+
+            $response_array['array'] = $data;
+
+            echo json_encode($response_array);
+
+        }
+
+        function showPersonal(){
+
+            $query = 'SELECT * FROM usuarios';
             $run = new Method;
             $data = $run->select($query);
 

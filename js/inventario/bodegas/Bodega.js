@@ -33,7 +33,7 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
-        url: "../includes/bodegas/showBodegas.php",
+        url: "../../includes/inventario/bodegas/showBodegas.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
@@ -42,15 +42,29 @@ $(document).ready(function(){
                   ''+array.nombre+'',
                   ''+array.direccion+'',
                   ''+array.telefono+'',
-                  ''+array.personal_id+'',
+                  ''+array.personal+'',
                   ''+array.correo+'',
                   ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
                 ]).draw(false).node();
 
-                $( rowNode ).attr('id',array.id).addClass('text-center');
+                $( rowNode ).attr('id',array.id).data('personal_id',array.personal_id).addClass('text-center');
             });
         
             
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "../../includes/inventario/bodegas/showPersonal.php",
+        success: function(response){
+
+            $.each(response.array, function( index, array ) {
+                $('.personal_id').append(new Option(array.nombre,array.id));
+            });
+
+            $('.personal_id').selectpicker('refresh');
+        
         }
     });
 
@@ -63,7 +77,7 @@ $(document).ready(function(){
 
             $.ajax({
                 type: "POST",
-                url: "../includes/bodegas/storeBodega.php",
+                url: "../../includes/inventario/bodegas/storeBodega.php",
                 data:data,
                 success: function(response){
 
@@ -77,16 +91,18 @@ $(document).ready(function(){
                             timer : 3000
                         });
 
+                        Personal = $('#personal_id option[value="'+response.array.personal_id+'"]').first().text();
+
                         var rowNode = BodegaTable.row.add([
                           ''+response.array.nombre+'',
                           ''+response.array.direccion+'',
                           ''+response.array.telefono+'',
-                          ''+response.array.personal_id+'',
+                          ''+Personal+'',
                           ''+response.array.correo+'',
                           ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
                         ]).draw(false).node();
 
-                        $( rowNode ).attr('id',response.array.id).addClass('text-center')
+                        $( rowNode ).attr('id',response.array.id).data('personal_id',response.array.personal_id).addClass('text-center');
                         $('.modal').modal('hide');
 
                     }else if(response.status == 2){
@@ -127,7 +143,7 @@ $(document).ready(function(){
         var ObjectName = ObjectTR.find("td").eq(0).text();
         var ObjectAddress = ObjectTR.find("td").eq(1).text();
         var ObjectTelephone = ObjectTR.find("td").eq(2).text();
-        var ObjectPersonal = ObjectTR.find("td").eq(3).text();
+        var ObjectPersonal = ObjectTR.data("personal_id");
         var ObjectEmail = ObjectTR.find("td").eq(4).text();
         $('#updateBodega').find('input[name="id"]').val(ObjectId);
         $('#updateBodega').find('input[name="nombre"]').val(ObjectName);
@@ -152,7 +168,7 @@ $(document).ready(function(){
        
             $.ajax({
                 type: "POST",
-                url: "../includes/bodegas/updateBodega.php",
+                url: "../../includes/inventario/bodegas/updateBodega.php",
                 data:data,
                 success: function(response){
 
@@ -166,11 +182,14 @@ $(document).ready(function(){
                             timer : 3000
                         });
 
+                        Personal = $('#personal_id option[value="'+response.array.personal_id+'"]').first().text();
+
                         ObjectTR = $("#"+response.array.id);
+                        ObjectTR.data('personal_id', response.array.personal_id)
                         ObjectTR.find("td").eq(0).html(response.array.nombre);
                         ObjectTR.find("td").eq(1).html(response.array.direccion);
                         ObjectTR.find("td").eq(2).html(response.array.telefono);
-                        ObjectTR.find("td").eq(3).html(response.array.personal_id);
+                        ObjectTR.find("td").eq(3).html(Personal);
                         ObjectTR.find("td").eq(4).html(response.array.correo);
                         
                         $('.modal').modal('hide');

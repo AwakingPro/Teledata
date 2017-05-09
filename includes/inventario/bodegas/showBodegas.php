@@ -1,6 +1,6 @@
 <?php 
 
-	include("../../class/bodegas/BodegaClass.php");
+	include("../../../class/inventario/bodegas/BodegaClass.php");
 
 	$Bodega = new Bodega();
 	$Bodega->showBodegas();

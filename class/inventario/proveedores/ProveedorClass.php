@@ -1,6 +1,6 @@
 <?php
 
-    include('../../class/methods_global/methods.php'); 
+    include('../../../class/methods_global/methods.php'); 
     header('Content-type: application/json');
 
     class Proveedor{

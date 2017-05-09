@@ -117,13 +117,17 @@
     <!--End Navbar Dropdown-->
   </div>
 </header>
-<script src="../js/jquery-2.2.1.min.js"></script>
-  <style media="screen">
-    .bootbox.modal {
-      background-color: transparent !important;
-      z-index: 9999 !important;
-      background-image: none !important;
-    }
-  </style>
+
+<style media="screen">
+  .bootbox.modal {
+    background-color: transparent !important;
+    z-index: 9999 !important;
+    background-image: none !important;
+  }
+
+  #navbar .brand-title {
+    padding: 0 1.5em 0 5px;
+  }
+</style>
 <!--===================================================-->
 <!--END NAVBAR-->
