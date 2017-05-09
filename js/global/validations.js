@@ -40,7 +40,7 @@ function ValidarString(Text, Input) {
             icon : 'fa fa-check',
             message : 'Debe llenar el campo '+Input,
             container : 'floating',
-            timer : 15000
+            timer : 3000
         });
 
         sw1 = 1;

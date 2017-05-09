@@ -71,7 +71,7 @@ $(document).ready(function(){
         var data = $('#storeMarcaProducto').serialize();
         var array = $('#storeMarcaProducto').serializeArray();
 
-        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[1].value, 'Descripción')){
+        if(ValidarString(array[0].value, 'Tipo') && ValidarString(array[1].value, 'Nombre') && ValidarString(array[1].value, 'Descripción')){
 
             $.ajax({
                 type: "POST",
@@ -153,7 +153,7 @@ $(document).ready(function(){
         var data = $('#updateMarcaProducto').serialize();
         var array = $('#updateMarcaProducto').serializeArray();
 
-        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Descripción')){
+        if(ValidarString(array[1].value, 'Tipo') && ValidarString(array[2].value, 'Nombre') && ValidarString(array[3].value, 'Descripción')){
                         
             $.ajax({
                 type: "POST",

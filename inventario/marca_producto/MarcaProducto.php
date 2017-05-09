@@ -103,6 +103,7 @@
                                         <label class="control-label" for="name">Tipo</label>
                                         <div class="select">
                                             <select class="selectpicker tipo_producto_id" name="tipo_producto_id" id="tipo_producto_id"  data-live-search="true" data-width="100%">
+                                                <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
                                     </div>
