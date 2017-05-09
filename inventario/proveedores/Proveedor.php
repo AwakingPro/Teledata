@@ -209,119 +209,12 @@
                                                 </table>
                                             </div>
                                         </div>
-
-                                        <!-- <script id="ProveedorForm" type="text/template">
-
-                                            <div class="row" style="padding: 20px">
-                                                <form class="form-horizontal" id = "storeProveedor">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="name">Nombre</label>
-                                                            <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="clearfix m-b-10"></div>
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="name">Dirección</label>
-                                                            <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección"></textarea>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="clearfix m-b-10"></div>
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="name">Télefono</label>
-                                                            <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="clearfix m-b-10"></div>
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="name">Contacto</label>
-                                                            <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="clearfix m-b-10"></div>
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="name">Correo</label>
-                                                            <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm">
-                                                        </div>
-                                                    </div>
-
-                                                </form>
-                                            </div>
-
-                                        </script> -->
-
-                                        <!-- <script id="ProveedorFormUpdate" type="text/template">
-
-                                            <div class="row" style="padding: 20px">
-                                                <form class="form-horizontal" id = "updateProveedor">
-                                                    <input type="hidden" id="id" name="id" value="{ID}">
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="name">Nombre</label>
-                                                            <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" value="{NOMBRE}">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="clearfix m-b-10"></div>
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="name">Dirección</label>
-                                                            <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección">{DIRECCION}</textarea>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="clearfix m-b-10"></div>
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="name">Télefono</label>
-                                                            <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" value="{TELEFONO}">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="clearfix m-b-10"></div>
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="name">Contacto</label>
-                                                            <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm" value="{CONTACTO}">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="clearfix m-b-10"></div>
-
-                                                    <div class="col-md-12">
-                                                        <div class="form-group">
-                                                            <label class="control-label" for="name">Correo</label>
-                                                            <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" value="{CORREO}">
-                                                        </div>
-                                                    </div>
-
-                                                </form>
-                                            </div>
-
-                                        </script>
- -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <?php include("../../layout/main-menu.php"); ?>
             </div>
                 <?php include("../../layout/footer.php"); ?>
         </div>
@@ -347,7 +240,7 @@
         <script src="../../plugins/bootbox/bootbox.min.js"></script>
         <script src="../../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="../../js/global/validations.js"></script>
-        <script src="../../js/proveedores/Proveedor.js"></script>
+        <script src="../../js/inventario/proveedores/Proveedor.js"></script>
 
     </body>
 </html>
