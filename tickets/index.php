@@ -89,7 +89,9 @@
 											<div class="row">
 												 <div class="col-md-12 form-group">
 													<label>Cliente</label>
-													<input type="text" class="form-control">
+													<select name="" class="form-control">
+														<option value="">Seleccione...</option>
+													</select>
 												</div>
 											</div>
 											<div class="row">
@@ -99,23 +101,65 @@
 												</div>
 												<div class="col-md-6 form-group">
 													<label >Departamento</label>
-													<input type="text" class="form-control">
+													<input type="text" value="Soporte Tecnico" class="form-control" readonly>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-6 form-group">
 													<label >Tipo</label>
-													<input type="text" class="form-control">
+													<select name="" class="form-control" >
+														<option value="">Seleccione...</option>
+														<option>Correo</option>
+														<option>Problemas de Equipos con Visita</option>
+														<option>Problemas de Equipos con Visita</option>
+														<option>Problemas Red Interna</option>
+														<option>Coordinacion</option>
+														<option>Consultas tecnicas</option>
+														<option>Falla Masiva</option>
+													</select>
 												</div>
 												<div class="col-md-6 form-group">
 													<label >Subtipo</label>
-													<input type="text" class="form-control">
+													<select name="" class="form-control" >
+														<option value="">Seleccione...</option>
+														<option>Creacion de Correo</option>
+														<option>Configuracion Correo</option>
+														<option>Lista Negra,Spam</option>
+														<option>Poco manejo computacional</option>
+														<option>Desconfiguracion equipos</option>
+														<option>Reinicio de equipos</option>
+														<option>Interferencia</option>
+														<option>Equipos desconectados</option>
+														<option>Desconfiguracion equipos</option>
+														<option>Reinicio de equipos</option>
+														<option>Interferencia</option>
+														<option>Equipos desconectados</option>
+														<option>Poco conocimiento</option>
+														<option>Equipo cliente</option>
+														<option>Equipos desconectados</option>
+														<option>Desconocido</option>
+														<option>Visita tecnica</option>
+														<option>Reagendamientos</option>
+														<option>Informacion del servicio</option>
+														<option>Informacion estado</option>
+														<option>Estacion sin energia</option>
+														<option>Interferencia</option>
+														<option>Corte de fibra</option>
+														<option>Tormenta Solar</option>
+														<option>Desconfiguracion de equipos</option>
+
+													</select>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-6 form-group">
 													<label >Prioridad</label>
-													<input type="text" class="form-control">
+													<select name="" class="form-control" >
+														<option value="">Seleccione...</option>
+														<option>Alta</option>
+														<option>Medias</option>
+														<option>Baja</option>
+													</select>
 												</div>
 												<div class="col-md-6 form-group">
 													<label >Asignar a</label>
@@ -125,7 +169,12 @@
 											<div class="row">
 												<div class="col-md-6 form-group">
 													<label >Estado</label>
-													<input type="text" class="form-control">
+													<select name="" class="form-control" >
+														<option value="">Seleccione...</option>
+														<option>Abierto</option>
+														<option>Cerrado</option>
+														<option>Finalizado</option>
+													</select>
 												</div>
 											</div>
 											<div class="row">
