@@ -19,7 +19,12 @@
 			?>
 			<div class="boxed">
 				<div id="content-container">
-					<div id="page-title">
+					<div id="page-title" style="padding-right: 25px;">
+						<h1 class="page-header pull-lef  text-overflow">Modulo de Tickets
+							<div class="pull-right">
+							<button type="button" class="btn btn-primary">Asignar tiempo por prioridad</button>
+						</div>
+						</h1>
 					</div>
 					<br>
 					<ol class="breadcrumb">
