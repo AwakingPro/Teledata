@@ -83,6 +83,7 @@
 													<label>Cliente</label>
 													<select name="Cliente" class="form-control" id="cliente">
 														<option value="">Seleccione...</option>
+														<option value="1">Cliente de prueba</option>
 													</select>
 												</div>
 											</div>
@@ -155,7 +156,9 @@
 												</div>
 												<div class="col-md-6 form-group">
 													<label >Asignar a</label>
-													<input type="text" name ="AsignarA" class="form-control">
+													<select name="Cliente" class="form-control" id="personal">
+														<option value="">Seleccione...</option>
+													</select>
 												</div>
 											</div>
 											<div class="row">
@@ -175,11 +178,35 @@
 												</div>
 											</div>
 										</div>
-										<div id="tab-3" class="tab-pane fade listaAbiertos">
+										<div id="tab-3" class="tab-pane fade">
+											<div class="row">
+												<div class="col-md-12">
+													<h4>Tickets Abiertos:</h4>
+												</div>
+											</div>
+											<div class="listaAbiertos">
+
+											</div>
 										</div>
-										<div id="tab-4" class="tab-pane fade listaAbiertos">
+										<div id="tab-4" class="tab-pane fade">
+											<div class="row">
+												<div class="col-md-12">
+													<h4>Tickets Incunplidos (sin terminar):</h4>
+												</div>
+											</div>
+											<div class="listaAbiertos">
+
+											</div>
 										</div>
-										<div id="tab-5" class="tab-pane fade listaAbiertos">
+										<div id="tab-5" class="tab-pane fade">
+											<div class="row">
+												<div class="col-md-12">
+													<h4>Tickets con Personal asignado:</h4>
+												</div>
+											</div>
+											<div class="listaAsignados">
+
+											</div>
 										</div>
 									</div>
 								</div>
