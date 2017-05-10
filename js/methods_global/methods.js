@@ -1,8 +1,8 @@
-$.postFormValues = function(url, callback) {
-	if ($('.cont-form').length) {
+$.postFormValues = function(url, form,callback) {
+	if ($(form).length) {
 		var countObjs = 0;
 		var countValidates = 0;
-		var objs = $('.cont-form').find("input,input[type='checkbox']:checked,input[type='radio']:checked,textarea,select");
+		var objs = $(form).find("input,input[type='checkbox']:checked,input[type='radio']:checked,textarea,select");
 		var formValues = new FormData();
 		objs.each(function(index, obj) {
 			if (obj.hasAttribute('name')) {

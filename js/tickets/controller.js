@@ -4,7 +4,7 @@ $(document).ready(function() {
 		$('.listaAbiertos .tabeData').dataTable();
 	});
 	$('.guardarTicket').click(function() {
-		$.postFormValues('../ajax/tickets/insertData.php', function(data){
+		$.postFormValues('../ajax/tickets/insertData.php','.cont-form1',function(data){
 			if (Number(data) > 0){
 				$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
 					$('.listaAbiertos .tabeData').dataTable();

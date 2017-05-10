@@ -72,7 +72,7 @@
 												</div>
 											</div>
 										</div>
-										<div id="tab-2" class="tab-pane fade cont-form">
+										<div id="tab-2" class="tab-pane fade cont-form1">
 											<div class="row">
 												<div class="col-md-12">
 													<h4>Nuevo Ticket:</h4>
