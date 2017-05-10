@@ -71,6 +71,10 @@
 													<button type="button" class="btn btn-primary busqueda">Realizar Busqueda</button>
 												</div>
 											</div>
+											<br>
+											<br>
+											<div class="listaBusqueda">
+											</div>
 										</div>
 										<div id="tab-2" class="tab-pane fade cont-form1">
 											<div class="row">

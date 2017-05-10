@@ -24,12 +24,8 @@ $(document).ready(function() {
 	});
 	$('.busqueda').click(function() {
 		$.postFormValues('../ajax/tickets/listBuscar.php','.cont-form2',function(data){
-			if (Number(data) > 0){
-				bootbox.alert('<h3 class="text-center">El ticket se registro con exito.</h3>');
-			}else{
-				console.log(data);
-				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar el ticket.</h3>');
-			}
+			$('.listaBusqueda').html(data);
+			$('.listaBusqueda .tabeData').dataTable();
 		});
 	});
 });

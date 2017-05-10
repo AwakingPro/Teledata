@@ -61,23 +61,27 @@
 
 		function listView($post) {
 			$data =  $this->select($post);
-			$tabla = "<table class='table table-striped tabeData'><thead><tr>";
-			foreach ($data[0] as $clave => $valor) {
-				$tabla.="<th>".$clave."</th>";
-			}
-			$tabla.="</tr></thead><tbody>";
-			for ($i=0; $i < count($data) ; $i++) {
-				$tabla.= '<tr>';
-				foreach ($data[$i] as $clave => $valor) {
-					$tabla.="<th>".$valor."</th>";
+			if (count($data) > 0) {
+				$tabla = "<table class='table table-striped tabeData'><thead><tr>";
+				foreach ($data[0] as $clave => $valor) {
+					$tabla.="<th>".$clave."</th>";
 				}
-				$tabla.= '</tr>';
+				$tabla.="</tr></thead><tbody>";
+				for ($i=0; $i < count($data) ; $i++) {
+					$tabla.= '<tr>';
+					foreach ($data[$i] as $clave => $valor) {
+						$tabla.="<th>".$valor."</th>";
+					}
+					$tabla.= '</tr>';
+				}
+				$tabla.="</tbody></table>";
+				return $tabla;
+			}else{
+				$msn = "<h2>No se encontraron datos para la tabla</h2>";
+				return $msn;
 			}
-			$tabla.="</tbody></table>";
-			return $tabla;
 		}
-
-
 	}
+
  ?>
 
