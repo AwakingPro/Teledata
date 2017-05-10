@@ -1,19 +1,21 @@
 $.postFormValues = function(url, callback) {
 	if ($('.cont-form').length) {
-		var count = 0;
+		var countObjs = 0;
+		var countValidates = 0;
 		var objs = $('.cont-form').find("input,input[type='checkbox']:checked,input[type='radio']:checked,textarea,select");
 		var formValues = new FormData();
 		objs.each(function(index, obj) {
 			if (obj.hasAttribute('name')) {
+				countObjs++;
 				if ($.validate(obj)) {
 					formValues.append($(obj).attr('name'), $(obj).val());
-					count++;
+					countValidates++;
 				}else{
 					return false;
 				}
 			}
 		});
-		if (objs.length == count) {
+		if (countObjs == countValidates) {
 			$.ajax({
 				url: url,
 				type: 'POST',
@@ -25,6 +27,8 @@ $.postFormValues = function(url, callback) {
 				}
 			});
 		}
+	}else{
+		return false;
 	}
 }
 

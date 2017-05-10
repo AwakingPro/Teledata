@@ -2,9 +2,7 @@
 	/**
 	* Métodos globales
 	*/
-
 	include_once('settings_mysql.php');
-
 	class Method {
 
 		private $host;
@@ -29,14 +27,15 @@
 		}
 
 		public function insert($query){
-			if ($this->conexion()) {
-				$resultado = $this->conexion()->query($query);
+			$mysqli = $this->conexion();
+			if ($mysqli) {
+				$resultado = $mysqli->query($query);
 				if ($resultado) {
-					$return = $this->conexion()->insert_id;
-					$this->conexion()->close();
+					$return = $mysqli->insert_id;
+					$mysqli->close();
 				}else{
-					$return = "Problemas en el query";
-					$this->conexion()->close();
+					$return = false;
+					$mysqli->close();
 				}
 				return $return;
 			}else{
@@ -45,27 +44,28 @@
 		}
 
 		public function select($query) {
-			if ($this->conexion()) {
+			$mysqli = $this->conexion();
+			if ($mysqli) {
 				$rows = array();
-				if ($resultado = $this->conexion()->query($query)) {
+				if ($resultado = $mysqli->query($query)) {
 					while ($fila = $resultado->fetch_assoc()) {
 						$rows[] = $fila;
 					}
 				    $resultado->free();
 				}
-           		return $rows;
-           	}else{
-        		return 'No hay conexion';
-        	}
+		   		return $rows;
+		   	}else{
+				return 'No hay conexion';
+			}
 		}
 
 		function listView($post) {
 			$data =  $this->select($post);
-			$tabla = "<table class='table table-striped DataTable'><thead><tr>";
-			foreach ($data[1] as $clave => $valor) {
+			$tabla = "<table class='table table-striped tabeData'><thead><tr>";
+			foreach ($data[0] as $clave => $valor) {
 				$tabla.="<th>".$clave."</th>";
 			}
-			$tabla.="<tr></thead><tbody>";
+			$tabla.="</tr></thead><tbody>";
 			for ($i=0; $i < count($data) ; $i++) {
 				$tabla.= '<tr>';
 				foreach ($data[$i] as $clave => $valor) {

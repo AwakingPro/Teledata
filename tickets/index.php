@@ -9,11 +9,13 @@
 		<link href="../css/demo/nifty-demo-icons.min.css" rel="stylesheet">
 		<link href="../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
+		<link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
+		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 	</head>
 	<body>
 		<div id="container" class="effect mainnav-lg">
 			<?php
-			include("../layout/header.php");
+				include("../layout/header.php");
 			?>
 			<div class="boxed">
 				<div id="content-container">
@@ -70,7 +72,7 @@
 												</div>
 											</div>
 										</div>
-										<div id="tab-2" class="tab-pane fade">
+										<div id="tab-2" class="tab-pane fade cont-form">
 											<div class="row">
 												<div class="col-md-12">
 													<h4>Nuevo Ticket:</h4>
@@ -79,7 +81,7 @@
 											<div class="row">
 												 <div class="col-md-12 form-group">
 													<label>Cliente</label>
-													<select name="" class="form-control" id="cliente">
+													<select name="Cliente" class="form-control" id="cliente">
 														<option value="">Seleccione...</option>
 													</select>
 												</div>
@@ -87,17 +89,17 @@
 											<div class="row">
 												<div class="col-md-6 form-group">
 													<label >Origen</label>
-													<input type="text" class="form-control">
+													<input type="text" name="Origen" value="" class="form-control">
 												</div>
 												<div class="col-md-6 form-group">
 													<label >Departamento</label>
-													<input type="text" value="Soporte Tecnico" class="form-control" readonly>
+													<input type="text" name="Departamento" value="Soporte Tecnico" class="form-control" readonly>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-6 form-group">
 													<label >Tipo</label>
-													<select name="" class="form-control" >
+													<select name="Tipo" class="form-control" >
 														<option value="">Seleccione...</option>
 														<option>Correo</option>
 														<option>Problemas de Equipos con Visita</option>
@@ -110,7 +112,7 @@
 												</div>
 												<div class="col-md-6 form-group">
 													<label >Subtipo</label>
-													<select name="" class="form-control" >
+													<select name="Subtipo" class="form-control" >
 														<option value="">Seleccione...</option>
 														<option>Creacion de Correo</option>
 														<option>Configuracion Correo</option>
@@ -144,7 +146,7 @@
 											<div class="row">
 												<div class="col-md-6 form-group">
 													<label >Prioridad</label>
-													<select name="" class="form-control" >
+													<select name="Prioridad" class="form-control" >
 														<option value="">Seleccione...</option>
 														<option>Alta</option>
 														<option>Medias</option>
@@ -153,13 +155,13 @@
 												</div>
 												<div class="col-md-6 form-group">
 													<label >Asignar a</label>
-													<input type="text" class="form-control">
+													<input type="text" name ="AsignarA" class="form-control">
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-6 form-group">
 													<label >Estado</label>
-													<select name="" class="form-control" >
+													<select name="Estado" class="form-control" >
 														<option value="">Seleccione...</option>
 														<option>Abierto</option>
 														<option>Cerrado</option>
@@ -169,18 +171,15 @@
 											</div>
 											<div class="row">
 												<div class="col-md-12">
-													<button type="button" class="btn btn-primary">Guardar</button>
+													<button type="button" class="btn btn-primary guardarTicket">Guardar</button>
 												</div>
 											</div>
 										</div>
-										<div id="tab-3" class="tab-pane fade">
-											lol
+										<div id="tab-3" class="tab-pane fade listaAbiertos">
 										</div>
-										<div id="tab-4" class="tab-pane fade">
-											lol
+										<div id="tab-4" class="tab-pane fade listaAbiertos">
 										</div>
-										<div id="tab-5" class="tab-pane fade">
-											<div id="mostrar_gestion_total_ocultar">Datos Técnicos</div>
+										<div id="tab-5" class="tab-pane fade listaAbiertos">
 										</div>
 									</div>
 								</div>
@@ -197,6 +196,9 @@
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/nifty.min.js"></script>
 	<script src="../plugins/bootbox/bootbox.min.js"></script>
+	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
+	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
+	<script src="../js/methods_global/methods.js"></script>
 	<script src="../js/tickets/controller.js"></script>
 </body>
 </html>
