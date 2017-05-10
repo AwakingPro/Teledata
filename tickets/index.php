@@ -48,7 +48,7 @@
 										</li>
 									</ul>
 									<div class="tab-content">
-										<div id="tab-1" class="tab-pane fade active in">
+										<div id="tab-1" class="tab-pane fade active in cont-form2">
 											<div class="row">
 												<div class="col-md-12">
 													<h4>Buscar tiket en el sistema:</h4>
@@ -57,18 +57,18 @@
 											<div class="row">
 												 <div class="col-md-6 form-group">
 													<label>Nombre del Cliente</label>
-													<input type="text" class="form-control">
+													<input type="text" name="NombreCliente" class="form-control">
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-6 form-group">
 													<label >Numero de ticket</label>
-													<input type="text" class="form-control">
+													<input type="text" name="NumeroTicket" class="form-control">
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-12">
-													<button type="button" class="btn btn-primary">Realizar Busqueda</button>
+													<button type="button" class="btn btn-primary busqueda">Realizar Busqueda</button>
 												</div>
 											</div>
 										</div>
@@ -156,7 +156,7 @@
 												</div>
 												<div class="col-md-6 form-group">
 													<label >Asignar a</label>
-													<select name="Cliente" class="form-control" id="personal">
+													<select name="AsignarA" class="form-control" id="personal">
 														<option value="">Seleccione...</option>
 													</select>
 												</div>
