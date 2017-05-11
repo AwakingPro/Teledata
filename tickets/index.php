@@ -100,7 +100,16 @@
 											<div class="row">
 												<div class="col-md-6 form-group">
 													<label >Origen</label>
-													<input type="text" name="Origen" value="" class="form-control">
+													<select name="Origen" class="form-control" id="cliente">
+														<option value="">Seleccione...</option>
+														<option>Llamado Telefónico</option>
+														<option>Correo Electrónico</option>
+														<option>Presencial</option>
+														<option>Pagina Web</option>
+														<option>Interno</option>
+														<option>Carta</option>
+														<option>Otros</option>
+													</select>
 												</div>
 												<div class="col-md-6 form-group">
 													<label >Departamento</label>
