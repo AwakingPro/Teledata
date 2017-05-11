@@ -26,17 +26,17 @@
 
                 $query = "INSERT INTO mantenedor_proveedores(nombre, direccion, telefono, contacto, correo) VALUES ('$this->Nombre','$this->Direccion','$this->Telefono','$this->Contacto','$this->Correo')";
                 $run = new Method;
-                $data = $run->insert($query);
+                $id = $run->insert($query);
 
-                // if($data){
+                if($id){
 
-                    $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono,'contacto' => $this->Contacto,'correo' => $this->Correo);
+                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono,'contacto' => $this->Contacto,'correo' => $this->Correo);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }

@@ -19,17 +19,17 @@
 
                 $query = "INSERT INTO mantenedor_tipo_producto(nombre, descripcion) VALUES ('$this->Nombre','$this->Descripcion')";
                 $run = new Method;
-                $data = $run->insert($query);
+                $id = $run->insert($query);
 
-                // if($data){
+                if($id){
 
-                    $array = array('nombre' => $this->Nombre, 'descripcion' => $this->Descripcion);
+                    $array = array('id'=> $id, 'nombre' => $this->Nombre, 'descripcion' => $this->Descripcion);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }

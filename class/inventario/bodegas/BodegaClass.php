@@ -26,11 +26,11 @@
 
                 $query = "INSERT INTO mantenedor_bodegas(nombre, direccion, telefono, personal_id, correo) VALUES ('$this->Nombre','$this->Direccion','$this->Telefono','$this->Personal','$this->Correo')";
                 $run = new Method;
-                $data = $run->insert($query);
+                $id = $run->insert($query);
 
                 // if($data){
 
-                    $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo);
+                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -70,16 +70,16 @@
                 $run = new Method;
                 $data = $run->insert($query);
 
-                // if($Query){
+                if($id){
 
                     $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo, 'id' => $this->Id);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }

@@ -21,17 +21,17 @@
 
                 $query = "INSERT INTO mantenedor_marca_producto(tipo_producto_id, nombre, descripcion) VALUES ('$this->TipoProducto','$this->Nombre','$this->Descripcion')";
                 $run = new Method;
-                $data = $run->insert($query);
+                $id = $run->insert($query);
 
-                // if($data){
+                if($id){
 
-                    $array = array('tipo_producto_id' => $this->TipoProducto, 'nombre' => $this->Nombre, 'descripcion' => $this->Descripcion);
+                    $array = array('id'=> $id, 'tipo_producto_id' => $this->TipoProducto, 'nombre' => $this->Nombre, 'descripcion' => $this->Descripcion);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }

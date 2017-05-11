@@ -236,7 +236,6 @@
         <script src="../../plugins/audiojs/audio.min.js"></script>                        
         <script src="../../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
         <script src="../../plugins/bootbox/bootbox.min.js"></script>
-        <script src="../../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="../../js/global/validations.js"></script>
         <script src="../../js/inventario/bodegas/Bodega.js"></script>
 
