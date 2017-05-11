@@ -1,5 +1,5 @@
 $(document).ready(function() {
-	$('#personal').load('../ajax/tickets/listCliente.php');
+	$('#personal').load('../ajax/tickets/listUsuario.php');
 	$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
 		$('.listaAbiertos > .tabeData').dataTable({
 			"columnDefs": [{
