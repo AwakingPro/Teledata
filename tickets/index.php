@@ -113,7 +113,10 @@
 												</div>
 												<div class="col-md-6 form-group">
 													<label >Departamento</label>
-													<input type="text" name="Departamento" value="Soporte Tecnico" class="form-control" readonly>
+													<select name="Departamento" class="form-control" id="cliente">
+														<option value="">Seleccione...</option>
+														<option>Soporte Tecnico</option>
+													</select>
 												</div>
 											</div>
 											<div class="row">
@@ -134,32 +137,6 @@
 													<label >Subtipo</label>
 													<select name="Subtipo" class="form-control" >
 														<option value="">Seleccione...</option>
-														<option>Creacion de Correo</option>
-														<option>Configuracion Correo</option>
-														<option>Lista Negra,Spam</option>
-														<option>Poco manejo computacional</option>
-														<option>Desconfiguracion equipos</option>
-														<option>Reinicio de equipos</option>
-														<option>Interferencia</option>
-														<option>Equipos desconectados</option>
-														<option>Desconfiguracion equipos</option>
-														<option>Reinicio de equipos</option>
-														<option>Interferencia</option>
-														<option>Equipos desconectados</option>
-														<option>Poco conocimiento</option>
-														<option>Equipo cliente</option>
-														<option>Equipos desconectados</option>
-														<option>Desconocido</option>
-														<option>Visita tecnica</option>
-														<option>Reagendamientos</option>
-														<option>Informacion del servicio</option>
-														<option>Informacion estado</option>
-														<option>Estacion sin energia</option>
-														<option>Interferencia</option>
-														<option>Corte de fibra</option>
-														<option>Tormenta Solar</option>
-														<option>Desconfiguracion de equipos</option>
-
 													</select>
 												</div>
 											</div>

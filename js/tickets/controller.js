@@ -53,4 +53,9 @@ $(document).ready(function() {
 			});
 		});
 	});
+	$('[name="Tipo"]').change(function() {
+		$.post('../ajax/tickets/listSubTipo.php', {tipo: $(this).val()}, function(data) {
+			$('[name="Subtipo"]').html(data);
+		});
+	});
 });
