@@ -66,12 +66,16 @@
 				foreach ($data[0] as $clave => $valor) {
 					$tabla.="<th>".$clave."</th>";
 				}
-				$tabla.="</tr></thead><tbody>";
+				$tabla.="<th></th></tr></thead><tbody>";
 				for ($i=0; $i < count($data) ; $i++) {
 					$tabla.= '<tr>';
 					foreach ($data[$i] as $clave => $valor) {
-						$tabla.="<th>".$valor."</th>";
+						$tabla.="<td>".$valor."</td>";
 					}
+					$tabla.='<td class="optionTable">
+						<i class="fa fa-trash-o" aria-hidden="true" title="Eliminar"></i>
+						<i class="fa fa-pencil-square-o" aria-hidden="true" title="Editar"></i>
+						</td>';
 					$tabla.= '</tr>';
 				}
 				$tabla.="</tbody></table>";

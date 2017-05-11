@@ -11,6 +11,7 @@
 		<link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
 		<link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
+		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
 		<div id="container" class="effect mainnav-lg">

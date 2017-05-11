@@ -7,3 +7,11 @@ div.bg-img{
 .height40{
 	height: 40px;
 }
+.optionTable{
+	display: flex;
+}
+.optionTable i {
+	font-size: 20px;
+	margin-right: 10px;
+	cursor: pointer;
+}
