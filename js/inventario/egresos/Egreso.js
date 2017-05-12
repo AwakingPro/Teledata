@@ -146,7 +146,7 @@ $(document).ready(function(){
             success: function(response){
 
                 $.each(response.array, function( index, array ) {
-                    $('#producto_id').append(new Option(array.tipo + ' ' + array.marca + ' ' + array.modelo,array.id));
+                    $('#producto_id').append(new Option(array.tipo + ' ' + array.marca + ' ' + array.modelo + ' - ' + array.numero_serie,array.id));
                 });
 
                 $('#producto_id').selectpicker('refresh');
@@ -171,15 +171,12 @@ $(document).ready(function(){
                     timer : 3000
                 });
 
-                Producto = $('#producto_id option[value="'+response.array.producto_id+'"]').first().text();
-                DestinoId = $('#destino_id option[value="'+response.array.destino_id+'"]').first().text()
-                DestinoTipo = $('#destino_tipo option[value="'+response.array.destino_tipo+'"]').first().text()
                 fecha_movimiento = moment(response.array.fecha_movimiento).format('DD-MM-YYYY');
 
                 var rowNode = EgresoTable.row.add([
                     ''+response.array.numero_serie+'',
-                    ''+Producto+'',
-                    ''+DestinoTipo+ ' ' + DestinoId+'',
+                    ''+response.array.producto+'',
+                    ''+response.array.destino+'',
                     ''+fecha_movimiento+'',
                     ''+response.array.hora_movimiento+'',
                     ''+response.array.responsable+'',
@@ -214,92 +211,5 @@ $(document).ready(function(){
 
             }
         });
-    });
-   
-
-    $('body').on( 'click', '.Update', function () {
-
-        var ObjectMe = $(this);
-        var ObjectTR = ObjectMe.closest("tr");
-        ObjectTR.addClass("Selected");
-        var ObjectId = ObjectTR.attr("id");
-        var ObjectModel = ObjectTR.data("modelo_producto_id");
-        var ObjectStore = ObjectTR.data("bodega_id");
-        var ObjectProvider = ObjectTR.data("proveedor_id");
-        var ObjectDateBuy = ObjectTR.find("td").eq(0).text();
-        var ObjectDateEntry = ObjectTR.find("td").eq(1).text();
-        var ObjectBill = ObjectTR.find("td").eq(2).text();
-        var ObjectValue = ObjectTR.find("td").eq(5).text();
-        var ObjectQuantity = ObjectTR.find("td").eq(6).text();
-        $('#updateIngreso').find('input[name="id"]').val(ObjectId);
-        $('#updateIngreso').find('select[name="modelo_producto_id"]').val(ObjectModel);
-        $('#updateIngreso').find('select[name="bodega_id"]').val(ObjectStore);
-        $('#updateIngreso').find('select[name="proveedor_id"]').val(ObjectProvider);
-        $('#updateIngreso').find('input[name="fecha_compra"]').val(ObjectDateBuy);
-        $('#updateIngreso').find('input[name="fecha_ingreso"]').val(ObjectDateEntry);
-        $('#updateIngreso').find('input[name="numero_factura"]').val(ObjectBill);
-        $('#updateIngreso').find('input[name="valor"]').val(parseInt(ObjectValue.replace(/,/g, '')));
-        $('#updateIngreso').find('input[name="cantidad"]').val(ObjectQuantity);
-
-        $('.selectpicker').selectpicker('refresh');
-
-        $('#IngresoFormUpdate').modal('show');
-  
-    });
-
-
-    $('body').on('click', '#actualizarIngreso', function () {
-
-        $.postFormValues('../../includes/inventario/ingresos/updateIngreso.php', '#updateIngreso', function(response){
-                    
-            if(response.status == 1){
-
-                $.niftyNoty({
-                    type: 'success',
-                    icon : 'fa fa-check',
-                    message : 'Registro Actualizado Exitosamente',
-                    container : 'floating',
-                    timer : 3000
-                });
-
-                Modelo = $('#modelo_producto_id option[value="'+response.array.modelo_producto_id+'"]').first().text();
-                Proveedor = $('#proveedor_id option[value="'+response.array.proveedor_id+'"]').first().text();
-                Bodega = $('#bodega_id option[value="'+response.array.bodega_id+'"]').first().text();
-
-                ObjectTR = $("#"+response.array.id);
-
-                ObjectTR.data('modelo_producto_id', response.array.modelo_producto_id)
-                ObjectTR.data('proveedor_id', response.array.proveedor_id)
-                ObjectTR.data('bodega_id', response.array.bodega_id)
-                ObjectTR.find("td").eq(0).html(response.array.fecha_compra);
-                ObjectTR.find("td").eq(1).html(response.array.fecha_ingreso);
-                ObjectTR.find("td").eq(2).html(response.array.numero_factura);
-                ObjectTR.find("td").eq(3).html(Modelo);
-                ObjectTR.find("td").eq(4).html(Proveedor);
-                ObjectTR.find("td").eq(5).html($.number(response.array.valor));
-                ObjectTR.find("td").eq(6).html(response.array.cantidad);
-                ObjectTR.find("td").eq(7).html(Bodega);
-
-                $('.modal').modal('hide');
-                
-
-            }else if(response.status == 2){
-                $.niftyNoty({
-                    type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Debe llenar todos los campos',
-                    container : 'floating',
-                    timer : 3000
-                });
-            }else{
-                $.niftyNoty({
-                    type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Ocurrio un error en el Proceso',
-                    container : 'floating',
-                    timer : 3000
-                });
-            }
-        });   
     });
 });

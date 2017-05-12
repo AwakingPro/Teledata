@@ -38,24 +38,38 @@
 
                     // if($update){
 
-                        $query = "SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id where inventario_ingresos.id = '$ProductoId' ORDER BY inventario_ingresos.id DESC LIMIT 1";
+                        $query = "SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id where inventario_ingresos.id = '$ProductoId' AND bodega_tipo = '$DestinoTipo'AND bodega_id = '$DestinoId' ORDER BY inventario_ingresos.id DESC LIMIT 1";
 
                         $run = new Method;
                         $data = $run->select($query);
 
                         if($data){
 
+                            $NumeroSerie = $data[0]['numero_serie'];
+                            $Producto = $data[0]['tipo'] . ' ' . $data[0]['marca'] . ' ' . $data[0]['modelo'];
+
+                            if($data[0]['bodega_tipo'] == 1){
+                                $query = "SELECT * FROM mantenedor_bodegas where id = ".$data[0]['bodega_id']." ORDER BY id DESC LIMIT 1";
+                                $run = new Method;
+                                $select = $run->select($query);
+                                $Destino = 'Bodega' . ' ' . $select[0]['nombre'];
+                            }else{
+                                $query = "SELECT * FROM mantenedor_bodegas where id = ".$data[0]['bodega_id']." ORDER BY id DESC LIMIT 1";
+                                $run = new Method;
+                                $select = $run->select($query);
+
+                                $Destino = 'Bodega' . ' ' . $select[0]['nombre'];
+                            }
+
                             $query = "SELECT * FROM usuarios where id = '$Usuario' ORDER BY id DESC LIMIT 1";
                             $run = new Method;
                             $usuario = $run->select($query);
-
-                            $NumeroSerie = $data[0]['numero_serie'];
 
                             if($usuario){
 
                                 $Responsable = $usuario[0]['nombre'];
 
-                                $array = array('id' => $id, 'numero_serie' => $NumeroSerie, 'fecha_movimiento' => $FechaMovimiento, 'hora_movimiento' => $HoraMovimiento, 'responsable' => $Responsable);
+                                $array = array('id' => $id, 'numero_serie' => $NumeroSerie, 'producto' => $Producto, 'destino' => $Destino, 'fecha_movimiento' => $FechaMovimiento, 'hora_movimiento' => $HoraMovimiento, 'responsable' => $Responsable);
 
                                 $response_array['array'] = $array;
                                 $response_array['status'] = 1; 
@@ -87,30 +101,34 @@
 
         function showMovimientos(){
 
-            $query = 'SELECT inventario_egresos.*, inventario_ingresos.numero_serie, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, usuarios.nombre as responsable FROM inventario_ingresos INNER JOIN inventario_ingresos ON inventario_egresos.producto_id = inventario_ingresos.id INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = inventario_egresos.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id INNER JOIN usuarios ON inventario_egresos.usuario_id = usuarios.id';
+            $array = array();
+
+            $query = "SELECT inventario_egresos.*, inventario_ingresos.numero_serie, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, usuarios.nombre as responsable FROM inventario_egresos INNER JOIN inventario_ingresos ON inventario_egresos.producto_id = inventario_ingresos.id INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id INNER JOIN usuarios ON inventario_egresos.usuario_id = usuarios.id";
 
             $run = new Method;
             $data = $run->select($query);
 
             foreach($data as $row){
                 if($row['destino_tipo'] == 1){
-                    $query = 'SELECT * FROM mantenedor_bodegas where id = '.$row['destino_id'];
+                    $query = "SELECT * FROM mantenedor_bodegas where id = ".$row['destino_id']." ORDER BY id DESC LIMIT 1";
                     $run = new Method;
                     $destino = $run->select($query);
 
-                    $row['destino_tipo'] = 'Bodega';
-                    $row['destino_nombre'] = $destino['nombre'];
+                    $destino_tipo = 'Bodega';
+                    $destino_nombre = $destino[0]['nombre'];
                 }else{
-                    $query = 'SELECT * FROM mantenedor_bodegas where id = '.$row['destino_id'];
+                    $query = "SELECT * FROM mantenedor_bodegas where id = ".$row['destino_id']." ORDER BY id DESC LIMIT 1";
                     $run = new Method;
                     $destino = $run->select($query);
 
-                    $row['destino_tipo'] = 'Bodega';
-                    $row['destino_nombre'] = $destino['nombre'];
+                    $destino_tipo = 'Bodega';
+                    $destino_nombre = $destino[0]['nombre'];
                 }
+
+                $array[$row['id']] = array('id' => $row['id'], 'numero_serie' => $row['numero_serie'], 'modelo' => $row['modelo'], 'marca' => $row['marca'], 'tipo' => $row['tipo'], 'destino_tipo' => $destino_tipo, 'destino_nombre' => $destino_nombre,'fecha_movimiento' => $row['fecha_movimiento'],'hora_movimiento' => $row['hora_movimiento'],'responsable' => $row['responsable']);
             }
 
-            $response_array['array'] = $data;
+            $response_array['array'] = $array;
 
             echo json_encode($response_array);
 
