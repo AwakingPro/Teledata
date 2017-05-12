@@ -47,3 +47,6 @@ $.validate = function(obj) {
 		return true;
 	}
 }
+
+
+$('#mainnav-menu').load('../ajax/menu/mainMenu.php');

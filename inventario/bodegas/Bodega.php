@@ -88,7 +88,7 @@
                         </div>
                     </div><!-- /.modal-body -->
                     <div class="modal-footer p-b-20 m-b-20">
-                        <div class="col-sm-12">                          
+                        <div class="col-sm-12">
                           <button type="button" class="btn btn-purple" id="guardarBodega" name="guardarBodega">Guardar</button>
                         </div>
                     </div></form>
@@ -156,7 +156,7 @@
                         </div>
                     </div><!-- /.modal-body -->
                     <div class="modal-footer p-b-20 m-b-20">
-                        <div class="col-sm-12">                          
+                        <div class="col-sm-12">
                           <button type="button" class="btn btn-purple" id="actualizarBodega" name="actualizarBodega">Actualizar</button>
                         </div>
                     </div></form>
@@ -207,10 +207,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>  
+                                </div>
                             </div>
-                        </div>   
-                    </div>        
+                        </div>
+                    </div>
                 </div>
                 <!-- MAIN - MENU -->
             </div>
@@ -218,7 +218,7 @@
         </div>
 
         <!--SCRIPT-->
-    
+
         <script src="../../js/jquery-2.2.1.min.js"></script>
         <script src="../../js/funciones.js"></script>
         <script src="../../js/bootstrap.min.js"></script>
@@ -233,7 +233,7 @@
         <script src="../../js/demo/nifty-demo.min.js"></script>
         <script src="../../plugins/bootbox/bootbox.min.js"></script>
         <script src="../../js/demo/ui-alerts.js"></script>
-        <script src="../../plugins/audiojs/audio.min.js"></script>                        
+        <script src="../../plugins/audiojs/audio.min.js"></script>
         <script src="../../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
         <script src="../../plugins/bootbox/bootbox.min.js"></script>
         <script src="../../js/global/validations.js"></script>
