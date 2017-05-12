@@ -49,4 +49,6 @@ $.validate = function(obj) {
 }
 
 
-$('#mainnav-menu').load('../ajax/menu/mainMenu.php');
+$('#mainnav-menu').load('../ajax/menu/mainMenu.php',function(){
+	$('.collapse').collapse('show')
+});
