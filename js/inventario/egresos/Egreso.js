@@ -62,6 +62,11 @@ $(document).ready(function(){
 
     $('#origen_tipo').on('change', function () {
 
+        $('#producto_id').empty();
+        $('#producto_id').append(new Option('Seleccione Opción',''));
+
+        $('#producto_id').selectpicker('refresh');
+
         $('#origen_id').empty();
         $('#origen_id').append(new Option('Seleccione Opción',''));
 
@@ -187,6 +192,7 @@ $(document).ready(function(){
                     .addClass('text-center')
 
                 $('#storeEgreso')[0].reset();
+                $('.selectpicker').selectpicker('refresh')
                 $('.modal').modal('hide');
 
             }else if(response.status == 2){
