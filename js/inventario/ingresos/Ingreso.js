@@ -52,6 +52,7 @@ $(document).ready(function(){
                     ''+fecha_compra+'',
                     ''+fecha_ingreso+'',
                     ''+array.numero_factura+'',
+                    ''+array.numero_serie+'',
                     ''+array.tipo + ' ' + array.marca + ' ' + array.modelo+'',
                     ''+array.proveedor+'',
                     ''+$.number(array.valor)+'',
@@ -135,6 +136,7 @@ $(document).ready(function(){
                     ''+response.array.fecha_compra+'',
                     ''+response.array.fecha_ingreso+'',
                     ''+response.array.numero_factura+'',
+                    ''+response.array.numero_serie+'',
                     ''+Modelo+'',
                     ''+Proveedor+'',
                     ''+$.number(response.array.valor)+'',
@@ -190,8 +192,9 @@ $(document).ready(function(){
         var ObjectDateBuy = ObjectTR.find("td").eq(0).text();
         var ObjectDateEntry = ObjectTR.find("td").eq(1).text();
         var ObjectBill = ObjectTR.find("td").eq(2).text();
-        var ObjectValue = ObjectTR.find("td").eq(5).text();
-        var ObjectQuantity = ObjectTR.find("td").eq(6).text();
+        var ObjectSerial = ObjectTR.find("td").eq(3).text();
+        var ObjectValue = ObjectTR.find("td").eq(6).text();
+        var ObjectQuantity = ObjectTR.find("td").eq(7).text();
         $('#updateIngreso').find('input[name="id"]').val(ObjectId);
         $('#updateIngreso').find('select[name="modelo_producto_id"]').val(ObjectModel);
         $('#updateIngreso').find('select[name="bodega_id"]').val(ObjectStore);
@@ -199,6 +202,7 @@ $(document).ready(function(){
         $('#updateIngreso').find('input[name="fecha_compra"]').val(ObjectDateBuy);
         $('#updateIngreso').find('input[name="fecha_ingreso"]').val(ObjectDateEntry);
         $('#updateIngreso').find('input[name="numero_factura"]').val(ObjectBill);
+        $('#updateIngreso').find('input[name="numero_serie"]').val(ObjectSerial);
         $('#updateIngreso').find('input[name="valor"]').val(parseInt(ObjectValue.replace(/,/g, '')));
         $('#updateIngreso').find('input[name="cantidad"]').val(ObjectQuantity);
 
@@ -235,11 +239,12 @@ $(document).ready(function(){
                 ObjectTR.find("td").eq(0).html(response.array.fecha_compra);
                 ObjectTR.find("td").eq(1).html(response.array.fecha_ingreso);
                 ObjectTR.find("td").eq(2).html(response.array.numero_factura);
-                ObjectTR.find("td").eq(3).html(Modelo);
-                ObjectTR.find("td").eq(4).html(Proveedor);
-                ObjectTR.find("td").eq(5).html($.number(response.array.valor));
-                ObjectTR.find("td").eq(6).html(response.array.cantidad);
-                ObjectTR.find("td").eq(7).html(Bodega);
+                ObjectTR.find("td").eq(3).html(response.array.numero_serie);
+                ObjectTR.find("td").eq(4).html(Modelo);
+                ObjectTR.find("td").eq(5).html(Proveedor);
+                ObjectTR.find("td").eq(6).html($.number(response.array.valor));
+                ObjectTR.find("td").eq(7).html(response.array.cantidad);
+                ObjectTR.find("td").eq(8).html(Bodega);
 
                 $('.modal').modal('hide');
                 

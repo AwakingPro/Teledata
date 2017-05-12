@@ -5,26 +5,28 @@
 
     class Ingreso{
 
-    	public function storeIngreso($FechaCompra,$FechaIngreso,$NumeroFactura,$Modelo,$Proveedor,$Valor,$Cantidad,$Bodega){
+    	public function storeIngreso($FechaCompra,$FechaIngreso,$NumeroFactura,$NumeroSerie,$Modelo,$Proveedor,$Valor,$Cantidad,$Bodega){
 
             $response_array = array();
 
             $FechaCompra = isset($FechaCompra) ? trim($FechaCompra) : "";
             $FechaIngreso = isset($FechaIngreso) ? trim($FechaIngreso) : "";
             $NumeroFactura = isset($NumeroFactura) ? trim($NumeroFactura) : "";
+            $NumeroSerie = isset($NumeroSerie) ? trim($NumeroSerie) : "";
             $Modelo = isset($Modelo) ? trim($Modelo) : "";
             $Proveedor = isset($Proveedor) ? trim($Proveedor) : "";
             $Valor = isset($Valor) ? trim($Valor) : "";
             $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
             $Bodega = isset($Bodega) ? trim($Bodega) : "";
 
-            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($Modelo) && !empty($Proveedor) && !empty($Valor) && !empty($Cantidad) && !empty($Bodega)){
+            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($NumeroSerie) && !empty($Modelo) && !empty($Proveedor) && !empty($Valor) && !empty($Cantidad) && !empty($Bodega)){
 
                 session_start();
 
                 $this->FechaCompra=$FechaCompra;
                 $this->FechaIngreso=$FechaIngreso;
                 $this->NumeroFactura=$NumeroFactura;
+                $this->NumeroSerie=$NumeroSerie;
                 $this->Modelo=$Modelo;
                 $this->Proveedor=$Proveedor;
                 $this->Valor=$Valor;
@@ -35,13 +37,13 @@
                 $FechaCompra = DateTime::createFromFormat('d-m-Y', $FechaCompra)->format('Y-m-d');
                 $FechaIngreso = DateTime::createFromFormat('d-m-Y', $FechaIngreso)->format('Y-m-d');
 
-                $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','$this->Cantidad','$this->Bodega','$this->Usuario')";
+                $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, 'numero_serie') VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','$this->Cantidad','$this->Bodega','$this->Usuario','$this->NumeroSerie')";
                 $run = new Method;
                 $id = $run->insert($query);
 
                 if($id){
 
-                    $array = array('id' => $id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => $this->Cantidad, 'bodega_id' => $this->Bodega, 'usuario_id' => $this->Usuario);
+                    $array = array('id' => $id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => $this->Cantidad, 'bodega_id' => $this->Bodega, 'usuario_id' => $this->Usuario, 'numero_serie' => $this->NumeroSerie);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -56,25 +58,27 @@
 
     	} 
 
-        public function updateIngreso($FechaCompra,$FechaIngreso,$NumeroFactura,$Modelo,$Proveedor,$Valor,$Cantidad,$Bodega, $Id){
+        public function updateIngreso($FechaCompra,$FechaIngreso,$NumeroFactura,$NumeroSerie,$Modelo,$Proveedor,$Valor,$Cantidad,$Bodega, $Id){
 
             $response_array = array();
 
             $FechaCompra = isset($FechaCompra) ? trim($FechaCompra) : "";
             $FechaIngreso = isset($FechaIngreso) ? trim($FechaIngreso) : "";
             $NumeroFactura = isset($NumeroFactura) ? trim($NumeroFactura) : "";
+            $NumeroSerie = isset($NumeroSerie) ? trim($NumeroSerie) : "";
             $Modelo = isset($Modelo) ? trim($Modelo) : "";
             $Proveedor = isset($Proveedor) ? trim($Proveedor) : "";
             $Valor = isset($Valor) ? trim($Valor) : "";
             $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
             $Bodega = isset($Bodega) ? trim($Bodega) : "";
 
-            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($Modelo) && !empty($Proveedor) && !empty($Valor) && !empty($Cantidad) && !empty($Bodega)){
+            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($NumeroSerie) && !empty($Modelo) && !empty($Proveedor) && !empty($Valor) && !empty($Cantidad) && !empty($Bodega)){
 
                 $this->Id=$Id;
                 $this->FechaCompra=$FechaCompra;
                 $this->FechaIngreso=$FechaIngreso;
                 $this->NumeroFactura=$NumeroFactura;
+                $this->NumeroSerie=$NumeroSerie;
                 $this->Modelo=$Modelo;
                 $this->Proveedor=$Proveedor;
                 $this->Valor=$Valor;
@@ -84,13 +88,13 @@
                 $FechaCompra = DateTime::createFromFormat('d-m-Y', $FechaCompra)->format('Y-m-d');
                 $FechaIngreso = DateTime::createFromFormat('d-m-Y', $FechaIngreso)->format('Y-m-d');
 
-                $query = "UPDATE `inventario_ingresos` set `fecha_compra` = '$FechaCompra', `fecha_ingreso` = '$FechaIngreso', `numero_factura` = '$this->NumeroFactura', `modelo_producto_id` = '$this->Modelo', `proveedor_id` = '$this->Proveedor', `valor` = '$this->Valor', `cantidad` = '$this->Cantidad', `bodega_id` = '$this->Bodega' where `id` = '$this->Id'";
+                $query = "UPDATE `inventario_ingresos` set `fecha_compra` = '$FechaCompra', `fecha_ingreso` = '$FechaIngreso', `numero_factura` = '$this->NumeroFactura', `modelo_producto_id` = '$this->Modelo', `proveedor_id` = '$this->Proveedor', `valor` = '$this->Valor', `cantidad` = '$this->Cantidad', `bodega_id` = '$this->Bodega', `numero_serie` = '$this->NumeroSerie' where `id` = '$this->Id'";
                 $run = new Method;
                 $id = $run->insert($query);
 
                 // if($id){
 
-                    $array = array('id' => $this->Id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => $this->Cantidad, 'bodega_id' => $this->Bodega);
+                    $array = array('id' => $this->Id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => $this->Cantidad, 'bodega_id' => $this->Bodega, 'numero_serie' => $this->NumeroSerie);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -144,7 +148,8 @@
 
         function showIngreso(){
 
-            $query = 'SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, mantenedor_proveedores.nombre as proveedor, mantenedor_bodegas.nombre as bodega FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id INNER JOIN mantenedor_bodegas ON inventario_ingresos.bodega_id = mantenedor_bodegas.id INNER JOIN mantenedor_proveedores ON inventario_ingresos.bodega_id = mantenedor_proveedores.id';
+            $query = 'SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, mantenedor_proveedores.nombre as proveedor, mantenedor_bodegas.nombre as bodega FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id INNER JOIN mantenedor_bodegas ON inventario_ingresos.bodega_id = mantenedor_bodegas.id INNER JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
+
             $run = new Method;
             $data = $run->select($query);
 

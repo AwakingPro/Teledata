@@ -79,6 +79,16 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label class="control-label" for="name">Numero de Serie</label>
+                                        <input id="numero_serie" name="numero_serie" validation="not_null" placeholder="Ingrese el numero de serie" class="form-control input-sm number" data-nombre="Numero de Serie">
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label class="control-label" for="name">Modelo</label>
                                         <div class="select">
                                             <select class="selectpicker modelo_producto_id" id="modelo_producto_id" name="modelo_producto_id" validation="not_null"  data-live-search="true" data-width="100%" data-nombre="Modelo">
@@ -172,10 +182,20 @@
 
                                 <div class="clearfix m-b-10"></div>
 
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Numero de Factura</label>
                                         <input id="numero_factura" name="numero_factura" validation="not_null" placeholder="Ingrese el numero de factura" class="form-control input-sm number" data-nombre="Numero de Factura">
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Numero de Serie</label>
+                                        <input id="numero_serie" name="numero_serie" validation="not_null" placeholder="Ingrese el numero de serie" class="form-control input-sm number" data-nombre="Numero de Serie">
                                     </div>
                                 </div>
 
@@ -278,6 +298,7 @@
                                                             <th class="text-center">Fecha de Compra</th>
                                                             <th class="text-center">Fecha de Ingreso</th>
                                                             <th class="text-center">Numero de Factura</th>
+                                                            <th class="text-center">Numero de Serie</th>
                                                             <th class="text-center">Modelo</th>
                                                             <th class="text-center">Proveedor</th>
                                                             <th class="text-center">Valor</th>
