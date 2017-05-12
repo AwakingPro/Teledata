@@ -44,13 +44,13 @@
 											<a data-toggle="tab" href="#tab-2">Nuevo</a>
 										</li>
 										<li>
-											<a data-toggle="tab" href="#tab-3">Abiertos</a>
+											<a data-toggle="tab" href="#tab-3">Abiertos <span class="badge coutAbiertos">0</span></a>
 										</li>
 										<li>
-											<a data-toggle="tab" href="#tab-4">Inclumplidos</a>
+											<a data-toggle="tab" href="#tab-4">Inclumplidos <span class="badge">0</span></a>
 										</li>
 										<li>
-											<a data-toggle="tab" href="#tab-5">Asignados</a>
+											<a data-toggle="tab" href="#tab-5">Asignados <span class="badge coutnAsigados">0</span></a>
 										</li>
 									</ul>
 									<div class="tab-content">
@@ -190,8 +190,8 @@
 													<h4>Tickets Incunplidos (sin terminar):</h4>
 												</div>
 											</div>
-											<div class="listaAbiertos">
-
+											<div >
+											Todavia no esta lista
 											</div>
 										</div>
 										<div id="tab-5" class="tab-pane fade">

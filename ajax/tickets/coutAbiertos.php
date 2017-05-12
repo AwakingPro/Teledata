@@ -12,9 +12,8 @@
 	FROM
 		tickets
 	INNER JOIN usuarios ON tickets.AsignarA = usuarios.id
-	WHERE
-		tickets.IdTickets LIKE '%".$_POST['NumeroTicket']."%' AND tickets.IdCliente LIKE '%".$_POST['NombreCliente']."%'";
+	WHERE tickets.Estado = 'Abierto'";
 	$run = new Method;
-	$lista = $run->listView($query);
-	echo $lista;
+	$data = $run->select($query);
+	echo count($data);
  ?>

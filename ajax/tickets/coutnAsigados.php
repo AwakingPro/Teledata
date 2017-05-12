@@ -1,5 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
+	session_start();
 	$query = "SELECT
 		tickets.IdTickets as '#',
 		tickets.IdCliente as 'Cliente',
@@ -7,13 +8,12 @@
 		tickets.Departamento,
 		tickets.Tipo,
 		tickets.Prioridad,
-		tickets.Estado,
-		usuarios.nombre as 'Asignado a'
-	FROM
+		tickets.Estado
+		FROM
 		tickets
-	INNER JOIN usuarios ON tickets.AsignarA = usuarios.id
-	WHERE tickets.Estado = 'Abierto'";
+		INNER JOIN usuarios ON tickets.AsignarA = usuarios.id
+		WHERE tickets.AsignarA = ".$_SESSION['idUsuario'];
 	$run = new Method;
-	$lista = $run->listView($query);
-	echo $lista;
+	$data = $run->select($query);
+	echo count($data);
  ?>

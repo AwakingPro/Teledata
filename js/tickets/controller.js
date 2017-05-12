@@ -4,7 +4,7 @@ $(document).ready(function() {
 		$('.listaAbiertos > .tabeData').dataTable({
 			"columnDefs": [{
 				'orderable': false,
-				'targets': [10]
+				'targets': [8]
 			}, ]
 		});
 	});
@@ -12,10 +12,14 @@ $(document).ready(function() {
 		$('.listaAsignados > .tabeData').dataTable({
 			"columnDefs": [{
 				'orderable': false,
-				'targets': [10]
+				'targets': [7]
 			}, ]
 		});
 	});
+
+	$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
+	$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
+
 	$('.guardarTicket').click(function() {
 		$.postFormValues('../ajax/tickets/insertData.php','.cont-form1',function(data){
 			if (Number(data) > 0){
@@ -23,7 +27,7 @@ $(document).ready(function() {
 					$('.listaAbiertos > .tabeData').dataTable({
 						"columnDefs": [{
 							'orderable': false,
-							'targets': [10]
+							'targets': [8]
 						}, ]
 					});
 				});
@@ -31,10 +35,12 @@ $(document).ready(function() {
 					$('.listaAsignados  > .tabeData').dataTable({
 						"columnDefs": [{
 							'orderable': false,
-							'targets': [10]
+							'targets': [7]
 						}, ]
 					});
 				});
+				$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
+				$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
 				bootbox.alert('<h3 class="text-center">El ticket se registro con exito.</h3>');
 			}else{
 				console.log(data);
@@ -48,7 +54,7 @@ $(document).ready(function() {
 			$('.listaBusqueda > .tabeData').dataTable({
 				"columnDefs": [{
 					'orderable': false,
-					'targets': [10]
+					'targets': [8]
 				}, ]
 			});
 		});

@@ -2,8 +2,8 @@
 	require_once('../../class/methods_global/methods.php');
 	session_start();
 	$query = "SELECT
-		tickets.IdTickets,
-		tickets.IdCliente,
+		tickets.IdTickets as '#',
+		tickets.IdCliente as 'Cliente',
 		tickets.Origen,
 		tickets.Departamento,
 		tickets.Tipo,
