@@ -67,7 +67,7 @@
                                 </div>
 
                                 <div class="clearfix m-b-10"></div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Numero de Factura</label>
@@ -102,7 +102,7 @@
                                 </div>
 
                                 <div class="clearfix m-b-10"></div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Valor</label>
@@ -111,7 +111,7 @@
                                 </div>
 
                                 <div class="clearfix m-b-10"></div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Cantidad</label>
@@ -171,7 +171,7 @@
                                 </div>
 
                                 <div class="clearfix m-b-10"></div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Numero de Factura</label>
@@ -206,7 +206,7 @@
                                 </div>
 
                                 <div class="clearfix m-b-10"></div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Valor</label>
@@ -215,7 +215,7 @@
                                 </div>
 
                                 <div class="clearfix m-b-10"></div>
-                                
+
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Cantidad</label>
@@ -303,7 +303,7 @@
         </div>
 
         <!--SCRIPT-->
-        
+
         <script src="../../js/jquery-2.2.1.min.js"></script>
         <script src="../../js/bootstrap.min.js"></script>
         <script src="../../plugins/fast-click/fastclick.min.js"></script>
@@ -317,7 +317,7 @@
         <script src="../../js/demo/nifty-demo.min.js"></script>
         <script src="../../plugins/bootbox/bootbox.min.js"></script>
         <script src="../../js/demo/ui-alerts.js"></script>
-        <script src="../../plugins/audiojs/audio.min.js"></script>                        
+        <script src="../../plugins/audiojs/audio.min.js"></script>
         <script src="../../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
         <script src="../../plugins/bootbox/bootbox.min.js"></script>
         <script src="../../plugins/moment/moment.js"></script>
