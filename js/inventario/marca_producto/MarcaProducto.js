@@ -99,6 +99,8 @@ $(document).ready(function(){
                         ]).draw(false).node();
 
                         $( rowNode ).attr('id',response.array.id).data('tipo_producto_id',response.array.tipo_producto_id).addClass('text-center')
+                        
+                        $('#storeMarcaProducto')[0].reset();
                         $('.modal').modal('hide');
 
                     }else if(response.status == 2){

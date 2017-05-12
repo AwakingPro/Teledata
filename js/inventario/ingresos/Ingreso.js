@@ -2,7 +2,7 @@ $(document).ready(function(){
 
     $('.date').datetimepicker({
         locale: 'es',
-        format: 'YYYY-MM-DD'
+        format: 'DD-MM-YYYY'
     });
 
     $(".number").mask("0000000000");
@@ -45,13 +45,16 @@ $(document).ready(function(){
 
             $.each(response.array, function( index, array ) {
 
+                fecha_compra = moment(array.fecha_compra).format('DD-MM-YYYY');
+                fecha_ingreso = moment(array.fecha_ingreso).format('DD-MM-YYYY');
+
                 var rowNode = IngresoTable.row.add([
-                    ''+array.fecha_compra+'',
-                    ''+array.fecha_ingreso+'',
+                    ''+fecha_compra+'',
+                    ''+fecha_ingreso+'',
                     ''+array.numero_factura+'',
                     ''+array.tipo + ' ' + array.marca + ' ' + array.modelo+'',
                     ''+array.proveedor+'',
-                    ''+array.valor+'',
+                    ''+$.number(array.valor)+'',
                     ''+array.cantidad+'',
                     ''+array.bodega+'',
                     ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
@@ -134,7 +137,7 @@ $(document).ready(function(){
                     ''+response.array.numero_factura+'',
                     ''+Modelo+'',
                     ''+Proveedor+'',
-                    ''+response.array.valor+'',
+                    ''+$.number(response.array.valor)+'',
                     ''+response.array.cantidad+'',
                     ''+Bodega+'',
                     ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
@@ -147,6 +150,7 @@ $(document).ready(function(){
                     .data('bodega_id',response.array.bodega_id)
                     .addClass('text-center')
 
+                $('#storeIngreso')[0].reset();
                 $('.modal').modal('hide');
 
             }else if(response.status == 2){
@@ -195,7 +199,7 @@ $(document).ready(function(){
         $('#updateIngreso').find('input[name="fecha_compra"]').val(ObjectDateBuy);
         $('#updateIngreso').find('input[name="fecha_ingreso"]').val(ObjectDateEntry);
         $('#updateIngreso').find('input[name="numero_factura"]').val(ObjectBill);
-        $('#updateIngreso').find('input[name="valor"]').val(ObjectValue);
+        $('#updateIngreso').find('input[name="valor"]').val(parseInt(ObjectValue.replace(/,/g, '')));
         $('#updateIngreso').find('input[name="cantidad"]').val(ObjectQuantity);
 
         $('.selectpicker').selectpicker('refresh');
@@ -233,7 +237,7 @@ $(document).ready(function(){
                 ObjectTR.find("td").eq(2).html(response.array.numero_factura);
                 ObjectTR.find("td").eq(3).html(Modelo);
                 ObjectTR.find("td").eq(4).html(Proveedor);
-                ObjectTR.find("td").eq(5).html(response.array.valor);
+                ObjectTR.find("td").eq(5).html($.number(response.array.valor));
                 ObjectTR.find("td").eq(6).html(response.array.cantidad);
                 ObjectTR.find("td").eq(7).html(Bodega);
 

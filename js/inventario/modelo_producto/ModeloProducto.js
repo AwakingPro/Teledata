@@ -100,6 +100,8 @@ $(document).ready(function(){
                         ]).draw(false).node();
 
                         $( rowNode ).attr('id',response.array.id).data('marca_producto_id',response.array.marca_producto_id).addClass('text-center')
+                        
+                        $('#storeModeloProducto')[0].reset();
                         $('.modal').modal('hide');
 
                     }else if(response.status == 2){
