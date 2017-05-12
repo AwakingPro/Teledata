@@ -1,20 +1,18 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
+	session_start();
 	$query = "SELECT
 		tickets.IdTickets,
 		tickets.IdCliente,
 		tickets.Origen,
 		tickets.Departamento,
-		personaempresa.nombre AS Nombre,
 		tickets.Tipo,
 		tickets.Prioridad,
-		tickets.Estado,
-		personaempresa.rut,
-		personaempresa.nombre AS `Asignado a`
-	FROM
+		tickets.Estado
+		FROM
 		tickets
-	INNER JOIN personaempresa ON tickets.AsignarA = personaempresa.rut
-	WHERE tickets.AsignarA <> ''";
+		INNER JOIN usuarios ON tickets.AsignarA = usuarios.id
+		WHERE tickets.AsignarA = ".$_SESSION['idUsuario'];
 	$run = new Method;
 	$lista = $run->listView($query);
 	echo $lista;
