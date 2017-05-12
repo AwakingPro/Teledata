@@ -12,15 +12,15 @@
 			$data2 = $run->select($query2);
 			if (count($data2) > 0) {
 				$arrow = "<i class='arrow'></i>";
-				$subMenu .= '<ul class="collapse" id="demo">';
+				$subMenu .= '<ul class="collapse">';
 				for ($j=0; $j < count($data2); $j++) {
-					$subMenu .= '<li><a href="">'.$data2[$j]['Nombre'].'</a></li>';
+					$subMenu .= '<li><a href="'.$data2[$j]['Enlace'].'">'.$data2[$j]['Nombre'].'</a></li>';
 				}
 				$subMenu .= '</ul>';
 			}
 
 			$list.= ' <li>
-				<a  data-toggle="collapse" data-target="demo">
+				<a class="itemsMenu">
 					<i class="'.$data[$i]['icono'].'"></i>
 					<span class="menu-title">
 						<strong>'.$data[$i]['descripcion'].'</strong>
