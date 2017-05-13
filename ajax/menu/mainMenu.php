@@ -20,7 +20,7 @@
 			}
 
 			$list.= ' <li>
-				<a class="itemsMenu">
+				<a class="itemsMenu" href="'.$data[$i]['enlace'].'">
 					<i class="'.$data[$i]['icono'].'"></i>
 					<span class="menu-title">
 						<strong>'.$data[$i]['descripcion'].'</strong>
