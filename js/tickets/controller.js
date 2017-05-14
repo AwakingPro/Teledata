@@ -1,5 +1,6 @@
 $(document).ready(function() {
 	$('#personal').load('../ajax/tickets/listUsuario.php');
+	$('.listaPrioridad').load('../ajax/tickets/listPrioridad.php');
 	$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
 		$('.listaAbiertos > .tabeData').dataTable({
 			"columnDefs": [{
@@ -57,6 +58,11 @@ $(document).ready(function() {
 					'targets': [8]
 				}, ]
 			});
+		});
+	});
+	$('.guardarPrioridad').click(function() {
+		$.postFormValues('../ajax/tickets/dataPrioridad.php','.cont-form3',function(data){
+			alert(data);
 		});
 	});
 	$('[name="Tipo"]').change(function() {
