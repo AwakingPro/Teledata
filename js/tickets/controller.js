@@ -1,6 +1,14 @@
 $(document).ready(function() {
 	$('#personal').load('../ajax/tickets/listUsuario.php');
-	$('.listaPrioridad').load('../ajax/tickets/listPrioridad.php');
+	$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php');
+	$('.listaPrioridad').load('../ajax/tickets/listPrioridad.php',function(){
+		$('.listaPrioridad > .tabeData').dataTable({
+			"columnDefs": [{
+				'orderable': false,
+				'targets': [2]
+			}, ]
+		});
+	});
 	$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
 		$('.listaAbiertos > .tabeData').dataTable({
 			"columnDefs": [{
@@ -62,7 +70,21 @@ $(document).ready(function() {
 	});
 	$('.guardarPrioridad').click(function() {
 		$.postFormValues('../ajax/tickets/dataPrioridad.php','.cont-form3',function(data){
-			alert(data);
+			if (Number(data) > 0) {
+				$('.listaPrioridad').load('../ajax/tickets/listPrioridad.php',function(){
+					$('.listaPrioridad > .tabeData').dataTable({
+						"columnDefs": [{
+							'orderable': false,
+							'targets': [2]
+						}, ]
+					});
+				});
+				$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php');
+				bootbox.alert('<h3 class="text-center">la prioridad se registro con exito.</h3>');
+			}else{
+				console.log(data);
+				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+			}
 		});
 	});
 	$('[name="Tipo"]').change(function() {

@@ -143,10 +143,7 @@
 												<div class="col-md-6 form-group">
 													<label >Prioridad</label>
 													<select name="Prioridad" class="form-control" >
-														<option value="">Seleccione...</option>
-														<option>Alta</option>
-														<option>Medias</option>
-														<option>Baja</option>
+
 													</select>
 												</div>
 												<div class="col-md-6 form-group">
