@@ -1,17 +1,18 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
-		tickets.IdTickets as '#',
-		tickets.IdCliente as 'Cliente',
+		tickets.IdTickets AS `#`,
+		tickets.IdCliente AS Cliente,
 		tickets.Origen,
 		tickets.Departamento,
 		tickets.Tipo,
-		tickets.Prioridad,
 		tickets.Estado,
-		usuarios.nombre as 'Asignado a'
+		usuarios.nombre AS `Asignado a`,
+		tiempo_prioridad.Nombre as Prioridad
 	FROM
 		tickets
 	INNER JOIN usuarios ON tickets.AsignarA = usuarios.id
+	INNER JOIN tiempo_prioridad ON tickets.Prioridad = tiempo_prioridad.IdTiempoPrioridad
 	WHERE tickets.Estado = 'Abierto'";
 	$run = new Method;
 	$data = $run->select($query);

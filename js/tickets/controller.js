@@ -17,6 +17,14 @@ $(document).ready(function() {
 			}, ]
 		});
 	});
+	$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
+		$('.listaIncumplidos > .tabeData').dataTable({
+			"columnDefs": [{
+				'orderable': false,
+				'targets': [7]
+			}, ]
+		});
+	});
 	$('.listaAsignados').load('../ajax/tickets/listAsignados.php',function(){
 		$('.listaAsignados > .tabeData').dataTable({
 			"columnDefs": [{
@@ -28,6 +36,7 @@ $(document).ready(function() {
 
 	$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
 	$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
+	$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
 
 	$('.guardarTicket').click(function() {
 		$.postFormValues('../ajax/tickets/insertData.php','.cont-form1',function(data){
