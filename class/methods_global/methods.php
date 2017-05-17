@@ -48,19 +48,21 @@
 			if ($mysqli) {
 				$rows = array();
 				if ($resultado = $mysqli->query($query)) {
-					while ($fila = $resultado->fetch_assoc()) {
+					while ($fila = $resultado->fetch_array(MYSQLI_BOTH)) {
 						$rows[] = $fila;
 					}
-				    $resultado->free();
+					$resultado->free();
+					return $rows;
+				}else{
+					return 'Problemas en el query de consulta';
 				}
-		   		return $rows;
-		   	}else{
+			}else{
 				return 'No hay conexion';
 			}
 		}
 
 		function listView($post) {
-			$data =  $this->select($post);
+			$data = $this->select($post);
 			if (count($data) > 0) {
 				$tabla = "<table class='table table-striped tabeData'><thead><tr>";
 				foreach ($data[0] as $clave => $valor) {
