@@ -101,7 +101,7 @@
 						}
 						$tabla.='<td class="optionTable">
 							<i class="fa fa-trash-o"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>
-							<i class="fa fa-pencil-square-o" attr="'.$rows[$i][0].'"  aria-hidden="true" title="Editar"></i>
+							<i class="fa fa-pencil-square-o deleteRow" attr="'.$rows[$i][0].'"  aria-hidden="true" title="Editar"></i>
 							</td>';
 						$tabla.= '</tr>';
 					}
