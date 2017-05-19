@@ -43,6 +43,23 @@
 			}
 		}
 
+		public function delete($query){
+			$mysqli = $this->conexion();
+			if ($mysqli) {
+				$resultado = $mysqli->query($query);
+				if ($resultado) {
+					$return = true;
+					$mysqli->close();
+				}else{
+					$return = false;
+					$mysqli->close();
+				}
+				return $return;
+			}else{
+				return 'No hay conexion';
+			}
+		}
+
 		public function select($query) {
 			$mysqli = $this->conexion();
 			if ($mysqli) {
@@ -74,7 +91,7 @@
 						$tabla.="<th>".$fields[$i]."</th>";
 					}
 					$tabla.="<th></th></tr></thead><tbody>";
-					while ($fila = $resultado->fetch_array(MYSQLI_ASSOC)) {
+					while ($fila = $resultado->fetch_array(MYSQLI_NUM)) {
 						$rows[] = $fila;
 					}
 					for ($i=0; $i < count($rows) ; $i++) {
@@ -83,8 +100,8 @@
 							$tabla.="<td>".$valor."</td>";
 						}
 						$tabla.='<td class="optionTable">
-							<i class="fa fa-trash-o" aria-hidden="true" title="Eliminar"></i>
-							<i class="fa fa-pencil-square-o" aria-hidden="true" title="Editar"></i>
+							<i class="fa fa-trash-o"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>
+							<i class="fa fa-pencil-square-o" attr="'.$rows[$i][0].'"  aria-hidden="true" title="Editar"></i>
 							</td>';
 						$tabla.= '</tr>';
 					}
