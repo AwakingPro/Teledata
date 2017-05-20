@@ -94,16 +94,18 @@
 					while ($fila = $resultado->fetch_array(MYSQLI_NUM)) {
 						$rows[] = $fila;
 					}
-					for ($i=0; $i < count($rows) ; $i++) {
-						$tabla.= '<tr>';
-						foreach ($rows[$i] as $clave => $valor) {
-							$tabla.="<td>".$valor."</td>";
+					if (isset($rows)) {
+						for ($i=0; $i < count($rows) ; $i++) {
+							$tabla.= '<tr>';
+							foreach ($rows[$i] as $clave => $valor) {
+								$tabla.="<td>".$valor."</td>";
+							}
+							$tabla.='<td class="optionTable">
+								<i class="fa fa-trash-o deleteRow"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>
+								<i class="fa fa-pencil-square-o" attr="'.$rows[$i][0].'"  aria-hidden="true" title="Editar"></i>
+								</td>';
+							$tabla.= '</tr>';
 						}
-						$tabla.='<td class="optionTable">
-							<i class="fa fa-trash-o"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>
-							<i class="fa fa-pencil-square-o deleteRow" attr="'.$rows[$i][0].'"  aria-hidden="true" title="Editar"></i>
-							</td>';
-						$tabla.= '</tr>';
 					}
 					$tabla.="</tbody></table>";
 					return $tabla;
