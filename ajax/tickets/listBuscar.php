@@ -1,17 +1,18 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
-		tickets.IdTickets as '#',
-		tickets.IdCliente as 'Cliente',
+		tickets.IdTickets AS `#`,
+		tickets.IdCliente AS Cliente,
 		tickets.Origen,
 		tickets.Departamento,
 		tickets.Tipo,
-		tickets.Prioridad,
 		tickets.Estado,
-		usuarios.nombre as 'Asignado a'
+		usuarios.nombre AS `Asignado a`,
+		tiempo_prioridad.Nombre
 	FROM
 		tickets
 	INNER JOIN usuarios ON tickets.AsignarA = usuarios.id
+	INNER JOIN tiempo_prioridad ON tickets.Prioridad = tiempo_prioridad.IdTiempoPrioridad
 	WHERE
 		tickets.IdTickets LIKE '%".$_POST['NumeroTicket']."%' AND tickets.IdCliente LIKE '%".$_POST['NombreCliente']."%'";
 	$run = new Method;

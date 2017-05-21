@@ -21,11 +21,7 @@
 			<div class="boxed">
 				<div id="content-container">
 					<div id="page-title" style="padding-right: 25px;">
-						<h1 class="page-header pull-lef  text-overflow">Modulo de Tickets
-							<div class="pull-right">
-							<button type="button" class="btn btn-primary">Asignar tiempo por prioridad</button>
-						</div>
-						</h1>
+						<h1 class="page-header text-overflow">Modulo de Tickets</h1>
 					</div>
 					<br>
 					<ol class="breadcrumb">
@@ -47,7 +43,7 @@
 											<a data-toggle="tab" href="#tab-3">Abiertos <span class="badge coutAbiertos">0</span></a>
 										</li>
 										<li>
-											<a data-toggle="tab" href="#tab-4">Inclumplidos <span class="badge">0</span></a>
+											<a data-toggle="tab" href="#tab-4">Inclumplidos <span class="badge coutnIncumplidos">0</span></a>
 										</li>
 										<li>
 											<a data-toggle="tab" href="#tab-5">Asignados <span class="badge coutnAsigados">0</span></a>
@@ -86,6 +82,9 @@
 											<div class="row">
 												<div class="col-md-12">
 													<h4>Nuevo Ticket:</h4>
+													<div class="pull-right">
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiempoPrioridad">Asignar tiempo por prioridad</button>
+													</div>
 												</div>
 											</div>
 											<div class="row">
@@ -144,10 +143,7 @@
 												<div class="col-md-6 form-group">
 													<label >Prioridad</label>
 													<select name="Prioridad" class="form-control" >
-														<option value="">Seleccione...</option>
-														<option>Alta</option>
-														<option>Medias</option>
-														<option>Baja</option>
+
 													</select>
 												</div>
 												<div class="col-md-6 form-group">
@@ -187,10 +183,10 @@
 										<div id="tab-4" class="tab-pane fade">
 											<div class="row">
 												<div class="col-md-12">
-													<h4>Tickets Incunplidos (sin terminar):</h4>
+													<h4>Tickets Incunplidos:</h4>
 												</div>
 											</div>
-											<div >
+											<div class="listaIncumplidos">
 											Todavia no esta lista
 											</div>
 										</div>
@@ -240,3 +236,33 @@
 	<script src="../js/tickets/controller.js"></script>
 </body>
 </html>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="tiempoPrioridad">
+  <div class="modal-dialog" role="document">
+	<div class="modal-content">
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		<h4 class="modal-title">Tiempos por prioridad</h4>
+	  </div>
+	  <div class="modal-body cont-form3">
+		<div class="row">
+			<div class="col-md-6 form-group">
+				<label>Nombre</label>
+				<input type="text" name="nombre" class="form-control">
+			</div>
+			<div class="col-md-6 form-group">
+				<label>Tiempo en horas</label>
+				<input type="text" name="tiempo" class="form-control">
+			</div>
+		</div>
+		<div class="listaPrioridad">
+
+		</div>
+	  </div>
+	  <div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+		<button type="button" class="btn btn-primary guardarPrioridad">Guardar</button>
+	  </div>
+	</div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
