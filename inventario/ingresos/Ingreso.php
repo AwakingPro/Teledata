@@ -320,7 +320,24 @@
                     </div>
                 </div>
             </div>
-                <?php include("../../layout/footer.php"); ?>
+            <nav id='mainnav-container'>
+                <div id='mainnav'>
+                    <div id='mainnav-shortcut'>
+                        <ul class='list-unstyled'>
+                            <li class='col-xs-4' data-content='Page Alerts'></li>
+                        </ul>
+                    </div>
+                    <div id='mainnav-menu-wrap'>
+                        <div class='nano'>
+                            <div class='nano-content'>
+                                <ul id='mainnav-menu' class='list-group'>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+            <?php include("../../layout/footer.php"); ?>
         </div>
 
         <!--SCRIPT-->
