@@ -58,7 +58,7 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('.tipo_producto_id').append(new Option(array.nombre,array.id));
+                $('.tipo_producto_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
 
             $('.selectpicker').selectpicker('render');

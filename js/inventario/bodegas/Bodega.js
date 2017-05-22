@@ -60,7 +60,7 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('.personal_id').append(new Option(array.nombre,array.id));
+                $('.personal_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
 
             $('.selectpicker').selectpicker('render');

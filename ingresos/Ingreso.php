@@ -90,7 +90,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Modelo</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control modelo_producto_id" id="modelo_producto_id" name="modelo_producto_id" validation="not_null"  data-live-search="true" data-nombre="Modelo">
+                                            <select class="selectpicker form-control modelo_producto_id" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>

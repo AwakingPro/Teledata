@@ -85,7 +85,7 @@ $(document).ready(function(){
                     success: function(response){
 
                         $.each(response.array, function( index, array ) {
-                            $('#origen_id').append(new Option(array.nombre,array.id));
+                            $('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
                         });
 
                         $('.selectpicker').selectpicker('render');
@@ -123,7 +123,7 @@ $(document).ready(function(){
                     success: function(response){
 
                         $.each(response.array, function( index, array ) {
-                            $('#destino_id').append(new Option(array.nombre,array.id));
+                            $('#destino_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
                         });
 
                         $('#destino_id').selectpicker('refresh');
@@ -153,7 +153,7 @@ $(document).ready(function(){
             success: function(response){
 
                 $.each(response.array, function( index, array ) {
-                    $('#producto_id').append(new Option(array.tipo + ' ' + array.marca + ' ' + array.modelo + ' - ' + array.numero_serie,array.id));
+                    $('#producto_id').append('<option value="'+array.id+'" data-content="'+array.tipo + ' ' + array.marca + ' ' + array.modelo+ ' - ' + array.numero_serie+'"></option>');
                 });
 
                 $('.selectpicker').selectpicker('render');

@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+    $('.selectpicker').selectpicker();
+
     $('.date').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY'
@@ -79,7 +81,7 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('.modelo_producto_id').append(new Option(array.tipo + ' ' + array.marca + ' ' + array.nombre,array.id));
+                $('.modelo_producto_id').append('<option value="'+array.id+'" data-content="'+array.tipo + ' ' + array.marca + ' ' + array.nombre+'"></option>');
             });
 
             $('.selectpicker').selectpicker('render');
@@ -94,7 +96,7 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('.proveedor_id').append(new Option(array.nombre,array.id));
+                $('.proveedor_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
 
             $('.selectpicker').selectpicker('render');
@@ -109,14 +111,14 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('.bodega_id').append(new Option(array.nombre,array.id));
+                $('.bodega_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
 
             $('.selectpicker').selectpicker('render');
             $('.selectpicker').selectpicker('refresh');
-        
         }
     });
+
 
     $('body').on('click', '#guardarIngreso', function () {
 
