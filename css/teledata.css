@@ -15,3 +15,6 @@ div.bg-img{
 	margin-right: 10px;
 	cursor: pointer;
 }
+#navbar .brand-title {
+    padding: 0 1.5em 0 5px;
+}
