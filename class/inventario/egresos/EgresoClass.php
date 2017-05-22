@@ -5,17 +5,15 @@
 
     class Egreso{
 
-    	public function storeMovimiento($ProductoId,$OrigenTipo,$OrigenId, $DestinoTipo,$DestinoId){
+    	public function storeMovimiento($ProductoId,$DestinoTipo,$DestinoId){
 
             $response_array = array();
 
             $ProductoId = isset($ProductoId) ? trim($ProductoId) : "";
-            $OrigenTipo = isset($OrigenTipo) ? trim($OrigenTipo) : "";
-            $OrigenId = isset($OrigenId) ? trim($OrigenId) : "";
             $DestinoTipo = isset($DestinoTipo) ? trim($DestinoTipo) : "";
             $DestinoId = isset($DestinoId) ? trim($DestinoId) : "";
 
-            if(!empty($ProductoId) && !empty($OrigenTipo) && !empty($OrigenId) && !empty($DestinoTipo) && !empty($DestinoId)){
+            if(!empty($ProductoId) && !empty($DestinoTipo) && !empty($DestinoId)){
 
                 session_start();
 
@@ -31,7 +29,7 @@
 
                 if($id){
 
-                    $query = "UPDATE inventario_ingresos set bodega_tipo = '$DestinoTipo', bodega_id = '$DestinoId' where modelo_producto_id = '$ProductoId' AND bodega_tipo = '$OrigenTipo' AND bodega_id = '$OrigenId'";
+                    $query = "UPDATE inventario_ingresos set bodega_tipo = '$DestinoTipo', bodega_id = '$DestinoId' where id = '$ProductoId'";
 
                     $run = new Method;
                     $update = $run->insert($query);
