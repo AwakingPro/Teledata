@@ -33,7 +33,7 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
-        url: "../../includes/inventario/proveedores/showProveedores.php",
+        url: "../includes/inventario/proveedores/showProveedores.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
@@ -63,7 +63,7 @@ $(document).ready(function(){
 
             $.ajax({
                 type: "POST",
-                url: "../../includes/inventario/proveedores/storeProveedor.php",
+                url: "../includes/inventario/proveedores/storeProveedor.php",
                 data:data,
                 success: function(response){
 
@@ -149,7 +149,7 @@ $(document).ready(function(){
                         
             $.ajax({
                 type: "POST",
-                url: "../../includes/inventario/proveedores/updateProveedor.php",
+                url: "../includes/inventario/proveedores/updateProveedor.php",
                 data:data,
                 success: function(response){
 

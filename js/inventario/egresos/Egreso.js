@@ -36,7 +36,7 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
-        url: "../../includes/inventario/egresos/showMovimientos.php",
+        url: "../includes/inventario/egresos/showMovimientos.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
@@ -81,19 +81,21 @@ $(document).ready(function(){
 
                 $.ajax({
                     type: "POST",
-                    url: "../../includes/inventario/egresos/getBodega.php",
+                    url: "../includes/inventario/egresos/getBodega.php",
                     success: function(response){
 
                         $.each(response.array, function( index, array ) {
                             $('#origen_id').append(new Option(array.nombre,array.id));
                         });
 
-                        $('#origen_id').selectpicker('refresh');
+                        $('.selectpicker').selectpicker('render');
+                        $('.selectpicker').selectpicker('refresh');
                     }
                 });
             }else{
                 $('#span_origen').text('Cliente');
-                $('#origen_id').selectpicker('refresh');
+                $('.selectpicker').selectpicker('render');
+                $('.selectpicker').selectpicker('refresh');
             }
         }else{
             $('.origen').hide();
@@ -117,7 +119,7 @@ $(document).ready(function(){
 
                 $.ajax({
                     type: "POST",
-                    url: "../../includes/inventario/egresos/getBodega.php",
+                    url: "../includes/inventario/egresos/getBodega.php",
                     success: function(response){
 
                         $.each(response.array, function( index, array ) {
@@ -146,7 +148,7 @@ $(document).ready(function(){
 
         $.ajax({
             type: "POST",
-            url: "../../includes/inventario/egresos/getProducto.php",
+            url: "../includes/inventario/egresos/getProducto.php",
             data:"&origen_tipo="+origen_tipo+"&origen_id="+origen_id,
             success: function(response){
 
@@ -154,7 +156,8 @@ $(document).ready(function(){
                     $('#producto_id').append(new Option(array.tipo + ' ' + array.marca + ' ' + array.modelo + ' - ' + array.numero_serie,array.id));
                 });
 
-                $('#producto_id').selectpicker('refresh');
+                $('.selectpicker').selectpicker('render');
+                $('.selectpicker').selectpicker('refresh');
             }
         });
             
@@ -164,7 +167,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#guardarEgreso', function () {
 
-        $.postFormValues('../../includes/inventario/egresos/storeMovimiento.php', '#storeEgreso', function(response){
+        $.postFormValues('../includes/inventario/egresos/storeMovimiento.php', '#storeEgreso', function(response){
 
             if(response.status == 1){
 
@@ -192,7 +195,8 @@ $(document).ready(function(){
                     .addClass('text-center')
 
                 $('#storeEgreso')[0].reset();
-                $('.selectpicker').selectpicker('refresh')
+                $('.selectpicker').selectpicker('render');
+                $('.selectpicker').selectpicker('refresh');
                 $('.modal').modal('hide');
 
             }else if(response.status == 2){

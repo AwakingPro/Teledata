@@ -33,7 +33,7 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
-        url: "../../includes/inventario/tipo_producto/showTipoProducto.php",
+        url: "../includes/inventario/tipo_producto/showTipoProducto.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
@@ -60,7 +60,7 @@ $(document).ready(function(){
 
             $.ajax({
                 type: "POST",
-                url: "../../includes/inventario/tipo_producto/storeTipoProducto.php",
+                url: "../includes/inventario/tipo_producto/storeTipoProducto.php",
                 data:data,
                 success: function(response){
 
@@ -137,7 +137,7 @@ $(document).ready(function(){
                         
             $.ajax({
                 type: "POST",
-                url: "../../includes/inventario/tipo_producto/updateTipoProducto.php",
+                url: "../includes/inventario/tipo_producto/updateTipoProducto.php",
                 data:data,
                 success: function(response){
 

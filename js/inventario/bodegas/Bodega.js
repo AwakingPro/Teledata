@@ -33,7 +33,7 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
-        url: "../../includes/inventario/bodegas/showBodegas.php",
+        url: "../includes/inventario/bodegas/showBodegas.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
@@ -56,14 +56,15 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
-        url: "../../includes/inventario/bodegas/showPersonal.php",
+        url: "../includes/inventario/bodegas/showPersonal.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
                 $('.personal_id').append(new Option(array.nombre,array.id));
             });
 
-            $('.personal_id').selectpicker('refresh');
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
         
         }
     });
@@ -77,7 +78,7 @@ $(document).ready(function(){
 
             $.ajax({
                 type: "POST",
-                url: "../../includes/inventario/bodegas/storeBodega.php",
+                url: "../includes/inventario/bodegas/storeBodega.php",
                 data:data,
                 success: function(response){
 
@@ -104,6 +105,8 @@ $(document).ready(function(){
 
                         $( rowNode ).attr('id',response.array.id).data('personal_id',response.array.personal_id).addClass('text-center');
                         $('#storeBodega')[0].reset();
+                        $('.selectpicker').selectpicker('render');
+                        $('.selectpicker').selectpicker('refresh');
                         $('.modal').modal('hide');
 
                     }else if(response.status == 2){
@@ -169,7 +172,7 @@ $(document).ready(function(){
        
             $.ajax({
                 type: "POST",
-                url: "../../includes/inventario/bodegas/updateBodega.php",
+                url: "../includes/inventario/bodegas/updateBodega.php",
                 data:data,
                 success: function(response){
 

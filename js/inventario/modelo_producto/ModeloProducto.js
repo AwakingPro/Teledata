@@ -33,7 +33,7 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
-        url: "../../includes/inventario/modelo_producto/showModeloProducto.php",
+        url: "../includes/inventario/modelo_producto/showModeloProducto.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
@@ -54,14 +54,15 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
-        url: "../../includes/inventario/modelo_producto/showMarcaProducto.php",
+        url: "../includes/inventario/modelo_producto/showMarcaProducto.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
                 $('.marca_producto_id').append(new Option(array.nombre,array.id));
             });
 
-            $('.marca_producto_id').selectpicker('refresh');
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
         
         }
     });
@@ -76,7 +77,7 @@ $(document).ready(function(){
 
             $.ajax({
                 type: "POST",
-                url: "../../includes/inventario/modelo_producto/storeModeloProducto.php",
+                url: "../includes/inventario/modelo_producto/storeModeloProducto.php",
                 data:data,
                 success: function(response){
 
@@ -102,6 +103,8 @@ $(document).ready(function(){
                         $( rowNode ).attr('id',response.array.id).data('marca_producto_id',response.array.marca_producto_id).addClass('text-center')
                         
                         $('#storeModeloProducto')[0].reset();
+                        $('.selectpicker').selectpicker('render');
+                        $('.selectpicker').selectpicker('refresh');
                         $('.modal').modal('hide');
 
                     }else if(response.status == 2){
@@ -144,6 +147,7 @@ $(document).ready(function(){
         $('#updateModeloProducto').find('input[name="nombre"]').val(ObjectName);
         $('#updateModeloProducto').find('textarea[name="descripcion"]').text(ObjectDescription);
 
+        $('.selectpicker').selectpicker('render');
         $('.selectpicker').selectpicker('refresh');
 
         $('#ModeloProductoFormUpdate').modal('show');
@@ -160,7 +164,7 @@ $(document).ready(function(){
                         
             $.ajax({
                 type: "POST",
-                url: "../../includes/inventario/modelo_producto/updateModeloProducto.php",
+                url: "../includes/inventario/modelo_producto/updateModeloProducto.php",
                 data:data,
                 success: function(response){
 

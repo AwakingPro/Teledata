@@ -40,7 +40,7 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
-        url: "../../includes/inventario/ingresos/showIngreso.php",
+        url: "../includes/inventario/ingresos/showIngreso.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
@@ -53,6 +53,7 @@ $(document).ready(function(){
                     ''+fecha_ingreso+'',
                     ''+array.numero_factura+'',
                     ''+array.numero_serie+'',
+                    ''+array.mac_address+'',
                     ''+array.tipo + ' ' + array.marca + ' ' + array.modelo+'',
                     ''+array.proveedor+'',
                     ''+$.number(array.valor)+'',
@@ -74,49 +75,52 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
-        url: "../../includes/inventario/ingresos/showModelo.php",
+        url: "../includes/inventario/ingresos/showModelo.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
                 $('.modelo_producto_id').append(new Option(array.tipo + ' ' + array.marca + ' ' + array.nombre,array.id));
             });
 
-            $('.modelo_producto_id').selectpicker('refresh');
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
         
         }
     });
 
     $.ajax({
         type: "POST",
-        url: "../../includes/inventario/ingresos/showProveedor.php",
+        url: "../includes/inventario/ingresos/showProveedor.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
                 $('.proveedor_id').append(new Option(array.nombre,array.id));
             });
 
-            $('.proveedor_id').selectpicker('refresh');
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
         
         }
     });
 
     $.ajax({
         type: "POST",
-        url: "../../includes/inventario/ingresos/showBodega.php",
+        url: "../includes/inventario/ingresos/showBodega.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
                 $('.bodega_id').append(new Option(array.nombre,array.id));
             });
 
-            $('.bodega_id').selectpicker('refresh');
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
         
         }
     });
 
     $('body').on('click', '#guardarIngreso', function () {
 
-        $.postFormValues('../../includes/inventario/ingresos/storeIngreso.php', '#storeIngreso', function(response){
+        $.postFormValues('../includes/inventario/ingresos/storeIngreso.php', '#storeIngreso', function(response){
 
             if(response.status == 1){
 
@@ -137,6 +141,7 @@ $(document).ready(function(){
                     ''+response.array.fecha_ingreso+'',
                     ''+response.array.numero_factura+'',
                     ''+response.array.numero_serie+'',
+                    ''+response.array.mac_address+'',
                     ''+Modelo+'',
                     ''+Proveedor+'',
                     ''+$.number(response.array.valor)+'',
@@ -153,6 +158,8 @@ $(document).ready(function(){
                     .addClass('text-center')
 
                 $('#storeIngreso')[0].reset();
+                $('.selectpicker').selectpicker('render');
+                $('.selectpicker').selectpicker('refresh');
                 $('.modal').modal('hide');
 
             }else if(response.status == 2){
@@ -193,8 +200,9 @@ $(document).ready(function(){
         var ObjectDateEntry = ObjectTR.find("td").eq(1).text();
         var ObjectBill = ObjectTR.find("td").eq(2).text();
         var ObjectSerial = ObjectTR.find("td").eq(3).text();
-        var ObjectValue = ObjectTR.find("td").eq(6).text();
-        var ObjectQuantity = ObjectTR.find("td").eq(7).text();
+        var ObjectMacAddress = ObjectTR.find("td").eq(4).text();
+        var ObjectValue = ObjectTR.find("td").eq(7).text();
+        var ObjectQuantity = ObjectTR.find("td").eq(8).text();
         $('#updateIngreso').find('input[name="id"]').val(ObjectId);
         $('#updateIngreso').find('select[name="modelo_producto_id"]').val(ObjectModel);
         $('#updateIngreso').find('select[name="bodega_id"]').val(ObjectStore);
@@ -203,9 +211,11 @@ $(document).ready(function(){
         $('#updateIngreso').find('input[name="fecha_ingreso"]').val(ObjectDateEntry);
         $('#updateIngreso').find('input[name="numero_factura"]').val(ObjectBill);
         $('#updateIngreso').find('input[name="numero_serie"]').val(ObjectSerial);
+        $('#updateIngreso').find('input[name="mac_address"]').val(ObjectMacAddress);
         $('#updateIngreso').find('input[name="valor"]').val(parseInt(ObjectValue.replace(/,/g, '')));
         $('#updateIngreso').find('input[name="cantidad"]').val(ObjectQuantity);
 
+        $('.selectpicker').selectpicker('render');
         $('.selectpicker').selectpicker('refresh');
 
         $('#IngresoFormUpdate').modal('show');
@@ -215,7 +225,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#actualizarIngreso', function () {
 
-        $.postFormValues('../../includes/inventario/ingresos/updateIngreso.php', '#updateIngreso', function(response){
+        $.postFormValues('../includes/inventario/ingresos/updateIngreso.php', '#updateIngreso', function(response){
                     
             if(response.status == 1){
 
@@ -240,11 +250,12 @@ $(document).ready(function(){
                 ObjectTR.find("td").eq(1).html(response.array.fecha_ingreso);
                 ObjectTR.find("td").eq(2).html(response.array.numero_factura);
                 ObjectTR.find("td").eq(3).html(response.array.numero_serie);
-                ObjectTR.find("td").eq(4).html(Modelo);
-                ObjectTR.find("td").eq(5).html(Proveedor);
-                ObjectTR.find("td").eq(6).html($.number(response.array.valor));
-                ObjectTR.find("td").eq(7).html(response.array.cantidad);
-                ObjectTR.find("td").eq(8).html(Bodega);
+                ObjectTR.find("td").eq(4).html(response.array.mac_address);
+                ObjectTR.find("td").eq(5).html(Modelo);
+                ObjectTR.find("td").eq(6).html(Proveedor);
+                ObjectTR.find("td").eq(7).html($.number(response.array.valor));
+                ObjectTR.find("td").eq(8).html(response.array.cantidad);
+                ObjectTR.find("td").eq(9).html(Bodega);
 
                 $('.modal').modal('hide');
                 

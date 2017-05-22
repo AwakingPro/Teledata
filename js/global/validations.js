@@ -59,7 +59,6 @@ $.postFormValues = function(url, form,callback) {
         var objs = $(form).find("input,input[type='checkbox']:checked,input[type='radio']:checked,textarea,select");
         var formValues = new FormData();
         objs.each(function(index, obj) {
-            console.log($(obj).val())
             if (obj.hasAttribute('name')) {
                 countObjs++;
                 if ($.validation(obj)) {
@@ -110,8 +109,3 @@ $.validation = function(obj) {
         return true;
     }
 }
-
-$('#mainnav-menu').load('../../ajax/menu/mainMenu.php');
-$(document).on('click', '.itemsMenu', function() {
-    $(this).siblings('.collapse').slideToggle();
-});
