@@ -87,6 +87,40 @@
             echo json_encode($response_array);
         }
 
+        function deleteBodega($Id){
+
+            $response_array = array();
+
+            $Id = isset($Id) ? trim($Id) : "";
+
+            if(!empty($Id)){
+
+                $this->Id=$Id;
+
+                $query = "SELECT * from `inventario_ingresos` where `bodega_id` = '$this->Id'";
+                $run = new Method;
+                $data = $run->select($query);
+
+                if(!$data){
+
+                    $query = "DELETE from `mantenedor_bodegas` where `id` = '$this->Id'";
+                    $run = new Method;
+                    $data = $run->insert($query);
+                    $query = "DELETE from `inventario_egresos` where `destino_tipo` = '1' AND where `destino_id` = '$this->Id'";
+                    $run = new Method;
+                    $data = $run->insert($query);
+                    $response_array['status'] = 1; 
+                    
+                }else{
+                    $response_array['status'] = 3; 
+                }
+            }else{
+                $response_array['status'] = 2; 
+            }
+
+            echo json_encode($response_array);
+        }
+
         function showBodegas(){
 
             $query = 'SELECT mantenedor_bodegas.*, usuarios.nombre as personal FROM mantenedor_bodegas INNER JOIN usuarios ON mantenedor_bodegas.personal_id = usuarios.id';
