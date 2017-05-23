@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    BodegaTable = $('#BodegaTable').DataTable({
+    Table = $('#BodegaTable').DataTable({
         paging: false,
         iDisplayLength: 100,
         processing: true,
@@ -38,13 +38,13 @@ $(document).ready(function(){
 
             $.each(response.array, function( index, array ) {
 
-                var rowNode = BodegaTable.row.add([
+                var rowNode = Table.row.add([
                   ''+array.nombre+'',
                   ''+array.direccion+'',
                   ''+array.telefono+'',
                   ''+array.personal+'',
                   ''+array.correo+'',
-                  ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
+                  ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
                 $( rowNode ).attr('id',array.id).data('personal_id',array.personal_id).addClass('text-center');
@@ -94,13 +94,13 @@ $(document).ready(function(){
 
                         Personal = $('#personal_id option[value="'+response.array.personal_id+'"]').first().data('content');
 
-                        var rowNode = BodegaTable.row.add([
+                        var rowNode = Table.row.add([
                           ''+response.array.nombre+'',
                           ''+response.array.direccion+'',
                           ''+response.array.telefono+'',
                           ''+Personal+'',
                           ''+response.array.correo+'',
-                          ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
+                          ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                         ]).draw(false).node();
 
                         $( rowNode ).attr('id',response.array.id).data('personal_id',response.array.personal_id).addClass('text-center');
@@ -220,5 +220,49 @@ $(document).ready(function(){
                 }
             });
         }      
+    });
+
+    $('body').on('click', '.Remove', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = ObjectTR.attr("id");
+
+        swal({   
+            title: "Desea eliminar este registro?",   
+            text: "Confirmar eliminación!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Eliminar!",  
+            cancelButtonText: "Cancelar",         
+            closeOnConfirm: true 
+        },function(isConfirm){   
+            if (isConfirm) {
+    
+                $.ajax({
+                    url: "../includes/inventario/bodegas/deleteBodega.php",
+                    type: 'POST',
+                    data:"&id="+ObjectId,
+                    success:function(response){
+                        setTimeout(function() {
+                            if(response.status == 1){
+                                swal("Exito!","El registro ha sido eliminado!","success");
+                                Table.row($(ObjectTR))
+                                    .remove()
+                                    .draw();
+                            }else if(response.status == 3){
+                                swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee otros registros asociados','error');
+                            }else{
+                                swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                            }
+                        }, 1000);  
+                    },
+                    error:function(){
+                        swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                    }
+                });
+            }
+        });
     });
 });

@@ -77,6 +77,37 @@
             echo json_encode($response_array);
         }
 
+        function deleteMarcaProducto($Id){
+
+            $response_array = array();
+
+            $Id = isset($Id) ? trim($Id) : "";
+
+            if(!empty($Id)){
+
+                $this->Id=$Id;
+
+                $query = "SELECT * from `mantenedor_modelo_producto` where `marca_producto_id` = '$this->Id'";
+                $run = new Method;
+                $data = $run->select($query);
+
+                if(!$data){
+
+                    $query = "DELETE from `mantenedor_marca_producto` where `id` = '$this->Id'";
+                    $run = new Method;
+                    $data = $run->insert($query);
+                    $response_array['status'] = 1; 
+                    
+                }else{
+                    $response_array['status'] = 3; 
+                }
+            }else{
+                $response_array['status'] = 2; 
+            }
+
+            echo json_encode($response_array);
+        }
+
         function showMarcaProducto(){
 
             $query = 'SELECT mantenedor_marca_producto.*, mantenedor_tipo_producto.nombre as tipo FROM mantenedor_marca_producto INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id';

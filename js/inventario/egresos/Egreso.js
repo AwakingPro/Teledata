@@ -3,7 +3,7 @@ $(document).ready(function(){
     $('#storeEgreso')[0].reset();
     $('.selectpicker').selectpicker('refresh')
 
-    EgresoTable = $('#EgresoTable').DataTable({
+    Table = $('#EgresoTable').DataTable({
         paging: false,
         iDisplayLength: 100,
         processing: true,
@@ -43,7 +43,7 @@ $(document).ready(function(){
 
                 fecha_movimiento = moment(array.fecha_movimiento).format('DD-MM-YYYY');
 
-                var rowNode = EgresoTable.row.add([
+                var rowNode = Table.row.add([
                     ''+array.numero_serie+'',
                     ''+array.tipo + ' ' + array.marca + ' ' + array.modelo+'',
                     ''+array.destino_tipo+ ' ' +array.destino_nombre+'',
@@ -181,7 +181,7 @@ $(document).ready(function(){
 
                 fecha_movimiento = moment(response.array.fecha_movimiento).format('DD-MM-YYYY');
 
-                var rowNode = EgresoTable.row.add([
+                var rowNode = Table.row.add([
                     ''+response.array.numero_serie+'',
                     ''+response.array.producto+'',
                     ''+response.array.destino+'',

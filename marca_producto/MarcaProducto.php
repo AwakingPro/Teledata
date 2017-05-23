@@ -25,6 +25,7 @@
         <link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
         <link href="../plugins/bootstrap-dataTables/jquery.dataTables.css" rel="stylesheet"  media="screen">
         <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+        <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
         <link href="../css/teledata.css" rel="stylesheet">
 
     </head>
@@ -200,6 +201,7 @@
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
         <script src="../plugins/bootbox/bootbox.min.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        <script src="../plugins/sweetalert/sweetalert.min.js"></script>
         <script src="../js/global/validations.js"></script>
         <script src="../js/inventario/marca_producto/MarcaProducto.js"></script>
 

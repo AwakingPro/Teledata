@@ -73,6 +73,37 @@
             echo json_encode($response_array);
         }
 
+        function deleteTipoProducto($Id){
+
+            $response_array = array();
+
+            $Id = isset($Id) ? trim($Id) : "";
+
+            if(!empty($Id)){
+
+                $this->Id=$Id;
+
+                $query = "SELECT * from `mantenedor_marca_producto` where `tipo_producto_id` = '$this->Id'";
+                $run = new Method;
+                $data = $run->select($query);
+
+                if(!$data){
+
+                    $query = "DELETE from `mantenedor_tipo_producto` where `id` = '$this->Id'";
+                    $run = new Method;
+                    $data = $run->insert($query);
+                    $response_array['status'] = 1; 
+                    
+                }else{
+                    $response_array['status'] = 3; 
+                }
+            }else{
+                $response_array['status'] = 2; 
+            }
+
+            echo json_encode($response_array);
+        }
+
         function showTipoProducto(){
 
             $query = 'SELECT * FROM mantenedor_tipo_producto';

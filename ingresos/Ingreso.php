@@ -25,6 +25,7 @@
         <link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
         <link href="../plugins/bootstrap-dataTables/jquery.dataTables.css" rel="stylesheet"  media="screen">
         <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+        <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
         <link href="../css/teledata.css" rel="stylesheet">
 
     </head>
@@ -356,6 +357,7 @@
         <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
         <script src="../plugins/moment/moment.js"></script>
         <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+        <script src="../plugins/sweetalert/sweetalert.min.js"></script>
         <script src="../js/global/validations.js"></script>
         <script src="../js/inventario/ingresos/Ingreso.js"></script>
 

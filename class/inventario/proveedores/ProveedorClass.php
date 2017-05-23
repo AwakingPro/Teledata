@@ -87,6 +87,37 @@
             echo json_encode($response_array);
         }
 
+        function deleteProveedor($Id){
+
+            $response_array = array();
+
+            $Id = isset($Id) ? trim($Id) : "";
+
+            if(!empty($Id)){
+
+                $this->Id=$Id;
+
+                $query = "SELECT * from `inventario_ingresos` where `proveedor_id` = '$this->Id'";
+                $run = new Method;
+                $data = $run->select($query);
+
+                if(!$data){
+
+                    $query = "DELETE from `mantenedor_proveedores` where `id` = '$this->Id'";
+                    $run = new Method;
+                    $data = $run->insert($query);
+                    $response_array['status'] = 1; 
+                    
+                }else{
+                    $response_array['status'] = 3; 
+                }
+            }else{
+                $response_array['status'] = 2; 
+            }
+
+            echo json_encode($response_array);
+        }
+
         function showProveedores(){
 
             $query = 'SELECT * FROM mantenedor_proveedores';

@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    MarcaProductoTable = $('#MarcaProductoTable').DataTable({
+    Table = $('#MarcaProductoTable').DataTable({
         paging: false,
         iDisplayLength: 100,
         processing: true,
@@ -38,11 +38,11 @@ $(document).ready(function(){
 
             $.each(response.array, function( index, array ) {
 
-                var rowNode = MarcaProductoTable.row.add([
+                var rowNode = Table.row.add([
                     ''+array.tipo+'',
                     ''+array.nombre+'',
                     ''+array.descripcion+'',
-                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
+                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
                 $( rowNode ).attr('id',array.id).data('tipo_producto_id',array.tipo_producto_id).addClass('text-center');
@@ -92,11 +92,11 @@ $(document).ready(function(){
 
                         TipoProducto = $('#tipo_producto_id option[value="'+response.array.tipo_producto_id+'"]').first().data('content');
 
-                        var rowNode = MarcaProductoTable.row.add([
+                        var rowNode = Table.row.add([
                             ''+TipoProducto+'',
                             ''+response.array.nombre+'',
                             ''+response.array.descripcion+'',
-                            ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>'+'',
+                            ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                         ]).draw(false).node();
 
                         $( rowNode ).attr('id',response.array.id).data('tipo_producto_id',response.array.tipo_producto_id).addClass('text-center')
@@ -209,5 +209,49 @@ $(document).ready(function(){
                 }
             });
         }      
+    });
+
+    $('body').on('click', '.Remove', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = ObjectTR.attr("id");
+
+        swal({   
+            title: "Desea eliminar este registro?",   
+            text: "Confirmar eliminación!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Eliminar!",  
+            cancelButtonText: "Cancelar",         
+            closeOnConfirm: true 
+        },function(isConfirm){   
+            if (isConfirm) {
+    
+                $.ajax({
+                    url: "../includes/inventario/marca_producto/deleteMarcaProducto.php",
+                    type: 'POST',
+                    data:"&id="+ObjectId,
+                    success:function(response){
+                        setTimeout(function() {
+                            if(response.status == 1){
+                                swal("Exito!","El registro ha sido eliminado!","success");
+                                Table.row($(ObjectTR))
+                                    .remove()
+                                    .draw();
+                            }else if(response.status == 3){
+                                swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee otros registros asociados','error');
+                            }else{
+                                swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                            }
+                        }, 1000);  
+                    },
+                    error:function(){
+                        swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                    }
+                });
+            }
+        });
     });
 });
