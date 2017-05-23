@@ -53,29 +53,13 @@
 					</div>
 				</div>
 			</div>
-			<nav id='mainnav-container'>
-				<div id='mainnav'>
-					<div id='mainnav-shortcut'>
-						<ul class='list-unstyled'>
-							<li class='col-xs-4' data-content='Page Alerts'></li>
-						</ul>
-					</div>
-					<div id='mainnav-menu-wrap'>
-						<div class='nano'>
-							<div class='nano-content'>
-								<ul id='mainnav-menu' class='list-group'>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</nav>
-		</div>
-	</div>
+            <?php include("../layout/main-menu.php"); ?>
+        </div>
+        <?php include("../layout/footer.php"); ?>
+    </div>
 	<script src="../js/jquery-2.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/nifty.min.js"></script>
 	<script src="../js/demo/nifty-demo.min.js"></script>
-	<script src="../js/methods_global/methods.js"></script>
 </body>
 </html>
