@@ -92,7 +92,7 @@ $(document).ready(function(){
                             timer : 3000
                         });
 
-                        Personal = $('#personal_id option[value="'+response.array.personal_id+'"]').first().text();
+                        Personal = $('#personal_id option[value="'+response.array.personal_id+'"]').first().data('content');
 
                         var rowNode = BodegaTable.row.add([
                           ''+response.array.nombre+'',
@@ -186,7 +186,7 @@ $(document).ready(function(){
                             timer : 3000
                         });
 
-                        Personal = $('#personal_id option[value="'+response.array.personal_id+'"]').first().text();
+                        Personal = $('#personal_id option[value="'+response.array.personal_id+'"]').first().data('content');
 
                         ObjectTR = $("#"+response.array.id);
                         ObjectTR.data('personal_id', response.array.personal_id)

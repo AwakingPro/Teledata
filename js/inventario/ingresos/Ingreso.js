@@ -134,9 +134,9 @@ $(document).ready(function(){
                     timer : 3000
                 });
 
-                Modelo = $('#modelo_producto_id option[value="'+response.array.modelo_producto_id+'"]').first().text();
-                Proveedor = $('#proveedor_id option[value="'+response.array.proveedor_id+'"]').first().text();
-                Bodega = $('#bodega_id option[value="'+response.array.bodega_id+'"]').first().text();
+                Modelo = $('#modelo_producto_id option[value="'+response.array.modelo_producto_id+'"]').first().data('content');
+                Proveedor = $('#proveedor_id option[value="'+response.array.proveedor_id+'"]').first().data('content');
+                Bodega = $('#bodega_id option[value="'+response.array.bodega_id+'"]').first().data('content');
 
                 var rowNode = IngresoTable.row.add([
                     ''+response.array.fecha_compra+'',
@@ -239,9 +239,9 @@ $(document).ready(function(){
                     timer : 3000
                 });
 
-                Modelo = $('#modelo_producto_id option[value="'+response.array.modelo_producto_id+'"]').first().text();
-                Proveedor = $('#proveedor_id option[value="'+response.array.proveedor_id+'"]').first().text();
-                Bodega = $('#bodega_id option[value="'+response.array.bodega_id+'"]').first().text();
+                Modelo = $('#modelo_producto_id option[value="'+response.array.modelo_producto_id+'"]').first().data('content');
+                Proveedor = $('#proveedor_id option[value="'+response.array.proveedor_id+'"]').first().data('content');
+                Bodega = $('#bodega_id option[value="'+response.array.bodega_id+'"]').first().data('content');
 
                 ObjectTR = $("#"+response.array.id);
 

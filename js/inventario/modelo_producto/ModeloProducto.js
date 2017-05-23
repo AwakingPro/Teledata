@@ -91,7 +91,7 @@ $(document).ready(function(){
                             timer : 3000
                         });
 
-                        MarcaProducto = $('#marca_producto_id option[value="'+response.array.marca_producto_id+'"]').first().text();
+                        MarcaProducto = $('#marca_producto_id option[value="'+response.array.marca_producto_id+'"]').first().data('content');
 
                         var rowNode = ModeloProductoTable.row.add([
                             ''+MarcaProducto+'',
@@ -178,7 +178,7 @@ $(document).ready(function(){
                             timer : 3000
                         });
 
-                        MarcaProducto = $('#marca_producto_id option[value="'+response.array.marca_producto_id+'"]').first().text();
+                        MarcaProducto = $('#marca_producto_id option[value="'+response.array.marca_producto_id+'"]').first().data('content');
 
                         ObjectTR = $("#"+response.array.id);
                         ObjectTR.data('marca_producto_id', response.array.marca_producto_id)
