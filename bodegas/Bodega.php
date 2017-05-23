@@ -71,7 +71,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Responsable</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true">
+                                            <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
                                             </select>
                                         </div>
                                     </div>
@@ -139,7 +139,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Responsable</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true">
+                                            <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
                                             </select>
                                         </div>
                                     </div>

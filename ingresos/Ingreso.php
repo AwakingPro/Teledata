@@ -91,7 +91,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Modelo</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control modelo_producto_id" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo">
+                                            <select class="selectpicker form-control modelo_producto_id" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -104,7 +104,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Proveedor</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor">
+                                            <select class="selectpicker form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -135,7 +135,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Bodega</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control bodega_id" id="bodega_id" name="bodega_id" validation="not_null" data-live-search="true" data-nombre="Bodega">
+                                            <select class="selectpicker form-control bodega_id" id="bodega_id" name="bodega_id" validation="not_null" data-live-search="true" data-nombre="Bodega" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -214,7 +214,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Modelo</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control modelo_producto_id" id="modelo_producto_id" name="modelo_producto_id" validation="not_null"  data-live-search="true" data-nombre="Modelo">
+                                            <select class="selectpicker form-control modelo_producto_id" id="modelo_producto_id" name="modelo_producto_id" validation="not_null"  data-live-search="true" data-nombre="Modelo" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -227,7 +227,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Proveedor</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor">
+                                            <select class="selectpicker form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -258,7 +258,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Bodega</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control bodega_id" id="bodega_id" name="bodega_id" validation="not_null" data-live-search="true" data-nombre="Bodega">
+                                            <select class="selectpicker form-control bodega_id" id="bodega_id" name="bodega_id" validation="not_null" data-live-search="true" data-nombre="Bodega" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>

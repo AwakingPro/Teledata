@@ -45,7 +45,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Seleccione Origen</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control" id="origen_tipo" name="origen_tipo" validation="not_null"  data-live-search="true" data-nombre="Origen">
+                                            <select class="selectpicker form-control" id="origen_tipo" name="origen_tipo" validation="not_null"  data-live-search="true" data-nombre="Origen" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                                 <option value="1">Bodega</option>
                                                 <option value="2">Cliente</option>
@@ -60,7 +60,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Seleccione <span id="span_origen">Bodega</span></label>
                                         <div class="select">
-                                            <select class="selectpicker form-control" id="origen_id" name="origen_id" validation="not_null"  data-live-search="true" data-nombre="Origen">
+                                            <select class="selectpicker form-control" id="origen_id" name="origen_id" validation="not_null"  data-live-search="true" data-nombre="Origen" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -73,7 +73,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Activo a Transferir</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control" id="producto_id" name="producto_id" validation="not_null"  data-live-search="true" data-nombre="Activo a Transferir">
+                                            <select class="selectpicker form-control" id="producto_id" name="producto_id" validation="not_null"  data-live-search="true" data-nombre="Activo a Transferir" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -86,7 +86,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Seleccione Destino</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control" id="destino_tipo" name="destino_tipo" validation="not_null"  data-live-search="true" data-nombre="Destino">
+                                            <select class="selectpicker form-control" id="destino_tipo" name="destino_tipo" validation="not_null"  data-live-search="true" data-nombre="Destino" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                                 <option value="1">Bodega</option>
                                                 <option value="2">Cliente</option>
@@ -101,7 +101,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Seleccione <span id="span_destino">Bodega</span></label>
                                         <div class="select">
-                                            <select class="selectpicker form-control" id="destino_id" name="destino_id" validation="not_null" data-live-search="true" data-nombre="Destino">
+                                            <select class="selectpicker form-control" id="destino_id" name="destino_id" validation="not_null" data-live-search="true" data-nombre="Destino" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
