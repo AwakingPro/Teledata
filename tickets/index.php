@@ -11,6 +11,7 @@
 		<link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
 		<link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
+		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
@@ -40,13 +41,13 @@
 											<a data-toggle="tab" href="#tab-2">Nuevo</a>
 										</li>
 										<li>
-											<a data-toggle="tab" href="#tab-3">Abiertos <span class="badge coutAbiertos">0</span></a>
+											<a data-toggle="tab" href="#tab-3">Abiertos <span class="badge coutAbiertos label-warning">0</span></a>
 										</li>
 										<li>
-											<a data-toggle="tab" href="#tab-4">Inclumplidos <span class="badge coutnIncumplidos">0</span></a>
+											<a data-toggle="tab" href="#tab-4">Inclumplidos <span class="badge coutnIncumplidos label-warning">0</span></a>
 										</li>
 										<li>
-											<a data-toggle="tab" href="#tab-5">Asignados <span class="badge coutnAsigados">0</span></a>
+											<a data-toggle="tab" href="#tab-5">Asignados <span class="badge coutnAsigados label-warning">0</span></a>
 										</li>
 									</ul>
 									<div class="tab-content">
@@ -59,13 +60,19 @@
 											<div class="row">
 												 <div class="col-md-6 form-group">
 													<label>Nombre del Cliente</label>
-													<input type="text" name="NombreCliente" class="form-control">
+													<select class="selectpicker form-control" name="NombreCliente" data-live-search="true">
+														<option value="">Seleccione...</option>
+														<option value="1">Cliente de prueba</option>
+													</select>
+
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-6 form-group">
 													<label >Numero de ticket</label>
-													<input type="text" name="NumeroTicket" class="form-control">
+													<select class=" form-control" name="NumeroTicket" data-live-search="true">
+
+													</select>
 												</div>
 											</div>
 											<div class="row">
@@ -233,11 +240,12 @@
 	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 	<script src="../js/methods_global/methods.js"></script>
+	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 	<script src="../js/tickets/controller.js"></script>
 </body>
 </html>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="tiempoPrioridad">
+<div class="modal fade" id="tiempoPrioridad">
   <div class="modal-dialog" role="document">
 	<div class="modal-content">
 	  <div class="modal-header">
