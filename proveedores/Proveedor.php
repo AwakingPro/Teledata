@@ -208,7 +208,23 @@
                         </div>
                     </div>
                 </div>
-                <?php include("../layout/main-menu.php"); ?>
+                <nav id='mainnav-container'>
+                                    <div id='mainnav'>
+                                        <div id='mainnav-shortcut'>
+                                            <ul class='list-unstyled'>
+                                                <li class='col-xs-4' data-content='Page Alerts'></li>
+                                            </ul>
+                                        </div>
+                                        <div id='mainnav-menu-wrap'>
+                                            <div class='nano'>
+                                                <div class='nano-content'>
+                                                    <ul id='mainnav-menu' class='list-group'>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </nav>
             </div>
             <?php include("../layout/footer.php"); ?>
         </div>
@@ -234,6 +250,7 @@
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="../plugins/sweetalert/sweetalert.min.js"></script>
         <script src="../js/global/validations.js"></script>
+        <script src="../js/methods_global/methods.js"></script>
         <script src="../js/inventario/proveedores/Proveedor.js"></script>
 
     </body>
