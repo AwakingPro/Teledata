@@ -215,7 +215,38 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.updateTicket', function(){
+		$.postFormValues('../ajax/tickets/updateTickets.php','.cont-form4',function(data){
+			$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
+				$('.listaAbiertos > .tabeData').dataTable({
+					"columnDefs": [{
+						'orderable': false,
+						'targets': [8]
+					}, ]
+				});
+			});
+			$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
+				$('.listaIncumplidos > .tabeData').dataTable({
+					"columnDefs": [{
+						'orderable': false,
+						'targets': [7]
+					}, ]
+				});
+			});
+			$('.listaAsignados').load('../ajax/tickets/listAsignados.php',function(){
+				$('.listaAsignados > .tabeData').dataTable({
+					"columnDefs": [{
+						'orderable': false,
+						'targets': [7]
+					}, ]
+				});
+			});
 
+			$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
+			$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
+			$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
+			$('#actualizarTikect').modal('hide');
+
+		});
 	});
 
 });

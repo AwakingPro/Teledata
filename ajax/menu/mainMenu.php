@@ -4,7 +4,7 @@
 	$run = new Method;
 	$data = $run->select($query);
 	if (count($data) > 0) {
-		$list ='<li class="list-header">Menú Principal</li>"';
+		$list ='<li class="list-header">Menú Principal</li>';
 		for ($i=0; $i < count($data); $i++) {
 			$arrow = "";
 			$subMenu = "";

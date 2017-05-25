@@ -60,6 +60,23 @@
 			}
 		}
 
+		public function update($query){
+			$mysqli = $this->conexion();
+			if ($mysqli) {
+				$resultado = $mysqli->query($query);
+				if ($resultado) {
+					$return = true;
+					$mysqli->close();
+				}else{
+					$return = false;
+					$mysqli->close();
+				}
+				return $return;
+			}else{
+				return 'No hay conexion';
+			}
+		}
+
 		public function select($query) {
 			$mysqli = $this->conexion();
 			if ($mysqli) {
