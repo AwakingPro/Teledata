@@ -87,23 +87,51 @@ $(document).ready(function() {
 		});
 	});
 	$('.guardarPrioridad').click(function() {
-		$.postFormValues('../ajax/tickets/dataPrioridad.php','.cont-form3',function(data){
-			if (Number(data) > 0) {
-				$('.listaPrioridad').load('../ajax/tickets/listPrioridad.php',function(){
-					$('.listaPrioridad > .tabeData').dataTable({
-						"columnDefs": [{
-							'orderable': false,
-							'targets': [2]
-						}, ]
+		if ($('[name="idUpdatePrioridad"]').val() != "") {
+			$.postFormValues('../ajax/tickets/updatePrioridad.php','.cont-form3',function(data){
+				if (Number(data) > 0) {
+					$('.listaPrioridad').load('../ajax/tickets/listPrioridad.php',function(){
+						$('.listaPrioridad > .tabeData').dataTable({
+							"columnDefs": [{
+								'orderable': false,
+								'targets': [2]
+							}, ]
+						});
 					});
-				});
-				$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php');
-				bootbox.alert('<h3 class="text-center">la prioridad se registro con exito.</h3>');
-			}else{
-				console.log(data);
-				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
-			}
-		});
+					$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php');
+					$('[name="nombre"]').val("");
+					$('[name="tiempo"]').val("");
+					$('[name="idUpdatePrioridad"]').val("");
+					bootbox.alert('<h3 class="text-center">la prioridad se actualizo con exito.</h3>');
+				}else{
+					console.log(data);
+					bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+				}
+			});
+		}else{
+			$.postFormValues('../ajax/tickets/dataPrioridad.php','.cont-form3',function(data){
+				if (Number(data) > 0) {
+					$('.listaPrioridad').load('../ajax/tickets/listPrioridad.php',function(){
+						$('.listaPrioridad > .tabeData').dataTable({
+							"columnDefs": [{
+								'orderable': false,
+								'targets': [2]
+							}, ]
+						});
+					});
+					$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php');
+					bootbox.alert('<h3 class="text-center">la prioridad se registro con exito.</h3>');
+				}else{
+					console.log(data);
+					bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+				}
+			});
+		}
+	});
+	$(document).on('click', '.cancelarPrioridad', function() {
+		$('[name="nombre"]').val("");
+		$('[name="tiempo"]').val("");
+		$('[name="idUpdatePrioridad"]').val("");
 	});
 	$('[name="Tipo"]').change(function() {
 		$.post('../ajax/tickets/listSubTipo.php', {tipo: $(this).val()}, function(data) {
@@ -245,7 +273,16 @@ $(document).ready(function() {
 			$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
 			$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
 			$('#actualizarTikect').modal('hide');
+		});
+	});
 
+	$(document).on('click', '.update-tiempo_prioridad', function() {
+		id = $(this).attr('attr');
+		$.post('../ajax/tickets/dataUpdatePrioridad.php', {id: id}, function(data) {
+			value = $.parseJSON(data);
+			$('[name="nombre"]').val(value[0][1]);
+			$('[name="tiempo"]').val(value[0][2]);
+			$('[name="idUpdatePrioridad"]').val(value[0][0]);
 		});
 	});
 

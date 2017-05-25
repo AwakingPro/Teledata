@@ -255,12 +255,13 @@
 					<label>Tiempo en horas</label>
 					<input type="text" name="tiempo" class="form-control">
 				</div>
+				<input type="hidden" name="idUpdatePrioridad" value="">
 			</div>
 			<div class="listaPrioridad">
 			</div>
 		</div>
 		<div class="modal-footer">
-			<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			<button type="button" class="btn btn-default cancelarPrioridad">Limpiar</button>
 			<button type="button" class="btn btn-primary guardarPrioridad">Guardar</button>
 		</div>
 		</div><!-- /.modal-content -->
@@ -353,7 +354,6 @@
 						<input type="hidden" name="idUpdateTicket">
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 						<button type="button" class="btn btn-primary updateTicket">Actualizar</button>
 					</div>
 					</div><!-- /.modal-content -->
