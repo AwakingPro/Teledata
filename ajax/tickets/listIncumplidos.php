@@ -1,6 +1,7 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
+		tickets.IdTickets AS `#`,
 		tickets.IdCliente,
 		tickets.Origen,
 		tickets.Departamento,

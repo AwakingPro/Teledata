@@ -1,6 +1,8 @@
 $(document).ready(function() {
-	$('#personal').load('../ajax/tickets/listUsuario.php');
+	$('[name="AsignarA"]').load('../ajax/tickets/listUsuario.php');
+	$('[name="AsignarAUpdate"]').load('../ajax/tickets/listUsuario.php');
 	$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php');
+	$('[name="PrioridadUpdate"]').load('../ajax/tickets/selectPrioridad.php');
 
 	$('select[name="NumeroTicket"]').load('../ajax/tickets/listNroTickets.php',function(){
 		$('select[name="NumeroTicket"]').selectpicker();
@@ -191,7 +193,29 @@ $(document).ready(function() {
 		});
 	});
 
+	$(document).on('click', '.update-tickets', function(event) {
+		var id = $(this).attr('attr');
+		$('#actualizarTikect').modal('show');
+		$.post('../ajax/tickets/dataUpdateTickets.php', {id:id}, function(data) {
+			value = $.parseJSON(data);
+			$('[name="idUpdateTicket"]').val(value[0][0])
+			$('[name="ClienteUpdate"]').val(value[0][1]);
+			$('[name="OrigenUpdate"]').val(value[0][2]);
+			$('[name="DepartamentoUpdate"]').val(value[0][3]);
+			$('[name="TipoUpdate"]').val(value[0][4]);
+			$('[name="SubtipoUpdate"]').val(value[0][5]);
+			$('[name="PrioridadUpdate"]').val(value[0][6]);
+			$('[name="AsignarAUpdate"]').val(value[0][7]);
+			$('[name="EstadoUpdate"]').val(value[0][8]);
+			$.post('../ajax/tickets/listSubTipo.php', {tipo: value[0][4]}, function(data) {
+				$('[name="SubtipoUpdate"]').html(data);
+				$('[name="SubtipoUpdate"]').val(value[0][5]);
+			})
+		});
+	});
 
+	$(document).on('click', '.updateTicket', function(){
 
+	});
 
 });

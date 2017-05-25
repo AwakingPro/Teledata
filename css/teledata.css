@@ -15,8 +15,6 @@ div.bg-img{
 	margin-right: 10px;
 	cursor: pointer;
 }
-div:nth-child(13){
-	    z-index: 9998 !important;
 }#navbar .brand-title {
     padding: 0 1.5em 0 5px;
 }
