@@ -192,7 +192,6 @@
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="../plugins/sweetalert/sweetalert.min.js"></script>
         <script src="../js/global/validations.js"></script>
-        <script src="../js/methods_global/methods.js"></script>
         <script src="../js/inventario/tipo_producto/TipoProducto.js"></script>
 
     </body>
