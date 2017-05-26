@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-05-09 22:06:23
+Date: 2017-05-26 09:35:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,5 +30,7 @@ CREATE TABLE `tickets` (
   `AsignarA` varchar(100) DEFAULT NULL,
   `Estado` varchar(100) DEFAULT NULL,
   `FechaCreasion` date DEFAULT NULL,
+  `IdServicios` int(11) DEFAULT NULL,
+  `Observaciones` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`IdTickets`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
