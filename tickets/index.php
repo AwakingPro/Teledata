@@ -179,7 +179,7 @@
 												</div>
 											</div>
 											<div class="row">
-												<div class="col-md-6 form-group">
+												<div class="col-md-12 form-group">
 													<label >Estado</label>
 													<select name="Estado" class="form-control" >
 														<option value="">Seleccione...</option>
@@ -187,6 +187,12 @@
 														<option>Cerrado</option>
 														<option>Finalizado</option>
 													</select>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12 form-group">
+													<label >Observaciones</label>
+													<textarea name="Observaciones" class="form-control" rows="5"></textarea>
 												</div>
 											</div>
 											<div class="row">
