@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	$('[name="Servicio"]').load('../ajax/tickets/listServicios.php');
 	$('[name="AsignarA"]').load('../ajax/tickets/listUsuario.php');
 	$('[name="AsignarAUpdate"]').load('../ajax/tickets/listUsuario.php');
 	$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php');

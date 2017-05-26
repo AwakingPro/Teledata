@@ -88,7 +88,6 @@
 												<div class="col-md-12">
 													<h4>Nuevo Ticket:</h4>
 													<div class="pull-right">
-														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiempoPrioridad">Asignar tiempo por prioridad</button>
 													</div>
 												</div>
 											</div>
@@ -98,6 +97,13 @@
 													<select name="Cliente" class="form-control" id="cliente">
 														<option value="">Seleccione...</option>
 														<option value="1">Cliente de prueba</option>
+													</select>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-md-12 form-group">
+													<label>Servicio</label>
+													<select name="Servicio" class="form-control">
 													</select>
 												</div>
 											</div>
@@ -126,29 +132,44 @@
 											<div class="row">
 												<div class="col-md-6 form-group">
 													<label >Tipo</label>
-													<select name="Tipo" class="form-control" >
-														<option value="">Seleccione...</option>
-														<option>Correo</option>
-														<option>Problemas de Equipos con Visita</option>
-														<option>Problemas de Equipos con Visita</option>
-														<option>Problemas Red Interna</option>
-														<option>Coordinacion</option>
-														<option>Consultas tecnicas</option>
-														<option>Falla Masiva</option>
-													</select>
+													<div class="input-group">
+														<select name="Tipo" class="form-control" >
+															<option value="">Seleccione...</option>
+															<option>Correo</option>
+															<option>Problemas de Equipos con Visita</option>
+															<option>Problemas de Equipos con Visita</option>
+															<option>Problemas Red Interna</option>
+															<option>Coordinacion</option>
+															<option>Consultas tecnicas</option>
+															<option>Falla Masiva</option>
+														</select>
+														<span class="input-group-btn">
+															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiempoPrioridad"><i class="fa fa-plus" aria-hidden="true"></i></button>
+														</span>
+													</div>
 												</div>
 												<div class="col-md-6 form-group">
 													<label >Subtipo</label>
-													<select name="Subtipo" class="form-control" >
-														<option value="">Seleccione...</option>
-													</select>
+													<div class="input-group">
+														<select name="Subtipo" class="form-control" >
+															<option value="">Seleccione...</option>
+														</select>
+														<span class="input-group-btn">
+															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiempoPrioridad"><i class="fa fa-plus" aria-hidden="true"></i></button>
+														</span>
+													</div>
 												</div>
 											</div>
 											<div class="row">
 												<div class="col-md-6 form-group">
 													<label >Prioridad</label>
-													<select name="Prioridad" class="form-control" >
-													</select>
+													<div class="input-group">
+														<select name="Prioridad" class="form-control" >
+														</select>
+														<span class="input-group-btn">
+															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiempoPrioridad"><i class="fa fa-plus" aria-hidden="true"></i></button>
+														</span>
+													</div>
 												</div>
 												<div class="col-md-6 form-group">
 													<label >Asignar a</label>
@@ -281,6 +302,13 @@
 								<select name="ClienteUpdate" class="form-control" id="cliente">
 									<option value="">Seleccione...</option>
 									<option value="1">Cliente de prueba</option>
+								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 form-group">
+								<label>Servicio</label>
+								<select name="Servicio" class="form-control">
 								</select>
 							</div>
 						</div>
