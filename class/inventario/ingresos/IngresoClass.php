@@ -5,7 +5,7 @@
 
     class Ingreso{
 
-    	public function storeIngreso($FechaCompra,$FechaIngreso,$NumeroFactura,$NumeroSerie,$Modelo,$Proveedor,$Valor,$Cantidad,$Bodega,$MacAddress){
+    	public function storeIngreso($FechaCompra,$FechaIngreso,$NumeroFactura,$NumeroSerie,$Modelo,$Proveedor,$Valor,$Cantidad,$Bodega,$MacAddress,$TipoIngreso,$Estado,$Json){
 
             $response_array = array();
 
@@ -19,8 +19,21 @@
             $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
             $Bodega = isset($Bodega) ? trim($Bodega) : "";
             $MacAddress = isset($MacAddress) ? trim($MacAddress) : "";
+            $TipoIngreso = isset($TipoIngreso) ? trim($TipoIngreso) : "";
+            $Estado = isset($TipoIngreso) ? trim($Estado) : "";
+            $Json = isset($Json) ? trim($Json) : "";
 
-            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($NumeroSerie) && !empty($Modelo) && !empty($Proveedor) && !empty($Valor) && !empty($Cantidad) && !empty($Bodega) && !empty($MacAddress)){
+            if($TipoIngreso == 1){
+                if($NumeroSerie && $MacAddress){
+                    $NumeroSerieMacAddress = true;
+                }else{
+                    $NumeroSerieMacAddress = false;
+                }
+            }else{
+                $NumeroSerieMacAddress = true;
+            }
+
+            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($Bodega) && !empty($Modelo) && !empty($Proveedor) && !empty($Valor) && !empty($Cantidad) && !empty($Estado) && $NumeroSerieMacAddress){
 
                 session_start();
 
@@ -34,24 +47,63 @@
                 $this->Cantidad=$Cantidad;
                 $this->Bodega=$Bodega;
                 $this->MacAddress=$MacAddress;
+                $this->Estado=$Estado;
                 $this->Usuario=$_SESSION['idUsuario'];
 
                 $FechaCompra = DateTime::createFromFormat('d-m-Y', $FechaCompra)->format('Y-m-d');
                 $FechaIngreso = DateTime::createFromFormat('d-m-Y', $FechaIngreso)->format('Y-m-d');
+                $array = array();
 
-                $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','$this->Cantidad','$this->Bodega','$this->Usuario','$this->NumeroSerie','$this->MacAddress')";
-                $run = new Method;
-                $id = $run->insert($query);
+                if($TipoIngreso == 2){
 
-                if($id){
+                    if(!$Json){
+            
+                        $response_array['status'] = 99; 
 
-                    $array = array('id' => $id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => $this->Cantidad, 'bodega_id' => $this->Bodega, 'usuario_id' => $this->Usuario, 'numero_serie' => $this->NumeroSerie, 'mac_address' => $this->MacAddress);
+                    }else{
+                       
+                        $Json = json_decode($Json, true);
 
-                    $response_array['array'] = $array;
-                    $response_array['status'] = 1; 
+                        foreach($Json as $Value)
+                        {
+                            $NumeroSerie=$Value['numero_serie'];
+                            $MacAddress=$Value['mac_address'];
+
+                            $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','1','$this->Bodega','$this->Usuario','$NumeroSerie','$MacAddress','$this->Estado')";
+                            $run = new Method;
+                            $id = $run->insert($query);
+
+                            if($id){
+
+                                $tmp = array('id' => $id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => 1, 'bodega_id' => $this->Bodega, 'usuario_id' => $this->Usuario, 'numero_serie' => $NumeroSerie, 'mac_address' => $MacAddress, 'estado' => $this->Estado);
+
+
+                                array_push($array,$tmp);
+                                $response_array['array'] = $array;
+                                $response_array['status'] = 1; 
+                            }else{
+                                $response_array['status'] = 0; 
+                            }
+                        }
+                     }
                 }else{
-                    $response_array['status'] = 0; 
+                    $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','$this->Cantidad','$this->Bodega','$this->Usuario','$this->NumeroSerie','$this->MacAddress','$this->Estado')";
+                    $run = new Method;
+                    $id = $run->insert($query);
+
+                    if($id){
+
+                        $tmp = array('id' => $id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => $this->Cantidad, 'bodega_id' => $this->Bodega, 'usuario_id' => $this->Usuario, 'numero_serie' => $this->NumeroSerie, 'mac_address' => $this->MacAddress, 'estado' => $this->Estado);
+
+                        array_push($array,$tmp);
+
+                        $response_array['array'] = $array;
+                        $response_array['status'] = 1; 
+                    }else{
+                        $response_array['status'] = 0; 
+                    }
                 }
+
             }else{
                 $response_array['status'] = 2; 
             }
@@ -60,7 +112,7 @@
 
     	} 
 
-        public function updateIngreso($FechaCompra,$FechaIngreso,$NumeroFactura,$NumeroSerie,$Modelo,$Proveedor,$Valor,$Cantidad,$Bodega,$MacAddress, $Id){
+        public function updateIngreso($FechaCompra,$FechaIngreso,$NumeroFactura,$NumeroSerie,$Modelo,$Proveedor,$Valor,$Cantidad,$Bodega,$MacAddress,$Estado,$Id){
 
             $response_array = array();
 
@@ -74,8 +126,9 @@
             $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
             $Bodega = isset($Bodega) ? trim($Bodega) : "";
             $MacAddress = isset($MacAddress) ? trim($MacAddress) : "";
+            $Estado = isset($Estado) ? trim($Estado) : "";
 
-            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($NumeroSerie) && !empty($Modelo) && !empty($Proveedor) && !empty($Valor) && !empty($Cantidad) && !empty($Bodega) && !empty($MacAddress)){
+            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($NumeroSerie) && !empty($Modelo) && !empty($Proveedor) && !empty($Valor) && !empty($Cantidad) && !empty($Bodega) && !empty($MacAddress) && !empty($Estado)){
 
                 $this->Id=$Id;
                 $this->FechaCompra=$FechaCompra;
@@ -88,17 +141,18 @@
                 $this->Cantidad=$Cantidad;
                 $this->Bodega=$Bodega;
                 $this->MacAddress=$MacAddress;
+                $this->Estado=$Estado;
 
                 $FechaCompra = DateTime::createFromFormat('d-m-Y', $FechaCompra)->format('Y-m-d');
                 $FechaIngreso = DateTime::createFromFormat('d-m-Y', $FechaIngreso)->format('Y-m-d');
 
-                $query = "UPDATE `inventario_ingresos` set `fecha_compra` = '$FechaCompra', `fecha_ingreso` = '$FechaIngreso', `numero_factura` = '$this->NumeroFactura', `modelo_producto_id` = '$this->Modelo', `proveedor_id` = '$this->Proveedor', `valor` = '$this->Valor', `cantidad` = '$this->Cantidad', `bodega_id` = '$this->Bodega', `numero_serie` = '$this->NumeroSerie' , `mac_address` = '$this->MacAddress' where `id` = '$this->Id'";
+                $query = "UPDATE `inventario_ingresos` set `fecha_compra` = '$FechaCompra', `fecha_ingreso` = '$FechaIngreso', `numero_factura` = '$this->NumeroFactura', `modelo_producto_id` = '$this->Modelo', `proveedor_id` = '$this->Proveedor', `valor` = '$this->Valor', `cantidad` = '$this->Cantidad', `bodega_id` = '$this->Bodega', `numero_serie` = '$this->NumeroSerie' , `mac_address` = '$this->MacAddress', `estado` = '$this->Estado' where `id` = '$this->Id'";
                 $run = new Method;
                 $id = $run->insert($query);
 
                 // if($id){
 
-                    $array = array('id' => $this->Id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => $this->Cantidad, 'bodega_id' => $this->Bodega, 'numero_serie' => $this->NumeroSerie, 'mac_address' => $this->MacAddress);
+                    $array = array('id' => $this->Id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => $this->Cantidad, 'bodega_id' => $this->Bodega, 'numero_serie' => $this->NumeroSerie, 'mac_address' => $this->MacAddress, 'estado' => $this->Estado);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 

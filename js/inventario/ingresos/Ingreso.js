@@ -1,4 +1,27 @@
+var json = []
+
 $(document).ready(function(){
+
+    $(document).on({
+        'show.bs.modal': function () {
+            var zIndex = 1040 + (10 * $('.modal:visible').length);
+            $(this).css('z-index', zIndex);
+            setTimeout(function() {
+                $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+            }, 0);
+        },
+        'hidden.bs.modal': function() {
+            if ($('.modal:visible').length > 0) {
+                // restore the modal-open class to the body element, so that scrolling works
+                // properly after de-stacking a modal.
+
+              if($('.modal').hasClass('in')) {
+                $('body').addClass('modal-open');
+              }    
+
+            }
+        }
+    }, '.modal');
 
     $('.selectpicker').selectpicker();
 
@@ -50,16 +73,24 @@ $(document).ready(function(){
                 fecha_compra = moment(array.fecha_compra).format('DD-MM-YYYY');
                 fecha_ingreso = moment(array.fecha_ingreso).format('DD-MM-YYYY');
 
+                if(array.estado == 1){
+                    estado = 'Nuevo';
+                }else{
+                    estado = 'Reacondicionado';
+                }
+
                 var rowNode = Table.row.add([
+
                     ''+fecha_compra+'',
                     ''+fecha_ingreso+'',
+                    ''+array.proveedor+'',
                     ''+array.numero_factura+'',
+                    ''+array.tipo + ' ' + array.marca + ' ' + array.modelo+'',
+                    ''+array.cantidad+'',
                     ''+array.numero_serie+'',
                     ''+array.mac_address+'',
-                    ''+array.tipo + ' ' + array.marca + ' ' + array.modelo+'',
-                    ''+array.proveedor+'',
+                    ''+estado+'',
                     ''+$.number(array.valor)+'',
-                    ''+array.cantidad+'',
                     ''+array.bodega+'',
                     ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
@@ -69,6 +100,7 @@ $(document).ready(function(){
                     .data('modelo_producto_id',array.modelo_producto_id)
                     .data('proveedor_id',array.proveedor_id)
                     .data('bodega_id',array.bodega_id)
+                    .data('estado',array.estado)
                     .addClass('text-center')
             });
 
@@ -134,30 +166,42 @@ $(document).ready(function(){
                     timer : 3000
                 });
 
-                Modelo = $('#modelo_producto_id option[value="'+response.array.modelo_producto_id+'"]').first().data('content');
-                Proveedor = $('#proveedor_id option[value="'+response.array.proveedor_id+'"]').first().data('content');
-                Bodega = $('#bodega_id option[value="'+response.array.bodega_id+'"]').first().data('content');
+                $.each(response.array, function( index, array ) {
 
-                var rowNode = Table.row.add([
-                    ''+response.array.fecha_compra+'',
-                    ''+response.array.fecha_ingreso+'',
-                    ''+response.array.numero_factura+'',
-                    ''+response.array.numero_serie+'',
-                    ''+response.array.mac_address+'',
-                    ''+Modelo+'',
-                    ''+Proveedor+'',
-                    ''+$.number(response.array.valor)+'',
-                    ''+response.array.cantidad+'',
-                    ''+Bodega+'',
-                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
-                ]).draw(false).node();
+                    Modelo = $('#modelo_producto_id option[value="'+array.modelo_producto_id+'"]').first().data('content');
+                    Proveedor = $('#proveedor_id option[value="'+array.proveedor_id+'"]').first().data('content');
+                    Bodega = $('#bodega_id option[value="'+array.bodega_id+'"]').first().data('content');
 
-                $(rowNode)
-                    .attr('id',response.array.id)
-                    .data('modelo_producto_id',response.array.modelo_producto_id)
-                    .data('proveedor_id',response.array.proveedor_id)
-                    .data('bodega_id',response.array.bodega_id)
-                    .addClass('text-center')
+                    if(array.estado == 1){
+                        estado = 'Nuevo';
+                    }else{
+                        estado = 'Reacondicionado';
+                    }
+
+                    var rowNode = Table.row.add([
+                        ''+array.fecha_compra+'',
+                        ''+array.fecha_ingreso+'',
+                        ''+Proveedor+'',
+                        ''+array.numero_factura+'',
+                        ''+Modelo+'',
+                        ''+array.cantidad+'',
+                        ''+array.numero_serie+'',
+                        ''+array.mac_address+'',
+                        ''+estado+'',
+                        ''+$.number(array.valor)+'',
+                        ''+Bodega+'',
+                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                    ]).draw(false).node();
+
+                    $(rowNode)
+                        .attr('id',array.id)
+                        .data('modelo_producto_id',array.modelo_producto_id)
+                        .data('proveedor_id',array.proveedor_id)
+                        .data('bodega_id',array.bodega_id)
+                        .data('estado',array.estado)
+                        .addClass('text-center')
+                });
+
 
                 $('#storeIngreso')[0].reset();
                 $('.selectpicker').selectpicker('render');
@@ -170,6 +214,16 @@ $(document).ready(function(){
                     type: 'danger',
                     icon : 'fa fa-check',
                     message : 'Debe llenar todos los campos',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+            }else if(response.status == 99){
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Debe llenar los datos de los productos',
                     container : 'floating',
                     timer : 3000
                 });
@@ -197,14 +251,15 @@ $(document).ready(function(){
         var ObjectId = ObjectTR.attr("id");
         var ObjectModel = ObjectTR.data("modelo_producto_id");
         var ObjectStore = ObjectTR.data("bodega_id");
+        var ObjectState = ObjectTR.data("estado");
         var ObjectProvider = ObjectTR.data("proveedor_id");
         var ObjectDateBuy = ObjectTR.find("td").eq(0).text();
         var ObjectDateEntry = ObjectTR.find("td").eq(1).text();
-        var ObjectBill = ObjectTR.find("td").eq(2).text();
-        var ObjectSerial = ObjectTR.find("td").eq(3).text();
-        var ObjectMacAddress = ObjectTR.find("td").eq(4).text();
-        var ObjectValue = ObjectTR.find("td").eq(7).text();
-        var ObjectQuantity = ObjectTR.find("td").eq(8).text();
+        var ObjectBill = ObjectTR.find("td").eq(3).text();
+        var ObjectQuantity = ObjectTR.find("td").eq(5).text();
+        var ObjectSerial = ObjectTR.find("td").eq(6).text();
+        var ObjectMacAddress = ObjectTR.find("td").eq(7).text();
+        var ObjectValue = ObjectTR.find("td").eq(9).text();
         $('#updateIngreso').find('input[name="id"]').val(ObjectId);
         $('#updateIngreso').find('select[name="modelo_producto_id"]').val(ObjectModel);
         $('#updateIngreso').find('select[name="bodega_id"]').val(ObjectStore);
@@ -216,6 +271,15 @@ $(document).ready(function(){
         $('#updateIngreso').find('input[name="mac_address"]').val(ObjectMacAddress);
         $('#updateIngreso').find('input[name="valor"]').val(parseInt(ObjectValue.replace(/,/g, '')));
         $('#updateIngreso').find('input[name="cantidad"]').val(ObjectQuantity);
+
+        $('.estado').val(ObjectState)
+
+        if(ObjectState == 1){
+            console.log(ObjectState)
+            $('#nuevo').prop('checked',true)
+        }else{
+            $('#reacondicionado').prop('checked',true)
+        }
 
         $('.selectpicker').selectpicker('render');
         $('.selectpicker').selectpicker('refresh');
@@ -243,21 +307,29 @@ $(document).ready(function(){
                 Proveedor = $('#proveedor_id option[value="'+response.array.proveedor_id+'"]').first().data('content');
                 Bodega = $('#bodega_id option[value="'+response.array.bodega_id+'"]').first().data('content');
 
+                if(response.array.estado == 1){
+                    estado = 'Nuevo';
+                }else{
+                    estado = 'Reacondicionado';
+                }
+
                 ObjectTR = $("#"+response.array.id);
 
-                ObjectTR.data('modelo_producto_id', response.array.modelo_producto_id)
+                ObjectTR.data('modelo_producto_id',response.array.modelo_producto_id)
                 ObjectTR.data('proveedor_id', response.array.proveedor_id)
                 ObjectTR.data('bodega_id', response.array.bodega_id)
+                ObjectTR.data('estado', response.array.estado)
                 ObjectTR.find("td").eq(0).html(response.array.fecha_compra);
                 ObjectTR.find("td").eq(1).html(response.array.fecha_ingreso);
-                ObjectTR.find("td").eq(2).html(response.array.numero_factura);
-                ObjectTR.find("td").eq(3).html(response.array.numero_serie);
-                ObjectTR.find("td").eq(4).html(response.array.mac_address);
-                ObjectTR.find("td").eq(5).html(Modelo);
-                ObjectTR.find("td").eq(6).html(Proveedor);
-                ObjectTR.find("td").eq(7).html($.number(response.array.valor));
-                ObjectTR.find("td").eq(8).html(response.array.cantidad);
-                ObjectTR.find("td").eq(9).html(Bodega);
+                ObjectTR.find("td").eq(2).html(Proveedor);
+                ObjectTR.find("td").eq(3).html(response.array.numero_factura);
+                ObjectTR.find("td").eq(4).html(Modelo);
+                ObjectTR.find("td").eq(5).html(response.array.cantidad);
+                ObjectTR.find("td").eq(6).html(response.array.numero_serie);
+                ObjectTR.find("td").eq(7).html(response.array.mac_address);
+                ObjectTR.find("td").eq(8).html(estado);
+                ObjectTR.find("td").eq(9).html($.number(response.array.valor));
+                ObjectTR.find("td").eq(10).html(Bodega);
 
                 $('.modal').modal('hide');
                 
@@ -325,4 +397,171 @@ $(document).ready(function(){
             }
         });
     });
+
+    $('input[name=tmp_ingreso]').on('change', function () {
+
+        $('#storeIngreso').find('input[name="cantidad"]').val('');
+        $('#storeIngreso').find('input[name="mac_address"]').val('');
+        $('#storeIngreso').find('input[name="numero_serie"]').val('');
+
+        if($(this).val() == 1){
+            $('.unico').show()
+            $('#storeIngreso').find('input[name="mac_address"]').attr('validation','not_null');
+            $('#storeIngreso').find('input[name="numero_serie"]').attr('validation','not_null');
+        }else{
+            $('#storeIngreso').find('input[name="mac_address"]').removeAttr('validation');
+            $('#storeIngreso').find('input[name="numero_serie"]').removeAttr('validation');
+            $('.unico').hide() 
+        }
+    });
+
+    $('#storeIngreso input[name="cantidad"]').on('input', function () {
+
+        $('#json').val('')
+        tipo_ingreso = $('input[name=tipo_ingreso]').val();
+        console.log(tipo_ingreso);
+        cantidad = parseInt($(this).val()) + 1
+
+        if(tipo_ingreso == 2){
+            if($(this).val()){
+
+                $('#updateCantidad').empty()
+                contenido = ''
+
+                for (var i = 1; i < cantidad; i++) {
+
+                        contenido += '<div class="cantidad">'
+
+                        contenido += '<p style="font-size:15px"><b>Producto '+i+'</b></p>'
+
+                        contenido += '<div class="col-md-12">'
+
+                        contenido += '<div class="col-md-12"><div class="form-group">'
+                        contenido += '<label class="control-label" for="name">Numero de Serie</label>'
+                        contenido += '<input id="numero_serie" name="numero_serie" validation="not_null" placeholder="Ingrese el numero de serie '+i+'" class="form-control input-sm number" data-nombre="Numero de Serie '+i+'">'
+                        contenido += '</div></div>'
+                        contenido += '<div class="clearfix m-b-10"></div>'
+
+                        contenido += '<div class="col-md-12"><div class="form-group">'
+                        contenido += '<label class="control-label" for="name">Mac Address</label>'
+                        contenido += '<input id="mac_address" name="mac_address" validation="not_null" placeholder="Ingrese la mac address '+i+'" class="form-control input-sm" data-nombre="Mac Address '+i+'">'
+                        contenido += '</div></div></div>'
+
+                        contenido += '</div>'
+
+                        contenido += '<div class="clearfix m-b-20"></div>'
+
+                }
+
+                $('#updateCantidad').append(contenido)
+                $('#CantidadForm').modal('show')
+
+            }
+        }
+        
+    });
+
+    $('body').on('click', '#guardarCantidad', function () {
+
+        i = 0;
+        exit = false
+        var countObjs = 0;
+        var countValidates = 0;
+        var json = "["
+        divs = $('#updateCantidad').find(".cantidad");
+        
+        divs.each(function(index, div) {
+
+            if(exit){
+                return false;
+            }
+            json += "{"
+
+            objs = $(div).find("input,input[type='checkbox']:checked,input[type='radio']:checked,textarea,select");
+            objs.each(function(index, obj) {
+                if (obj.hasAttribute('name')) {
+                    countObjs++;
+                    if ($.validation(obj)) {
+                        countValidates++;
+                        name = $(obj).attr('name')
+                        val = $(obj).val()
+
+                        var is_last_item = (index == (objs.length - 1));
+                        
+                        if(!is_last_item){
+                            json += '"'+name+'":'+val+','
+                        }else{
+                            json += '"'+name+'":'+val
+                        }
+                    }else{
+                        exit = true;
+                        return false;
+                    }
+                }
+            })
+
+            var is_last_item = (index == (divs.length - 1));
+
+            if(!is_last_item){
+                json += "},"
+            }else{
+                json += "}"
+            }
+
+            
+        })
+
+        json += "]"
+
+        if (countObjs == countValidates) {
+            $('#json').val(json)
+            $.niftyNoty({
+                type: 'success',
+                icon : 'fa fa-check',
+                message : 'Registro Guardado Exitosamente',
+                container : 'floating',
+                timer : 3000
+            });
+            $('#CantidadForm').modal('hide')
+        }else{
+            json = []
+            return false
+        }
+
+    });
+
+    $('#CantidadForm').on('hidden.bs.modal', function () {
+
+        if(!$('#json').val()){
+            $('#storeIngreso').find('input[name="cantidad"]').val('');
+        }
+
+    });
+
+    $('#IngresoForm').on('show.bs.modal', function () {
+
+        $('.estado').val(1)
+        $('#nuevo').prop('checked',true)
+
+    });
+
+    $('input[name=tmp_estado]').on('change', function () {
+
+        if($(this).attr('id') == 'nuevo'){
+            $('.estado').val(1)
+        }else{
+            $('.estado').val(2)
+        }
+    });
+
+    $('input[name=tmp_ingreso]').on('change', function () {
+
+        if($(this).attr('id') == 'unico'){
+            $('input[name=tipo_ingreso]').val(1)
+        }else{
+            $('input[name=tipo_ingreso]').val(2)
+        }
+    });
+
+   
 });

@@ -109,3 +109,8 @@ $.validation = function(obj) {
         return true;
     }
 }
+
+$('#mainnav-menu').load('../ajax/menu/mainMenu.php');
+    $(document).on('click', '.itemsMenu', function() {
+    $(this).siblings('.collapse').slideToggle();
+});
