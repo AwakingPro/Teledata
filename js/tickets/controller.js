@@ -52,6 +52,15 @@ $(document).ready(function() {
 		});
 	});
 
+	$('.listaSubTipoTicket').load('../ajax/tickets/listSubTipoTicket.php',function(){
+		$('.listaSubTipoTicket > .tabeData').dataTable({
+			"columnDefs": [{
+				'orderable': false,
+				'targets': [3]
+			}, ]
+		});
+	});
+
 	$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
 	$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
 	$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
@@ -145,8 +154,13 @@ $(document).ready(function() {
 		$('[name="idUpdatePrioridad"]').val("");
 	});
 	$('[name="Tipo"]').change(function() {
-		$.post('../ajax/tickets/listSubTipo.php', {tipo: $(this).val()}, function(data) {
+		$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
 			$('[name="Subtipo"]').html(data);
+		});
+	});
+	$('[name="TipoUpdate"]').change(function() {
+		$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
+			$('[name="SubtipoUpdate"]').html(data);
 		});
 	});
 	$(document).on('click', '.delete-tickets', function() {
@@ -310,6 +324,28 @@ $(document).ready(function() {
 				});
 				$('[name="Tipo"], [name="TipoUpdate"], [name="nombreTipo"]').load('../ajax/tickets/selectTipoTicket.php');
 				bootbox.alert('<h3 class="text-center">El tipo de ticket se registro con exito.</h3>');
+			}else{
+				console.log(data);
+				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+			}
+		})
+	});
+
+	$(document).on('click', '.guardarSubTipoTicket', function() {
+		$.postFormValues('../ajax/tickets/insertSubtipoticket.php','.cont-form6',function(data){
+			if (Number(data) > 0) {
+				$('.listaSubTipoTicket').load('../ajax/tickets/listSubTipoTicket.php',function(){
+					$('.listaSubTipoTicket > .tabeData').dataTable({
+						"columnDefs": [{
+							'orderable': false,
+							'targets': [3]
+						}, ]
+					});
+				});
+				$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
+					$('[name="Subtipo"]').html(data);
+				});
+				bootbox.alert('<h3 class="text-center">El Subtipo de ticket se registro con exito.</h3>');
 			}else{
 				console.log(data);
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
