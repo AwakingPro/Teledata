@@ -4,6 +4,7 @@ $(document).ready(function() {
 	$('[name="AsignarAUpdate"]').load('../ajax/tickets/listUsuario.php');
 	$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php');
 	$('[name="PrioridadUpdate"]').load('../ajax/tickets/selectPrioridad.php');
+	$('[name="Tipo"], [name="TipoUpdate"], [name="nombreTipo"]').load('../ajax/tickets/selectTipoTicket.php');
 
 	$('select[name="NumeroTicket"]').load('../ajax/tickets/listNroTickets.php',function(){
 		$('select[name="NumeroTicket"]').selectpicker();
@@ -38,6 +39,15 @@ $(document).ready(function() {
 			"columnDefs": [{
 				'orderable': false,
 				'targets': [7]
+			}, ]
+		});
+	});
+
+	$('.listaTipoTicket').load('../ajax/tickets/listTipoTicket.php',function(){
+		$('.listaTipoTicket > .tabeData').dataTable({
+			"columnDefs": [{
+				'orderable': false,
+				'targets': [2]
 			}, ]
 		});
 	});
@@ -285,6 +295,26 @@ $(document).ready(function() {
 			$('[name="tiempo"]').val(value[0][2]);
 			$('[name="idUpdatePrioridad"]').val(value[0][0]);
 		});
+	});
+
+	$(document).on('click', '.guardarTipoTicket', function() {
+		$.postFormValues('../ajax/tickets/insertTipoTicket.php','.cont-form5',function(data){
+			if (Number(data) > 0) {
+				$('.listaTipoTicket').load('../ajax/tickets/listTipoTicket.php',function(){
+					$('.listaTipoTicket > .tabeData').dataTable({
+						"columnDefs": [{
+							'orderable': false,
+							'targets': [2]
+						}, ]
+					});
+				});
+				$('[name="Tipo"], [name="TipoUpdate"], [name="nombreTipo"]').load('../ajax/tickets/selectTipoTicket.php');
+				bootbox.alert('<h3 class="text-center">El tipo de ticket se registro con exito.</h3>');
+			}else{
+				console.log(data);
+				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+			}
+		})
 	});
 
 });

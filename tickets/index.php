@@ -135,13 +135,6 @@
 													<div class="input-group">
 														<select name="Tipo" class="form-control" >
 															<option value="">Seleccione...</option>
-															<option>Correo</option>
-															<option>Problemas de Equipos con Visita</option>
-															<option>Problemas de Equipos con Visita</option>
-															<option>Problemas Red Interna</option>
-															<option>Coordinacion</option>
-															<option>Consultas tecnicas</option>
-															<option>Falla Masiva</option>
 														</select>
 														<span class="input-group-btn">
 															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -346,13 +339,6 @@
 								<label >Tipo</label>
 								<select name="TipoUpdate" class="form-control" >
 									<option value="">Seleccione...</option>
-									<option>Correo</option>
-									<option>Problemas de Equipos con Visita</option>
-									<option>Problemas de Equipos con Visita</option>
-									<option>Problemas Red Interna</option>
-									<option>Coordinacion</option>
-									<option>Consultas tecnicas</option>
-									<option>Falla Masiva</option>
 								</select>
 							</div>
 							<div class="col-md-6 form-group">
@@ -402,7 +388,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Agregar Tipo</h4>
 			</div>
-			<div class="modal-body cont-form3">
+			<div class="modal-body cont-form5">
 				<div class="row">
 					<div class="col-md-12 form-group">
 						<label>Nombre del tipo de ticket</label>
@@ -410,7 +396,7 @@
 					</div>
 					<input type="hidden" name="idTipoTicket" value="">
 				</div>
-				<div class="listaPrioridad">
+				<div class="listaTipoTicket">
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -432,9 +418,8 @@
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label>Tipo ticket</label>
-						<select class="selectpicker form-control" name="nombreTipo" data-live-search="true">
+						<select class="form-control" name="nombreTipo">
 							<option value="">Seleccione...</option>
-							<option value="1">Cliente de prueba</option>
 						</select>
 					</div>
 					<div class="col-md-6 form-group">
@@ -448,7 +433,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default cancelarPrioridad">Limpiar</button>
-				<button type="button" class="btn btn-primary guardarPrioridad">Guardar</button>
+				<button type="button" class="btn btn-primary guardarSubTipoTicket">Guardar</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
