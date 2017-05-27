@@ -10,7 +10,9 @@
 		tickets.Prioridad,
 		tickets.AsignarA,
 		tickets.Estado,
-		tickets.FechaCreasion
+		tickets.FechaCreasion,
+		tickets.IdServicios,
+		tickets.Observaciones
 	FROM
 		tickets
 	WHERE IdTickets ='.$_POST['id'];

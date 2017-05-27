@@ -308,7 +308,7 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label>Servicio</label>
-								<select name="Servicio" class="form-control">
+								<select name="ServicioUpdate" class="form-control">
 								</select>
 							</div>
 						</div>
@@ -370,6 +370,12 @@
 									<option>Cerrado</option>
 									<option>Finalizado</option>
 								</select>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-12 form-group">
+								<label >Observaciones</label>
+								<textarea name="ObservacionesUpdate" class="form-control" rows="5"></textarea>
 							</div>
 						</div>
 						<input type="hidden" name="idUpdateTicket">
