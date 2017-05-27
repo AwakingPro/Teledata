@@ -144,7 +144,7 @@
 															<option>Falla Masiva</option>
 														</select>
 														<span class="input-group-btn">
-															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiempoPrioridad"><i class="fa fa-plus" aria-hidden="true"></i></button>
+															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
 														</span>
 													</div>
 												</div>
@@ -155,7 +155,7 @@
 															<option value="">Seleccione...</option>
 														</select>
 														<span class="input-group-btn">
-															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiempoPrioridad"><i class="fa fa-plus" aria-hidden="true"></i></button>
+															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSubTipo"><i class="fa fa-plus" aria-hidden="true"></i></button>
 														</span>
 													</div>
 												</div>
@@ -294,6 +294,7 @@
 		</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
+
 		<div class="modal fade" id="actualizarTikect">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -393,3 +394,62 @@
 					</div><!-- /.modal-content -->
 					</div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->
+
+<div class="modal fade" id="modalTipos">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Agregar Tipo</h4>
+			</div>
+			<div class="modal-body cont-form3">
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Nombre del tipo de ticket</label>
+						<input type="text" name="nombreTipo" class="form-control">
+					</div>
+					<input type="hidden" name="idTipoTicket" value="">
+				</div>
+				<div class="listaPrioridad">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default cancelarPrioridad">Limpiar</button>
+				<button type="button" class="btn btn-primary guardarTipoTicket">Guardar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modalSubTipo">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Agregar SubTipo</h4>
+			</div>
+			<div class="modal-body cont-form3">
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<label>Tipo ticket</label>
+						<select class="selectpicker form-control" name="nombreTipo" data-live-search="true">
+							<option value="">Seleccione...</option>
+							<option value="1">Cliente de prueba</option>
+						</select>
+					</div>
+					<div class="col-md-6 form-group">
+						<label>Nombre del subtipo</label>
+						<input type="text" name="nombreSubTipo" class="form-control">
+					</div>
+					<input type="hidden" name="idSubTipo" value="">
+				</div>
+				<div class="listaPrioridad">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default cancelarPrioridad">Limpiar</button>
+				<button type="button" class="btn btn-primary guardarPrioridad">Guardar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
