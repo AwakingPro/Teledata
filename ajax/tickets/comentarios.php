@@ -27,12 +27,12 @@
 							<p>'.$data[$i]['cargo'].' - '.$data[$i]['Fecha'].'</p>
 						</div>
 					</div>
-					<blockquote class="bq-sm"><i class="fa fa-quote-left quoteExtra"></i>    '.$data[$i]['Comentario'].'   <i class="fa fa-quote-right quoteExtra"></i></blockquote>
+					<blockquote class="bq-sm">'.nl2br($data[$i]['Comentario']).'</blockquote>
 				</div>
 			</div>';
 		}
 		echo $comentarios;
 	}else{
-		echo '<h3>No hay comentarios</h3>';
+		echo 'No hay comentarios';
 	}
  ?>
