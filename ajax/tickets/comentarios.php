@@ -20,7 +20,7 @@
 				<div class="pad-all">
 					<div class="media mar-btm">
 						<div class="media-left">
-							<img src="../img/av1.png" class="img-md img-circle" alt="Avatar">
+							<img src="../img/av1.png" class="img-circle" alt="Avatar" width="35">
 						</div>
 						<div class="media-body">
 							<p class="text-lg text-main text-semibold mar-no">'.$data[$i]['nombre'].' - '.$data[$i]['usuario'].'</p>
