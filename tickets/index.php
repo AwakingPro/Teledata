@@ -30,208 +30,7 @@
 						<li class="active">Tickets</li>
 					</ol>
 					<div id="page-content">
-						<div class="row">
-							<div class="col-sm-12">
-								<div class="tab-base ">
-									<ul class="nav nav-tabs ">
-										<li class="active">
-											<a data-toggle="tab" href="#tab-1">Buscar ticket</a>
-										</li>
-										<li>
-											<a data-toggle="tab" href="#tab-2">Nuevo</a>
-										</li>
-										<li>
-											<a data-toggle="tab" href="#tab-3">Abiertos <span class="badge coutAbiertos label-warning">0</span></a>
-										</li>
-										<li>
-											<a data-toggle="tab" href="#tab-4">Inclumplidos <span class="badge coutnIncumplidos label-warning">0</span></a>
-										</li>
-										<li>
-											<a data-toggle="tab" href="#tab-5">Asignados <span class="badge coutnAsigados label-warning">0</span></a>
-										</li>
-									</ul>
-									<div class="tab-content">
-										<div id="tab-1" class="tab-pane fade active in cont-form2">
-											<div class="row">
-												<div class="col-md-12">
-													<h4>Buscar tiket en el sistema:</h4>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-6 form-group">
-													<label>Nombre del Cliente</label>
-													<select class="selectpicker form-control" name="NombreCliente" data-live-search="true">
-														<option value="">Seleccione...</option>
-														<option value="1">Cliente de prueba</option>
-													</select>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-6 form-group">
-													<label >Numero de ticket</label>
-													<select class=" form-control" name="NumeroTicket" data-live-search="true">
-													</select>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12">
-													<button type="button" class="btn btn-primary busqueda">Realizar Busqueda</button>
-												</div>
-											</div>
-											<br>
-											<br>
-											<div class="listaBusqueda">
-											</div>
-										</div>
-										<div id="tab-2" class="tab-pane fade cont-form1">
-											<div class="row">
-												<div class="col-md-12">
-													<h4>Nuevo Ticket:</h4>
-													<div class="pull-right">
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12 form-group">
-													<label>Cliente</label>
-													<select name="Cliente" class="form-control" id="cliente">
-														<option value="">Seleccione...</option>
-														<option value="1">Cliente de prueba</option>
-													</select>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12 form-group">
-													<label>Servicio</label>
-													<select name="Servicio" class="form-control">
-													</select>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-6 form-group">
-													<label >Origen</label>
-													<select name="Origen" class="form-control" id="cliente">
-														<option value="">Seleccione...</option>
-														<option>Llamado Telefónico</option>
-														<option>Correo Electrónico</option>
-														<option>Presencial</option>
-														<option>Pagina Web</option>
-														<option>Interno</option>
-														<option>Carta</option>
-														<option>Otros</option>
-													</select>
-												</div>
-												<div class="col-md-6 form-group">
-													<label >Departamento</label>
-													<select name="Departamento" class="form-control" id="cliente">
-														<option value="">Seleccione...</option>
-														<option>Soporte Tecnico</option>
-													</select>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-6 form-group">
-													<label >Tipo</label>
-													<div class="input-group">
-														<select name="Tipo" class="form-control" >
-															<option value="">Seleccione...</option>
-															<option>Correo</option>
-															<option>Problemas de Equipos con Visita</option>
-															<option>Problemas de Equipos con Visita</option>
-															<option>Problemas Red Interna</option>
-															<option>Coordinacion</option>
-															<option>Consultas tecnicas</option>
-															<option>Falla Masiva</option>
-														</select>
-														<span class="input-group-btn">
-															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiempoPrioridad"><i class="fa fa-plus" aria-hidden="true"></i></button>
-														</span>
-													</div>
-												</div>
-												<div class="col-md-6 form-group">
-													<label >Subtipo</label>
-													<div class="input-group">
-														<select name="Subtipo" class="form-control" >
-															<option value="">Seleccione...</option>
-														</select>
-														<span class="input-group-btn">
-															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiempoPrioridad"><i class="fa fa-plus" aria-hidden="true"></i></button>
-														</span>
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-6 form-group">
-													<label >Prioridad</label>
-													<div class="input-group">
-														<select name="Prioridad" class="form-control" >
-														</select>
-														<span class="input-group-btn">
-															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiempoPrioridad"><i class="fa fa-plus" aria-hidden="true"></i></button>
-														</span>
-													</div>
-												</div>
-												<div class="col-md-6 form-group">
-													<label >Asignar a</label>
-													<select name="AsignarA" class="form-control" id="personal">
-														<option value="">Seleccione...</option>
-													</select>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12 form-group">
-													<label >Estado</label>
-													<select name="Estado" class="form-control" >
-														<option value="">Seleccione...</option>
-														<option>Abierto</option>
-														<option>Cerrado</option>
-														<option>Finalizado</option>
-													</select>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12 form-group">
-													<label >Observaciones</label>
-													<textarea name="Observaciones" class="form-control" rows="5"></textarea>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-md-12">
-													<button type="button" class="btn btn-primary guardarTicket">Guardar</button>
-												</div>
-											</div>
-										</div>
-										<div id="tab-3" class="tab-pane fade">
-											<div class="row">
-												<div class="col-md-12">
-													<h4>Tickets Abiertos:</h4>
-												</div>
-											</div>
-											<div class="listaAbiertos">
-											</div>
-										</div>
-										<div id="tab-4" class="tab-pane fade">
-											<div class="row">
-												<div class="col-md-12">
-													<h4>Tickets Incunplidos:</h4>
-												</div>
-											</div>
-											<div class="listaIncumplidos">
-											</div>
-										</div>
-										<div id="tab-5" class="tab-pane fade">
-											<div class="row">
-												<div class="col-md-12">
-													<h4>Tickets con Personal asignado:</h4>
-												</div>
-											</div>
-											<div class="listaAsignados">
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+
 					</div>
 				</div>
 			</div>
@@ -294,6 +93,7 @@
 		</div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
+
 		<div class="modal fade" id="actualizarTikect">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -314,7 +114,7 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label>Servicio</label>
-								<select name="Servicio" class="form-control">
+								<select name="ServicioUpdate" class="form-control">
 								</select>
 							</div>
 						</div>
@@ -345,13 +145,6 @@
 								<label >Tipo</label>
 								<select name="TipoUpdate" class="form-control" >
 									<option value="">Seleccione...</option>
-									<option>Correo</option>
-									<option>Problemas de Equipos con Visita</option>
-									<option>Problemas de Equipos con Visita</option>
-									<option>Problemas Red Interna</option>
-									<option>Coordinacion</option>
-									<option>Consultas tecnicas</option>
-									<option>Falla Masiva</option>
 								</select>
 							</div>
 							<div class="col-md-6 form-group">
@@ -385,6 +178,12 @@
 								</select>
 							</div>
 						</div>
+						<div class="row">
+							<div class="col-md-12 form-group">
+								<label >Observaciones</label>
+								<textarea name="ObservacionesUpdate" class="form-control" rows="5"></textarea>
+							</div>
+						</div>
 						<input type="hidden" name="idUpdateTicket">
 					</div>
 					<div class="modal-footer">
@@ -393,3 +192,84 @@
 					</div><!-- /.modal-content -->
 					</div><!-- /.modal-dialog -->
 					</div><!-- /.modal -->
+
+<div class="modal fade" id="modalTipos">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Agregar Tipo</h4>
+			</div>
+			<div class="modal-body cont-form5">
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Nombre del tipo de ticket</label>
+						<input type="text" name="nombreTipo" class="form-control">
+					</div>
+					<input type="hidden" name="idTipoTicket" value="">
+				</div>
+				<div class="listaTipoTicket">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default cancelarPrioridad">Limpiar</button>
+				<button type="button" class="btn btn-primary guardarTipoTicket">Guardar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade" id="modalSubTipo">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Agregar SubTipo</h4>
+			</div>
+			<div class="modal-body cont-form6">
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<label>Tipo ticket</label>
+						<select class="form-control" name="nombreTipo">
+							<option value="">Seleccione...</option>
+						</select>
+					</div>
+					<div class="col-md-6 form-group">
+						<label>Nombre del subtipo</label>
+						<input type="text" name="nombreSubTipo" class="form-control">
+					</div>
+					<input type="hidden" name="idSubTipo" value="">
+				</div>
+				<div class="listaSubTipoTicket">
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default cancelarPrioridad">Limpiar</button>
+				<button type="button" class="btn btn-primary guardarSubTipoTicket">Guardar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="comentarios">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Comentarios</h4>
+			</div>
+			<div class="modal-body cont-form6">
+			<div class="cont-comentarios">
+
+			</div>
+
+			</div>
+			<div class="modal-footer">
+				<textarea class="form-control textComentario"></textarea>
+				<br>
+				<button type="button" class="btn btn-primary guardarComentario">Guardar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-05-23 23:46:01
+Date: 2017-05-26 18:10:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,3 +26,17 @@ CREATE TABLE `submenu` (
   `Enlace` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`IdSubMenu`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+
+-- ----------------------------
+-- Records of submenu
+-- ----------------------------
+INSERT INTO `submenu` VALUES ('1', '1', 'Crear Cliente', '../clientes/CrearCliente.php');
+INSERT INTO `submenu` VALUES ('2', '1', 'Ver Clientes', '../clientes/VerClientes.php');
+INSERT INTO `submenu` VALUES ('3', '3', 'Nueva Venta', '../ventas/dteNueva.php');
+INSERT INTO `submenu` VALUES ('4', '7', 'Bodegas', '../bodegas/Bodega.php');
+INSERT INTO `submenu` VALUES ('5', '7', 'Proveedores', '../proveedores/Proveedor.php');
+INSERT INTO `submenu` VALUES ('6', '7', 'Mantenedor Tipo Producto', '../tipo_producto/TipoProducto.php');
+INSERT INTO `submenu` VALUES ('7', '7', 'Mantenedor Marca Producto', '../marca_producto/MarcaProducto.php');
+INSERT INTO `submenu` VALUES ('8', '7', 'Mantenedor Modelo Producto', '../modelo_producto/ModeloProducto.php');
+INSERT INTO `submenu` VALUES ('9', '7', 'Ingresos', '../ingresos/Ingreso.php');
+INSERT INTO `submenu` VALUES ('10', '7', 'Egresos', '../egresos/Egreso.php');
