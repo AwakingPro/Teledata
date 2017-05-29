@@ -27,7 +27,7 @@
 							<p>'.$data[$i]['cargo'].' - '.$data[$i]['Fecha'].'</p>
 						</div>
 					</div>
-					<blockquote class="bq-sm"><i class="fa fa-quote-left"></i>    '.$data[$i]['Comentario'].'   <i class="fa fa-quote-right"></i></blockquote>
+					<blockquote class="bq-sm"><i class="fa fa-quote-left quoteExtra"></i>    '.$data[$i]['Comentario'].'   <i class="fa fa-quote-right quoteExtra"></i></blockquote>
 				</div>
 			</div>';
 		}
