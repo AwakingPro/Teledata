@@ -440,6 +440,24 @@ $.post('../ajax/privilegios.php', function(data) {
 			})
 		});
 
+		$(document).on('click', '.comentarios', function() {
+			id = $(this).attr('attr');
+			$('.guardarComentario').attr('attr', id)
+			$.post('../ajax/tickets/comentarios.php', {id:id}, function(data) {
+				$('.cont-comentarios').html(data);
+			});
+		});
+
+		$(document).on('click', '.guardarComentario', function() {
+			id = $(this).attr('attr');
+			comentario = $('.textComentario').val();
+			$.post('../ajax/tickets/insertComentarios.php', {idTicket:id,comentario:comentario}, function(data) {
+				$.post('../ajax/tickets/comentarios.php', {id:id}, function(data) {
+					$('.cont-comentarios').html(data);
+					$('.textComentario').val('');
+				});
+			});
+		});
 
 	});
 

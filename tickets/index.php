@@ -250,3 +250,26 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+
+<div class="modal fade" id="comentarios">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Comentarios</h4>
+			</div>
+			<div class="modal-body cont-form6">
+			<div class="cont-comentarios">
+
+			</div>
+
+			</div>
+			<div class="modal-footer">
+				<textarea class="form-control textComentario"></textarea>
+				<br>
+				<button type="button" class="btn btn-primary guardarComentario">Guardar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

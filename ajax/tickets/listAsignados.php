@@ -22,7 +22,7 @@
 	if ($_SESSION['idNivel'] != 1) {
 		$lista = $run->listViewTiketsSoporte($query);
 	}else{
-		$lista = $run->listView($query);
+		$lista = $run->listViewTicktes($query);
 	}
 	echo $lista;
  ?>
