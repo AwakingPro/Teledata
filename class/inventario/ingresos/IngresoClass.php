@@ -33,7 +33,11 @@
                 $NumeroSerieMacAddress = true;
             }
 
-            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($Bodega) && !empty($Modelo) && !empty($Proveedor) && !empty($Valor) && !empty($Cantidad) && !empty($Estado) && $NumeroSerieMacAddress){
+            if(!$Valor){
+                $Valor = 0;
+            }
+
+            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($Bodega) && !empty($Modelo) && !empty($Proveedor) && !empty($Cantidad) && !empty($Estado) && $NumeroSerieMacAddress){
 
                 session_start();
 
@@ -66,8 +70,8 @@
 
                         foreach($Json as $Value)
                         {
-                            $NumeroSerie=$Value['numero_serie'];
                             $MacAddress=$Value['mac_address'];
+                            $NumeroSerie="";
 
                             $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','1','$this->Bodega','$this->Usuario','$NumeroSerie','$MacAddress','$this->Estado')";
                             $run = new Method;
@@ -128,7 +132,11 @@
             $MacAddress = isset($MacAddress) ? trim($MacAddress) : "";
             $Estado = isset($Estado) ? trim($Estado) : "";
 
-            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($NumeroSerie) && !empty($Modelo) && !empty($Proveedor) && !empty($Valor) && !empty($Cantidad) && !empty($Bodega) && !empty($MacAddress) && !empty($Estado)){
+            if(!$Valor){
+                $Valor = 0;
+            }
+
+            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($NumeroSerie) && !empty($Modelo) && !empty($Proveedor) && !empty($Cantidad) && !empty($Bodega) && !empty($MacAddress) && !empty($Estado)){
 
                 $this->Id=$Id;
                 $this->FechaCompra=$FechaCompra;

@@ -2,6 +2,8 @@ var json = []
 
 $(document).ready(function(){
 
+    //FUNCION NECESARIA PARA MOSTRAR 2 MODALES AL MISMO TIEMPO
+
     $(document).on({
         'show.bs.modal': function () {
             var zIndex = 1040 + (10 * $('.modal:visible').length);
@@ -12,9 +14,6 @@ $(document).ready(function(){
         },
         'hidden.bs.modal': function() {
             if ($('.modal:visible').length > 0) {
-                // restore the modal-open class to the body element, so that scrolling works
-                // properly after de-stacking a modal.
-
               if($('.modal').hasClass('in')) {
                 $('body').addClass('modal-open');
               }    
@@ -23,14 +22,16 @@ $(document).ready(function(){
         }
     }, '.modal');
 
-    $('.selectpicker').selectpicker();
+    //CONFIGURACION DEL SELECTPICKER, DATETIMEPICKER Y DATA-MASK
 
+    $('.selectpicker').selectpicker();
     $('.date').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY'
     });
 
     $(".number").mask("0000000000");
+    $("#valor").mask("000.000.000.000",{reverse: true});
 
     Table = $('#IngresoTable').DataTable({
         paging: false,
@@ -90,9 +91,9 @@ $(document).ready(function(){
                     ''+array.numero_serie+'',
                     ''+array.mac_address+'',
                     ''+estado+'',
-                    ''+$.number(array.valor)+'',
+                    ''+array.valor+'',
                     ''+array.bodega+'',
-                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
                 $( rowNode )
@@ -103,7 +104,6 @@ $(document).ready(function(){
                     .data('estado',array.estado)
                     .addClass('text-center')
             });
-
         }
     });
 
@@ -188,9 +188,9 @@ $(document).ready(function(){
                         ''+array.numero_serie+'',
                         ''+array.mac_address+'',
                         ''+estado+'',
-                        ''+$.number(array.valor)+'',
+                        ''+array.valor+'',
                         ''+Bodega+'',
-                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -243,7 +243,7 @@ $(document).ready(function(){
     });
    
 
-    $('body').on( 'click', '.Update', function () {
+    $('body').on( 'click', 'i.fa', function () {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
@@ -281,10 +281,20 @@ $(document).ready(function(){
             $('#reacondicionado').prop('checked',true)
         }
 
+        if($(this).hasClass('fa-search')){
+            $("#IngresoFormUpdate :input").attr("readonly", true);
+            $('#span_ingreso').text('Ver');
+            $('#actualizarIngreso').hide()
+            $('#IngresoFormUpdate').modal('show');
+        }else if($(this).hasClass('fa-pencil')){
+            $("#IngresoFormUpdate :input").attr("readonly", false);
+            $('#span_ingreso').text('Actualizar');
+            $('#actualizarIngreso').show()
+            $('#IngresoFormUpdate').modal('show');
+        }
+
         $('.selectpicker').selectpicker('render');
         $('.selectpicker').selectpicker('refresh');
-
-        $('#IngresoFormUpdate').modal('show');
   
     });
 
@@ -368,7 +378,7 @@ $(document).ready(function(){
             confirmButtonColor: "#DD6B55",   
             confirmButtonText: "Eliminar!",  
             cancelButtonText: "Cancelar",         
-            closeOnConfirm: true 
+            showLoaderOnConfirm: true
         },function(isConfirm){   
             if (isConfirm) {
     
@@ -430,26 +440,22 @@ $(document).ready(function(){
 
                 for (var i = 1; i < cantidad; i++) {
 
-                        contenido += '<div class="cantidad">'
+                    contenido += '<div class="cantidad">'
 
-                        contenido += '<p style="font-size:15px"><b>Producto '+i+'</b></p>'
+                    contenido += '<p style="font-size:15px"><b>Producto '+i+'</b></p>'
 
-                        contenido += '<div class="col-md-12">'
+                    contenido += '<div class="col-md-12">'
 
-                        contenido += '<div class="col-md-12"><div class="form-group">'
-                        contenido += '<label class="control-label" for="name">Numero de Serie</label>'
-                        contenido += '<input id="numero_serie" name="numero_serie" validation="not_null" placeholder="Ingrese el numero de serie '+i+'" class="form-control input-sm number" data-nombre="Numero de Serie '+i+'">'
-                        contenido += '</div></div>'
-                        contenido += '<div class="clearfix m-b-10"></div>'
+                    contenido += '<div class="clearfix m-b-10"></div>'
 
-                        contenido += '<div class="col-md-12"><div class="form-group">'
-                        contenido += '<label class="control-label" for="name">Mac Address</label>'
-                        contenido += '<input id="mac_address" name="mac_address" validation="not_null" placeholder="Ingrese la mac address '+i+'" class="form-control input-sm" data-nombre="Mac Address '+i+'">'
-                        contenido += '</div></div></div>'
+                    contenido += '<div class="col-md-12"><div class="form-group">'
+                    contenido += '<label class="control-label" for="name">Mac Address</label>'
+                    contenido += '<input id="mac_address" name="mac_address" validation="not_null" placeholder="Ingrese la mac address '+i+'" class="form-control input-sm" data-nombre="Mac Address '+i+'">'
+                    contenido += '</div></div></div>'
 
-                        contenido += '</div>'
+                    contenido += '</div>'
 
-                        contenido += '<div class="clearfix m-b-20"></div>'
+                    contenido += '<div class="clearfix m-b-20"></div>'
 
                 }
 
