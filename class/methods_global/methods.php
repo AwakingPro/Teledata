@@ -134,6 +134,47 @@
 				return 'No hay conexion';
 			}
 		}
+
+		function listViewTiketsSoporte($post) {
+			$mysqli = $this->conexion();
+			if ($mysqli) {
+				if ($resultado = $mysqli->query($post)) {
+					while ($field = mysqli_fetch_field($resultado)) {
+						$fields[] = $field->name;
+						$table[] = $field->table;
+					}
+					$tabla = "<table class='table table-striped tabeData'><thead><tr>";
+					for ($i=0; $i < count($fields) ; $i++) {
+						$tabla.="<th>".$fields[$i]."</th>";
+					}
+					$tabla.="<th></th></tr></thead><tbody>";
+					while ($fila = $resultado->fetch_array(MYSQLI_NUM)) {
+						$rows[] = $fila;
+					}
+					if (isset($rows)) {
+						for ($i=0; $i < count($rows) ; $i++) {
+							$tabla.= '<tr>';
+							foreach ($rows[$i] as $clave => $valor) {
+								$tabla.="<td>".$valor."</td>";
+							}
+							$tabla.='<td class="optionTable">
+								<button type="button" class="btn btn-warning  finalizar-'.$table[0].'" attr="'.$rows[$i][0].'">Finalizar</button>
+								</td>';
+							$tabla.= '</tr>';
+						}
+					}
+					$tabla.="</tbody></table>";
+					return $tabla;
+
+				}else{
+					return 'Problemas en el query de consulta';
+				}
+			}else{
+				return 'No hay conexion';
+			}
+		}
+
+
 	}
 
  ?>

@@ -2,15 +2,14 @@
 	require_once('../../class/methods_global/methods.php');
 	session_start();
 	$query = "SELECT
-	tickets.IdTickets,
-	tickets.IdCliente,
-	subtipo_ticket.Nombre,
+	tickets.IdTickets as '#',
+	tickets.IdCliente as Cliente,
 	tickets.Origen,
 	tickets.Departamento,
-	usuarios.usuario,
-	tipo_ticket.Nombre,
-	subtipo_ticket.Nombre,
-	tiempo_prioridad.Nombre,
+	usuarios.usuario as Usuario,
+	tipo_ticket.Nombre as Tipo,
+	subtipo_ticket.Nombre as SubTipo,
+	tiempo_prioridad.Nombre as Prioridad,
 	tickets.Estado
 	FROM
 	tickets
@@ -20,6 +19,10 @@
 	INNER JOIN tiempo_prioridad ON tickets.Prioridad = tiempo_prioridad.IdTiempoPrioridad
 	WHERE tickets.AsignarA = ".$_SESSION['idUsuario'];
 	$run = new Method;
-	$lista = $run->listView($query);
+	if ($_SESSION['idNivel'] != 1) {
+		$lista = $run->listViewTiketsSoporte($query);
+	}else{
+		$lista = $run->listView($query);
+	}
 	echo $lista;
  ?>

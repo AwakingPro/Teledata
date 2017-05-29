@@ -1,15 +1,14 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
-	tickets.IdTickets,
-	tickets.IdCliente,
-	subtipo_ticket.Nombre,
+	tickets.IdTickets as '#',
+	tickets.IdCliente as Cliente,
 	tickets.Origen,
 	tickets.Departamento,
-	usuarios.usuario,
-	tipo_ticket.Nombre,
-	subtipo_ticket.Nombre,
-	tiempo_prioridad.Nombre,
+	usuarios.usuario as Usuario,
+	tipo_ticket.Nombre as Tipo,
+	subtipo_ticket.Nombre as Subtipo,
+	tiempo_prioridad.Nombre as Prioridad,
 	tickets.Estado
 	FROM
 	tickets
@@ -20,6 +19,11 @@
 	WHERE
 		tickets.IdTickets LIKE '%".$_POST['NumeroTicket']."%' AND tickets.IdCliente LIKE '%".$_POST['NombreCliente']."%'";
 	$run = new Method;
-	$lista = $run->listView($query);
+	session_start();
+	if ($_SESSION['idNivel'] != 1) {
+		$lista = $run->listViewTiketsSoporte($query);
+	}else{
+		$lista = $run->listView($query);
+	}
 	echo $lista;
  ?>
