@@ -178,9 +178,12 @@ $(document).ready(function(){
                         estado = 'Reacondicionado';
                     }
 
+                    fecha_compra = moment(array.fecha_compra).format('DD-MM-YYYY');
+                    fecha_ingreso = moment(array.fecha_ingreso).format('DD-MM-YYYY');
+
                     var rowNode = Table.row.add([
-                        ''+array.fecha_compra+'',
-                        ''+array.fecha_ingreso+'',
+                        ''+fecha_compra+'',
+                        ''+fecha_ingreso+'',
                         ''+Proveedor+'',
                         ''+array.numero_factura+'',
                         ''+Modelo+'',
@@ -323,14 +326,17 @@ $(document).ready(function(){
                     estado = 'Reacondicionado';
                 }
 
+                fecha_compra = moment(response.array.fecha_compra).format('DD-MM-YYYY');
+                fecha_ingreso = moment(response.array.fecha_ingreso).format('DD-MM-YYYY');
+
                 ObjectTR = $("#"+response.array.id);
 
                 ObjectTR.data('modelo_producto_id',response.array.modelo_producto_id)
                 ObjectTR.data('proveedor_id', response.array.proveedor_id)
                 ObjectTR.data('bodega_id', response.array.bodega_id)
                 ObjectTR.data('estado', response.array.estado)
-                ObjectTR.find("td").eq(0).html(response.array.fecha_compra);
-                ObjectTR.find("td").eq(1).html(response.array.fecha_ingreso);
+                ObjectTR.find("td").eq(0).html(fecha_compra);
+                ObjectTR.find("td").eq(1).html(fecha_ingreso);
                 ObjectTR.find("td").eq(2).html(Proveedor);
                 ObjectTR.find("td").eq(3).html(response.array.numero_factura);
                 ObjectTR.find("td").eq(4).html(Modelo);
