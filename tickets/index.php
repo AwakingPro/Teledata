@@ -22,11 +22,11 @@
 			<div class="boxed">
 				<div id="content-container">
 					<div id="page-title" style="padding-right: 25px;">
-						<h1 class="page-header text-overflow">Modulo de Tickets</h1>
+						<h1 class="page-header text-overflow">Registro y Datos de Tickets</h1>
 					</div>
 					<br>
 					<ol class="breadcrumb">
-						<li><a href="#">Módulo Tickets</a></li>
+						<li><a href="#">Incio</a></li>
 						<li class="active">Tickets</li>
 					</ol>
 					<div id="page-content">

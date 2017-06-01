@@ -22,12 +22,12 @@
 			<div class="boxed">
 				<div id="content-container">
 					<div id="page-title" style="padding-right: 25px;">
-						<h1 class="page-header text-overflow">Modulo de Cliente</h1>
+						<h1 class="page-header text-overflow">Registro y Datos de Clientes</h1>
 					</div>
 					<br>
 					<ol class="breadcrumb">
-						<li><a href="#">Módulo Cliente</a></li>
-						<li class="active">Crear Cliente</li>
+						<li><a href="#">Inicio</a></li>
+						<li class="active">Clientes</li>
 					</ol>
 					<div id="page-content">
 						<div class="row">
@@ -38,19 +38,76 @@
 										<div class="panel-control">
 											<!--Nav tabs-->
 											<ul class="nav nav-tabs">
-												<li class="active"><a data-toggle="tab" href="#demo-tabs-box-1">Crear Nuevo Cliente</a></li>
-												<li><a data-toggle="tab" href="#demo-tabs-box-2">Ver Lista de clientes</a></li>
+												<li class="active"><a data-toggle="tab" href="#tabs-box-1">Crear Nuevo</a></li>
+												<li><a data-toggle="tab" href="#demo-tabs-box-2">Ver Lista</a></li>
 											</ul>
 										</div>
-										<h3 class="panel-title">Opciones de modulo cliente</h3>
+										<h3 class="panel-title">Modulo Cliente</h3>
 									</div>
 									<!--Panel body-->
 									<div class="panel-body">
 										<!--Tabs content-->
 										<div class="tab-content">
-											<div id="demo-tabs-box-1" class="tab-pane fade in active">
-												<p class="text-main text-lg mar-no">First Tab Content</p>
-												Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+											<div id="tabs-box-1" class="tab-pane fade in active form-cont1">
+												<div class="row">
+													<div class="col-md-12">
+														<h4>Crear Nuevo Cliente</h4>
+														<div class="pull-right">
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-4 form-group">
+														<label>Cliente</label>
+														<input name="Nombre" class="form-control">
+													</div>
+													<div class="col-md-4 form-group">
+														<label>Rut</label>
+														<input name="Rut" class="form-control">
+													</div>
+													<div class="col-md-4 form-group">
+														<label>Dv</label>
+														<input name="Dv" class="form-control">
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-12">
+														<label>Direccion Comercial</label>
+														<textarea name="DireccionComercial" class="form-control"></textarea>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-4 form-group">
+														<label>Contacto</label>
+														<input name="Contacto" class="form-control">
+													</div>
+													<div class="col-md-4 form-group">
+														<label>Telefono</label>
+														<input name="Telefono" class="form-control">
+													</div>
+													<div class="col-md-4 form-group">
+														<label>Correo</label>
+														<input name="Correo" class="form-control">
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-12 form-group">
+														<label>Giro</label>
+														<input name="Giro" class="form-control">
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-12">
+														<label>Comentariol</label>
+														<textarea name="Comentario" class="form-control"></textarea>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-12">
+														<br>
+														<button type="button" class="btn btn-primary guardarCliente">Guardar</button>
+													</div>
+												</div>
 											</div>
 											<div id="demo-tabs-box-2" class="tab-pane fade">
 												<p class="text-main text-lg mar-no">Second Tab Content</p>
@@ -91,5 +148,6 @@
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 	<script src="../js/methods_global/methods.js"></script>
 	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
+	<script src="../js/clientes/controller.js"></script>
 </body>
 </html>
