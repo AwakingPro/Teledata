@@ -51,7 +51,7 @@
 											<div id="tabs-box-1" class="tab-pane fade in active form-cont1">
 												<div class="row">
 													<div class="col-md-12">
-														<h4>Crear Nuevo Cliente</h4>
+														<h3>Crear Nuevo Cliente</h3><br>
 														<div class="pull-right">
 														</div>
 													</div>
@@ -110,7 +110,23 @@
 												</div>
 											</div>
 											<div id="tabs-box-2" class="tab-pane fade">
-												Aqui va ver cliente
+												<h3>Opciones de Busqueda</h3><br>
+												<div class="row">
+													<div class="col-md-3">
+														<select name="" class="form-control">
+															<option value="">Todo</option>
+															<option value="">Rut</option>
+															<option value="">Nombre Cliente</option>
+															<option value="">Contacto Comercial</option>
+														</select>
+													</div>
+													<div class="col-md-6">
+														<input type="text" name="" class="form-control">
+													</div>
+													<div class="col-md-3">
+														<button type="button" class="btn btn-primary btn-block">Buscar</button>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>

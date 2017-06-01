@@ -28,7 +28,7 @@
 					<div id="tab-1" class="tab-pane fade active in cont-form2">
 						<div class="row">
 							<div class="col-md-12">
-								<h4>Buscar tiket en el sistema:</h4>
+								<h3>Buscar tiket en el sistema</h3><br>
 							</div>
 						</div>
 						<div class="row">
@@ -60,7 +60,7 @@
 					<div id="tab-2" class="tab-pane fade cont-form1">
 						<div class="row">
 							<div class="col-md-12">
-								<h4>Nuevo Ticket:</h4>
+								<h3>Nuevo Ticket</h3><br>
 								<div class="pull-right">
 								</div>
 							</div>
@@ -154,7 +154,7 @@
 					<div id="tab-3" class="tab-pane fade">
 						<div class="row">
 							<div class="col-md-12">
-								<h4>Tickets Abiertos:</h4>
+								<h3>Tickets Abiertos</h3><br>
 							</div>
 						</div>
 						<div class="listaAbiertos">
@@ -163,7 +163,7 @@
 					<div id="tab-4" class="tab-pane fade">
 						<div class="row">
 							<div class="col-md-12">
-								<h4>Tickets Incunplidos:</h4>
+								<h3>Tickets Incunplidos</h3><br>
 							</div>
 						</div>
 						<div class="listaIncumplidos">
@@ -172,7 +172,7 @@
 					<div id="tab-5" class="tab-pane fade">
 						<div class="row">
 							<div class="col-md-12">
-								<h4>Tickets con Personal asignado:</h4>
+								<h3>Tickets con Personal asignado</h3><br>
 							</div>
 						</div>
 						<div class="listaAsignados">
