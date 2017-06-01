@@ -114,7 +114,6 @@
 												<div class="row">
 													<div class="col-md-3">
 														<select name="" class="form-control">
-															<option value="">Todo</option>
 															<option value="">Rut</option>
 															<option value="">Nombre Cliente</option>
 															<option value="">Contacto Comercial</option>
