@@ -39,7 +39,7 @@
 											<!--Nav tabs-->
 											<ul class="nav nav-tabs">
 												<li class="active"><a data-toggle="tab" href="#tabs-box-1">Crear Nuevo</a></li>
-												<li><a data-toggle="tab" href="#demo-tabs-box-2">Ver Lista</a></li>
+												<li><a data-toggle="tab" href="#tabs-box-2">Ver Lista</a></li>
 											</ul>
 										</div>
 										<h3 class="panel-title">Modulo Cliente</h3>
@@ -109,9 +109,8 @@
 													</div>
 												</div>
 											</div>
-											<div id="demo-tabs-box-2" class="tab-pane fade">
-												<p class="text-main text-lg mar-no">Second Tab Content</p>
-												Duis autem vel eum iriure dolor in hendrerit in vulputate.
+											<div id="tabs-box-2" class="tab-pane fade">
+												Aqui va ver cliente
 											</div>
 										</div>
 									</div>
