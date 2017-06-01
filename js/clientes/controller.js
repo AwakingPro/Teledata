@@ -9,11 +9,11 @@ $(document).ready(function(){
                 $('#DivServicios').html(response);
                 $("#tabla1").dataTable();
             }
-        });    
+        });
     }
     function LimpiarDatos(){
         var Facturacion = "<b>Datos de Facturación</b><div class='list-divider'></div> Seleccione Cliente.";
-        
+
         $('#DivServicios').html('Seleccione Cliente.');
         $('#DatosTecnicos').html('');
         $('#VerClientes').html(Facturacion);
@@ -48,9 +48,9 @@ $(document).ready(function(){
                         timer : 2000
                     });
                 }
-               
+
             }
-        });    
+        });
     });
 
     $("#TipoBusqueda").change(function(){
@@ -69,15 +69,15 @@ $(document).ready(function(){
                 $("#Tipo").html(response);
                 $('#Dato').selectpicker('refresh');
             }
-        }); 
+        });
         LimpiarDatos();
-       
-   }); 
+
+   });
 
    $(document).on('change', '#Dato', function() {
        $("#Rut").val($(this).val());
        $("#buscar").prop('disabled',false);
-        
+
    });
 
    $(document).on('click', '#buscar', function() {
@@ -92,10 +92,10 @@ $(document).ready(function(){
                 VerServicios();
                 $('#DatosTecnicos').html('');
             }
-        }); 
+        });
    });
 
-   
+
 
 
     $(document).on('click', '#AgregaProducto', function() {
@@ -112,13 +112,13 @@ $(document).ready(function(){
                             label: "Guardar",
                             className: "btn-mint",
                             callback: function() {
-                                
+
                                 var IdServicio =  $('#SeleccioneServicio').val();
                                 var IdTipo =  $('#SeleccioneTipo').val();
                                 var Rut = $("#Rut").val();
                                 var Descripcion = $("#Descripcion").val();
                                 var data = "Rut="+Rut+"&IdServicio="+IdServicio+"&Descripcion="+Descripcion+"&IdTipo="+IdTipo;
-                                
+
                                 $.ajax({
                                     type: "POST",
                                     url: "../includes/clientes/AgregaServicios.php",
@@ -144,9 +144,9 @@ $(document).ready(function(){
                                                 container : 'floating',
                                                 timer : 4000
                                             });
-                                        }      
+                                        }
                                     }
-                                }); 
+                                });
                             }
                         }
                     }
@@ -166,7 +166,7 @@ $(document).ready(function(){
             success: function(response){
                 $('#TipoServicio').html(response);
             }
-        });       
+        });
     });
 
     $(document).on('click','.VerServicio',function(){
@@ -186,6 +186,6 @@ $(document).ready(function(){
             success: function(response){
                 $('#DatosTecnicos').html(response);
             }
-        });   
-    });    
+        });
+    });
 });

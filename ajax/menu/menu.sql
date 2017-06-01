@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : localhost
+Source Server         : Mi Computadora
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : teledata
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-05-26 18:10:23
+Date: 2017-06-01 12:05:16
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -32,7 +32,7 @@ CREATE TABLE `menu` (
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', 'Clientes', 'Clientes', '#', '1', 'fa fa-user');
+INSERT INTO `menu` VALUES ('1', 'Clientes', 'Clientes', '../clientes', '1', 'fa fa-user');
 INSERT INTO `menu` VALUES ('3', 'Ventas', 'Ventas', '#', '1', 'fa fa-dollar');
 INSERT INTO `menu` VALUES ('4', 'com', 'Compras', '#', '1', 'fa fa-shopping-cart');
 INSERT INTO `menu` VALUES ('7', 'Inventario', 'Inventario', '#', '1', 'fa fa-dropbox');
