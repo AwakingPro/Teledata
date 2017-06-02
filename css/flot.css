@@ -1,0 +1,51 @@
+[class*="flot-chart"] {
+  width: 100%;
+  display: block;
+}
+
+.flot-chart {
+  height: 200px;
+}
+
+.flot-chart-pie {
+  height: 300px;
+}
+
+@media (min-width: 768px) {
+  .flot-chart-pie {
+    margin-bottom: 20px;
+  }
+}
+
+.flot-tooltip,
+#flotTip {
+  position: absolute;
+  color: #333;
+  display: none;
+  font-size: 12px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  padding: 3px 10px;
+  background-color: #fff;
+  z-index: 99999;
+}
+
+[class*="flc-"] {
+  text-align: center;
+  margin: 10px 0 5px;
+}
+
+[class*="flc-"] table {
+  display: inline-block;
+}
+
+[class*="flc-"] .legendColorBox > div {
+  border: #fff !important;
+}
+
+[class*="flc-"] .legendColorBox > div > div {
+  border-radius: 50%;
+}
+
+[class*="flc-"] .legendLabel {
+  padding: 0 8px 0 3px;
+}

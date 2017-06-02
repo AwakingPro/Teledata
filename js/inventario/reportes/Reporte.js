@@ -110,7 +110,49 @@ $(document).ready(function(){
                     .addClass('text-center')
             });
 
+            var pieData1 = ''
+            pieData1 += '[';
+            $.each(response.pie, function( i, array ) {
+                var nombre = array.nombre;
+                var cantidad = array.cantidad;
+                pieData1 += '{"data":"'+cantidad+'","label":"'+nombre+'"},';
+            });
+            pieData1 = pieData1.substring(0, pieData1.length -1);
+            pieData1 += ']';
 
+            $.plot('#pie-chart', $.parseJSON(pieData1), {
+                series: {
+                    pie: {
+                        show: true,
+                        stroke: { 
+                            width: 2,
+                        },
+                    },
+                },
+                legend: {
+                    container: '#flc-pie',
+                    backgroundOpacity: 0.5,
+                    noColumns: 0,
+                    backgroundColor: "white",
+                    lineWidth: 0
+                },
+                grid: {
+                    hoverable: true,
+                    clickable: true
+                },
+                tooltip: true,
+                tooltipOpts: {
+                    content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+                    shifts: {
+                        x: 20,
+                        y: 0
+                    },
+                    defaultTheme: false,
+                    cssClass: 'flot-tooltip'
+                },
+            });
+
+            $('.reporte').show()
             $('#showReporte')[0].reset();
             $('.selectpicker').selectpicker('render');
             $('.selectpicker').selectpicker('refresh');

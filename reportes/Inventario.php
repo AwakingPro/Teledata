@@ -27,6 +27,7 @@
         <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
         <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
         <link href="../css/teledata.css" rel="stylesheet">
+        <link href="../css/flot.css" rel="stylesheet">
 
     </head>
     <body>
@@ -95,38 +96,12 @@
 
                                 </form>
 
-                            <!--     <div class="col-md-6">
+                                <div class="col-md-6 reporte" style="display: none">
                                     <h2>Informe de Inventario</h2>
                                     <hr>
-                                    <div id="pie-chart-procesos" class="flot-chart-pie"></div>
-                                    <div class="flc-pie hidden-xs"></div>
-
+                                    <div id="pie-chart" class="flot-chart-pie"></div>
+                                    <div id="flc-pie" class="flc-pie hidden-xs"></div>
                                 </div>
-
-
-                                <div class="col-md-6">
-                                    <h2>Información</h2>
-                                    <hr>
-                                    
-                                    <div class="col-md-3">    
-                                        <i class="m-l-25 zmdi zmdi-male-alt zmdi-hc-5x c-azul"></i>
-                                    </div>
-                                    <div class="col-md-6"></div>
-                                    <div class="col-md-3">    
-                                        <i class="m-r-25 zmdi zmdi-female zmdi-hc-5x c-rosado pull-right"></i>
-                                    </div>
-                                    <div class="clearfix"></div>    
-
-                                    <div class="mini-charts-item bgm-blue">
-                                        <div class="clearfix">
-                                            <div class="count">
-                                                <small>Total Inscritos:</small>
-                                                <h2 id="hombres" class="pull-left m-l-30"></h2>
-                                                <h2 id="mujeres" class="pull-right m-r-30"></h2>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div> -->
 
                                 <div class="clearfix"></div>
 
@@ -203,6 +178,10 @@
         <script src="../plugins/bootbox/bootbox.min.js"></script>
         <script src="../plugins/numbers/jquery.number.min.js"></script>
         <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
+        <script src="../plugins/jquery-flot/jquery.flot.js"></script>
+        <script src="../plugins/jquery-flot/jquery.flot.resize.js"></script>
+        <script src="../plugins/jquery-flot/jquery.flot.pie.js"></script>
+        <script src="../plugins/jquery-flot/jquery.flot.tooltip.min.js"></script>
         <script src="../plugins/moment/moment.js"></script>
         <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
         <script src="../plugins/sweetalert/sweetalert.min.js"></script>
