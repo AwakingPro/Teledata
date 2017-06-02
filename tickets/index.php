@@ -259,11 +259,10 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Comentarios</h4>
 			</div>
-			<div class="modal-body cont-form6">
-			<div class="cont-comentarios">
+			<div class="modal-body">
+			<div class="cont-comentarios" style="overflow-y: auto;overflow-x: hidden;max-height: 400px;">
 
 			</div>
-
 			</div>
 			<div class="modal-footer">
 				<textarea class="form-control textComentario"></textarea>
