@@ -10,7 +10,8 @@
 	comentarios_tickets
 	INNER JOIN usuarios ON comentarios_tickets.IdUSuario = usuarios.id
 	WHERE
-	comentarios_tickets.IdTickets ='.$_POST['id'];
+	comentarios_tickets.IdTickets = '.$_POST['id'].'
+	ORDER BY comentarios_tickets.Fecha DESC';
 	$run = new Method;
 	$data = $run->select($query);
 	if (count($data) > 0) {
@@ -24,7 +25,7 @@
 						</div>
 						<div class="media-body">
 							<p class="text-lg text-main text-semibold mar-no">'.$data[$i]['nombre'].' - '.$data[$i]['usuario'].'</p>
-							<p>'.$data[$i]['cargo'].' - '.$data[$i]['Fecha'].'</p>
+							<p>'.$data[$i]['cargo'].' - '.date_format(date_create($data[$i]['Fecha']), 'd/m/Y g:i a').'</p>
 						</div>
 					</div>
 					<blockquote class="bq-sm">'.nl2br($data[$i]['Comentario']).'</blockquote>
