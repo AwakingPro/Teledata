@@ -22,12 +22,12 @@
 			<div class="boxed">
 				<div id="content-container">
 					<div id="page-title" style="padding-right: 25px;">
-						<h1 class="page-header text-overflow">Registro y Datos de Clientes</h1>
+						<h1 class="page-header text-overflow">Registro y Datos de Servivios</h1>
 					</div>
 					<br>
 					<ol class="breadcrumb">
 						<li><a href="#">Inicio</a></li>
-						<li class="active">Clientes</li>
+						<li class="active">Servivios</li>
 					</ol>
 					<div id="page-content">
 						<div class="row">
@@ -35,92 +35,81 @@
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
-										<div class="panel-control">
-											<!--Nav tabs-->
-											<ul class="nav nav-tabs">
-												<li class="active"><a data-toggle="tab" href="#tabs-box-1">Crear Nuevo</a></li>
-												<li><a data-toggle="tab" href="#tabs-box-2">Ver Lista</a></li>
-											</ul>
-										</div>
-										<h3 class="panel-title">Modulo Cliente</h3>
+										<h3 class="panel-title">Modulo Servicios</h3>
 									</div>
 									<!--Panel body-->
 									<div class="panel-body">
-										<!--Tabs content-->
-										<div class="tab-content">
-											<div id="tabs-box-1" class="tab-pane fade in active form-cont1">
-												<div class="row">
-													<div class="col-md-12">
-														<h3>Crear Nuevo Cliente</h3><br>
+										<h3>Registrar Servicios</h3><br>
+												<div class="row" >
+													<div class="col-md-6 form-group">
+														<label >Cliente</label>
+														<div class="input-group">
+															<select name="Tipo" class="form-control" >
+																<option value="">Seleccione...</option>
+															</select>
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
+															</span>
+														</div>
 													</div>
 												</div>
-												<div class="row">
-													<div class="col-md-4 form-group">
-														<label>Cliente</label>
-														<input name="Nombre" class="form-control">
-													</div>
-													<div class="col-md-4 form-group">
-														<label>Rut</label>
-														<input name="Rut" class="form-control">
-													</div>
-													<div class="col-md-4 form-group">
-														<label>Dv</label>
-														<input name="Dv" class="form-control">
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-12">
-														<label>Direccion Comercial</label>
-														<textarea name="DireccionComercial" class="form-control"></textarea>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-4 form-group">
-														<label>Contacto</label>
-														<input name="Contacto" class="form-control">
-													</div>
-													<div class="col-md-4 form-group">
-														<label>Telefono</label>
-														<input name="Telefono" class="form-control">
-													</div>
-													<div class="col-md-4 form-group">
-														<label>Correo</label>
-														<input name="Correo" class="form-control">
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-12 form-group">
-														<label>Giro</label>
-														<input name="Giro" class="form-control">
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-12 form-group">
-														<label>Comentariol</label>
-														<textarea name="Comentario" class="form-control"></textarea>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-12">
-														<br>
-														<button type="button" class="btn btn-primary guardarCliente">Guardar</button>
-													</div>
-												</div>
-											</div>
-											<div id="tabs-box-2" class="tab-pane fade">
-												<h3>Datos del Cliente</h3><br>
 												<div class="row">
 													<div class="col-md-6 form-group">
-														<select name="selectCliente" class="form-control" data-live-search="true">
+														<label>Grupo</label>
+														<select name="Tipo" class="form-control" >
 															<option value="">Seleccione...</option>
 														</select>
 													</div>
-													<div class="col-md-2">
-														<button type="button"  class="btn btn-primary btn-block buscarCliente">Buscar</button>
+													<div class="col-md-6 form-group">
+														<label>Tipo de Facturacion</label>
+														<select name="Tipo" class="form-control" >
+															<option value="">Seleccione...</option>
+														</select>
 													</div>
 												</div>
-											</div>
-										</div>
+												<div class="row" >
+													<div class="col-md-6 form-group">
+														<label >Valor</label>
+														<div class="input-group">
+														  <input type="text" class="form-control">
+														  <span class="input-group-addon">Pesos</span>
+														</div>
+													</div>
+													<div class="col-md-6 form-group">
+														<label >Descuento</label>
+														<div class="input-group">
+														  <input type="text" class="form-control">
+														  <span class="input-group-addon">%</span>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-6 form-group">
+														<label >Servicio</label>
+															<input type="text" name="" class="form-control">
+													</div>
+													<div class="col-md-6 form-group">
+														<label >Tipo de Facturtacion</label>
+														<div class="input-group">
+															<select name="Tipo" class="form-control" >
+																<option value="">Seleccione...</option>
+															</select>
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
+															</span>
+														</div>
+													</div>
+												</div>
+												<div class="row">
+													<div class="col-md-12 form-group">
+														<label> Descripcion</label>
+														<textarea name="" class="form-control"></textarea>
+												</div>
+												<div class="row">
+													<div class="col-md-12">
+														<button type="button" class="btn btn-primary guardarTicket">Guardar</button>
+													</div>
+												</div>
 									</div>
 								</div>
 							</div>
