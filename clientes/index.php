@@ -95,7 +95,7 @@
 													</div>
 												</div>
 												<div class="row">
-													<div class="col-md-12 form-group">
+													<div class="col-md-12">
 														<label>Comentariol</label>
 														<textarea name="Comentario" class="form-control"></textarea>
 													</div>
@@ -108,16 +108,9 @@
 												</div>
 											</div>
 											<div id="tabs-box-2" class="tab-pane fade">
-												<h3>Datos del Cliente</h3><br>
-												<div class="row">
-													<div class="col-md-6 form-group">
-														<select name="selectCliente" class="form-control" data-live-search="true">
-															<option value="">Seleccione...</option>
-														</select>
-													</div>
-													<div class="col-md-2">
-														<button type="button"  class="btn btn-primary btn-block buscarCliente">Buscar</button>
-													</div>
+												<h3>Lista de Clientes</h3><br>
+												<div class="listaCliente">
+
 												</div>
 											</div>
 										</div>

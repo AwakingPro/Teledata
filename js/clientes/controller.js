@@ -1,6 +1,12 @@
 $(document).ready(function() {
-	$('select[name="selectCliente"]').load('../ajax/cliente/selectClientes.php',function(){
-		$('select[name="selectCliente"]').selectpicker();
+	$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
+		var count = $('.listaCliente > .tabeData tr th').length -1;
+		$('.listaCliente > .tabeData').dataTable({
+			"columnDefs": [{
+				'orderable': false,
+				'targets': [count]
+			}, ]
+		});
 	});
 
 	$(document).on('click', '.guardarCliente', function() {
@@ -11,12 +17,6 @@ $(document).ready(function() {
 				console.log(data);
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar el ticket.</h3>');
 			}
-		});
-	});
-
-	$(document).on('click', '.buscarCliente', function() {
-		$.post('../ajax/cliente/dataCliente.php', {rut: $('select[name="selectCliente"]').selectpicker('val')}, function(data) {
-			console.log(data)
 		});
 	});
 });
