@@ -159,7 +159,7 @@
 
         function getBodega(){
 
-            $query = 'SELECT * FROM mantenedor_bodegas';
+            $query = 'SELECT * FROM mantenedor_bodegas where principal = 1';
             $run = new Method;
             $data = $run->select($query);
 

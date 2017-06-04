@@ -38,8 +38,15 @@ $(document).ready(function(){
 
             $.each(response.array, function( index, array ) {
 
+                if(array.principal == 1){
+                    principal = 'Si'
+                }else{
+                    principal = 'No'
+                }
+
                 var rowNode = Table.row.add([
                   ''+array.nombre+'',
+                  ''+principal+'',
                   ''+array.direccion+'',
                   ''+array.telefono+'',
                   ''+array.personal+'',
@@ -47,7 +54,11 @@ $(document).ready(function(){
                   ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
-                $( rowNode ).attr('id',array.id).data('personal_id',array.personal_id).addClass('text-center');
+                $( rowNode )
+                    .attr('id',array.id)
+                    .data('personal_id',array.personal_id)
+                    .data('principal',array.principal)
+                    .addClass('text-center');
             });
         
             
@@ -74,7 +85,7 @@ $(document).ready(function(){
         var data = $('#storeBodega').serialize();
         var array = $('#storeBodega').serializeArray();
 
-        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[1].value, 'Dirección') && ValidarString(array[2].value, 'Télefono') && ValidarCorreo(array[4].value)){
+        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[2].value, 'Dirección') && ValidarString(array[3].value, 'Télefono') && ValidarCorreo(array[5].value)){
 
             $.ajax({
                 type: "POST",
@@ -94,8 +105,15 @@ $(document).ready(function(){
 
                         Personal = $('#personal_id option[value="'+response.array.personal_id+'"]').first().data('content');
 
+                        if(response.array.principal == 1){
+                            principal = 'Si'
+                        }else{
+                            principal = 'No'
+                        }
+
                         var rowNode = Table.row.add([
                           ''+response.array.nombre+'',
+                          ''+principal+'',
                           ''+response.array.direccion+'',
                           ''+response.array.telefono+'',
                           ''+Personal+'',
@@ -103,7 +121,12 @@ $(document).ready(function(){
                           ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                         ]).draw(false).node();
 
-                        $( rowNode ).attr('id',response.array.id).data('personal_id',response.array.personal_id).addClass('text-center');
+                        $( rowNode )
+                            .attr('id',response.array.id)
+                            .data('personal_id',response.array.personal_id)
+                            .data('principal',response.array.principal)
+                            .addClass('text-center');
+
                         $('#storeBodega')[0].reset();
                         $('.selectpicker').selectpicker('render');
                         $('.selectpicker').selectpicker('refresh');
@@ -142,15 +165,15 @@ $(document).ready(function(){
         ObjectTR.addClass("Selected");
         var ObjectId = ObjectTR.attr("id");
         var ObjectName = ObjectTR.find("td").eq(0).text();
-        var ObjectAddress = ObjectTR.find("td").eq(1).text();
-        var ObjectId = ObjectTR.attr("id");
-        var ObjectName = ObjectTR.find("td").eq(0).text();
-        var ObjectAddress = ObjectTR.find("td").eq(1).text();
-        var ObjectTelephone = ObjectTR.find("td").eq(2).text();
+        var ObjectPrincipal = ObjectTR.data("principal");
+        console.log(ObjectPrincipal)
+        var ObjectAddress = ObjectTR.find("td").eq(2).text();
+        var ObjectTelephone = ObjectTR.find("td").eq(3).text();
         var ObjectPersonal = ObjectTR.data("personal_id");
-        var ObjectEmail = ObjectTR.find("td").eq(4).text();
+        var ObjectEmail = ObjectTR.find("td").eq(5).text();
         $('#updateBodega').find('input[name="id"]').val(ObjectId);
         $('#updateBodega').find('input[name="nombre"]').val(ObjectName);
+        $('#updateBodega').find('select[name="principal"]').val(ObjectPrincipal);
         $('#updateBodega').find('textarea[name="direccion"]').text(ObjectAddress);
         $('#updateBodega').find('input[name="telefono"]').val(ObjectTelephone);
         $('#updateBodega').find('select[name="personal_id"]').val(ObjectPersonal);
@@ -168,7 +191,7 @@ $(document).ready(function(){
         var data = $('#updateBodega').serialize();
         var array = $('#updateBodega').serializeArray();
 
-        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Dirección') && ValidarString(array[3].value, 'Télefono') && ValidarCorreo(array[5].value)){
+        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[3].value, 'Dirección') && ValidarString(array[4].value, 'Télefono') && ValidarCorreo(array[6].value)){
        
             $.ajax({
                 type: "POST",
@@ -188,13 +211,21 @@ $(document).ready(function(){
 
                         Personal = $('#personal_id option[value="'+response.array.personal_id+'"]').first().data('content');
 
+                        if(response.array.principal == 1){
+                            principal = 'Si'
+                        }else{
+                            principal = 'No'
+                        }
+
                         ObjectTR = $("#"+response.array.id);
                         ObjectTR.data('personal_id', response.array.personal_id)
+                        ObjectTR.data('principal', response.array.principal)
                         ObjectTR.find("td").eq(0).html(response.array.nombre);
-                        ObjectTR.find("td").eq(1).html(response.array.direccion);
-                        ObjectTR.find("td").eq(2).html(response.array.telefono);
-                        ObjectTR.find("td").eq(3).html(Personal);
-                        ObjectTR.find("td").eq(4).html(response.array.correo);
+                        ObjectTR.find("td").eq(1).html(principal);
+                        ObjectTR.find("td").eq(2).html(response.array.direccion);
+                        ObjectTR.find("td").eq(3).html(response.array.telefono);
+                        ObjectTR.find("td").eq(4).html(Personal);
+                        ObjectTR.find("td").eq(5).html(response.array.correo);
                         
                         $('.modal').modal('hide');
                         
