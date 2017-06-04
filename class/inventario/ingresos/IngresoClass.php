@@ -25,19 +25,35 @@
 
             if($TipoIngreso == 1){
                 if($NumeroSerie && $MacAddress){
-                    $NumeroSerieMacAddress = true;
+                    $Boolean1 = true;
                 }else{
-                    $NumeroSerieMacAddress = false;
+                    $Boolean1 = false;
                 }
             }else{
-                $NumeroSerieMacAddress = true;
+                $Boolean1 = true;
+            }
+
+            if($Estado == 1){
+                if($FechaCompra && $NumeroFactura && $Proveedor && $Valor){
+                    $Boolean2 = true;
+                }else{
+                    $Boolean2 = false;
+                }
+            }else{
+                $Boolean2 = true;
+            }
+
+            if($Boolean1 && $Boolean2){
+                $Acceso = true;
+            }else{
+                $Acceso = false;
             }
 
             if(!$Valor){
                 $Valor = 0;
             }
 
-            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($Bodega) && !empty($Modelo) && !empty($Proveedor) && !empty($Cantidad) && !empty($Estado) && $NumeroSerieMacAddress){
+            if(!empty($FechaIngreso) && !empty($Bodega) && !empty($Modelo) && !empty($Cantidad) && !empty($Estado) && $Acceso){
 
                 session_start();
 
@@ -54,7 +70,10 @@
                 $this->Estado=$Estado;
                 $this->Usuario=$_SESSION['idUsuario'];
 
-                $FechaCompra = DateTime::createFromFormat('d-m-Y', $FechaCompra)->format('Y-m-d');
+                if($FechaCompra){
+                    $FechaCompra = DateTime::createFromFormat('d-m-Y', $FechaCompra)->format('Y-m-d');
+                }
+               
                 $FechaIngreso = DateTime::createFromFormat('d-m-Y', $FechaIngreso)->format('Y-m-d');
                 $array = array();
 
@@ -203,7 +222,7 @@
 
         function showIngreso(){
 
-            $query = 'SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, mantenedor_proveedores.nombre as proveedor, mantenedor_bodegas.nombre as bodega FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id INNER JOIN mantenedor_bodegas ON inventario_ingresos.bodega_id = mantenedor_bodegas.id INNER JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
+            $query = 'SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, mantenedor_proveedores.nombre as proveedor, mantenedor_bodegas.nombre as bodega FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id INNER JOIN mantenedor_bodegas ON inventario_ingresos.bodega_id = mantenedor_bodegas.id LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
 
             $run = new Method;
             $data = $run->select($query);

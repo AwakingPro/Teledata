@@ -45,7 +45,7 @@
                             <input type="hidden" class="estado" id="estado" name="estado">
                             <input type="hidden" class="tipo_ingreso" id="tipo_ingreso" name="tipo_ingreso" value="1">
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha de Compra</label>
                                         <input id="fecha_compra" name="fecha_compra" validation="not_null"  type="text" placeholder="Seleccione la fecha de compra" class="form-control date" data-nombre="Fecha de Compra">
@@ -63,7 +63,7 @@
 
                                 <div class="clearfix m-b-10"></div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Proveedor</label>
                                         <div class="select">
@@ -76,7 +76,7 @@
 
                                 <div class="clearfix m-b-10"></div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Numero de Factura</label>
                                         <input id="numero_factura" name="numero_factura" validation="not_null" placeholder="Ingrese el numero de factura" class="form-control input-sm number" data-nombre="Numero de Factura">
@@ -153,7 +153,7 @@
 
                                 <div class="clearfix m-b-10"></div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Valor</label>
                                         <input id="valor" name="valor" type="text" placeholder="Ingrese el valor" class="form-control input-sm">

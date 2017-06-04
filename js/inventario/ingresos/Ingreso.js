@@ -71,7 +71,12 @@ $(document).ready(function(){
 
             $.each(response.array, function( index, array ) {
 
-                fecha_compra = moment(array.fecha_compra).format('DD-MM-YYYY');
+                if(array.fecha_compra && array.fecha_compra != '0000-00-00'){
+                    fecha_compra = moment(array.fecha_compra).format('DD-MM-YYYY');
+                }else{
+                    fecha_compra = ''
+                }
+                
                 fecha_ingreso = moment(array.fecha_ingreso).format('DD-MM-YYYY');
 
                 if(array.estado == 1){
@@ -80,11 +85,17 @@ $(document).ready(function(){
                     estado = 'Reacondicionado';
                 }
 
+                if(array.proveedor){
+                    proveedor = array.proveedor
+                }else{
+                    proveedor = ''
+                }
+
                 var rowNode = Table.row.add([
 
                     ''+fecha_compra+'',
                     ''+fecha_ingreso+'',
-                    ''+array.proveedor+'',
+                    ''+proveedor+'',
                     ''+array.numero_factura+'',
                     ''+array.tipo + ' ' + array.marca + ' ' + array.modelo+'',
                     ''+array.cantidad+'',
@@ -169,7 +180,12 @@ $(document).ready(function(){
                 $.each(response.array, function( index, array ) {
 
                     Modelo = $('#modelo_producto_id option[value="'+array.modelo_producto_id+'"]').first().data('content');
-                    Proveedor = $('#proveedor_id option[value="'+array.proveedor_id+'"]').first().data('content');
+                    if(array.proveedor_id){
+                        Proveedor = $('#proveedor_id option[value="'+array.proveedor_id+'"]').first().data('content');
+                    }else{
+                        Proveedor = ''
+                    }
+                    
                     Bodega = $('#bodega_id option[value="'+array.bodega_id+'"]').first().data('content');
 
                     if(array.estado == 1){
@@ -178,12 +194,9 @@ $(document).ready(function(){
                         estado = 'Reacondicionado';
                     }
 
-                    fecha_compra = moment(array.fecha_compra).format('DD-MM-YYYY');
-                    fecha_ingreso = moment(array.fecha_ingreso).format('DD-MM-YYYY');
-
                     var rowNode = Table.row.add([
-                        ''+fecha_compra+'',
-                        ''+fecha_ingreso+'',
+                        ''+array.fecha_compra+'',
+                        ''+array.fecha_ingreso+'',
                         ''+Proveedor+'',
                         ''+array.numero_factura+'',
                         ''+Modelo+'',
@@ -326,17 +339,14 @@ $(document).ready(function(){
                     estado = 'Reacondicionado';
                 }
 
-                fecha_compra = moment(response.array.fecha_compra).format('DD-MM-YYYY');
-                fecha_ingreso = moment(response.array.fecha_ingreso).format('DD-MM-YYYY');
-
                 ObjectTR = $("#"+response.array.id);
 
                 ObjectTR.data('modelo_producto_id',response.array.modelo_producto_id)
                 ObjectTR.data('proveedor_id', response.array.proveedor_id)
                 ObjectTR.data('bodega_id', response.array.bodega_id)
                 ObjectTR.data('estado', response.array.estado)
-                ObjectTR.find("td").eq(0).html(fecha_compra);
-                ObjectTR.find("td").eq(1).html(fecha_ingreso);
+                ObjectTR.find("td").eq(0).html(response.array.fecha_compra);
+                ObjectTR.find("td").eq(1).html(response.array.fecha_ingreso);
                 ObjectTR.find("td").eq(2).html(Proveedor);
                 ObjectTR.find("td").eq(3).html(response.array.numero_factura);
                 ObjectTR.find("td").eq(4).html(Modelo);
@@ -431,11 +441,11 @@ $(document).ready(function(){
         }
     });
 
+
     $('#storeIngreso input[name="cantidad"]').on('input', function () {
 
         $('#json').val('')
         tipo_ingreso = $('input[name=tipo_ingreso]').val();
-        console.log(tipo_ingreso);
         cantidad = parseInt($(this).val()) + 1
 
         if(tipo_ingreso == 2){
@@ -559,11 +569,29 @@ $(document).ready(function(){
 
     $('input[name=tmp_estado]').on('change', function () {
 
+        $('#storeIngreso').find('input[name="fecha_compra"]').val('');
+        $('#storeIngreso').find('input[name="numero_factura"]').val('');
+        $('#storeIngreso').find('select[name="proveedor_id"]').val('');
+        $('#storeIngreso').find('input[name="valor"]').val('');
+
         if($(this).attr('id') == 'nuevo'){
             $('.estado').val(1)
+            $('.nuevo').show()
+            $('#storeIngreso').find('input[name="fecha_compra"]').attr('validation','not_null');
+            $('#storeIngreso').find('input[name="numero_factura"]').attr('validation','not_null');
+            $('#storeIngreso').find('select[name="proveedor_id"]').attr('validation','not_null');
+            $('#storeIngreso').find('input[name="valor"]').attr('validation','not_null');
         }else{
             $('.estado').val(2)
+            $('#storeIngreso').find('input[name="fecha_compra"]').removeAttr('validation');
+            $('#storeIngreso').find('input[name="numero_factura"]').removeAttr('validation');
+            $('#storeIngreso').find('select[name="proveedor_id"]').removeAttr('validation');
+            $('#storeIngreso').find('input[name="valor"]').removeAttr('validation');
+            $('.nuevo').hide() 
         }
+
+        $('.selectpicker').selectpicker('render');
+        $('.selectpicker').selectpicker('refresh');
     });
 
     $('input[name=tmp_ingreso]').on('change', function () {
