@@ -38,112 +38,120 @@
 										<h3 class="panel-title">Modulo Servicios</h3>
 									</div>
 									<!--Panel body-->
-									<div class="panel-body">
+									<div class="panel-body container-form">
 										<h3>Registrar Servicios</h3><br>
-												<div class="row" >
-													<div class="col-md-6 form-group">
-														<label >Cliente</label>
-														<div class="input-group">
-															<select name="Tipo" class="form-control" >
-																<option value="">Seleccione...</option>
-															</select>
-															<span class="input-group-btn">
-																<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
-															</span>
-														</div>
-													</div>
+										<div class="row" >
+											<div class="col-md-6 form-group">
+												<label >Cliente</label>
+												<div class="input-group">
+													<select name="Cliente" class="form-control" data-live-search="true">
+														<option value="">Seleccione...</option>
+													</select>
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
+													</span>
 												</div>
-												<div class="row">
-													<div class="col-md-6 form-group">
-														<label>Grupo</label>
-														<select name="Tipo" class="form-control" >
-															<option value="">Seleccione...</option>
-														</select>
-													</div>
-													<div class="col-md-6 form-group">
-														<label>Tipo de Facturacion</label>
-														<select name="Tipo" class="form-control" >
-															<option value="">Seleccione...</option>
-														</select>
-													</div>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6 form-group">
+												<label>Grupo</label>
+												<select name="Tipo" class="form-control selectpicker" data-live-search="true">
+													<option value="">Seleccione...</option>
+													<option value="1">Grupo 1</option>
+													<option value="2">Grupo 2</option>
+													<option value="3">Grupo 3</option>
+												</select>
+											</div>
+											<div class="col-md-6 form-group">
+												<label>Tipo de Facturacion</label>
+												<div class="input-group">
+													<select name="TipoFacturacion" class="form-control" data-live-search="true">
+														<option value="">Seleccione...</option>
+													</select>
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
+													</span>
 												</div>
-												<div class="row" >
-													<div class="col-md-6 form-group">
-														<label >Valor</label>
-														<div class="input-group">
-														  <input type="text" class="form-control">
-														  <span class="input-group-addon">Pesos</span>
-														</div>
-													</div>
-													<div class="col-md-6 form-group">
-														<label >Descuento</label>
-														<div class="input-group">
-														  <input type="text" class="form-control">
-														  <span class="input-group-addon">%</span>
-														</div>
-													</div>
+											</div>
+										</div>
+										<div class="row" >
+											<div class="col-md-6 form-group">
+												<label >Valor</label>
+												<div class="input-group">
+													<input type="text"  name="Valor" class="form-control">
+													<span class="input-group-addon">Pesos</span>
 												</div>
-												<div class="row">
-													<div class="col-md-6 form-group">
-														<label >Servicio</label>
-															<input type="text" name="" class="form-control">
-													</div>
-													<div class="col-md-6 form-group">
-														<label >Tipo de Facturtacion</label>
-														<div class="input-group">
-															<select name="Tipo" class="form-control" >
-																<option value="">Seleccione...</option>
-															</select>
-															<span class="input-group-btn">
-																<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
-															</span>
-														</div>
-													</div>
+											</div>
+											<div class="col-md-6 form-group">
+												<label >Descuento</label>
+												<div class="input-group">
+													<input type="text" name="Descuento" class="form-control">
+													<span class="input-group-addon">%</span>
 												</div>
-												<div class="row">
-													<div class="col-md-12 form-group">
-														<label> Descripcion</label>
-														<textarea name="" class="form-control"></textarea>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-6 form-group">
+												<label >Servicio</label>
+												<div class="input-group">
+													<select name="TipoServicio" class="form-control" data-live-search="true">
+														<option value="">Seleccione...</option>
+													</select>
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
+													</span>
 												</div>
-												<div class="row">
-													<div class="col-md-12">
-														<button type="button" class="btn btn-primary guardarTicket">Guardar</button>
-													</div>
+											</div>
+											<div class="col-md-6 form-group">
+												<label >Tiempo de Facturtacion</label>
+												<input type="text" name="TiempoFacturacion"  class="form-control">
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-md-12 form-group">
+												<label> Descripcion</label>
+												<textarea name="Descripcion" class="form-control"></textarea>
+											</div>
+											<div class="row">
+												<div class="col-md-12">
+													<button type="button" class="btn btn-primary guardarServ">Guardar</button>
 												</div>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<nav id='mainnav-container'>
-				<div id='mainnav'>
-					<div id='mainnav-shortcut'>
-						<ul class='list-unstyled'>
-							<li class='col-xs-4' data-content='Page Alerts'></li>
-						</ul>
-					</div>
-					<div id='mainnav-menu-wrap'>
-						<div class='nano'>
-							<div class='nano-content'>
-								<ul id='mainnav-menu' class='list-group'>
-								</ul>
+				<nav id='mainnav-container'>
+					<div id='mainnav'>
+						<div id='mainnav-shortcut'>
+							<ul class='list-unstyled'>
+								<li class='col-xs-4' data-content='Page Alerts'></li>
+							</ul>
+						</div>
+						<div id='mainnav-menu-wrap'>
+							<div class='nano'>
+								<div class='nano-content'>
+									<ul id='mainnav-menu' class='list-group'>
+									</ul>
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
-			</nav>
+				</nav>
+			</div>
 		</div>
-	</div>
-	<script src="../js/jquery-2.2.1.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/nifty.min.js"></script>
-	<script src="../plugins/bootbox/bootbox.min.js"></script>
-	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
-	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
-	<script src="../js/methods_global/methods.js"></script>
-	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
-	<script src="../js/clientes/controller.js"></script>
-</body>
+		<script src="../js/jquery-2.2.1.min.js"></script>
+		<script src="../js/bootstrap.min.js"></script>
+		<script src="../js/nifty.min.js"></script>
+		<script src="../plugins/bootbox/bootbox.min.js"></script>
+		<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
+		<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
+		<script src="../js/methods_global/methods.js"></script>
+		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
+		<script src="../js/servicios/controller.js"></script>
+	</body>
 </html>
