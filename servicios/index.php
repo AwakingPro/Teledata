@@ -44,7 +44,7 @@
 											<div class="col-md-6 form-group">
 												<label >Cliente</label>
 												<div class="input-group">
-													<select name="Cliente" class="form-control" data-live-search="true">
+													<select name="Rut" class="form-control" data-live-search="true">
 														<option value="">Seleccione...</option>
 													</select>
 													<span class="input-group-btn">
@@ -56,7 +56,7 @@
 										<div class="row">
 											<div class="col-md-6 form-group">
 												<label>Grupo</label>
-												<select name="Tipo" class="form-control selectpicker" data-live-search="true">
+												<select name="Grupo" class="form-control selectpicker" data-live-search="true">
 													<option value="">Seleccione...</option>
 													<option value="1">Grupo 1</option>
 													<option value="2">Grupo 2</option>
