@@ -105,7 +105,7 @@
 											</div>
 											<div class="col-md-6 form-group">
 												<label >Tipo de Facturtacion</label>
-												<input type="text" name="TiempoFacturacion"  class="form-control">
+												<input type="text" name="TiepoFacturacion"  class="form-control">
 											</div>
 										</div>
 										<div class="row">
