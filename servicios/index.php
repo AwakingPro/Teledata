@@ -48,7 +48,7 @@
 														<option value="">Seleccione...</option>
 													</select>
 													<span class="input-group-btn">
-														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCliente"><i class="fa fa-plus" aria-hidden="true"></i></button>
 													</span>
 												</div>
 											</div>
@@ -66,11 +66,11 @@
 											<div class="col-md-6 form-group">
 												<label>Tipo de Facturacion</label>
 												<div class="input-group">
-													<select name="TipoFacturacion" class="form-control" data-live-search="true">
+													<select name="TipoFactura" class="form-control" data-live-search="true">
 														<option value="">Seleccione...</option>
 													</select>
 													<span class="input-group-btn">
-														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalTipoFacturacion"><i class="fa fa-plus" aria-hidden="true"></i></button>
 													</span>
 												</div>
 											</div>
@@ -99,12 +99,12 @@
 														<option value="">Seleccione...</option>
 													</select>
 													<span class="input-group-btn">
-														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalServicio"><i class="fa fa-plus" aria-hidden="true"></i></button>
 													</span>
 												</div>
 											</div>
 											<div class="col-md-6 form-group">
-												<label >Tiempo de Facturtacion</label>
+												<label >Tipo de Facturtacion</label>
 												<input type="text" name="TiempoFacturacion"  class="form-control">
 											</div>
 										</div>
@@ -155,3 +155,99 @@
 		<script src="../js/servicios/controller.js"></script>
 	</body>
 </html>
+<div class="modal fade" id="ModalCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Registro de Cliente</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<label>Cliente</label>
+						<input name="Nombre" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Rut</label>
+						<input name="Rut" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Dv</label>
+						<input name="Dv" class="form-control">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label>Direccion Comercial</label>
+						<textarea name="DireccionComercial" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<label>Contacto</label>
+						<input name="Contacto" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Telefono</label>
+						<input name="Telefono" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Correo</label>
+						<input name="Correo" class="form-control">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Giro</label>
+						<input name="Giro" class="form-control">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label>Comentariol</label>
+						<textarea name="Comentario" class="form-control"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="ModalTipoFacturacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="ModalServicio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+			</div>
+			<div class="modal-body">
+				...
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>
