@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Mi Computadora
+Source Server         : localhost
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : teledata
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-06-01 12:05:16
+Date: 2017-06-04 23:27:56
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -27,7 +27,7 @@ CREATE TABLE `menu` (
   `permisos` varchar(20) NOT NULL,
   `icono` varchar(50) NOT NULL,
   PRIMARY KEY (`id_menu`)
-) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of menu
@@ -39,3 +39,4 @@ INSERT INTO `menu` VALUES ('7', 'Inventario', 'Inventario', '#', '1', 'fa fa-dro
 INSERT INTO `menu` VALUES ('8', 'Reportes', 'Reportes', '#', '1', 'fa fa-bar-chart');
 INSERT INTO `menu` VALUES ('9', 'Configurac', 'Configuracion', '#', '1', 'fa fa-cog');
 INSERT INTO `menu` VALUES ('10', 'Tickets', 'Tickets', '../Tickets', '1', 'fa fa-ticket');
+INSERT INTO `menu` VALUES ('11', 'Servicios', 'Servicios', '../servicios', '1', 'fa fa-plug');

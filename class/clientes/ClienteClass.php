@@ -15,7 +15,7 @@ class Cliente{
         }
 
 	}
-    
+
     public function TipoBusqueda($data){
         $this->data=$data;
         if($this->data==1){
@@ -62,49 +62,49 @@ class Cliente{
             echo '<label>Nombre</label>';
             echo "<input type='text'   disabled class='form-control' value='$Nombre' >";
             echo '</div>';
-            echo '</div>'; 
+            echo '</div>';
             echo '<div class="col-sm-2">';
             echo '<div class="form-group">';
             echo '<label>Rut</label>';
             echo "<input type='text'   disabled  value='$Run' class='form-control' >";
             echo '</div>';
-            echo '</div>'; 
+            echo '</div>';
             echo '<div class="col-sm-2">';
             echo '<div class="form-group">';
             echo '<label>Giro</label>';
             echo "<input type='text'  disabled  value='$Giro' class='form-control' >";
             echo '</div>';
-            echo '</div>'; 
+            echo '</div>';
             echo '<div class="col-sm-2">';
             echo '<div class="form-group">';
             echo '<label>Contacto</label>';
             echo "<input type='text' disabled   value='$Contacto' class='form-control' >";
             echo '</div>';
-            echo '</div>';  
+            echo '</div>';
             echo '<div class="col-sm-2">';
             echo '<div class="form-group">';
             echo '<label>Correo</label>';
             echo "<input type='text' disabled   value='$Correo' class='form-control' >";
             echo '</div>';
-            echo '</div>';          
-            echo '</div>'; 
+            echo '</div>';
+            echo '</div>';
             echo '<div class="row">';
             echo '<div class="col-sm-6">';
             echo '<div class="form-group">';
             echo '<label>Direccion Comercial</label>';
             echo "<input type='text'    disabled class='form-control' value='$Direccion' >";
             echo '</div>';
-            echo '</div>'; 
+            echo '</div>';
             echo '<div class="col-sm-6">';
             echo '<div class="form-group">';
             echo '<label>Comentario</label>';
             echo "<input type='text'   disabled  value='$Comentario' class='form-control' >";
             echo '</div>';
-            echo '</div>';   
-            echo '</div>'; 
+            echo '</div>';
+            echo '</div>';
 
         }
-      	
+
     }
 
     public function VerServicio(){
@@ -144,7 +144,7 @@ class Cliente{
 		echo '</div>';
 		echo '</div>';
 
-        
+
 
     }
     public function AgregaServicio($Rut,$IdServicio,$Descripcion,$IdTipo){
@@ -165,7 +165,7 @@ class Cliente{
         }
 
         $Contar = mysql_num_rows(mysql_query("SELECT rut FROM Servicios WHERE rut=$this->Rut AND id_codigo=$this->IdTipo"));
-        
+
         $Contar = $Contar+1;
         if($Contar<10){
             $ContarFinal = "0".$Contar;
@@ -173,7 +173,7 @@ class Cliente{
         else{
             $ContarFinal = $Contar;
         }
-        
+
         $Codigo = $this->Rut."-".$Dv.$CodigoNombre.$ContarFinal;
         $Insert = mysql_query("INSERT INTO Servicios(rut,id_servicio,descripcion,codigo,id_codigo) VALUES ('$this->Rut','$this->IdServicio','$this->Descripcion','$Codigo','$this->IdTipo')");
         if($Insert){
@@ -196,7 +196,7 @@ class Cliente{
 
     }
 
-    
+
     public function MostrarServicios($Rut){
         $this->Rut=$Rut;
         $Existe = mysql_query("SELECT rut FROM Servicios WHERE rut = $this->Rut");
@@ -240,7 +240,7 @@ class Cliente{
             echo "<div class='list-divider'></div>";
             echo "Cliente no tiene Servicios Agregados , Agregue Servicio <i class='fa fa-plus-square'  ></i>";
         }
-        
+
     }
     public function VerDatosTecnicos($Rut,$Id){
         $this->Rut=$Rut;
@@ -258,95 +258,95 @@ class Cliente{
                 echo "<br>";
                 echo "<b>Datos Técnicos</b>";
                 echo "<div class='list-divider'></div>";
-                
-                
+
+
                 echo '<div class="row">';
                 echo '<div class="col-sm-2">';
                 echo '<div class="form-group">';
                 echo '<label>Direccion IP</label>';
                 echo "<input type='text'   disabled class='form-control' value='$Ip' >";
                 echo '</div>';
-                echo '</div>'; 
+                echo '</div>';
                 echo '<div class="col-sm-2">';
                 echo '<div class="form-group">';
                 echo '<label>AP</label>';
                 echo "<input type='text'    disabled value='$Ap' class='form-control' >";
                 echo '</div>';
-                echo '</div>'; 
+                echo '</div>';
                 echo '<div class="col-sm-2">';
                 echo '<div class="form-group">';
                 echo '<label>Estacion</label>';
                 echo "<input type='text' disabled value='$Estacion' class='form-control' >";
                 echo '</div>';
-                echo '</div>'; 
+                echo '</div>';
                 echo '<div class="col-sm-2">';
                 echo '<div class="form-group">';
                 echo '<label>Mac Address</label>';
                 echo "<input type='text'  disabled  value='$Mac' class='form-control' >";
                 echo '</div>';
-                echo '</div>'; 
+                echo '</div>';
                 echo '<div class="col-sm-2">';
                 echo '<div class="form-group">';
                 echo '<label>Señal de Instalación</label>';
                 echo "<input type='text'  disabled  value='$Senal' class='form-control' >";
                 echo '</div>';
-                echo '</div>'; 
+                echo '</div>';
                 echo '<div class="col-sm-2">';
                 echo '<div class="form-group">';
                 echo '<label>Señal Actual</label>';
                 echo "<input type='text'  disabled value='$SenalActual' class='form-control' >";
                 echo '</div>';
-                echo '</div>'; 
-                echo '</div>'; 
+                echo '</div>';
+                echo '</div>';
                 echo '<div class="row">';
                 echo '<div class="col-sm-2">';
                 echo '<div class="form-group">';
                 echo '<label>Direccion IP</label>';
                 echo "<input type='text'   disabled class='form-control' value='$Ip' >";
                 echo '</div>';
-                echo '</div>'; 
+                echo '</div>';
                 echo '<div class="col-sm-2">';
                 echo '<div class="form-group">';
                 echo '<label>AP</label>';
                 echo "<input type='text'    disabled value='$Ap' class='form-control' >";
                 echo '</div>';
-                echo '</div>'; 
+                echo '</div>';
                 echo '<div class="col-sm-2">';
                 echo '<div class="form-group">';
                 echo '<label>Estacion</label>';
                 echo "<input type='text' disabled value='$Estacion' class='form-control' >";
                 echo '</div>';
-                echo '</div>'; 
+                echo '</div>';
                 echo '<div class="col-sm-2">';
                 echo '<div class="form-group">';
                 echo '<label>Mac Address</label>';
                 echo "<input type='text'  disabled  value='$Mac' class='form-control' >";
                 echo '</div>';
-                echo '</div>'; 
+                echo '</div>';
                 echo '<div class="col-sm-2">';
                 echo '<div class="form-group">';
                 echo '<label>Señal de Instalación</label>';
                 echo "<input type='text'  disabled  value='$Senal' class='form-control' >";
                 echo '</div>';
-                echo '</div>'; 
+                echo '</div>';
                 echo '<div class="col-sm-2">';
                 echo '<div class="form-group">';
                 echo '<label>Señal Actual</label>';
                 echo "<input type='text'  disabled value='$SenalActual' class='form-control' >";
                 echo '</div>';
-                echo '</div>'; 
+                echo '</div>';
                 echo '</div>';
             }
         }
         else{
-            
+
             echo "<br>";
             echo "<b>Datos Técnicos</b>";
             echo "<div class='list-divider'></div>";
             echo "Servicio no cuenta con Datos Técnicos Ingresados <i class='fa fa-alert></i>";
-            
+
         }
-        
+
 
     }
 }
