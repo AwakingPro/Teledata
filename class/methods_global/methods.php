@@ -79,6 +79,7 @@
 
 		public function select($query) {
 			$mysqli = $this->conexion();
+			$mysqli->set_charset("utf8");
 			if ($mysqli) {
 				$rows = array();
 				if ($resultado = $mysqli->query($query)) {

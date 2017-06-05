@@ -1,10 +1,10 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
 	$query = 'SELECT
-	tipo_facturacion.codigo,
-	tipo_facturacion.descripcion
-	FROM
-	tipo_facturacion';
+mantenedor_tipo_facturacion.codigo,
+mantenedor_tipo_facturacion.descripcion
+FROM
+mantenedor_tipo_facturacion';
 	$run = new Method;
 	$data = $run->select($query);
 	if (count($data) > 0) {
