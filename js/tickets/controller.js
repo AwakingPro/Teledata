@@ -29,6 +29,17 @@ $.post('../ajax/privilegios.php', function(data) {
 				}, ]
 			});
 		});
+
+		$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
+			var count = $('.listaFinalizados > .tabeData tr th').length -1;
+			$('.listaFinalizados > .tabeData').dataTable({
+				"columnDefs": [{
+					'orderable': false,
+					'targets': [count]
+				}, ]
+			});
+		});
+
 		$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
 			var count = $('.listaIncumplidos > .tabeData tr th').length -1;
 			$('.listaIncumplidos > .tabeData').dataTable({
@@ -71,6 +82,7 @@ $.post('../ajax/privilegios.php', function(data) {
 		$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
 		$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
 		$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
+		$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
 
 		$('.guardarTicket').click(function() {
 			$.postFormValues('../ajax/tickets/insertData.php','.cont-form1',function(data){
@@ -78,6 +90,15 @@ $.post('../ajax/privilegios.php', function(data) {
 					$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
 						var count = $('.listaAbiertos > .tabeData tr th').length -1;
 						$('.listaAbiertos > .tabeData').dataTable({
+							"columnDefs": [{
+								'orderable': false,
+								'targets': [count]
+							}, ]
+						});
+					});
+					$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
+						var count = $('.listaFinalizados > .tabeData tr th').length -1;
+						$('.listaFinalizados > .tabeData').dataTable({
 							"columnDefs": [{
 								'orderable': false,
 								'targets': [count]
@@ -104,6 +125,9 @@ $.post('../ajax/privilegios.php', function(data) {
 					});
 					$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
 					$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
+					$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
+					$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
+
 					$('input, select, textarea').val('');
 					bootbox.alert('<h3 class="text-center">El ticket #'+data+' se registro con exito.</h3>');
 
@@ -113,6 +137,61 @@ $.post('../ajax/privilegios.php', function(data) {
 				}
 			});
 		});
+
+		$('.guardarTicketInterno').click(function() {
+			$.postFormValues('../ajax/tickets/insertData.php','.cont-form3',function(data){
+				if (Number(data) > 0){
+					$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
+						var count = $('.listaAbiertos > .tabeData tr th').length -1;
+						$('.listaAbiertos > .tabeData').dataTable({
+							"columnDefs": [{
+								'orderable': false,
+								'targets': [count]
+							}, ]
+						});
+					});
+					$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
+						var count = $('.listaFinalizados > .tabeData tr th').length -1;
+						$('.listaFinalizados > .tabeData').dataTable({
+							"columnDefs": [{
+								'orderable': false,
+								'targets': [count]
+							}, ]
+						});
+					});
+					$('.listaAsignados').load('../ajax/tickets/listAsignados.php',function(){
+						var count = $('.listaAsignados > .tabeData tr th').length -1;
+						$('.listaAsignados  > .tabeData').dataTable({
+							"columnDefs": [{
+								'orderable': false,
+								'targets': [count]
+							}, ]
+						});
+					});
+					$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
+						var count = $('.listaIncumplidos > .tabeData tr th').length -1;
+						$('.listaIncumplidos > .tabeData').dataTable({
+							"columnDefs": [{
+								'orderable': false,
+								'targets': [count]
+							}, ]
+						});
+					});
+					$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
+					$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
+					$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
+					$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
+
+					$('input, select, textarea').val('');
+					bootbox.alert('<h3 class="text-center">El ticket #'+data+' se registro con exito.</h3>');
+
+				}else{
+					console.log(data);
+					bootbox.alert('<h3 class="text-center">Se produjo un error al guardar el ticket.</h3>');
+				}
+			});
+		});
+
 		$('.busqueda').click(function() {
 			$.postFormValues('../ajax/tickets/listBuscar.php','.cont-form2',function(data){
 				$('.listaBusqueda').html(data);
@@ -210,6 +289,15 @@ $.post('../ajax/privilegios.php', function(data) {
 									}, ]
 								});
 							});
+							$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
+								var count = $('.listaFinalizados > .tabeData tr th').length -1;
+								$('.listaFinalizados > .tabeData').dataTable({
+									"columnDefs": [{
+										'orderable': false,
+										'targets': [count]
+									}, ]
+								});
+							});
 							$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
 								var count = $('.listaIncumplidos > .tabeData tr th').length -1;
 								$('.listaIncumplidos > .tabeData').dataTable({
@@ -232,6 +320,7 @@ $.post('../ajax/privilegios.php', function(data) {
 							$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
 							$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
 							$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
+							$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
 						});
 					}
 				}
@@ -297,6 +386,15 @@ $.post('../ajax/privilegios.php', function(data) {
 									}, ]
 								});
 							});
+							$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
+								var count = $('.listaFinalizados > .tabeData tr th').length -1;
+								$('.listaFinalizados > .tabeData').dataTable({
+									"columnDefs": [{
+										'orderable': false,
+										'targets': [count]
+									}, ]
+								});
+							});
 							$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
 								var count = $('.listaIncumplidos > .tabeData tr th').length -1;
 								$('.listaIncumplidos > .tabeData').dataTable({
@@ -319,6 +417,7 @@ $.post('../ajax/privilegios.php', function(data) {
 							$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
 							$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
 							$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
+							$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
 						});
 					}
 				}
@@ -360,6 +459,15 @@ $.post('../ajax/privilegios.php', function(data) {
 						}, ]
 					});
 				});
+				$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
+					var count = $('.listaFinalizados > .tabeData tr th').length -1;
+					$('.listaFinalizados > .tabeData').dataTable({
+						"columnDefs": [{
+							'orderable': false,
+							'targets': [count]
+						}, ]
+					});
+				});
 				$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
 					var count = $('.listaAbiertos > .tabeData tr th').length -1;
 					$('.listaIncumplidos > .tabeData').dataTable({
@@ -382,6 +490,7 @@ $.post('../ajax/privilegios.php', function(data) {
 				$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
 				$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
 				$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
+				$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
 				bootbox.alert('<h3 class="text-center">El ticket se actualizo con exito.</h3>');
 			});
 		});

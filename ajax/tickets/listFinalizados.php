@@ -16,7 +16,7 @@
 	INNER JOIN tipo_ticket ON tickets.Tipo = tipo_ticket.IdTipoTicket
 	INNER JOIN subtipo_ticket ON tickets.Subtipo = subtipo_ticket.IdSubTipoTicket
 	INNER JOIN tiempo_prioridad ON tickets.Prioridad = tiempo_prioridad.IdTiempoPrioridad
-	WHERE tickets.Estado = 'Abierto'";
+	WHERE tickets.Estado = 'Finalizado'";
 	$run = new Method;
 	session_start();
 	if ($_SESSION['idNivel'] != 1) {
