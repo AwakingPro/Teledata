@@ -181,7 +181,7 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label >Observaciones</label>
-								<textarea name="ObservacionesUpdate" class="form-control" rows="5"></textarea>
+								<textarea name="ObservacionesUpdate" class="form-control"></textarea>
 							</div>
 						</div>
 						<input type="hidden" name="idUpdateTicket">
