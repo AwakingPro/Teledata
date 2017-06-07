@@ -31,7 +31,7 @@ $(document).ready(function(){
     });
 
     $(".number").mask("0000000000");
-    $("#valor").mask("000.000.000.000",{reverse: true});
+    $(".valor").mask("000.000.000.000",{reverse: true});
 
     Table = $('#IngresoTable').DataTable({
         paging: false,
@@ -285,16 +285,29 @@ $(document).ready(function(){
         $('#updateIngreso').find('input[name="numero_factura"]').val(ObjectBill);
         $('#updateIngreso').find('input[name="numero_serie"]').val(ObjectSerial);
         $('#updateIngreso').find('input[name="mac_address"]').val(ObjectMacAddress);
-        $('#updateIngreso').find('input[name="valor"]').val(parseInt(ObjectValue.replace(/,/g, '')));
+        $('#updateIngreso').find('input[name="valor"]').val(ObjectValue);
         $('#updateIngreso').find('input[name="cantidad"]').val(ObjectQuantity);
 
-        $('.estado').val(ObjectState)
-
         if(ObjectState == 1){
-            console.log(ObjectState)
-            $('#nuevo').prop('checked',true)
+            $('.label_estado').removeClass('active')
+            $('.label_nuevo').addClass('active')
+            $('#updateIngreso').find('.input_nuevo').prop('checked',true);
+            $('.estado').val(1)
+            $('.nuevo').show()
+            $(".fecha_compra").attr('validation','not_null');
+            $('.numero_factura').attr('validation','not_null');
+            $('.proveedor_id').attr('validation','not_null');
+            $('.valor').attr('validation','not_null');
         }else{
-            $('#reacondicionado').prop('checked',true)
+            $('.label_estado').removeClass('active')
+            $('.label_reacondicionado').addClass('active')
+            $('#updateIngreso').find('.input_reacondicionado').prop('checked',true);
+            $('.estado').val(2)
+            $(".fecha_compra").removeAttr('validation');
+            $('.numero_factura').removeAttr('validation');
+            $('.proveedor_id').removeAttr('validation');
+            $('.valor').removeAttr('validation');
+            $('.nuevo').hide() 
         }
 
         if($(this).hasClass('fa-search')){
@@ -561,32 +574,42 @@ $(document).ready(function(){
     });
 
     $('#IngresoForm').on('show.bs.modal', function () {
-
+        $('#storeIngreso').find('.input_nuevo').prop('checked',true);
+        $('.label_estado').removeClass('active')
+        $('.label_nuevo').addClass('active')
         $('.estado').val(1)
-        $('#nuevo').prop('checked',true)
+        $('.nuevo').show()
+        $(".fecha_compra").attr('validation','not_null');
+        $('.numero_factura').attr('validation','not_null');
+        $('.proveedor_id').attr('validation','not_null');
+        $('.valor').attr('validation','not_null');
 
     });
 
     $('input[name=tmp_estado]').on('change', function () {
 
-        $('#storeIngreso').find('input[name="fecha_compra"]').val('');
-        $('#storeIngreso').find('input[name="numero_factura"]').val('');
-        $('#storeIngreso').find('select[name="proveedor_id"]').val('');
-        $('#storeIngreso').find('input[name="valor"]').val('');
+        $('input[name="fecha_compra"]').val('');
+        $('input[name="numero_factura"]').val('');
+        $('select[name="proveedor_id"]').val('');
+        $('input[name="valor"]').val('');
 
         if($(this).attr('id') == 'nuevo'){
+            $('.label_estado').removeClass('active')
+            $('.label_nuevo').addClass('active')
             $('.estado').val(1)
             $('.nuevo').show()
-            $('#storeIngreso').find('input[name="fecha_compra"]').attr('validation','not_null');
-            $('#storeIngreso').find('input[name="numero_factura"]').attr('validation','not_null');
-            $('#storeIngreso').find('select[name="proveedor_id"]').attr('validation','not_null');
-            $('#storeIngreso').find('input[name="valor"]').attr('validation','not_null');
+            $(".fecha_compra").attr('validation','not_null');
+            $('.numero_factura').attr('validation','not_null');
+            $('.proveedor_id').attr('validation','not_null');
+            $('.valor').attr('validation','not_null');
         }else{
+            $('.label_estado').removeClass('active')
+            $('.label_reacondicionado').addClass('active')
             $('.estado').val(2)
-            $('#storeIngreso').find('input[name="fecha_compra"]').removeAttr('validation');
-            $('#storeIngreso').find('input[name="numero_factura"]').removeAttr('validation');
-            $('#storeIngreso').find('select[name="proveedor_id"]').removeAttr('validation');
-            $('#storeIngreso').find('input[name="valor"]').removeAttr('validation');
+            $(".fecha_compra").removeAttr('validation');
+            $('.numero_factura').removeAttr('validation');
+            $('.proveedor_id').removeAttr('validation');
+            $('.valor').removeAttr('validation');
             $('.nuevo').hide() 
         }
 

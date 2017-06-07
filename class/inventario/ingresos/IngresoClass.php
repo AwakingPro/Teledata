@@ -151,11 +151,21 @@
             $MacAddress = isset($MacAddress) ? trim($MacAddress) : "";
             $Estado = isset($Estado) ? trim($Estado) : "";
 
+            if($Estado == 1){
+                if($FechaCompra && $NumeroFactura && $Proveedor && $Valor){
+                    $Acceso = true;
+                }else{
+                    $Acceso = false;
+                }
+            }else{
+                $Acceso = true;
+            }
+
             if(!$Valor){
                 $Valor = 0;
             }
 
-            if(!empty($FechaCompra) && !empty($FechaIngreso) && !empty($NumeroFactura) && !empty($NumeroSerie) && !empty($Modelo) && !empty($Proveedor) && !empty($Cantidad) && !empty($Bodega) && !empty($MacAddress) && !empty($Estado)){
+            if(!empty($FechaIngreso) && !empty($Bodega) && !empty($Modelo) && !empty($Cantidad) && !empty($Estado) && !empty($MacAddress) && !empty($NumeroSerie) && $Acceso){
 
                 $this->Id=$Id;
                 $this->FechaCompra=$FechaCompra;

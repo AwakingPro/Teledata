@@ -51,8 +51,8 @@
 
                                         <div class="clearfix"></div>
   
-                                        <label class="form-radio form-icon form-text active"><input id="nuevo" name="tmp_estado" checked="" type="radio" value="1">Nuevo</label>
-                                        <label class="form-radio form-icon form-text"><input id="reacondicionado" name="tmp_estado" type="radio" value="2">Reacondicionado</label>
+                                        <label class="form-radio form-icon form-text label_estado label_nuevo"><input class="input_nuevo" id="nuevo" name="tmp_estado" type="radio" value="1">Nuevo</label>
+                                        <label class="form-radio form-icon form-text label_estado label_reacondicionado"><input class="input_reacondicionado" id="reacondicionado" name="tmp_estado" type="radio" value="2">Reacondicionado</label>
                                     </div>
                                 </div>
 
@@ -61,7 +61,7 @@
                                 <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha de Compra</label>
-                                        <input id="fecha_compra" name="fecha_compra" validation="not_null"  type="text" placeholder="Seleccione la fecha de compra" class="form-control date" data-nombre="Fecha de Compra">
+                                        <input id="fecha_compra" name="fecha_compra" validation="not_null"  type="text" placeholder="Seleccione la fecha de compra" class="form-control date fecha_compra" data-nombre="Fecha de Compra">
                                     </div>
                                 </div>
 
@@ -70,7 +70,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha de Ingreso</label>
-                                        <input id="fecha_ingreso" name="fecha_ingreso" validation="not_null" type="text" placeholder="Seleccione la fecha de ingreso" class="form-control date" data-nombre="Fecha de Ingreso">
+                                        <input id="fecha_ingreso" name="fecha_ingreso" validation="not_null" type="text" placeholder="Seleccione la fecha de ingreso" class="form-control date fecha_ingreso" data-nombre="Fecha de Ingreso">
                                     </div>
                                 </div>
 
@@ -80,7 +80,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Proveedor</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
+                                            <select class="selectpicker form-control proveedor_id proveedor" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -92,7 +92,7 @@
                                 <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Numero de Factura</label>
-                                        <input id="numero_factura" name="numero_factura" validation="not_null" placeholder="Ingrese el numero de factura" class="form-control input-sm number" data-nombre="Numero de Factura">
+                                        <input id="numero_factura" name="numero_factura" validation="not_null" placeholder="Ingrese el numero de factura" class="form-control input-sm number numero_factura" data-nombre="Numero de Factura">
                                     </div>
                                 </div>
 
@@ -104,7 +104,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Modelo</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control modelo_producto_id" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
+                                            <select class="selectpicker form-control modelo_producto_id modelo" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -129,7 +129,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Cantidad</label>
-                                        <input id="cantidad" name="cantidad" validation="not_null" type="text" placeholder="Ingrese la cantidad" class="form-control input-sm number" data-nombre="Cantidad">
+                                        <input id="cantidad" name="cantidad" validation="not_null" type="text" placeholder="Ingrese la cantidad" class="form-control input-sm number cantidad" data-nombre="Cantidad">
                                     </div>
                                 </div>
 
@@ -138,7 +138,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group unico">
                                         <label class="control-label" for="name">Numero de Serie</label>
-                                        <input id="numero_serie" name="numero_serie" validation="not_null" placeholder="Ingrese el numero de serie" class="form-control input-sm number" data-nombre="Numero de Serie">
+                                        <input id="numero_serie" name="numero_serie" validation="not_null" placeholder="Ingrese el numero de serie" class="form-control input-sm number numero_serie" data-nombre="Numero de Serie">
                                     </div>
                                 </div>
 
@@ -147,7 +147,7 @@
                                 <div class="col-md-12 unico">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Mac Address</label>
-                                        <input id="mac_address" name="mac_address" validation="not_null" placeholder="Ingrese la mac address" class="form-control input-sm" data-nombre="Mac Address">
+                                        <input id="mac_address" name="mac_address" validation="not_null" placeholder="Ingrese la mac address" class="form-control input-sm mac_address" data-nombre="Mac Address">
                                     </div>
                                 </div>
 
@@ -156,7 +156,7 @@
                                 <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Valor</label>
-                                        <input id="valor" name="valor" type="text" placeholder="Ingrese el valor" class="form-control input-sm">
+                                        <input id="valor" name="valor" type="text" placeholder="Ingrese el valor" class="form-control input-sm valor">
                                     </div>
                                 </div>
 
@@ -166,7 +166,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Bodega</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control bodega_id" id="bodega_id" name="bodega_id" validation="not_null" data-live-search="true" data-nombre="Bodega" data-container="body">
+                                            <select class="selectpicker form-control bodega_id bodega" id="bodega_id" name="bodega_id" validation="not_null" data-live-search="true" data-nombre="Bodega" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -202,17 +202,17 @@
 
                                         <div class="clearfix"></div>
   
-                                        <label class="form-radio form-icon form-text active"><input id="nuevo" name="tmp_estado" checked="" type="radio" value="1">Nuevo</label>
-                                        <label class="form-radio form-icon form-text"><input id="reacondicionado" name="tmp_estado" type="radio" value="2">Reacondicionado</label>
+                                        <label class="form-radio form-icon form-text label_estado label_nuevo"><input class="input_nuevo" id="nuevo" name="tmp_estado" type="radio" value="1">Nuevo</label>
+                                        <label class="form-radio form-icon form-text label_estado label_reacondicionado"><input class="input_reacondicionado" id="reacondicionado" name="tmp_estado" type="radio" value="2">Reacondicionado</label>
                                     </div>
                                 </div>
 
                                 <div class="clearfix m-b-10"></div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha de Compra</label>
-                                        <input id="fecha_compra" name="fecha_compra" validation="not_null"  type="text" placeholder="Seleccione la fecha de compra" class="form-control date" data-nombre="Fecha de Compra">
+                                        <input id="fecha_compra" name="fecha_compra" validation="not_null"  type="text" placeholder="Seleccione la fecha de compra" class="form-control date fecha_compra" data-nombre="Fecha de Compra">
                                     </div>
                                 </div>
 
@@ -221,18 +221,18 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha de Ingreso</label>
-                                        <input id="fecha_ingreso" name="fecha_ingreso" validation="not_null" type="text" placeholder="Seleccione la fecha de ingreso" class="form-control date" data-nombre="Fecha de Ingreso">
+                                        <input id="fecha_ingreso" name="fecha_ingreso" validation="not_null" type="text" placeholder="Seleccione la fecha de ingreso" class="form-control date fecha_ingreso" data-nombre="Fecha de Ingreso">
                                     </div>
                                 </div>
 
                                 <div class="clearfix m-b-10"></div>
 
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Proveedor</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
+                                            <select class="selectpicker form-control proveedor_id proveedor" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -241,10 +241,10 @@
 
                                 <div class="clearfix m-b-10"></div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Numero de Factura</label>
-                                        <input id="numero_factura" name="numero_factura" validation="not_null" placeholder="Ingrese el numero de factura" class="form-control input-sm number" data-nombre="Numero de Factura">
+                                        <input id="numero_factura" name="numero_factura" validation="not_null" placeholder="Ingrese el numero de factura" class="form-control input-sm number numero_factura" data-nombre="Numero de Factura">
                                     </div>
                                 </div>
 
@@ -256,7 +256,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Modelo</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control modelo_producto_id" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
+                                            <select class="selectpicker form-control modelo_producto_id modelo" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -268,7 +268,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Cantidad</label>
-                                        <input id="cantidad" name="cantidad" validation="not_null" type="text" placeholder="Ingrese la cantidad" class="form-control input-sm number" data-nombre="Cantidad">
+                                        <input id="cantidad" name="cantidad" validation="not_null" type="text" placeholder="Ingrese la cantidad" class="form-control input-sm number cantidad" data-nombre="Cantidad">
                                     </div>
                                 </div>
 
@@ -277,7 +277,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Numero de Serie</label>
-                                        <input id="numero_serie" name="numero_serie" validation="not_null" placeholder="Ingrese el numero de serie" class="form-control input-sm number" data-nombre="Numero de Serie">
+                                        <input id="numero_serie" name="numero_serie" validation="not_null" placeholder="Ingrese el numero de serie" class="form-control input-sm number numero_serie" data-nombre="Numero de Serie">
                                     </div>
                                 </div>
 
@@ -286,16 +286,16 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Mac Address</label>
-                                        <input id="mac_address" name="mac_address" validation="not_null" placeholder="Ingrese la mac address" class="form-control input-sm" data-nombre="Mac Address">
+                                        <input id="mac_address" name="mac_address" validation="not_null" placeholder="Ingrese la mac address" class="form-control input-sm mac_address" data-nombre="Mac Address">
                                     </div>
                                 </div>
 
                                 <div class="clearfix m-b-10"></div>
 
-                                <div class="col-md-12">
+                                <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Valor</label>
-                                        <input id="valor" name="valor" type="text" placeholder="Ingrese el valor" class="form-control input-sm">
+                                        <input id="valor" name="valor" type="text" placeholder="Ingrese el valor" class="form-control input-sm valor">
                                     </div>
                                 </div>
 
@@ -305,7 +305,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Bodega</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control bodega_id" id="bodega_id" name="bodega_id" validation="not_null" data-live-search="true" data-nombre="Bodega" data-container="body">
+                                            <select class="selectpicker form-control bodega_id bodega" id="bodega_id" name="bodega_id" validation="not_null" data-live-search="true" data-nombre="Bodega" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
