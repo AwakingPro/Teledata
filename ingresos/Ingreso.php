@@ -45,6 +45,19 @@
                             <input type="hidden" class="estado" id="estado" name="estado">
                             <input type="hidden" class="tipo_ingreso" id="tipo_ingreso" name="tipo_ingreso" value="1">
 
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Estado</label>
+
+                                        <div class="clearfix"></div>
+  
+                                        <label class="form-radio form-icon form-text active"><input id="nuevo" name="tmp_estado" checked="" type="radio" value="1">Nuevo</label>
+                                        <label class="form-radio form-icon form-text"><input id="reacondicionado" name="tmp_estado" type="radio" value="2">Reacondicionado</label>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
                                 <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha de Compra</label>
@@ -140,19 +153,6 @@
 
                                 <div class="clearfix m-b-10"></div>
 
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="control-label" for="name">Estado</label>
-
-                                        <div class="clearfix"></div>
-  
-                                        <label class="form-radio form-icon form-text active"><input id="nuevo" name="tmp_estado" checked="" type="radio" value="1">Nuevo</label>
-                                        <label class="form-radio form-icon form-text"><input id="reacondicionado" name="tmp_estado" type="radio" value="2">Reacondicionado</label>
-                                    </div>
-                                </div>
-
-                                <div class="clearfix m-b-10"></div>
-
                                 <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Valor</label>
@@ -195,6 +195,19 @@
                             <form class="form-horizontal" id = "updateIngreso">
                                 <input type="hidden" id="id" name="id">
                                 <input type="hidden" class="estado" id="estado" name="estado">
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Estado</label>
+
+                                        <div class="clearfix"></div>
+  
+                                        <label class="form-radio form-icon form-text active"><input id="nuevo" name="tmp_estado" checked="" type="radio" value="1">Nuevo</label>
+                                        <label class="form-radio form-icon form-text"><input id="reacondicionado" name="tmp_estado" type="radio" value="2">Reacondicionado</label>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
 
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -274,19 +287,6 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Mac Address</label>
                                         <input id="mac_address" name="mac_address" validation="not_null" placeholder="Ingrese la mac address" class="form-control input-sm" data-nombre="Mac Address">
-                                    </div>
-                                </div>
-
-                                <div class="clearfix m-b-10"></div>
-
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="control-label" for="name">Estado</label>
-
-                                        <div class="clearfix"></div>
-  
-                                        <label class="form-radio form-icon form-text active"><input id="nuevo" name="tmp_estado" checked="" type="radio" value="1">Nuevo</label>
-                                        <label class="form-radio form-icon form-text"><input id="reacondicionado" name="tmp_estado" type="radio" value="2">Reacondicionado</label>
                                     </div>
                                 </div>
 
