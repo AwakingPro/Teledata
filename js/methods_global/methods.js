@@ -48,7 +48,10 @@ $.validate = function(obj) {
 	}
 }
 
-$('#mainnav-menu').load('../ajax/menu/mainMenu.php');
-	$(document).on('click', '.itemsMenu', function() {
+$.post('../ajax/menu/mainMenu.php', {url: window.location.pathname}, function(data) {
+	$('#mainnav-menu').html(data);
+});
+
+$(document).on('click', '.itemsMenu', function() {
 	$(this).siblings('.collapse').slideToggle();
 });
