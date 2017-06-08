@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-06-01 12:05:25
+Date: 2017-06-08 11:07:59
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -30,7 +30,6 @@ CREATE TABLE `submenu` (
 -- ----------------------------
 -- Records of submenu
 -- ----------------------------
-INSERT INTO `submenu` VALUES ('3', '3', 'Nueva Venta', '../ventas/dteNueva.php');
 INSERT INTO `submenu` VALUES ('4', '7', 'Bodegas', '../bodegas/Bodega.php');
 INSERT INTO `submenu` VALUES ('5', '7', 'Proveedores', '../proveedores/Proveedor.php');
 INSERT INTO `submenu` VALUES ('6', '7', 'Mantenedor Tipo Producto', '../tipo_producto/TipoProducto.php');
