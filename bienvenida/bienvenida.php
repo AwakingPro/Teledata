@@ -11,7 +11,7 @@
 		<link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
 	</head>
 	<body>
-		<div id="container" class="effect mainnav-lg">
+		<div id="container" class="mainnav-sm">
 			<?php
 			include("../layout/header.php");
 			?>

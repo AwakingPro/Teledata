@@ -32,7 +32,7 @@
     </head>
     <body>
 
-        <div id="container" class="effect mainnav-lg">
+        <div id="container" class="effect mainnav-sm">
 
             <?php
                 include("../layout/header.php");
@@ -86,7 +86,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-md-12">
                                         <button type="button" class="btn btn-purple" id="filtrarReporte">Filtrar</button>
                                     </div>
@@ -190,4 +190,3 @@
 
     </body>
 </html>
-            

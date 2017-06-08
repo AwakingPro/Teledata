@@ -50,7 +50,7 @@
                                         <label class="control-label" for="name">Estado</label>
 
                                         <div class="clearfix"></div>
-  
+
                                         <label class="form-radio form-icon form-text label_estado label_nuevo"><input class="input_nuevo" id="nuevo" name="tmp_estado" type="radio" value="1">Nuevo</label>
                                         <label class="form-radio form-icon form-text label_estado label_reacondicionado"><input class="input_reacondicionado" id="reacondicionado" name="tmp_estado" type="radio" value="2">Reacondicionado</label>
                                     </div>
@@ -118,7 +118,7 @@
                                         <label class="control-label" for="name">Tipo de Ingreso</label>
 
                                         <div class="clearfix"></div>
-  
+
                                         <label class="form-radio form-icon form-text active"><input id="unico" name="tmp_ingreso" checked="" type="radio" value="1">Ingreso Unico</label>
                                         <label class="form-radio form-icon form-text"><input id="multiple" name="tmp_ingreso" type="radio" value="2">Ingreso Multiple</label>
                                     </div>
@@ -201,7 +201,7 @@
                                         <label class="control-label" for="name">Estado</label>
 
                                         <div class="clearfix"></div>
-  
+
                                         <label class="form-radio form-icon form-text label_estado label_nuevo"><input class="input_nuevo" id="nuevo" name="tmp_estado" type="radio" value="1">Nuevo</label>
                                         <label class="form-radio form-icon form-text label_estado label_reacondicionado"><input class="input_reacondicionado" id="reacondicionado" name="tmp_estado" type="radio" value="2">Reacondicionado</label>
                                     </div>
@@ -333,7 +333,7 @@
                         <div class="row" style="padding:20px">
                             <form class="form-horizontal" id = "updateCantidad">
 
-                             
+
                             </form>
                         </div>
                     </div><!-- /.modal-body -->
@@ -347,7 +347,7 @@
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <div id="container" class="effect mainnav-lg">
+        <div id="container" class="effect mainnav-sm">
 
             <?php
                 include("../layout/header.php");

@@ -51,7 +51,7 @@
     </style>
 </head>
 <body>
-<div id="container" class="effect mainnav-lg">
+<div id="container" class="effect mainnav-sm">
 
 
     <?php

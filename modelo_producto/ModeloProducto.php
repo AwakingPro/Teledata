@@ -114,7 +114,7 @@
                                         </div><!-- /.modal-content -->
                                         </div><!-- /.modal-dialog -->
                                         </div><!-- /.modal -->
-                                        <div id="container" class="effect mainnav-lg">
+                                        <div id="container" class="effect mainnav-sm">
                                             <?php
                                             include("../layout/header.php");
                                             ?>
