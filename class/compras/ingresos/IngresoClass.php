@@ -153,7 +153,7 @@
 
         function showCentroCosto(){
 
-            $query = 'SELECT * FROM mantenedor_costos where principal = 1';
+            $query = 'SELECT * FROM mantenedor_costos';
             $run = new Method;
             $data = $run->select($query);
 

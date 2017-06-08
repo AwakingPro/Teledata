@@ -135,6 +135,21 @@ $(document).ready(function(){
         }
     });
 
+    $.ajax({
+        type: "POST",
+        url: "../includes/compras/costos/showPersonal.php",
+        success: function(response){
+
+            $.each(response.array, function( index, array ) {
+                $('.personal_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+            });
+
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
+        
+        }
+    });
+
 
     $('body').on('click', '#guardarIngreso', function () {
 
@@ -365,6 +380,52 @@ $(document).ready(function(){
 
                 $('#storeProveedor')[0].reset();
                 $('#modalProveedor').modal('hide');
+
+            }else if(response.status == 2){
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Debe llenar todos los campos',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+            }else{
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Ocurrio un error en el Proceso',
+                    container : 'floating',
+                    timer : 3000
+                });
+            }
+       });   
+    });
+
+    $('body').on('click', '#guardarCosto', function () {
+
+        $.postFormValues('../includes/compras/costos/storeCosto.php', '#storeCosto', function(response){
+
+            if(response.status == 1){
+
+                $.niftyNoty({
+                    type: 'success',
+                    icon : 'fa fa-check',
+                    message : 'Registro Guardado Exitosamente',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+                $('.centro_costo_id').append('<option value="'+response.array.id+'" data-content="'+response.array.nombre+'"></option>');
+                $('.centro_costo_id').val(response.array.id);
+                
+                $('.selectpicker').selectpicker('render');
+                $('.selectpicker').selectpicker('refresh')
+
+                $('#storeCosto')[0].reset();
+                $('#modalCosto').modal('hide');
 
             }else if(response.status == 2){
 

@@ -5,12 +5,11 @@
 
     class Costo{
 
-    	public function CrearCosto($Nombre,$Principal,$Direccion,$Telefono,$Personal,$Correo){
+    	public function CrearCosto($Nombre,$Direccion,$Telefono,$Personal,$Correo){
 
             $response_array = array();
 
             $Nombre = isset($Nombre) ? trim($Nombre) : "";
-            $Principal = isset($Principal) ? trim($Principal) : "";
             $Direccion = isset($Direccion) ? trim($Direccion) : "";
             $Telefono = isset($Telefono) ? trim($Telefono) : "";
             $Personal = isset($Personal) ? trim($Personal) : "";
@@ -20,19 +19,18 @@
                 !empty($Correo)){
 
                 $this->Nombre=$Nombre;
-                $this->Principal=$Principal;
                 $this->Direccion=$Direccion;
                 $this->Telefono=$Telefono;
                 $this->Personal=$Personal;
                 $this->Correo=$Correo;
 
-                $query = "INSERT INTO mantenedor_costos(nombre, principal, direccion, telefono, personal_id, correo) VALUES ('$this->Nombre','$this->Principal','$this->Direccion','$this->Telefono','$this->Personal','$this->Correo')";
+                $query = "INSERT INTO mantenedor_costos(nombre, direccion, telefono, personal_id, correo) VALUES ('$this->Nombre','$this->Direccion','$this->Telefono','$this->Personal','$this->Correo')";
                 $run = new Method;
                 $id = $run->insert($query);
 
                 // if($data){
 
-                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'principal' => $this->Principal,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo);
+                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -48,12 +46,11 @@
     	} 
 
 
-        function updateCosto($Nombre,$Principal,$Direccion,$Telefono,$Personal,$Correo, $Id){
+        function updateCosto($Nombre,$Direccion,$Telefono,$Personal,$Correo, $Id){
 
             $response_array = array();
 
             $Nombre = isset($Nombre) ? trim($Nombre) : "";
-            $Principal = isset($Principal) ? trim($Principal) : "";
             $Direccion = isset($Direccion) ? trim($Direccion) : "";
             $Telefono = isset($Telefono) ? trim($Telefono) : "";
             $Personal = isset($Personal) ? trim($Personal) : "";
@@ -64,19 +61,18 @@
 
                 $this->Id=$Id;
                 $this->Nombre=$Nombre;
-                $this->Principal=$Principal;
                 $this->Direccion=$Direccion;
                 $this->Telefono=$Telefono;
                 $this->Personal=$Personal;
                 $this->Correo=$Correo;
 
-                $query = "UPDATE `mantenedor_costos` set `nombre` = '$this->Nombre', `principal` = '$this->Principal', `direccion` = '$this->Direccion', `telefono` = '$this->Telefono', `personal_id` = '$this->Personal', `correo` = '$this->Correo' where `id` = '$this->Id'";
+                $query = "UPDATE `mantenedor_costos` set `nombre` = '$this->Nombre', `direccion` = '$this->Direccion', `telefono` = '$this->Telefono', `personal_id` = '$this->Personal', `correo` = '$this->Correo' where `id` = '$this->Id'";
                 $run = new Method;
                 $data = $run->insert($query);
 
                 // if($data){
 
-                    $array = array('nombre' => $this->Nombre, 'principal' => $this->Principal,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo, 'id' => $this->Id);
+                    $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo, 'id' => $this->Id);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 

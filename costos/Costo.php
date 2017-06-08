@@ -44,18 +44,6 @@
 								<div class="clearfix m-b-10"></div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label class="control-label" for="name">Principal</label>
-										<div class="select">
-											<select class="selectpicker form-control principal" name="principal" id="principal"  data-live-search="true" data-container="body">
-												<option value="1">Si</option>
-												<option value="0">No</option>
-											</select>
-										</div>
-									</div>
-								</div>
-								<div class="clearfix m-b-10"></div>
-								<div class="col-md-12">
-									<div class="form-group">
 										<label class="control-label" for="name">Dirección</label>
 										<textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección"></textarea>
 									</div>
@@ -109,18 +97,6 @@
 													<div class="form-group">
 														<label class="control-label" for="name">Nombre</label>
 														<input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm">
-													</div>
-												</div>
-												<div class="clearfix m-b-10"></div>
-												<div class="col-md-12">
-													<div class="form-group">
-														<label class="control-label" for="name">Principal</label>
-														<div class="select">
-															<select class="selectpicker form-control principal" name="principal" id="principal"  data-live-search="true" data-container="body">
-																<option value="1">Si</option>
-																<option value="0">No</option>
-															</select>
-														</div>
 													</div>
 												</div>
 												<div class="clearfix m-b-10"></div>
@@ -190,7 +166,6 @@
 																					<thead>
 																						<tr>
 																							<th class="text-center">Nombre</th>
-																							<th class="text-center">Principal</th>
 																							<th class="text-center">Dirección</th>
 																							<th class="text-center">Télefono</th>
 																							<th class="text-center">Responsable</th>

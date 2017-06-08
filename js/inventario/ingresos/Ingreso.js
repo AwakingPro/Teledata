@@ -162,6 +162,36 @@ $(document).ready(function(){
         }
     });
 
+    $.ajax({
+        type: "POST",
+        url: "../includes/inventario/bodegas/showPersonal.php",
+        success: function(response){
+
+            $.each(response.array, function( index, array ) {
+                $('.personal_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+            });
+
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
+        
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "../includes/inventario/modelo_producto/showMarcaProducto.php",
+        success: function(response){
+
+            $.each(response.array, function( index, array ) {
+                $('.marca_producto_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+            });
+
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
+        
+        }
+    });
+
 
     $('body').on('click', '#guardarIngreso', function () {
 
@@ -626,5 +656,142 @@ $(document).ready(function(){
         }
     });
 
-   
+    $('body').on('click', '#guardarProveedor', function () {
+
+        $.postFormValues('../includes/inventario/proveedores/storeProveedor.php', '#storeProveedor', function(response){
+
+            if(response.status == 1){
+
+                $.niftyNoty({
+                    type: 'success',
+                    icon : 'fa fa-check',
+                    message : 'Registro Guardado Exitosamente',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+                $('.proveedor_id').append('<option value="'+response.array.id+'" data-content="'+response.array.nombre+'"></option>');
+                $('.proveedor_id').val(response.array.id);
+                
+                $('.selectpicker').selectpicker('render');
+                $('.selectpicker').selectpicker('refresh')
+
+                $('#storeProveedor')[0].reset();
+                $('#modalProveedor').modal('hide');
+
+            }else if(response.status == 2){
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Debe llenar todos los campos',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+            }else{
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Ocurrio un error en el Proceso',
+                    container : 'floating',
+                    timer : 3000
+                });
+            }
+       });   
+    });
+
+    $('body').on('click', '#guardarBodega', function () {
+
+        $.postFormValues('../includes/inventario/bodegas/storeBodega.php', '#storeBodega', function(response){
+
+            if(response.status == 1){
+
+                $.niftyNoty({
+                    type: 'success',
+                    icon : 'fa fa-check',
+                    message : 'Registro Guardado Exitosamente',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+                $('.bodega_id').append('<option value="'+response.array.id+'" data-content="'+response.array.nombre+'"></option>');
+                $('.bodega_id').val(response.array.id);
+                
+                $('.selectpicker').selectpicker('render');
+                $('.selectpicker').selectpicker('refresh')
+
+                $('#storeBodega')[0].reset();
+                $('#modalBodega').modal('hide');
+
+            }else if(response.status == 2){
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Debe llenar todos los campos',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+            }else{
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Ocurrio un error en el Proceso',
+                    container : 'floating',
+                    timer : 3000
+                });
+            }
+       });   
+    });
+
+    $('body').on('click', '#guardarModelo', function () {
+
+        $.postFormValues('../includes/inventario/modelo_producto/storeModeloProducto.php', '#storeModelo', function(response){
+
+            if(response.status == 1){
+
+                $.niftyNoty({
+                    type: 'success',
+                    icon : 'fa fa-check',
+                    message : 'Registro Guardado Exitosamente',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+                $('.modelo_producto_id').append('<option value="'+response.array.id+'" data-content="'+response.array.nombre+'"></option>');
+                $('.modelo_producto_id').val(response.array.id);
+                
+                $('.selectpicker').selectpicker('render');
+                $('.selectpicker').selectpicker('refresh')
+
+                $('#storeModelo')[0].reset();
+                $('#modalModelo').modal('hide');
+
+            }else if(response.status == 2){
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Debe llenar todos los campos',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+            }else{
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Ocurrio un error en el Proceso',
+                    container : 'floating',
+                    timer : 3000
+                });
+            }
+       });   
+    });
+
 });

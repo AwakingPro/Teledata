@@ -78,7 +78,7 @@
 
                                 <div class="col-md-12 nuevo">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Proveedor</label>
+                                        <label class="control-label" for="name">Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
                                         <div class="select">
                                             <select class="selectpicker form-control proveedor_id proveedor" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
@@ -102,7 +102,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Modelo</label>
+                                        <label class="control-label" for="name">Modelo - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalModelo">Crear Registro Nuevo</label></label>
                                         <div class="select">
                                             <select class="selectpicker form-control modelo_producto_id modelo" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
                                                 <option value="">Seleccione Opción</option>
@@ -164,7 +164,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Bodega</label>
+                                        <label class="control-label" for="name">Bodega - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalBodega">Crear Registro Nuevo</label></label>
                                         <div class="select">
                                             <select class="selectpicker form-control bodega_id bodega" id="bodega_id" name="bodega_id" validation="not_null" data-live-search="true" data-nombre="Bodega" data-container="body">
                                                 <option value="">Seleccione Opción</option>
@@ -343,6 +343,184 @@
                           <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                         </div>
                     </div></form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div id="modalProveedor" class="modal fade" tabindex="-1" role="dialog" id="load">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                        <h4 class="modal-title c-negro">Agregar Proveedor <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:20px">
+                            <form class="form-horizontal" id = "storeProveedor">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Nombre</label>
+                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validation="not_null" data-nombre="Nombre">
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Dirección</label>
+                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validation="not_null" data-nombre="Dirección"></textarea>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Télefono</label>
+                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Contacto</label>
+                                        <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm" validation="not_null" data-nombre="Contacto">
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Correo</label>
+                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-body -->
+                    <div class="modal-footer p-b-20 m-b-20">
+                        <div class="col-sm-12">
+                          <button type="button" class="btn btn-purple" id="guardarProveedor" name="guardarProveedor">Guardar</button>
+                        </div>
+                    </div></form>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div id="modalBodega" class="modal fade" tabindex="-1" role="dialog" id="load">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                        <h4 class="modal-title c-negro">Agregar Bodega <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:20px">
+                            <form class="form-horizontal" id = "storeBodega">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Nombre</label>
+                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validation="not_null" data-nombre="Nombre">
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Principal</label>
+                                        <div class="select">
+                                            <select class="selectpicker form-control principal" name="principal" id="principal"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Principal">
+                                                <option value="1">Si</option>
+                                                <option value="0">No</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Dirección</label>
+                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validation="not_null" data-nombre="Dirección"></textarea>
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Télefono</label>
+                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Responsable</label>
+                                        <div class="select">
+                                            <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Correo</label>
+                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-body -->
+                    <div class="modal-footer p-b-20 m-b-20">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-purple" id="guardarBodega" name="guardarBodega">Guardar</button>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
+
+        <div id="modalModelo" class="modal fade" tabindex="-1" role="dialog" id="load">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                        <h4 class="modal-title c-negro">Agregar Modelo Producto <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:20px">
+                            <form class="form-horizontal" id = "storeModelo">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Marca</label>
+                                        <div class="select">
+                                            <select class="selectpicker form-control marca_producto_id" name="marca_producto_id" id="marca_producto_id"  data-live-search="true" data-container="body">
+                                                <option value="">Seleccione Opción</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Nombre</label>
+                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm">
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Descripción</label>
+                                        <textarea id="descripcion" name="descripcion" rows="4" class="form-control" placeholder="Ingrese su descripción"></textarea>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div><!-- /.modal-body -->
+                    <div class="modal-footer p-b-20 m-b-20">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-purple" id="guardarModelo" name="guardarModelo">Guardar</button>
+                        </div>
+                    </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
