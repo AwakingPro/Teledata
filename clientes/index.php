@@ -111,7 +111,7 @@
 												<h3>Lista de Clientes</h3><br>
 												<div class="row">
 													<div class="col-md-3">
-														<select name="" class="form-control selectpicker" data-live-search="true">
+														<select name="" class="form-control selectpicker tipoBusqueda" data-live-search="true">
 															<option value="">Rut</option>
 															<option value="">Nombre</option>
 														</select>
@@ -128,36 +128,35 @@
 												<br><br>
 												<div class="row">
 													<div class="tab-base">
-
-					            <!--Nav Tabs-->
-					            <ul class="nav nav-tabs">
-					                <li class="active">
-					                    <a data-toggle="tab" href="#demo-lft-tab-1">Facturacion</a>
-					                </li>
-					                <li>
-					                    <a data-toggle="tab" href="#demo-lft-tab-2">Servicios</a>
-					                </li>
-					                <li>
-					                    <a data-toggle="tab" href="#demo-lft-tab-3">Productos</a>
-					                </li>
-					                <li>
-					                    <a data-toggle="tab" href="#demo-lft-tab-3">Datos de Contacto</a>
-					                </li>
-					            </ul>
-
-					            <!--Tabs Content-->
-					            <div class="tab-content">
-					                <div id="demo-lft-tab-1" class="tab-pane fade active in">
-					                    <h3>No hay informacion</h3>
-					                </div>
-					                <div id="demo-lft-tab-2" class="tab-pane fade">
-					                    <h3>No hay informacion</h3>
-					                </div>
-					                <div id="demo-lft-tab-3" class="tab-pane fade">
-					                    <h3>No hay informacion</h3>
-					                </div>
-					            </div>
-					        </div>
+														<ul class="nav nav-tabs">
+															<li class="active">
+																<a data-toggle="tab" href="#tab-Facturacion">Facturacion</a>
+															</li>
+															<li>
+																<a data-toggle="tab" href="#tab-Servicios">Servicios</a>
+															</li>
+															<li>
+																<a data-toggle="tab" href="#tab-Productos">Productos</a>
+															</li>
+															<li>
+																<a data-toggle="tab" href="#tab-DatosContacto">Datos de Contacto</a>
+															</li>
+														</ul>
+														<div class="tab-content">
+															<div id="tab-Facturacion" class="tab-pane fade active in">
+																<h3>No hay informacion</h3>
+															</div>
+															<div id="tab-Servicios" class="tab-pane fade">
+																<h3>No hay informacion</h3>
+															</div>
+															<div id="tab-Productos" class="tab-pane fade">
+																<h3>No hay informacion</h3>
+															</div>
+															<div id="tab-DatosContacto" class="tab-pane fade">
+																<h3>No hay informacion</h3>
+															</div>
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>

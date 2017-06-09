@@ -19,4 +19,8 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	$(document).on('click', '.tipoBusqueda', function(event) {
+
+	});
 });
