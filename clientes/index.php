@@ -112,17 +112,17 @@
 												<div class="row">
 													<div class="col-md-3">
 														<select name="" class="form-control selectpicker tipoBusqueda" data-live-search="true">
-															<option value="">Rut</option>
-															<option value="">Nombre</option>
+															<option value="1">Rut</option>
+															<option value="2">Nombre</option>
 														</select>
 													</div>
 													<div class="col-md-6">
-														<select name="" class="form-control selectpicker">
+														<select name="rutCliente" class="form-control" data-live-search="true">
 															<option value="">Seleccione...</option>
 														</select>
 													</div>
 													<div class="col-md-3">
-														<button type="button" class="btn btn-primary btn-block">Buscar</button>
+														<button type="button" class="btn btn-primary btn-block buscarDatosClientes">Buscar</button>
 													</div>
 												</div>
 												<br><br>

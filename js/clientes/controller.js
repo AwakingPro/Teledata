@@ -1,4 +1,8 @@
 $(document).ready(function() {
+	$('select[name="rutCliente"]').load('../ajax/cliente/selectRutCliente.php',function(){
+		$('select[name="rutCliente"]').selectpicker();
+	});
+
 	$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
 		var count = $('.listaCliente > .tabeData tr th').length -1;
 		$('.listaCliente > .tabeData').dataTable({
@@ -20,7 +24,21 @@ $(document).ready(function() {
 		});
 	});
 
-	$(document).on('click', '.tipoBusqueda', function(event) {
+	$(document).on('change', '.tipoBusqueda', function() {
+		if ($('.tipoBusqueda').selectpicker('val') == '1') {
+			$('select[name="rutCliente"]').load('../ajax/cliente/selectRutCliente.php',function(){
+				$('select[name="rutCliente"]').selectpicker('refresh');
+			});
+		}else{
+			$('select[name="rutCliente"]').load('../ajax/cliente/selectNombreCliente.php',function(){
+				$('select[name="rutCliente"]').selectpicker('refresh');
+			});
+		}
+	});
 
+	$(document).on('click', '.buscarDatosClientes', function() {
+		$.post('../ajax/cliente/dataCliente.php', {rut: $('select[name="rutCliente"]').selectpicker('val')}, function(datar) {
+			console.log(data);
+		});
 	});
 });
