@@ -66,11 +66,16 @@
 		$DataFacturacion = 'false';
 	}
 
-	$query = 'SELECT Id, Codigo, TipoFactura, TiepoFacturacion
-	FROM
+	$query = 'SELECT
+		servicios.Id,
+		servicios.Codigo,
+		servicios.TiepoFacturacion,
+		mantenedor_tipo_factura.descripcion
+		FROM
 		servicios
+		INNER JOIN mantenedor_tipo_factura ON servicios.TipoFactura = mantenedor_tipo_factura.codigo
 	WHERE
-		Rut ='.$_POST['rut'];
+		servicios.Rut ='.$_POST['rut'];
 	$run = new Method;
 	$lista = $run->listViewServicios($query);
 	$listaServicios =  $lista;
