@@ -37,8 +37,8 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.buscarDatosClientes', function() {
-		$.post('../ajax/cliente/dataCliente.php', {rut: $('select[name="rutCliente"]').selectpicker('val')}, function(datar) {
-			console.log(data);
+		$.post('../ajax/cliente/dataCliente.php', {rut: $('select[name="rutCliente"]').selectpicker('val')}, function(data) {
+			$('.dataFacturacion').html(data);
 		});
 	});
 });

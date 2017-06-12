@@ -143,7 +143,7 @@
 															</li>
 														</ul>
 														<div class="tab-content">
-															<div id="tab-Facturacion" class="tab-pane fade active in">
+															<div id="tab-Facturacion" class="tab-pane fade active in dataFacturacion">
 																<h3>No hay informacion</h3>
 															</div>
 															<div id="tab-Servicios" class="tab-pane fade">
