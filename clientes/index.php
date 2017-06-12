@@ -135,24 +135,12 @@
 															<li>
 																<a data-toggle="tab" href="#tab-Servicios">Servicios</a>
 															</li>
-															<li>
-																<a data-toggle="tab" href="#tab-Productos">Productos</a>
-															</li>
-															<li>
-																<a data-toggle="tab" href="#tab-DatosContacto">Datos de Contacto</a>
-															</li>
 														</ul>
 														<div class="tab-content">
 															<div id="tab-Facturacion" class="tab-pane fade active in dataFacturacion">
 																<h3>No hay informacion</h3>
 															</div>
-															<div id="tab-Servicios" class="tab-pane fade">
-																<h3>No hay informacion</h3>
-															</div>
-															<div id="tab-Productos" class="tab-pane fade">
-																<h3>No hay informacion</h3>
-															</div>
-															<div id="tab-DatosContacto" class="tab-pane fade">
+															<div id="tab-Servicios" class="tab-pane fade dataServicios">
 																<h3>No hay informacion</h3>
 															</div>
 														</div>
@@ -197,3 +185,38 @@
 	<script src="../js/clientes/controller.js"></script>
 </body>
 </html>
+
+<div class="modal fade" id="verServicios">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Lista de Datos tecnicos</h4>
+			</div>
+			<div class="modal-body">
+				lol
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">Guardar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="modal fade" id="agregarDatosTecnicos">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Agregar Datos Tecnicos</h4>
+			</div>
+			<div class="modal-body">
+				lol
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary">Guardar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

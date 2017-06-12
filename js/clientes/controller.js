@@ -37,8 +37,19 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.buscarDatosClientes', function() {
-		$.post('../ajax/cliente/dataCliente.php', {rut: $('select[name="rutCliente"]').selectpicker('val')}, function(data) {
-			$('.dataFacturacion').html(data);
-		});
+		if ($('select[name="rutCliente"]').selectpicker('val') != '') {
+			$.post('../ajax/cliente/dataCliente.php', {rut: $('select[name="rutCliente"]').selectpicker('val')}, function(data) {
+				values = $.parseJSON(data);
+				$('.dataFacturacion').html(values[0]);
+				$('.dataServicios').html(values[1]);
+				var count = $('.dataServicios > .tabeData tr th').length -1;
+				$('.dataServicios > .tabeData').dataTable({
+						"columnDefs": [{
+						'orderable': false,
+						'targets': [count]
+					}, ]
+				});
+			});
+		}
 	});
 });
