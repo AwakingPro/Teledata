@@ -35,6 +35,7 @@
 					$mysqli->close();
 				}else{
 					$return = false;
+					// $return = mysqli_error($mysqli);
 					$mysqli->close();
 				}
 				return $return;

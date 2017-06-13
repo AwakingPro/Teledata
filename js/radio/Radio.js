@@ -51,9 +51,26 @@ $(document).ready(function(){
                     .attr('id','estacion_'+array.id)
                     .data('personal_id',array.personal_id)
                     .addClass('text-center');
+
+                $('.estacion_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
         
             
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "../includes/radio/showInventario.php",
+        success: function(response){
+
+            $.each(response.array, function( index, array ) {
+                $('.producto_id').append('<option value="'+array.id+'" data-content="'+array.mac_address+ ' - ' +array.tipo + ' ' + array.marca + ' ' + array.modelo+'"></option>');
+            });
+
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
+        
         }
     });
 
@@ -102,6 +119,9 @@ $(document).ready(function(){
                     .attr('id','estacion_'+response.array.id)
                     .data('personal_id',response.array.personal_id)
                     .addClass('text-center');
+
+                $('.estacion_id').append('<option value="'+response.array.id+'" data-content="'+response.array.nombre+'"></option>');
+                $('.estacion_id').val(response.array.id);
 
                 $('#storeEstacion')[0].reset();
                 $('.selectpicker').selectpicker('render');
@@ -251,6 +271,7 @@ $(document).ready(function(){
                                 EstacionTable.row($(ObjectTR))
                                     .remove()
                                     .draw();
+                                $(".estacion_id option[value='"+ObjectId+"']").remove();
                             }else if(response.status == 3){
                                 swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee otros registros asociados','error');
                             }else{
@@ -265,4 +286,235 @@ $(document).ready(function(){
             }
         });
     });
+
+    IngresoTable = $('#IngresoTable').DataTable({
+        paging: false,
+        iDisplayLength: 100,
+        processing: true,
+        serverSide: false,  
+        bInfo:false,
+        order: [[0, 'asc']],
+        language: {
+            processing:     "Procesando ...",
+            search:         'Buscar',
+            lengthMenu:     "Mostrar _MENU_ Registros",
+            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+            infoFiltered:   "(filtrada de _MAX_ registros en total)",
+            infoPostFix:    "",
+            loadingRecords: "...",
+            zeroRecords:    "No se encontraron registros coincidentes",
+            emptyTable:     "No hay datos disponibles en la tabla",
+            paginate: {
+                first:      "Primero",
+                previous:   "Anterior",
+                next:       "Siguiente",
+                last:       "Ultimo"
+            },
+            aria: {
+                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                sortDescending: ": habilitado para ordenar la columna en orden descendente"
+            }
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "../includes/radio/showIngresos.php",
+        success: function(response){
+
+            $.each(response.array, function( index, array ) {
+
+                var rowNode = IngresoTable.row.add([
+                  ''+array.estacion+'',
+                  ''+array.funcion+'',
+                  ''+array.alarma_activada+'',
+                  ''+array.direccion_ip+'',
+                  ''+array.puerto_acceso+'',
+                  ''+array.ancho_canal+'',
+                  ''+array.apid+'',
+                  ''+array.baseid+'',
+                  ''+array.frecuencia+'',
+                  ''+array.tx_power+'',
+                  ''+array.mac_address+'',
+                  ''+array.ssid+'',
+                  ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                ]).draw(false).node();
+
+                $( rowNode )
+                    .attr('id','ingreso_'+array.id)
+                    .data('estacion_id',array.estacion_id)
+                    .addClass('text-center');
+            });
+        }
+    });
+
+    $('body').on('click', '#guardarIngreso', function () {
+
+
+        $.postFormValues('../includes/radio/storeIngreso.php', '#storeIngreso', function(response){
+
+            if(response.status == 1){
+
+                $.niftyNoty({
+                    type: 'success',
+                    icon : 'fa fa-check',
+                    message : 'Registro Guardado Exitosamente',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+                Estacion = $('#estacion_id option[value="'+response.array.estacion_id+'"]').first().data('content');
+                Producto = $('#producto_id option[value="'+response.array.producto_id+'"]').first().data('content');
+                Row = Producto.split('-');
+                MacAddress = Row[1];
+
+                var rowNode = IngresoTable.row.add([
+                  ''+Estacion+'',
+                  ''+response.array.funcion+'',
+                  ''+response.array.alarma_activada+'',
+                  ''+response.array.direccion_ip+'',
+                  ''+response.array.puerto_acceso+'',
+                  ''+response.array.ancho_canal+'',
+                  ''+response.array.apid+'',
+                  ''+response.array.baseid+'',
+                  ''+response.array.frecuencia+'',
+                  ''+response.array.tx_power+'',
+                  ''+MacAddress+'',
+                  ''+response.array.ssid+'',
+                  ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                ]).draw(false).node();
+
+                $( rowNode )
+                    .attr('id','ingreso_'+response.array.id)
+                    .data('estacion_id',response.array.estacion_id)
+                    .data('producto_id',response.array.producto_id)
+                    .addClass('text-center');
+
+                $('#storeIngreso')[0].reset();
+                $('.selectpicker').selectpicker('render');
+                $('.selectpicker').selectpicker('refresh');
+                $('.modal').modal('hide');
+
+            }else if(response.status == 2){
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Debe llenar todos los campos',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+            }else{
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Ocurrio un error en el Proceso',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+            }
+             
+        });
+    });
+
+    $('#IngresoTable tbody').on( 'click', 'i.fa', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        ObjectTR.addClass("Selected");
+        var ObjectRow = ObjectTR.attr("id");
+        var RowSplit = ObjectRow.split('_');
+        var ObjectId = RowSplit[1];
+        var ObjectStation = ObjectTR.data("estacion_id");
+        var ObjectFunction = ObjectTR.find("td").eq(1).text();
+        var ObjectIp = ObjectTR.find("td").eq(2).text();
+        var ObjectPort = ObjectTR.find("td").eq(3).text();
+        var ObjectChannel = ObjectTR.find("td").eq(4).text();
+        var ObjectAPID = ObjectTR.find("td").eq(5).text();
+        var ObjectBASEID = ObjectTR.find("td").eq(6).text();
+        var ObjectFrecuency = ObjectTR.find("td").eq(7).text();
+        var ObjectPower = ObjectTR.find("td").eq(8).text();
+        var ObjectProduct = ObjectTR.data("producto_id");
+        var ObjectSSID = ObjectTR.find("td").eq(9).text();
+
+        $('#updateIngreso').find('input[name="id"]').val(ObjectId);
+        $('#updateIngreso').find('select[name="estacion_id"]').val(ObjectStation);
+        $('#updateIngreso').find('input[name="funcion"]').val(ObjectFunction);
+        $('#updateIngreso').find('input[name="direccion_ip"]').val(ObjectIp);
+        $('#updateIngreso').find('input[name="puerto_acceso"]').val(ObjectPort);
+        $('#updateIngreso').find('select[name="ancho_canal"]').val(ObjectChannel);
+        $('#updateIngreso').find('input[name="apid"]').val(ObjectAPID);
+        $('#updateIngreso').find('input[name="baseid"]').val(ObjectBASEID);
+        $('#updateIngreso').find('input[name="frecuencia"]').val(ObjectFrecuency);
+        $('#updateIngreso').find('input[name="tx_power"]').val(ObjectPower);
+        $('#updateIngreso').find('select[name="producto_id"]').val(ObjectProduct);
+        $('#updateIngreso').find('input[name="ssid"]').val(ObjectSSID);
+
+        if($(this).hasClass('fa-search')){
+            $("#IngresoFormUpdate :input").attr("readonly", true);
+            $('#span_ingreso').text('Ver');
+            $('#actualizarIngreso').hide()
+            $('#IngresoFormUpdate').modal('show');
+        }else if($(this).hasClass('fa-pencil')){
+            $("#IngresoFormUpdate :input").attr("readonly", false);
+            $('#span_ingreso').text('Actualizar');
+            $('#IngresoFormUpdate').show()
+            $('#IngresoFormUpdate').modal('show');
+        }
+
+        $('.selectpicker').selectpicker('render');
+        $('.selectpicker').selectpicker('refresh');
+  
+    });
+
+    $('#IngresoTable tbody').on( 'click', '.Remove', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectRow = ObjectTR.attr("id");
+        var RowSplit = ObjectRow.split('_');
+        var ObjectId = RowSplit[1];
+
+        swal({   
+            title: "Desea eliminar este registro?",   
+            text: "Confirmar eliminación!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Eliminar!",  
+            cancelButtonText: "Cancelar",         
+            closeOnConfirm: true 
+        },function(isConfirm){   
+            if (isConfirm) {
+    
+                $.ajax({
+                    url: "../includes/radio/deleteIngreso.php",
+                    type: 'POST',
+                    data:"&id="+ObjectId,
+                    success:function(response){
+                        setTimeout(function() {
+                            if(response.status == 1){
+                                swal("Exito!","El registro ha sido eliminado!","success");
+                                IngresoTable.row($(ObjectTR))
+                                    .remove()
+                                    .draw();
+                            }else if(response.status == 3){
+                                swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee otros registros asociados','error');
+                            }else{
+                                swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                            }
+                        }, 1000);  
+                    },
+                    error:function(){
+                        swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                    }
+                });
+            }
+        });
+    });
+
 });
