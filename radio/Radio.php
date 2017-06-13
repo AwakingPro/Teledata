@@ -413,9 +413,10 @@
                                             <div class="panel-control">
                                                 <!--Nav tabs-->
                                                 <ul class="nav nav-tabs">
-                                                    <li class="active"><a data-toggle="tab" href="#ingreso_estacion" aria-expanded="false">Estaciónes</a>
+                                                    <li class="active"><a data-toggle="tab" href="#busqueda_registro" aria-expanded="true">Buscar Registro</a>
+                                                    <li class=""><a data-toggle="tab" href="#ingreso_registro" aria-expanded="true">Ingresar Registros</a>
                                                     </li>
-                                                    <li class=""><a data-toggle="tab" href="#demo-tabs-box-2" aria-expanded="true">Ingresos</a>
+                                                    <li class=""><a data-toggle="tab" href="#ingreso_estacion" aria-expanded="false">Estaciónes</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -424,7 +425,7 @@
                                         <!--Panel body-->
                                         <div class="panel-body">
                                             <div class="tab-content">
-                                                <div id="ingreso_estacion" class="tab-pane fade active in">
+                                                <div id="ingreso_estacion" class="tab-pane fade">
                                                     <div class="table-responsive">
                                                         <div class="col-md-12">
 
@@ -448,13 +449,66 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div id="demo-tabs-box-2" class="tab-pane fade">
+                                                <div id="ingreso_registro" class="tab-pane fade">
                                                     <div class="table-responsive">
                                                         <div class="col-md-12">
 
                                                             <button data-toggle="modal" href="#IngresoForm" class="btn btn-success">Agregar</button>
 
                                                             <table id="IngresoTable" class="table table-striped table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Estación</th>
+                                                                        <th class="text-center">Función</th>
+                                                                        <th class="text-center">Alarma Activada</th>
+                                                                        <th class="text-center">Dirección IP</th>
+                                                                        <th class="text-center">Puerto de Acceso</th>
+                                                                        <th class="text-center">Ancho de Canal</th>
+                                                                        <th class="text-center">AP ID</th>
+                                                                        <th class="text-center">Base ID</th>
+                                                                        <th class="text-center">Frecuencia</th>
+                                                                        <th class="text-center">TX Power</th>
+                                                                        <th class="text-center">Mac Address</th>
+                                                                        <th class="text-center">SSID</th>
+                                                                        <th class="text-center">Acción</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="busqueda_registro" class="tab-pane fade active in">
+                                                    <div class="col-md-12">
+                                                        <div class="form-group">
+
+                                                            <label class="form-text text-danger">Nota: Escriba las iniciales o coincidencias de caractéres en el campo de busqueda.</label>
+
+                                                            <h4>Buscar por</h4>
+
+                                                            <div class="clearfix"></div>
+
+                                                            <label class="form-radio form-icon form-text"><input id="estacion" name="tipo_busqueda_ingreso" type="radio" value="1" checked>Estación | Repetidor</label>
+                                                            <label class="form-radio form-icon form-text "><input id="direccion_ip" name="tipo_busqueda_ingreso" type="radio" value="2">Dirección IP</label>
+                                                            <label class="form-radio form-icon form-text "><input id="ssid" name="tipo_busqueda_ingreso" type="radio" value="3">SSID | Remarks</label>
+                                                            <label class="form-radio form-icon form-text "><input id="mac_addres" name="tipo_busqueda_ingreso" type="radio" value="4">Mac Address</label>
+                                                        </div>
+
+                                                        <div class="col-md-4 no-padding-left">
+                                                            <input id="input_registro" name="input_registro" type="text" placeholder="Ingrese el registro a buscar" class="form-control input-sm" validation="not_null" data-nombre="Campo de Busqueda">
+                                                        </div>
+
+                                                        <button id="buscarRegistro" class="btn btn-success">Buscar</button>
+                                                    </div>
+
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="table-responsive">
+                                                        <div class="col-md-12">
+
+                                                            <table id="BusquedaIngresoTable" class="table table-striped table-bordered">
                                                                 <thead>
                                                                     <tr>
                                                                         <th class="text-center">Estación</th>

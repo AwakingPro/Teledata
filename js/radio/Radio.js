@@ -65,7 +65,7 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('.producto_id').append('<option value="'+array.id+'" data-content="'+array.mac_address+ ' - ' +array.tipo + ' ' + array.marca + ' ' + array.modelo+'"></option>');
+                $('.producto_id').append('<option value="'+array.id+'" data-content="'+array.mac_address+'"></option>');
             });
 
             $('.selectpicker').selectpicker('render');
@@ -517,4 +517,108 @@ $(document).ready(function(){
         });
     });
 
+    BusquedaIngresoTable = $('#BusquedaIngresoTable').DataTable({
+        paging: false,
+        iDisplayLength: 100,
+        processing: true,
+        serverSide: false,  
+        bInfo:false,
+        order: [[0, 'asc']],
+        language: {
+            processing:     "Procesando ...",
+            search:         'Buscar',
+            lengthMenu:     "Mostrar _MENU_ Registros",
+            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+            infoFiltered:   "(filtrada de _MAX_ registros en total)",
+            infoPostFix:    "",
+            loadingRecords: "...",
+            zeroRecords:    "No se encontraron registros coincidentes",
+            emptyTable:     "No hay datos disponibles en la tabla",
+            paginate: {
+                first:      "Primero",
+                previous:   "Anterior",
+                next:       "Siguiente",
+                last:       "Ultimo"
+            },
+            aria: {
+                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                sortDescending: ": habilitado para ordenar la columna en orden descendente"
+            }
+        }
+    });
+
+    $('body').on('click', '#buscarRegistro', function () {
+
+        tipo_busqueda_ingreso = $('input[name=tipo_busqueda_ingreso]:checked').val();
+        input_registro = $('#input_registro').val();
+
+        if(input_registro){
+
+            BusquedaIngresoTable.clear().draw();
+
+            $.ajax({
+                type: "POST",
+                url: "../includes/radio/buscarRegistro.php",
+                data:"&tipo_busqueda_ingreso="+tipo_busqueda_ingreso+"&input_registro="+input_registro,
+                success: function(response){
+
+                    if(response.status == 1){
+
+                        $.niftyNoty({
+                            type: 'success',
+                            icon : 'fa fa-check',
+                            message : 'Busqueda Realizada Exitosamente',
+                            container : 'floating',
+                            timer : 3000
+                        });
+
+                        $.each(response.array, function( index, array ) {
+
+                            var rowNode = BusquedaIngresoTable.row.add([
+                              ''+array.estacion+'',
+                              ''+array.funcion+'',
+                              ''+array.alarma_activada+'',
+                              ''+array.direccion_ip+'',
+                              ''+array.puerto_acceso+'',
+                              ''+array.ancho_canal+'',
+                              ''+array.apid+'',
+                              ''+array.baseid+'',
+                              ''+array.frecuencia+'',
+                              ''+array.tx_power+'',
+                              ''+array.mac_address+'',
+                              ''+array.ssid+'',
+                              ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                            ]).draw(false).node();
+
+                            $( rowNode )
+                                .attr('id','ingreso_'+array.id)
+                                .data('estacion_id',array.estacion_id)
+                                .addClass('text-center');
+                        });
+                    }else if(response.status == 2){
+
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon : 'fa fa-check',
+                            message : 'Debe llenar el campo de busqueda',
+                            container : 'floating',
+                            timer : 3000
+                        });
+
+                    }else{
+
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon : 'fa fa-check',
+                            message : 'No se encontraron registros',
+                            container : 'floating',
+                            timer : 3000
+                        });
+
+                    }
+                }
+            });
+        }
+    });
 });
