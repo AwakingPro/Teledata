@@ -523,7 +523,6 @@
                                                                         <th class="text-center">TX Power</th>
                                                                         <th class="text-center">Mac Address</th>
                                                                         <th class="text-center">SSID</th>
-                                                                        <th class="text-center">Acción</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>

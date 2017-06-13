@@ -588,7 +588,6 @@ $(document).ready(function(){
                               ''+array.tx_power+'',
                               ''+array.mac_address+'',
                               ''+array.ssid+'',
-                              ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                             ]).draw(false).node();
 
                             $( rowNode )
