@@ -211,8 +211,8 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Agregar Datos Tecnicos</h4>
 			</div>
-			<div class="modal-body">
-				lol
+			<div class="modal-body containerTipoServicio">
+
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary">Guardar</button>

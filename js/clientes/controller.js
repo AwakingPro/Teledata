@@ -52,4 +52,12 @@ $(document).ready(function() {
 			});
 		}
 	});
+
+	$(document).on('click', '.agregarDatosTecnicos', function() {
+		var id = $(this).attr('attr');
+		$.post('../ajax/cliente/tipoViewModal.php', {id: id}, function(data) {
+			console.log(data);
+			$('.containerTipoServicio').load('viewTipoServicio/'+data);
+		});
+	});
 });
