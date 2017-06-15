@@ -215,7 +215,7 @@
 
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary">Guardar</button>
+				<button type="button" class="btn btn-primary guardarDatosTecnicos">Guardar</button>
 			</div>
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->

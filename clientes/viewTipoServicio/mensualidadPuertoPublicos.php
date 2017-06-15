@@ -1,4 +1,4 @@
-<div class="row container-form">
+<div class="row container-form-datosTecnicos" attr="insertMensualidadPuertosPublicos.php">
 	<div class="col-md-12">
 		<h3>Mensualidad de Puerto Publicos</h3>
 	</div>

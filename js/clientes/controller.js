@@ -56,8 +56,22 @@ $(document).ready(function() {
 	$(document).on('click', '.agregarDatosTecnicos', function() {
 		var id = $(this).attr('attr');
 		$.post('../ajax/cliente/tipoViewModal.php', {id: id}, function(data) {
-			console.log(data);
 			$('.containerTipoServicio').load('viewTipoServicio/'+data);
 		});
 	});
+
+	$(document).on('click', '.guardarDatosTecnicos', function() {
+		var url = $('.container-form-datosTecnicos').attr('attr');
+		console.log(url);
+		$.postFormValues('../ajax/cliente/'+url,'.container-form-datosTecnicos',function(data){
+			console.log(data);
+			if (Number(data) > 0){
+				bootbox.alert('<h3 class="text-center">Los datos se registron con exito.</h3>');
+			}else{
+				console.log(data);
+				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+			}
+		});
+	});
+
 });

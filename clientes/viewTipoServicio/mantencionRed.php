@@ -1,4 +1,4 @@
-<div class="row container-form">
+<div class="row container-form-datosTecnicos" attr="insertMantecionRed.php">
 	<div class="col-md-12">
 		<h3>Mantencion de Red</h3>
 	</div>

@@ -1,4 +1,4 @@
-<div class="row container-form">
+<div class="row container-form-datosTecnicos" attr="insertArriendoEquipos.php">
 	<div class="col-md-12">
 		<h3>Arriendo de equipos</h3>
 	</div>

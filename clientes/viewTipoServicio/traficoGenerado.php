@@ -1,4 +1,4 @@
-<div class="row container-form">
+<div class="row container-form-datosTecnicos" attr="insertTraficoGenerado.php">
 	<div class="col-md-12">
 		<h3>Trafico Geberado</h3>
 	</div>
