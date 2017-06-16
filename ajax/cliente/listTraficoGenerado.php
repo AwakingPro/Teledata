@@ -5,7 +5,9 @@
 		trafico_generado.LineaTelefonica,
 		trafico_generado.Descripcion
 		FROM
-		trafico_generado";
+		trafico_generado
+		WHERE
+		IdServivio = ".$_POST['id'];
 	$run = new Method;
 	$lista = $run->listView($query);
 	echo $lista;

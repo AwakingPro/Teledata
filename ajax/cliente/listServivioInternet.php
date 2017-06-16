@@ -9,7 +9,9 @@
 		servicio_internet.DireccionIPAP,
 		servicio_internet.Plan
 		FROM
-		servicio_internet";
+		servicio_internet
+		WHERE
+		IdServivio = ".$_POST['id'];
 	$run = new Method;
 	$lista = $run->listView($query);
 	echo $lista;

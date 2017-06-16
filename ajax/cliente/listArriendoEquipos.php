@@ -6,7 +6,9 @@
 		arriendo_equipos_datos.Modelo,
 		arriendo_equipos_datos.TipoEquipo
 	FROM
-		arriendo_equipos_datos";
+		arriendo_equipos_datos
+	WHERE
+		IdServivio = ".$_POST['id'];
 	$run = new Method;
 	$lista = $run->listView($query);
 	echo $lista;

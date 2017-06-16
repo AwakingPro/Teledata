@@ -65,7 +65,8 @@ $(document).ready(function() {
 	$(document).on('click', '.listDatosTecnicos', function() {
 		var id = $(this).attr('attr');
 		$.post('../ajax/cliente/tipolistModal.php', {id: id}, function(data) {
-			$('.containerListDatosTecnicos').load('../ajax/cliente/'+data,function(){
+			$.post('../ajax/cliente/'+data, {id: id}, function(data) {
+				$('.containerListDatosTecnicos').html(data);
 				var count = $('.containerListDatosTecnicos > .tabeData tr th').length -1;
 				$('.containerListDatosTecnicos > .tabeData').dataTable({
 						"columnDefs": [{
