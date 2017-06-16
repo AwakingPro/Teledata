@@ -62,6 +62,21 @@ $(document).ready(function() {
 		});
 	});
 
+	$(document).on('click', '.listDatosTecnicos', function() {
+		var id = $(this).attr('attr');
+		$.post('../ajax/cliente/tipolistModal.php', {id: id}, function(data) {
+			$('.containerListDatosTecnicos').load('../ajax/cliente/'+data,function(){
+				var count = $('.containerListDatosTecnicos > .tabeData tr th').length -1;
+				$('.containerListDatosTecnicos > .tabeData').dataTable({
+						"columnDefs": [{
+						'orderable': false,
+						'targets': [count]
+					}, ]
+				});
+			});
+		});
+	});
+
 	$(document).on('click', '.guardarDatosTecnicos', function() {
 		var url = $('.container-form-datosTecnicos').attr('attr');
 		console.log(url);
