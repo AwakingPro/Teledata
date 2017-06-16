@@ -5,6 +5,7 @@
 	<div class="col-md-4 form-group" rows="5">
 		<label>Estacion/Nodo</label>
 		<input name="nodo" class="form-control">
+		<input name="idServicio" type="hidden">
 	</div>
 	<div class="col-md-4 form-group" rows="5">
 		<label>Mac del Router</label>

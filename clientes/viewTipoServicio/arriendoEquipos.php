@@ -5,6 +5,7 @@
 	<div class="col-md-4 form-group" rows="5">
 		<label>Tipo equipo</label>
 		<input name="tipoEquipo" class="form-control">
+		<input name="idServicio" type="hidden">
 	</div>
 	<div class="col-md-4 form-group" rows="5">
 		<label>Modelo</label>

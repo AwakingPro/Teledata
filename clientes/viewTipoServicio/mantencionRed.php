@@ -5,6 +5,7 @@
 	<div class="col-md-12 form-group" rows="5">
 		<label>Descripcion</label>
 		<textarea name="descripcion" class="form-control"></textarea>
+		<input name="idServicio" type="hidden">
 	</div>
 	<div class="col-md-12 form-group" rows="5">
 		<label>Comentario</label>

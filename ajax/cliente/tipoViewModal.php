@@ -14,13 +14,13 @@
 				echo "arriendoEquipos.php";
 				break;
 			case 2:
-				echo "matencionRed.php";
+				echo "mantencionRed.php";
 				break;
 			case 3:
 				echo "mensualidadIPFija.php";
 				break;
 			case 4:
-				echo "mensualidadPuertoPublico.php";
+				echo "mensualidadPuertoPublicos.php";
 				break;
 			case 5:
 				echo "servicioInternet.php";

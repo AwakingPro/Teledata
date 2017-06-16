@@ -5,6 +5,7 @@
 	<div class="col-md-12 form-group" rows="5">
 		<label>Linea Telefonica</label>
 		<input name="linea" class="form-control">
+		<input name="idServicio" type="hidden">
 	</div>
 	<div class="col-md-12 form-group" rows="5">
 		<label>Descripcion</label>

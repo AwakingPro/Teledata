@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-06-15 19:23:20
+Date: 2017-06-15 20:12:26
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -21,12 +21,8 @@ SET FOREIGN_KEY_CHECKS=0;
 DROP TABLE IF EXISTS `mensualidad_puerdo_publicos`;
 CREATE TABLE `mensualidad_puerdo_publicos` (
   `IdMensualidadPuertosPublicos` int(11) NOT NULL AUTO_INCREMENT,
-  `PuertoTCP/UDP` varchar(100) DEFAULT NULL,
+  `PuertoTCPUDP` varchar(100) DEFAULT NULL,
   `Descripcion` varchar(100) DEFAULT NULL,
   `IdServivio` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdMensualidadPuertosPublicos`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- ----------------------------
--- Records of mensualidad_puerdo_publicos
--- ----------------------------
