@@ -550,7 +550,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#buscarRegistro', function () {
 
-        tipo_busqueda_ingreso = $('input[name=tipo_busqueda_ingreso]:checked').val();
+        tipo_busqueda_ingreso = $('#tipo_busqueda_ingreso').val();
         input_registro = $('#input_registro').val();
 
         if(input_registro){

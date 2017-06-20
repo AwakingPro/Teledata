@@ -11,19 +11,11 @@
 
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/nifty.min.css" rel="stylesheet">
-        <link href="../premium/icon-sets/solid-icons/premium-solid-icons.min.css" rel="stylesheet">
-        <link href="../plugins/ionicons/css/ionicons.min.css" rel="stylesheet">
-        <link href="../plugins/themify-icons/themify-icons.min.css" rel="stylesheet">
         <link href="../css/demo/nifty-demo-icons.min.css" rel="stylesheet">
         <link href="../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-        <link href="../plugins/animate-css/animate.min.css" rel="stylesheet">
-        <link href="../plugins/switchery/switchery.min.css" rel="stylesheet">
-        <link href="../plugins/morris-js/morris.min.css" rel="stylesheet">
-        <link href="../css/demo/nifty-demo.min.css" rel="stylesheet">
-        <link href="../plugins/pace/pace.min.css" rel="stylesheet">
-        <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
         <link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
-        <link href="../plugins/bootstrap-dataTables/jquery.dataTables.css" rel="stylesheet"  media="screen">
+        <link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
+        <link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
         <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
         <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
         <link href="../css/teledata.css" rel="stylesheet">
@@ -406,130 +398,138 @@
                     <div id="page-content">
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="tab-base ">
-                                    <div class="panel">
-                                        <!--Panel heading-->
-                                        <div class="panel-heading">
-                                            <div class="panel-control">
-                                                <!--Nav tabs-->
-                                                <ul class="nav nav-tabs">
-                                                    <li class="active"><a data-toggle="tab" href="#busqueda_registro" aria-expanded="true">Buscar Registro</a>
-                                                    <li class=""><a data-toggle="tab" href="#ingreso_registro" aria-expanded="true">Ingresar Registros</a>
-                                                    </li>
-                                                    <li class=""><a data-toggle="tab" href="#ingreso_estacion" aria-expanded="false">Estaciónes</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <h3 class="panel-title">Modulo Radio Planning</h3>
+                                <div class="panel">
+                                    <!--Panel heading-->
+                                    <div class="panel-heading">
+                                        <div class="panel-control">
+                                            <!--Nav tabs-->
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a data-toggle="tab" href="#busqueda_registro" aria-expanded="true">Buscar Registro</a>
+                                                </li>
+                                                <li class=""><a data-toggle="tab" href="#ingreso_registro" aria-expanded="true">Ingresar Registros</a>
+                                                </li>
+                                                <li class=""><a data-toggle="tab" href="#ingreso_estacion" aria-expanded="false">Estaciónes</a>
+                                                </li>
+                                            </ul>
                                         </div>
-                                        <!--Panel body-->
-                                        <div class="panel-body">
-                                            <div class="tab-content">
-                                                <div id="ingreso_estacion" class="tab-pane fade">
-                                                    <div class="table-responsive">
-                                                        <div class="col-md-12">
-
-                                                            <button data-toggle="modal" href="#EstacionForm" class="btn btn-success">Agregar</button>
-
-                                                            <table id="EstacionTable" class="table table-striped table-bordered">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th class="text-center">Nombre</th>
-                                                                        <th class="text-center">Dirección</th>
-                                                                        <th class="text-center">Télefono</th>
-                                                                        <th class="text-center">Responsable</th>
-                                                                        <th class="text-center">Correo</th>
-                                                                        <th class="text-center">Acción</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="ingreso_registro" class="tab-pane fade">
-                                                    <div class="table-responsive">
-                                                        <div class="col-md-12">
-
-                                                            <button data-toggle="modal" href="#IngresoForm" class="btn btn-success">Agregar</button>
-
-                                                            <table id="IngresoTable" class="table table-striped table-bordered">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th class="text-center">Estación</th>
-                                                                        <th class="text-center">Función</th>
-                                                                        <th class="text-center">Alarma Activada</th>
-                                                                        <th class="text-center">Dirección IP</th>
-                                                                        <th class="text-center">Puerto de Acceso</th>
-                                                                        <th class="text-center">Ancho de Canal</th>
-                                                                        <th class="text-center">AP ID</th>
-                                                                        <th class="text-center">Base ID</th>
-                                                                        <th class="text-center">Frecuencia</th>
-                                                                        <th class="text-center">TX Power</th>
-                                                                        <th class="text-center">Mac Address</th>
-                                                                        <th class="text-center">SSID</th>
-                                                                        <th class="text-center">Acción</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-
-                                                                </tbody>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div id="busqueda_registro" class="tab-pane fade active in">
+                                        <h3 class="panel-title">Modulo Radio Planning</h3>
+                                    </div>
+                                    <!--Panel body-->
+                                    <div class="panel-body">
+                                        <div class="tab-content">
+                                            <div id="ingreso_estacion" class="tab-pane fade">
+                                                <div class="table-responsive">
                                                     <div class="col-md-12">
-                                                        <div class="form-group">
 
-                                                            <label class="form-text text-danger">Nota: Escriba las iniciales o coincidencias de caractéres en el campo de busqueda.</label>
+                                                        <button data-toggle="modal" href="#EstacionForm" class="btn btn-success">Agregar</button>
 
-                                                            <h4>Buscar por</h4>
+                                                        <table id="EstacionTable" class="table table-striped table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center">Nombre</th>
+                                                                    <th class="text-center">Dirección</th>
+                                                                    <th class="text-center">Télefono</th>
+                                                                    <th class="text-center">Responsable</th>
+                                                                    <th class="text-center">Correo</th>
+                                                                    <th class="text-center">Acción</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
 
-                                                            <div class="clearfix"></div>
-
-                                                            <label class="form-radio form-icon form-text"><input id="estacion" name="tipo_busqueda_ingreso" type="radio" value="1" checked>Estación | Repetidor</label>
-                                                            <label class="form-radio form-icon form-text "><input id="direccion_ip" name="tipo_busqueda_ingreso" type="radio" value="2">Dirección IP</label>
-                                                            <label class="form-radio form-icon form-text "><input id="ssid" name="tipo_busqueda_ingreso" type="radio" value="3">SSID | Remarks</label>
-                                                            <label class="form-radio form-icon form-text "><input id="mac_addres" name="tipo_busqueda_ingreso" type="radio" value="4">Mac Address</label>
-                                                        </div>
-
-                                                        <div class="col-md-4 no-padding-left">
-                                                            <input id="input_registro" name="input_registro" type="text" placeholder="Ingrese el registro a buscar" class="form-control input-sm" validation="not_null" data-nombre="Campo de Busqueda">
-                                                        </div>
-
-                                                        <button id="buscarRegistro" class="btn btn-success">Buscar</button>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
+                                                </div>
+                                            </div>
+                                            <div id="ingreso_registro" class="tab-pane fade">
+                                                <div class="table-responsive">
+                                                    <div class="col-md-12">
+
+                                                        <button data-toggle="modal" href="#IngresoForm" class="btn btn-success">Agregar</button>
+
+                                                        <table id="IngresoTable" class="table table-striped table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center">Estación</th>
+                                                                    <th class="text-center">Función</th>
+                                                                    <th class="text-center">Alarma Activada</th>
+                                                                    <th class="text-center">Dirección IP</th>
+                                                                    <th class="text-center">Puerto de Acceso</th>
+                                                                    <th class="text-center">Ancho de Canal</th>
+                                                                    <th class="text-center">AP ID</th>
+                                                                    <th class="text-center">Base ID</th>
+                                                                    <th class="text-center">Frecuencia</th>
+                                                                    <th class="text-center">TX Power</th>
+                                                                    <th class="text-center">Mac Address</th>
+                                                                    <th class="text-center">SSID</th>
+                                                                    <th class="text-center">Acción</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="busqueda_registro" class="tab-pane fade active in">
+                                                <div class="col-md-12">
+                                                    
+                                                    <label class="form-text text-danger">Nota: Escriba las iniciales o coincidencias de caractéres en el campo de busqueda.</label>
+
+                                                    <h4>Buscar por</h4>
 
                                                     <div class="clearfix"></div>
 
-                                                    <div class="table-responsive">
-                                                        <div class="col-md-12">
-
-                                                            <table id="BusquedaIngresoTable" class="table table-striped table-bordered">
-                                                                <thead>
-                                                                    <tr>
-                                                                        <th class="text-center">Estación</th>
-                                                                        <th class="text-center">Función</th>
-                                                                        <th class="text-center">Alarma Activada</th>
-                                                                        <th class="text-center">Dirección IP</th>
-                                                                        <th class="text-center">Puerto de Acceso</th>
-                                                                        <th class="text-center">Ancho de Canal</th>
-                                                                        <th class="text-center">AP ID</th>
-                                                                        <th class="text-center">Base ID</th>
-                                                                        <th class="text-center">Frecuencia</th>
-                                                                        <th class="text-center">TX Power</th>
-                                                                        <th class="text-center">Mac Address</th>
-                                                                        <th class="text-center">SSID</th>
-                                                                    </tr>
-                                                                </thead>
-                                                                <tbody>
-
-                                                                </tbody>
-                                                            </table>
+                                                    <div class="col-md-4 no-padding-left">
+                                                        <div class="select">
+                                                            <select class="selectpicker form-control" name="tipo_busqueda_ingreso" id="tipo_busqueda_ingreso"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Campo de Busqueda">
+                                                                <option value="1">Estación | Repetidor</option>
+                                                                <option value="2">Dirección IP</option>
+                                                                <option value="3">SSID | Remarks</option>
+                                                                <option value="4">Mac Address</option>
+                                                            </select>
                                                         </div>
+                                                    </div>
+
+                                                    <div class="clearfix mar-btm"></div>
+
+                                                    <div class="col-md-4 no-padding-left">
+
+                                                        <input id="input_registro" name="input_registro" type="text" placeholder="Ingrese el registro a buscar" class="form-control input-sm" validation="not_null" data-nombre="Campo de Busqueda">
+                                                   
+                                                    
+
+                                                </div>
+
+                                                <button id="buscarRegistro" class="btn btn-success">Buscar</button>
+
+                                                <div class="clearfix"></div>
+
+                                                <div class="table-responsive">
+                                                    <div class="col-md-12">
+
+                                                        <table id="BusquedaIngresoTable" class="table table-striped table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center">Estación</th>
+                                                                    <th class="text-center">Función</th>
+                                                                    <th class="text-center">Alarma Activada</th>
+                                                                    <th class="text-center">Dirección IP</th>
+                                                                    <th class="text-center">Puerto de Acceso</th>
+                                                                    <th class="text-center">Ancho de Canal</th>
+                                                                    <th class="text-center">AP ID</th>
+                                                                    <th class="text-center">Base ID</th>
+                                                                    <th class="text-center">Frecuencia</th>
+                                                                    <th class="text-center">TX Power</th>
+                                                                    <th class="text-center">Mac Address</th>
+                                                                    <th class="text-center">SSID</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
                                             </div>
