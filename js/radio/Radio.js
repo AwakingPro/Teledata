@@ -366,8 +366,6 @@ $(document).ready(function(){
 
                 Estacion = $('#estacion_id option[value="'+response.array.estacion_id+'"]').first().data('content');
                 Producto = $('#producto_id option[value="'+response.array.producto_id+'"]').first().data('content');
-                Row = Producto.split('-');
-                MacAddress = Row[1];
 
                 var rowNode = IngresoTable.row.add([
                   ''+Estacion+'',
@@ -380,7 +378,7 @@ $(document).ready(function(){
                   ''+response.array.baseid+'',
                   ''+response.array.frecuencia+'',
                   ''+response.array.tx_power+'',
-                  ''+MacAddress+'',
+                  ''+Producto+'',
                   ''+response.array.ssid+'',
                   ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
@@ -446,7 +444,7 @@ $(document).ready(function(){
         $('#updateIngreso').find('input[name="funcion"]').val(ObjectFunction);
         $('#updateIngreso').find('input[name="direccion_ip"]').val(ObjectIp);
         $('#updateIngreso').find('input[name="puerto_acceso"]').val(ObjectPort);
-        $('#updateIngreso').find('select[name="ancho_canal"]').val(ObjectChannel);
+        $('#updateIngreso').find('input[name="ancho_canal"]').val(ObjectChannel);
         $('#updateIngreso').find('input[name="apid"]').val(ObjectAPID);
         $('#updateIngreso').find('input[name="baseid"]').val(ObjectBASEID);
         $('#updateIngreso').find('input[name="frecuencia"]').val(ObjectFrecuency);
@@ -462,13 +460,70 @@ $(document).ready(function(){
         }else if($(this).hasClass('fa-pencil')){
             $("#IngresoFormUpdate :input").attr("readonly", false);
             $('#span_ingreso').text('Actualizar');
-            $('#IngresoFormUpdate').show()
+            $('#actualizarIngreso').show()
             $('#IngresoFormUpdate').modal('show');
         }
 
         $('.selectpicker').selectpicker('render');
         $('.selectpicker').selectpicker('refresh');
   
+    });
+
+    $('body').on('click', '#actualizarIngreso', function () {
+
+        $.postFormValues('../includes/radio/updateIngreso.php', '#updateIngreso', function(response){
+                    
+            if(response.status == 1){
+
+                $.niftyNoty({
+                    type: 'success',
+                    icon : 'fa fa-check',
+                    message : 'Registro Actualizado Exitosamente',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+                Estacion = $('#estacion_id option[value="'+response.array.estacion_id+'"]').first().data('content');
+                Producto = $('#producto_id option[value="'+response.array.producto_id+'"]').first().data('content');
+
+                ObjectTR = $("#ingreso_"+response.array.id);
+                
+                ObjectTR.data('estacion_id',response.array.estacion_id)
+                ObjectTR.data('producto_id', response.array.producto_id)
+                ObjectTR.find("td").eq(0).html(Estacion);
+                ObjectTR.find("td").eq(1).html(response.array.funcion);
+                ObjectTR.find("td").eq(2).html(response.array.alarma_activada);
+                ObjectTR.find("td").eq(3).html(response.array.direccion_ip);
+                ObjectTR.find("td").eq(4).html(response.array.puerto_acceso);
+                ObjectTR.find("td").eq(5).html(response.array.ancho_canal);
+                ObjectTR.find("td").eq(6).html(response.array.apid);
+                ObjectTR.find("td").eq(7).html(response.array.baseid);
+                ObjectTR.find("td").eq(8).html(response.array.frecuencia);
+                ObjectTR.find("td").eq(9).html(response.array.tx_power);
+                ObjectTR.find("td").eq(10).html(Producto);
+                ObjectTR.find("td").eq(11).html(response.array.ssid);
+
+                $('.modal').modal('hide');
+                
+
+            }else if(response.status == 2){
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Debe llenar todos los campos',
+                    container : 'floating',
+                    timer : 3000
+                });
+            }else{
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Ocurrio un error en el Proceso',
+                    container : 'floating',
+                    timer : 3000
+                });
+            }
+        });   
     });
 
     $('#IngresoTable tbody').on( 'click', '.Remove', function () {
