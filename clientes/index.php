@@ -22,7 +22,6 @@
 			<div class="boxed">
 				<div id="content-container">
 					<div id="page-title" style="padding-right: 25px;">
-						<h1 class="page-header text-overflow">Registro y Datos de Clientes</h1>
 					</div>
 					<br>
 					<ol class="breadcrumb">

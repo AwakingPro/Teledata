@@ -22,12 +22,11 @@
 			<div class="boxed">
 				<div id="content-container">
 					<div id="page-title" style="padding-right: 25px;">
-						<h1 class="page-header text-overflow">Registro y Datos de Servivios</h1>
 					</div>
 					<br>
 					<ol class="breadcrumb">
 						<li><a href="#">Inicio</a></li>
-						<li class="active">Servivios</li>
+						<li class="active">Servicios</li>
 					</ol>
 					<div id="page-content">
 						<div class="row">
@@ -64,7 +63,7 @@
 												</select>
 											</div>
 											<div class="col-md-6 form-group">
-												<label>Tipo de Facturacion</label>
+												<label>Tipo de Facturación</label>
 												<div class="input-group">
 													<select name="TipoFactura" class="form-control" data-live-search="true">
 														<option value="">Seleccione...</option>
@@ -80,7 +79,12 @@
 												<label >Valor</label>
 												<div class="input-group">
 													<input type="text"  name="Valor" class="form-control">
-													<span class="input-group-addon">Pesos</span>
+													<span class="input-group-addon" style="padding: 0px; border: 0px solid">
+														<select name="tipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
+															<option value="pesos">Pesos</option>
+															<option value="uf">UF</option>
+														</select>
+													</span>
 												</div>
 											</div>
 											<div class="col-md-6 form-group">
@@ -104,14 +108,14 @@
 												</div>
 											</div>
 											<div class="col-md-6 form-group">
-												<label >Tipo de Facturtacion</label>
+												<label >Tiempo de Facturación</label>
 												<input type="text" name="TiepoFacturacion"  class="form-control">
 											</div>
 										</div>
 										<div class="row">
 											<div class="col-md-12 form-group">
-												<label> Descripcion</label>
-												<textarea name="Descripcion" class="form-control"></textarea>
+												<label> Descripción</label>
+												<textarea name="Descripcion" class="form-control" rows="5"></textarea>
 											</div>
 											<div class="row">
 												<div class="col-md-12">
@@ -178,8 +182,8 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12">
-						<label>Direccion Comercial</label>
+					<div class="col-md-12 form-group">
+						<label>Dirección Comercial</label>
 						<textarea name="DireccionComercial" class="form-control"></textarea>
 					</div>
 				</div>
@@ -189,7 +193,7 @@
 						<input name="Contacto" class="form-control">
 					</div>
 					<div class="col-md-4 form-group">
-						<label>Telefono</label>
+						<label>Teléfono</label>
 						<input name="Telefono" class="form-control">
 					</div>
 					<div class="col-md-4 form-group">
@@ -205,7 +209,7 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
-						<label>Comentariol</label>
+						<label>Comentarios</label>
 						<textarea name="Comentario" class="form-control"></textarea>
 					</div>
 				</div>
