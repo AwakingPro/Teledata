@@ -19,7 +19,7 @@ $(document).ready(function() {
 				bootbox.alert('<h3 class="text-center">El cliente #'+data+' se registro con exito.</h3>');
 			}else{
 				console.log(data);
-				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar el ticket.</h3>');
+				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
 			}
 		});
 	});

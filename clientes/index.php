@@ -68,8 +68,8 @@
 													</div>
 												</div>
 												<div class="row">
-													<div class="col-md-12">
-														<label>Direccion Comercial</label>
+													<div class="col-md-12 form-group">
+														<label>Dirección  Comercial</label>
 														<textarea name="DireccionComercial" class="form-control"></textarea>
 													</div>
 												</div>
@@ -79,7 +79,7 @@
 														<input name="Contacto" class="form-control">
 													</div>
 													<div class="col-md-4 form-group">
-														<label>Telefono</label>
+														<label>Teléfono</label>
 														<input name="Telefono" class="form-control">
 													</div>
 													<div class="col-md-4 form-group">
@@ -94,8 +94,8 @@
 													</div>
 												</div>
 												<div class="row">
-													<div class="col-md-12">
-														<label>Comentariol</label>
+													<div class="col-md-12 form-group">
+														<label>Comentarios</label>
 														<textarea name="Comentario" class="form-control"></textarea>
 													</div>
 												</div>
