@@ -126,24 +126,32 @@
 												</div>
 												<br><br>
 												<div class="row">
-													<div class="tab-base">
-														<ul class="nav nav-tabs">
-															<li class="active">
-																<a data-toggle="tab" href="#tab-Facturacion">Facturacion</a>
-															</li>
-															<li>
-																<a data-toggle="tab" href="#tab-Servicios">Servicios</a>
-															</li>
-														</ul>
-														<div class="tab-content">
-															<div id="tab-Facturacion" class="tab-pane fade active in dataFacturacion">
-																<h3>No hay informacion</h3>
-															</div>
-															<div id="tab-Servicios" class="tab-pane fade dataServicios">
-																<h3>No hay informacion</h3>
-															</div>
-														</div>
-													</div>
+
+													<div class="panel">
+												            <!--Panel heading-->
+												            <div class="panel-heading">
+												                <div class="panel-control" style="float: left;">
+												                    <ul class="nav nav-tabs">
+												                        <li class="active"><a href="#tab-Facturacion" data-toggle="tab">Facturacion</a></li>
+												                        <li><a href="#tab-Servicios" data-toggle="tab">Servicios</a></li>
+												                    </ul>
+												                </div>
+												                <h3 class="panel-title">&nbsp;</h3>
+												            </div>
+
+												            <!--Panel body-->
+												            <div class="panel-body">
+												                <div class="tab-content">
+												                    <div class="tab-pane fade in active dataFacturacion" id="tab-Facturacion">
+												                    <h4>No hay informacion</h4>
+												                    </div>
+												                    <div class="tab-pane fade dataServicios" id="tab-Servicios">
+												                    <h4>No hay informacion</h4>
+												                    </div>
+												                </div>
+												            </div>
+												        </div>
+
 												</div>
 											</div>
 										</div>
