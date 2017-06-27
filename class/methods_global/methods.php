@@ -243,7 +243,7 @@
 							$tabla.='<td class="optionTable">
 								<i class="fa fa-list listDatosTecnicos" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#verServicios" aria-hidden="true" title="Ver"></i>
 								<i class="fa fa-plus agregarDatosTecnicos" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#agregarDatosTecnicos" aria-hidden="true" title="Agregar"></i>
-								<i class="fa fa-times eliminarServicio" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#agregarDatosTecnicos" aria-hidden="true" title="eliminar"></i>
+								<i class="fa fa-times eliminarServicio" attr="'.$rows[$i][0].'" aria-hidden="true" title="eliminar"></i>
 								</td>';
 							$tabla.= '</tr>';
 						}

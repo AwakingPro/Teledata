@@ -26,7 +26,7 @@
 					<br>
 					<ol class="breadcrumb">
 						<li><a href="#">Inicio</a></li>
-						<li class="active">Clientes</li>
+						<li class="active">Servicios del Clientes</li>
 					</ol>
 					<div id="page-content">
 						<div class="row">
@@ -34,80 +34,13 @@
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
-										<div class="panel-control">
-											<!--Nav tabs-->
-											<ul class="nav nav-tabs">
-												<li class="active"><a data-toggle="tab" href="#tabs-box-1">Crear Nuevo</a></li>
-												<li><a data-toggle="tab" href="#tabs-box-2">Ver Lista</a></li>
-											</ul>
-										</div>
-										<h3 class="panel-title">Modulo Cliente</h3>
+										<h3 class="panel-title">Modulo de Servicios de Cliente</h3>
 									</div>
 									<!--Panel body-->
 									<div class="panel-body">
 										<!--Tabs content-->
 										<div class="tab-content">
-											<div id="tabs-box-1" class="tab-pane fade in active form-cont1">
-												<div class="row">
-													<div class="col-md-12">
-														<h3>Crear Nuevo Cliente</h3><br>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-4 form-group">
-														<label>Cliente</label>
-														<input name="Nombre" class="form-control">
-													</div>
-													<div class="col-md-4 form-group">
-														<label>Rut</label>
-														<input name="Rut" class="form-control">
-													</div>
-													<div class="col-md-4 form-group">
-														<label>Dv</label>
-														<input name="Dv" class="form-control">
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-12 form-group">
-														<label>Dirección  Comercial</label>
-														<textarea name="DireccionComercial" class="form-control"></textarea>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-4 form-group">
-														<label>Contacto</label>
-														<input name="Contacto" class="form-control">
-													</div>
-													<div class="col-md-4 form-group">
-														<label>Teléfono</label>
-														<input name="Telefono" class="form-control">
-													</div>
-													<div class="col-md-4 form-group">
-														<label>Correo</label>
-														<input name="Correo" class="form-control">
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-12 form-group">
-														<label>Giro</label>
-														<input name="Giro" class="form-control">
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-12 form-group">
-														<label>Comentarios</label>
-														<textarea name="Comentario" class="form-control"></textarea>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-12">
-														<br>
-														<button type="button" class="btn btn-primary guardarCliente">Guardar</button>
-													</div>
-												</div>
-											</div>
-											<div id="tabs-box-2" class="tab-pane fade">
-											<!--	<h3>Lista de Clientes</h3><br>
+											<h3>Lista de Clientes</h3><br>
 												<div class="row">
 													<div class="col-md-3">
 														<select name="" class="form-control selectpicker tipoBusqueda" data-live-search="true">
@@ -128,7 +61,7 @@
 												<div class="row">
 
 													<div class="panel">
-
+												            <!--Panel heading-->
 												            <div class="panel-heading">
 												                <div class="panel-control" style="float: left;">
 												                    <ul class="nav nav-tabs">
@@ -139,7 +72,7 @@
 												                <h3 class="panel-title">&nbsp;</h3>
 												            </div>
 
-
+												            <!--Panel body-->
 												            <div class="panel-body">
 												                <div class="tab-content">
 												                    <div class="tab-pane fade in active dataFacturacion" id="tab-Facturacion">
@@ -153,7 +86,7 @@
 												        </div>
 
 												</div>
-											</div> -->
+
 										</div>
 									</div>
 								</div>
