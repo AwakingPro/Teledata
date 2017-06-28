@@ -146,31 +146,73 @@
 </body>
 </html>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="verServicios" aria-labelledby="verServicios">
+<div class="modal fade" tabindex="-1" role="dialog" id="editarCliente" aria-labelledby="editarCliente">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Lista de Datos tecnicos</h4>
+				<h4 class="modal-title">Editar Cliente</h4>
 			</div>
-			<div class="modal-body containerListDatosTecnicos">
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<h3>Datos del Cliente</h3><br>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<label>Cliente</label>
+						<input name="Nombre_update" class="form-control">
+						<input type="hidden" name="IdCliente">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Rut</label>
+						<input name="Rut_update" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Dv</label>
+						<input name="Dv_update" class="form-control">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Dirección  Comercial</label>
+						<textarea name="DireccionComercial_update" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<label>Contacto</label>
+						<input name="Contacto_update" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Teléfono</label>
+						<input name="Telefono_update" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Correo</label>
+						<input name="Correo_update" class="form-control">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Giro</label>
+						<input name="Giro_update" class="form-control">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Comentarios</label>
+						<textarea name="Comentario_update" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<br>
+						<button type="button" class="btn btn-primary guardarCliente">Actualizar</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </div>
-
-<div class="modal fade" id="agregarDatosTecnicos">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Agregar Datos Tecnicos</h4>
-			</div>
-			<div class="modal-body containerTipoServicio">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary guardarDatosTecnicos">Guardar</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

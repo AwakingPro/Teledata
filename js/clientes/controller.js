@@ -159,5 +159,21 @@ $(document).ready(function() {
 		});
 	});
 
+	$(document).on('click', '.update-personaempresa', function(event) {
+		$('#editarCliente').modal('show');
+		$.post('../ajax/cliente/dataClienteUpdate.php', {id: $(this).attr('attr')}, function(data) {
+			value = $.parseJSON(data);
+			$('[name="Nombre_update"]').val(value[0][3]);
+			$('[name="Rut_update"]').val(value[0][1]);
+			$('[name="Dv_update"]').val(value[0][2]);
+			$('[name="DireccionComercial_update"]').val(value[0][4]);
+			$('[name="Contacto_update"]').val(value[0][7]);
+			$('[name="Telefono_update"]').val(value[0][9]);
+			$('[name="Correo_update"]').val(value[0][6]);
+			$('[name="Giro_update"]').val(value[0][4]);
+			$('[name="Comentario_update"]').val(value[0][8]);
+			$('[name="IdCliente"]').val(value[0][0]);
+		});
+	});
 
 });
