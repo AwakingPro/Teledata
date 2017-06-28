@@ -153,7 +153,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Editar Cliente</h4>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body container-form-update">
 				<div class="row">
 					<div class="col-md-12">
 						<h3>Datos del Cliente</h3><br>
@@ -209,7 +209,7 @@
 				<div class="row">
 					<div class="col-md-12">
 						<br>
-						<button type="button" class="btn btn-primary guardarCliente">Actualizar</button>
+						<button type="button" class="btn btn-primary actualizarCliente">Actualizar</button>
 					</div>
 				</div>
 			</div>

@@ -176,4 +176,20 @@ $(document).ready(function() {
 		});
 	});
 
+	$(document).on('click', '.actualizarCliente', function() {
+		$.postFormValues('../ajax/cliente/updateCliente.php','.container-form-update',function(data){
+			$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
+				var count = $('.listaCliente > .tabeData tr th').length -1;
+				$('.listaCliente > .tabeData').dataTable({
+					"columnDefs": [{
+						'orderable': false,
+						'targets': [count]
+					}, ]
+				});
+			});
+			$('#editarCliente').modal('hide');
+			bootbox.alert('<h3 class="text-center">El ticket se actualizo con exito.</h3>');
+		});
+	});
+
 });
