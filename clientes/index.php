@@ -106,54 +106,7 @@
 													</div>
 												</div>
 											</div>
-											<div id="tabs-box-2" class="tab-pane fade">
-											<!--	<h3>Lista de Clientes</h3><br>
-												<div class="row">
-													<div class="col-md-3">
-														<select name="" class="form-control selectpicker tipoBusqueda" data-live-search="true">
-															<option value="1">Rut</option>
-															<option value="2">Nombre</option>
-														</select>
-													</div>
-													<div class="col-md-6">
-														<select name="rutCliente" class="form-control" data-live-search="true">
-															<option value="">Seleccione...</option>
-														</select>
-													</div>
-													<div class="col-md-3">
-														<button type="button" class="btn btn-primary btn-block buscarDatosClientes">Buscar</button>
-													</div>
-												</div>
-												<br><br>
-												<div class="row">
-
-													<div class="panel">
-
-												            <div class="panel-heading">
-												                <div class="panel-control" style="float: left;">
-												                    <ul class="nav nav-tabs">
-												                        <li class="active"><a href="#tab-Facturacion" data-toggle="tab">Facturacion</a></li>
-												                        <li><a href="#tab-Servicios" data-toggle="tab">Servicios</a></li>
-												                    </ul>
-												                </div>
-												                <h3 class="panel-title">&nbsp;</h3>
-												            </div>
-
-
-												            <div class="panel-body">
-												                <div class="tab-content">
-												                    <div class="tab-pane fade in active dataFacturacion" id="tab-Facturacion">
-												                    <h4>No hay informacion</h4>
-												                    </div>
-												                    <div class="tab-pane fade dataServicios" id="tab-Servicios">
-												                    <h4>No hay informacion</h4>
-												                    </div>
-												                </div>
-												            </div>
-												        </div>
-
-												</div>
-											</div> -->
+											<div id="tabs-box-2" class="tab-pane fade listaCliente">
 										</div>
 									</div>
 								</div>

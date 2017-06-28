@@ -93,37 +93,71 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.eliminarServicio', function() {
-			var id = $(this).attr('attr');
-			bootbox.confirm({
-				message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
-				buttons: {
-					confirm: {
-						label: 'Si borrar',
-						className: 'btn-success'
-					},
-					cancel: {
-						label: 'No borrar',
-						className: 'btn-danger'
-					}
+		var id = $(this).attr('attr');
+		bootbox.confirm({
+			message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+			buttons: {
+				confirm: {
+					label: 'Si borrar',
+					className: 'btn-success'
 				},
-				callback: function (result) {
-					if (result == true) {
-						$.post('../ajax/cliente/eliminarServicio.php', {id: id}, function(data) {
-							$.post('../ajax/cliente/dataCliente.php', {rut: $('select[name="rutCliente"]').selectpicker('val')}, function(data) {
-								values = $.parseJSON(data);
-								$('.dataFacturacion').html(values[0]);
-								$('.dataServicios').html(values[1]);
-								var count = $('.dataServicios > .tabeData tr th').length -1;
-								$('.dataServicios > .tabeData').dataTable({
-										"columnDefs": [{
-										'orderable': false,
-										'targets': [count]
-									}, ]
-								});
+				cancel: {
+					label: 'No borrar',
+					className: 'btn-danger'
+				}
+			},
+			callback: function (result) {
+				if (result == true) {
+					$.post('../ajax/cliente/eliminarServicio.php', {id: id}, function(data) {
+						$.post('../ajax/cliente/dataCliente.php', {rut: $('select[name="rutCliente"]').selectpicker('val')}, function(data) {
+							values = $.parseJSON(data);
+							$('.dataFacturacion').html(values[0]);
+							$('.dataServicios').html(values[1]);
+							var count = $('.dataServicios > .tabeData tr th').length -1;
+							$('.dataServicios > .tabeData').dataTable({
+									"columnDefs": [{
+									'orderable': false,
+									'targets': [count]
+								}, ]
 							});
 						});
-					}
+					});
 				}
-			});
+			}
 		});
+	});
+
+	$(document).on('click', '.delete-personaempresa', function() {
+		var id = $(this).attr('attr');
+		bootbox.confirm({
+			message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+			buttons: {
+				confirm: {
+					label: 'Si borrar',
+					className: 'btn-success'
+				},
+				cancel: {
+					label: 'No borrar',
+					className: 'btn-danger'
+				}
+			},
+			callback: function (result) {
+				if (result == true) {
+					$.post('../ajax/cliente/eliminarCliente.php', {id: id}, function(data) {
+						$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
+							var count = $('.listaCliente > .tabeData tr th').length -1;
+							$('.listaCliente > .tabeData').dataTable({
+								"columnDefs": [{
+									'orderable': false,
+									'targets': [count]
+								}, ]
+							});
+						});
+					});
+				}
+			}
+		});
+	});
+
+
 });
