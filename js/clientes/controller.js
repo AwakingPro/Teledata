@@ -74,6 +74,7 @@ $(document).ready(function() {
 						'targets': [count]
 					}, ]
 				});
+				$('.containerListDatosTecnicos').attr('idTipoLista',id);
 			});
 		});
 	});
@@ -191,5 +192,148 @@ $(document).ready(function() {
 			bootbox.alert('<h3 class="text-center">El ticket se actualizo con exito.</h3>');
 		});
 	});
+
+	$(document).on('click', '.delete-arriendo_equipos_datos', function() {
+		var id = $(this).attr('attr');
+		bootbox.confirm({
+			message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+			buttons: {
+				confirm: {
+					label: 'Si borrar',
+					className: 'btn-success'
+				},
+				cancel: {
+					label: 'No borrar',
+					className: 'btn-danger'
+				}
+			},
+			callback: function (result) {
+				if (result == true) {
+					$.post('../ajax/cliente/eliminarArriendoEquipo.php', {id: id}, function(data) {
+						$.post('../ajax/cliente/tipolistModal.php', {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+							$.post('../ajax/cliente/'+data, {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+								$('.containerListDatosTecnicos').html(data);
+								var count = $('.containerListDatosTecnicos > .tabeData tr th').length -1;
+								$('.containerListDatosTecnicos > .tabeData').dataTable({
+										"columnDefs": [{
+										'orderable': false,
+										'targets': [count]
+									}, ]
+								});
+							});
+						});
+					});
+				}
+			}
+		});
+	});
+
+	$(document).on('click', '.delete-mantencion_red', function() {
+		var id = $(this).attr('attr');
+		bootbox.confirm({
+			message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+			buttons: {
+				confirm: {
+					label: 'Si borrar',
+					className: 'btn-success'
+				},
+				cancel: {
+					label: 'No borrar',
+					className: 'btn-danger'
+				}
+			},
+			callback: function (result) {
+				if (result == true) {
+					$.post('../ajax/cliente/eliminarMatencionRed.php', {id: id}, function(data) {
+						$.post('../ajax/cliente/tipolistModal.php', {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+							$.post('../ajax/cliente/'+data, {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+								$('.containerListDatosTecnicos').html(data);
+								var count = $('.containerListDatosTecnicos > .tabeData tr th').length -1;
+								$('.containerListDatosTecnicos > .tabeData').dataTable({
+										"columnDefs": [{
+										'orderable': false,
+										'targets': [count]
+									}, ]
+								});
+							});
+						});
+					});
+				}
+			}
+		});
+	});
+
+	$(document).on('click', '.delete-mensualidad_puerdo_publicos', function() {
+		var id = $(this).attr('attr');
+		bootbox.confirm({
+			message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+			buttons: {
+				confirm: {
+					label: 'Si borrar',
+					className: 'btn-success'
+				},
+				cancel: {
+					label: 'No borrar',
+					className: 'btn-danger'
+				}
+			},
+			callback: function (result) {
+				if (result == true) {
+					$.post('../ajax/cliente/eliminarMensualidadPuertoPublico.php', {id: id}, function(data) {
+						$.post('../ajax/cliente/tipolistModal.php', {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+							$.post('../ajax/cliente/'+data, {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+								$('.containerListDatosTecnicos').html(data);
+								var count = $('.containerListDatosTecnicos > .tabeData tr th').length -1;
+								$('.containerListDatosTecnicos > .tabeData').dataTable({
+										"columnDefs": [{
+										'orderable': false,
+										'targets': [count]
+									}, ]
+								});
+							});
+						});
+					});
+				}
+			}
+		});
+	});
+
+	$(document).on('click', '.delete-trafico_generado', function() {
+		var id = $(this).attr('attr');
+		bootbox.confirm({
+			message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+			buttons: {
+				confirm: {
+					label: 'Si borrar',
+					className: 'btn-success'
+				},
+				cancel: {
+					label: 'No borrar',
+					className: 'btn-danger'
+				}
+			},
+			callback: function (result) {
+				if (result == true) {
+					$.post('../ajax/cliente/eliminarArriendoEquipo.php', {id: id}, function(data) {
+						$.post('../ajax/cliente/tipolistModal.php', {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+							$.post('../ajax/cliente/'+data, {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+								$('.containerListDatosTecnicos').html(data);
+								var count = $('.containerListDatosTecnicos > .tabeData tr th').length -1;
+								$('.containerListDatosTecnicos > .tabeData').dataTable({
+										"columnDefs": [{
+										'orderable': false,
+										'targets': [count]
+									}, ]
+								});
+							});
+						});
+					});
+				}
+			}
+		});
+	});
+
+
+
 
 });
