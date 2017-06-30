@@ -230,14 +230,23 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				<h4 class="modal-title" id="myModalLabel">Agregar Tipo de Facturacion</h4>
 			</div>
 			<div class="modal-body">
-				...
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<label>Codigo</label>
+						<input name="TipoFacCodigo" class="form-control">
+					</div>
+					<div class="col-md-6 form-group">
+						<label>Descripcion</label>
+						<input name="TipoFacDescripcion" class="form-control">
+					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-primary">Guardar</button>
 			</div>
 		</div>
 	</div>
@@ -247,14 +256,19 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+				<h4 class="modal-title" id="myModalLabel">Agregar Servicio</h4>
 			</div>
 			<div class="modal-body">
-				...
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Nombre del servivio</label>
+						<input name="NomServicio" class="form-control">
+					</div>
+				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-primary">Guardar</button>
 			</div>
 		</div>
 	</div>
