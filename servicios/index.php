@@ -109,7 +109,12 @@
 											</div>
 											<div class="col-md-6 form-group">
 												<label >Tiempo de Facturación</label>
-												<input type="text" name="TiepoFacturacion"  class="form-control">
+												<select name="TiepoFacturacion" class="form-control selectpicker" data-live-search="tue">
+													<option value="">Seleccione...</option>
+													<option >Mensual</option>
+													<option >Semestral</option>
+													<option >Anual</option>
+												</select>
 											</div>
 										</div>
 										<div class="row">
