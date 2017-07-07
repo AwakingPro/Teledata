@@ -46,12 +46,12 @@
                                     <div class="panel-heading">
                                         <div class="panel-control">
                                             <!--Nav tabs-->
-                                            <ul class="nav nav-tabs">
+                                            <!-- <ul class="nav nav-tabs">
                                                 <li class="active"><a data-toggle="tab" href="#ingreso_registro" aria-expanded="true">Ingresar Registro</a>
                                                 </li>
                                                 <li class=""><a data-toggle="tab" href="#busqueda_registro" aria-expanded="true">Buscar Registros</a>
                                                 </li>
-                                            </ul>
+                                            </ul> -->
                                         </div>
                                         <h3 class="panel-title">Modulo Nota de Venta</h3>
                                     </div>
