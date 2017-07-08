@@ -49,10 +49,9 @@ $objPHPExcel->setActiveSheetIndex(0)
 ->setCellValue('AD1', 'Atributos adicionales')
 ->setCellValue('AE1', 'Valor Unitario')
 ->setCellValue('AF1', '% Descuento')
-->setCellValue('AG1', 'Impuesto')
-->setCellValue('AH1', 'Impuesto');
+->setCellValue('AG1', 'Impuesto');
 
-foreach (range(0, 34) as $col) {
+foreach (range(0, 33) as $col) {
         $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 
