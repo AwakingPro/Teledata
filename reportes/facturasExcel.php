@@ -36,15 +36,32 @@ $objPHPExcel->setActiveSheetIndex(0)
 ->setCellValue('Q1', 'Clinete Extranjero')
 ->setCellValue('R1', 'Razon Social')
 ->setCellValue('S1', 'Giro')
-->setCellValue('P1', 'Tipo Cliente')
-->setCellValue('J2', '=sum(A2:B2)');
+->setCellValue('T1', 'Nombre')
+->setCellValue('U1', 'Apellido')
+->setCellValue('V1', 'Email')
+->setCellValue('W1', 'Telefono')
+->setCellValue('X1', 'Direccion')
+->setCellValue('Y1', 'Ciudad')
+->setCellValue('Z1', 'Comuna')
+->setCellValue('AA1', 'Cantidad')
+->setCellValue('AB1', 'SKU')
+->setCellValue('AC1', 'Glosa')
+->setCellValue('AD1', 'Atributos adicionales')
+->setCellValue('AE1', 'Valor Unitario')
+->setCellValue('AF1', '% Descuento')
+->setCellValue('AG1', 'Impuesto')
+->setCellValue('AH1', 'Impuesto');
+
+foreach (range(0, 34) as $col) {
+        $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
+}
 
 // Renombrar Hoja
-$objPHPExcel->getActiveSheet()->setTitle('Tecnologia Simple');
+$objPHPExcel->getActiveSheet()->setTitle('Facturas mensuales');
 
 // Establecer la hoja activa, para que cuando se abra el documento se muestre primero.
 $objPHPExcel->setActiveSheetIndex(0);
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save('lol.xlsx');
+$objWriter->save('Facturas Mensuales.xlsx');
 exit;
 ?>
