@@ -15,7 +15,7 @@
 						$lista.= '<tr>
 								<td>'.$archivo.'</td>
 								<td style="text-align: right;">
-									<a href="ssreportesFacturasMensuales/'.$archivo.'" class="btn btn-success">Descargar</a>
+									<a href="reporteFacturasSemestral/'.$archivo.'" class="btn btn-success">Descargar</a>
 									<button type="button" class="btn btn-danger unlink" attr="'.$archivo.'">Eliminar</button>
 								</td>
 							</tr>';
