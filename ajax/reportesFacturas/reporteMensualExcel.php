@@ -1,6 +1,6 @@
 <?php
 /** Incluir la libreria PHPExcel */
-require_once '../plugins/PHPExcel-1.8/Classes/PHPExcel.php';
+require_once '../../plugins/PHPExcel-1.8/Classes/PHPExcel.php';
 
 // Crea un nuevo objeto PHPExcel
 $objPHPExcel = new PHPExcel();
@@ -62,6 +62,6 @@ $objPHPExcel->getActiveSheet()->setTitle('Facturas mensuales');
 // Establecer la hoja activa, para que cuando se abra el documento se muestre primero.
 $objPHPExcel->setActiveSheetIndex(0);
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save('Facturas Mensuales.xlsx');
+$objWriter->save('../../reportes/reportesFacturasMensuales/Factura Mensual '.date("d-m-Y").'.xlsx');
 exit;
 ?>

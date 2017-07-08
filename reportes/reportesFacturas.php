@@ -27,7 +27,7 @@
 					<ol class="breadcrumb">
 						<li><a href="#">Inicio</a></li>
 						<li><a href="#">Reportes</a></li>
-						<li class="active">Facturas Mensuales</li>
+						<li class="active">Reportes de Facturas</li>
 					</ol>
 					<div id="page-content">
 						<div class="row">
@@ -35,12 +35,31 @@
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
-										<h3 class="panel-title">Facturas Mensuales</h3>
+										<h3 class="panel-title">Reporte de Facturas</h3>
 									</div>
 									<!--Panel body-->
 									<div class="panel-body container-form">
 										<h3>Opciones de busqueda</h3><br>
+										<div class="row">
+											<div class="col-md-2">
+												<h4>Tipo de Reporte</h4>
+											</div>
+											<div class="col-md-6">
+												<select class="form-control selectpicker tipoReporte" data-live-search="true">
+													<option value="">Seleccione...</option>
+													<option value="m">Mensuales</option>
+													<option value="s">Semestrales</option>
+													<option value="a">Anuales</option>
+												</select>
+											</div>
+										</div>
+										<br>
+										<br>
+										<div class="row">
+											<div class="col-md-12 reporteFacturas">
 
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -75,6 +94,6 @@
 		<script src="../js/methods_global/methods.js"></script>
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>
-		<script src="../js/servicios/controller.js"></script>
+		<script src="../js/reportesFacturas/controller.js"></script>
 	</body>
 </html>
