@@ -27,7 +27,7 @@
 					<ol class="breadcrumb">
 						<li><a href="#">Inicio</a></li>
 						<li><a href="#">Reportes</a></li>
-						<li class="active">Reportes de Facturas</li>
+						<li class="active">Reportes de Facturas por Cliente</li>
 					</ol>
 					<div id="page-content">
 						<div class="row">
@@ -35,30 +35,13 @@
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
-										<h3 class="panel-title">Reporte de Facturas</h3>
+										<h3 class="panel-title">Reporte de Facturas por Cliente</h3>
 									</div>
 									<!--Panel body-->
 									<div class="panel-body container-form">
-										<h3>Opciones de busqueda</h3><br>
-										<div class="row">
-											<div class="col-md-2">
-												<h4>Tipo de Reporte</h4>
-											</div>
-											<div class="col-md-6">
-												<select class="form-control selectpicker tipoReporte" data-live-search="true">
-													<option value="">Seleccione...</option>
-													<option value="m">Mensuales</option>
-													<option value="s">Semestrales</option>
-													<option value="a">Anuales</option>
-												</select>
-											</div>
-										</div>
-										<br>
-										<br>
-										<div class="row">
-											<div class="col-md-12 reporteFacturas">
+										<h3>Lista de facturas por clientes</h3><br>
+										<div class="listaFActurasClientes">
 
-											</div>
 										</div>
 									</div>
 								</div>

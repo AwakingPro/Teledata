@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-06-14 10:39:33
+Date: 2017-07-11 21:24:43
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,9 +20,9 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `mantenedor_servicios`;
 CREATE TABLE `mantenedor_servicios` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `IdServicio` int(11) NOT NULL AUTO_INCREMENT,
   `servicio` varchar(200) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`IdServicio`)
 ) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 -- ----------------------------

@@ -27,7 +27,7 @@
 					<ol class="breadcrumb">
 						<li><a href="#">Inicio</a></li>
 						<li><a href="#">Reportes</a></li>
-						<li class="active">Reportes de Facturas</li>
+						<li class="active">Reportes de Facturas por Tiempo</li>
 					</ol>
 					<div id="page-content">
 						<div class="row">
@@ -35,7 +35,7 @@
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
-										<h3 class="panel-title">Reporte de Facturas</h3>
+										<h3 class="panel-title">Reporte de Facturas por Tiempo</h3>
 									</div>
 									<!--Panel body-->
 									<div class="panel-body container-form">

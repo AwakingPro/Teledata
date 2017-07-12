@@ -1,4 +1,19 @@
 $(document).ready(function() {
+
+	$('.listaFActurasClientes').load('../ajax/reportesFacturas/reporteFacturasClientes.php', function(){
+		$('.listaFActurasClientes > .tabeData').dataTable({
+			"columnDefs": [{
+				'orderable': false,
+				'targets': [0]
+			}, ],
+			"order": [
+				[1, "asc"]
+			],
+		});
+	});
+
+
+
 	$('.tipoReporte').change(function() {
 		switch($(this).selectpicker('val')) {
 			case 'm':
@@ -38,4 +53,6 @@ $(document).ready(function() {
        				 $('.reporteFacturas').html('')
 		}
 	});
+
+
 });
