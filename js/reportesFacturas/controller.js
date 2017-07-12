@@ -1,5 +1,11 @@
 $(document).ready(function() {
 
+
+
+
+
+
+
 	$('.listaFActurasClientes').load('../ajax/reportesFacturas/reporteFacturasClientes.php', function(){
 		$('.listaFActurasClientes > .tabeData').dataTable({
 			"columnDefs": [{

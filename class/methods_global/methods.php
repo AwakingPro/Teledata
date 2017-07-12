@@ -272,7 +272,7 @@
 								<thead>
 									<tr>
 										<th>
-											<input type='checkbox' name='' value=''>
+											<input type='checkbox' name='' value='' checked>
 										</th>";
 					for ($i=0; $i < count($fields) ; $i++) {
 						$tabla.="<th>".$fields[$i]."</th>";
@@ -284,7 +284,7 @@
 					}
 					if (isset($rows)) {
 						for ($i=0; $i < count($rows) ; $i++) {
-							$tabla.= '<tr><td class="select-checkbox"><input type="checkbox" name="" value="" style="margin-left: 9px;"></td>';
+							$tabla.= '<tr><td class="select-checkbox"><input type="checkbox" name="" value="" style="margin-left: 9px;" checked></td>';
 							foreach ($rows[$i] as $clave => $valor) {
 								$tabla.="<td>".$valor."</td>";
 							}

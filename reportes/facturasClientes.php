@@ -39,7 +39,15 @@
 									</div>
 									<!--Panel body-->
 									<div class="panel-body container-form">
-										<h3>Lista de facturas por clientes</h3><br>
+										<div class="row">
+										<h3 class="pull-left">Lista de facturas por clientes</h3>
+											<div class="pull-right">
+												<button type="button" class="btn btn-primary">Generar Documento Excel</button>
+												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MontoTotal">Monto Total de Facturas</button>
+											</div>
+										</div>
+										<br>
+										<br>
 										<div class="listaFActurasClientes">
 
 										</div>
@@ -80,3 +88,26 @@
 		<script src="../js/reportesFacturas/controller.js"></script>
 	</body>
 </html>
+
+<!-- Modal -->
+<div class="modal fade" id="MontoTotal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Monto total a Facturar</h4>
+      </div>
+      <div class="modal-body">
+        <h3>Total de Facturas:</h3>
+        <span style="font-size: 25px">56 Facturas</span>
+        <h3>Monto total a facturar :</h3>
+        <span style="font-size: 25px">150000000.00 $</span>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
