@@ -105,7 +105,7 @@
 						$fields[] = $field->name;
 						$table[] = $field->table;
 					}
-					$tabla = "<table class='table table-striped tabeData'><thead><tr>";
+					$tabla = "<table class='table table-striped table-hover tabeData'><thead><tr>";
 					for ($i=0; $i < count($fields) ; $i++) {
 						$tabla.="<th>".$fields[$i]."</th>";
 					}
@@ -145,7 +145,7 @@
 						$fields[] = $field->name;
 						$table[] = $field->table;
 					}
-					$tabla = "<table class='table table-striped tabeData'><thead><tr>";
+					$tabla = "<table class='table table-striped table-hover tabeData'><thead><tr>";
 					for ($i=0; $i < count($fields) ; $i++) {
 						$tabla.="<th>".$fields[$i]."</th>";
 					}
@@ -186,7 +186,7 @@
 						$fields[] = $field->name;
 						$table[] = $field->table;
 					}
-					$tabla = "<table class='table table-striped tabeData'><thead><tr>";
+					$tabla = "<table class='table table-striped table-hover tabeData'><thead><tr>";
 					for ($i=0; $i < count($fields) ; $i++) {
 						$tabla.="<th>".$fields[$i]."</th>";
 					}
@@ -226,7 +226,7 @@
 						$fields[] = $field->name;
 						$table[] = $field->table;
 					}
-					$tabla = "<table class='table table-striped tabeData'><thead><tr>";
+					$tabla = "<table class='table table-striped table-hover tabeData'><thead><tr>";
 					for ($i=0; $i < count($fields) ; $i++) {
 						$tabla.="<th>".$fields[$i]."</th>";
 					}
@@ -245,6 +245,49 @@
 								<i class="fa fa-plus agregarDatosTecnicos" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#agregarDatosTecnicos" aria-hidden="true" title="Agregar"></i>
 								<i class="fa fa-times eliminarServicio" attr="'.$rows[$i][0].'" aria-hidden="true" title="eliminar"></i>
 								</td>';
+							$tabla.= '</tr>';
+						}
+					}
+					$tabla.="</tbody></table>";
+					return $tabla;
+
+				}else{
+					return 'Problemas en el query de consulta';
+				}
+			}else{
+				return 'No hay conexion';
+			}
+		}
+
+
+		function listViewFacturasClientes($post) {
+			$mysqli = $this->conexion();
+			if ($mysqli) {
+				if ($resultado = $mysqli->query($post)) {
+					while ($field = mysqli_fetch_field($resultado)) {
+						$fields[] = $field->name;
+						$table[] = $field->table;
+					}
+					$tabla = "<table class='table table-striped table-hover tabeData'>
+								<thead>
+									<tr>
+										<th>
+											<input type='checkbox' name='' value='' checked>
+										</th>";
+					for ($i=0; $i < count($fields) ; $i++) {
+						$tabla.="<th>".$fields[$i]."</th>";
+					}
+					$tabla.="</thead>
+								<tbody>";
+					while ($fila = $resultado->fetch_array(MYSQLI_NUM)) {
+						$rows[] = $fila;
+					}
+					if (isset($rows)) {
+						for ($i=0; $i < count($rows) ; $i++) {
+							$tabla.= '<tr><td class="select-checkbox"><input type="checkbox" name="" value="" style="margin-left: 9px;" checked></td>';
+							foreach ($rows[$i] as $clave => $valor) {
+								$tabla.="<td>".$valor."</td>";
+							}
 							$tabla.= '</tr>';
 						}
 					}

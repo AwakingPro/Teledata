@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-06-27 03:41:17
+Date: 2017-07-11 03:13:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `submenu` (
   `Nombre` varchar(100) DEFAULT NULL,
   `Enlace` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`IdSubMenu`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of submenu
@@ -40,3 +40,5 @@ INSERT INTO `submenu` VALUES ('10', '7', 'Egresos', '../egresos/Egreso.php');
 INSERT INTO `submenu` VALUES ('11', '1', 'Crear y Ver Cliente', '../clientes');
 INSERT INTO `submenu` VALUES ('12', '1', 'Servicios', '../servicios');
 INSERT INTO `submenu` VALUES ('13', '1', 'Servicios del Cliente', '../clientesServicios');
+INSERT INTO `submenu` VALUES ('14', '8', 'Facturas por Tiempo', '../reportes/reportesFacturas.php');
+INSERT INTO `submenu` VALUES ('15', '8', 'Facturas por cliente', '../reportes/facturasClientes.php');
