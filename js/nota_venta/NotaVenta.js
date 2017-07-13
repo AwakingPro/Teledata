@@ -1,10 +1,14 @@
 $(document).ready(function(){
 
+    $('#codigo').prop('disabled', true)
+    $('#servicio').prop('disabled', true)
+    $('#cantidad').prop('disabled', true)
+    $('#precio').prop('disabled', true)
+
     var neto = 0
     var exencion = 0
     var iva = 0
     var total = 0
-    var importe_neto = 0;
 
     ServicioTable = $('#ServicioTable').DataTable({
         paging: false,
@@ -73,74 +77,113 @@ $(document).ready(function(){
             .clear()
             .draw();
 
-        $('#codigo').empty();
-        $('#codigo').append(new Option('Seleccione Código',''));
-        datos = $('#showCliente').serialize();
+        if($(this).val()){
 
-        $.ajax({
-            type: "POST",
-            url: "../includes/nota_venta/showCliente.php",
-            data: datos,
-            success: function(response){
-                $('#giro').val(response.array[0].giro);
-                $('#direccion').val(response.array[0].direccion);
-                $('#contacto').val(response.array[0].contacto);
-                $('#rut').val(response.array[0].rut);
-            }
-        });
+            $('#codigo').prop('disabled', false)
+            $('#cantidad').prop('disabled', false)
 
-        $.ajax({
-            type: "POST",
-            url: "../includes/nota_venta/showCodigos.php",
-            data: datos,
-            success: function(response){
-                $.each(response.array, function( index, array ) {
-                    $('#codigo').append('<option value="'+array.Codigo+'" data-content="'+array.Codigo+'"></option>');
-                });
-            }
-        })
+            datos = $('#showCliente').serialize();
+
+            $.ajax({
+                type: "POST",
+                url: "../includes/nota_venta/showCliente.php",
+                data: datos,
+                success: function(response){
+
+                    $('#giro').val(response.array[0].giro);
+                    $('#direccion').val(response.array[0].direccion);
+                    $('#contacto').val(response.array[0].contacto);
+                    $('#rut').val(response.array[0].rut);
+                    
+                }
+            });
+
+            // $('#codigo').empty();
+            // $('#codigo').append(new Option('Seleccione Código',''));
+
+            // $.ajax({
+            //     type: "POST",
+            //     url: "../includes/nota_venta/showCodigos.php",
+            //     data: datos,
+            //     success: function(response){
+            //         $.each(response.array, function( index, array ) {
+            //             $('#codigo').append('<option value="'+array.Codigo+'" data-content="'+array.Codigo+'"></option>');
+            //         });
+            //     }
+            // })
 
 
-        setTimeout(function() {       
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
-        }, 1000);  
+            // setTimeout(function() {       
+            //     $('.selectpicker').selectpicker('render');
+            //     $('.selectpicker').selectpicker('refresh');
+            // }, 1000);
+        }else{
+            $('#codigo').prop('disabled', true)
+            $('#servicio').prop('disabled', true)
+            $('#cantidad').prop('disabled', true)
+            $('#precio').prop('disabled', true)
+        }
 
 
     });
 
-    $('#codigo').on('change', function () {
-        if($(this).val()){
+    $('#codigo').on('input', function () {
+        // if($(this).val()){
             datos = $('#addServicio').serialize();
             $.ajax({
                 type: "POST",
                 url: "../includes/nota_venta/showServicio.php",
                 data: datos,
                 success: function(response){
-                    $.each(response.array, function( index, array ) {
+
+                    if(response.array[0]){
+
+                        $('#servicio').prop('disabled', true)
+                        $('#precio').prop('disabled', true)
+                        
                         $('#servicio').val(response.array[0].servicio);
                         $('#precio').val($.number(parseFloat(response.array[0].precio)));
                         $('#total').val($.number(parseFloat(response.array[0].precio)));
-                        importe_neto = parseFloat(response.array[0].precio)
-                    });
+
+                    }else{
+                        $('#servicio').prop('disabled', false)
+                        $('#precio').prop('disabled', false)
+                    }
+                   
                 }
             });
-        }else{
-            $('#servicio').val('')
-            $('#precio').val('')
-            $('#total').val('')
-            importe_neto = 0
-        }
+        // }else{
+        //     $('#servicio').val('')
+        //     $('#precio').val('')
+        //     $('#total').val('')
+        // }
 
         $('#cantidad').val(1)
 
     });
 
     $('#cantidad').on('change', function () {
-        if($('#codigo')){
+        if($('#codigo') && $('#precio')){
             cantidad = parseInt($('#cantidad').val())
-            total_nota = importe_neto * cantidad
-            $('#total').val(parseFloat(total_nota))
+            precio = $('#precio').val()
+            precio = precio.replace(',', '')
+            precio = precio.replace('.', '')
+            precio = parseFloat(precio)
+            total_nota = precio * cantidad
+            $('#total').val($.number(total_nota))
+        }
+    });
+
+    $('#precio').on('input', function () {
+        if($('#codigo') && $('#cantidad')){
+            cantidad = parseInt($('#cantidad').val())
+            precio = $('#precio').val()
+            precio = precio.replace(',', '')
+            precio = precio.replace('.', '')
+            precio = parseFloat(precio)
+            total_nota = precio * cantidad
+            $.number(precio)
+            $('#total').val($.number(total_nota))
         }
     });
 
@@ -173,8 +216,9 @@ $(document).ready(function(){
                     iva = iva + impuesto;
                 }
 
-                precio = parseFloat(response.array.total)
-                total = total + precio
+                precio = parseFloat(response.array.precio)
+                total_tmp = parseFloat(response.array.total)
+                total = total + total_tmp
 
                 $('#neto').text($.number(neto))
                 $('#iva').text($.number(iva))
@@ -187,7 +231,7 @@ $(document).ready(function(){
                     ''+response.array.cantidad+'',
                     ''+$.number(precio)+'',
                     ''+imp_exencion+'',
-                    ''+$.number(response.array.total)+'',
+                    ''+$.number(total_tmp)+'',
                     ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
@@ -220,6 +264,9 @@ $(document).ready(function(){
                 });
 
             }
+
+            $('#servicio').prop('disabled', true)
+            $('#precio').prop('disabled', true)
         });
     });
 

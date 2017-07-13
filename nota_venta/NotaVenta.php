@@ -117,9 +117,7 @@
                                                                 <div class="text-center">
                                                                     <label class="control-label h5" for="name">Código</label>
                                                                 </div>
-                                                                <select class="selectpicker form-control" name="codigo" id="codigo"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Código">
-                                                                    <option value="">Seleccione Código</option>
-                                                                </select>
+                                                                <input id="codigo" name="codigo" class="form-control input-sm" validation="not_null" data-nombre="Código" disabled>
                                                             </div>
                                                         </div>
 
@@ -128,7 +126,7 @@
                                                                 <div class="text-center">
                                                                     <label class="control-label h5" for="name">Servicio</label>
                                                                 </div>
-                                                                <input id="servicio" name="servicio" class="form-control input-sm" disabled>
+                                                                <input id="servicio" name="servicio" class="form-control input-sm" validation="not_null" data-nombre="Servicio" disabled>
                                                             </div>
                                                         </div>
 
@@ -137,7 +135,7 @@
                                                                 <div class="text-center">
                                                                     <label class="control-label h5" for="name">Cantidad</label>
                                                                 </div>
-                                                                <input id="cantidad" name="cantidad" class="form-control input-sm" maxlength="6" validation="not_null" data-nombre="Cantidad">
+                                                                <input id="cantidad" name="cantidad" class="form-control input-sm" maxlength="6" validation="not_null" data-nombre="Cantidad" disabled>
                                                             </div>
                                                         </div>
 
@@ -146,7 +144,7 @@
                                                                 <div class="text-center">
                                                                     <label class="control-label h5" for="name">Precio</label>
                                                                 </div>
-                                                                <input id="precio" name="precio" class="form-control input-sm number" disabled>
+                                                                <input id="precio" name="precio" class="form-control input-sm number" validation="not_null" data-nombre="Precio" disabled>
                                                             </div>
                                                         </div>
 

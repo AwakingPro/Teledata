@@ -5,49 +5,57 @@
 
     class NotaVenta{
 
-    	public function GuardarServicio($Codigo,$Cantidad,$Exencion){
+    	public function GuardarServicio($Codigo,$Servicio,$Cantidad,$Precio,$Exencion){
 
             $response_array = array();
 
             $Codigo = isset($Codigo) ? trim($Codigo) : "";
-            $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
-            $Exencion = isset($Exencion) ? trim($Exencion) : "";
+            $Servicio = isset($Cantidad) ? trim($Cantidad) : "";
+            $Cantidad = isset($Codigo) ? trim($Codigo) : "";
+            $Precio = isset($Cantidad) ? trim($Cantidad) : "";
+            $Exencion = isset($Cantidad) ? trim($Cantidad) : "";
 
-            if(!empty($Codigo) && !empty($Cantidad)){
+            if(!empty($Codigo) && !empty($Servicio) && !empty($Cantidad) && !empty($Precio) && !empty($Exencion)){
 
                 session_start();
 
                 $this->Codigo=$Codigo;
-                $this->Cantidad=$Cantidad;
+                $this->Cantidad=intval($Cantidad);
                 $this->Exencion=$Exencion;
                 $this->Usuario=$_SESSION['idUsuario'];
 
                 $query = "SELECT mantenedor_servicios.*, servicios.Valor as Precio FROM mantenedor_servicios INNER JOIN servicios ON servicios.IdServicio = mantenedor_servicios.id where servicios.Codigo = '$this->Codigo'";
                 $run = new Method;
-                $Servicio = $run->select($query);
+                $ServicioSQL = $run->select($query);
 
-                if($Servicio){
+                if($ServicioSQL){
 
-                    $this->Servicio=$Servicio[0]['servicio'];
-                    $this->Precio=$Servicio[0]['Precio'];
-                    $this->Total= floatval($this->Precio) * intval($this->Cantidad);
+                    $this->Servicio=$ServicioSQL[0]['servicio'];
+                    $this->Precio=floatval($ServicioSQL[0]['Precio']);
+                    $this->Total= $this->Precio * $this->Cantidad;
 
-                    $query = "INSERT INTO nota_venta_tmp(codigo, servicio, cantidad, precio, exencion, total, usuario_id) VALUES ('$this->Codigo','$this->Servicio','$this->Cantidad','$this->Precio','$this->Exencion','$this->Total','$this->Usuario')";
-                    $run = new Method;
-                    $id = $run->insert($query);
-
-                    // if($data){
-
-                        $array = array('id'=> $id, 'codigo' => $this->Codigo, 'servicio' => $this->Servicio, 'cantidad' => $this->Cantidad, 'precio' => $this->Precio, 'exencion' => $this->Exencion, 'total' => $this->Total);
-
-                        $response_array['array'] = $array;
-                        $response_array['status'] = 1; 
-                    // }else{
-                    //     $response_array['status'] = 0; 
-                    // }
                 }else{
-                    $response_array['status'] = 0; 
+                    $find = array('.',',');
+                    $Precio = str_replace($find,'',$Precio);
+                    $this->Servicio=$Servicio;
+                    $this->Precio=floatval($Precio);
+                    $this->Total= $this->Precio * $this->Cantidad;
                 }
+
+                $query = "INSERT INTO nota_venta_tmp(codigo, servicio, cantidad, precio, exencion, total, usuario_id) VALUES ('$this->Codigo','$this->Servicio','$this->Cantidad','$this->Precio','$this->Exencion','$this->Total','$this->Usuario')";
+                $run = new Method;
+                $id = $run->insert($query);
+
+                // if($data){
+
+                    $array = array('id'=> $id, 'codigo' => $this->Codigo, 'servicio' => $this->Servicio, 'cantidad' => $this->Cantidad, 'precio' => $this->Precio, 'exencion' => $this->Exencion, 'total' => $this->Total);
+
+                    $response_array['array'] = $array;
+                    $response_array['status'] = 1; 
+                // }else{
+                //     $response_array['status'] = 0; 
+                // }
+            
             }else{
                 $response_array['status'] = 2; 
             }
