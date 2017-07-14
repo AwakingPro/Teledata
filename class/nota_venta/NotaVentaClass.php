@@ -154,7 +154,7 @@
             $run = new Method;
             $data = $run->insert($query);
 
-            $query = "SELECT * FROM personaempresa where `rut` = '$rut'";
+            $query = "SELECT * FROM personaempresa where `Rut` = '$rut'";
             $run = new Method;
             $data = $run->select($query);
 
@@ -166,7 +166,7 @@
 
         function showCodigos($rut){
 
-            $query = "SELECT * FROM servicios WHERE `rut` = '$rut'";
+            $query = "SELECT * FROM servicios WHERE `Rut` = '$rut'";
             $run = new Method;
             $data = $run->select($query);
 
@@ -178,7 +178,7 @@
 
         function showServicio($Codigo){
 
-            $query = "SELECT mantenedor_servicios.Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.id where servicios.Codigo = '$Codigo'";
+            $query = "SELECT mantenedor_servicios.Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.Id where servicios.Codigo = '$Codigo'";
             $run = new Method;
             $data = $run->select($query);
 
@@ -198,7 +198,7 @@
 
                 $this->Id=$Id;
 
-                $query = "SELECT * from `nota_venta_tmp` where `id` = '$this->Id'";
+                $query = "SELECT * from `nota_venta_tmp` where `Id` = '$this->Id'";
                 $run = new Method;
                 $data = $run->select($query);
 
@@ -206,7 +206,7 @@
 
                     $response_array['array'] = $data;
 
-                    $query = "DELETE from `nota_venta_tmp` where `id` = '$this->Id'";
+                    $query = "DELETE from `nota_venta_tmp` where `Id` = '$this->Id'";
                     $run = new Method;
                     $data = $run->delete($query);
                     $response_array['status'] = 1; 
