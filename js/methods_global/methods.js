@@ -52,6 +52,9 @@ $.post('../ajax/menu/mainMenu.php', {url: window.location.pathname}, function(da
 	$('#mainnav-menu').html(data);
 });
 
+$('.containerHeader').load('../ajax/header/mainHeader.php');
+
+
 $(document).on('click', '.itemsMenu', function() {
 	$(this).siblings('.collapse').slideToggle();
 });

@@ -12,9 +12,7 @@
 	</head>
 	<body>
 		<div id="container" class="mainnav-sm">
-			<?php
-			include("../layout/header.php");
-			?>
+			<div class="containerHeader"></div>
 			<div class="boxed">
 				<div id="content-container">
 					<div id="page-title">
