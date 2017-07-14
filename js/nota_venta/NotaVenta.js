@@ -77,8 +77,29 @@ $(document).ready(function(){
             $('#precio').prop('disabled', true)
             append = '<select class="selectpicker form-control" name="codigo" id="codigo"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Código"></select>'
             $('#codigo_container').append(append)
+
+            datos = $('#showCliente').serialize();
+
             $('#codigo').append(new Option('Seleccione Código',''));
+
+            $.ajax({
+                type: "POST",
+                url: "../includes/nota_venta/showCodigos.php",
+                data: datos,
+                success: function(response){
+                    $.each(response.array, function( index, array ) {
+                        $('#codigo').append('<option value="'+array.Codigo+'" data-content="'+array.Codigo+'"></option>');
+                    });
+                }
+            })
+
             $('#codigo').selectpicker()
+
+            setTimeout(function() {       
+                $('.selectpicker').selectpicker('render');
+                $('.selectpicker').selectpicker('refresh');
+            }, 1000);
+
         }else{
             append = '<input id="codigo" name="codigo" class="form-control input-sm" validation="not_null" data-nombre="Código">'
             $('#codigo_container').append(append)
@@ -159,10 +180,16 @@ $(document).ready(function(){
                 data: datos,
                 success: function(response){
                     if(response.array){
-                        
+
+                        precio = parseFloat(response.array[0].precio)
+
+                        if(!precio || precio < 0){
+                            precio = 0
+                        }            
+
                         $('#servicio').val(response.array[0].servicio);
-                        $('#precio').val(formatcurrency(parseFloat(response.array[0].precio)));
-                        $('#total').val(formatcurrency(parseFloat(response.array[0].precio)));
+                        $('#precio').val(formatcurrency(precio));
+                        $('#total').val(formatcurrency(precio));
 
                     }else{
                         $('#servicio').val('')
@@ -185,7 +212,6 @@ $(document).ready(function(){
         if($('#codigo') && $('#precio')){
             cantidad = parseInt($('#cantidad').val())
             precio = $('#precio').val()
-            precio = precio.replace(',', '')
             precio = precio.replace('.', '')
             precio = parseFloat(precio)
             total_nota = precio * cantidad
@@ -197,7 +223,6 @@ $(document).ready(function(){
         if($('#codigo') && $('#cantidad')){
             cantidad = parseInt($('#cantidad').val())
             precio = $('#precio').val()
-            precio = precio.replace(',', '')
             precio = precio.replace('.', '')
             precio = parseFloat(precio)
             total_nota = precio * cantidad

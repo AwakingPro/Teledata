@@ -24,7 +24,7 @@
                 $this->Exencion=$Exencion;
                 $this->Usuario=$_SESSION['idUsuario'];
 
-                $query = "SELECT mantenedor_servicios.*, servicios.Valor as Precio FROM mantenedor_servicios INNER JOIN servicios ON servicios.IdServicio = mantenedor_servicios.id where servicios.Codigo = '$this->Codigo'";
+                $query = "SELECT mantenedor_servicios.Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.id where servicios.Codigo = '$this->Codigo'";
                 $run = new Method;
                 $ServicioSQL = $run->select($query);
 
@@ -32,15 +32,14 @@
 
                     $this->Servicio=$ServicioSQL[0]['servicio'];
                     $this->Precio=floatval($ServicioSQL[0]['Precio']);
-                    $this->Total= $this->Precio * $this->Cantidad;
 
                 }else{
-                    $find = array('.',',');
-                    $Precio = str_replace($find,'',$Precio);
+                    $Precio = str_replace('.','',$Precio);
                     $this->Servicio=$Servicio;
                     $this->Precio=floatval($Precio);
-                    $this->Total= $this->Precio * $this->Cantidad;
                 }
+
+                $this->Total= $this->Precio * $this->Cantidad;
 
                 $query = "INSERT INTO nota_venta_tmp(codigo, servicio, cantidad, precio, exencion, total, usuario_id) VALUES ('$this->Codigo','$this->Servicio','$this->Cantidad','$this->Precio','$this->Exencion','$this->Total','$this->Usuario')";
                 $run = new Method;
@@ -177,10 +176,9 @@
 
         }
 
-        function showServicio($codigo){
+        function showServicio($Codigo){
 
-            $query = "SELECT mantenedor_servicios.*, servicios.Valor as precio FROM mantenedor_servicios INNER JOIN servicios ON servicios.IdServicio = mantenedor_servicios.id where servicios.Codigo = '$codigo'";
-
+            $query = "SELECT mantenedor_servicios.Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.id where servicios.Codigo = '$Codigo'";
             $run = new Method;
             $data = $run->select($query);
 
