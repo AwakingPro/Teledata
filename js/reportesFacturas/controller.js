@@ -1,10 +1,10 @@
 $(document).ready(function() {
 
 
+	$(document).on('click', '.generarExcelCliente', function() {
+		window.location = "../ajax/reportesFacturas/reporteFacturaClienteExcel.php";
 
-
-
-
+	});
 
 	$('.listaFActurasClientes').load('../ajax/reportesFacturas/reporteFacturasClientes.php', function(){
 		$('.listaFActurasClientes > .tabeData').dataTable({
@@ -17,8 +17,6 @@ $(document).ready(function() {
 			],
 		});
 	});
-
-
 
 	$('.tipoReporte').change(function() {
 		switch($(this).selectpicker('val')) {
