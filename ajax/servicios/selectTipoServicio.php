@@ -1,7 +1,7 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
 	$query = 'SELECT
-	mantenedor_servicios.id,
+	mantenedor_servicios.idServicio,
 	mantenedor_servicios.servicio
 	FROM
 	mantenedor_servicios';
