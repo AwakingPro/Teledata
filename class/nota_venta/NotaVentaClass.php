@@ -30,7 +30,7 @@
 
                 if($ServicioSQL){
 
-                    $this->Servicio=$ServicioSQL[0]['servicio'];
+                    $this->Servicio=$ServicioSQL[0]['Servicio'];
                     $this->Precio=floatval($ServicioSQL[0]['Precio']);
 
                 }else{

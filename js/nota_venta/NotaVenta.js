@@ -172,6 +172,10 @@ $(document).ready(function(){
             $('#servicio').prop('disabled', true)
             $('#precio').prop('disabled', true)
 
+            $('#servicio').val('')
+            $('#precio').val('')
+            $('#total').val('')
+
             datos = $('#addServicio').serialize();
 
             $.ajax({
@@ -179,23 +183,18 @@ $(document).ready(function(){
                 url: "../includes/nota_venta/showServicio.php",
                 data: datos,
                 success: function(response){
-                    if(response.array){
 
-                        precio = parseFloat(response.array[0].precio)
+                    precio = parseFloat(response.array[0].Precio)
 
-                        if(!precio || precio < 0){
-                            precio = 0
-                        }            
+                    if(!precio || precio < 0){
+                        precio = 0
+                    }            
 
-                        $('#servicio').val(response.array[0].servicio);
-                        $('#precio').val(formatcurrency(precio));
-                        $('#total').val(formatcurrency(precio));
+                    $('#servicio').val(response.array[0].Servicio);
+                    $('#precio').val(formatcurrency(precio));
+                    $('#total').val(formatcurrency(precio));
 
-                    }else{
-                        $('#servicio').val('')
-                        $('#precio').val('')
-                        $('#total').val('')
-                    }
+                
                 }
             });
         }else{
