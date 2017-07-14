@@ -793,5 +793,4 @@ $(document).ready(function(){
             }
        });   
     });
-
 });

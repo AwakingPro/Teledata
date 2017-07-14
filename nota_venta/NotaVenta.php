@@ -113,11 +113,20 @@
                                                 <div class="row" style="margin-top: 20px">
                                                     <form id="addServicio">
                                                         <div class="col-md-2">
+                                                            <label class="form-radio form-icon form-text"><input id="automatico" name="switch_codigo" type="radio" value="1" checked>Automatico</label>
+                                                            <label class="form-radio form-icon form-text"><input id="manual" name="switch_codigo" type="radio" value="2">Manual</label>
+                                                        </div>
+                                                        <div class="clearfix"></div>
+                                                        <div class="col-md-2">
                                                             <div class="form-group">
                                                                 <div class="text-center">
                                                                     <label class="control-label h5" for="name">Código</label>
                                                                 </div>
-                                                                <input id="codigo" name="codigo" class="form-control input-sm" validation="not_null" data-nombre="Código" disabled>
+                                                                <div id="codigo_container">
+                                                                    <select class="selectpicker form-control" name="codigo" id="codigo"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Código">
+                                                                        <option value="">Seleccione Código</option>
+                                                                    </select>
+                                                                </div>
                                                             </div>
                                                         </div>
 
@@ -135,7 +144,7 @@
                                                                 <div class="text-center">
                                                                     <label class="control-label h5" for="name">Cantidad</label>
                                                                 </div>
-                                                                <input id="cantidad" name="cantidad" class="form-control input-sm" maxlength="6" validation="not_null" data-nombre="Cantidad" disabled>
+                                                                <input id="cantidad" name="cantidad" class="form-control input-sm" maxlength="6" validation="not_null" data-nombre="Cantidad">
                                                             </div>
                                                         </div>
 

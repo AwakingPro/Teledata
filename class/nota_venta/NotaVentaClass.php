@@ -10,10 +10,10 @@
             $response_array = array();
 
             $Codigo = isset($Codigo) ? trim($Codigo) : "";
-            $Servicio = isset($Cantidad) ? trim($Cantidad) : "";
-            $Cantidad = isset($Codigo) ? trim($Codigo) : "";
-            $Precio = isset($Cantidad) ? trim($Cantidad) : "";
-            $Exencion = isset($Cantidad) ? trim($Cantidad) : "";
+            $Servicio = isset($Servicio) ? trim($Servicio) : "";
+            $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
+            $Precio = isset($Precio) ? trim($Precio) : "";
+            $Exencion = isset($Exencion) ? trim($Exencion) : "";
 
             if(!empty($Codigo) && !empty($Servicio) && !empty($Cantidad) && !empty($Precio) && !empty($Exencion)){
 

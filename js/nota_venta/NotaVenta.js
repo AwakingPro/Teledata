@@ -1,8 +1,6 @@
 $(document).ready(function(){
 
-    $('#codigo').prop('disabled', true)
     $('#servicio').prop('disabled', true)
-    $('#cantidad').prop('disabled', true)
     $('#precio').prop('disabled', true)
 
     var neto = 0
@@ -71,6 +69,26 @@ $(document).ready(function(){
         }
     });
 
+    $('input[name=switch_codigo]').on('change', function () {
+        value = $("input[name='switch_codigo']:checked").val()
+        $('#codigo_container').empty()
+        if(value == 1){
+            $('#servicio').prop('disabled', true)
+            $('#precio').prop('disabled', true)
+            append = '<select class="selectpicker form-control" name="codigo" id="codigo"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Código"></select>'
+            $('#codigo_container').append(append)
+            $('#codigo').append(new Option('Seleccione Código',''));
+            $('#codigo').selectpicker()
+        }else{
+            append = '<input id="codigo" name="codigo" class="form-control input-sm" validation="not_null" data-nombre="Código">'
+            $('#codigo_container').append(append)
+            $('#servicio').prop('disabled', false)
+            $('#precio').prop('disabled', false)
+        }
+
+        
+    });
+
     $('#personaempresa_id').on('change', function () {
 
         ServicioTable
@@ -78,9 +96,6 @@ $(document).ready(function(){
             .draw();
 
         if($(this).val()){
-
-            $('#codigo').prop('disabled', false)
-            $('#cantidad').prop('disabled', false)
 
             datos = $('#showCliente').serialize();
 
@@ -98,65 +113,69 @@ $(document).ready(function(){
                 }
             });
 
-            // $('#codigo').empty();
-            // $('#codigo').append(new Option('Seleccione Código',''));
+            $('#codigo').empty();
+            $('#codigo').append(new Option('Seleccione Código',''));
 
-            // $.ajax({
-            //     type: "POST",
-            //     url: "../includes/nota_venta/showCodigos.php",
-            //     data: datos,
-            //     success: function(response){
-            //         $.each(response.array, function( index, array ) {
-            //             $('#codigo').append('<option value="'+array.Codigo+'" data-content="'+array.Codigo+'"></option>');
-            //         });
-            //     }
-            // })
+            $.ajax({
+                type: "POST",
+                url: "../includes/nota_venta/showCodigos.php",
+                data: datos,
+                success: function(response){
+                    $.each(response.array, function( index, array ) {
+                        $('#codigo').append('<option value="'+array.Codigo+'" data-content="'+array.Codigo+'"></option>');
+                    });
+                }
+            })
 
 
-            // setTimeout(function() {       
-            //     $('.selectpicker').selectpicker('render');
-            //     $('.selectpicker').selectpicker('refresh');
-            // }, 1000);
+            setTimeout(function() {       
+                $('.selectpicker').selectpicker('render');
+                $('.selectpicker').selectpicker('refresh');
+            }, 1000);
+
         }else{
-            $('#codigo').prop('disabled', true)
-            $('#servicio').prop('disabled', true)
-            $('#cantidad').prop('disabled', true)
-            $('#precio').prop('disabled', true)
-        }
+            $('#servicio').val('')
 
+            $('#precio').val('')
+            $('#total').val('')
+        }            
 
+        $('#cantidad').val(1)
     });
 
-    $('#codigo').on('input', function () {
-        // if($(this).val()){
+    $('body').on('change', '#codigo', function (){
+        value = $("input[name='switch_codigo']:checked").val()
+
+        if(value == 1){
+
+            $('#servicio').prop('disabled', true)
+            $('#precio').prop('disabled', true)
+
             datos = $('#addServicio').serialize();
+
             $.ajax({
                 type: "POST",
                 url: "../includes/nota_venta/showServicio.php",
                 data: datos,
                 success: function(response){
-
-                    if(response.array[0]){
-
-                        $('#servicio').prop('disabled', true)
-                        $('#precio').prop('disabled', true)
+                    if(response.array){
                         
                         $('#servicio').val(response.array[0].servicio);
-                        $('#precio').val($.number(parseFloat(response.array[0].precio)));
-                        $('#total').val($.number(parseFloat(response.array[0].precio)));
+                        $('#precio').val(formatcurrency(parseFloat(response.array[0].precio)));
+                        $('#total').val(formatcurrency(parseFloat(response.array[0].precio)));
 
                     }else{
-                        $('#servicio').prop('disabled', false)
-                        $('#precio').prop('disabled', false)
+                        $('#servicio').val('')
+                        $('#precio').val('')
+                        $('#total').val('')
                     }
-                   
                 }
             });
-        // }else{
-        //     $('#servicio').val('')
-        //     $('#precio').val('')
-        //     $('#total').val('')
-        // }
+        }else{
+
+            $('#servicio').prop('disabled', false)
+            $('#precio').prop('disabled', false)
+        }
 
         $('#cantidad').val(1)
 
@@ -170,7 +189,7 @@ $(document).ready(function(){
             precio = precio.replace('.', '')
             precio = parseFloat(precio)
             total_nota = precio * cantidad
-            $('#total').val($.number(total_nota))
+            $('#total').val(formatcurrency(total_nota))
         }
     });
 
@@ -182,8 +201,7 @@ $(document).ready(function(){
             precio = precio.replace('.', '')
             precio = parseFloat(precio)
             total_nota = precio * cantidad
-            $.number(precio)
-            $('#total').val($.number(total_nota))
+            $('#total').val(formatcurrency(total_nota))
         }
     });
 
@@ -220,18 +238,18 @@ $(document).ready(function(){
                 total_tmp = parseFloat(response.array.total)
                 total = total + total_tmp
 
-                $('#neto').text($.number(neto))
-                $('#iva').text($.number(iva))
-                $('#exencion_nota').text($.number(exencion))
-                $('#total_nota').text($.number(total))
+                $('#neto').text(formatcurrency(neto))
+                $('#iva').text(formatcurrency(iva))
+                $('#exencion_nota').text(formatcurrency(exencion))
+                $('#total_nota').text(formatcurrency(total))
 
                 var rowNode = ServicioTable.row.add([
                     ''+response.array.codigo+'',
                     ''+response.array.servicio+'',
                     ''+response.array.cantidad+'',
-                    ''+$.number(precio)+'',
+                    ''+formatcurrency(precio)+'',
                     ''+imp_exencion+'',
-                    ''+$.number(total_tmp)+'',
+                    ''+formatcurrency(total_tmp)+'',
                     ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
@@ -312,10 +330,10 @@ $(document).ready(function(){
                                 precio = parseFloat(response.array[0].total)
                                 total = total - precio
 
-                                $('#neto').text($.number(neto))
-                                $('#iva').text($.number(iva))
-                                $('#exencion_nota').text($.number(exencion))
-                                $('#total_nota').text($.number(total))
+                                $('#neto').text(formatcurrency(neto))
+                                $('#iva').text(formatcurrency(iva))
+                                $('#exencion_nota').text(formatcurrency(exencion))
+                                $('#total_nota').text(formatcurrency(total))
 
                                 swal("Exito!","El registro ha sido eliminado!","success");
                                 ServicioTable.row($(ObjectTR))
@@ -429,4 +447,8 @@ $(document).ready(function(){
             scrollTop: 0
         }, 1500);
     })
+
+    function formatcurrency(n) {
+        return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+    }
 });
