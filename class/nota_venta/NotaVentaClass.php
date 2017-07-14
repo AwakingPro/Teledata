@@ -24,7 +24,7 @@
                 $this->Exencion=$Exencion;
                 $this->Usuario=$_SESSION['idUsuario'];
 
-                $query = "SELECT mantenedor_servicios.Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.id where servicios.Codigo = '$this->Codigo'";
+                $query = "SELECT mantenedor_servicios.servicio as Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Codigo = '$this->Codigo'";
                 $run = new Method;
                 $ServicioSQL = $run->select($query);
 
@@ -178,7 +178,7 @@
 
         function showServicio($Codigo){
 
-            $query = "SELECT mantenedor_servicios.Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.Id where servicios.Codigo = '$Codigo'";
+            $query = "SELECT mantenedor_servicios.servicio as Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Codigo = '$Codigo'";
             $run = new Method;
             $data = $run->select($query);
 
