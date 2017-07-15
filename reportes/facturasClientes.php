@@ -76,6 +76,34 @@
 				</nav>
 			</div>
 		</div>
+
+
+		<!-- Modal -->
+<div class="modal fade" id="MontoTotal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Monto total a Facturar</h4>
+      </div>
+      <div class="modal-body">
+        <h3>Total de Facturas:</h3>
+        <span style="font-size: 25px" class="cantFacturas"></span>
+        <h3>Monto total a facturar :</h3>
+        <span style="font-size: 25px" class="montoTotal"></span>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
 		<script src="../js/jquery-2.2.1.min.js"></script>
 		<script src="../js/bootstrap.min.js"></script>
 		<script src="../js/nifty.min.js"></script>
@@ -89,25 +117,3 @@
 	</body>
 </html>
 
-<!-- Modal -->
-<div class="modal fade" id="MontoTotal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Monto total a Facturar</h4>
-      </div>
-      <div class="modal-body">
-        <h3>Total de Facturas:</h3>
-        <span style="font-size: 25px">56 Facturas</span>
-        <h3>Monto total a facturar :</h3>
-        <span style="font-size: 25px">150000000.00 $</span>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>

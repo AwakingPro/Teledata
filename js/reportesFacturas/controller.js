@@ -6,6 +6,14 @@ $(document).ready(function() {
 
 	});
 
+	$.post('../ajax/reportesFacturas/montoTotalfacturas.php', function(data) {
+		value = $.parseJSON(data);
+		console.log(value);
+		$('.cantFacturas').html(value[0][1] +' Facturas')
+		$('.montoTotal').html(value[0][0] + ' $')
+
+	});
+
 	$('.listaFActurasClientes').load('../ajax/reportesFacturas/reporteFacturasClientes.php', function(){
 		$('.listaFActurasClientes > .tabeData').dataTable({
 			"columnDefs": [{
