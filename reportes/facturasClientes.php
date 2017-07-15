@@ -42,7 +42,7 @@
 										<div class="row">
 										<h3 class="pull-left">Lista de facturas por clientes</h3>
 											<div class="pull-right">
-												<button type="button" class="btn btn-primary">Generar Documento Excel</button>
+												<button type="button" class="btn btn-primary generarExcelCliente">Generar Documento Excel</button>
 												<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#MontoTotal">Monto Total de Facturas</button>
 											</div>
 										</div>
