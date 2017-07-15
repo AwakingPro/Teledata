@@ -88,9 +88,9 @@
       </div>
       <div class="modal-body">
         <h3>Total de Facturas:</h3>
-        <span style="font-size: 25px" class="cantFacturas"></span>
+        <span style="font-size: 25px" class="cantFacturas"></span><span style="font-size: 25px"> Facturas</span>
         <h3>Monto total a facturar :</h3>
-        <span style="font-size: 25px" class="montoTotal"></span>
+        <span style="font-size: 25px" class="montoTotal"></span><span style="font-size: 25px"> $</span>
 
       </div>
       <div class="modal-footer">

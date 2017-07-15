@@ -55,6 +55,8 @@ foreach (range(0, 33) as $col) {
         $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 
+
+
 // Renombrar Hoja
 $objPHPExcel->getActiveSheet()->setTitle('Facturas mensuales');
 
