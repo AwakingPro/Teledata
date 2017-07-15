@@ -55,6 +55,81 @@ foreach (range(0, 33) as $col) {
         $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 
+require_once('../../class/methods_global/methods.php');
+$query = 'SELECT
+servicios.Id,
+servicios.Rut,
+servicios.Grupo,
+servicios.TipoFactura,
+servicios.Valor,
+servicios.Descuento,
+servicios.IdServicio,
+servicios.TiepoFacturacion,
+servicios.Codigo,
+servicios.Descripcion,
+servicios.TipoMoneda,
+personaempresa.id,
+personaempresa.rut,
+personaempresa.dv,
+personaempresa.nombre,
+personaempresa.giro,
+personaempresa.direccion,
+personaempresa.correo,
+personaempresa.contacto,
+personaempresa.comentario,
+personaempresa.telefono,
+mantenedor_servicios.IdServicio,
+mantenedor_servicios.servicio
+FROM
+	servicios
+	INNER JOIN personaempresa ON servicios.Rut = personaempresa.rut
+	INNER JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio';
+$run = new Method;
+$data = $run->select($query);
+if (count($data) > 0) {
+
+	$index = 2;
+	for ($i=0; $i < count($data) ; $i++) {
+
+		$objPHPExcel->setActiveSheetIndex(0)
+		->setCellValue('A'.$index, 'D')
+		->setCellValue('B'.$index, '1')
+		->setCellValue('C'.$index, $data[$i][4])
+		->setCellValue('D'.$index, '0')
+		->setCellValue('E'.$index, '0')
+		->setCellValue('F'.$index, '0')
+		->setCellValue('G'.$index, '0')
+		->setCellValue('H'.$index, $data[$i][10])
+		->setCellValue('I'.$index, date("d-m-Y"))
+		->setCellValue('J'.$index, '')
+		->setCellValue('K'.$index, '')
+		->setCellValue('L'.$index, '')
+		->setCellValue('M'.$index, 'Efectivo')
+		->setCellValue('N'.$index, $data[$i][17])
+		->setCellValue('O'.$index, $data[$i][1])
+		->setCellValue('P'.$index, '')
+		->setCellValue('Q'.$index, '')
+		->setCellValue('R'.$index, $data[$i][16])
+		->setCellValue('S'.$index, $data[$i][15])
+		->setCellValue('T'.$index, $data[$i][14])
+		->setCellValue('U'.$index, '')
+		->setCellValue('V'.$index, $data[$i][17])
+		->setCellValue('W'.$index, $data[$i][20])
+		->setCellValue('X'.$index, $data[$i][16])
+		->setCellValue('Y'.$index, '')
+		->setCellValue('Z'.$index, '')
+		->setCellValue('AA'.$index, '')
+		->setCellValue('AB'.$index, '')
+		->setCellValue('AC'.$index, '')
+		->setCellValue('AD'.$index, '')
+		->setCellValue('AE'.$index, '')
+		->setCellValue('AF'.$index, $data[$i][5])
+		->setCellValue('AG'.$index, '');
+		$index ++;
+	}
+}
+
+
 
 
 // Renombrar Hoja
