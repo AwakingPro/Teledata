@@ -85,11 +85,6 @@ $data = $run->select($query);
 								<i class="pli-gear icon-lg icon-fw"></i> Configuración
 							</a>
 						</li>
-						<li>
-							<a target="_blank" href="#">
-								<i class="pli-information icon-lg icon-fw"></i> Ayuda
-							</a>
-						</li>
 					</ul>
 					<!-- Dropdown footer -->
 					<div class="pad-all text-right">
