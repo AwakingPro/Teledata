@@ -72,8 +72,8 @@
                                                                     <th class="text-center">Nombre</th>
                                                                     <th class="text-center">Dirección</th>
                                                                     <th class="text-center">Télefono</th>
+                                                                    <th class="text-center">Correo</th>                 
                                                                     <th class="text-center">Responsable</th>
-                                                                    <th class="text-center">Correo</th>
                                                                     <th class="text-center">Acción</th>
                                                                 </tr>
                                                             </thead>
@@ -99,12 +99,9 @@
                                                                     <th class="text-center">Dirección IP</th>
                                                                     <th class="text-center">Puerto de Acceso</th>
                                                                     <th class="text-center">Ancho de Canal</th>
-                                                                    <th class="text-center">AP ID</th>
-                                                                    <th class="text-center">Base ID</th>
                                                                     <th class="text-center">Frecuencia</th>
                                                                     <th class="text-center">TX Power</th>
                                                                     <th class="text-center">Mac Address</th>
-                                                                    <th class="text-center">SSID</th>
                                                                     <th class="text-center">Acción</th>
                                                                 </tr>
                                                             </thead>
@@ -129,7 +126,6 @@
                                                             <select class="selectpicker form-control" name="tipo_busqueda_ingreso" id="tipo_busqueda_ingreso"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Campo de Busqueda">
                                                                 <option value="1">Estación | Repetidor</option>
                                                                 <option value="2">Dirección IP</option>
-                                                                <option value="3">SSID | Remarks</option>
                                                                 <option value="4">Mac Address</option>
                                                             </select>
                                                         </div>
@@ -138,14 +134,18 @@
                                                     <div class="clearfix mar-btm"></div>
 
                                                     <div class="col-md-4 no-padding-left">
+                                                        <select class="selectpicker form-control" name="input_registro" id="input_registro"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Campo de Busqueda">
+                                                            <option value="">Seleccione</option>
+                                                        </select>
+                                                    </div>
 
-                                                        <input id="input_registro" name="input_registro" type="text" placeholder="Ingrese el registro a buscar" class="form-control input-sm" validation="not_null" data-nombre="Campo de Busqueda">
+                                                    <button id="buscarRegistro" class="btn btn-success">Buscar</button>
                                                    
                                                     
 
                                                 </div>
 
-                                                <button id="buscarRegistro" class="btn btn-success">Buscar</button>
+                                                
 
                                                 <div class="clearfix"></div>
 
@@ -161,12 +161,9 @@
                                                                     <th class="text-center">Dirección IP</th>
                                                                     <th class="text-center">Puerto de Acceso</th>
                                                                     <th class="text-center">Ancho de Canal</th>
-                                                                    <th class="text-center">AP ID</th>
-                                                                    <th class="text-center">Base ID</th>
                                                                     <th class="text-center">Frecuencia</th>
                                                                     <th class="text-center">TX Power</th>
                                                                     <th class="text-center">Mac Address</th>
-                                                                    <th class="text-center">SSID</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
@@ -251,18 +248,18 @@
                         <div class="clearfix m-b-10"></div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label" for="name">Responsable</label>
-                                <div class="select">
-                                    <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
-                                    </select>
-                                </div>
+                                <label class="control-label" for="name">Correo</label>
+                                <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
                             </div>
                         </div>
                         <div class="clearfix m-b-10"></div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label" for="name">Correo</label>
-                                <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
+                                <label class="control-label" for="name">Responsable</label>
+                                <div class="select">
+                                    <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -310,18 +307,18 @@
                         <div class="clearfix m-b-10"></div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label" for="name">Responsable</label>
-                                <div class="select">
-                                    <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
-                                    </select>
-                                </div>
+                                <label class="control-label" for="name">Correo</label>
+                                <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
                             </div>
                         </div>
                         <div class="clearfix m-b-10"></div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label" for="name">Correo</label>
-                                <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
+                                <label class="control-label" for="name">Responsable</label>
+                                <div class="select">
+                                    <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
+                                    </select>
+                                </div>
                             </div>
                         </div>
                     </form>
@@ -402,22 +399,8 @@
                         <div class="clearfix m-b-10"></div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label" for="name">AP ID</label>
-                                <input id="apid" name="apid" type="text" placeholder="Ingrese la AP ID" class="form-control input-sm apid" validation="not_null" data-nombre="AP ID">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">BASE ID</label>
-                                <input id="baseid" name="baseid" type="text" placeholder="Ingrese la BASE ID" class="form-control input-sm baseid" validation="not_null" data-nombre="BASE ID">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
                                 <label class="control-label" for="name">Frecuencia</label>
-                                <input id="frecuencia" name="frecuencia" type="text" placeholder="Ingrese la Frecuencia IP" class="form-control input-sm frecuencia" validation="not_null" data-nombre="Frecuencia">
+                                <input id="frecuencia" name="frecuencia" type="text" placeholder="Ingrese la Frecuencia" class="form-control input-sm frecuencia" validation="not_null" data-nombre="Frecuencia">
                             </div>
                         </div>
                         <div class="clearfix m-b-10"></div>
@@ -435,13 +418,6 @@
                                     <select class="selectpicker form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
                                     </select>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">SSID</label>
-                                <input id="ssid" name="ssid" type="text" placeholder="Ingrese el SSID" class="form-control input-sm ssid" validation="not_null" data-nombre="SSID">
                             </div>
                         </div>
                     </form>
@@ -523,22 +499,8 @@
                         <div class="clearfix m-b-10"></div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label" for="name">AP ID</label>
-                                <input id="apid" name="apid" type="text" placeholder="Ingrese la AP ID" class="form-control input-sm apid" validation="not_null" data-nombre="AP ID">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">BASE ID</label>
-                                <input id="baseid" name="baseid" type="text" placeholder="Ingrese la BASE ID" class="form-control input-sm baseid" validation="not_null" data-nombre="BASE ID">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
                                 <label class="control-label" for="name">Frecuencia</label>
-                                <input id="frecuencia" name="frecuencia" type="text" placeholder="Ingrese la Frecuencia IP" class="form-control input-sm frecuencia" validation="not_null" data-nombre="Frecuencia">
+                                <input id="frecuencia" name="frecuencia" type="text" placeholder="Ingrese la Frecuencia" class="form-control input-sm frecuencia" validation="not_null" data-nombre="Frecuencia">
                             </div>
                         </div>
                         <div class="clearfix m-b-10"></div>
@@ -556,13 +518,6 @@
                                     <select class="selectpicker form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
                                     </select>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">SSID</label>
-                                <input id="ssid" name="ssid" type="text" placeholder="Ingrese el SSID" class="form-control input-sm ssid" validation="not_null" data-nombre="SSID">
                             </div>
                         </div>
                     </form>

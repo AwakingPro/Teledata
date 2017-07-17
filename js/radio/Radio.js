@@ -332,12 +332,9 @@ $(document).ready(function(){
                   ''+array.direccion_ip+'',
                   ''+array.puerto_acceso+'',
                   ''+array.ancho_canal+'',
-                  ''+array.apid+'',
-                  ''+array.baseid+'',
                   ''+array.frecuencia+'',
                   ''+array.tx_power+'',
                   ''+array.mac_address+'',
-                  ''+array.ssid+'',
                   ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
@@ -374,12 +371,9 @@ $(document).ready(function(){
                   ''+response.array.direccion_ip+'',
                   ''+response.array.puerto_acceso+'',
                   ''+response.array.ancho_canal+'',
-                  ''+response.array.apid+'',
-                  ''+response.array.baseid+'',
                   ''+response.array.frecuencia+'',
                   ''+response.array.tx_power+'',
                   ''+Producto+'',
-                  ''+response.array.ssid+'',
                   ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
@@ -432,12 +426,9 @@ $(document).ready(function(){
         var ObjectIp = ObjectTR.find("td").eq(2).text();
         var ObjectPort = ObjectTR.find("td").eq(3).text();
         var ObjectChannel = ObjectTR.find("td").eq(4).text();
-        var ObjectAPID = ObjectTR.find("td").eq(5).text();
-        var ObjectBASEID = ObjectTR.find("td").eq(6).text();
-        var ObjectFrecuency = ObjectTR.find("td").eq(7).text();
-        var ObjectPower = ObjectTR.find("td").eq(8).text();
+        var ObjectFrecuency = ObjectTR.find("td").eq(5).text();
+        var ObjectPower = ObjectTR.find("td").eq(6).text();
         var ObjectProduct = ObjectTR.data("producto_id");
-        var ObjectSSID = ObjectTR.find("td").eq(9).text();
 
         $('#updateIngreso').find('input[name="id"]').val(ObjectId);
         $('#updateIngreso').find('select[name="estacion_id"]').val(ObjectStation);
@@ -445,12 +436,9 @@ $(document).ready(function(){
         $('#updateIngreso').find('input[name="direccion_ip"]').val(ObjectIp);
         $('#updateIngreso').find('input[name="puerto_acceso"]').val(ObjectPort);
         $('#updateIngreso').find('input[name="ancho_canal"]').val(ObjectChannel);
-        $('#updateIngreso').find('input[name="apid"]').val(ObjectAPID);
-        $('#updateIngreso').find('input[name="baseid"]').val(ObjectBASEID);
         $('#updateIngreso').find('input[name="frecuencia"]').val(ObjectFrecuency);
         $('#updateIngreso').find('input[name="tx_power"]').val(ObjectPower);
         $('#updateIngreso').find('select[name="producto_id"]').val(ObjectProduct);
-        $('#updateIngreso').find('input[name="ssid"]').val(ObjectSSID);
 
         if($(this).hasClass('fa-search')){
             $("#IngresoFormUpdate :input").attr("readonly", true);
@@ -496,12 +484,9 @@ $(document).ready(function(){
                 ObjectTR.find("td").eq(3).html(response.array.direccion_ip);
                 ObjectTR.find("td").eq(4).html(response.array.puerto_acceso);
                 ObjectTR.find("td").eq(5).html(response.array.ancho_canal);
-                ObjectTR.find("td").eq(6).html(response.array.apid);
-                ObjectTR.find("td").eq(7).html(response.array.baseid);
-                ObjectTR.find("td").eq(8).html(response.array.frecuencia);
-                ObjectTR.find("td").eq(9).html(response.array.tx_power);
-                ObjectTR.find("td").eq(10).html(Producto);
-                ObjectTR.find("td").eq(11).html(response.array.ssid);
+                ObjectTR.find("td").eq(6).html(response.array.frecuencia);
+                ObjectTR.find("td").eq(7).html(response.array.tx_power);
+                ObjectTR.find("td").eq(8).html(Producto);
 
                 $('.modal').modal('hide');
                 
@@ -637,12 +622,9 @@ $(document).ready(function(){
                               ''+array.direccion_ip+'',
                               ''+array.puerto_acceso+'',
                               ''+array.ancho_canal+'',
-                              ''+array.apid+'',
-                              ''+array.baseid+'',
                               ''+array.frecuencia+'',
                               ''+array.tx_power+'',
                               ''+array.mac_address+'',
-                              ''+array.ssid+'',
                             ]).draw(false).node();
 
                             $( rowNode )
@@ -674,5 +656,36 @@ $(document).ready(function(){
                 }
             });
         }
+    });
+
+    $('#tipo_busqueda_ingreso').on('change', function () {
+
+        tipo_busqueda_ingreso = $('#tipo_busqueda_ingreso').val();
+
+        $('#input_registro').empty();
+        $('#input_registro').append(new Option('Seleccione',''));
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/radio/showSelectpicker.php",
+            data:"&tipo_busqueda_ingreso="+tipo_busqueda_ingreso,
+            success: function(response){
+                $.each(response.array, function( index, array ) {
+                    if(tipo_busqueda_ingreso == 1){
+                        $('#input_registro').append('<option value="'+array.nombre+'" data-content="'+array.nombre+'"></option>');
+                    }else if(tipo_busqueda_ingreso == 2){
+                        $('#input_registro').append('<option value="'+array.direccion_ip+'" data-content="'+array.direccion_ip+'"></option>');
+                    }else{
+                        $('#input_registro').append('<option value="'+array.mac_address+'" data-content="'+array.mac_address+'"></option>');
+                    }
+                });
+            }
+        })
+
+        setTimeout(function() {       
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
+        }, 1000);
+
     });
 });

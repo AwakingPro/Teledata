@@ -170,7 +170,7 @@
 
         }
 
-        public function CrearIngreso($Estacion,$Funcion,$AlarmaActivada,$DireccionIp,$PuertoAcceso,$AnchoCanal,$APID,$BASEID,$Frecuencia,$TxPower,$Producto,$SSID){
+        public function CrearIngreso($Estacion,$Funcion,$AlarmaActivada,$DireccionIp,$PuertoAcceso,$AnchoCanal,$Frecuencia,$TxPower,$Producto){
 
             $response_array = array();
 
@@ -180,16 +180,13 @@
             $DireccionIp = isset($DireccionIp) ? trim($DireccionIp) : "";
             $PuertoAcceso = isset($PuertoAcceso) ? trim($PuertoAcceso) : "";
             $AnchoCanal = isset($AnchoCanal) ? trim($AnchoCanal) : "";
-            $APID = isset($APID) ? trim($APID) : "";
-            $BASEID = isset($BASEID) ? trim($BASEID) : "";
             $Frecuencia = isset($Frecuencia) ? trim($Frecuencia) : "";
             $TxPower = isset($TxPower) ? trim($TxPower) : "";
             $Producto = isset($Producto) ? trim($Producto) : "";
-            $SSID = isset($SSID) ? trim($SSID) : "";
 
             if(!empty($Estacion) && !empty($Funcion)  && !empty($AlarmaActivada)  && !empty($DireccionIp) &&
-                !empty($PuertoAcceso) && !empty($AnchoCanal) && !empty($APID)  && !empty($BASEID)  && !empty($Frecuencia) &&
-                !empty($TxPower) && !empty($Producto) && !empty($SSID)){
+                !empty($PuertoAcceso) && !empty($AnchoCanal) && !empty($Frecuencia) &&
+                !empty($TxPower) && !empty($Producto)){
 
                 $this->Estacion=$Estacion;
                 $this->Funcion=$Funcion;
@@ -197,20 +194,17 @@
                 $this->DireccionIp=$DireccionIp;
                 $this->PuertoAcceso=$PuertoAcceso;
                 $this->AnchoCanal=$AnchoCanal;
-                $this->APID=$APID;
-                $this->BASEID=$BASEID;
                 $this->Frecuencia=$Frecuencia;
                 $this->TxPower=$TxPower;
                 $this->Producto=$Producto;
-                $this->SSID=$SSID;
 
-                $query = "INSERT INTO radio_ingresos(estacion_id, funcion, alarma_activada, direccion_ip, puerto_acceso, ancho_canal, apid, baseid, frecuencia, tx_power, producto_id, ssid) VALUES ('$this->Estacion','$this->Funcion','$this->AlarmaActivada','$this->DireccionIp','$this->PuertoAcceso','$this->AnchoCanal','$this->APID','$this->BASEID','$this->Frecuencia','$this->TxPower','$this->Producto','$this->SSID')";
+                $query = "INSERT INTO radio_ingresos(estacion_id, funcion, alarma_activada, direccion_ip, puerto_acceso, ancho_canal, frecuencia, tx_power, producto_id) VALUES ('$this->Estacion','$this->Funcion','$this->AlarmaActivada','$this->DireccionIp','$this->PuertoAcceso','$this->AnchoCanal','$this->Frecuencia','$this->TxPower','$this->Producto')";
                 $run = new Method;
                 $id = $run->insert($query);
 
                 if($id){
 
-                    $array = array('id'=> $id, 'estacion_id' => $this->Estacion,'funcion' => $this->Funcion,'alarma_activada' => $this->AlarmaActivada, 'direccion_ip' => $this->DireccionIp, 'puerto_acceso' => $this->PuertoAcceso, 'ancho_canal'=> $this->AnchoCanal, 'apid' => $this->APID, 'baseid' => $this->BASEID, 'frecuencia' => $this->Frecuencia, 'tx_power' => $this->TxPower, 'producto_id' => $this->Producto, 'ssid' => $this->SSID);
+                    $array = array('id'=> $id, 'estacion_id' => $this->Estacion,'funcion' => $this->Funcion,'alarma_activada' => $this->AlarmaActivada, 'direccion_ip' => $this->DireccionIp, 'puerto_acceso' => $this->PuertoAcceso, 'ancho_canal'=> $this->AnchoCanal, 'frecuencia' => $this->Frecuencia, 'tx_power' => $this->TxPower, 'producto_id' => $this->Producto);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -225,7 +219,7 @@
 
         } 
 
-        public function updateIngreso($Estacion,$Funcion,$AlarmaActivada,$DireccionIp,$PuertoAcceso,$AnchoCanal,$APID,$BASEID,$Frecuencia,$TxPower,$Producto,$SSID,$Id){
+        public function updateIngreso($Estacion,$Funcion,$AlarmaActivada,$DireccionIp,$PuertoAcceso,$AnchoCanal,$Frecuencia,$TxPower,$Producto,$Id){
 
             $response_array = array();
 
@@ -235,17 +229,14 @@
             $DireccionIp = isset($DireccionIp) ? trim($DireccionIp) : "";
             $PuertoAcceso = isset($PuertoAcceso) ? trim($PuertoAcceso) : "";
             $AnchoCanal = isset($AnchoCanal) ? trim($AnchoCanal) : "";
-            $APID = isset($APID) ? trim($APID) : "";
-            $BASEID = isset($BASEID) ? trim($BASEID) : "";
             $Frecuencia = isset($Frecuencia) ? trim($Frecuencia) : "";
             $TxPower = isset($TxPower) ? trim($TxPower) : "";
             $Producto = isset($Producto) ? trim($Producto) : "";
-            $SSID = isset($SSID) ? trim($SSID) : "";
             $Id = isset($Id) ? trim($Id) : "";
 
             if(!empty($Estacion) && !empty($Funcion)  && !empty($AlarmaActivada)  && !empty($DireccionIp) &&
-                !empty($PuertoAcceso) && !empty($AnchoCanal) && !empty($APID)  && !empty($BASEID)  && !empty($Frecuencia) &&
-                !empty($TxPower) && !empty($Producto) && !empty($SSID)){
+                !empty($PuertoAcceso) && !empty($AnchoCanal) && !empty($Frecuencia) &&
+                !empty($TxPower) && !empty($Producto)){
 
                 $this->Estacion=$Estacion;
                 $this->Funcion=$Funcion;
@@ -253,21 +244,18 @@
                 $this->DireccionIp=$DireccionIp;
                 $this->PuertoAcceso=$PuertoAcceso;
                 $this->AnchoCanal=$AnchoCanal;
-                $this->APID=$APID;
-                $this->BASEID=$BASEID;
                 $this->Frecuencia=$Frecuencia;
                 $this->TxPower=$TxPower;
                 $this->Producto=$Producto;
-                $this->SSID=$SSID;
                 $this->Id=$Id;
 
-                $query = "UPDATE radio_ingresos SET estacion_id = '$this->Estacion', funcion = '$this->Funcion', alarma_activada = '$this->AlarmaActivada', direccion_ip = '$this->DireccionIp', puerto_acceso = '$this->PuertoAcceso', ancho_canal = '$this->AnchoCanal', apid = '$this->APID', baseid = '$this->BASEID', frecuencia = '$this->Frecuencia', tx_power = '$this->TxPower', producto_id = '$this->Producto', ssid = '$this->SSID' where `id` = '$this->Id'";
+                $query = "UPDATE radio_ingresos SET estacion_id = '$this->Estacion', funcion = '$this->Funcion', alarma_activada = '$this->AlarmaActivada', direccion_ip = '$this->DireccionIp', puerto_acceso = '$this->PuertoAcceso', ancho_canal = '$this->AnchoCanal', frecuencia = '$this->Frecuencia', tx_power = '$this->TxPower', producto_id = '$this->Producto' where `id` = '$this->Id'";
                 $run = new Method;
                 $data = $run->insert($query);
 
                 // if($id){
 
-                    $array = array('id'=> $this->Id, 'estacion_id' => $this->Estacion,'funcion' => $this->Funcion,'alarma_activada' => $this->AlarmaActivada, 'direccion_ip' => $this->DireccionIp, 'puerto_acceso' => $this->PuertoAcceso, 'ancho_canal'=> $this->AnchoCanal, 'apid' => $this->APID, 'baseid' => $this->BASEID, 'frecuencia' => $this->Frecuencia, 'tx_power' => $this->TxPower, 'producto_id' => $this->Producto, 'ssid' => $this->SSID);
+                    $array = array('id'=> $this->Id, 'estacion_id' => $this->Estacion,'funcion' => $this->Funcion,'alarma_activada' => $this->AlarmaActivada, 'direccion_ip' => $this->DireccionIp, 'puerto_acceso' => $this->PuertoAcceso, 'ancho_canal'=> $this->AnchoCanal, 'frecuencia' => $this->Frecuencia, 'tx_power' => $this->TxPower, 'producto_id' => $this->Producto);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -304,6 +292,39 @@
             echo json_encode($response_array);
         }
 
+        public function showSelectpicker($TipoBusquedaRegistro){
+
+            $response_array = array();
+
+            $TipoBusquedaRegistro = isset($TipoBusquedaRegistro) ? trim($TipoBusquedaRegistro) : "";
+
+            if(!empty($TipoBusquedaRegistro)){
+
+                $this->TipoBusquedaRegistro=$TipoBusquedaRegistro;
+
+                if($TipoBusquedaRegistro == 1){
+                    $query = 'SELECT * from mantenedor_site';
+                }else if($TipoBusquedaRegistro == 2){
+                    $query = 'SELECT * from radio_ingresos GROUP BY direccion_ip';
+                }else{
+                    $query = 'SELECT * from inventario_ingresos GROUP BY mac_address';
+                }
+
+                $run = new Method;
+                $data = $run->select($query);
+
+                $response_array['array'] = $data;
+                $response_array['status'] = 1; 
+                    
+               
+            }else{
+                $response_array['status'] = 2; 
+            }
+
+            echo json_encode($response_array);
+
+        }
+
         public function buscarRegistro($TipoBusquedaRegistro,$InputRegistro){
 
             $response_array = array();
@@ -333,8 +354,6 @@
                     $query = $query . " WHERE mantenedor_site.nombre LIKE '%$InputRegistro%'";
                 }else if($TipoBusquedaRegistro == 2){
                     $query = $query . " WHERE radio_ingresos.direccion_ip LIKE '%$InputRegistro%'";
-                }else if($TipoBusquedaRegistro == 3){
-                    $query = $query . " WHERE radio_ingresos.ssid LIKE '%$InputRegistro%'";
                 }else{
                     $query = $query . " WHERE inventario_ingresos.mac_address LIKE '%$InputRegistro%'";
                 }
