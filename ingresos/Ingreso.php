@@ -156,7 +156,7 @@
                                 <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Valor</label>
-                                        <input id="valor" name="valor" type="text" placeholder="Ingrese el valor" class="form-control input-sm valor">
+                                        <input id="valor" name="valor" type="text" placeholder="Ingrese el valor" class="form-control input-sm valor" value="0">
                                     </div>
                                 </div>
 
@@ -295,7 +295,7 @@
                                 <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Valor</label>
-                                        <input id="valor" name="valor" type="text" placeholder="Ingrese el valor" class="form-control input-sm valor">
+                                        <input id="valor" name="valor" type="text" placeholder="Ingrese el valor" class="form-control input-sm valor" value="0">
                                     </div>
                                 </div>
 

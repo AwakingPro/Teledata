@@ -34,7 +34,7 @@
             }
 
             if($Estado == 1){
-                if($FechaCompra && $NumeroFactura && $Proveedor && $Valor){
+                if($FechaCompra && $NumeroFactura && $Proveedor){
                     $Boolean2 = true;
                 }else{
                     $Boolean2 = false;
