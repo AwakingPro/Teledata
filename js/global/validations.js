@@ -110,9 +110,13 @@ $.validation = function(obj) {
     }
 }
 
-    $.post('../ajax/menu/mainMenu.php', {url: window.location.pathname}, function(data) {
-        $('#mainnav-menu').html(data);
-    });
-    $(document).on('click', '.itemsMenu', function() {
+$.post('../ajax/menu/mainMenu.php', {url: window.location.pathname}, function(data) {
+    $('#mainnav-menu').html(data);
+});
+
+$('.containerHeader').load('../ajax/header/mainHeader.php');
+
+
+$(document).on('click', '.itemsMenu', function() {
     $(this).siblings('.collapse').slideToggle();
 });
