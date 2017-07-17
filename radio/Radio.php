@@ -122,6 +122,7 @@
                                                     <div class="col-md-4 no-padding-left">
                                                         <div class="select">
                                                             <select class="selectpicker form-control" name="tipo_busqueda_ingreso" id="tipo_busqueda_ingreso"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Campo de Busqueda">
+                                                                <option value="">Seleccione</option>
                                                                 <option value="1">Estación | Repetidor</option>
                                                                 <option value="2">Dirección IP</option>
                                                                 <option value="4">Mac Address</option>

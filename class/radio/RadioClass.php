@@ -302,13 +302,18 @@
 
                 $this->TipoBusquedaRegistro=$TipoBusquedaRegistro;
 
-                if($TipoBusquedaRegistro == 1){
-                    $query = 'SELECT * from mantenedor_site';
-                }else if($TipoBusquedaRegistro == 2){
-                    $query = 'SELECT * from radio_ingresos GROUP BY direccion_ip';
-                }else{
-                    $query = 'SELECT * from inventario_ingresos GROUP BY mac_address';
-                }
+                $query = '  SELECT  radio_ingresos.*, 
+                        inventario_ingresos.mac_address as mac_address,
+                        mantenedor_modelo_producto.nombre as modelo, 
+                        mantenedor_marca_producto.nombre as marca, 
+                        mantenedor_tipo_producto.nombre as tipo, 
+                        mantenedor_site.nombre as estacion
+                FROM radio_ingresos 
+                INNER JOIN inventario_ingresos        ON radio_ingresos.producto_id = inventario_ingresos.id
+                INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id 
+                INNER JOIN mantenedor_marca_producto  ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id 
+                INNER JOIN mantenedor_tipo_producto   ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id 
+                INNER JOIN mantenedor_site            ON radio_ingresos.estacion_id = mantenedor_site.id';
 
                 $run = new Method;
                 $data = $run->select($query);
