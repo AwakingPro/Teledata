@@ -55,12 +55,17 @@
 										<div class="row">
 											<div class="col-md-6 form-group">
 												<label>Grupo</label>
-												<select name="Grupo" class="form-control selectpicker" data-live-search="true">
-													<option value="">Seleccione...</option>
-													<option value="1">Grupo 1</option>
-													<option value="2">Grupo 2</option>
-													<option value="3">Grupo 3</option>
-												</select>
+												<div class="input-group">
+													<select name="Grupo" class="form-control selectpicker" data-live-search="true">
+														<option value="">Seleccione...</option>
+														<option value="1">Grupo 1</option>
+														<option value="2">Grupo 2</option>
+														<option value="3">Grupo 3</option>
+													</select>
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#grupo"><i class="fa fa-plus" aria-hidden="true"></i></button>
+													</span>
+												</div>
 											</div>
 											<div class="col-md-6 form-group">
 												<label>Tipo de Facturación</label>
@@ -98,14 +103,10 @@
 										<div class="row">
 											<div class="col-md-6 form-group">
 												<label >Servicio</label>
-												<div class="input-group">
-													<select name="TipoServicio" class="form-control" data-live-search="true">
-														<option value="">Seleccione...</option>
-													</select>
-													<span class="input-group-btn">
-														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalServicio"><i class="fa fa-plus" aria-hidden="true"></i></button>
-													</span>
-												</div>
+												<select name="TipoServicio" class="form-control" data-live-search="true">
+													<option value="">Seleccione...</option>
+												</select>
+
 											</div>
 											<div class="col-md-6 form-group">
 												<label >Tiempo de Facturación</label>
@@ -256,18 +257,18 @@
 		</div>
 	</div>
 </div>
-<div class="modal fade" id="ModalServicio" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="grupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Agregar Servicio</h4>
+				<h4 class="modal-title" id="myModalLabel">Agregar Grupo</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-12 form-group">
-						<label>Nombre del servivio</label>
-						<input name="NomServicio" class="form-control">
+						<label>Nombre del grupo</label>
+						<input name="NomGrupo" class="form-control">
 					</div>
 				</div>
 			</div>
