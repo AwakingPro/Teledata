@@ -187,6 +187,5 @@
 						<script src="../plugins/moment/moment.js"></script>
 						<script src="../js/global/validations.js"></script>
 						<script src="../js/inventario/egresos/Egreso.js"></script>
-						<script src="../js/methods_global/methods.js"></script>
 					</body>
 				</html>

@@ -250,6 +250,5 @@
         <script src="../js/global/validations.js"></script>
         <script src="../js/inventario/proveedores/Proveedor.js"></script>
 
-    <script src="../js/methods_global/methods.js"></script>
     </body>
 </html>

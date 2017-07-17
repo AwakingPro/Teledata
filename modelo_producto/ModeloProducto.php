@@ -194,6 +194,5 @@
                                         <script src="../plugins/sweetalert/sweetalert.min.js"></script>
                                         <script src="../js/global/validations.js"></script>
                                         <script src="../js/inventario/modelo_producto/ModeloProducto.js"></script>
-    <script src="../js/methods_global/methods.js"></script>
                                     </body>
                                 </html>

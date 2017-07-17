@@ -250,6 +250,5 @@
 										<script src="../plugins/sweetalert/sweetalert.min.js"></script>
 										<script src="../js/global/validations.js"></script>
 										<script src="../js/inventario/bodegas/Bodega.js"></script>
-										<script src="../js/methods_global/methods.js"></script>
 									</body>
 								</html>
