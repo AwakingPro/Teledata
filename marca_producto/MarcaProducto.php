@@ -115,9 +115,7 @@
                                         </div><!-- /.modal-dialog -->
                                         </div><!-- /.modal -->
                                         <div id="container" class="effect mainnav-sm">
-                                            <?php
-                                            include("../layout/header.php");
-                                            ?>
+                                            <div class="containerHeader"></div>
                                             <div class="boxed">
                                                 <div id="content-container">
                                                     <div id="page-title">
@@ -196,5 +194,6 @@
                                         <script src="../plugins/sweetalert/sweetalert.min.js"></script>
                                         <script src="../js/global/validations.js"></script>
                                         <script src="../js/inventario/marca_producto/MarcaProducto.js"></script>
+    <script src="../js/methods_global/methods.js"></script>
                                     </body>
                                 </html>

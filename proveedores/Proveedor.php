@@ -162,9 +162,7 @@
 
         <div id="container" class="effect mainnav-sm">
 
-            <?php
-                include("../layout/header.php");
-            ?>
+          <div class="containerHeader"></div>
 
             <div class="boxed">
                 <div id="content-container">
@@ -252,5 +250,6 @@
         <script src="../js/global/validations.js"></script>
         <script src="../js/inventario/proveedores/Proveedor.js"></script>
 
+    <script src="../js/methods_global/methods.js"></script>
     </body>
 </html>

@@ -22,12 +22,10 @@
     </head>
     <body>
 
-    
+
     <div id="container" class="effect mainnav-sm">
 
-            <?php
-                include("../layout/header.php");
-            ?>
+            <div class="containerHeader"></div>
 
             <div class="boxed">
                 <div id="content-container">
@@ -109,7 +107,7 @@
                                                         </div>
                                                     </div>
                                                 </form>
-                                                
+
                                                 <div class="row" style="margin-top: 20px">
                                                     <form id="addServicio">
                                                         <div class="col-md-2">
@@ -182,7 +180,7 @@
                                                         </div>
                                                     </form>
                                                 </div>
-                                                
+
                                                 <div class="clearfix"></div>
 
                                                 <div class="row" style="margin-top: 10px">
@@ -308,5 +306,6 @@
         <script src="../plugins/numbers/jquery.number.min.js"></script>
         <script src="../js/nota_venta/NotaVenta.js"></script>
 
+    <script src="../js/methods_global/methods.js"></script>
     </body>
 </html>

@@ -22,12 +22,10 @@
     </head>
     <body>
 
-    
+
     <div id="container" class="effect mainnav-sm">
 
-            <?php
-                include("../layout/header.php");
-            ?>
+            <div class="containerHeader"></div>
 
             <div class="boxed">
                 <div id="content-container">
@@ -72,7 +70,7 @@
                                                                     <th class="text-center">Nombre</th>
                                                                     <th class="text-center">Dirección</th>
                                                                     <th class="text-center">Télefono</th>
-                                                                    <th class="text-center">Correo</th>                 
+                                                                    <th class="text-center">Correo</th>
                                                                     <th class="text-center">Responsable</th>
                                                                     <th class="text-center">Acción</th>
                                                                 </tr>
@@ -114,7 +112,7 @@
                                             </div>
                                             <div id="busqueda_registro" class="tab-pane fade active in">
                                                 <div class="col-md-12">
-                                                    
+
                                                     <label class="form-text text-danger">Nota: Escriba las iniciales o coincidencias de caractéres en el campo de busqueda.</label>
 
                                                     <h4>Buscar por</h4>
@@ -140,12 +138,12 @@
                                                     </div>
 
                                                     <button id="buscarRegistro" class="btn btn-success">Buscar</button>
-                                                   
-                                                    
+
+
 
                                                 </div>
 
-                                                
+
 
                                                 <div class="clearfix"></div>
 
@@ -212,6 +210,7 @@
         <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
         <script src="../js/global/validations.js"></script>
         <script src="../js/radio/Radio.js"></script>
+    <script src="../js/methods_global/methods.js"></script>
 
     </body>
 </html>
