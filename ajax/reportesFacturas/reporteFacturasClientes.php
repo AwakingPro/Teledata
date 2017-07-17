@@ -5,6 +5,7 @@
 		personaempresa.rut as 'Rut',
 		personaempresa.nombre as 'Nombre',
 		mantenedor_servicios.servicio as 'Servicios',
+		servicios.Grupo,
 		sum(servicios.Valor) as 'Monto'
 	FROM
 		servicios
