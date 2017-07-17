@@ -347,6 +347,7 @@
                                 <label class="control-label" for="name">Estación</label>
                                 <div class="select">
                                     <select class="selectpicker form-control estacion_id" name="estacion_id" id="estacion_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Estación">
+                                        <option value="">Seleccione</option>
                                     </select>
                                 </div>
                             </div>
@@ -416,6 +417,7 @@
                                 <label class="control-label" for="name">Mac Address</label>
                                 <div class="select">
                                     <select class="selectpicker form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
+                                        <option value="">Seleccione</option>
                                     </select>
                                 </div>
                             </div>
@@ -447,6 +449,7 @@
                                 <label class="control-label" for="name">Estación</label>
                                 <div class="select">
                                     <select class="selectpicker form-control estacion_id" name="estacion_id" id="estacion_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Estación">
+                                        <option value="">Seleccione</option>
                                     </select>
                                 </div>
                             </div>
@@ -516,6 +519,7 @@
                                 <label class="control-label" for="name">Mac Address</label>
                                 <div class="select">
                                     <select class="selectpicker form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
+                                        <option value="">Seleccione</option>
                                     </select>
                                 </div>
                             </div>
