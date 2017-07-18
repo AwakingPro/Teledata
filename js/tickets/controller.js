@@ -11,6 +11,11 @@ $.post('../ajax/privilegios.php', function(data) {
 			$('select[name="NumeroTicket"]').selectpicker();
 		});
 
+
+		$('select[name="NombreCliente"], [name="Cliente"], [name="ClienteUpdate"]').load('../ajax/tickets/selectClientes.php',function(){
+			$('select[name="NombreCliente"], [name="Cliente"], [name="ClienteUpdate"]').selectpicker();
+		});
+
 		$('.listaPrioridad').load('../ajax/tickets/listPrioridad.php',function(){
 			var count = $('.listaPrioridad > .tabeData tr th').length -1;
 			$('.listaPrioridad > .tabeData').dataTable({

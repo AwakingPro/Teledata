@@ -37,9 +37,8 @@
 						<div class="row">
 							<div class="col-md-6 form-group">
 								<label>Nombre del Cliente</label>
-								<select class="selectpicker form-control" name="NombreCliente" data-live-search="true">
+								<select class="form-control" name="NombreCliente" data-live-search="true">
 									<option value="">Seleccione...</option>
-									<option value="1">Cliente de prueba</option>
 								</select>
 							</div>
 						</div>
@@ -84,7 +83,6 @@
 											<label>Cliente</label>
 											<select name="Cliente" class="form-control" id="cliente">
 												<option value="">Seleccione...</option>
-												<option value="1">Cliente de prueba</option>
 											</select>
 										</div>
 									</div>

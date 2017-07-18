@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once('../../class/methods_global/methods.php');
-$query = 'SELECT usuarios.nombre, usuarios.imgPerfil FROM usuarios WHERE id ='.$_SESSION['idUsuario'];
+$query = 'SELECT nombre, imgPerfil FROM usuarios WHERE id ='.$_SESSION['idUsuario'];
 $run = new Method;
 $data = $run->select($query);
 ?>

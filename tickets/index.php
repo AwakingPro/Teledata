@@ -104,7 +104,6 @@
 								<label>Cliente</label>
 								<select name="ClienteUpdate" class="form-control" id="cliente">
 									<option value="">Seleccione...</option>
-									<option value="1">Cliente de prueba</option>
 								</select>
 							</div>
 						</div>
