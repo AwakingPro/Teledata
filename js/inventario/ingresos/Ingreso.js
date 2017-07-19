@@ -968,7 +968,7 @@ $(document).ready(function(){
 
         Rows = $('#BusquedaIngresoTable tbody tr');
 
-        if((Rows.length - 1) > 0){
+        if(Rows.length > 0){
 
             ids = ''
 
@@ -986,7 +986,17 @@ $(document).ready(function(){
                 }
             });
 
-            window.open("../ajax/ingresos/generarReporteIngresos.php?ids="+ids, '_blank');
+            if(ids){
+                window.open("../ajax/ingresos/generarReporteIngresos.php?ids="+ids, '_blank');
+            }else{
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Deben haber registros en la tabla para generar el excel',
+                    container : 'floating',
+                    timer : 3000
+                });
+            }
 
         }else{
             $.niftyNoty({
