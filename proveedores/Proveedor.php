@@ -126,7 +126,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Télefono</label>
+                                        <label class="control-label" for="name">Teléfono</label>
                                         <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm">
                                     </div>
                                 </div>
@@ -188,7 +188,7 @@
                                                         <tr>
                                                             <th class="text-center">Nombre</th>
                                                             <th class="text-center">Dirección</th>
-                                                            <th class="text-center">Télefono</th>
+                                                            <th class="text-center">Teléfono</th>
                                                             <th class="text-center">Contacto</th>
                                                             <th class="text-center">Correo</th>
                                                             <th class="text-center">Acción</th>

@@ -61,7 +61,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Razon Social / Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
+                                        <label class="control-label" for="name">Razón Social / Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
                                         <div class="select">
                                             <select class="selectpicker form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
@@ -138,7 +138,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Razon Social / Proveedor</label>
+                                        <label class="control-label" for="name">Razón Social / Proveedor</label>
                                         <div class="select">
                                             <select class="selectpicker form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
@@ -213,7 +213,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Télefono</label>
+                                        <label class="control-label" for="name">Teléfono</label>
                                         <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
                                     </div>
                                 </div>
@@ -272,7 +272,7 @@
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Télefono</label>
+                                        <label class="control-label" for="name">Teléfono</label>
                                         <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
                                     </div>
                                 </div>
@@ -333,7 +333,7 @@
                                                         <tr>
                                                             <th class="text-center">Numero de Factura</th>
                                                             <th class="text-center">Fecha Emisión Factura</th>
-                                                            <th class="text-center">Razon Social / Proveedor</th>
+                                                            <th class="text-center">Razón Social / Proveedor</th>
                                                             <th class="text-center">Estado de pago</th>
                                                             <th class="text-center">Centro de costos</th>
                                                             <th class="text-center">Acciones</th>

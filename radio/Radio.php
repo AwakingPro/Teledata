@@ -49,7 +49,7 @@
                                                 </li>
                                                 <li class=""><a data-toggle="tab" href="#ingreso_registro" aria-expanded="true">Ingresar Registros</a>
                                                 </li>
-                                                <li class=""><a data-toggle="tab" href="#ingreso_estacion" aria-expanded="false">Estaciónes</a>
+                                                <li class=""><a data-toggle="tab" href="#ingreso_estacion" aria-expanded="false">Estaciones</a>
                                                 </li>
                                             </ul>
                                         </div>
@@ -69,7 +69,7 @@
                                                                 <tr>
                                                                     <th class="text-center">Nombre</th>
                                                                     <th class="text-center">Dirección</th>
-                                                                    <th class="text-center">Télefono</th>
+                                                                    <th class="text-center">Teléfono</th>
                                                                     <th class="text-center">Correo</th>
                                                                     <th class="text-center">Responsable</th>
                                                                     <th class="text-center">Acción</th>
@@ -113,7 +113,7 @@
                                             <div id="busqueda_registro" class="tab-pane fade active in">
                                                 <div class="col-md-12">
 
-                                                    <label class="form-text text-danger">Nota: Escriba las iniciales o coincidencias de caractéres en el campo de busqueda.</label>
+                                                    <label class="form-text text-danger">Nota: Escriba las iniciales o coincidencias de caracteres en el campo de búsqueda.</label>
 
                                                     <h4>Buscar por</h4>
 

@@ -119,8 +119,8 @@
 
                                         <div class="clearfix"></div>
 
-                                        <label class="form-radio form-icon form-text active"><input id="unico" name="tmp_ingreso" checked="" type="radio" value="1">Ingreso Unico</label>
-                                        <label class="form-radio form-icon form-text"><input id="multiple" name="tmp_ingreso" type="radio" value="2">Ingreso Multiple</label>
+                                        <label class="form-radio form-icon form-text active"><input id="unico" name="tmp_ingreso" checked="" type="radio" value="1">Ingreso Único</label>
+                                        <label class="form-radio form-icon form-text"><input id="multiple" name="tmp_ingreso" type="radio" value="2">Ingreso Múltiple</label>
                                     </div>
                                 </div>
 
@@ -376,7 +376,7 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Télefono</label>
+                                        <label class="control-label" for="name">Teléfono</label>
                                         <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
                                     </div>
                                 </div>
@@ -447,7 +447,7 @@
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Télefono</label>
+                                        <label class="control-label" for="name">Teléfono</label>
                                         <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
                                     </div>
                                 </div>

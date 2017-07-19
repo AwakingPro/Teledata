@@ -105,7 +105,7 @@
                                 $response_array['array'] = $array;
                                 $response_array['status'] = 1; 
                             }else{
-                                $response_array['status'] = 0; 
+                                $response_array['status'] = 'Error Json'; 
                             }
                         }
                      }
@@ -123,7 +123,7 @@
                         $response_array['array'] = $array;
                         $response_array['status'] = 1; 
                     }else{
-                        $response_array['status'] = 0; 
+                        $response_array['status'] = 'Error Registro'; 
                     }
                 }
 

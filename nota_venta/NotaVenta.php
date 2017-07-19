@@ -111,7 +111,7 @@
                                                 <div class="row" style="margin-top: 20px">
                                                     <form id="addServicio">
                                                         <div class="col-md-2">
-                                                            <label class="form-radio form-icon form-text"><input id="automatico" name="switch_codigo" type="radio" value="1" checked>Automatico</label>
+                                                            <label class="form-radio form-icon form-text"><input id="automatico" name="switch_codigo" type="radio" value="1" checked>Automático</label>
                                                             <label class="form-radio form-icon form-text"><input id="manual" name="switch_codigo" type="radio" value="2">Manual</label>
                                                         </div>
                                                         <div class="clearfix"></div>
