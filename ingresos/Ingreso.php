@@ -527,7 +527,7 @@
 
         <div id="container" class="effect mainnav-sm">
 
-          <div class="containerHeader"></div>
+            <div class="containerHeader"></div>
 
             <div class="boxed">
                 <div id="content-container">
@@ -541,34 +541,120 @@
                     <div id="page-content">
                         <div class="row">
                             <div class="col-sm-12">
-                                <div class="tab-base ">
-                                    <div class="tab-content">
-                                        <div class="table-responsive">
-                                            <div class="col-md-12">
+                                <div class="panel">
+                                    <!--Panel heading-->
+                                    <div class="panel-heading">
+                                        <div class="panel-control">
+                                            <!--Nav tabs-->
+                                            <ul class="nav nav-tabs">
+                                                <li class="active"><a data-toggle="tab" href="#ingreso_registro" aria-expanded="true">Ingresar Registros</a></li>
+                                                <li class=""><a data-toggle="tab" href="#busqueda_registro" aria-expanded="true">Buscar Registro</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <h3 class="panel-title">Modulo Ingresos</h3>
+                                    </div>
+                                    <div class="panel-body">
+                                        <div class="tab-content">
+                                            <div id="ingreso_registro" class="tab-pane fade active in">
+                                                <div class="table-responsive">
+                                                    <div class="col-md-12">
 
-                                                <button data-toggle="modal" href="#IngresoForm" class="btn btn-success">Agregar</button>
+                                                        <button data-toggle="modal" href="#IngresoForm" class="btn btn-success">Agregar</button>
 
-                                                <table id="IngresoTable" class="table table-striped table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="text-center">Fecha de Compra</th>
-                                                            <th class="text-center">Fecha de Ingreso</th>
-                                                            <th class="text-center">Proveedor</th>
-                                                            <th class="text-center">Numero de Factura</th>
-                                                            <th class="text-center">Modelo</th>
-                                                            <th class="text-center">Cantidad</th>
-                                                            <th class="text-center">Numero de Serie</th>
-                                                            <th class="text-center">Mac Address</th>
-                                                            <th class="text-center">Estado</th>
-                                                            <th class="text-center">Valor</th>
-                                                            <th class="text-center">Bodega</th>
-                                                            <th class="text-center">Acción</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
+                                                        <table id="IngresoTable" class="table table-striped table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center">Fecha de Compra</th>
+                                                                    <th class="text-center">Fecha de Ingreso</th>
+                                                                    <th class="text-center">Proveedor</th>
+                                                                    <th class="text-center">Numero de Factura</th>
+                                                                    <th class="text-center">Modelo</th>
+                                                                    <th class="text-center">Cantidad</th>
+                                                                    <th class="text-center">Numero de Serie</th>
+                                                                    <th class="text-center">Mac Address</th>
+                                                                    <th class="text-center">Estado</th>
+                                                                    <th class="text-center">Valor</th>
+                                                                    <th class="text-center">Bodega</th>
+                                                                    <th class="text-center">Acción</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
 
-                                                    </tbody>
-                                                </table>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="busqueda_registro" class="tab-pane fade">
+                                                <div class="col-md-12">
+
+                                                    <h4>Buscar por</h4>
+
+                                                    <div class="clearfix"></div>
+
+                                                    <div class="col-md-4 no-padding-left">
+                                                        <div class="select">
+                                                            <select class="selectpicker form-control" name="tipo_busqueda_ingreso" id="tipo_busqueda_ingreso"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Campo de Busqueda">
+                                                                <option value="">Seleccione</option>
+                                                                <option value="1">Modelo</option>
+                                                                <option value="2">Marca</option>
+                                                                <option value="3">Tipo</option>
+                                                                <option value="4">Mac Address</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="clearfix mar-btm"></div>
+
+                                                    <div class="col-md-4 no-padding-left">
+                                                        <select class="selectpicker form-control" name="input_registro" id="input_registro"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Campo de Busqueda">
+                                                            <option value="">Seleccione</option>
+                                                        </select>
+                                                    </div>
+
+                                                    <button id="buscarRegistro" class="btn btn-success">Buscar</button>
+
+
+                                                </div>
+
+
+
+                                                <div class="clearfix"></div>
+
+                                                <div class="table-responsive">
+                                                    <div class="col-md-12">
+
+                                                        <table id="BusquedaIngresoTable" class="table table-striped table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center">Fecha de Compra</th>
+                                                                    <th class="text-center">Fecha de Ingreso</th>
+                                                                    <th class="text-center">Proveedor</th>
+                                                                    <th class="text-center">Numero de Factura</th>
+                                                                    <th class="text-center">Modelo</th>
+                                                                    <th class="text-center">Cantidad</th>
+                                                                    <th class="text-center">Numero de Serie</th>
+                                                                    <th class="text-center">Mac Address</th>
+                                                                    <th class="text-center">Estado</th>
+                                                                    <th class="text-center">Valor</th>
+                                                                    <th class="text-center">Bodega</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+
+                                                <div class="clearfix"></div>
+
+                                                <div class="pull-right" style="margin-top: 40px ">
+                                                    <div class="col-sm-12">
+                                                        <button style="margin-right: 5px" type="button" class="btn btn-purple" id="generar" name="generar">Generar Excel</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

@@ -329,6 +329,75 @@
 
         }
 
+        public function showSelectpicker($TipoBusquedaRegistro){
+
+            $response_array = array();
+
+            $TipoBusquedaRegistro = isset($TipoBusquedaRegistro) ? trim($TipoBusquedaRegistro) : "";
+
+            if(!empty($TipoBusquedaRegistro)){
+
+                $this->TipoBusquedaRegistro=$TipoBusquedaRegistro;
+
+                $query = 'SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, mantenedor_proveedores.nombre as proveedor, mantenedor_bodegas.nombre as bodega FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id INNER JOIN mantenedor_bodegas ON inventario_ingresos.bodega_id = mantenedor_bodegas.id LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
+
+                $run = new Method;
+                $data = $run->select($query);
+
+                $response_array['array'] = $data;
+                $response_array['status'] = 1; 
+                    
+               
+            }else{
+                $response_array['status'] = 2; 
+            }
+
+            echo json_encode($response_array);
+
+        }
+
+        public function buscarRegistro($TipoBusquedaRegistro,$InputRegistro){
+
+            $response_array = array();
+
+            $TipoBusquedaRegistro = isset($TipoBusquedaRegistro) ? trim($TipoBusquedaRegistro) : "";
+            $InputRegistro = isset($InputRegistro) ? trim($InputRegistro) : "";
+
+            if(!empty($TipoBusquedaRegistro) && !empty($InputRegistro)){
+
+                $this->TipoBusquedaRegistro=$TipoBusquedaRegistro;
+                $this->InputRegistro=$InputRegistro;
+
+                $query = 'SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, mantenedor_proveedores.nombre as proveedor, mantenedor_bodegas.nombre as bodega FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id INNER JOIN mantenedor_bodegas ON inventario_ingresos.bodega_id = mantenedor_bodegas.id LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
+
+                if($TipoBusquedaRegistro == 1){
+                    $query = $query . " WHERE mantenedor_modelo_producto.nombre LIKE '%$InputRegistro%'";
+                }else if($TipoBusquedaRegistro == 2){
+                    $query = $query . " WHERE mantenedor_marca_producto.nombre LIKE '%$InputRegistro%'";
+                }else if($TipoBusquedaRegistro == 3){
+                    $query = $query . " WHERE mantenedor_tipo_producto.nombre LIKE '%$InputRegistro%'";
+                }else{
+                    $query = $query . " WHERE inventario_ingresos.mac_address LIKE '%$InputRegistro%'";
+                }
+
+                $run = new Method;
+                $data = $run->select($query);
+
+                if($data){
+
+                    $response_array['array'] = $data;
+                    $response_array['status'] = 1; 
+                    
+                }else{
+                    $response_array['status'] = 0; 
+                }
+            }else{
+                $response_array['status'] = 2; 
+            }
+
+            echo json_encode($response_array);
+
+        } 
     }
 
 ?>

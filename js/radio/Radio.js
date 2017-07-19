@@ -588,6 +588,47 @@ $(document).ready(function(){
         }
     });
 
+
+    $('#tipo_busqueda_ingreso').on('change', function () {
+
+        $('#input_registro').empty();
+        $('#input_registro').append(new Option('Seleccione',''));
+
+        tipo_busqueda_ingreso = $('#tipo_busqueda_ingreso').val();
+
+        if(tipo_busqueda_ingreso){
+
+            $.ajax({
+                type: "POST",
+                url: "../includes/radio/showSelectpicker.php",
+                data:"&tipo_busqueda_ingreso="+tipo_busqueda_ingreso,
+                success: function(response){
+                    $.each(response.array, function( index, array ) {
+                        if(tipo_busqueda_ingreso == 1){
+                            if ( $("#input_registro option[value='"+array.estacion+"'").length == 0 ){
+                                $('#input_registro').append('<option value="'+array.estacion+'" data-content="'+array.estacion+'"></option>');
+                            }
+                        }else if(tipo_busqueda_ingreso == 2){
+                            if ( $("#input_registro option[value='"+array.direccion_ip+"'").length == 0 ){
+                                $('#input_registro').append('<option value="'+array.direccion_ip+'" data-content="'+array.direccion_ip+'"></option>');
+                            }
+                        }else{
+                            if ( $("#input_registro option[value='"+array.mac_address+"'").length == 0 ){
+                                $('#input_registro').append('<option value="'+array.mac_address+'" data-content="'+array.mac_address+'"></option>');
+                            }
+                        }
+                    });
+                }
+            })
+        }
+
+        setTimeout(function() {       
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
+        }, 1000);
+
+    });
+
     $('body').on('click', '#buscarRegistro', function () {
 
         tipo_busqueda_ingreso = $('#tipo_busqueda_ingreso').val();
@@ -656,40 +697,5 @@ $(document).ready(function(){
                 }
             });
         }
-    });
-
-    $('#tipo_busqueda_ingreso').on('change', function () {
-
-        $('#input_registro').empty();
-        $('#input_registro').append(new Option('Seleccione',''));
-
-        tipo_busqueda_ingreso = $('#tipo_busqueda_ingreso').val();
-
-        if(tipo_busqueda_ingreso){
-
-            $.ajax({
-                type: "POST",
-                url: "../includes/radio/showSelectpicker.php",
-                data:"&tipo_busqueda_ingreso="+tipo_busqueda_ingreso,
-                success: function(response){
-                    $.each(response.array, function( index, array ) {
-                        if(tipo_busqueda_ingreso == 1){
-                            $('#input_registro').append('<option value="'+array.estacion+'" data-content="'+array.estacion+'"></option>');
-                        }else if(tipo_busqueda_ingreso == 2){
-                            $('#input_registro').append('<option value="'+array.direccion_ip+'" data-content="'+array.direccion_ip+'"></option>');
-                        }else{
-                            $('#input_registro').append('<option value="'+array.mac_address+'" data-content="'+array.mac_address+'"></option>');
-                        }
-                    });
-                }
-            })
-
-        }
-
-        setTimeout(function() {       
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
-        }, 1000);
-
     });
 });

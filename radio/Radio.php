@@ -113,8 +113,6 @@
                                             <div id="busqueda_registro" class="tab-pane fade active in">
                                                 <div class="col-md-12">
 
-                                                    <label class="form-text text-danger">Nota: Escriba las iniciales o coincidencias de caracteres en el campo de búsqueda.</label>
-
                                                     <h4>Buscar por</h4>
 
                                                     <div class="clearfix"></div>

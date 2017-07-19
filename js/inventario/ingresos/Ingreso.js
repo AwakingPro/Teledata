@@ -33,6 +33,9 @@ $(document).ready(function(){
     $(".number").mask("0000000000");
     $(".valor").mask("000.000.000.000",{reverse: true});
 
+    $('#tipo_busqueda_ingreso').val('')
+    $('#tipo_busqueda_ingreso').selectpicker('refresh')
+
     Table = $('#IngresoTable').DataTable({
         paging: false,
         iDisplayLength: 100,
@@ -793,4 +796,206 @@ $(document).ready(function(){
             }
        });   
     });
+
+    BusquedaIngresoTable = $('#BusquedaIngresoTable').DataTable({
+        paging: false,
+        iDisplayLength: 100,
+        processing: true,
+        serverSide: false,  
+        bInfo:false,
+        order: [[0, 'asc']],
+        language: {
+            processing:     "Procesando ...",
+            search:         'Buscar',
+            lengthMenu:     "Mostrar _MENU_ Registros",
+            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+            infoFiltered:   "(filtrada de _MAX_ registros en total)",
+            infoPostFix:    "",
+            loadingRecords: "...",
+            zeroRecords:    "No se encontraron registros coincidentes",
+            emptyTable:     "No hay datos disponibles en la tabla",
+            paginate: {
+                first:      "Primero",
+                previous:   "Anterior",
+                next:       "Siguiente",
+                last:       "Ultimo"
+            },
+            aria: {
+                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                sortDescending: ": habilitado para ordenar la columna en orden descendente"
+            }
+        }
+    });
+
+    
+    $('#tipo_busqueda_ingreso').on('change', function () {
+
+        $('#input_registro').empty();
+        $('#input_registro').append(new Option('Seleccione',''));
+
+        tipo_busqueda_ingreso = $('#tipo_busqueda_ingreso').val();
+
+        if(tipo_busqueda_ingreso){
+
+            $.ajax({
+                type: "POST",
+                url: "../includes/inventario/ingresos/showSelectpicker.php",
+                data:"&tipo_busqueda_ingreso="+tipo_busqueda_ingreso,
+                success: function(response){
+                    $.each(response.array, function( index, array ) {
+                        if(tipo_busqueda_ingreso == 1){
+                            if ( $("#input_registro option[value='"+array.modelo+"'").length == 0 ){
+                                $('#input_registro').append('<option value="'+array.modelo+'" data-content="'+array.modelo+'"></option>');
+                            }
+                        }else if(tipo_busqueda_ingreso == 2){
+                            if ( $("#input_registro option[value='"+array.marca+"'").length == 0 ){
+                                $('#input_registro').append('<option value="'+array.marca+'" data-content="'+array.marca+'"></option>');
+                            }
+                        }else if(tipo_busqueda_ingreso == 3){
+                            if ( $("#input_registro option[value='"+array.tipo+"'").length == 0 ){
+                                $('#input_registro').append('<option value="'+array.tipo+'" data-content="'+array.tipo+'"></option>');
+                            }
+                        }else{
+                            if ( $("#input_registro option[value='"+array.mac_address+"'").length == 0 ){
+                                $('#input_registro').append('<option value="'+array.mac_address+'" data-content="'+array.mac_address+'"></option>');
+                            }
+                        }
+                    });
+                }
+            })
+        }
+
+        setTimeout(function() {       
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
+        }, 1000);
+
+    });
+
+    $('body').on('click', '#buscarRegistro', function () {
+
+        tipo_busqueda_ingreso = $('#tipo_busqueda_ingreso').val();
+        input_registro = $('#input_registro').val();
+
+        if(input_registro){
+
+            BusquedaIngresoTable.clear().draw();
+
+            $.ajax({
+                type: "POST",
+                url: "../includes/inventario/ingresos/buscarRegistro.php",
+                data:"&tipo_busqueda_ingreso="+tipo_busqueda_ingreso+"&input_registro="+input_registro,
+                success: function(response){
+
+                    if(response.status == 1){
+
+                        $.niftyNoty({
+                            type: 'success',
+                            icon : 'fa fa-check',
+                            message : 'Búsqueda Realizada exitosamente',
+                            container : 'floating',
+                            timer : 3000
+                        });
+
+                        $.each(response.array, function( index, array ) {
+
+                            if(array.fecha_compra && array.fecha_compra != '0000-00-00'){
+                                fecha_compra = moment(array.fecha_compra).format('DD-MM-YYYY');
+                            }else{
+                                fecha_compra = ''
+                            }
+                            
+                            fecha_ingreso = moment(array.fecha_ingreso).format('DD-MM-YYYY');
+
+                            if(array.estado == 1){
+                                estado = 'Nuevo';
+                            }else{
+                                estado = 'Reacondicionado';
+                            }
+
+                            if(array.proveedor){
+                                proveedor = array.proveedor
+                            }else{
+                                proveedor = ''
+                            }
+
+                            var rowNode = BusquedaIngresoTable.row.add([
+                                ''+fecha_compra+'',
+                                ''+fecha_ingreso+'',
+                                ''+proveedor+'',
+                                ''+array.numero_factura+'',
+                                ''+array.tipo + ' ' + array.marca + ' ' + array.modelo+'',
+                                ''+array.cantidad+'',
+                                ''+array.numero_serie+'',
+                                ''+array.mac_address+'',
+                                ''+estado+'',
+                                ''+array.valor+'',
+                                ''+array.bodega+'',
+                            ]).draw(false).node();
+
+                            $( rowNode )
+                                .attr('id',array.id)
+                                .addClass('text-center')
+                        });
+                    }else if(response.status == 2){
+
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon : 'fa fa-check',
+                            message : 'Debe llenar el campo de búsqueda',
+                            container : 'floating',
+                            timer : 3000
+                        });
+
+                    }else{
+
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon : 'fa fa-check',
+                            message : 'No se encontraron registros',
+                            container : 'floating',
+                            timer : 3000
+                        });
+
+                    }
+                }
+            });
+        }
+    });
+
+    $('body').on('click', '#generar', function () {
+
+        Rows = $('#BusquedaIngresoTable tbody tr');
+
+        if((Rows.length - 1) > 0){
+
+            ids = ''
+
+            $.each(Rows, function( index, array ) {
+
+                id = $(this).attr('id');
+
+                if(id){
+
+                    if(ids){
+                        ids = id + ',' + ids;
+                    }else{
+                        ids = id;
+                    }
+                }
+            });
+
+            window.open("../ajax/ingresos/generarReporteIngresos.php?ids="+ids, '_blank');
+
+        }else{
+            $.niftyNoty({
+                type: 'danger',
+                icon : 'fa fa-check',
+                message : 'Deben haber registros en la tabla para generar el excel',
+                container : 'floating',
+                timer : 3000
+            });
+        }
+    })
 });
