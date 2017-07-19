@@ -113,7 +113,7 @@ $(document).ready(function(){
                 var rowNode = NotaVentaTable.row.add([
                     ''+fecha+'',
                     ''+array.rut+'',
-                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-excel-o Generate"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
                 $( rowNode )
@@ -449,7 +449,7 @@ $(document).ready(function(){
                 var rowNode = NotaVentaTable.row.add([
                     ''+response.array.fecha+'',
                     ''+response.array.rut+'',
-                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-excel-o Generate"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
                 $( rowNode )
@@ -578,6 +578,15 @@ $(document).ready(function(){
                 });
             }
         });
+    });
+
+    $('body').on('click', '.Generate', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = ObjectTR.attr("id");
+
+        window.open("../ajax/nota_venta/generarNotaVenta.php?id="+ObjectId, '_blank');
     });
 
     function formatcurrency(n) {
