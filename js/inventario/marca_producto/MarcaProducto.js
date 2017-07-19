@@ -121,7 +121,7 @@ $(document).ready(function(){
                         $.niftyNoty({
                             type: 'danger',
                             icon : 'fa fa-check',
-                            message : 'Ocurrio un error en el Proceso',
+                            message : 'Ocurrió un error en el Proceso',
                             container : 'floating',
                             timer : 3000
                         });
@@ -200,7 +200,7 @@ $(document).ready(function(){
                         $.niftyNoty({
                             type: 'danger',
                             icon : 'fa fa-check',
-                            message : 'Ocurrio un error en el Proceso',
+                            message : 'Ocurrió un error en el Proceso',
                             container : 'floating',
                             timer : 3000
                         });
@@ -236,7 +236,7 @@ $(document).ready(function(){
                     success:function(response){
                         setTimeout(function() {
                             if(response.status == 1){
-                                swal("Exito!","El registro ha sido eliminado!","success");
+                                swal("Éxito!","El registro ha sido eliminado!","success");
                                 Table.row($(ObjectTR))
                                     .remove()
                                     .draw();

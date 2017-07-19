@@ -3,7 +3,7 @@
 		<h3>Servicio de Internet</h3>
 	</div>
 	<div class="col-md-4 form-group" rows="5">
-		<label>Estacion/Nodo</label>
+		<label>Estación/Nodo</label>
 		<input name="nodo" class="form-control">
 		<input name="idServicio" type="hidden">
 	</div>
@@ -24,11 +24,11 @@
 		<input name="ipAntena" class="form-control">
 	</div>
 	<div class="col-md-4 form-group" rows="5">
-		<label>Fecha Instalacion</label>
+		<label>Fecha Instalación</label>
 		<input name="fechaInstalacion" class="form-control">
 	</div>
 	<div class="col-md-4 form-group" rows="5">
-		<label>Tecnico Instalador</label>
+		<label>Técnico Instalador</label>
 		<input name="tecnicoInstalador" class="form-control">
 	</div>
 	<div class="col-md-4 form-group" rows="5">
@@ -44,23 +44,23 @@
 		<input name="estadoServicio" class="form-control">
 	</div>
 	<div class="col-md-4 form-group" rows="5">
-		<label>Señal de Instalacion</label>
+		<label>Señal de Instalación</label>
 		<input name="señalInstalacion" class="form-control">
 	</div>
 	<div class="col-md-4 form-group" rows="5">
-		<label>Senal Actual</label>
+		<label>Señal Actual</label>
 		<input name="señalActual" class="form-control">
 	</div>
 	<div class="col-md-4 form-group" rows="5">
-		<label>Direccion IP AP</label>
+		<label>Dirección IP AP</label>
 		<input name="ipAn" class="form-control">
 	</div>
 	<div class="col-md-4 form-group" rows="5">
-		<label>Cordenadas Latitud</label>
+		<label>Coordenadas Latitud</label>
 		<input name="latitud" class="form-control">
 	</div>
 	<div class="col-md-4 form-group" rows="5">
-		<label>Cordenadas Longitud</label>
+		<label>Coordenadas Longitud</label>
 		<input name="longitud" class="form-control">
 	</div>
 </div>

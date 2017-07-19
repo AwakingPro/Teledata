@@ -198,8 +198,8 @@
 										<td>
                                             <span class="text-xs">
                                                 <select   class="select1" id="SeleccioneFactura">
-                                                    <option value='0'>Insternet</option>
-                                                    <option value='0'>Arriedo Equipos De Datos</option>
+                                                    <option value='0'>Internet</option>
+                                                    <option value='0'>Arriendo Equipos De Datos</option>
                                                 </select>
                                             </span>
                                         </td>

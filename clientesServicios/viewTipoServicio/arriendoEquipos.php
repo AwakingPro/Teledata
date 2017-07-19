@@ -16,7 +16,7 @@
 		<input name="mac" class="form-control">
 	</div>
 	<div class="col-md-12 form-group" rows="5">
-		<label>Descripcion</label>
+		<label>Descripción</label>
 		<textarea name="descripcion" class="form-control"></textarea>
 	</div>
 </div>

@@ -23,7 +23,7 @@
 					</div>
 					<br>
 					<ol class="breadcrumb">
-						<li><a href="#">Incio</a></li>
+						<li><a href="#">Inicio</a></li>
 						<li class="active">Tickets</li>
 					</ol>
 					<div id="page-content">
@@ -132,7 +132,7 @@
 								<label >Departamento</label>
 								<select name="DepartamentoUpdate" class="form-control" id="cliente">
 									<option value="">Seleccione...</option>
-									<option>Soporte Tecnico</option>
+									<option>Soporte Técnico</option>
 								</select>
 							</div>
 						</div>

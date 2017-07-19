@@ -354,7 +354,7 @@ $(document).ready(function(){
                 $.niftyNoty({
                     type: 'danger',
                     icon : 'fa fa-check',
-                    message : 'Ocurrio un error en el Proceso',
+                    message : 'Ocurrió un error en el Proceso',
                     container : 'floating',
                     timer : 3000
                 });
@@ -413,7 +413,7 @@ $(document).ready(function(){
                                 $('#exencion_nota').text(formatcurrency(exencion))
                                 $('#total_nota').text(formatcurrency(total))
 
-                                swal("Exito!","El registro ha sido eliminado!","success");
+                                swal("Éxito!","El registro ha sido eliminado!","success");
                                 ServicioTable.row($(ObjectTR))
                                     .remove()
                                     .draw();
@@ -483,7 +483,7 @@ $(document).ready(function(){
                 $.niftyNoty({
                     type: 'danger',
                     icon : 'fa fa-check',
-                    message : 'Ocurrio un error en el Proceso',
+                    message : 'Ocurrió un error en el Proceso',
                     container : 'floating',
                     timer : 3000
                 });
@@ -561,7 +561,7 @@ $(document).ready(function(){
                     success:function(response){
                         setTimeout(function() {
                             if(response.status == 1){
-                                swal("Exito!","El registro ha sido eliminado!","success");
+                                swal("Éxito!","El registro ha sido eliminado!","success");
                                 NotaVentaTable.row($(ObjectTR))
                                     .remove()
                                     .draw();
