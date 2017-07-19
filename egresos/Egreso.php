@@ -43,6 +43,7 @@
 												<option value="">Seleccione Opción</option>
 												<option value="1">Bodega</option>
 												<option value="2">Cliente</option>
+												<option value="3">Estación</option>
 											</select>
 										</div>
 									</div>
@@ -78,6 +79,7 @@
 												<option value="">Seleccione Opción</option>
 												<option value="1">Bodega</option>
 												<option value="2">Cliente</option>
+												<option value="3">Estación</option>
 											</select>
 										</div>
 									</div>

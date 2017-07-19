@@ -51,12 +51,18 @@
                                 $run = new Method;
                                 $select = $run->select($query);
                                 $Destino = 'Bodega' . ' ' . $select[0]['nombre'];
-                            }else{
-                                $query = "SELECT * FROM mantenedor_bodegas where id = ".$data[0]['bodega_id']." ORDER BY id DESC LIMIT 1";
+                            }else if($data[0]['bodega_tipo'] == 2){
+                                $query = "SELECT * FROM personaempresa where id = ".$data[0]['bodega_id']." ORDER BY id DESC LIMIT 1";
                                 $run = new Method;
                                 $select = $run->select($query);
 
-                                $Destino = 'Bodega' . ' ' . $select[0]['nombre'];
+                                $Destino = 'Cliente' . ' ' . $select[0]['nombre'];
+                            }else{
+                                $query = "SELECT * FROM mantenedor_site where id = ".$data[0]['bodega_id']." ORDER BY id DESC LIMIT 1";
+                                $run = new Method;
+                                $select = $run->select($query);
+
+                                $Destino = 'Estación' . ' ' . $select[0]['nombre'];
                             }
 
                             $query = "SELECT * FROM usuarios where id = '$Usuario' ORDER BY id DESC LIMIT 1";
@@ -114,12 +120,19 @@
 
                     $destino_tipo = 'Bodega';
                     $destino_nombre = $destino[0]['nombre'];
-                }else{
-                    $query = "SELECT * FROM mantenedor_bodegas where id = ".$row['destino_id']." ORDER BY id DESC LIMIT 1";
+                }else if($row['destino_tipo'] == 2){
+                    $query = "SELECT * FROM personaempresa where id = ".$row['destino_id']." ORDER BY id DESC LIMIT 1";
                     $run = new Method;
                     $destino = $run->select($query);
 
-                    $destino_tipo = 'Bodega';
+                    $destino_tipo = 'Cliente';
+                    $destino_nombre = $destino[0]['nombre'];
+                }else{
+                    $query = "SELECT * FROM mantenedor_site where id = ".$row['destino_id']." ORDER BY id DESC LIMIT 1";
+                    $run = new Method;
+                    $destino = $run->select($query);
+
+                    $destino_tipo = 'Estación';
                     $destino_nombre = $destino[0]['nombre'];
                 }
 
@@ -160,6 +173,30 @@
         function getBodega(){
 
             $query = 'SELECT * FROM mantenedor_bodegas where principal = 1';
+            $run = new Method;
+            $data = $run->select($query);
+
+            $response_array['array'] = $data;
+
+            echo json_encode($response_array);
+
+        }
+
+        function showPersonaEmpresa(){
+
+            $query = 'SELECT * FROM personaempresa';
+            $run = new Method;
+            $data = $run->select($query);
+
+            $response_array['array'] = $data;
+
+            echo json_encode($response_array);
+
+        }
+
+        function showEstaciones(){
+
+            $query = 'SELECT * FROM mantenedor_site';
             $run = new Method;
             $data = $run->select($query);
 

@@ -75,7 +75,6 @@ $(document).ready(function(){
 
             $('.origen').show();
 
-
             if($(this).val() == 1){
 
                 $('#span_origen').text('Bodega');
@@ -89,15 +88,40 @@ $(document).ready(function(){
                             $('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
                         });
 
-                        $('.selectpicker').selectpicker('render');
-                        $('.selectpicker').selectpicker('refresh');
                     }
                 });
-            }else{
+            }else if($(this).val() == 2){
                 $('#span_origen').text('Cliente');
-                $('.selectpicker').selectpicker('render');
-                $('.selectpicker').selectpicker('refresh');
+
+                 $.ajax({
+                    type: "POST",
+                    url: "../includes/inventario/egresos/showPersonaEmpresa.php",
+                    success: function(response){
+                        $.each(response.array, function( index, array ) {
+                            $('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                        });
+                    }
+                });
+                
+            }else{
+                $('#span_origen').text('Estación');
+
+                 $.ajax({
+                    type: "POST",
+                    url: "../includes/inventario/egresos/showEstaciones.php",
+                    success: function(response){
+                        $.each(response.array, function( index, array ) {
+                            $('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                        });
+                    }
+                });
             }
+
+            setTimeout(function() {       
+                $('#origen_id').selectpicker('render');
+                $('#origen_id').selectpicker('refresh');
+            }, 1000);
+
         }else{
             $('.origen').hide();
         }
@@ -122,18 +146,43 @@ $(document).ready(function(){
                     type: "POST",
                     url: "../includes/inventario/egresos/getBodega.php",
                     success: function(response){
-
                         $.each(response.array, function( index, array ) {
                             $('#destino_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
                         });
-
-                        $('#destino_id').selectpicker('refresh');
                     }
                 });
-            }else{
+            }else if($(this).val() == 2){
                 $('#span_destino').text('Cliente');
-                $('#destino_id').selectpicker('refresh');
+
+                 $.ajax({
+                    type: "POST",
+                    url: "../includes/inventario/egresos/showPersonaEmpresa.php",
+                    success: function(response){
+                        $.each(response.array, function( index, array ) {
+                            $('#destino_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                        });
+                    }
+                });
+                
+            }else{
+                $('#span_destino').text('Estación');
+
+                 $.ajax({
+                    type: "POST",
+                    url: "../includes/inventario/egresos/showEstaciones.php",
+                    success: function(response){
+                        $.each(response.array, function( index, array ) {
+                            $('#destino_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                        });
+                    }
+                });
             }
+
+            setTimeout(function() {       
+                $('#destino_id').selectpicker('render');
+                $('#destino_id').selectpicker('refresh');
+            }, 1000);
+
         }else{
             $('.destino').hide();
         }
