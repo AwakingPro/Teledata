@@ -7,137 +7,145 @@ $objPHPExcel = new PHPExcel();
 
 // Establecer propiedades
 $objPHPExcel->getProperties()
-->setCreator("Cattivo")
-->setLastModifiedBy("Cattivo")
-->setTitle("Documento Excel de Prueba")
-->setSubject("Documento Excel de Prueba")
-->setDescription("Demostracion sobre como crear archivos de Excel desde PHP.")
-->setKeywords("Excel Office 2007 openxml php")
-->setCategory("Pruebas de Excel");
+	->setCreator("Teledata")
+	->setLastModifiedBy("Teledata")
+	->setTitle("Nota de Venta")
+	->setSubject("Nota de Venta")
+	->setDescription("Nota de Venta.")
+	->setKeywords("Excel Office 2007 openxml php")
+	->setCategory("Nota de Venta");
 
 // Agregar Informacion
 $objPHPExcel->setActiveSheetIndex(0)
-->setCellValue('A1', 'Tipo de Linea')
-->setCellValue('B1', 'Nº de Documento')
-->setCellValue('C1', 'Monto Neto')
-->setCellValue('D1', 'Monto Impuesto')
-->setCellValue('E1', 'Monto Total')
-->setCellValue('F1', 'Monto Exento')
-->setCellValue('G1', 'Lista de Precios')
-->setCellValue('H1', 'Tipo de Cambio')
-->setCellValue('I1', 'Fecha Emision')
-->setCellValue('J1', 'Condicion de Venta')
-->setCellValue('K1', 'Fecha de Vencimiento')
-->setCellValue('L1', 'Despacho Unimark')
-->setCellValue('M1', 'Forma de Pago')
-->setCellValue('N1', 'Email Automatico')
-->setCellValue('O1', 'Rut Cliente')
-->setCellValue('P1', 'Tipo Cliente')
-->setCellValue('Q1', 'Clinete Extranjero')
-->setCellValue('R1', 'Razon Social')
-->setCellValue('S1', 'Giro')
-->setCellValue('T1', 'Nombre')
-->setCellValue('U1', 'Apellido')
-->setCellValue('V1', 'Email')
-->setCellValue('W1', 'Telefono')
-->setCellValue('X1', 'Direccion')
-->setCellValue('Y1', 'Ciudad')
-->setCellValue('Z1', 'Comuna')
-->setCellValue('AA1', 'Cantidad')
-->setCellValue('AB1', 'SKU')
-->setCellValue('AC1', 'Glosa')
-->setCellValue('AD1', 'Atributos adicionales')
-->setCellValue('AE1', 'Valor Unitario')
-->setCellValue('AF1', '% Descuento')
-->setCellValue('AG1', 'Impuesto');
+	->setCellValue('A1', 'Cliente')
+	->setCellValue('B1', 'Fecha')
+	->setCellValue('C1', 'Rut')
+	->setCellValue('D1', 'Giro')
+	->setCellValue('E1', 'Contacto')
+	->setCellValue('F1', 'Direccion');
 
-foreach (range(0, 33) as $col) {
-        $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
+
+foreach (range(0, 5) as $col) {
+	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
+
+
+$id = $_GET['id'];
 
 require_once('../../class/methods_global/methods.php');
-$query = 'SELECT
-servicios.Id,
-servicios.Rut,
-servicios.Grupo,
-servicios.TipoFactura,
-servicios.Valor,
-servicios.Descuento,
-servicios.IdServicio,
-servicios.TiepoFacturacion,
-servicios.Codigo,
-servicios.Descripcion,
-servicios.TipoMoneda,
-personaempresa.id,
-personaempresa.rut,
-personaempresa.dv,
-personaempresa.nombre,
-personaempresa.giro,
-personaempresa.direccion,
-personaempresa.correo,
-personaempresa.contacto,
-personaempresa.comentario,
-personaempresa.telefono,
-mantenedor_servicios.IdServicio,
-mantenedor_servicios.servicio
-FROM
-	servicios
-	INNER JOIN personaempresa ON servicios.Rut = personaempresa.rut
-	INNER JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio';
+$query = "SELECT * FROM nota_venta where id = '$id'";
 $run = new Method;
-$data = $run->select($query);
-if (count($data) > 0) {
+$nota_venta = $run->select($query);
 
-	$index = 2;
-	for ($i=0; $i < count($data) ; $i++) {
+if (count($nota_venta) > 0) {
+
+	$rut = $nota_venta[0][1];
+
+	$query = "SELECT * FROM personaempresa where rut = '$rut'";
+	$run = new Method;
+	$cliente = $run->select($query);
+
+	if (count($cliente) > 0) {
+		$index = 2;
 
 		$objPHPExcel->setActiveSheetIndex(0)
-		->setCellValue('A'.$index, 'D')
-		->setCellValue('B'.$index, '1')
-		->setCellValue('C'.$index, $data[$i][4])
-		->setCellValue('D'.$index, '0')
-		->setCellValue('E'.$index, '0')
-		->setCellValue('F'.$index, '0')
-		->setCellValue('G'.$index, '0')
-		->setCellValue('H'.$index, $data[$i][10])
-		->setCellValue('I'.$index, date("d-m-Y"))
-		->setCellValue('J'.$index, '')
-		->setCellValue('K'.$index, '')
-		->setCellValue('L'.$index, '')
-		->setCellValue('M'.$index, 'Efectivo')
-		->setCellValue('N'.$index, $data[$i][17])
-		->setCellValue('O'.$index, $data[$i][1])
-		->setCellValue('P'.$index, '')
-		->setCellValue('Q'.$index, '')
-		->setCellValue('R'.$index, $data[$i][16])
-		->setCellValue('S'.$index, $data[$i][15])
-		->setCellValue('T'.$index, $data[$i][14])
-		->setCellValue('U'.$index, '')
-		->setCellValue('V'.$index, $data[$i][17])
-		->setCellValue('W'.$index, $data[$i][20])
-		->setCellValue('X'.$index, $data[$i][16])
-		->setCellValue('Y'.$index, '')
-		->setCellValue('Z'.$index, '')
-		->setCellValue('AA'.$index, '')
-		->setCellValue('AB'.$index, '')
-		->setCellValue('AC'.$index, '')
-		->setCellValue('AD'.$index, '')
-		->setCellValue('AE'.$index, '')
-		->setCellValue('AF'.$index, $data[$i][5])
-		->setCellValue('AG'.$index, '');
-		$index ++;
+		->setCellValue('A'.$index, $cliente[0][3])
+		->setCellValue('B'.$index, $nota_venta[0][2])
+		->setCellValue('C'.$index, $rut)
+		->setCellValue('D'.$index, $cliente[0][4])
+		->setCellValue('E'.$index, $cliente[0][7])
+		->setCellValue('F'.$index, $cliente[0][5]);
 	}
+
+	$index = 5;
+
+	$objPHPExcel->setActiveSheetIndex(0)
+		->setCellValue('A'.$index, 'Código')
+		->setCellValue('B'.$index, 'Servicio')
+		->setCellValue('C'.$index, 'Cantidad')
+		->setCellValue('D'.$index, 'Precio')
+		->setCellValue('E'.$index, 'Indic Exención')
+		->setCellValue('F'.$index, 'Total');
+
+	$index = 7;
+
+	$query = "SELECT * FROM nota_venta_detalle where nota_venta_id = '$id'";
+	$run = new Method;
+	$nota_venta_detalle = $run->select($query);
+
+	if (count($nota_venta_detalle) > 0) {
+
+		$neto = 0;
+	    $exencion = 0;
+	    $iva = 0;
+	    $total = 0;
+
+		foreach($nota_venta_detalle as $detalle){
+
+			$cantidad = intval($detalle['cantidad']);
+            $neto_tmp = floatval($detalle['precio']);
+            $neto_tmp = $neto_tmp * $cantidad;
+            $impuesto = $neto_tmp * floatval(0.19);
+            $neto_tmp = $neto_tmp - $impuesto;
+            $neto = $neto + $neto_tmp;
+
+            if($detalle['exencion'] == 1){
+                $imp_exencion = 'Afecto';
+                $exencion = $exencion + $impuesto;
+            }else{
+                $imp_exencion = 'No Afecto';
+                $iva = $iva + $impuesto;
+            }
+
+            $precio = floatval($detalle['precio']);
+            $total_tmp = floatval($detalle['total']);
+            $total = $total + $total_tmp;
+
+			$objPHPExcel->setActiveSheetIndex(0)
+			->setCellValue('A'.$index, $detalle['codigo'])
+			->setCellValue('B'.$index, $detalle['servicio'])
+			->setCellValue('C'.$index, $detalle['cantidad'])
+			->setCellValue('D'.$index, floatval($detalle['precio']))
+			->setCellValue('E'.$index, $imp_exencion)
+			->setCellValue('F'.$index, floatval($detalle['total']));
+			$index++;
+		}
+
+		$index = $index + 2;
+
+		$objPHPExcel->setActiveSheetIndex(0)
+		->setCellValue('E'.$index, 'Neto')
+		->setCellValue('F'.$index, $neto);
+
+		$index++;
+
+		$objPHPExcel->setActiveSheetIndex(0)
+		->setCellValue('E'.$index, 'Exento')
+		->setCellValue('F'.$index, $exencion);
+
+		$index++;
+
+		$objPHPExcel->setActiveSheetIndex(0)
+		->setCellValue('E'.$index, 'I.V.A.')
+		->setCellValue('F'.$index, $iva);
+
+		$index++;
+
+		$objPHPExcel->setActiveSheetIndex(0)
+		->setCellValue('E'.$index, 'Total')
+		->setCellValue('F'.$index, $total);
+
+		$index++;
+	}
+	
 }
 
-
-
-
 // Renombrar Hoja
-$objPHPExcel->getActiveSheet()->setTitle('Facturas mensuales');
+$objPHPExcel->getActiveSheet()->setTitle('Nota de Venta');
 
 // Establecer la hoja activa, para que cuando se abra el documento se muestre primero.
 $objPHPExcel->setActiveSheetIndex(0);
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save('../../reportes/reportesFacturasMensuales/Factura Mensual '.date("d-m-Y").'.xlsx');
+$objWriter->save('../../reportes/nota_venta/Nota de Venta '.date("d-m-Y").'.xlsx');
 exit;
 ?>
