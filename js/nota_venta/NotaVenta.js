@@ -40,6 +40,38 @@ $(document).ready(function(){
         }
     });
 
+    NotaVentaTable = $('#NotaVentaTable').DataTable({
+        paging: false,
+        iDisplayLength: 100,
+        processing: true,
+        serverSide: false,  
+        bInfo:false,
+        bFilter:false,
+        order: [[0, 'asc']],
+        language: {
+            processing:     "Procesando ...",
+            search:         'Buscar',
+            lengthMenu:     "Mostrar _MENU_ Registros",
+            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+            infoFiltered:   "(filtrada de _MAX_ registros en total)",
+            infoPostFix:    "",
+            loadingRecords: "...",
+            zeroRecords:    "No se encontraron registros coincidentes",
+            emptyTable:     "No hay datos disponibles en la tabla",
+            paginate: {
+                first:      "Primero",
+                previous:   "Anterior",
+                next:       "Siguiente",
+                last:       "Ultimo"
+            },
+            aria: {
+                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                sortDescending: ": habilitado para ordenar la columna en orden descendente"
+            }
+        }
+    });
+
     $('#showCliente')[0].reset();
     $('#addServicio')[0].reset();
 
@@ -66,6 +98,28 @@ $(document).ready(function(){
             $('.selectpicker').selectpicker('render');
             $('.selectpicker').selectpicker('refresh');
         
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "../includes/nota_venta/showNotaVenta.php",
+        success: function(response){
+
+            $.each(response.array, function( index, array ) {
+
+                fecha = moment(array.fecha).format('DD-MM-YYYY');
+
+                var rowNode = NotaVentaTable.row.add([
+                    ''+fecha+'',
+                    ''+array.rut+'',
+                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                ]).draw(false).node();
+
+                $( rowNode )
+                    .attr('id',array.id)
+                    .addClass('text-center')
+            });
         }
     });
 
@@ -392,6 +446,16 @@ $(document).ready(function(){
                     timer : 3000
                 });
 
+                var rowNode = NotaVentaTable.row.add([
+                    ''+response.array.fecha+'',
+                    ''+response.array.rut+'',
+                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                ]).draw(false).node();
+
+                $( rowNode )
+                    .attr('id',response.array.id)
+                    .addClass('text-center')
+
                 $('#cancelar').click()
 
             }else if(response.status == 2){
@@ -471,6 +535,50 @@ $(document).ready(function(){
             scrollTop: 0
         }, 1500);
     })
+
+    $('body').on('click', '.Remove', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = ObjectTR.attr("id");
+
+        swal({   
+            title: "Desea eliminar este registro?",   
+            text: "Confirmar eliminación!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#DD6B55",   
+            confirmButtonText: "Eliminar!",  
+            cancelButtonText: "Cancelar",         
+            showLoaderOnConfirm: true
+        },function(isConfirm){   
+            if (isConfirm) {
+    
+                $.ajax({
+                    url: "../includes/nota_venta/deleteNotaVenta.php",
+                    type: 'POST',
+                    data:"&id="+ObjectId,
+                    success:function(response){
+                        setTimeout(function() {
+                            if(response.status == 1){
+                                swal("Exito!","El registro ha sido eliminado!","success");
+                                NotaVentaTable.row($(ObjectTR))
+                                    .remove()
+                                    .draw();
+                            }else if(response.status == 3){
+                                swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee otros registros asociados','error');
+                            }else{
+                                swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                            }
+                        }, 1000);  
+                    },
+                    error:function(){
+                        swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                    }
+                });
+            }
+        });
+    });
 
     function formatcurrency(n) {
         return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");

@@ -44,12 +44,12 @@
                                     <div class="panel-heading">
                                         <div class="panel-control">
                                             <!--Nav tabs-->
-                                            <!-- <ul class="nav nav-tabs">
+                                            <ul class="nav nav-tabs">
                                                 <li class="active"><a data-toggle="tab" href="#ingreso_registro" aria-expanded="true">Ingresar Registro</a>
                                                 </li>
-                                                <li class=""><a data-toggle="tab" href="#busqueda_registro" aria-expanded="true">Buscar Registros</a>
+                                                <li class=""><a data-toggle="tab" href="#mostrar_registros" aria-expanded="true">Mostrar Registros</a>
                                                 </li>
-                                            </ul> -->
+                                            </ul>
                                         </div>
                                         <h3 class="panel-title">Modulo Nota de Venta</h3>
                                     </div>
@@ -253,11 +253,35 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="modal-footer" style="margin-top: 20px ">
+                                                <div class="pull-right" style="margin-top: 40px ">
                                                     <div class="col-sm-12">
-                                                        <button type="button" class="btn btn-purple" id="guardar" name="guardar">Guardar</button>
+                                                        <button style="margin-right: 5px" type="button" class="btn btn-purple" id="guardar" name="guardar">Guardar</button>
 
                                                         <button type="button" class="btn btn-default" id="cancelar" name="cancelar">Cancelar</button>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div id="mostrar_registros" class="tab-pane fade">
+
+                                                <div class="row" style="margin-top: 10px">
+                                                    <div class="table-responsive">
+                                                        <div class="col-md-12">
+
+                                                            <table id="NotaVentaTable" class="table table-striped table-bordered">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th class="text-center">Fecha</th>
+                                                                        <th class="text-center">Rut</th>
+                                                                        <th class="text-center">Acción</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
 

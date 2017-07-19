@@ -107,8 +107,11 @@
                             $run = new Method;
                             $data = $run->insert($query);
                         }
+
+                        $array = array('id'=> $id, 'rut' => $this->Cliente, 'fecha' => $this->Fecha);
                         
-                         $response_array['status'] = 1; 
+                        $response_array['array'] = $array;
+                        $response_array['status'] = 1; 
                         // }else{
                         //     $response_array['status'] = 0; 
                         // }
@@ -213,6 +216,41 @@
                 }else{
                     $response_array['status'] = 3; 
                 }
+            }else{
+                $response_array['status'] = 2; 
+            }
+
+            echo json_encode($response_array);
+        }
+
+         function showNotaVenta(){
+
+            $query = 'SELECT * FROM nota_venta';
+            $run = new Method;
+            $data = $run->select($query);
+
+            $response_array['array'] = $data;
+
+            echo json_encode($response_array);
+
+        }
+
+        function deleteNotaVenta($Id){
+
+            $response_array = array();
+
+            $Id = isset($Id) ? trim($Id) : "";
+
+            if(!empty($Id)){
+
+                $this->Id=$Id;
+
+                $query = "DELETE from `nota_venta` where `id` = '$this->Id'";
+                $run = new Method;
+                $data = $run->insert($query);
+                $response_array['status'] = 1; 
+                    
+               
             }else{
                 $response_array['status'] = 2; 
             }
