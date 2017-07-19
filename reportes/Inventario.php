@@ -58,14 +58,15 @@
                                                     <option value="">Todas</option>
                                                     <option value="1">Bodega</option>
                                                     <option value="2">Cliente</option>
+                                                    <option value="3">Estación</option>
                                                 </select>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <div class="col-md-4">
+                                    <div class="col-md-4 tipo" style="display: none">
                                         <div class="form-group">
-                                            <label class="control-label" for="name">Seleccione <span id="span_tipo">Bodega</span></label>
+                                            <label class="control-label" for="name">Seleccione <span id="span_tipo"></span></label>
                                             <div class="select">
                                                 <select class="selectpicker form-control" id="bodega_id" name="bodega_id" data-live-search="true" data-container="body">
                                                     <option value="">Todas</option>

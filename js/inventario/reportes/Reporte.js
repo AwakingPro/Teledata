@@ -52,20 +52,6 @@ $(document).ready(function(){
         }
     });
 
-    $.ajax({
-        type: "POST",
-        url: "../includes/inventario/ingresos/showBodega.php",
-        success: function(response){
-
-            $.each(response.array, function( index, array ) {
-                $('#bodega_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
-            });
-
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
-        }
-    });
-
     $('body').on('click', '#filtrarReporte', function () {
 
         $.postFormValues('../includes/inventario/ingresos/showReporte.php', '#showReporte', function(response){
@@ -158,5 +144,65 @@ $(document).ready(function(){
             $('.selectpicker').selectpicker('refresh');
 
         });
+    });
+
+    $('#bodega_tipo').on('change', function () {
+
+        $('#bodega_id').empty();
+        $('#bodega_id').append(new Option('Todas',''));
+
+        if($(this).val()){
+
+            $('.tipo').show()
+
+            if($(this).val() == 1){
+
+                $('#span_tipo').text('Bodega');
+
+                $.ajax({
+                    type: "POST",
+                    url: "../includes/inventario/egresos/getBodega.php",
+                    success: function(response){
+                        $.each(response.array, function( index, array ) {
+                            $('#bodega_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                        });
+                    }
+                });
+            }else if($(this).val() == 2){
+                $('#span_tipo').text('Cliente');
+
+                 $.ajax({
+                    type: "POST",
+                    url: "../includes/inventario/egresos/showPersonaEmpresa.php",
+                    success: function(response){
+                        $.each(response.array, function( index, array ) {
+                            $('#bodega_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                        });
+                    }
+                });
+                
+            }else{
+                $('#span_tipo').text('Estación');
+
+                 $.ajax({
+                    type: "POST",
+                    url: "../includes/inventario/egresos/showEstaciones.php",
+                    success: function(response){
+                        $.each(response.array, function( index, array ) {
+                            $('#bodega_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                        });
+                    }
+                });
+            }
+
+            setTimeout(function() {       
+                $('#bodega_id').selectpicker('render');
+                $('#bodega_id').selectpicker('refresh');
+            }, 1000);
+
+        }else{
+            $('.tipo').hide()
+            $('#span_tipo').text('Tipo');
+        }
     });
 });
