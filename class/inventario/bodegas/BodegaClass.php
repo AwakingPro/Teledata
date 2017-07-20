@@ -101,7 +101,7 @@
 
                 $this->Id=$Id;
 
-                $query = "SELECT * from `inventario_ingresos` where `bodega_id` = '$this->Id'";
+                $query = "SELECT * from `inventario_ingresos` where `bodega_id` = '$this->Id' and bodega_tipo = '1'";
                 $run = new Method;
                 $data = $run->select($query);
 
@@ -110,7 +110,7 @@
                     $query = "DELETE from `mantenedor_bodegas` where `id` = '$this->Id'";
                     $run = new Method;
                     $data = $run->insert($query);
-                    $query = "DELETE from `inventario_egresos` where `destino_tipo` = '1' AND where `destino_id` = '$this->Id'";
+                    $query = "DELETE from `inventario_egresos` where `destino_tipo` = '1' and `destino_id` = '$this->Id'";
                     $run = new Method;
                     $data = $run->insert($query);
                     $response_array['status'] = 1; 
@@ -127,7 +127,7 @@
 
         function showBodegas(){
 
-            $query = 'SELECT mantenedor_bodegas.*, usuarios.nombre as personal FROM mantenedor_bodegas INNER JOIN usuarios ON mantenedor_bodegas.personal_id = usuarios.id';
+            $query = "SELECT mantenedor_bodegas.*, usuarios.nombre as personal FROM mantenedor_bodegas INNER JOIN usuarios ON mantenedor_bodegas.personal_id = usuarios.id where mantenedor_bodegas.id != '999'";
             $run = new Method;
             $data = $run->select($query);
 

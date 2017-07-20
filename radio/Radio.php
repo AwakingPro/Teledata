@@ -22,6 +22,326 @@
     </head>
     <body>
 
+    <div id="EstacionForm" class="modal fade" tabindex="-1" role="dialog" id="load">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                    <h4 class="modal-title c-negro">Agregar Estación <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding:20px">
+                        <form class="form-horizontal" id = "storeEstacion">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Nombre</label>
+                                    <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validation="not_null" data-nombre="Nombre">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Dirección</label>
+                                    <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validation="not_null" data-nombre="Dirección"></textarea>
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Télefono</label>
+                                    <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Correo</label>
+                                    <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Responsable</label>
+                                    <div class="select">
+                                        <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.modal-body -->
+                <div class="modal-footer p-b-20 m-b-20">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-purple" id="guardarEstacion" name="guardarEstacion">Guardar</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="EstacionFormUpdate" class="modal fade" tabindex="-1" role="dialog" id="load">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                    <h4 class="modal-title c-negro"><span id="span_estacion">Actualizar</span> Estación <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding:20px">
+                        <form class="form-horizontal" id = "updateEstacion">
+                            <input type="hidden" id="id" name="id">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Nombre</label>
+                                    <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validation="not_null" data-nombre="Nombre">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Dirección</label>
+                                    <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validation="not_null" data-nombre="Dirección"></textarea>
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Télefono</label>
+                                    <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Correo</label>
+                                    <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Responsable</label>
+                                    <div class="select">
+                                        <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.modal-body -->
+                <div class="modal-footer p-b-20 m-b-20">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-purple" id="actualizarEstacion" name="actualizarEstacion">Actualizar</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="IngresoForm" class="modal fade" tabindex="-1" role="dialog" id="load">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                    <h4 class="modal-title c-negro">Agregar Ingreso <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding:20px">
+                        <form class="form-horizontal" id = "storeIngreso">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Estación</label>
+                                    <div class="select">
+                                        <select class="selectpicker form-control estacion_id" name="estacion_id" id="estacion_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Estación">
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Función</label>
+                                    <div class="select">
+                                        <select class="selectpicker form-control funcion" id="funcion" name="funcion" validation="not_null" data-live-search="true" data-nombre="Función" data-container="body">
+                                            <option value="PMP">PMP</option>
+                                            <option value="PTP">PTP</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Alarma Activada</label>
+                                    <div class="select">
+                                        <select class="selectpicker form-control alarma_activada" id="alarma_activada" name="alarma_activada" validation="not_null" data-live-search="true" data-nombre="Alarma Activada" data-container="body">
+                                            <option value="Si">Si</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Dirección IP</label>
+                                    <input id="direccion_ip" name="direccion_ip" type="text" placeholder="Ingrese la Dirección IP" class="form-control input-sm direccion_ip" validation="not_null" data-nombre="Dirección IP">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Puerto de Acceso</label>
+                                    <input id="puerto_acceso" name="puerto_acceso" type="text" placeholder="Ingrese el Puerto de Acceso" class="form-control input-sm puerto_acceso" validation="not_null" data-nombre="Puerto de Acceso">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Ancho de Canal</label>
+                                    <input id="ancho_canal" name="ancho_canal" type="text" placeholder="Ingrese el Ancho de Canal" class="form-control input-sm ancho_canal" validation="not_null" data-nombre="Ancho de Canal">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Frecuencia</label>
+                                    <input id="frecuencia" name="frecuencia" type="text" placeholder="Ingrese la Frecuencia" class="form-control input-sm frecuencia" validation="not_null" data-nombre="Frecuencia">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">TX Power</label>
+                                    <input id="tx_power" name="tx_power" type="text" placeholder="Ingrese el TX Power" class="form-control input-sm tx_power" validation="not_null" data-nombre="TX Power">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Mac Address</label>
+                                    <div class="select">
+                                        <select class="selectpicker form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.modal-body -->
+                <div class="modal-footer p-b-20 m-b-20">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-purple" id="guardarIngreso" name="guardarIngreso">Guardar</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
+    <div id="IngresoFormUpdate" class="modal fade" tabindex="-1" role="dialog" id="load">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                    <h4 class="modal-title c-negro"><span id="span_ingreso">Actualizar</span> Ingreso <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" style="padding:20px">
+                        <form class="form-horizontal" id = "updateIngreso">
+                            <input type="hidden" id="id" name="id">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Estación</label>
+                                    <div class="select">
+                                        <select class="selectpicker form-control estacion_id" name="estacion_id" id="estacion_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Estación">
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Función</label>
+                                    <div class="select">
+                                        <select class="selectpicker form-control funcion" id="funcion" name="funcion" validation="not_null" data-live-search="true" data-nombre="Función" data-container="body">
+                                            <option value="PMP">PMP</option>
+                                            <option value="PTP">PTP</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Alarma Activada</label>
+                                    <div class="select">
+                                        <select class="selectpicker form-control alarma_activada" id="alarma_activada" name="alarma_activada" validation="not_null" data-live-search="true" data-nombre="Alarma Activada" data-container="body">
+                                            <option value="Si">Si</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Dirección IP</label>
+                                    <input id="direccion_ip" name="direccion_ip" type="text" placeholder="Ingrese la Dirección IP" class="form-control input-sm direccion_ip" validation="not_null" data-nombre="Dirección IP">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Puerto de Acceso</label>
+                                    <input id="puerto_acceso" name="puerto_acceso" type="text" placeholder="Ingrese el Puerto de Acceso" class="form-control input-sm puerto_acceso" validation="not_null" data-nombre="Puerto de Acceso">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Ancho de Canal</label>
+                                    <input id="ancho_canal" name="ancho_canal" type="text" placeholder="Ingrese el Ancho de Canal" class="form-control input-sm ancho_canal" validation="not_null" data-nombre="Ancho de Canal">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Frecuencia</label>
+                                    <input id="frecuencia" name="frecuencia" type="text" placeholder="Ingrese la Frecuencia" class="form-control input-sm frecuencia" validation="not_null" data-nombre="Frecuencia">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">TX Power</label>
+                                    <input id="tx_power" name="tx_power" type="text" placeholder="Ingrese el TX Power" class="form-control input-sm tx_power" validation="not_null" data-nombre="TX Power">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Mac Address</label>
+                                    <div class="select">
+                                        <select class="selectpicker form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
+                                            <option value="">Seleccione</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div><!-- /.modal-body -->
+                <div class="modal-footer p-b-20 m-b-20">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-purple" id="actualizarIngreso" name="actualizarIngreso">Actualizar</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
 
     <div id="container" class="mainnav-sm">
 
@@ -212,323 +532,3 @@
 
     </body>
 </html>
-
-<div id="EstacionForm" class="modal fade" tabindex="-1" role="dialog" id="load">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
-                <h4 class="modal-title c-negro">Agregar Estación <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
-            </div>
-            <div class="modal-body">
-                <div class="row" style="padding:20px">
-                    <form class="form-horizontal" id = "storeEstacion">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Nombre</label>
-                                <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validation="not_null" data-nombre="Nombre">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Dirección</label>
-                                <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validation="not_null" data-nombre="Dirección"></textarea>
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Télefono</label>
-                                <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Correo</label>
-                                <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Responsable</label>
-                                <div class="select">
-                                    <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div><!-- /.modal-body -->
-            <div class="modal-footer p-b-20 m-b-20">
-                <div class="col-sm-12">
-                    <button type="button" class="btn btn-purple" id="guardarEstacion" name="guardarEstacion">Guardar</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div id="EstacionFormUpdate" class="modal fade" tabindex="-1" role="dialog" id="load">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
-                <h4 class="modal-title c-negro"><span id="span_estacion">Actualizar</span> Estación <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
-            </div>
-            <div class="modal-body">
-                <div class="row" style="padding:20px">
-                    <form class="form-horizontal" id = "updateEstacion">
-                        <input type="hidden" id="id" name="id">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Nombre</label>
-                                <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validation="not_null" data-nombre="Nombre">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Dirección</label>
-                                <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validation="not_null" data-nombre="Dirección"></textarea>
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Télefono</label>
-                                <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Correo</label>
-                                <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Responsable</label>
-                                <div class="select">
-                                    <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div><!-- /.modal-body -->
-            <div class="modal-footer p-b-20 m-b-20">
-                <div class="col-sm-12">
-                    <button type="button" class="btn btn-purple" id="actualizarEstacion" name="actualizarEstacion">Actualizar</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div id="IngresoForm" class="modal fade" tabindex="-1" role="dialog" id="load">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
-                <h4 class="modal-title c-negro">Agregar Ingreso <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
-            </div>
-            <div class="modal-body">
-                <div class="row" style="padding:20px">
-                    <form class="form-horizontal" id = "storeIngreso">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Estación</label>
-                                <div class="select">
-                                    <select class="selectpicker form-control estacion_id" name="estacion_id" id="estacion_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Estación">
-                                        <option value="">Seleccione</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Función</label>
-                                <div class="select">
-                                    <select class="selectpicker form-control funcion" id="funcion" name="funcion" validation="not_null" data-live-search="true" data-nombre="Función" data-container="body">
-                                        <option value="PMP">PMP</option>
-                                        <option value="PTP">PTP</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Alarma Activada</label>
-                                <div class="select">
-                                    <select class="selectpicker form-control alarma_activada" id="alarma_activada" name="alarma_activada" validation="not_null" data-live-search="true" data-nombre="Alarma Activada" data-container="body">
-                                        <option value="Si">Si</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Dirección IP</label>
-                                <input id="direccion_ip" name="direccion_ip" type="text" placeholder="Ingrese la Dirección IP" class="form-control input-sm direccion_ip" validation="not_null" data-nombre="Dirección IP">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Puerto de Acceso</label>
-                                <input id="puerto_acceso" name="puerto_acceso" type="text" placeholder="Ingrese el Puerto de Acceso" class="form-control input-sm puerto_acceso" validation="not_null" data-nombre="Puerto de Acceso">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Ancho de Canal</label>
-                                <input id="ancho_canal" name="ancho_canal" type="text" placeholder="Ingrese el Ancho de Canal" class="form-control input-sm ancho_canal" validation="not_null" data-nombre="Ancho de Canal">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Frecuencia</label>
-                                <input id="frecuencia" name="frecuencia" type="text" placeholder="Ingrese la Frecuencia" class="form-control input-sm frecuencia" validation="not_null" data-nombre="Frecuencia">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">TX Power</label>
-                                <input id="tx_power" name="tx_power" type="text" placeholder="Ingrese el TX Power" class="form-control input-sm tx_power" validation="not_null" data-nombre="TX Power">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Mac Address</label>
-                                <div class="select">
-                                    <select class="selectpicker form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
-                                        <option value="">Seleccione</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div><!-- /.modal-body -->
-            <div class="modal-footer p-b-20 m-b-20">
-                <div class="col-sm-12">
-                    <button type="button" class="btn btn-purple" id="guardarIngreso" name="guardarIngreso">Guardar</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div id="IngresoFormUpdate" class="modal fade" tabindex="-1" role="dialog" id="load">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
-                <h4 class="modal-title c-negro"><span id="span_ingreso">Actualizar</span> Ingreso <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
-            </div>
-            <div class="modal-body">
-                <div class="row" style="padding:20px">
-                    <form class="form-horizontal" id = "updateIngreso">
-                        <input type="hidden" id="id" name="id">
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Estación</label>
-                                <div class="select">
-                                    <select class="selectpicker form-control estacion_id" name="estacion_id" id="estacion_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Estación">
-                                        <option value="">Seleccione</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Función</label>
-                                <div class="select">
-                                    <select class="selectpicker form-control funcion" id="funcion" name="funcion" validation="not_null" data-live-search="true" data-nombre="Función" data-container="body">
-                                        <option value="PMP">PMP</option>
-                                        <option value="PTP">PTP</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Alarma Activada</label>
-                                <div class="select">
-                                    <select class="selectpicker form-control alarma_activada" id="alarma_activada" name="alarma_activada" validation="not_null" data-live-search="true" data-nombre="Alarma Activada" data-container="body">
-                                        <option value="Si">Si</option>
-                                        <option value="No">No</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Dirección IP</label>
-                                <input id="direccion_ip" name="direccion_ip" type="text" placeholder="Ingrese la Dirección IP" class="form-control input-sm direccion_ip" validation="not_null" data-nombre="Dirección IP">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Puerto de Acceso</label>
-                                <input id="puerto_acceso" name="puerto_acceso" type="text" placeholder="Ingrese el Puerto de Acceso" class="form-control input-sm puerto_acceso" validation="not_null" data-nombre="Puerto de Acceso">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Ancho de Canal</label>
-                                <input id="ancho_canal" name="ancho_canal" type="text" placeholder="Ingrese el Ancho de Canal" class="form-control input-sm ancho_canal" validation="not_null" data-nombre="Ancho de Canal">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Frecuencia</label>
-                                <input id="frecuencia" name="frecuencia" type="text" placeholder="Ingrese la Frecuencia" class="form-control input-sm frecuencia" validation="not_null" data-nombre="Frecuencia">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">TX Power</label>
-                                <input id="tx_power" name="tx_power" type="text" placeholder="Ingrese el TX Power" class="form-control input-sm tx_power" validation="not_null" data-nombre="TX Power">
-                            </div>
-                        </div>
-                        <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
-                            <div class="form-group">
-                                <label class="control-label" for="name">Mac Address</label>
-                                <div class="select">
-                                    <select class="selectpicker form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
-                                        <option value="">Seleccione</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div><!-- /.modal-body -->
-            <div class="modal-footer p-b-20 m-b-20">
-                <div class="col-sm-12">
-                    <button type="button" class="btn btn-purple" id="actualizarIngreso" name="actualizarIngreso">Actualizar</button>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->

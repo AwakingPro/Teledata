@@ -96,10 +96,35 @@
 
                 $this->Id=$Id;
 
-                $query = "DELETE from `mantenedor_site` where `id` = '$this->Id'";
+                $query = "SELECT * from `radio_ingresos` where `estacion_id` = '$this->Id'";
                 $run = new Method;
-                $data = $run->insert($query);
-                $response_array['status'] = 1; 
+                $data = $run->select($query);
+
+                if(!$data){
+
+                    $query = "SELECT * from `inventario_ingresos` where `bodega_id` = '$this->Id' and bodega_tipo = '3'";
+                    $run = new Method;
+                    $data = $run->select($query);
+
+                    if(!$data){
+
+                        $query = "DELETE from `mantenedor_site` where `id` = '$this->Id'";
+                        $run = new Method;
+                        $data = $run->insert($query);
+
+                        $query = "DELETE from `inventario_egresos` where `destino_tipo` = '3' and `destino_id` = '$this->Id'";
+                        $run = new Method;
+                        $data = $run->insert($query);
+
+                        $response_array['status'] = 1;
+
+                    }else{
+                        $response_array['status'] = 3; 
+                    }
+
+                }else{
+                    $response_array['status'] = 3; 
+                }
                     
                
             }else{
@@ -135,7 +160,16 @@
 
         function showInventario(){
 
-            $query = 'SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, mantenedor_proveedores.nombre as proveedor, mantenedor_bodegas.nombre as bodega FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id INNER JOIN mantenedor_bodegas ON inventario_ingresos.bodega_id = mantenedor_bodegas.id LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
+            $query = 'SELECT    inventario_ingresos.*, 
+                                mantenedor_modelo_producto.nombre as modelo, 
+                                mantenedor_marca_producto.nombre as marca, 
+                                mantenedor_tipo_producto.nombre as tipo, 
+                                mantenedor_proveedores.nombre as proveedor 
+                    FROM        inventario_ingresos 
+                    INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id 
+                    INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id 
+                    INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id 
+                    LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
 
             $run = new Method;
             $data = $run->select($query);
@@ -203,6 +237,11 @@
                 $id = $run->insert($query);
 
                 if($id){
+
+                    $query = "UPDATE inventario_ingresos SET bodega_tipo = '3', bodega_id = '$id' where `id` = '$this->Producto'";
+
+                    $run = new Method;
+                    $data = $run->insert($query);
 
                     $array = array('id'=> $id, 'estacion_id' => $this->Estacion,'funcion' => $this->Funcion,'alarma_activada' => $this->AlarmaActivada, 'direccion_ip' => $this->DireccionIp, 'puerto_acceso' => $this->PuertoAcceso, 'ancho_canal'=> $this->AnchoCanal, 'frecuencia' => $this->Frecuencia, 'tx_power' => $this->TxPower, 'producto_id' => $this->Producto);
 
@@ -280,10 +319,26 @@
 
                 $this->Id=$Id;
 
-                $query = "DELETE from `radio_ingresos` where `id` = '$this->Id'";
+                $query = "SELECT * from `radio_ingresos` where `id` = '$this->Id'";
                 $run = new Method;
-                $data = $run->insert($query);
-                $response_array['status'] = 1; 
+                $data = $run->select($query);
+
+                if($data){
+
+                    $this->Producto = $data[0]['producto_id'];
+
+                    $query = "DELETE from `radio_ingresos` where `id` = '$this->Id'";
+                    $run = new Method;
+                    $data = $run->insert($query);
+
+                    $query = "UPDATE inventario_ingresos SET bodega_tipo = '1', bodega_id = '999' where `id` = '$this->Producto'";
+                    $run = new Method;
+                    $data = $run->insert($query);
+
+                    $response_array['status'] = 1; 
+                }else{
+                    $response_array['status'] = 0;
+                }
                
             }else{
                 $response_array['status'] = 2; 

@@ -329,7 +329,7 @@ $(document).ready(function(){
                   ''+array.estacion+'',
                   ''+array.funcion+'',
                   ''+array.alarma_activada+'',
-                  ''+array.direccion_ip+'',
+                  ''+'<a href="http://'+array.direccion_ip+':'+array.puerto_acceso+'" target="_blank">'+array.direccion_ip+'</a>'+'',
                   ''+array.puerto_acceso+'',
                   ''+array.ancho_canal+'',
                   ''+array.frecuencia+'',
@@ -341,6 +341,7 @@ $(document).ready(function(){
                 $( rowNode )
                     .attr('id','ingreso_'+array.id)
                     .data('estacion_id',array.estacion_id)
+                    .data('producto_id',array.producto_id)
                     .addClass('text-center');
             });
         }
@@ -368,7 +369,7 @@ $(document).ready(function(){
                   ''+Estacion+'',
                   ''+response.array.funcion+'',
                   ''+response.array.alarma_activada+'',
-                  ''+response.array.direccion_ip+'',
+                  ''+'<a href="http://'+response.array.direccion_ip+':'+response.array.puerto_acceso+'" target="_blank">'+response.array.direccion_ip+'</a>'+'',
                   ''+response.array.puerto_acceso+'',
                   ''+response.array.ancho_canal+'',
                   ''+response.array.frecuencia+'',
@@ -384,6 +385,9 @@ $(document).ready(function(){
                     .addClass('text-center');
 
                 $('#storeIngreso')[0].reset();
+
+                $('#producto_id option[value="'+response.array.producto_id+'"]').remove();
+
                 $('.selectpicker').selectpicker('render');
                 $('.selectpicker').selectpicker('refresh');
                 $('.modal').modal('hide');
