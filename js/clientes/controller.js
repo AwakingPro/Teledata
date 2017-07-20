@@ -58,6 +58,7 @@ $(document).ready(function() {
 		$.post('../ajax/cliente/tipoViewModal.php', {id: id}, function(data) {
 			$('.containerTipoServicio').load('viewTipoServicio/'+data,function(){
 				$('[name="idServicio"]').val(id);
+				$('select').selectpicker();
 			});
 		});
 	});
@@ -332,6 +333,48 @@ $(document).ready(function() {
 			}
 		});
 	});
+
+	$(document).on('change', '#origen_tipo', function () {
+        $('#producto_id').empty();
+        $('#producto_id').append(new Option('Seleccione Opción',''));
+
+        $('#producto_id').selectpicker('refresh');
+
+        $('#origen_id').empty();
+        $('#origen_id').append(new Option('Seleccione Opción',''));
+
+        if($(this).val()){
+
+            $('.origen').show();
+
+
+            if($(this).val() == 1){
+
+                $('#span_origen').text('Bodega');
+
+                $.ajax({
+                    type: "POST",
+                    url: "../includes/inventario/egresos/getBodega.php",
+                    success: function(response){
+
+                        $.each(response.array, function( index, array ) {
+                            $('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                        });
+
+                        $('.selectpicker').selectpicker('render');
+                        $('.selectpicker').selectpicker('refresh');
+                    }
+                });
+            }else{
+                $('#span_origen').text('Cliente');
+                $('.selectpicker').selectpicker('render');
+                $('.selectpicker').selectpicker('refresh');
+            }
+        }else{
+            $('.origen').hide();
+        }
+
+    });
 
 
 

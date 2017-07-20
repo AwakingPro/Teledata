@@ -7,7 +7,7 @@ $(document).ready(function(){
         paging: false,
         iDisplayLength: 100,
         processing: true,
-        serverSide: false,  
+        serverSide: false,
         bInfo:false,
         order: [[0, 'asc']],
         language: {
@@ -60,6 +60,7 @@ $(document).ready(function(){
         }
     });
 
+
     $('#origen_tipo').on('change', function () {
 
         $('#producto_id').empty();
@@ -74,7 +75,7 @@ $(document).ready(function(){
 
             $('.origen').show();
 
-            
+
             if($(this).val() == 1){
 
                 $('#span_origen').text('Bodega');
@@ -160,7 +161,7 @@ $(document).ready(function(){
                 $('.selectpicker').selectpicker('refresh');
             }
         });
-            
+
     });
 
 

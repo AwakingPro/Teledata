@@ -112,6 +112,36 @@
 			</nav>
 		</div>
 	</div>
+
+	<div class="modal fade" tabindex="-1" role="dialog" id="verServicios" aria-labelledby="verServicios">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Lista de Datos técnicos</h4>
+				</div>
+				<div class="modal-body containerListDatosTecnicos">
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="agregarDatosTecnicos">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Agregar Datos Técnicos</h4>
+				</div>
+				<div class="modal-body containerTipoServicio">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary guardarDatosTecnicos">Guardar</button>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
 	<script src="../js/jquery-2.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/nifty.min.js"></script>
@@ -124,31 +154,3 @@
 </body>
 </html>
 
-<div class="modal fade" tabindex="-1" role="dialog" id="verServicios" aria-labelledby="verServicios">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Lista de Datos técnicos</h4>
-			</div>
-			<div class="modal-body containerListDatosTecnicos">
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" id="agregarDatosTecnicos">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Agregar Datos Técnicos</h4>
-			</div>
-			<div class="modal-body containerTipoServicio">
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary guardarDatosTecnicos">Guardar</button>
-			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
