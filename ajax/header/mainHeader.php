@@ -76,7 +76,7 @@ $data = $run->select($query);
 					<!-- User dropdown menu -->
 					<ul class="head-list">
 						<li>
-							<a href="#">
+							<a href="../perfil">
 								<i class="pli-male icon-lg icon-fw"></i> Perfil
 							</a>
 						</li>
