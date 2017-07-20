@@ -13,7 +13,7 @@
 		</div>
 	</div>
 
-	<div class="col-md-12 origen" style="display:none">
+	<div class="col-md-12 origen">
 		<div class="form-group">
 			<label class="control-label">Seleccione <span id="span_origen">Bodega</span></label>
 			<select class="form-control" name="origen_id" data-live-search="true">
@@ -50,6 +50,5 @@
 			</select>
 		</div>
 	</div>
-
 
 </div>
