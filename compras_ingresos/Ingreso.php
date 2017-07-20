@@ -376,28 +376,17 @@
 
         <script src="../js/jquery-2.2.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
-        <script src="../plugins/fast-click/fastclick.min.js"></script>
         <script src="../js/nifty.min.js"></script>
-        <script src="../plugins/morris-js/morris.min.js"></script>
-        <script src="../plugins/morris-js/raphael-js/raphael.min.js"></script>
-        <script src="../plugins/sparkline/jquery.sparkline.min.js"></script>
-        <script src="../plugins/skycons/skycons.min.js"></script>
-        <script src="../plugins/switchery/switchery.min.js"></script>
-        <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
-        <script src="../js/demo/nifty-demo.min.js"></script>
-        <script src="../plugins/bootbox/bootbox.min.js"></script>
-        <script src="../js/demo/ui-alerts.js"></script>
-        <script src="../plugins/audiojs/audio.min.js"></script>
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
-        <script src="../plugins/bootbox/bootbox.min.js"></script>
-        <script src="../plugins/numbers/jquery.number.min.js"></script>
-        <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
+        <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        <script src="../plugins/sweetalert/sweetalert.min.js"></script>
+        <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
         <script src="../plugins/moment/moment.js"></script>
         <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-        <script src="../plugins/sweetalert/sweetalert.min.js"></script>
         <script src="../js/global/validations.js"></script>
+        <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
+        <script src="../plugins/numbers/jquery.number.min.js"></script>
         <script src="../js/compras/ingresos/Ingreso.js"></script>
-        <script src="../js/methods_global/methods.js"></script>
 
     </body>
 </html>

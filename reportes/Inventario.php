@@ -32,7 +32,7 @@
     </head>
     <body>
 
-        <div id="container" class="effect mainnav-sm">
+        <div id="container" class="mainnav-sm">
 
           <div class="containerHeader"></div>
 
