@@ -134,7 +134,7 @@ $.post('../ajax/privilegios.php', function(data) {
 					$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
 
 					$('input, select, textarea').val('');
-					bootbox.alert('<h3 class="text-center">El ticket #'+data+' se registro con exito.</h3>');
+					bootbox.alert('<h3 class="text-center">El ticket #'+data+' se registro con éxito.</h3>');
 
 				}else{
 					console.log(data);
@@ -188,7 +188,7 @@ $.post('../ajax/privilegios.php', function(data) {
 					$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
 
 					$('input, select, textarea').val('');
-					bootbox.alert('<h3 class="text-center">El ticket #'+data+' se registro con exito.</h3>');
+					bootbox.alert('<h3 class="text-center">El ticket #'+data+' se registro con éxito.</h3>');
 
 				}else{
 					console.log(data);
@@ -226,7 +226,7 @@ $.post('../ajax/privilegios.php', function(data) {
 						$('[name="nombre"]').val("");
 						$('[name="tiempo"]').val("");
 						$('[name="idUpdatePrioridad"]').val("");
-						bootbox.alert('<h3 class="text-center">la prioridad se actualizo con exito.</h3>');
+						bootbox.alert('<h3 class="text-center">la prioridad se actualizo con éxito.</h3>');
 					}else{
 						console.log(data);
 						bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
@@ -245,7 +245,7 @@ $.post('../ajax/privilegios.php', function(data) {
 							});
 						});
 						$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php');
-						bootbox.alert('<h3 class="text-center">la prioridad se registro con exito.</h3>');
+						bootbox.alert('<h3 class="text-center">la prioridad se registro con éxito.</h3>');
 					}else{
 						console.log(data);
 						bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
@@ -496,7 +496,7 @@ $.post('../ajax/privilegios.php', function(data) {
 				$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
 				$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
 				$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
-				bootbox.alert('<h3 class="text-center">El ticket se actualizo con exito.</h3>');
+				bootbox.alert('<h3 class="text-center">El ticket se actualizo con éxito.</h3>');
 			});
 		});
 
@@ -523,7 +523,7 @@ $.post('../ajax/privilegios.php', function(data) {
 						});
 					});
 					$('[name="Tipo"], [name="TipoUpdate"], [name="nombreTipo"]').load('../ajax/tickets/selectTipoTicket.php');
-					bootbox.alert('<h3 class="text-center">El tipo de ticket se registro con exito.</h3>');
+					bootbox.alert('<h3 class="text-center">El tipo de ticket se registro con éxito.</h3>');
 				}else{
 					console.log(data);
 					bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
@@ -546,7 +546,7 @@ $.post('../ajax/privilegios.php', function(data) {
 					$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
 						$('[name="Subtipo"]').html(data);
 					});
-					bootbox.alert('<h3 class="text-center">El Subtipo de ticket se registro con exito.</h3>');
+					bootbox.alert('<h3 class="text-center">El Subtipo de ticket se registro con éxito.</h3>');
 				}else{
 					console.log(data);
 					bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');

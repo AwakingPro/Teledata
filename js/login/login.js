@@ -5,7 +5,7 @@ $(document).ready(function(){
 			if (values[0] ==true) {
 				window.location = values[1];
 			}else{
-				bootbox.alert('<h3 class="text-center">Usuario o Contraseña incorecctos</h3>');
+				bootbox.alert('<h3 class="text-center">Usuario o Contraseña incorrectos</h3>');
 			}
 		});
 	});

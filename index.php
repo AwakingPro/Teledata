@@ -39,7 +39,7 @@
 								</div>
 							</div>
 							<button class="btn btn-primary btn-block btn-lg enviarForm" type="button">
-							<i class="fa fa-circle-o-notch "></i> Iniciar sesion
+							<i class="fa fa-circle-o-notch "></i> Iniciar Sesión
 							</button>
 							<br>
 						</form>

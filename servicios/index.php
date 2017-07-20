@@ -234,16 +234,16 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Agregar Tipo de Facturacion</h4>
+				<h4 class="modal-title" id="myModalLabel">Agregar Tipo de Facturación</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
 					<div class="col-md-6 form-group">
-						<label>Codigo</label>
+						<label>Código</label>
 						<input name="TipoFacCodigo" class="form-control">
 					</div>
 					<div class="col-md-6 form-group">
-						<label>Descripcion</label>
+						<label>Descripción</label>
 						<input name="TipoFacDescripcion" class="form-control">
 					</div>
 				</div>

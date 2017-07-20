@@ -99,7 +99,7 @@ $(document).ready(function(){
                 $.niftyNoty({
                     type: 'success',
                     icon : 'fa fa-check',
-                    message : 'Registro Guardado Exitosamente',
+                    message : 'Registro Guardado exitosamente',
                     container : 'floating',
                     timer : 3000
                 });
@@ -143,7 +143,7 @@ $(document).ready(function(){
                 $.niftyNoty({
                     type: 'danger',
                     icon : 'fa fa-check',
-                    message : 'Ocurrio un error en el Proceso',
+                    message : 'Ocurrió un error en el Proceso',
                     container : 'floating',
                     timer : 3000
                 });
@@ -202,7 +202,7 @@ $(document).ready(function(){
                 $.niftyNoty({
                     type: 'success',
                     icon : 'fa fa-check',
-                    message : 'Registro Actualizado Exitosamente',
+                    message : 'Registro Actualizado exitosamente',
                     container : 'floating',
                     timer : 3000
                 });
@@ -232,7 +232,7 @@ $(document).ready(function(){
                 $.niftyNoty({
                     type: 'danger',
                     icon : 'fa fa-check',
-                    message : 'Ocurrio un error en el Proceso',
+                    message : 'Ocurrió un error en el Proceso',
                     container : 'floating',
                     timer : 3000
                 });
@@ -267,7 +267,7 @@ $(document).ready(function(){
                     success:function(response){
                         setTimeout(function() {
                             if(response.status == 1){
-                                swal("Exito!","El registro ha sido eliminado!","success");
+                                swal("Éxito!","El registro ha sido eliminado!","success");
                                 EstacionTable.row($(ObjectTR))
                                     .remove()
                                     .draw();
@@ -356,7 +356,7 @@ $(document).ready(function(){
                 $.niftyNoty({
                     type: 'success',
                     icon : 'fa fa-check',
-                    message : 'Registro Guardado Exitosamente',
+                    message : 'Registro Guardado exitosamente',
                     container : 'floating',
                     timer : 3000
                 });
@@ -403,7 +403,7 @@ $(document).ready(function(){
                 $.niftyNoty({
                     type: 'danger',
                     icon : 'fa fa-check',
-                    message : 'Ocurrio un error en el Proceso',
+                    message : 'Ocurrió un error en el Proceso',
                     container : 'floating',
                     timer : 3000
                 });
@@ -466,7 +466,7 @@ $(document).ready(function(){
                 $.niftyNoty({
                     type: 'success',
                     icon : 'fa fa-check',
-                    message : 'Registro Actualizado Exitosamente',
+                    message : 'Registro Actualizado exitosamente',
                     container : 'floating',
                     timer : 3000
                 });
@@ -503,7 +503,7 @@ $(document).ready(function(){
                 $.niftyNoty({
                     type: 'danger',
                     icon : 'fa fa-check',
-                    message : 'Ocurrio un error en el Proceso',
+                    message : 'Ocurrió un error en el Proceso',
                     container : 'floating',
                     timer : 3000
                 });
@@ -538,7 +538,7 @@ $(document).ready(function(){
                     success:function(response){
                         setTimeout(function() {
                             if(response.status == 1){
-                                swal("Exito!","El registro ha sido eliminado!","success");
+                                swal("Éxito!","El registro ha sido eliminado!","success");
                                 IngresoTable.row($(ObjectTR))
                                     .remove()
                                     .draw();
@@ -608,7 +608,7 @@ $(document).ready(function(){
                         $.niftyNoty({
                             type: 'success',
                             icon : 'fa fa-check',
-                            message : 'Busqueda Realizada Exitosamente',
+                            message : 'Búsqueda Realizada exitosamente',
                             container : 'floating',
                             timer : 3000
                         });
@@ -637,7 +637,7 @@ $(document).ready(function(){
                         $.niftyNoty({
                             type: 'danger',
                             icon : 'fa fa-check',
-                            message : 'Debe llenar el campo de busqueda',
+                            message : 'Debe llenar el campo de búsqueda',
                             container : 'floating',
                             timer : 3000
                         });

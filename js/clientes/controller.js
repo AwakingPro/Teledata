@@ -16,7 +16,7 @@ $(document).ready(function() {
 	$(document).on('click', '.guardarCliente', function() {
 		$.postFormValues('../ajax/cliente/insertCliente.php','.form-cont1',function(data){
 			if (Number(data) > 0){
-				bootbox.alert('<h3 class="text-center">El cliente #'+data+' se registro con exito.</h3>');
+				bootbox.alert('<h3 class="text-center">El cliente #'+data+' se registro con éxito.</h3>');
 			}else{
 				console.log(data);
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
@@ -85,7 +85,7 @@ $(document).ready(function() {
 		$.postFormValues('../ajax/cliente/'+url,'.container-form-datosTecnicos',function(data){
 			console.log(data);
 			if (Number(data) > 0){
-				bootbox.alert('<h3 class="text-center">Los datos se registron con exito.</h3>');
+				bootbox.alert('<h3 class="text-center">Los datos se registraron con éxito.</h3>');
 			}else{
 				console.log(data);
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
@@ -189,7 +189,7 @@ $(document).ready(function() {
 				});
 			});
 			$('#editarCliente').modal('hide');
-			bootbox.alert('<h3 class="text-center">El ticket se actualizo con exito.</h3>');
+			bootbox.alert('<h3 class="text-center">El ticket se actualizo con éxito.</h3>');
 		});
 	});
 
