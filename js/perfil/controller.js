@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+	$.post('../ajax/perfil/dataUser.php', {param1: 'value1'}, function(data, textStatus, xhr) {
+		/*optional stuff to do after success */
+	});
+
 	function showPreview(coords) {
 		var height = $('.imgSelect').width();
 		var width = $('.imgSelect').height();

@@ -64,48 +64,104 @@
 										<div class="row">
 											<div class="col-md-6">
 												<div class="form-group">
-													<label>Nombre de usuario</label>
+													<label>Usuario</label>
 													<input type="text" class="form-control" value="Usuario">
 												</div>
 												<div class="form-group">
-													<input id="pass" class="magic-checkbox check" type="checkbox">
-													<label for="pass">Cambiar contraseña</label>
+													<label>Nombre</label>
+													<input type="text" class="form-control" value="Usuario">
 												</div>
 												<div class="form-group">
-													<label>Contraseña actual</label>
-													<input type="text" class="form-control pass1" disabled="disabled">
+													<label>Correo</label>
+													<input type="text" class="form-control" value="Usuario">
 												</div>
 												<div class="form-group">
-													<label>Nueva contraseña</label>
-													<input type="text" class="form-control pass2" disabled="disabled">
+												<labeel>Sexo</label>
+												<div class="radio">
+													<label>
+														<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+														Masculino
+													</label>
 												</div>
-												<div class="form-group">
-													<label>Repita su contraseña</label>
-													<input type="text" class="form-control pass3" disabled="disabled">
+												<div class="radio">
+													<label>
+														<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+														Femenino
+													</label>
 												</div>
 											</div>
-											<div class="col-md-6">
-												<div class="row">
-													<div class="col-md-12">
-														<label for="exampleInputEmail1">Cambiar imagen de Perfil</label>
-														<div class="form-group">
-															<div class="fileinput fileinput-new" data-provides="fileinput">
-																<span class="btn green btn-success btn-file">
-																	<span class="fileinput-new"> Seleccione imagen </span>
-																	<span class="fileinput-exists"> Cambiar imagen </span>
-																	<input type="file" class="adjuntar-img" name="file">
-																</span>
-																<span class="fileinput-filename"> </span>
-															</div>
+											<div class="form-group">
+												<input id="pass" class="magic-checkbox check" type="checkbox">
+												<label for="pass">Cambiar contraseña</label>
+											</div>
+											<div class="form-group">
+												<label>Contraseña actual</label>
+												<input type="text" class="form-control pass1" disabled="disabled">
+											</div>
+											<div class="form-group">
+												<label>Nueva contraseña</label>
+												<input type="text" class="form-control pass2" disabled="disabled">
+											</div>
+											<div class="form-group">
+												<label>Repita su contraseña</label>
+												<input type="text" class="form-control pass3" disabled="disabled">
+											</div>
+										</div>
+										<div class="col-md-6">
+											<div class="row">
+												<div class="col-md-12">
+													<label for="exampleInputEmail1">Cambiar imagen de Perfil</label>
+													<div class="form-group">
+														<div class="fileinput fileinput-new" data-provides="fileinput">
+															<span class="btn green btn-success btn-file">
+																<span class="fileinput-new"> Seleccione imagen </span>
+																<span class="fileinput-exists"> Cambiar imagen </span>
+																<input type="file" class="adjuntar-img" name="file">
+															</span>
+															<span class="fileinput-filename"> </span>
 														</div>
 													</div>
-													<div class="col-md-12 cont-preImg1"></div>
 												</div>
+												<div class="col-md-12 cont-preImg1"></div>
 											</div>
-											<div class="col-md-12">
-												<div class="col-md-12 row">
-													<button type="button" class="btn btn-primary" id="procesar"><i class="ti-save"></i> Guardar Datos</button>
-												</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-12 row">
+												<button type="button" class="btn btn-primary" id="procesar"><i class="ti-save"></i> Guardar Datos</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="panel">
+								<div class="panel-heading">
+									<h3 class="panel-title">
+									<i class="ti-user"></i> Cambio de Contraseña
+									</h3>
+								</div>
+								<div class="panel-body">
+									<div class="row">
+										<div class="col-md-12">
+											<div class="form-group">
+												<input id="pass" class="magic-checkbox check" type="checkbox">
+												<label for="pass">Cambiar contraseña</label>
+											</div>
+											<div class="form-group">
+												<label>Contraseña actual</label>
+												<input type="text" class="form-control pass1" disabled="disabled">
+											</div>
+											<div class="form-group">
+												<label>Nueva contraseña</label>
+												<input type="text" class="form-control pass2" disabled="disabled">
+											</div>
+											<div class="form-group">
+												<label>Repita su contraseña</label>
+												<input type="text" class="form-control pass3" disabled="disabled">
+											</div>
+										</div>
+										<div class="col-md-12">
+											<div class="col-md-12 row">
+												<button type="button" class="btn btn-primary" id="procesar"><i class="ti-save"></i> Cambio de Contraseña</button>
 											</div>
 										</div>
 									</div>
