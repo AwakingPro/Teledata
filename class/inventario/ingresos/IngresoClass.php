@@ -216,10 +216,16 @@
 
                 $query = "DELETE from `inventario_egresos` where `producto_id` = '$this->Id'";
                 $run = new Method;
-                $data = $run->insert($query);
+                $data = $run->delete($query);
+
+                $query = "DELETE from `radio_ingresos` where `producto_id` = '$this->Id'";
+                $run = new Method;
+                $data = $run->delete($query);
+
                 $query = "DELETE from `inventario_ingresos` where `id` = '$this->Id'";
                 $run = new Method;
-                $data = $run->insert($query);
+                $data = $run->delete($query);
+
                 $response_array['status'] = 1; 
 
                 

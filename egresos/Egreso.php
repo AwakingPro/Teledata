@@ -43,7 +43,7 @@
 												<option value="">Seleccione Opción</option>
 												<option value="1">Bodega</option>
 												<option value="2">Cliente</option>
-												<option value="3">Estación</option>
+												<!-- <option value="3">Estación</option> -->
 											</select>
 										</div>
 									</div>
@@ -53,7 +53,7 @@
 									<div class="form-group">
 										<label class="control-label" for="name">Seleccione <span id="span_origen">Bodega</span></label>
 										<div class="select">
-											<select class="selectpicker form-control" id="origen_id" name="origen_id" validation="not_null"  data-live-search="true" data-nombre="Origen" data-container="body">
+											<select class="selectpicker form-control" id="origen_id" name="origen_id"   data-live-search="true" data-container="body">
 												<option value="">Seleccione Opción</option>
 											</select>
 										</div>
@@ -79,7 +79,7 @@
 												<option value="">Seleccione Opción</option>
 												<option value="1">Bodega</option>
 												<option value="2">Cliente</option>
-												<option value="3">Estación</option>
+												<!-- <option value="3">Estación</option> -->
 											</select>
 										</div>
 									</div>

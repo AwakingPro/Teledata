@@ -46,7 +46,7 @@ $(document).ready(function(){
                 var rowNode = Table.row.add([
                     ''+array.numero_serie+'',
                     ''+array.tipo + ' ' + array.marca + ' ' + array.modelo+'',
-                    ''+array.destino_tipo+ ' ' +array.destino_nombre+'',
+                    ''+array.destino+'',
                     ''+fecha_movimiento+'',
                     ''+array.hora_movimiento+'',
                     ''+array.responsable+'',
@@ -69,7 +69,6 @@ $(document).ready(function(){
         $('#producto_id').selectpicker('refresh');
 
         $('#origen_id').empty();
-        $('#origen_id').append(new Option('Seleccione Opción',''));
 
         if($(this).val()){
 
@@ -78,6 +77,8 @@ $(document).ready(function(){
             if($(this).val() == 1){
 
                 $('#span_origen').text('Bodega');
+                $('#origen_id').append(new Option('Seleccione',''));
+                $('#origen_id').append(new Option('Bodega de Paso',''));
 
                 $.ajax({
                     type: "POST",
@@ -90,8 +91,11 @@ $(document).ready(function(){
 
                     }
                 });
+
             }else if($(this).val() == 2){
+
                 $('#span_origen').text('Cliente');
+                $('#origen_id').append(new Option('Seleccione',''));
 
                  $.ajax({
                     type: "POST",
@@ -104,7 +108,9 @@ $(document).ready(function(){
                 });
                 
             }else{
+
                 $('#span_origen').text('Estación');
+                $('#origen_id').append(new Option('Seleccione',''));
 
                  $.ajax({
                     type: "POST",
@@ -117,9 +123,36 @@ $(document).ready(function(){
                 });
             }
 
-            setTimeout(function() {       
+            $('#origen_id').selectpicker('render');
+            $('#origen_id').selectpicker('refresh');
+
+            setTimeout(function() {   
+
+                origen_tipo = $('#origen_tipo').val();
+                origen_id = $('#origen_id').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "../includes/inventario/egresos/getProducto.php",
+                    data:"&origen_tipo="+origen_tipo+"&origen_id="+origen_id,
+                    success: function(response){
+
+                        $.each(response.array, function( index, array ) {
+                            $('#producto_id').append('<option value="'+array.id+'" data-content="'+array.tipo + ' ' + array.marca + ' ' + array.modelo+ ' - ' + array.numero_serie+'"></option>');
+                        });
+
+                    }
+                });
+
                 $('#origen_id').selectpicker('render');
                 $('#origen_id').selectpicker('refresh');
+
+            }, 1000);
+
+
+            setTimeout(function() { 
+                $('#producto_id').selectpicker('render');
+                $('#producto_id').selectpicker('refresh');
             }, 1000);
 
         }else{
@@ -152,6 +185,7 @@ $(document).ready(function(){
                     }
                 });
             }else if($(this).val() == 2){
+
                 $('#span_destino').text('Cliente');
 
                  $.ajax({
@@ -196,20 +230,23 @@ $(document).ready(function(){
         origen_tipo = $('#origen_tipo').val();
         origen_id = $('#origen_id').val();
 
-        $.ajax({
-            type: "POST",
-            url: "../includes/inventario/egresos/getProducto.php",
-            data:"&origen_tipo="+origen_tipo+"&origen_id="+origen_id,
-            success: function(response){
+        if(origen_tipo){
 
-                $.each(response.array, function( index, array ) {
-                    $('#producto_id').append('<option value="'+array.id+'" data-content="'+array.tipo + ' ' + array.marca + ' ' + array.modelo+ ' - ' + array.numero_serie+'"></option>');
-                });
+            $.ajax({
+                type: "POST",
+                url: "../includes/inventario/egresos/getProducto.php",
+                data:"&origen_tipo="+origen_tipo+"&origen_id="+origen_id,
+                success: function(response){
 
-                $('.selectpicker').selectpicker('render');
-                $('.selectpicker').selectpicker('refresh');
-            }
-        });
+                    $.each(response.array, function( index, array ) {
+                        $('#producto_id').append('<option value="'+array.id+'" data-content="'+array.tipo + ' ' + array.marca + ' ' + array.modelo+ ' - ' + array.numero_serie+'"></option>');
+                    });
+
+                    $('.selectpicker').selectpicker('render');
+                    $('.selectpicker').selectpicker('refresh');
+                }
+            });
+        }
 
     });
 
@@ -255,6 +292,16 @@ $(document).ready(function(){
                     type: 'danger',
                     icon : 'fa fa-check',
                     message : 'Debe llenar todos los campos',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+            }else if(response.status == 10){
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'No puede transferir este producto si esta en una estación',
                     container : 'floating',
                     timer : 3000
                 });

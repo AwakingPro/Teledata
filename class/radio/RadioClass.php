@@ -241,14 +241,40 @@
                     $query = "UPDATE inventario_ingresos SET bodega_tipo = '3', bodega_id = '$this->Estacion' where `id` = '$this->Producto'";
 
                     $run = new Method;
-                    $data = $run->insert($query);
+                    $ingreso = $run->update($query);
 
-                    $array = array('id'=> $id, 'estacion_id' => $this->Estacion,'funcion' => $this->Funcion,'alarma_activada' => $this->AlarmaActivada, 'direccion_ip' => $this->DireccionIp, 'puerto_acceso' => $this->PuertoAcceso, 'ancho_canal'=> $this->AnchoCanal, 'frecuencia' => $this->Frecuencia, 'tx_power' => $this->TxPower, 'producto_id' => $this->Producto);
+                    if($ingreso){
 
-                    $response_array['array'] = $array;
-                    $response_array['status'] = 1; 
+                        session_start();
+
+                        $Usuario=$_SESSION['idUsuario'];
+                        $DateTime = new DateTime();
+                        $FechaMovimiento = $DateTime->format('Y-m-d');
+                        $HoraMovimiento = $DateTime->format('H:i:s');
+
+                        $query = "INSERT INTO inventario_egresos(destino_tipo, destino_id, fecha_movimiento, hora_movimiento, usuario_id, producto_id) VALUES ('3','$this->Estacion','$FechaMovimiento','$HoraMovimiento','$Usuario','$this->Producto')";
+
+                        $run = new Method;
+                        $egreso = $run->insert($query);
+
+                        if($egreso){
+
+                            $array = array('id'=> $id, 'estacion_id' => $this->Estacion,'funcion' => $this->Funcion,'alarma_activada' => $this->AlarmaActivada, 'direccion_ip' => $this->DireccionIp, 'puerto_acceso' => $this->PuertoAcceso, 'ancho_canal'=> $this->AnchoCanal, 'frecuencia' => $this->Frecuencia, 'tx_power' => $this->TxPower, 'producto_id' => $this->Producto);
+
+                            $response_array['array'] = $array;
+                            $response_array['status'] = 1; 
+
+                        }else{
+                            $response_array['status'] = 0; 
+                            $response_array['error'] = 'Insert Egreso'; 
+                        }
+                    }else{
+                        $response_array['status'] = 0; 
+                        $response_array['error'] = 'Update Ingreso'; 
+                    }
                 }else{
                     $response_array['status'] = 0; 
+                    $response_array['error'] = 'Insert Radio'; 
                 }
             }else{
                 $response_array['status'] = 2; 
@@ -329,7 +355,7 @@
 
                     $query = "DELETE from `radio_ingresos` where `id` = '$this->Id'";
                     $run = new Method;
-                    $data = $run->insert($query);
+                    $data = $run->delete($query);
 
                     $query = "UPDATE inventario_ingresos SET bodega_tipo = '', bodega_id = '' where `id` = '$this->Producto'";
                     $run = new Method;

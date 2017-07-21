@@ -15,85 +15,117 @@
 
             if(!empty($ProductoId) && !empty($DestinoTipo) && !empty($DestinoId)){
 
-                session_start();
-
-                $Usuario=$_SESSION['idUsuario'];
-                $DateTime = new DateTime();
-                $FechaMovimiento = $DateTime->format('Y-m-d');
-                $HoraMovimiento = $DateTime->format('H:i:s');
-
-                $query = "INSERT INTO inventario_egresos(destino_tipo, destino_id, fecha_movimiento, hora_movimiento, usuario_id, producto_id) VALUES ('$DestinoTipo','$DestinoId','$FechaMovimiento','$HoraMovimiento','$Usuario','$ProductoId')";
-
+                $query = "SELECT * FROM inventario_ingresos WHERE ID = '$ProductoId'";
                 $run = new Method;
-                $id = $run->insert($query);
+                $Producto = $run->select($query);
 
-                if($id){
+                if($Producto){
 
-                    $query = "UPDATE inventario_ingresos set bodega_tipo = '$DestinoTipo', bodega_id = '$DestinoId' where id = '$ProductoId'";
+                    if($Producto[0]['bodega_tipo'] != 3){
+                        $Acceso = 1;
+                    }else{
 
-                    $run = new Method;
-                    $update = $run->insert($query);
+                        $query = "SELECT * from `radio_ingresos` where `producto_id` = '$ProductoId'";
+                        $run = new Method;
+                        $Radio = $run->select($query);
 
-                    // if($update){
+                        if(!$Radio){
+                            $Acceso = 1;
+                        }else{
+                            $Acceso = 0;
+                        }
+                    }
 
-                        $query = "SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id where inventario_ingresos.id = '$ProductoId' AND bodega_tipo = '$DestinoTipo'AND bodega_id = '$DestinoId' ORDER BY inventario_ingresos.id DESC LIMIT 1";
+                    if($Acceso){
+
+                        session_start();
+
+                        $Usuario=$_SESSION['idUsuario'];
+                        $DateTime = new DateTime();
+                        $FechaMovimiento = $DateTime->format('Y-m-d');
+                        $HoraMovimiento = $DateTime->format('H:i:s');
+
+                        $query = "INSERT INTO inventario_egresos(destino_tipo, destino_id, fecha_movimiento, hora_movimiento, usuario_id, producto_id) VALUES ('$DestinoTipo','$DestinoId','$FechaMovimiento','$HoraMovimiento','$Usuario','$ProductoId')";
 
                         $run = new Method;
-                        $data = $run->select($query);
+                        $id = $run->insert($query);
 
-                        if($data){
+                        if($id){
 
-                            $NumeroSerie = $data[0]['numero_serie'];
-                            $Producto = $data[0]['tipo'] . ' ' . $data[0]['marca'] . ' ' . $data[0]['modelo'];
+                            $query = "UPDATE inventario_ingresos SET bodega_tipo = '$DestinoTipo', bodega_id = '$DestinoId' where id = '$ProductoId'";
 
-                            if($data[0]['bodega_tipo'] == 1){
-                                $query = "SELECT * FROM mantenedor_bodegas where id = ".$data[0]['bodega_id']." ORDER BY id DESC LIMIT 1";
-                                $run = new Method;
-                                $select = $run->select($query);
-                                $Destino = 'Bodega' . ' ' . $select[0]['nombre'];
-                            }else if($data[0]['bodega_tipo'] == 2){
-                                $query = "SELECT * FROM personaempresa where id = ".$data[0]['bodega_id']." ORDER BY id DESC LIMIT 1";
-                                $run = new Method;
-                                $select = $run->select($query);
-
-                                $Destino = 'Cliente' . ' ' . $select[0]['nombre'];
-                            }else{
-                                $query = "SELECT * FROM mantenedor_site where id = ".$data[0]['bodega_id']." ORDER BY id DESC LIMIT 1";
-                                $run = new Method;
-                                $select = $run->select($query);
-
-                                $Destino = 'Estación' . ' ' . $select[0]['nombre'];
-                            }
-
-                            $query = "SELECT * FROM usuarios where id = '$Usuario' ORDER BY id DESC LIMIT 1";
                             $run = new Method;
-                            $usuario = $run->select($query);
+                            $update = $run->update($query);
 
-                            if($usuario){
+                            if($update){
 
-                                $Responsable = $usuario[0]['nombre'];
+                                $query = "SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id where inventario_ingresos.id = '$ProductoId' AND bodega_tipo = '$DestinoTipo'AND bodega_id = '$DestinoId' ORDER BY inventario_ingresos.id DESC LIMIT 1";
 
-                                $array = array('id' => $id, 'numero_serie' => $NumeroSerie, 'producto' => $Producto, 'destino' => $Destino, 'fecha_movimiento' => $FechaMovimiento, 'hora_movimiento' => $HoraMovimiento, 'responsable' => $Responsable);
+                                $run = new Method;
+                                $data = $run->select($query);
 
-                                $response_array['array'] = $array;
-                                $response_array['status'] = 1; 
+                                if($data){
 
+                                    $NumeroSerie = $data[0]['numero_serie'];
+                                    $Producto = $data[0]['tipo'] . ' ' . $data[0]['marca'] . ' ' . $data[0]['modelo'];
+
+                                    if($data[0]['bodega_tipo'] == 1){
+                                        $query = "SELECT * FROM mantenedor_bodegas where id = ".$data[0]['bodega_id']." ORDER BY id DESC LIMIT 1";
+                                        $run = new Method;
+                                        $select = $run->select($query);
+                                    }else if($data[0]['bodega_tipo'] == 2){
+                                        $query = "SELECT * FROM personaempresa where id = ".$data[0]['bodega_id']." ORDER BY id DESC LIMIT 1";
+                                        $run = new Method;
+                                        $select = $run->select($query);
+                                    }else{
+                                        $query = "SELECT * FROM mantenedor_site where id = ".$data[0]['bodega_id']." ORDER BY id DESC LIMIT 1";
+                                        $run = new Method;
+                                        $select = $run->select($query);
+                                    }
+
+                                    if($select){
+                                        $Destino = $select[0]['nombre'];
+                                    }else{
+                                        $Destino = '';
+                                    }
+
+                                    $query = "SELECT * FROM usuarios where id = '$Usuario' ORDER BY id DESC LIMIT 1";
+                                    $run = new Method;
+                                    $usuario = $run->select($query);
+
+                                    if($usuario){
+
+                                        $Responsable = $usuario[0]['nombre'];
+
+                                        $array = array('id' => $id, 'numero_serie' => $NumeroSerie, 'producto' => $Producto, 'destino' => $Destino, 'fecha_movimiento' => $FechaMovimiento, 'hora_movimiento' => $HoraMovimiento, 'responsable' => $Responsable);
+
+                                        $response_array['array'] = $array;
+                                        $response_array['status'] = 1; 
+
+                                    }else{
+                                        $response_array['status'] = 0; 
+                                        $response_array['error'] = 'Select Usuario'; 
+                                    }
+
+                                }else{
+                                    $response_array['status'] = 0; 
+                                    $response_array['error'] = 'Select Ingreso'; 
+                                }
                             }else{
                                 $response_array['status'] = 0; 
-                                $response_array['error'] = 'Select Usuario'; 
+                                $response_array['error'] = 'Update Ingreso'; 
                             }
-
                         }else{
                             $response_array['status'] = 0; 
-                            $response_array['error'] = 'Select Ingreso'; 
+                            $response_array['error'] = 'Insert Egreso'; 
                         }
-                    // }else{
-                    //     $response_array['status'] = 0; 
-                    //     $response_array['error'] = 'Update Ingreso'; 
-                    // }
+                    }else{
+                        $response_array['status'] = 10; 
+                        $response_array['error'] = 'Select Radio'; 
+                    }
                 }else{
                     $response_array['status'] = 0; 
-                    $response_array['error'] = 'Insert Egreso'; 
+                    $response_array['error'] = 'Select Producto'; 
                 }
             }else{
                 $response_array['status'] = 2; 
@@ -117,26 +149,23 @@
                     $query = "SELECT * FROM mantenedor_bodegas where id = ".$row['destino_id']." ORDER BY id DESC LIMIT 1";
                     $run = new Method;
                     $destino = $run->select($query);
-
-                    $destino_tipo = 'Bodega';
-                    $destino_nombre = $destino[0]['nombre'];
                 }else if($row['destino_tipo'] == 2){
                     $query = "SELECT * FROM personaempresa where id = ".$row['destino_id']." ORDER BY id DESC LIMIT 1";
                     $run = new Method;
                     $destino = $run->select($query);
-
-                    $destino_tipo = 'Cliente';
-                    $destino_nombre = $destino[0]['nombre'];
                 }else{
                     $query = "SELECT * FROM mantenedor_site where id = ".$row['destino_id']." ORDER BY id DESC LIMIT 1";
                     $run = new Method;
                     $destino = $run->select($query);
-
-                    $destino_tipo = 'Estación';
-                    $destino_nombre = $destino[0]['nombre'];
                 }
 
-                $array[$row['id']] = array('id' => $row['id'], 'numero_serie' => $row['numero_serie'], 'modelo' => $row['modelo'], 'marca' => $row['marca'], 'tipo' => $row['tipo'], 'destino_tipo' => $destino_tipo, 'destino_nombre' => $destino_nombre,'fecha_movimiento' => $row['fecha_movimiento'],'hora_movimiento' => $row['hora_movimiento'],'responsable' => $row['responsable']);
+                if($destino){
+                    $destino_nombre = $destino[0]['nombre'];
+                }else{
+                    $destino_nombre = '';
+                }
+
+                $array[$row['id']] = array('id' => $row['id'], 'numero_serie' => $row['numero_serie'], 'modelo' => $row['modelo'], 'marca' => $row['marca'], 'tipo' => $row['tipo'], 'destino' => $destino_nombre,'fecha_movimiento' => $row['fecha_movimiento'],'hora_movimiento' => $row['hora_movimiento'],'responsable' => $row['responsable']);
             }
 
             $response_array['array'] = $array;
@@ -147,7 +176,18 @@
 
         function getProducto($BodegaTipo, $BodegaId){
 
-            $query = "SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id where inventario_ingresos.bodega_tipo = '$BodegaTipo' AND inventario_ingresos.bodega_id = '$BodegaId'";
+            if(!$BodegaId && $BodegaTipo == 1){
+                $BodegaTipo = 0;
+            }
+
+            $query = "  SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, 
+                                mantenedor_marca_producto.nombre as marca, 
+                                mantenedor_tipo_producto.nombre as tipo 
+                        FROM inventario_ingresos 
+                        INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id 
+                        INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id 
+                        INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id 
+                        WHERE inventario_ingresos.bodega_tipo = '$BodegaTipo' AND inventario_ingresos.bodega_id = '$BodegaId'";
 
             $run = new Method;
             $data = $run->select($query);
