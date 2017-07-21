@@ -33,23 +33,23 @@
 						<div class="row">
 							<div class="col-md-12">
 								<div class="panel">
-								<div class="panel-heading">
-									<h3 class="panel-title">
-									<i class="ti-user"></i> Lista de Usuarios Registrados
-									</h3>
-								</div>
-								<div class="panel-body">
-									<div class="row">
-										<div class="col-md-10"><h3>Usuarios registrados</h3></div>
-										<div class="col-md-2"><button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#RegistroUsuario">Registrar Usuario Nuevo</button></div>
+									<div class="panel-heading">
+										<h3 class="panel-title">
+										<i class="ti-user"></i> Lista de Usuarios Registrados
+										</h3>
 									</div>
-									<div class="row">
-										<br>
-										<br>
-										<div class="col-md-12 listaUsuarios"></div>
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-md-10"><h3>Usuarios registrados</h3></div>
+											<div class="col-md-2"><button type="button" class="btn btn-success btn-block" data-toggle="modal" data-target="#RegistroUsuario">Registrar Usuario Nuevo</button></div>
+										</div>
+										<div class="row">
+											<br>
+											<br>
+											<div class="col-md-12 listaUsuarios"></div>
+										</div>
 									</div>
 								</div>
-							</div>
 							</div>
 						</div>
 					</div>
@@ -73,28 +73,54 @@
 				</nav>
 			</div>
 		</div>
-
-
-
 		<div class="modal fade" id="RegistroUsuario" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		        <h4 class="modal-title" id="myModalLabel">Registro de Usuario</h4>
-		      </div>
-		      <div class="modal-body">
-		        ...
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-		        <button type="button" class="btn btn-primary">Guardar usuario</button>
-		      </div>
-		    </div>
-		  </div>
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title" id="myModalLabel">Registro de Usuario</h4>
+					</div>
+					<div class="modal-body container-form">
+						<div class="row">
+							<div class="col-md-6 form-group">
+								<label>Usuario</label>
+								<input name="usuario" class="form-control">
+							</div>
+							<div class="col-md-6 form-group">
+								<label>Nombre</label>
+								<input name="nombre" class="form-control">
+							</div>
+							<div class="col-md-6 form-group">
+								<label>Password</label>
+								<input name="pass" class="form-control">
+							</div>
+							<div class="col-md-6 form-group">
+								<label>Privelegios</label>
+								<select name="previlegios" class="selectpicker form-control" data-live-search="true">
+									<option value=""> Seleccione...</option>
+									<option value="1">Administrador</option>
+									<option value="2">Soporte</option>
+									<option value="3">Terreno</option>
+								</select>
+							</div>
+							<div class="col-md-6 form-group">
+								<label>Cargo</label>
+								<input name="cargo" class="form-control">
+							</div>
+							<div class="col-md-6 form-group">
+								<label>Correo</label>
+								<input name="correo" class="form-control">
+							</div>
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+						<button type="button" class="btn btn-primary insertUsurio">Guardar usuario</button>
+					</div>
+				</div>
+			</div>
 		</div>
-
-
 		<script src="../js/jquery-2.2.1.min.js"></script>
 		<script src="../js/bootstrap.min.js"></script>
 		<script src="../js/nifty.min.js"></script>
