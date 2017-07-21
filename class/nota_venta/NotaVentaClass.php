@@ -34,12 +34,18 @@
                     $this->Precio=floatval($ServicioSQL[0]['Precio']);
 
                 }else{
+
                     $Precio = str_replace('.','',$Precio);
                     $this->Servicio=$Servicio;
                     $this->Precio=floatval($Precio);
                 }
 
-                $this->Total= $this->Precio * $this->Cantidad;
+                $this->Total = $this->Precio * $this->Cantidad;
+
+                if($this->Exencion == 1){
+                    $Impuesto = $this->Total * 0.19;
+                    $this->Total = $this->Total + $Impuesto;
+                }
 
                 $query = "INSERT INTO nota_venta_tmp(codigo, servicio, cantidad, precio, exencion, total, usuario_id) VALUES ('$this->Codigo','$this->Servicio','$this->Cantidad','$this->Precio','$this->Exencion','$this->Total','$this->Usuario')";
                 $run = new Method;

@@ -4,7 +4,6 @@ $(document).ready(function(){
     $('#precio').prop('disabled', true)
 
     var neto = 0
-    var exencion = 0
     var iva = 0
     var total = 0
 
@@ -113,7 +112,7 @@ $(document).ready(function(){
                 var rowNode = NotaVentaTable.row.add([
                     ''+fecha+'',
                     ''+array.rut+'',
-                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-excel-o Generate"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-excel-o Generate"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveNota"></i>'+'',
                 ]).draw(false).node();
 
                 $( rowNode )
@@ -246,6 +245,12 @@ $(document).ready(function(){
 
                     $('#servicio').val(response.array[0].Servicio);
                     $('#precio').val(formatcurrency(precio));
+
+                    if($('#exencion').val() == 1){
+                        impuesto = precio * 0.19
+                        precio = precio + impuesto
+                    }
+
                     $('#total').val(formatcurrency(precio));
 
                 
@@ -268,17 +273,61 @@ $(document).ready(function(){
             precio = precio.replace('.', '')
             precio = parseFloat(precio)
             total_nota = precio * cantidad
+
+            if($('#exencion').val() == 1){
+                impuesto = total_nota * 0.19
+                total_nota = total_nota + impuesto
+            }
+
+            if(!total_nota || isNaN(total_nota)){
+                total_nota = 0;
+            }
+            
             $('#total').val(formatcurrency(total_nota))
         }
     });
 
     $('#precio').on('input', function () {
+
         if($('#codigo') && $('#cantidad')){
             cantidad = parseInt($('#cantidad').val())
             precio = $('#precio').val()
             precio = precio.replace('.', '')
             precio = parseFloat(precio)
             total_nota = precio * cantidad
+
+            if($('#exencion').val() == 1){
+                impuesto = total_nota * 0.19
+                total_nota = total_nota + impuesto
+            }
+
+            if(!total_nota || isNaN(total_nota)){
+                total_nota = 0;
+            }
+
+            $('#total').val(formatcurrency(total_nota))
+        }
+    });
+
+    $('#exencion').on('change', function () {
+
+        if($('#codigo') && $('#precio')){
+
+            cantidad = parseInt($('#cantidad').val())
+            precio = $('#precio').val()
+            precio = precio.replace('.', '')
+            precio = parseFloat(precio)
+            total_nota = precio * cantidad
+
+            if($('#exencion').val() == 1){
+                impuesto = total_nota * 0.19
+                total_nota = total_nota + impuesto
+            }
+
+            if(!total_nota || isNaN(total_nota)){
+                total_nota = 0;
+            }
+            
             $('#total').val(formatcurrency(total_nota))
         }
     });
@@ -301,15 +350,13 @@ $(document).ready(function(){
                 neto_tmp = parseFloat(response.array.precio)
                 neto_tmp = neto_tmp * cantidad
                 impuesto = neto_tmp * 0.19
-                neto_tmp = neto_tmp - impuesto
                 neto = neto + neto_tmp
 
                 if(response.array.exencion == 1){
                     imp_exencion = 'Afecto'
-                    exencion = exencion + impuesto;
+                    iva = iva + impuesto;
                 }else{
                     imp_exencion = 'No Afecto'
-                    iva = iva + impuesto;
                 }
 
                 precio = parseFloat(response.array.precio)
@@ -318,7 +365,6 @@ $(document).ready(function(){
 
                 $('#neto').text(formatcurrency(neto))
                 $('#iva').text(formatcurrency(iva))
-                $('#exencion_nota').text(formatcurrency(exencion))
                 $('#total_nota').text(formatcurrency(total))
 
                 var rowNode = ServicioTable.row.add([
@@ -328,7 +374,7 @@ $(document).ready(function(){
                     ''+formatcurrency(precio)+'',
                     ''+imp_exencion+'',
                     ''+formatcurrency(total_tmp)+'',
-                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveServicio"></i>'+'',
                 ]).draw(false).node();
 
                 $(rowNode)
@@ -366,7 +412,7 @@ $(document).ready(function(){
         });
     });
 
-    $('body').on('click', '.Remove', function () {
+    $('body').on('click', '.RemoveServicio', function () {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
@@ -396,12 +442,10 @@ $(document).ready(function(){
                                 neto_tmp = parseFloat(response.array[0].precio)
                                 neto_tmp = neto_tmp * cantidad
                                 impuesto = neto_tmp * 0.19
-                                neto_tmp = neto_tmp - impuesto
+
                                 neto = neto - neto_tmp
 
                                 if(response.array[0].exencion == 1){
-                                    exencion = exencion - impuesto;
-                                }else{
                                     iva = iva - impuesto;
                                 }
 
@@ -410,13 +454,14 @@ $(document).ready(function(){
 
                                 $('#neto').text(formatcurrency(neto))
                                 $('#iva').text(formatcurrency(iva))
-                                $('#exencion_nota').text(formatcurrency(exencion))
                                 $('#total_nota').text(formatcurrency(total))
 
                                 swal("Éxito!","El registro ha sido eliminado!","success");
+
                                 ServicioTable.row($(ObjectTR))
                                     .remove()
                                     .draw();
+
                             }else if(response.status == 3){
                                 swal('Solicitud no procesada','Este registro no puede ser eliminado porque ha sido eliminado de la base de datos','error');
                             }else{
@@ -449,7 +494,7 @@ $(document).ready(function(){
                 var rowNode = NotaVentaTable.row.add([
                     ''+response.array.fecha+'',
                     ''+response.array.rut+'',
-                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-excel-o Generate"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-excel-o Generate"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveNota"></i>'+'',
                 ]).draw(false).node();
 
                 $( rowNode )
@@ -536,7 +581,7 @@ $(document).ready(function(){
         }, 1500);
     })
 
-    $('body').on('click', '.Remove', function () {
+    $('body').on('click', '.RemoveNota', function () {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");

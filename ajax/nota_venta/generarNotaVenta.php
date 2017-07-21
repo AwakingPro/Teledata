@@ -86,15 +86,13 @@ if (count($nota_venta) > 0) {
             $neto_tmp = floatval($detalle['precio']);
             $neto_tmp = $neto_tmp * $cantidad;
             $impuesto = $neto_tmp * floatval(0.19);
-            $neto_tmp = $neto_tmp - $impuesto;
             $neto = $neto + $neto_tmp;
 
             if($detalle['exencion'] == 1){
                 $imp_exencion = 'Afecto';
-                $exencion = $exencion + $impuesto;
+                $iva = $iva + $impuesto;
             }else{
                 $imp_exencion = 'No Afecto';
-                $iva = $iva + $impuesto;
             }
 
             $precio = floatval($detalle['precio']);
@@ -116,12 +114,6 @@ if (count($nota_venta) > 0) {
 		$objPHPExcel->setActiveSheetIndex(0)
 		->setCellValue('E'.$index, 'Neto')
 		->setCellValue('F'.$index, $neto);
-
-		$index++;
-
-		$objPHPExcel->setActiveSheetIndex(0)
-		->setCellValue('E'.$index, 'Exento')
-		->setCellValue('F'.$index, $exencion);
 
 		$index++;
 

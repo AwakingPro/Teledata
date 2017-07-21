@@ -226,15 +226,6 @@
 
                                                         <div class="col-sm-offset-4">
                                                             <div class="col-md-6" style="text-align: right">
-                                                                <h5>Exento:</h5>
-                                                            </div>
-                                                            <div class="col-md-6" style="text-align: right">
-                                                                <h5 id="exencion_nota" style="border-bottom: 1px solid #ccc;">0</h5>
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-sm-offset-4">
-                                                            <div class="col-md-6" style="text-align: right">
                                                                 <h5>I.V.A.:</h5>
                                                             </div>
                                                             <div class="col-md-6" style="text-align: right">

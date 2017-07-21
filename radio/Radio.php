@@ -127,6 +127,13 @@
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="clearfix m-b-10"></div>
+                            
+                            <div class="col-md-12">
+                                <div id="google-map" class="google-map"></div>
+                            </div>
+
                         </form>
                     </div>
                 </div><!-- /.modal-body -->
@@ -529,6 +536,7 @@
         <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
         <script src="../js/global/validations.js"></script>
         <script src="../js/radio/Radio.js"></script>
+        <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1-pVuH3Dql03pSk_oSHcMf0E-UJpJZKM"></script> -->
 
     </body>
 </html>

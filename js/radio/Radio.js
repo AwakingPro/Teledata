@@ -50,6 +50,7 @@ $(document).ready(function(){
                 $( rowNode )
                     .attr('id','estacion_'+array.id)
                     .data('personal_id',array.personal_id)
+                    .data('kml',array.kml)
                     .addClass('text-center');
 
                 $('.estacion_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
@@ -166,6 +167,8 @@ $(document).ready(function(){
         var ObjectTelephone = ObjectTR.find("td").eq(2).text();
         var ObjectPersonal = ObjectTR.data("personal_id");
         var ObjectEmail = ObjectTR.find("td").eq(4).text();
+        var ObjectKml = ObjectTR.data("kml");
+
         $('#updateEstacion').find('input[name="id"]').val(ObjectId);
         $('#updateEstacion').find('input[name="nombre"]').val(ObjectName);
         $('#updateEstacion').find('textarea[name="direccion"]').text(ObjectAddress);
@@ -185,10 +188,42 @@ $(document).ready(function(){
             $('#EstacionFormUpdate').modal('show');
         }
 
+        // if(ObjectKml){
+
+        //     Estacion = ObjectId;
+
+        //     google.maps.event.addDomListener(window, 'load', function () {
+        //        initialize(-19.257753, 146.823688);
+        //     });
+
+        //     $('#google-map').show()
+
+        // }else{
+        //     $('#google-map').hide()
+        // }
+
+
         $('.selectpicker').selectpicker('render');
         $('.selectpicker').selectpicker('refresh');
   
     });
+
+    // function initialize(latitute,longitute){
+
+    //     var mapOptions = {
+    //         center: new google.maps.LatLng(latitute, longitute),
+    //         zoom: 2,
+    //         mapTypeId: google.maps.MapTypeId.TERRAIN
+    //     }
+
+    //     var url = document.location.origin+'/Teledata/ajax/radio/kml/kml_'+Estacion+'.kml'
+    //     var map = new google.maps.Map($('#google-map'), mapOptions);
+    //     var kmlLayer = new google.maps.KmlLayer({
+    //       url: url
+    //     });
+
+    //     kmlLayer.setMap(map);
+    // }
 
     $('body').on('click', '#actualizarEstacion', function () {
 
@@ -455,6 +490,7 @@ $(document).ready(function(){
             $('#actualizarIngreso').show()
             $('#IngresoFormUpdate').modal('show');
         }
+
 
         $('.selectpicker').selectpicker('render');
         $('.selectpicker').selectpicker('refresh');
