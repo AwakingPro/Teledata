@@ -14,5 +14,11 @@
 	$nuevo_x1 = ceil($nuevo_x1);
 	$nuevo_y1 = ceil($nuevo_y1);
 	imagecopyresampled($imagen_p,$imagen,0,0,$nuevo_x1,$nuevo_y1,400,400,$nuevo_w,$nuevo_h);
-	imagejpeg($imagen_p,'img-profile/'.$_SESSION['id_usuario'].'.jpg', 100);
+	imagejpeg($imagen_p,'img-profile/'.$_SESSION['idUsuario'].'.jpg', 100);
+
+	require_once('../../class/methods_global/methods.php');
+	$query = "UPDATE usuarios SET usuario='".$_POST['Usuario']."', nombre='".$_POST['Nombre']."', email='".$_POST['Correo']."' WHERE id=".$_SESSION['idUsuario'];
+	$run = new Method;
+	$data = $run->update($query);
+	echo $data;
  ?>

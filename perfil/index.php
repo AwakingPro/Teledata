@@ -29,7 +29,7 @@
 						<li class="active">Perfil</li>
 					</ol>
 					<div id="page-content">
-						<div class="row">
+						<div class="row container-form">
 							<div class="col-md-4">
 								<div class="panel">
 									<!-- Simple profile -->
@@ -37,11 +37,11 @@
 										<div  class="pad-ver cont-preImg2 img-border img-circle img-lg" style="overflow: hidden;">
 											<img src="../img/av1.png" class="img-lg img-circle" alt="Profile Picture">
 										</div>
-										<h3 class="text-overflow mar-no">Nombre de Usuario</h3>
-										<h4 class="text-muted">Correo de Usuario</h4>
-										<h4 class="text-muted">Cargo de Usuario</h4>
+										<h3 class="text-overflow mar-no NombreUser">Nombre de Usuario</h3>
+										<h4 class="text-muted Cargo">Correo de Usuario</h4>
+										<h4 class="text-muted Nivel">Cargo de Usuario</h4>
 									</div>
-									<form class="cont-form">
+									<form>
 										<input type="hidden" name="x1" id="x1">
 										<input type="hidden" name="y1" id="y1">
 										<input type="hidden" name="x2" id="x2">
@@ -65,47 +65,16 @@
 											<div class="col-md-6">
 												<div class="form-group">
 													<label>Usuario</label>
-													<input type="text" class="form-control" value="Usuario">
+													<input type="text" class="form-control" name="Usuario">
 												</div>
 												<div class="form-group">
 													<label>Nombre</label>
-													<input type="text" class="form-control" value="Usuario">
+													<input type="text" class="form-control" name="Nombre">
 												</div>
 												<div class="form-group">
 													<label>Correo</label>
-													<input type="text" class="form-control" value="Usuario">
+													<input type="text" class="form-control" name="Correo">
 												</div>
-												<div class="form-group">
-												<labeel>Sexo</label>
-												<div class="radio">
-													<label>
-														<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-														Masculino
-													</label>
-												</div>
-												<div class="radio">
-													<label>
-														<input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
-														Femenino
-													</label>
-												</div>
-											</div>
-											<div class="form-group">
-												<input id="pass" class="magic-checkbox check" type="checkbox">
-												<label for="pass">Cambiar contraseña</label>
-											</div>
-											<div class="form-group">
-												<label>Contraseña actual</label>
-												<input type="text" class="form-control pass1" disabled="disabled">
-											</div>
-											<div class="form-group">
-												<label>Nueva contraseña</label>
-												<input type="text" class="form-control pass2" disabled="disabled">
-											</div>
-											<div class="form-group">
-												<label>Repita su contraseña</label>
-												<input type="text" class="form-control pass3" disabled="disabled">
-											</div>
 										</div>
 										<div class="col-md-6">
 											<div class="row">

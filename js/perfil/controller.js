@@ -1,7 +1,15 @@
 $(document).ready(function() {
 
-	$.post('../ajax/perfil/dataUser.php', {param1: 'value1'}, function(data, textStatus, xhr) {
-		/*optional stuff to do after success */
+	$.post('../ajax/perfil/dataUser.php',  function(data) {
+		value = $.parseJSON(data);
+		console.log(value);
+		$('[name="Usuario"]').val(value[0][1])
+		$('[name="Nombre"]').val(value[0][2])
+		$('[name="Correo"]').val(value[0][3])
+		$('.NombreUser').html(value[0][1])
+		$('.Cargo').html(value[0][5])
+		$('.Nivel').html(value[0][6])
+		$('.img-lg').html(value[1]);
 	});
 
 	function showPreview(coords) {
@@ -75,7 +83,7 @@ $(document).ready(function() {
 	$('#procesar').on('click', function(){
 		var formValues = new FormData();
 		formValues.append('file', $('.adjuntar-img')[0].files[0]);
-		$('.cont-form').find("input").each(function(index, elemento) {
+		$('.container-form').find("input").each(function(index, elemento) {
 			formValues.append($(elemento).attr('name'), $(elemento).val());
 		});
 

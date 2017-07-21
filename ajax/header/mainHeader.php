@@ -1,9 +1,14 @@
 <?php
 session_start();
 require_once('../../class/methods_global/methods.php');
-$query = 'SELECT nombre, imgPerfil FROM usuarios WHERE id ='.$_SESSION['idUsuario'];
+$query = 'SELECT nombre FROM usuarios WHERE id ='.$_SESSION['idUsuario'];
 $run = new Method;
 $data = $run->select($query);
+if (file_exists('../../ajax/perfil/img-profile/'.$_SESSION['idUsuario'].'.jpg')) {
+	$img = '<img class="img-circle img-user media-object"  src="../ajax/perfil/img-profile/'.$_SESSION['idUsuario'].'.jpg" class="img-lg img-circle" alt="Profile Picture">';
+} else {
+	$img =  '<img class="img-circle img-user media-object" src="../img/av1.png" class="img-lg img-circle" alt="Profile Picture">';
+}
 ?>
 <header id="navbar">
 	<div id="navbar-container" class="boxed">
@@ -67,7 +72,7 @@ $data = $run->select($query);
 			<li id="dropdown-user" class="dropdown">
 				<a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
 					<span class="pull-right">
-						<img class="img-circle img-user media-object" src="../img/av1.png" alt="Profile Picture">
+						<?php echo $img; ?>
 					</span>
 					<div class="username hidden-xs"><?php echo $data[0][0]; ?></div>
 				</a>
