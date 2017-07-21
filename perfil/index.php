@@ -110,27 +110,27 @@
 								</div>
 								<div class="panel-body">
 									<div class="row">
-										<div class="col-md-12">
+										<div class="col-md-12 container-form2">
 											<div class="form-group">
 												<input id="pass" class="magic-checkbox check" type="checkbox">
 												<label for="pass">Cambiar contraseña</label>
 											</div>
 											<div class="form-group">
 												<label>Contraseña actual</label>
-												<input type="text" class="form-control pass1" disabled="disabled">
+												<input type="password" name="pass" class="form-control pass1" disabled="disabled">
 											</div>
 											<div class="form-group">
 												<label>Nueva contraseña</label>
-												<input type="text" class="form-control pass2" disabled="disabled">
+												<input type="password" class="form-control pass2" name="pass2" disabled="disabled">
 											</div>
 											<div class="form-group">
 												<label>Repita su contraseña</label>
-												<input type="text" class="form-control pass3" disabled="disabled">
+												<input type="password" class="form-control pass3" name="newPass" disabled="disabled">
 											</div>
 										</div>
 										<div class="col-md-12">
 											<div class="col-md-12 row">
-												<button type="button" class="btn btn-primary" id="procesar"><i class="ti-save"></i> Cambio de Contraseña</button>
+												<button type="button" class="btn btn-primary" id="newPass"><i class="ti-save"></i> Cambio de Contraseña</button>
 											</div>
 										</div>
 									</div>

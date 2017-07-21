@@ -94,8 +94,35 @@ $(document).ready(function() {
 			processData: false,
 			contentType: false,
 			success: function(e) {
-				console.log(e);
+				bootbox.alert('<h3 class="text-center">Los datos fueron actualizados con exito.</h3>');
 			}
 		});
+	});
+
+	$('#newPass').on('click', function(){
+
+		if ($('[name="pass2"]').val() == $('[name="newPass"]').val()) {
+			var formValues = new FormData();
+			$('.container-form2').find("input").each(function(index, elemento) {
+				formValues.append($(elemento).attr('name'), $(elemento).val());
+			});
+			$.ajax({
+				url: '../ajax/perfil/cambioPass.php',
+				type: 'POST',
+				data: formValues,
+				processData: false,
+				contentType: false,
+				success: function(e) {
+					console.log(e);
+					if (Number(e) == 1) {
+						bootbox.alert('<h3 class="text-center">La Contraseña fue cambiada con exito.</h3>');
+					}else{
+						bootbox.alert('<h3 class="text-center">Su contraseña anterior no conside.</h3>');
+					}
+				}
+			});
+		}else{
+			bootbox.alert('<h3 class="text-center">Los campos de Contraseña no son iguales.</h3>');
+		}
 	});
 });
