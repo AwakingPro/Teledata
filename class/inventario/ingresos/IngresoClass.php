@@ -249,40 +249,46 @@
             $array = array();
 
             foreach($data as $row){
-                if($row['bodega_tipo'] == 1){
 
-                    $query = "SELECT * FROM mantenedor_bodegas where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
-                    $run = new Method;
-                    $bodega = $run->select($query);
+                if($row['bodega_tipo']){
 
-                    if($bodega){
-                        $bodega_nombre = $bodega[0]['nombre'];
+                    if($row['bodega_tipo'] == 1){
+
+                        $query = "SELECT * FROM mantenedor_bodegas where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
+                        $run = new Method;
+                        $bodega = $run->select($query);
+
+                        if($bodega){
+                            $bodega_nombre = $bodega[0]['nombre'];
+                        }else{
+                            $bodega_nombre = '';
+                        }
+
+                    }else if($row['bodega_tipo'] == 2){
+
+                        $query = "SELECT * FROM personaempresa where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
+                        $run = new Method;
+                        $bodega = $run->select($query);
+
+                        if($bodega){
+                            $bodega_nombre = $bodega[0]['nombre'];
+                        }else{
+                            $bodega_nombre = '';
+                        }
                     }else{
-                        $bodega_nombre = '';
-                    }
 
-                }else if($row['bodega_tipo'] == 2){
+                        $query = "SELECT * FROM mantenedor_site where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
+                        $run = new Method;
+                        $bodega = $run->select($query);
 
-                    $query = "SELECT * FROM personaempresa where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
-                    $run = new Method;
-                    $bodega = $run->select($query);
-
-                    if($bodega){
-                        $bodega_nombre = $bodega[0]['nombre'];
-                    }else{
-                        $bodega_nombre = '';
+                        if($bodega){
+                            $bodega_nombre = $bodega[0]['nombre'];
+                        }else{
+                            $bodega_nombre = '';
+                        }
                     }
                 }else{
-
-                    $query = "SELECT * FROM mantenedor_site where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
-                    $run = new Method;
-                    $bodega = $run->select($query);
-
-                    if($bodega){
-                        $bodega_nombre = $bodega[0]['nombre'];
-                    }else{
-                        $bodega_nombre = '';
-                    }
+                    $bodega_nombre = 'Bodega de Paso';
                 }
 
                 $row['bodega'] = $bodega_nombre;

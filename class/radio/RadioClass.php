@@ -331,7 +331,7 @@
                     $run = new Method;
                     $data = $run->insert($query);
 
-                    $query = "UPDATE inventario_ingresos SET bodega_tipo = '1', bodega_id = '999' where `id` = '$this->Producto'";
+                    $query = "UPDATE inventario_ingresos SET bodega_tipo = '', bodega_id = '' where `id` = '$this->Producto'";
                     $run = new Method;
                     $data = $run->insert($query);
 
