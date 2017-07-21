@@ -255,8 +255,6 @@
                     $run = new Method;
                     $bodega = $run->select($query);
 
-                    $bodega_tipo = 'Bodega';
-
                     if($bodega){
                         $bodega_nombre = $bodega[0]['nombre'];
                     }else{
@@ -269,8 +267,6 @@
                     $run = new Method;
                     $bodega = $run->select($query);
 
-                    $bodega_tipo = 'Cliente';
-
                     if($bodega){
                         $bodega_nombre = $bodega[0]['nombre'];
                     }else{
@@ -282,8 +278,6 @@
                     $run = new Method;
                     $bodega = $run->select($query);
 
-                    $bodega_tipo = 'Estación';
-
                     if($bodega){
                         $bodega_nombre = $bodega[0]['nombre'];
                     }else{
@@ -291,7 +285,7 @@
                     }
                 }
 
-                $row['bodega'] = $bodega_tipo . ' ' . $bodega_nombre;
+                $row['bodega'] = $bodega_nombre;
 
                 $array[$row['id']] = array( 'id' => $row['id'], 
                                             'fecha_compra' => $row['fecha_compra'], 
@@ -306,7 +300,10 @@
                                             'mac_address' => $row['mac_address'], 
                                             'estado' => $row['estado'], 
                                             'valor' => $row['valor'], 
-                                            'bodega' => $row['bodega']
+                                            'bodega' => $row['bodega'],
+                                            'modelo_producto_id' => $row['modelo_producto_id'],
+                                            'bodega_id' => $row['bodega_id'],
+                                            'proveedor_id' => $row['proveedor_id'],
                                             );
             }
 

@@ -664,7 +664,7 @@ $(document).ready(function(){
                               ''+array.estacion+'',
                               ''+array.funcion+'',
                               ''+array.alarma_activada+'',
-                              ''+array.direccion_ip+'',
+                              ''+'<a href="http://'+array.direccion_ip+':'+array.puerto_acceso+'" target="_blank">'+array.direccion_ip+'</a>'+'',
                               ''+array.puerto_acceso+'',
                               ''+array.ancho_canal+'',
                               ''+array.frecuencia+'',
