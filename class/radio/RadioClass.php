@@ -411,11 +411,11 @@
                         INNER JOIN mantenedor_site            ON radio_ingresos.estacion_id = mantenedor_site.id';
 
                 if($TipoBusquedaRegistro == 1){
-                    $query = $query . " WHERE mantenedor_site.nombre LIKE '%$InputRegistro%'";
+                    $query = $query . " WHERE mantenedor_site.nombre = '$InputRegistro'";
                 }else if($TipoBusquedaRegistro == 2){
-                    $query = $query . " WHERE radio_ingresos.direccion_ip LIKE '%$InputRegistro%'";
+                    $query = $query . " WHERE radio_ingresos.direccion_ip = '$InputRegistro'";
                 }else{
-                    $query = $query . " WHERE inventario_ingresos.mac_address LIKE '%$InputRegistro%'";
+                    $query = $query . " WHERE inventario_ingresos.mac_address = '$InputRegistro'";
                 }
 
                 $run = new Method;

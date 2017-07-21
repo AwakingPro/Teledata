@@ -415,7 +415,7 @@
 
                 $this->TipoBusquedaRegistro=$TipoBusquedaRegistro;
 
-                $query = 'SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, mantenedor_proveedores.nombre as proveedor, mantenedor_bodegas.nombre as bodega FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id INNER JOIN mantenedor_bodegas ON inventario_ingresos.bodega_id = mantenedor_bodegas.id LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
+                $query = 'SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, mantenedor_proveedores.nombre as proveedor FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
 
                 $run = new Method;
                 $data = $run->select($query);
@@ -444,16 +444,16 @@
                 $this->TipoBusquedaRegistro=$TipoBusquedaRegistro;
                 $this->InputRegistro=$InputRegistro;
 
-                $query = 'SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, mantenedor_proveedores.nombre as proveedor, mantenedor_bodegas.nombre as bodega FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id INNER JOIN mantenedor_bodegas ON inventario_ingresos.bodega_id = mantenedor_bodegas.id LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
+                $query = 'SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, mantenedor_proveedores.nombre as proveedor FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
 
                 if($TipoBusquedaRegistro == 1){
-                    $query = $query . " WHERE mantenedor_modelo_producto.nombre LIKE '%$InputRegistro%'";
+                    $query = $query . " WHERE mantenedor_modelo_producto.nombre = '$InputRegistro'";
                 }else if($TipoBusquedaRegistro == 2){
-                    $query = $query . " WHERE mantenedor_marca_producto.nombre LIKE '%$InputRegistro%'";
+                    $query = $query . " WHERE mantenedor_marca_producto.nombre = '$InputRegistro'";
                 }else if($TipoBusquedaRegistro == 3){
-                    $query = $query . " WHERE mantenedor_tipo_producto.nombre LIKE '%$InputRegistro%'";
+                    $query = $query . " WHERE mantenedor_tipo_producto.nombre = '$InputRegistro'";
                 }else{
-                    $query = $query . " WHERE inventario_ingresos.mac_address LIKE '%$InputRegistro%'";
+                    $query = $query . " WHERE inventario_ingresos.mac_address = '$InputRegistro'";
                 }
 
                 $run = new Method;
@@ -461,7 +461,74 @@
 
                 if($data){
 
-                    $response_array['array'] = $data;
+                    $array = array();
+
+                    foreach($data as $row){
+
+                        if($row['bodega_tipo']){
+
+                            if($row['bodega_tipo'] == 1){
+
+                                $query = "SELECT * FROM mantenedor_bodegas where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
+                                $run = new Method;
+                                $bodega = $run->select($query);
+
+                                if($bodega){
+                                    $bodega_nombre = $bodega[0]['nombre'];
+                                }else{
+                                    $bodega_nombre = '';
+                                }
+
+                            }else if($row['bodega_tipo'] == 2){
+
+                                $query = "SELECT * FROM personaempresa where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
+                                $run = new Method;
+                                $bodega = $run->select($query);
+
+                                if($bodega){
+                                    $bodega_nombre = $bodega[0]['nombre'];
+                                }else{
+                                    $bodega_nombre = '';
+                                }
+                            }else{
+
+                                $query = "SELECT * FROM mantenedor_site where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
+                                $run = new Method;
+                                $bodega = $run->select($query);
+
+                                if($bodega){
+                                    $bodega_nombre = $bodega[0]['nombre'];
+                                }else{
+                                    $bodega_nombre = '';
+                                }
+                            }
+                        }else{
+                            $bodega_nombre = 'Bodega de Paso';
+                        }
+
+                        $row['bodega'] = $bodega_nombre;
+
+                        $array[$row['id']] = array( 'id' => $row['id'], 
+                                                    'fecha_compra' => $row['fecha_compra'], 
+                                                    'fecha_ingreso' => $row['fecha_ingreso'], 
+                                                    'proveedor' => $row['proveedor'], 
+                                                    'numero_factura' => $row['numero_factura'], 
+                                                    'tipo' => $row['tipo'], 
+                                                    'marca' => $row['marca'], 
+                                                    'modelo' => $row['modelo'], 
+                                                    'cantidad' => $row['cantidad'], 
+                                                    'numero_serie' => $row['numero_serie'], 
+                                                    'mac_address' => $row['mac_address'], 
+                                                    'estado' => $row['estado'], 
+                                                    'valor' => $row['valor'], 
+                                                    'bodega' => $row['bodega'],
+                                                    'modelo_producto_id' => $row['modelo_producto_id'],
+                                                    'bodega_id' => $row['bodega_id'],
+                                                    'proveedor_id' => $row['proveedor_id'],
+                                                    );
+                    }
+
+                    $response_array['array'] = $array;
                     $response_array['status'] = 1; 
                     
                 }else{
