@@ -14,7 +14,7 @@ if (file_exists('../../ajax/perfil/img-profile/'.$_SESSION['idUsuario'].'.jpg'))
 	<div id="navbar-container" class="boxed">
 		<!--Logo-->
 		<div class="navbar-header">
-			<a href="/bienvenida/bienvenida.php" class="navbar-brand">
+			<a href="../bienvenida/bienvenida.php" class="navbar-brand">
 				<div class="brand-title">
 					ERP | Teledata
 				</div>
