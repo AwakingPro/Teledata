@@ -238,7 +238,7 @@
 
                 if($id){
 
-                    $query = "UPDATE inventario_ingresos SET bodega_tipo = '3', bodega_id = '$id' where `id` = '$this->Producto'";
+                    $query = "UPDATE inventario_ingresos SET bodega_tipo = '3', bodega_id = '$this->Estacion' where `id` = '$this->Producto'";
 
                     $run = new Method;
                     $data = $run->insert($query);

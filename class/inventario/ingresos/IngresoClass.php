@@ -232,12 +232,85 @@
 
         function showIngreso(){
 
-            $query = 'SELECT inventario_ingresos.*, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, mantenedor_proveedores.nombre as proveedor, mantenedor_bodegas.nombre as bodega FROM inventario_ingresos INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id INNER JOIN mantenedor_bodegas ON inventario_ingresos.bodega_id = mantenedor_bodegas.id LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
+            $query = '  SELECT    inventario_ingresos.*, 
+                                mantenedor_modelo_producto.nombre as modelo, 
+                                mantenedor_marca_producto.nombre as marca, 
+                                mantenedor_tipo_producto.nombre as tipo, 
+                                mantenedor_proveedores.nombre as proveedor 
+                        FROM inventario_ingresos 
+                        INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id 
+                        INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id 
+                        INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id 
+                        LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
 
             $run = new Method;
             $data = $run->select($query);
 
-            $response_array['array'] = $data;
+            $array = array();
+
+            foreach($data as $row){
+                if($row['bodega_tipo'] == 1){
+
+                    $query = "SELECT * FROM mantenedor_bodegas where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
+                    $run = new Method;
+                    $bodega = $run->select($query);
+
+                    $bodega_tipo = 'Bodega';
+
+                    if($bodega){
+                        $bodega_nombre = $bodega[0]['nombre'];
+                    }else{
+                        $bodega_nombre = '';
+                    }
+
+                }else if($row['bodega_tipo'] == 2){
+
+                    $query = "SELECT * FROM personaempresa where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
+                    $run = new Method;
+                    $bodega = $run->select($query);
+
+                    $bodega_tipo = 'Cliente';
+
+                    if($bodega){
+                        $bodega_nombre = $bodega[0]['nombre'];
+                    }else{
+                        $bodega_nombre = '';
+                    }
+                }else{
+
+                    $query = "SELECT * FROM mantenedor_site where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
+                    $run = new Method;
+                    $bodega = $run->select($query);
+
+                    $bodega_tipo = 'Estación';
+
+                    if($bodega){
+                        $bodega_nombre = $bodega[0]['nombre'];
+                    }else{
+                        $bodega_nombre = '';
+                    }
+                }
+
+                $row['bodega'] = $bodega_tipo . ' ' . $bodega_nombre;
+
+                $array[$row['id']] = array( 'id' => $row['id'], 
+                                            'fecha_compra' => $row['fecha_compra'], 
+                                            'fecha_ingreso' => $row['fecha_ingreso'], 
+                                            'proveedor' => $row['proveedor'], 
+                                            'numero_factura' => $row['numero_factura'], 
+                                            'tipo' => $row['tipo'], 
+                                            'marca' => $row['marca'], 
+                                            'modelo' => $row['modelo'], 
+                                            'cantidad' => $row['cantidad'], 
+                                            'numero_serie' => $row['numero_serie'], 
+                                            'mac_address' => $row['mac_address'], 
+                                            'estado' => $row['estado'], 
+                                            'valor' => $row['valor'], 
+                                            'bodega' => $row['bodega']
+                                            );
+            }
+
+            $response_array['array'] = $array;
 
             echo json_encode($response_array);
 
