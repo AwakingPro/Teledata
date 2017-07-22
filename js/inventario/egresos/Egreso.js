@@ -102,7 +102,7 @@ $(document).ready(function(){
                     url: "../includes/inventario/egresos/showPersonaEmpresa.php",
                     success: function(response){
                         $.each(response.array, function( index, array ) {
-                            $('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                            $('#origen_id').append('<option value="'+array.id+'" data-content="'+array.cliente+ ' - '+array.Codigo+'"></option>');
                         });
                     }
                 });
@@ -193,7 +193,7 @@ $(document).ready(function(){
                     url: "../includes/inventario/egresos/showPersonaEmpresa.php",
                     success: function(response){
                         $.each(response.array, function( index, array ) {
-                            $('#destino_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                            $('#destino_id').append('<option value="'+array.id+'" data-content="'+array.cliente+ ' - '+array.Codigo+'"></option>');
                         });
                     }
                 });

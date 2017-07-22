@@ -272,7 +272,7 @@
 
                     }else if($row['bodega_tipo'] == 2){
 
-                        $query = "SELECT * FROM personaempresa where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
+                        $query = "SELECT Codigo as nombre FROM servicios where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
                         $run = new Method;
                         $bodega = $run->select($query);
 
@@ -487,7 +487,7 @@
 
                             }else if($row['bodega_tipo'] == 2){
 
-                                $query = "SELECT * FROM personaempresa where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
+                                $query = "SELECT Codigo as nombre, id from servicios where id = ".$row['bodega_id']." ORDER BY id DESC LIMIT 1";
                                 $run = new Method;
                                 $bodega = $run->select($query);
 

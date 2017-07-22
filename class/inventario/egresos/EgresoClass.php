@@ -74,7 +74,7 @@
                                         $run = new Method;
                                         $select = $run->select($query);
                                     }else if($data[0]['bodega_tipo'] == 2){
-                                        $query = "SELECT * FROM personaempresa where id = ".$data[0]['bodega_id']." ORDER BY id DESC LIMIT 1";
+                                        $query = "SELECT Codigo AS nombre, id FROM servicios where id = ".$data[0]['bodega_id']." ORDER BY id DESC LIMIT 1";
                                         $run = new Method;
                                         $select = $run->select($query);
                                     }else{
@@ -150,7 +150,7 @@
                     $run = new Method;
                     $destino = $run->select($query);
                 }else if($row['destino_tipo'] == 2){
-                    $query = "SELECT * FROM personaempresa where id = ".$row['destino_id']." ORDER BY id DESC LIMIT 1";
+                    $query = "SELECT Codigo as nombre FROM servicios where id = ".$row['destino_id']." ORDER BY id DESC LIMIT 1";
                     $run = new Method;
                     $destino = $run->select($query);
                 }else{
@@ -224,7 +224,9 @@
 
         function showPersonaEmpresa(){
 
-            $query = 'SELECT * FROM personaempresa';
+            $query = '  SELECT servicios.id, servicios.Codigo, personaempresa.nombre as cliente
+                        FROM servicios 
+                        INNER JOIN personaempresa ON servicios.Rut = personaempresa.rut';
             $run = new Method;
             $data = $run->select($query);
 
