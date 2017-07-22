@@ -37,35 +37,43 @@ $(document).ready(function() {
 
 	$(".adjuntar-img").on("change", function() {
 		obj = this;
-		Archivo = obj.files[0];
-		ManejadorArchivo = new FileReader();
-		ManejadorArchivo.onload = function(evento) {
-			Url = evento.target.result;
-			Img1 = '<img src="' + Url + '" class="img-responsive imgSelect">';
-			Img2 = '<img src="' + Url + '" class="imgPreview">';
-			$('.cont-preImg1').html(Img1);
-			$('.cont-preImg2').html(Img2);
-			var h = $('.imgSelect').width();
-			var w = $('.imgSelect').height();
-			var xh1 = h * 0.1;
-			var xw1 = w * 0.1;
-			var xh2 = h * 0.9;
-			var xw2 = w * 0.9;
-			if (w > h) {
-				v1 =  xh1;
-				v2 =  xh2;
-			}else{
-				v1 =  xw1;
-				v2 =  xw2;
+		var file = $(obj).val();
+   		var ext = file.substring(file.lastIndexOf("."));
+   		if (ext == ".jpg") {
+   			Archivo = obj.files[0];
+			ManejadorArchivo = new FileReader();
+			ManejadorArchivo.onload = function(evento) {
+				Url = evento.target.result;
+				Img1 = '<img src="' + Url + '" class="img-responsive imgSelect">';
+				Img2 = '<img src="' + Url + '" class="imgPreview">';
+				$('.cont-preImg1').html(Img1);
+				$('.cont-preImg2').html(Img2);
+				var h = $('.imgSelect').width();
+				var w = $('.imgSelect').height();
+				var xh1 = h * 0.1;
+				var xw1 = w * 0.1;
+				var xh2 = h * 0.9;
+				var xw2 = w * 0.9;
+				if (w > h) {
+					v1 =  xh1;
+					v2 =  xh2;
+				}else{
+					v1 =  xw1;
+					v2 =  xw2;
+				}
+				$('.imgSelect').Jcrop({
+					onChange: showPreview,
+					onSelect: showPreview,
+					setSelect:   [ v1, v1, v2, v2 ],
+					aspectRatio: 1
+				});
 			}
-			$('.imgSelect').Jcrop({
-				onChange: showPreview,
-				onSelect: showPreview,
-				setSelect:   [ v1, v1, v2, v2 ],
-				aspectRatio: 1
-			});
-		}
-		ManejadorArchivo.readAsDataURL(Archivo);
+			ManejadorArchivo.readAsDataURL(Archivo);
+   		}else{
+			bootbox.alert('<h3 class="text-center">Disculpe ej formato tiene q ser ".jpg"</h3>');
+			$(obj).reset();
+   		}
+
 	});
 
 	$('.check').on('change',function(){
@@ -123,6 +131,7 @@ $(document).ready(function() {
 			});
 		}else{
 			bootbox.alert('<h3 class="text-center">Los campos de Contraseña no son iguales.</h3>');
+			return false;
 		}
 	});
 });
