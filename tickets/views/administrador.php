@@ -152,7 +152,7 @@
 										</div>
 										<div class="col-md-6 form-group">
 											<label >Asignar a</label>
-											<select name="AsignarA" class="form-control" id="personal">
+											<select name="AsignarA" class="form-control" id="personal" data-live-search="true">
 												<option value="">Seleccione...</option>
 											</select>
 										</div>
@@ -160,7 +160,7 @@
 									<div class="row">
 										<div class="col-md-12 form-group">
 											<label >Estado</label>
-											<select name="Estado" class="form-control" >
+											<select name="Estado" class="selectpicker form-control" data-live-search="true">
 												<option value="">Seleccione...</option>
 												<option>Abierto</option>
 												<option>Cerrado</option>
@@ -184,7 +184,7 @@
 									<div class="row">
 										<div class="col-md-12 form-group">
 											<label>Cliente</label>
-											<select name="Cliente" class="form-control" id="cliente">
+											<select name="Cliente" class="form-control" id="cliente" data-live-search="true">
 												<option value="">Seleccione...</option>
 												<option value="1">Cliente de prueba</option>
 											</select>
@@ -203,7 +203,7 @@
 										<div class="col-md-6 form-group">
 											<label >Tipo</label>
 											<div class="input-group">
-												<select name="Tipo" class="form-control" >
+												<select name="Tipo" class="form-control" data-live-search="true">
 													<option value="">Seleccione...</option>
 												</select>
 												<span class="input-group-btn">
@@ -214,7 +214,7 @@
 										<div class="col-md-6 form-group">
 											<label >Subtipo</label>
 											<div class="input-group">
-												<select name="Subtipo" class="form-control" >
+												<select name="Subtipo" class="selectpicker form-control" data-live-search="true">
 													<option value="">Seleccione...</option>
 												</select>
 												<span class="input-group-btn">
@@ -226,13 +226,13 @@
 									<div class="row">
 										<div class="col-md-6 form-group">
 											<label >Asignar a</label>
-											<select name="AsignarA" class="form-control" id="personal">
+											<select name="AsignarA" class="form-control" id="personal" data-live-search="true">
 												<option value="">Seleccione...</option>
 											</select>
 										</div>
 										<div class="col-md-6 form-group">
 											<label >Estado</label>
-											<select name="Estado" class="form-control" >
+											<select name="Estado" class="selectpicker form-control" data-live-search="true">
 												<option value="">Seleccione...</option>
 												<option>Abierto</option>
 												<option>Cerrado</option>

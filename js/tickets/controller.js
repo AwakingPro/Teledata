@@ -3,7 +3,9 @@ $.post('../ajax/privilegios.php', function(data) {
 
 		$('.selectpicker').selectpicker();
 		$('[name="Servicio"], [name="ServicioUpdate"]').load('../ajax/tickets/listServicios.php');
-		$('[name="AsignarA"], [name="AsignarAUpdate"]').load('../ajax/tickets/listUsuario.php');
+		$('[name="AsignarA"], [name="AsignarAUpdate"]').load('../ajax/tickets/listUsuario.php',function(){
+			$('[name="AsignarA"], [name="AsignarAUpdate"]').selectpicker();
+		});
 		$('[name="Prioridad"], [name="PrioridadUpdate"]').load('../ajax/tickets/selectPrioridad.php',function(){
 			$('[name="Prioridad"], [name="PrioridadUpdate"]').selectpicker();
 		});
