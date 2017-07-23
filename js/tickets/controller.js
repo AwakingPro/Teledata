@@ -4,8 +4,12 @@ $.post('../ajax/privilegios.php', function(data) {
 		$('.selectpicker').selectpicker();
 		$('[name="Servicio"], [name="ServicioUpdate"]').load('../ajax/tickets/listServicios.php');
 		$('[name="AsignarA"], [name="AsignarAUpdate"]').load('../ajax/tickets/listUsuario.php');
-		$('[name="Prioridad"], [name="PrioridadUpdate"]').load('../ajax/tickets/selectPrioridad.php');
-		$('[name="Tipo"], [name="TipoUpdate"], [name="nombreTipo"]').load('../ajax/tickets/selectTipoTicket.php');
+		$('[name="Prioridad"], [name="PrioridadUpdate"]').load('../ajax/tickets/selectPrioridad.php',function(){
+			$('[name="Prioridad"], [name="PrioridadUpdate"]').selectpicker();
+		});
+		$('[name="Tipo"], [name="TipoUpdate"], [name="nombreTipo"]').load('../ajax/tickets/selectTipoTicket.php',function(){
+			$('[name="Tipo"], [name="TipoUpdate"], [name="nombreTipo"]').selectpicker();
+		});
 
 		$('select[name="NumeroTicket"]').load('../ajax/tickets/listNroTickets.php',function(){
 			$('select[name="NumeroTicket"]').selectpicker();
@@ -261,11 +265,13 @@ $.post('../ajax/privilegios.php', function(data) {
 		$('[name="Tipo"]').change(function() {
 			$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
 				$('[name="Subtipo"]').html(data);
+				$('[name="Subtipo"]').selectpicker('refresh');
 			});
 		});
 		$('[name="TipoUpdate"]').change(function() {
 			$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
 				$('[name="SubtipoUpdate"]').html(data);
+				$('[name="SubtipoUpdate"]').selectpicker('refresh');
 			});
 		});
 		$(document).on('click', '.delete-tickets', function() {
@@ -358,7 +364,9 @@ $.post('../ajax/privilegios.php', function(data) {
 									}, ]
 								});
 							});
-							$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php');
+							$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php',function(){
+								$('[name="Prioridad"]').selectpicker();
+							});
 						});
 					}
 				}

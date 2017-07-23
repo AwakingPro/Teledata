@@ -81,7 +81,7 @@
 									<div class="row">
 										<div class="col-md-12 form-group">
 											<label>Cliente</label>
-											<select name="Cliente" class="form-control" id="cliente">
+											<select name="Cliente" class="form-control" id="cliente" data-live-search="true">
 												<option value="">Seleccione...</option>
 											</select>
 										</div>
@@ -96,7 +96,7 @@
 									<div class="row">
 										<div class="col-md-6 form-group">
 											<label >Origen</label>
-											<select name="Origen" class="form-control" id="cliente">
+											<select name="Origen" class="selectpicker form-control"  data-live-search="true">
 												<option value="">Seleccione...</option>
 												<option>Llamado Telefónico</option>
 												<option>Correo Electrónico</option>
@@ -109,7 +109,7 @@
 										</div>
 										<div class="col-md-6 form-group">
 											<label >Departamento</label>
-											<select name="Departamento" class="form-control" id="cliente">
+											<select name="Departamento" class="selectpicker form-control" data-live-search="true">
 												<option value="">Seleccione...</option>
 												<option>Soporte Tecnico</option>
 											</select>
@@ -119,7 +119,7 @@
 										<div class="col-md-6 form-group">
 											<label >Tipo</label>
 											<div class="input-group">
-												<select name="Tipo" class="form-control" >
+												<select name="Tipo" class="form-control" data-live-search="true">
 													<option value="">Seleccione...</option>
 												</select>
 												<span class="input-group-btn">
@@ -130,7 +130,7 @@
 										<div class="col-md-6 form-group">
 											<label >Subtipo</label>
 											<div class="input-group">
-												<select name="Subtipo" class="form-control" >
+												<select name="Subtipo" class="selectpicker form-control" data-live-search="true">
 													<option value="">Seleccione...</option>
 												</select>
 												<span class="input-group-btn">
@@ -143,7 +143,7 @@
 										<div class="col-md-6 form-group">
 											<label >Prioridad</label>
 											<div class="input-group">
-												<select name="Prioridad" class="form-control" >
+												<select name="Prioridad" class="form-control" data-live-search="true">
 												</select>
 												<span class="input-group-btn">
 													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiempoPrioridad"><i class="fa fa-plus" aria-hidden="true"></i></button>
