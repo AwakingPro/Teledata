@@ -89,7 +89,7 @@
 									<div class="row">
 										<div class="col-md-12 form-group">
 											<label>Servicio</label>
-											<select name="Servicio" class="form-control">
+											<select name="Servicio" class="form-control" data-live-search="true">
 											</select>
 										</div>
 									</div>

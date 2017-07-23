@@ -102,7 +102,7 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label>Cliente</label>
-								<select name="ClienteUpdate" class="form-control" id="cliente">
+								<select name="ClienteUpdate" class="form-control" id="cliente" data-live-search="true">
 									<option value="">Seleccione...</option>
 								</select>
 							</div>
@@ -110,14 +110,14 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label>Servicio</label>
-								<select name="ServicioUpdate" class="form-control">
+								<select name="ServicioUpdate" class="form-control" data-live-search="true">
 								</select>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 form-group">
 								<label >Origen</label>
-								<select name="OrigenUpdate" class="form-control" id="cliente">
+								<select name="OrigenUpdate" class="form-control selectpicker" id="cliente" data-live-search="true">
 									<option value="">Seleccione...</option>
 									<option>Llamado Telefónico</option>
 									<option>Correo Electrónico</option>
@@ -130,7 +130,7 @@
 							</div>
 							<div class="col-md-6 form-group">
 								<label >Departamento</label>
-								<select name="DepartamentoUpdate" class="form-control" id="cliente">
+								<select name="DepartamentoUpdate" class="form-control selectpicker" id="cliente" data-live-search="true">
 									<option value="">Seleccione...</option>
 									<option>Soporte Técnico</option>
 								</select>
@@ -139,13 +139,13 @@
 						<div class="row">
 							<div class="col-md-6 form-group">
 								<label >Tipo</label>
-								<select name="TipoUpdate" class="form-control" >
+								<select name="TipoUpdate" class="form-control" data-live-search="true">
 									<option value="">Seleccione...</option>
 								</select>
 							</div>
 							<div class="col-md-6 form-group">
 								<label >Subtipo</label>
-								<select name="SubtipoUpdate" class="form-control" >
+								<select name="SubtipoUpdate" class="form-control" data-live-search="true">
 									<option value="">Seleccione...</option>
 								</select>
 							</div>
@@ -153,12 +153,12 @@
 						<div class="row">
 							<div class="col-md-6 form-group">
 								<label >Prioridad</label>
-								<select name="PrioridadUpdate" class="form-control" >
+								<select name="PrioridadUpdate" class="form-control" data-live-search="true">
 								</select>
 							</div>
 							<div class="col-md-6 form-group">
 								<label >Asignar a</label>
-								<select name="AsignarAUpdate" class="form-control" id="personal">
+								<select name="AsignarAUpdate" class="form-control" id="personal" data-live-search="true">
 									<option value="">Seleccione...</option>
 								</select>
 							</div>
@@ -166,7 +166,7 @@
 						<div class="row">
 							<div class="col-md-6 form-group">
 								<label >Estado</label>
-								<select name="EstadoUpdate" class="form-control" >
+								<select name="EstadoUpdate" class="form-control selectpicker" data-live-search="true">
 									<option value="">Seleccione...</option>
 									<option>Abierto</option>
 									<option>Cerrado</option>

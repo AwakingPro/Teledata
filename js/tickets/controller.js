@@ -2,7 +2,9 @@ $.post('../ajax/privilegios.php', function(data) {
 	$('#page-content').load('views/'+data+'.php', function(){
 
 		$('.selectpicker').selectpicker();
-		$('[name="Servicio"], [name="ServicioUpdate"]').load('../ajax/tickets/listServicios.php');
+		$('[name="Servicio"], [name="ServicioUpdate"]').load('../ajax/tickets/listServicios.php',function(){
+			$('[name="Servicio"], [name="ServicioUpdate"]').selectpicker();
+		});
 		$('[name="AsignarA"], [name="AsignarAUpdate"]').load('../ajax/tickets/listUsuario.php',function(){
 			$('[name="AsignarA"], [name="AsignarAUpdate"]').selectpicker();
 		});

@@ -67,7 +67,7 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label>Cliente</label>
-								<select name="Cliente" class="form-control" id="cliente">
+								<select name="Cliente" class="form-control" id="cliente" data-live-search="true">
 									<option value="">Seleccione...</option>
 								</select>
 							</div>
@@ -75,14 +75,14 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label>Servicio</label>
-								<select name="Servicio" class="form-control">
+								<select name="Servicio" class="form-control" data-live-search="true">
 								</select>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-md-6 form-group">
 								<label >Origen</label>
-								<select name="Origen" class="form-control" id="cliente">
+								<select name="Origen" class="form-control selectpicker" id="cliente" data-live-search="true">
 									<option value="">Seleccione...</option>
 									<option>Llamado Telefónico</option>
 									<option>Correo Electrónico</option>
@@ -95,7 +95,7 @@
 							</div>
 							<div class="col-md-6 form-group">
 								<label >Departamento</label>
-								<select name="Departamento" class="form-control" id="cliente">
+								<select name="Departamento" class="selectpicker form-control" data-live-search="true">
 									<option value="">Seleccione...</option>
 									<option>Soporte Tecnico</option>
 								</select>
@@ -104,13 +104,13 @@
 						<div class="row">
 							<div class="col-md-6 form-group">
 								<label >Tipo</label>
-								<select name="Tipo" class="form-control" >
+								<select name="Tipo" class="form-control" data-live-search="true">
 									<option value="">Seleccione...</option>
 								</select>
 							</div>
 							<div class="col-md-6 form-group">
 								<label >Subtipo</label>
-								<select name="Subtipo" class="form-control" >
+								<select name="Subtipo" class="form-control" data-live-search="true">
 									<option value="">Seleccione...</option>
 								</select>
 							</div>
@@ -118,12 +118,12 @@
 						<div class="row">
 							<div class="col-md-6 form-group">
 								<label >Prioridad</label>
-								<select name="Prioridad" class="form-control" >
+								<select name="Prioridad" class="form-control" data-live-search="true">
 								</select>
 							</div>
 							<div class="col-md-6 form-group">
 								<label >Asignar a</label>
-								<select name="AsignarA" class="form-control" id="personal">
+								<select name="AsignarA" class="form-control" id="personal" data-live-search="true">
 									<option value="">Seleccione...</option>
 								</select>
 							</div>
@@ -131,7 +131,7 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label >Estado</label>
-								<select name="Estado" class="form-control" >
+								<select name="Estado" class="selectpicker form-control" data-live-search="true">
 									<option>Abierto</option>
 									<option>Finalizado</option>
 								</select>
