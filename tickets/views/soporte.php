@@ -75,7 +75,8 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label>Servicio</label>
-								<select name="Servicio" class="form-control" data-live-search="true">
+								<select name="Servicio" class="selectpicker form-control" data-live-search="true">
+									<option value="">Seleccione...</option>
 								</select>
 							</div>
 						</div>
