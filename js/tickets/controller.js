@@ -22,9 +22,12 @@ $.post('../ajax/privilegios.php', function(data) {
 			$('select[name="NombreCliente"], [name="Cliente"], [name="ClienteUpdate"]').selectpicker();
 		});
 
-		$(document).on('change', '[name="Cliente"], [name="ClienteUpdate"]', function(event) {
-			$('[name="Servicio"], [name="ServicioUpdate"]').post('../ajax/tickets/listServicios.php',{id:$('[name="Cliente"], [name="ClienteUpdate"]').selectpicker('val')},function(){
-				$('[name="Servicio"], [name="ServicioUpdate"]').selectpicker();
+		$(document).on('change', '[name="Cliente"], [name="ClienteUpdate"]', function() {
+			console.log($(this).selectpicker('val'));
+			$.post('../ajax/tickets/listServicios.php',{id:$(this).selectpicker('val')},function(data){
+				console.log(data);
+				$('[name="Servicio"], [name="ServicioUpdate"]').html(data);
+				$('[name="Servicio"], [name="ServicioUpdate"]').selectpicker('refresh');
 			});
 		});
 

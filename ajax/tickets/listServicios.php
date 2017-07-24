@@ -5,7 +5,9 @@
 		servicios.codigo,
 		servicios.descripcion
 	FROM
-		servicios';
+		servicios
+	WHERE
+		servicios.Rut ='.$_POST['id'];
 	$run = new Method;
 	$data = $run->select($query);
 	if (count($data) > 0) {
