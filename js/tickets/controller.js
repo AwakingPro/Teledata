@@ -2,9 +2,7 @@ $.post('../ajax/privilegios.php', function(data) {
 	$('#page-content').load('views/'+data+'.php', function(){
 
 		$('.selectpicker').selectpicker();
-		$('[name="Servicio"], [name="ServicioUpdate"]').load('../ajax/tickets/listServicios.php',function(){
-			$('[name="Servicio"], [name="ServicioUpdate"]').selectpicker();
-		});
+
 		$('[name="AsignarA"], [name="AsignarAUpdate"]').load('../ajax/tickets/listUsuario.php',function(){
 			$('[name="AsignarA"], [name="AsignarAUpdate"]').selectpicker();
 		});
@@ -22,6 +20,12 @@ $.post('../ajax/privilegios.php', function(data) {
 
 		$('select[name="NombreCliente"], [name="Cliente"], [name="ClienteUpdate"]').load('../ajax/tickets/selectClientes.php',function(){
 			$('select[name="NombreCliente"], [name="Cliente"], [name="ClienteUpdate"]').selectpicker();
+		});
+
+		$(document).on('change', '[name="Cliente"], [name="ClienteUpdate"]', function(event) {
+			$('[name="Servicio"], [name="ServicioUpdate"]').post('../ajax/tickets/listServicios.php',{id:$('[name="Cliente"], [name="ClienteUpdate"]').selectpicker('val')},function(){
+				$('[name="Servicio"], [name="ServicioUpdate"]').selectpicker();
+			});
 		});
 
 		$('.listaPrioridad').load('../ajax/tickets/listPrioridad.php',function(){
