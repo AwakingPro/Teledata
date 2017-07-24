@@ -85,11 +85,11 @@ if (file_exists('../../ajax/perfil/img-profile/'.$_SESSION['idUsuario'].'.jpg'))
 								<i class="pli-male icon-lg icon-fw"></i> Perfil
 							</a>
 						</li>
-						<li>
+						<!-- <li>
 							<a href="#">
 								<i class="pli-gear icon-lg icon-fw"></i> Configuración
 							</a>
-						</li>
+						</li> -->
 					</ul>
 					<!-- Dropdown footer -->
 					<div class="pad-all text-right">
