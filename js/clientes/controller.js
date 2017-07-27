@@ -54,12 +54,35 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.agregarDatosTecnicos', function() {
+		
 		var id = $(this).attr('attr');
+
 		$.post('../ajax/cliente/tipoViewModal.php', {id: id}, function(data) {
+
 			$('.containerTipoServicio').load('viewTipoServicio/'+data,function(){
 				$('[name="idServicio"]').val(id);
+				$('#destino_id').val(id)
 				$('select').selectpicker();
 			});
+
+			if(data.trim() == 'arriendoEquipos.php'){
+
+				$.ajax({
+                    type: "POST",
+                    url: "../includes/inventario/egresos/getBodega.php",
+                    success: function(response){
+
+                        $.each(response.array, function( index, array ) {
+                            $('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                        });
+                    }
+                });
+
+                setTimeout(function() { 
+	                $('#origen_id').selectpicker('render');
+	                $('#origen_id').selectpicker('refresh');
+                }, 1000);
+			}
 		});
 	});
 
@@ -84,11 +107,10 @@ $(document).ready(function() {
 		var url = $('.container-form-datosTecnicos').attr('attr');
 		console.log(url);
 		$.postFormValues('../ajax/cliente/'+url,'.container-form-datosTecnicos',function(data){
-			console.log(data);
 			if (Number(data) > 0){
+				$('.modal').modal('hide')
 				bootbox.alert('<h3 class="text-center">Los datos se registraron con éxito.</h3>');
 			}else{
-				console.log(data);
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
 			}
 		});
@@ -334,106 +356,34 @@ $(document).ready(function() {
 		});
 	});
 
-	$(document).on('change', '#origen_tipo', function () {
-        $('#producto_id').empty();
-        $('#producto_id').append(new Option('Seleccione Opción',''));
-
-        $('#producto_id').selectpicker('refresh');
-
-        $('#origen_id').empty();
-        $('#origen_id').append(new Option('Seleccione Opción',''));
-
-        if($(this).val()){
-
-            $('.origen').show();
-
-
-            if($(this).val() == 1){
-
-                $('#span_origen').text('Bodega');
-
-                $.ajax({
-                    type: "POST",
-                    url: "../includes/inventario/egresos/getBodega.php",
-                    success: function(response){
-
-                        $.each(response.array, function( index, array ) {
-                            $('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
-                        });
-
-                        $('.selectpicker').selectpicker('render');
-                        $('.selectpicker').selectpicker('refresh');
-                    }
-                });
-            }else{
-                $('#span_origen').text('Cliente');
-                $('.selectpicker').selectpicker('render');
-                $('.selectpicker').selectpicker('refresh');
-            }
-        }else{
-            $('.origen').hide();
-        }
-
-    });
-
-$(document).on('change', '#destino_tipo', function () {
-
-        $('#destino_id').empty();
-        $('#destino_id').append(new Option('Seleccione Opción',''));
-
-        if($(this).val()){
-
-            $('.destino').show();
-
-            if($(this).val() == 1){
-
-                $('#span_destino').text('Bodega');
-
-                $.ajax({
-                    type: "POST",
-                    url: "../includes/inventario/egresos/getBodega.php",
-                    success: function(response){
-
-                        $.each(response.array, function( index, array ) {
-                            $('#destino_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
-                        });
-
-                        $('#destino_id').selectpicker('refresh');
-                    }
-                });
-            }else{
-                $('#span_destino').text('Cliente');
-                $('#destino_id').selectpicker('refresh');
-            }
-        }else{
-            $('.destino').hide();
-        }
-    });
-
     $(document).on('change', '#origen_id', function () {
 
         $('#producto_id').empty();
         $('#producto_id').append(new Option('Seleccione Opción',''));
 
-        origen_tipo = $('#origen_tipo').val();
-        origen_id = $('#origen_id').val();
+        origen_tipo = 1
+        origen_id = $(this).val();
 
-        $.ajax({
-            type: "POST",
-            url: "../includes/inventario/egresos/getProducto.php",
-            data:"&origen_tipo="+origen_tipo+"&origen_id="+origen_id,
-            success: function(response){
+        if(origen_id){
 
-                $.each(response.array, function( index, array ) {
-                    $('#producto_id').append('<option value="'+array.id+'" data-content="'+array.tipo + ' ' + array.marca + ' ' + array.modelo+ ' - ' + array.numero_serie+'"></option>');
-                });
+	        $.ajax({
+	            type: "POST",
+	            url: "../includes/inventario/egresos/getProducto.php",
+	            data:"&origen_tipo="+origen_tipo+"&origen_id="+origen_id,
+	            success: function(response){
 
-                $('.selectpicker').selectpicker('render');
-                $('.selectpicker').selectpicker('refresh');
-            }
-        });
+	                $.each(response.array, function( index, array ) {
+	                    $('#producto_id').append('<option value="'+array.id+'" data-content="'+array.tipo + ' ' + array.marca + ' ' + array.modelo+ ' - ' + array.numero_serie+'"></option>');
+	                });
+	            }
+	        }); 
+    	}
+
+    	setTimeout(function() { 
+            $('#producto_id').selectpicker('render');
+            $('#producto_id').selectpicker('refresh');
+        }, 1000);
 
     });
-
 
 });

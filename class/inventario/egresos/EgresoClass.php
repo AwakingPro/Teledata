@@ -1,11 +1,22 @@
 <?php
 
-    include('../../../class/methods_global/methods.php'); 
+    $str = $_SERVER['SCRIPT_NAME'];
+    $where = substr($str, strrpos($str, '/') + 1);
+
+    if($where != 'insertArriendoEquipos.php'){
+        include('../../../class/methods_global/methods.php'); 
+    }else{
+        include('../../class/methods_global/methods.php'); 
+    }
+    
     header('Content-type: application/json');
 
     class Egreso{
 
     	public function storeMovimiento($ProductoId,$DestinoTipo,$DestinoId){
+
+            $str = $_SERVER['SCRIPT_NAME'];
+            $where = substr($str, strrpos($str, '/') + 1);
 
             $response_array = array();
 
@@ -99,8 +110,12 @@
 
                                         $array = array('id' => $id, 'numero_serie' => $NumeroSerie, 'producto' => $Producto, 'destino' => $Destino, 'fecha_movimiento' => $FechaMovimiento, 'hora_movimiento' => $HoraMovimiento, 'responsable' => $Responsable);
 
-                                        $response_array['array'] = $array;
-                                        $response_array['status'] = 1; 
+                                        if($where != 'insertArriendoEquipos.php'){
+                                            $response_array['array'] = $array;
+                                            $response_array['status'] = 1; 
+                                        }else{
+                                            $response_array = $id;
+                                        }
 
                                     }else{
                                         $response_array['status'] = 0; 
