@@ -9,7 +9,7 @@ $(document).ready(function(){
         processing: true,
         serverSide: false,
         bInfo:false,
-        order: [[0, 'asc']],
+        order: [[3, 'desc'],[4, 'desc']],
         language: {
             processing:     "Procesando ...",
             search:         'Buscar',
