@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	$user= mysql_real_escape_string($_POST['usuario']);
+	$user= mysqli_real_escape_string($_POST['usuario']);
 	$query = 'SELECT clave, id, nivel FROM usuarios WHERE usuario="'.$user.'"';
 	$run = new Method;
 	$data = $run->select($query);
