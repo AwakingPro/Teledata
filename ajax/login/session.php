@@ -1,7 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	$user= mysqli_real_escape_string($_POST['usuario']);
-	$query = 'SELECT clave, id, nivel FROM usuarios WHERE usuario="'.$user.'"';
+	$query = 'SELECT clave, id, nivel FROM usuarios WHERE usuario="'.$_POST['usuario'].'"';
 	$run = new Method;
 	$data = $run->select($query);
 	if (count($data) > 0) {
