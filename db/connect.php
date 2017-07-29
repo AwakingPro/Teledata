@@ -1,6 +1,7 @@
 <?php
 $host_name = '192.168.1.8';
 $user_name = 'root';
+//$pass_word = '';
 $pass_word = 'sm9a7r5s3';
 $database_name = 'teledata';
 
