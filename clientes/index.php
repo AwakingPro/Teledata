@@ -12,10 +12,12 @@
 		<link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+		<link href="../plugins/pace/pace.min.css" rel="stylesheet">
+   		 <script src="../plugins/pace/pace.min.js"></script>
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
-		<div id="container" class="effect mainnav-sm">
+		<div id="container" class="effect aside-float aside-bright mainnav-sm">
 			<div class="containerHeader"></div>
 			<div class="boxed">
 				<div id="content-container">
@@ -62,7 +64,19 @@
 													</div>
 													<div class="col-md-4 form-group">
 														<label>Dv</label>
-														<input name="Dv" class="form-control">
+														<select name="DV" class="form-control selectpicker" data-live-search="true">
+															<option value="">Seleccione...</option>
+															<option>1</option>
+															<option>2</option>
+															<option>3</option>
+															<option>4</option>
+															<option>5</option>
+															<option>6</option>
+															<option>7</option>
+															<option>8</option>
+															<option>9</option>
+															<option>K</option>
+														</select>
 													</div>
 												</div>
 												<div class="row">
@@ -124,6 +138,7 @@
 						<div class='nano'>
 							<div class='nano-content'>
 								<ul id='mainnav-menu' class='list-group'>
+
 								</ul>
 							</div>
 						</div>
@@ -140,6 +155,7 @@
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 	<script src="../js/methods_global/methods.js"></script>
 	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
+	<script src="../plugins/numbers/jquery.number.js"></script>
 	<script src="../js/clientes/controller.js"></script>
 </body>
 </html>
@@ -169,7 +185,19 @@
 					</div>
 					<div class="col-md-4 form-group">
 						<label>Dv</label>
-						<input name="Dv_update" class="form-control">
+						<select name="Dv_update" class="form-control selectpicker" data-live-search="true">
+							<option value="">Seleccione...</option>
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+							<option>6</option>
+							<option>7</option>
+							<option>8</option>
+							<option>9</option>
+							<option>K</option>
+						</select>
 					</div>
 				</div>
 				<div class="row">

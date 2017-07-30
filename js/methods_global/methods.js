@@ -48,12 +48,11 @@ $.validate = function(obj) {
 	}
 }
 
+$('.containerHeader').load('../ajax/header/mainHeader.php');
+
 $.post('../ajax/menu/mainMenu.php', {url: window.location.pathname}, function(data) {
 	$('#mainnav-menu').html(data);
 });
-
-$('.containerHeader').load('../ajax/header/mainHeader.php');
-
 
 $(document).on('click', '.itemsMenu', function() {
 	$(this).siblings('.collapse').slideToggle();
@@ -71,6 +70,4 @@ $(document).on('click', '.tgl-menu-btn', function(event){
 		$('.effect').removeClass('mainnav-sm');
 		$('.effect').attr('attr', '1');
 	}
-
-
 });

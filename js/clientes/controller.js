@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+	$('[name="Rut_update"], [name="Rut"]').number( true, 0,'','');
+
 	$('select[name="rutCliente"]').load('../ajax/cliente/selectRutCliente.php',function(){
 		$('select[name="rutCliente"]').selectpicker();
 	});
@@ -54,7 +57,7 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.agregarDatosTecnicos', function() {
-		
+
 		var id = $(this).attr('attr');
 
 		$.post('../ajax/cliente/tipoViewModal.php', {id: id}, function(data) {
@@ -78,7 +81,7 @@ $(document).ready(function() {
                     }
                 });
 
-                setTimeout(function() { 
+                setTimeout(function() {
 	                $('#origen_id').selectpicker('render');
 	                $('#origen_id').selectpicker('refresh');
                 }, 1000);
@@ -376,10 +379,10 @@ $(document).ready(function() {
 	                    $('#producto_id').append('<option value="'+array.id+'" data-content="'+array.tipo + ' ' + array.marca + ' ' + array.modelo+ ' - ' + array.numero_serie+'"></option>');
 	                });
 	            }
-	        }); 
+	        });
     	}
 
-    	setTimeout(function() { 
+    	setTimeout(function() {
             $('#producto_id').selectpicker('render');
             $('#producto_id').selectpicker('refresh');
         }, 1000);

@@ -22,7 +22,7 @@
 				$data2 = $run->select($query2);
 				if (count($data2) > 0) {
 					$arrow = "<i class='arrow'></i>";
-					$subMenu .= '<ul class="collapse">';
+					$subMenu .= '<ul class="collapse ">';
 					for ($j=0; $j < count($data2); $j++) {
 						if ($data2[$j]['Enlace'] == $url) {
 							$subM = 1;
@@ -36,7 +36,7 @@
 				}
 				if ($data[$i]['enlace'] == $url || $subM == 1) {
 					$list.= ' <li class="active-link">
-						<a class="itemsMenu" href="'.$data[$i]['enlace'].'">
+						<a  href="'.$data[$i]['enlace'].'">
 							<i class="'.$data[$i]['icono'].'"></i>
 							<span class="menu-title">
 								<strong>'.$data[$i]['descripcion'].'</strong>
@@ -48,7 +48,7 @@
 					$subM = 0;
 				}else{
 					$list.= ' <li>
-						<a class="itemsMenu" href="'.$data[$i]['enlace'].'">
+						<a  href="'.$data[$i]['enlace'].'">
 							<i class="'.$data[$i]['icono'].'"></i>
 							<span class="menu-title">
 								<strong>'.$data[$i]['descripcion'].'</strong>
