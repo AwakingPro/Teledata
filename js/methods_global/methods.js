@@ -60,7 +60,6 @@ $(document).on('click', '.itemsMenu', function() {
 
 $(document).on('click', '.tgl-menu-btn', function(event){
 	event.preventDefault();
-
 	if ($('.effect').attr('attr') == 1) {
 		$('.effect').addClass('mainnav-sm');
 		$('.effect').removeClass('mainnav-lg');

@@ -118,7 +118,16 @@
 													</div>
 												</div>
 											</div>
-											<div id="tabs-box-2" class="tab-pane fade listaCliente">
+											<div id="tabs-box-2" class="tab-pane fade">
+												<div class="row">
+													<div class="col-md-12">
+														<a href="../ajax/cliente/exportarExcelCliente.php" class="btn btn-primary">Exportar en Excel</a>
+													</div>
+												</div>
+												<br>
+												<br>
+												<div class="listaCliente"></div>
+											</div>
 										</div>
 									</div>
 								</div>
