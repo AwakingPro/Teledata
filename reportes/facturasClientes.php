@@ -104,7 +104,7 @@
 
 		<script src="../js/jquery-2.2.1.min.js"></script>
 		<script src="../js/bootstrap.min.js"></script>
-		<script src="../js/nifty.min.js"></script>
+		
 		<script src="../plugins/bootbox/bootbox.min.js"></script>
 		<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 		<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>

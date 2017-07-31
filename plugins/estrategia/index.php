@@ -1432,7 +1432,7 @@ $sql="select * from tablas order by id asc";
 
     
     <!--Nifty Admin [ RECOMMENDED ]-->
-    <script src="../js/nifty.min.js"></script>
+    
 
 
     <!--Morris.js [ OPTIONAL ]-->
@@ -1457,7 +1457,7 @@ $sql="select * from tablas order by id asc";
 
 
     <!--Demo script [ DEMONSTRATION ]-->
-    <script src="../js/demo/nifty-demo.min.js"></script>
+    
 
 
     <!--Specify page [ SAMPLE ]-->

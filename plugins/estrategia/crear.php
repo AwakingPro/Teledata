@@ -44,6 +44,7 @@ $res=mysql_query($sql);
     <link href="../plugins/pace/pace.min.css" rel="stylesheet">
     <script src="../plugins/pace/pace.min.js"></script>
     <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+    <link href="../css/teledata.css" rel="stylesheet">
     <style type="text/css">
     .select1 
              { 
@@ -721,14 +722,14 @@ body.loading .modal
     <script src="../js/funciones.js"></script>
     <script src="../js/bootstrap.min.js"></script>
     <script src="../plugins/fast-click/fastclick.min.js"></script>
-    <script src="../js/nifty.min.js"></script>
+    
 	<script src="../plugins/morris-js/morris.min.js"></script>
     <script src="../plugins/morris-js/raphael-js/raphael.min.js"></script>
     <script src="../plugins/sparkline/jquery.sparkline.min.js"></script>
     <script src="../plugins/skycons/skycons.min.js"></script>
     <script src="../plugins/switchery/switchery.min.js"></script>
     <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
-    <script src="../js/demo/nifty-demo.min.js"></script>
+    
     <script src="../plugins/bootbox/bootbox.min.js"></script>
     <script src="../js/demo/ui-alerts.js"></script>
 

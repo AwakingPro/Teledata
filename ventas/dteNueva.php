@@ -21,6 +21,7 @@
     <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
     <link href="../css/themes/type-a/theme-mint.min.css" rel="stylesheet">
     <link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="../css/teledata.css" rel="stylesheet">
 
     <style type="text/css">
         #navbar .brand-title {
@@ -360,14 +361,14 @@
 <script src="../js/clientes/dte.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../plugins/fast-click/fastclick.min.js"></script>
-<script src="../js/nifty.min.js"></script>
+
 <script src="../plugins/morris-js/morris.min.js"></script>
 <script src="../plugins/morris-js/raphael-js/raphael.min.js"></script>
 <script src="../plugins/sparkline/jquery.sparkline.min.js"></script>
 <script src="../plugins/skycons/skycons.min.js"></script>
 <script src="../plugins/switchery/switchery.min.js"></script>
 <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
-<script src="../js/demo/nifty-demo.min.js"></script>
+
 <script src="../plugins/bootbox/bootbox.min.js"></script>
 <script src="../js/demo/ui-alerts.js"></script>
 <script src="../js/global/funciones-global.js"></script>

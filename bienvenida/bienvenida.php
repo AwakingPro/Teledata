@@ -9,6 +9,7 @@
 		<link href="../css/demo/nifty-demo-icons.min.css" rel="stylesheet">
 		<link href="../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
+		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
 		<div id="container" class="mainnav-sm">
@@ -73,8 +74,8 @@
     </div>
 	<script src="../js/jquery-2.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/nifty.min.js"></script>
-	<script src="../js/demo/nifty-demo.min.js"></script>
+	
+	
 	<script src="../js/methods_global/methods.js"></script>
 </body>
 </html>
