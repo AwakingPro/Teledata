@@ -4,19 +4,16 @@
 	*/
 	include_once('settings_mysql.php');
 	class Method {
-
 		private $host;
 		private $user;
 		private $password;
 		private $nameDateBase;
-
 		function __construct () {
 			$this->host = host;
 			$this->user = user;
 			$this->password = password;
 			$this->nameDateBase = nameDataBase;
 		}
-
 		public function conexion(){
 			$mysqli = new mysqli(host, user, password, nameDataBase);
 			if ($mysqli->connect_error) {
@@ -25,7 +22,6 @@
 				return $mysqli;
 			}
 		}
-
 		public function insert($query){
 			$mysqli = $this->conexion();
 			if ($mysqli) {
@@ -43,7 +39,6 @@
 				return 'No hay conexion';
 			}
 		}
-
 		public function delete($query){
 			$mysqli = $this->conexion();
 			if ($mysqli) {
@@ -60,7 +55,6 @@
 				return 'No hay conexion';
 			}
 		}
-
 		public function update($query){
 			$mysqli = $this->conexion();
 			if ($mysqli) {
@@ -77,7 +71,6 @@
 				return 'No hay conexion';
 			}
 		}
-
 		public function select($query) {
 			$mysqli = $this->conexion();
 			$mysqli->set_charset("utf8");
@@ -96,7 +89,6 @@
 				return 'No hay conexion';
 			}
 		}
-
 		function listView($post) {
 			$mysqli = $this->conexion();
 			if ($mysqli) {
@@ -128,7 +120,6 @@
 					}
 					$tabla.="</tbody></table>";
 					return $tabla;
-
 				}else{
 					return 'Problemas en el query de consulta';
 				}
@@ -136,7 +127,6 @@
 				return 'No hay conexion';
 			}
 		}
-
 		function listViewTicktes($post) {
 			$mysqli = $this->conexion();
 			if ($mysqli) {
@@ -169,7 +159,6 @@
 					}
 					$tabla.="</tbody></table>";
 					return $tabla;
-
 				}else{
 					return 'Problemas en el query de consulta';
 				}
@@ -177,7 +166,6 @@
 				return 'No hay conexion';
 			}
 		}
-
 		function listViewTiketsSoporte($post) {
 			$mysqli = $this->conexion();
 			if ($mysqli) {
@@ -209,7 +197,6 @@
 					}
 					$tabla.="</tbody></table>";
 					return $tabla;
-
 				}else{
 					return 'Problemas en el query de consulta';
 				}
@@ -217,7 +204,6 @@
 				return 'No hay conexion';
 			}
 		}
-
 		function listViewServicios($post) {
 			$mysqli = $this->conexion();
 			if ($mysqli) {
@@ -250,7 +236,6 @@
 					}
 					$tabla.="</tbody></table>";
 					return $tabla;
-
 				}else{
 					return 'Problemas en el query de consulta';
 				}
@@ -258,8 +243,6 @@
 				return 'No hay conexion';
 			}
 		}
-
-
 		function listViewFacturasClientes($post) {
 			$mysqli = $this->conexion();
 			if ($mysqli) {
@@ -293,7 +276,6 @@
 					}
 					$tabla.="</tbody></table>";
 					return $tabla;
-
 				}else{
 					return 'Problemas en el query de consulta';
 				}
@@ -301,8 +283,6 @@
 				return 'No hay conexion';
 			}
 		}
-
-
 		function listViewUsuarios($post) {
 			$mysqli = $this->conexion();
 			if ($mysqli) {
@@ -326,7 +306,6 @@
 							} else {
 								$tabla.= '<tr><td><img class="img-circle" height="50" src="../img/av1.png" alt="img-profile"></td>';
 							}
-
 							foreach ($rows[$i] as $clave => $valor) {
 								$tabla.="<td style='line-height: 50px;'>".$valor."</td>";
 							}
@@ -339,7 +318,6 @@
 					}
 					$tabla.="</tbody></table>";
 					return $tabla;
-
 				}else{
 					return 'Problemas en el query de consulta';
 				}
@@ -347,8 +325,5 @@
 				return 'No hay conexion';
 			}
 		}
-
 	}
-
  ?>
-
