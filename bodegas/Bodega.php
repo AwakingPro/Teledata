@@ -167,7 +167,7 @@
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 
-		<div id="container" class="mainnav-sm">
+		<div id="container" class="effect aside-float aside-bright mainnav-sm">
 			<div class="containerHeader"></div>
 			<div class="boxed">
 				<div id="content-container">
@@ -234,7 +234,7 @@
 
 		<script src="../js/jquery-2.2.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
-        
+
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="../plugins/sweetalert/sweetalert.min.js"></script>
@@ -245,6 +245,6 @@
         <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
         <script src="../plugins/numbers/jquery.number.min.js"></script>
 		<script src="../js/inventario/bodegas/Bodega.js"></script>
-		
+
 	</body>
 </html>

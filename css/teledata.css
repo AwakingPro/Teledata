@@ -43,3 +43,30 @@ div.bg-img{
 	display: block;
 	margin-top: 10px;
 }
+
+.hover-menu {
+	  top: 0;
+	  background: #000;
+	  position: absolute;
+	  color: #FFF;
+	  z-index: 99999;
+	  background: #3b4146;
+	  left: 50px;
+}
+.hover-menu i{
+	display: none;
+}
+
+.hover-menu a{
+	color: #FFF;
+	padding: 15px;
+	line-height: 41px;
+}
+
+.hover-menu ul{
+	list-style: none;
+	display: block;
+	padding-left: 0;
+	margin: 0;
+			background: #2b2f33;
+}

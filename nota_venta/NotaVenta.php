@@ -23,7 +23,7 @@
     <body>
 
 
-    <div id="container" class="mainnav-sm">
+   <div id="container" class="effect aside-float aside-bright mainnav-sm">
 
             <div class="containerHeader"></div>
 
@@ -309,7 +309,7 @@
 
         <script src="../js/jquery-2.2.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
-        
+
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="../plugins/sweetalert/sweetalert.min.js"></script>

@@ -35,7 +35,7 @@
 					$subMenu .= '</ul>';
 				}
 				if ($data[$i]['enlace'] == $url || $subM == 1) {
-					$list.= ' <li class="active-link">
+					$list.= ' <li class="menu-items active-link">
 						<a  href="'.$data[$i]['enlace'].'">
 							<i class="'.$data[$i]['icono'].'"></i>
 							<span class="menu-title">
@@ -47,7 +47,7 @@
 					</li>';
 					$subM = 0;
 				}else{
-					$list.= ' <li>
+					$list.= ' <li  class="menu-items">
 						<a  href="'.$data[$i]['enlace'].'">
 							<i class="'.$data[$i]['icono'].'"></i>
 							<span class="menu-title">

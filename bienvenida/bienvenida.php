@@ -12,7 +12,7 @@
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
-		<div id="container" class="mainnav-sm">
+		<div id="container" class="effect aside-float aside-bright mainnav-sm">
 			<div class="containerHeader"></div>
 			<div class="boxed">
 				<div id="content-container">
@@ -74,8 +74,11 @@
     </div>
 	<script src="../js/jquery-2.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
+<<<<<<< HEAD
+=======
 	
 	
+>>>>>>> origin/master
 	<script src="../js/methods_global/methods.js"></script>
 </body>
 </html>

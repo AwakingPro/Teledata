@@ -17,7 +17,7 @@
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
-		<div id="container" class="effect mainnav-sm">
+		<div id="container" class="effect aside-float aside-bright mainnav-sm">
 			<div class="containerHeader"></div>
 			<div class="boxed">
 				<div id="content-container">
@@ -123,7 +123,7 @@
 		</div>
 		<script src="../js/jquery-2.2.1.min.js"></script>
 		<script src="../js/bootstrap.min.js"></script>
-		
+
 		<script src="../plugins/bootbox/bootbox.min.js"></script>
 		<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 		<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>

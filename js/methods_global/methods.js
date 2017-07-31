@@ -50,6 +50,28 @@ $.validate = function(obj) {
 
 $.post('../ajax/menu/mainMenu.php', {url: window.location.pathname}, function(data) {
 	$('#mainnav-menu').html(data);
+	$('.effect').attr('attr', '');
+	$('.menu-items').hover(function() {
+		if ($('.effect').attr('attr') == '') {
+			$('.hover-menu').remove()
+			var x = $(this).position();
+			var top = x.top + 41;
+			$('body').append('<span class="hover-menu" style="top:'+top+'px;">'+$(this).html()+'</span>')
+		}else{
+			$('.menu-items').click(function() {
+				if ($(this).find('ul').hasClass('in')){
+				    $(this).find('ul').removeClass('in');
+				}else{
+				    $(this).find('ul').addClass('in');
+				}
+			});
+		}
+	}, function(){
+		$('.hover-menu').hover(function(){}, function() {
+			$('.hover-menu').remove()
+		});
+	});
+
 });
 
 $('.containerHeader').load('../ajax/header/mainHeader.php');
