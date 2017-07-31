@@ -158,7 +158,7 @@
                                                         <div class="col-md-1">
                                                             <div class="form-group">
                                                                 <div class="text-center">
-                                                                    <label class="control-label h5" for="name">Indic. Exención</label>
+                                                                    <label class="control-label h5" for="name">Exención</label>
                                                                 </div>
                                                                 <select class="selectpicker form-control" name="exencion" id="exencion"  data-live-search="true" data-container="body">
                                                                     <option value="1">Afecto</option>
