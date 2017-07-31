@@ -5,6 +5,4 @@
 	$NotaVenta = new NotaVenta();
 	$NotaVenta->GuardarServicio($_POST['codigo'],$_POST['servicio'],$_POST['cantidad'],$_POST['precio'],$_POST['exencion']);
 
-	// COMENTARIO
-	
 ?>    

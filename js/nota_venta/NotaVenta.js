@@ -334,7 +334,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#guardarServicio', function () {
 
-        $.postFormValues('../includes/nota_venta/guardarServicio.php', '#addServicio', function(response){
+        $.postFormValues('../includes/nota_venta/GuardarServicio.php', '#addServicio', function(response){
 
             if(response.status == 1){
 
@@ -479,7 +479,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#guardar', function () {
 
-        $.postFormValues('../includes/nota_venta/guardarNotaVenta.php', '#showCliente', function(response){
+        $.postFormValues('../includes/nota_venta/GuardarNotaVenta.php', '#showCliente', function(response){
 
             if(response.status == 1){
 
