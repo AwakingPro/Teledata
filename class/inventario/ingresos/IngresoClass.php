@@ -91,7 +91,7 @@
 
                             foreach($ArrayMacAddress as $MacAddress){
 
-                                $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_tipo, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','1','1','$this->Bodega','$this->Usuario','1','$MacAddress','$this->Estado')";
+                                $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado, bodega_tipo) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','1','$this->Bodega','$this->Usuario','','$MacAddress','$this->Estado','1')";
                                 $run = new Method;
                                 $id = $run->insert($query);
 
@@ -119,7 +119,7 @@
                     }
                 }else{
 
-                    $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_tipo, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','$this->Cantidad','1','$this->Bodega','$this->Usuario','$this->NumeroSerie','$this->MacAddress','$this->Estado')";
+                    $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado, bodega_tipo) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','$this->Cantidad','$this->Bodega','$this->Usuario','$this->NumeroSerie','$this->MacAddress','$this->Estado','1')";
                     $run = new Method;
                     $id = $run->insert($query);
 
