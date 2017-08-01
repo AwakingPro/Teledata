@@ -92,7 +92,7 @@
 							</div>
 							<div class="col-md-6 form-group">
 								<label>Password</label>
-								<input name="pass" class="form-control">
+								<input type="password" name="pass" class="form-control">
 							</div>
 							<div class="col-md-6 form-group">
 								<label>Privelegios</label>
