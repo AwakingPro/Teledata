@@ -24,7 +24,7 @@
                 $this->Personal=$Personal;
                 $this->Correo=$Correo;
 
-                $query = "INSERT INTO mantenedor_site(nombre, direccion, telefono, personal_id, correo, kml) VALUES ('$this->Nombre','$this->Direccion','$this->Telefono','$this->Personal','$this->Correo', '')";
+                $query = "INSERT INTO mantenedor_site(nombre, direccion, telefono, personal_id, correo, kml) VALUES ('$this->Nombre','$this->Direccion','$this->Telefono','$this->Personal','$this->Correo', '0')";
                 $run = new Method;
                 $id = $run->insert($query);
 
