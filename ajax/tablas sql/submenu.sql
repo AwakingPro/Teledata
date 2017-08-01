@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : Mi Computadora
+Source Server         : localhost
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : teledata
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-07-11 03:13:13
+Date: 2017-07-31 23:31:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `submenu` (
   `Nombre` varchar(100) DEFAULT NULL,
   `Enlace` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`IdSubMenu`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 
 -- ----------------------------
 -- Records of submenu
@@ -42,3 +42,4 @@ INSERT INTO `submenu` VALUES ('12', '1', 'Servicios', '../servicios');
 INSERT INTO `submenu` VALUES ('13', '1', 'Servicios del Cliente', '../clientesServicios');
 INSERT INTO `submenu` VALUES ('14', '8', 'Facturas por Tiempo', '../reportes/reportesFacturas.php');
 INSERT INTO `submenu` VALUES ('15', '8', 'Facturas por cliente', '../reportes/facturasClientes.php');
+INSERT INTO `submenu` VALUES ('16', '9', 'Registro de Usuarios', '../registroUsuarios');

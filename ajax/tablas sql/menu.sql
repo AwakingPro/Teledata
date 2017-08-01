@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-07-21 10:23:50
+Date: 2017-07-31 23:30:52
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,6 +38,6 @@ INSERT INTO `menu` VALUES ('4', 'com', 'Compras & Ingreso', '../compras_ingresos
 INSERT INTO `menu` VALUES ('7', 'Inventario', 'Inventario', '#', '1,2,3', 'fa fa-dropbox');
 INSERT INTO `menu` VALUES ('8', 'Reportes', 'Reportes', '#', '1,2,3', 'fa fa-bar-chart');
 INSERT INTO `menu` VALUES ('9', 'Configurac', 'Configuracion', '#', '1', 'fa fa-cog');
-INSERT INTO `menu` VALUES ('10', 'Tickets', 'Tickets', '../Tickets', '1,2,3', 'fa fa-ticket');
+INSERT INTO `menu` VALUES ('10', 'Tickets', 'Tickets', '../tickets', '1,2,3', 'fa fa-ticket');
 INSERT INTO `menu` VALUES ('14', 'RadioPlan', 'Radio Planning', '../radio/Radio.php', '1,2,3', 'fa fa-map-marker');
 INSERT INTO `menu` VALUES ('15', 'NotaVent', 'Nota de Venta', '../nota_venta/NotaVenta.php', '1,2,3', 'glyphicon glyphicon-usd');
