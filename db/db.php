@@ -4,8 +4,8 @@
 
 	/* ----- conexion local alvaro ----- */
 	$host_name = 'localhost';
-	//$pass_word = 'm9a7r5s3';
-	$pass_word = '';
+	$pass_word = 'm9a7r5s3';
+	//$pass_word = '';
 	/* -------------------------------------------------*/
 
 	$user_name = 'root';
