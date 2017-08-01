@@ -132,5 +132,6 @@
 		<script src="../plugins/jcrop/js/jquery.Jcrop.min.js" type="text/javascript"></script>
 		<script src="../plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 		<script src="../js/registroUsuario/controller.js"></script>
+
 	</body>
 </html>

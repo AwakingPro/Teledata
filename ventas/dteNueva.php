@@ -374,5 +374,6 @@
 <script src="../js/global/funciones-global.js"></script>
 <script src="../js/demo/ui-modals.js"></script>
 <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="../js/methods_global/methods.js"></script>
 </body>
 </html>

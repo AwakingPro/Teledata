@@ -320,6 +320,7 @@
         <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
         <script src="../plugins/numbers/jquery.number.min.js"></script>
         <script src="../js/nota_venta/NotaVenta.js"></script>
+        <script src="../js/methods_global/methods.js"></script>
 
     </body>
 </html>
