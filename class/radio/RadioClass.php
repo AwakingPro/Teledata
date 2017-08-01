@@ -37,6 +37,7 @@
 
                 }else{
                     $response_array['status'] = 0; 
+                    $response_array['query'] = $query; 
                 }
             }else{
                 $response_array['status'] = 2; 

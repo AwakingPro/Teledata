@@ -118,6 +118,7 @@
                                 $response_array['status'] = 1; 
                             }else{
                                 $response_array['status'] = 'Error Foreach Mac Address'; 
+                                $response_array['query'] = $query; 
                             }
                         }else{
                             $response_array['status'] = 'Error Array Mac Address';
@@ -138,6 +139,7 @@
                         $response_array['array'] = $array;
                         $response_array['status'] = 1; 
                     }else{
+                        $response_array['query'] = $query; 
                         $response_array['status'] = 'Error Registro Unico'; 
                     }
                 }
