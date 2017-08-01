@@ -24,7 +24,7 @@
                 $this->Personal=$Personal;
                 $this->Correo=$Correo;
 
-                $query = "INSERT INTO mantenedor_site(nombre, direccion, telefono, personal_id, correo) VALUES ('$this->Nombre','$this->Direccion','$this->Telefono','$this->Personal','$this->Correo')";
+                $query = "INSERT INTO mantenedor_site(nombre, direccion, telefono, personal_id, correo, kml) VALUES ('$this->Nombre','$this->Direccion','$this->Telefono','$this->Personal','$this->Correo', '1')";
                 $run = new Method;
                 $id = $run->insert($query);
 
@@ -232,7 +232,7 @@
                 $this->TxPower=$TxPower;
                 $this->Producto=$Producto;
 
-                $query = "INSERT INTO radio_ingresos(estacion_id, funcion, alarma_activada, direccion_ip, puerto_acceso, ancho_canal, frecuencia, tx_power, producto_id) VALUES ('$this->Estacion','$this->Funcion','$this->AlarmaActivada','$this->DireccionIp','$this->PuertoAcceso','$this->AnchoCanal','$this->Frecuencia','$this->TxPower','$this->Producto')";
+                $query = "INSERT INTO radio_ingresos(estacion_id, funcion, alarma_activada, direccion_ip, puerto_acceso, ancho_canal, frecuencia, tx_power, producto_id, ssid) VALUES ('$this->Estacion','$this->Funcion','$this->AlarmaActivada','$this->DireccionIp','$this->PuertoAcceso','$this->AnchoCanal','$this->Frecuencia','$this->TxPower','$this->Producto', '1')";
                 $run = new Method;
                 $id = $run->insert($query);
 
