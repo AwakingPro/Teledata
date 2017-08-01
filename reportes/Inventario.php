@@ -32,7 +32,7 @@
     </head>
     <body>
 
-        <div id="container" class="mainnav-sm">
+        <div id="container" class="effect aside-float aside-bright mainnav-sm">
 
           <div class="containerHeader"></div>
 
@@ -162,14 +162,14 @@
         <script src="../js/jquery-2.2.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
         <script src="../plugins/fast-click/fastclick.min.js"></script>
-        
+
         <script src="../plugins/morris-js/morris.min.js"></script>
         <script src="../plugins/morris-js/raphael-js/raphael.min.js"></script>
         <script src="../plugins/sparkline/jquery.sparkline.min.js"></script>
         <script src="../plugins/skycons/skycons.min.js"></script>
         <script src="../plugins/switchery/switchery.min.js"></script>
         <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
-        
+
         <script src="../plugins/bootbox/bootbox.min.js"></script>
         <script src="../js/demo/ui-alerts.js"></script>
         <script src="../plugins/audiojs/audio.min.js"></script>

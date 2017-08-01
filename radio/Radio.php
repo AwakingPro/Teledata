@@ -127,9 +127,9 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="clearfix m-b-10"></div>
-                            
+
                             <div class="col-md-12">
                                 <div id="google-map" class="google-map"></div>
                             </div>
@@ -350,7 +350,7 @@
     </div><!-- /.modal -->
 
 
-    <div id="container" class="mainnav-sm">
+    <div id="container" class="effect aside-float aside-bright mainnav-sm">
 
             <div class="containerHeader"></div>
 
@@ -529,7 +529,7 @@
 
         <script src="../js/jquery-2.2.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
-        
+
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="../plugins/sweetalert/sweetalert.min.js"></script>

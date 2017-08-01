@@ -52,7 +52,7 @@
     </style>
 </head>
 <body>
-<div id="container" class="effect mainnav-sm">
+<div id="container" class="effect aside-float aside-bright mainnav-sm">
 
 
    <div class="containerHeader"></div>
