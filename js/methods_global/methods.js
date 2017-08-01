@@ -55,7 +55,7 @@ $.post('../ajax/menu/mainMenu.php', {url: window.location.pathname}, function(da
 		if ($('.effect').attr('attr') == '') {
 			$('.hover-menu').remove()
 			var x = $(this).position();
-			var top = x.top + 40;
+			var top = x.top + 41;
 			$('body').append('<span class="hover-menu" style="top:'+top+'px;">'+$(this).html()+'</span>')
 		}else{
 			$('.menu-items').click(function() {
