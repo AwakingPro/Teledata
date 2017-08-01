@@ -1,4 +1,4 @@
-var json = []
+var array_mac_address = []
 
 $(document).ready(function(){
 
@@ -490,7 +490,7 @@ $(document).ready(function(){
 
     $('#storeIngreso input[name="cantidad"]').on('input', function () {
 
-        $('#json').val('')
+        $('#array_mac_address').val('')
         tipo_ingreso = $('input[name=tipo_ingreso]').val();
         cantidad = parseInt($(this).val()) + 1
 
@@ -535,7 +535,6 @@ $(document).ready(function(){
         exit = false
         var countObjs = 0;
         var countValidates = 0;
-        var json = "["
         divs = $('#updateCantidad').find(".cantidad");
         
         divs.each(function(index, div) {
@@ -543,7 +542,6 @@ $(document).ready(function(){
             if(exit){
                 return false;
             }
-            json += "{"
 
             objs = $(div).find("input,input[type='checkbox']:checked,input[type='radio']:checked,textarea,select");
             objs.each(function(index, obj) {
@@ -551,48 +549,30 @@ $(document).ready(function(){
                     countObjs++;
                     if ($.validation(obj)) {
                         countValidates++;
-                        name = $(obj).attr('name')
-                        val = $(obj).val()
-
-                        var is_last_item = (index == (objs.length - 1));
-                        
-                        if(!is_last_item){
-                            json += '"'+name+'":'+val+','
-                        }else{
-                            json += '"'+name+'":'+val
-                        }
+                        array_mac_address.push($(obj).val())
                     }else{
                         exit = true;
                         return false;
                     }
                 }
             })
-
-            var is_last_item = (index == (divs.length - 1));
-
-            if(!is_last_item){
-                json += "},"
-            }else{
-                json += "}"
-            }
-
-            
         })
 
-        json += "]"
-
         if (countObjs == countValidates) {
-            $('#json').val(json)
+            mac_address = array_mac_address.join();
+            $('#array_mac_address').val(mac_address)
             $.niftyNoty({
                 type: 'success',
                 icon : 'fa fa-check',
-                message : 'Registro Guardado Exitosamente',
+                message : 'Mac Address Guardadas Exitosamente',
                 container : 'floating',
                 timer : 3000
             });
+
             $('#CantidadForm').modal('hide')
+
         }else{
-            json = []
+            array_mac_address = []
             return false
         }
 
@@ -600,7 +580,7 @@ $(document).ready(function(){
 
     $('#CantidadForm').on('hidden.bs.modal', function () {
 
-        if(!$('#json').val()){
+        if(!$('#array_mac_address').val()){
             $('#storeIngreso').find('input[name="cantidad"]').val('');
         }
 

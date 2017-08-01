@@ -5,7 +5,7 @@
 
     class Ingreso{
 
-    	public function storeIngreso($FechaCompra,$FechaIngreso,$NumeroFactura,$NumeroSerie,$Modelo,$Proveedor,$Valor,$Cantidad,$Bodega,$MacAddress,$TipoIngreso,$Estado,$Json){
+    	public function storeIngreso($FechaCompra,$FechaIngreso,$NumeroFactura,$NumeroSerie,$Modelo,$Proveedor,$Valor,$Cantidad,$Bodega,$MacAddress,$TipoIngreso,$Estado,$ArrayMacAddress){
 
             $response_array = array();
 
@@ -21,7 +21,7 @@
             $MacAddress = isset($MacAddress) ? trim($MacAddress) : "";
             $TipoIngreso = isset($TipoIngreso) ? trim($TipoIngreso) : "";
             $Estado = isset($TipoIngreso) ? trim($Estado) : "";
-            $Json = isset($Json) ? trim($Json) : "";
+            $ArrayMacAddress = isset($ArrayMacAddress) ? trim($ArrayMacAddress) : "";
 
             if($TipoIngreso == 1){
                 if($NumeroSerie && $MacAddress){
@@ -79,37 +79,46 @@
 
                 if($TipoIngreso == 2){
 
-                    if(!$Json){
+                    if(!$ArrayMacAddress){
             
                         $response_array['status'] = 99; 
 
                     }else{
-                       
-                        $Json = json_decode($Json, true);
+                        
+                        $ArrayMacAddress = explode(',',$ArrayMacAddress);
 
-                        foreach($Json as $Value)
-                        {
-                            $MacAddress=$Value['mac_address'];
-                            $NumeroSerie="";
+                        if($ArrayMacAddress){
 
-                            $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','1','$this->Bodega','$this->Usuario','$NumeroSerie','$MacAddress','$this->Estado')";
-                            $run = new Method;
-                            $id = $run->insert($query);
+                            foreach($ArrayMacAddress as $MacAddress){
 
-                            if($id){
+                                $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','1','$this->Bodega','$this->Usuario','$this->NumeroSerie','$MacAddress','$this->Estado')";
+                                $run = new Method;
+                                $id = $run->insert($query);
 
-                                $tmp = array('id' => $id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => 1, 'bodega_id' => $this->Bodega, 'usuario_id' => $this->Usuario, 'numero_serie' => $NumeroSerie, 'mac_address' => $MacAddress, 'estado' => $this->Estado);
+                                if($id){
 
+                                    $tmp = array('id' => $id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => 1, 'bodega_id' => $this->Bodega, 'usuario_id' => $this->Usuario, 'numero_serie' => $this->NumeroSerie, 'mac_address' => $MacAddress, 'estado' => $this->Estado);
 
-                                array_push($array,$tmp);
-                                $response_array['array'] = $array;
+                                    array_push($array,$tmp);
+
+                                }else{
+                                    $response_array['status'] = 'Error Registro Array Mac Address'; 
+                                }
+                            }
+
+                            $response_array['array'] = $array;
+
+                            if($response_array['array']){
                                 $response_array['status'] = 1; 
                             }else{
-                                $response_array['status'] = 'Error Json'; 
+                                $response_array['status'] = 'Error Foreach Mac Address'; 
                             }
+                        }else{
+                            $response_array['status'] = 'Error Array Mac Address';
                         }
-                     }
+                    }
                 }else{
+
                     $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','$this->Cantidad','$this->Bodega','$this->Usuario','$this->NumeroSerie','$this->MacAddress','$this->Estado')";
                     $run = new Method;
                     $id = $run->insert($query);
@@ -123,7 +132,7 @@
                         $response_array['array'] = $array;
                         $response_array['status'] = 1; 
                     }else{
-                        $response_array['status'] = 'Error Registro'; 
+                        $response_array['status'] = 'Error Registro Unico'; 
                     }
                 }
 

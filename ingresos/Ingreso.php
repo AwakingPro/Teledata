@@ -41,7 +41,7 @@
                     <div class="modal-body">
                         <div class="row" style="padding:20px">
                             <form class="form-horizontal" id = "storeIngreso">
-                            <input type="hidden" id="json" name="json">
+                            <input type="hidden" id="array_mac_address" name="array_mac_address">
                             <input type="hidden" class="estado" id="estado" name="estado">
                             <input type="hidden" class="tipo_ingreso" id="tipo_ingreso" name="tipo_ingreso" value="1">
 
