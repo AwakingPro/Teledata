@@ -5,4 +5,5 @@
 	$MarcaProducto = new MarcaProducto();
 	$MarcaProducto->showTipoProducto();
 	
+	
 ?>    
