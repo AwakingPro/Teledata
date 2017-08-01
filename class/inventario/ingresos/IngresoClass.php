@@ -62,7 +62,11 @@
                 $this->NumeroFactura=$NumeroFactura;
                 $this->NumeroSerie=$NumeroSerie;
                 $this->Modelo=$Modelo;
-                $this->Proveedor=$Proveedor;
+                if($Proveedor){
+                    $this->Proveedor=$Proveedor;
+                }else{
+                    $this->Proveedor=0;
+                }
                 $this->Valor=$Valor;
                 $this->Cantidad=$Cantidad;
                 $this->Bodega=$Bodega;
@@ -72,6 +76,8 @@
 
                 if($FechaCompra){
                     $FechaCompra = DateTime::createFromFormat('d-m-Y', $FechaCompra)->format('Y-m-d');
+                }else{
+                    $FechaCompra = '0000-00-00';
                 }
                
                 $FechaIngreso = DateTime::createFromFormat('d-m-Y', $FechaIngreso)->format('Y-m-d');
