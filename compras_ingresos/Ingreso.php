@@ -376,6 +376,8 @@
 
         <script src="../js/jquery-2.2.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/js/nifty.min.js"></script>
+        <script src="../js/demo/nifty.demo.js"></script>
 
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
@@ -387,7 +389,5 @@
         <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
         <script src="../plugins/numbers/jquery.number.min.js"></script>
         <script src="../js/compras/ingresos/Ingreso.js"></script>
-        <script src="../js/methods_global/methods.js"></script>
-
     </body>
 </html>

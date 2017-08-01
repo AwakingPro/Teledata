@@ -529,6 +529,8 @@
 
         <script src="../js/jquery-2.2.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
+        <script src="../js/js/nifty.min.js"></script>
+        <script src="../js/demo/nifty.demo.js"></script>
 
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
@@ -536,7 +538,6 @@
         <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
         <script src="../js/global/validations.js"></script>
         <script src="../js/radio/Radio.js"></script>
-        <script src="../js/methods_global/methods.js"></script>
         <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1-pVuH3Dql03pSk_oSHcMf0E-UJpJZKM"></script> -->
 
     </body>
