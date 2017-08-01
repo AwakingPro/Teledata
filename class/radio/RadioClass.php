@@ -5,7 +5,7 @@
 
     class Radio{
 
-    	public function CrearEstacion($Nombre,$Direccion,$Telefono,$Personal,$Correo){
+    	public function CrearEstacion($Nombre,$Direccion,$Telefono,$Correo,$Personal){
 
             $response_array = array();
 
@@ -24,7 +24,7 @@
                 $this->Personal=$Personal;
                 $this->Correo=$Correo;
 
-                $query = "INSERT INTO mantenedor_site(nombre, direccion, telefono, personal_id, correo, kml) VALUES ('$this->Nombre','$this->Direccion','$this->Telefono','$this->Personal','$this->Correo', '1')";
+                $query = "INSERT INTO mantenedor_site(nombre, direccion, telefono, personal_id, correo, kml) VALUES ('$this->Nombre','$this->Direccion','$this->Telefono','$this->Personal','$this->Correo', '')";
                 $run = new Method;
                 $id = $run->insert($query);
 
@@ -34,6 +34,7 @@
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
+
                 }else{
                     $response_array['status'] = 0; 
                 }
@@ -232,7 +233,7 @@
                 $this->TxPower=$TxPower;
                 $this->Producto=$Producto;
 
-                $query = "INSERT INTO radio_ingresos(estacion_id, funcion, alarma_activada, direccion_ip, puerto_acceso, ancho_canal, frecuencia, tx_power, producto_id, ssid) VALUES ('$this->Estacion','$this->Funcion','$this->AlarmaActivada','$this->DireccionIp','$this->PuertoAcceso','$this->AnchoCanal','$this->Frecuencia','$this->TxPower','$this->Producto', '1')";
+                $query = "INSERT INTO radio_ingresos(estacion_id, funcion, alarma_activada, direccion_ip, puerto_acceso, ancho_canal, frecuencia, tx_power, producto_id) VALUES ('$this->Estacion','$this->Funcion','$this->AlarmaActivada','$this->DireccionIp','$this->PuertoAcceso','$this->AnchoCanal','$this->Frecuencia','$this->TxPower','$this->Producto')";
                 $run = new Method;
                 $id = $run->insert($query);
 
