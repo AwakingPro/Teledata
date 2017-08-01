@@ -53,6 +53,10 @@
                 $Valor = 0;
             }
 
+            if(!$Proveedor){
+                $Proveedor = 0;
+            }
+
             if(!empty($FechaIngreso) && !empty($Bodega) && !empty($Modelo) && !empty($Cantidad) && !empty($Estado) && $Acceso){
 
                 session_start();
@@ -62,11 +66,7 @@
                 $this->NumeroFactura=$NumeroFactura;
                 $this->NumeroSerie=$NumeroSerie;
                 $this->Modelo=$Modelo;
-                if($Proveedor){
-                    $this->Proveedor=$Proveedor;
-                }else{
-                    $this->Proveedor=0;
-                }
+                $this->Proveedor=$Proveedor;
                 $this->Valor=$Valor;
                 $this->Cantidad=$Cantidad;
                 $this->Bodega=$Bodega;
