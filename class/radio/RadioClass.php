@@ -28,7 +28,7 @@
                 $run = new Method;
                 $id = $run->insert($query);
 
-                if($data){
+                if($id){
 
                     $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo);
 

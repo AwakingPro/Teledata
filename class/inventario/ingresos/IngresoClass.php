@@ -89,6 +89,8 @@
 
                         if($ArrayMacAddress){
 
+                            $this->NumeroSerie=1;
+
                             foreach($ArrayMacAddress as $MacAddress){
 
                                 $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','1','$this->Bodega','$this->Usuario','$this->NumeroSerie','$MacAddress','$this->Estado')";
