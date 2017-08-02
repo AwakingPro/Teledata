@@ -28,6 +28,8 @@
                     $Boolean1 = true;
                 }else{
                     $Boolean1 = false;
+                    $MacAddress = 0;
+                    $NumeroSerie = 0;
                 }
             }else{
                 $Boolean1 = true;
@@ -41,6 +43,8 @@
                 }
             }else{
                 $Boolean2 = true;
+                $Proveedor = 0;
+                $NumeroFactura = 0;
             }
 
             if($Boolean1 && $Boolean2){
@@ -51,10 +55,6 @@
 
             if(!$Valor){
                 $Valor = 0;
-            }
-
-            if(!$Proveedor){
-                $Proveedor = 0;
             }
 
             if(!empty($FechaIngreso) && !empty($Bodega) && !empty($Modelo) && !empty($Cantidad) && !empty($Estado) && $Acceso){
@@ -97,13 +97,13 @@
 
                             foreach($ArrayMacAddress as $MacAddress){
 
-                                $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','1','$this->Bodega','$this->Usuario','','$MacAddress','$this->Estado')";
+                                $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','1','$this->Bodega','$this->Usuario','$this->NumeroSerie','$MacAddress','$this->Estado')";
                                 $run = new Method;
                                 $id = $run->insert($query);
 
                                 if($id){
 
-                                    $tmp = array('id' => $id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => 1, 'bodega_id' => $this->Bodega, 'usuario_id' => $this->Usuario, 'numero_serie' => '', 'mac_address' => $MacAddress, 'estado' => $this->Estado);
+                                    $tmp = array('id' => $id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => 1, 'bodega_id' => $this->Bodega, 'usuario_id' => $this->Usuario, 'numero_serie' => $this->NumeroSerie, 'mac_address' => $MacAddress, 'estado' => $this->Estado);
 
                                     array_push($array,$tmp);
 
