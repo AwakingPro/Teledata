@@ -298,19 +298,6 @@
                                         <input id="valor" name="valor" type="text" placeholder="Ingrese el valor" class="form-control input-sm valor" value="0">
                                     </div>
                                 </div>
-
-                                <div class="clearfix m-b-10"></div>
-
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="control-label" for="name">Bodega</label>
-                                        <div class="select">
-                                            <select class="selectpicker form-control bodega_id bodega" id="bodega_id" name="bodega_id" validation="not_null" data-live-search="true" data-nombre="Bodega" data-container="body">
-                                                <option value="">Seleccione Opción</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
                             </form>
                         </div>
                     </div><!-- /.modal-body -->

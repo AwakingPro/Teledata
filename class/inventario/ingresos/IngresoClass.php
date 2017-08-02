@@ -152,7 +152,7 @@
 
     	} 
 
-        public function updateIngreso($FechaCompra,$FechaIngreso,$NumeroFactura,$NumeroSerie,$Modelo,$Proveedor,$Valor,$Cantidad,$Bodega,$MacAddress,$Estado,$Id){
+        public function updateIngreso($FechaCompra,$FechaIngreso,$NumeroFactura,$NumeroSerie,$Modelo,$Proveedor,$Valor,$Cantidad,$MacAddress,$Estado,$Id){
 
             $response_array = array();
 
@@ -164,12 +164,11 @@
             $Proveedor = isset($Proveedor) ? trim($Proveedor) : "";
             $Valor = isset($Valor) ? trim($Valor) : "";
             $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
-            $Bodega = isset($Bodega) ? trim($Bodega) : "";
             $MacAddress = isset($MacAddress) ? trim($MacAddress) : "";
             $Estado = isset($Estado) ? trim($Estado) : "";
 
             if($Estado == 1){
-                if($FechaCompra && $NumeroFactura && $Proveedor && $Valor){
+                if($FechaCompra && $NumeroFactura && $Proveedor){
                     $Acceso = true;
                 }else{
                     $Acceso = false;
@@ -182,7 +181,7 @@
                 $Valor = 0;
             }
 
-            if(!empty($FechaIngreso) && !empty($Bodega) && !empty($Modelo) && !empty($Cantidad) && !empty($Estado) && !empty($MacAddress) && !empty($NumeroSerie) && $Acceso){
+            if(!empty($FechaIngreso) && !empty($Modelo) && !empty($Cantidad) && !empty($Estado) && !empty($MacAddress) && !empty($NumeroSerie) && $Acceso){
 
                 $this->Id=$Id;
                 $this->FechaCompra=$FechaCompra;
@@ -193,20 +192,24 @@
                 $this->Proveedor=$Proveedor;
                 $this->Valor=$Valor;
                 $this->Cantidad=$Cantidad;
-                $this->Bodega=$Bodega;
                 $this->MacAddress=$MacAddress;
                 $this->Estado=$Estado;
 
-                $FechaCompra = DateTime::createFromFormat('d-m-Y', $FechaCompra)->format('Y-m-d');
+                if($FechaCompra){
+                    $FechaCompra = DateTime::createFromFormat('d-m-Y', $FechaCompra)->format('Y-m-d');
+                }else{
+                    $FechaCompra = '1969-01-31';
+                }
+                
                 $FechaIngreso = DateTime::createFromFormat('d-m-Y', $FechaIngreso)->format('Y-m-d');
 
-                $query = "UPDATE `inventario_ingresos` set `fecha_compra` = '$FechaCompra', `fecha_ingreso` = '$FechaIngreso', `numero_factura` = '$this->NumeroFactura', `modelo_producto_id` = '$this->Modelo', `proveedor_id` = '$this->Proveedor', `valor` = '$this->Valor', `cantidad` = '$this->Cantidad', `bodega_id` = '$this->Bodega', `numero_serie` = '$this->NumeroSerie' , `mac_address` = '$this->MacAddress', `estado` = '$this->Estado' where `id` = '$this->Id'";
+                $query = "UPDATE `inventario_ingresos` set `fecha_compra` = '$FechaCompra', `fecha_ingreso` = '$FechaIngreso', `numero_factura` = '$this->NumeroFactura', `modelo_producto_id` = '$this->Modelo', `proveedor_id` = '$this->Proveedor', `valor` = '$this->Valor', `cantidad` = '$this->Cantidad', `numero_serie` = '$this->NumeroSerie' , `mac_address` = '$this->MacAddress', `estado` = '$this->Estado' where `id` = '$this->Id'";
                 $run = new Method;
                 $id = $run->insert($query);
 
                 // if($id){
 
-                    $array = array('id' => $this->Id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => $this->Cantidad, 'bodega_id' => $this->Bodega, 'numero_serie' => $this->NumeroSerie, 'mac_address' => $this->MacAddress, 'estado' => $this->Estado);
+                    $array = array('id' => $this->Id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => $this->Cantidad, 'numero_serie' => $this->NumeroSerie, 'mac_address' => $this->MacAddress, 'estado' => $this->Estado);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 

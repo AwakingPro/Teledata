@@ -74,7 +74,7 @@ $(document).ready(function(){
 
             $.each(response.array, function( index, array ) {
 
-                if(array.fecha_compra && array.fecha_compra != '0000-00-00'){
+                if(array.fecha_compra && array.fecha_compra != '0000-00-00' && array.fecha_compra != '1969-01-31'){
                     fecha_compra = moment(array.fecha_compra).format('DD-MM-YYYY');
                 }else{
                     fecha_compra = ''
@@ -114,7 +114,6 @@ $(document).ready(function(){
                     .attr('id',array.id)
                     .data('modelo_producto_id',array.modelo_producto_id)
                     .data('proveedor_id',array.proveedor_id)
-                    .data('bodega_id',array.bodega_id)
                     .data('estado',array.estado)
                     .addClass('text-center')
             });
@@ -246,7 +245,6 @@ $(document).ready(function(){
                         .attr('id',array.id)
                         .data('modelo_producto_id',array.modelo_producto_id)
                         .data('proveedor_id',array.proveedor_id)
-                        .data('bodega_id',array.bodega_id)
                         .data('estado',array.estado)
                         .addClass('text-center')
                 });
@@ -299,7 +297,6 @@ $(document).ready(function(){
         ObjectTR.addClass("Selected");
         var ObjectId = ObjectTR.attr("id");
         var ObjectModel = ObjectTR.data("modelo_producto_id");
-        var ObjectStore = ObjectTR.data("bodega_id");
         var ObjectState = ObjectTR.data("estado");
         var ObjectProvider = ObjectTR.data("proveedor_id");
         var ObjectDateBuy = ObjectTR.find("td").eq(0).text();
@@ -311,7 +308,6 @@ $(document).ready(function(){
         var ObjectValue = ObjectTR.find("td").eq(9).text();
         $('#updateIngreso').find('input[name="id"]').val(ObjectId);
         $('#updateIngreso').find('select[name="modelo_producto_id"]').val(ObjectModel);
-        $('#updateIngreso').find('select[name="bodega_id"]').val(ObjectStore);
         $('#updateIngreso').find('select[name="proveedor_id"]').val(ObjectProvider);
         $('#updateIngreso').find('input[name="fecha_compra"]').val(ObjectDateBuy);
         $('#updateIngreso').find('input[name="fecha_ingreso"]').val(ObjectDateEntry);
@@ -377,7 +373,6 @@ $(document).ready(function(){
 
                 Modelo = $('#modelo_producto_id option[value="'+response.array.modelo_producto_id+'"]').first().data('content');
                 Proveedor = $('#proveedor_id option[value="'+response.array.proveedor_id+'"]').first().data('content');
-                Bodega = $('#bodega_id option[value="'+response.array.bodega_id+'"]').first().data('content');
 
                 if(response.array.estado == 1){
                     estado = 'Nuevo';
@@ -389,7 +384,6 @@ $(document).ready(function(){
 
                 ObjectTR.data('modelo_producto_id',response.array.modelo_producto_id)
                 ObjectTR.data('proveedor_id', response.array.proveedor_id)
-                ObjectTR.data('bodega_id', response.array.bodega_id)
                 ObjectTR.data('estado', response.array.estado)
                 ObjectTR.find("td").eq(0).html(response.array.fecha_compra);
                 ObjectTR.find("td").eq(1).html(response.array.fecha_ingreso);
@@ -401,7 +395,6 @@ $(document).ready(function(){
                 ObjectTR.find("td").eq(7).html(response.array.mac_address);
                 ObjectTR.find("td").eq(8).html(estado);
                 ObjectTR.find("td").eq(9).html($.number(response.array.valor));
-                ObjectTR.find("td").eq(10).html(Bodega);
 
                 $('.modal').modal('hide');
                 
