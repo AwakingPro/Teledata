@@ -55,7 +55,9 @@ $(document).ready(function(){
 
                 $('.estacion_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
-        
+
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
             
         }
     });
@@ -462,16 +464,18 @@ $(document).ready(function(){
         var ObjectId = RowSplit[1];
         var ObjectStation = ObjectTR.data("estacion_id");
         var ObjectFunction = ObjectTR.find("td").eq(1).text();
-        var ObjectIp = ObjectTR.find("td").eq(2).text();
-        var ObjectPort = ObjectTR.find("td").eq(3).text();
-        var ObjectChannel = ObjectTR.find("td").eq(4).text();
-        var ObjectFrecuency = ObjectTR.find("td").eq(5).text();
-        var ObjectPower = ObjectTR.find("td").eq(6).text();
+        var ObjectAlarm = ObjectTR.find("td").eq(2).text();
+        var ObjectIp = ObjectTR.find("td").eq(3).text();
+        var ObjectPort = ObjectTR.find("td").eq(4).text();
+        var ObjectChannel = ObjectTR.find("td").eq(5).text();
+        var ObjectFrecuency = ObjectTR.find("td").eq(6).text();
+        var ObjectPower = ObjectTR.find("td").eq(7).text();
         var ObjectProduct = ObjectTR.data("producto_id");
 
         $('#updateIngreso').find('input[name="id"]').val(ObjectId);
         $('#updateIngreso').find('select[name="estacion_id"]').val(ObjectStation);
         $('#updateIngreso').find('input[name="funcion"]').val(ObjectFunction);
+        $('#updateIngreso').find('select[name="alarma_activada"]').val(ObjectAlarm);
         $('#updateIngreso').find('input[name="direccion_ip"]').val(ObjectIp);
         $('#updateIngreso').find('input[name="puerto_acceso"]').val(ObjectPort);
         $('#updateIngreso').find('input[name="ancho_canal"]').val(ObjectChannel);

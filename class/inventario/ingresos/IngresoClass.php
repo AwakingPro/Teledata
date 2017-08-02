@@ -117,7 +117,6 @@
                                 $response_array['status'] = 1; 
                             }else{
                                 $response_array['status'] = 'Error Foreach Mac Address'; 
-                                $response_array['query'] = $query; 
                             }
                         }else{
                             $response_array['status'] = 'Error Array Mac Address';
@@ -136,10 +135,8 @@
                         array_push($array,$tmp);
 
                         $response_array['array'] = $array;
-                        $response_array['query'] = $query; 
                         $response_array['status'] = 1; 
                     }else{
-                        $response_array['query'] = $query; 
                         $response_array['status'] = 'Error Registro Unico'; 
                     }
                 }
@@ -200,7 +197,7 @@
                 }else{
                     $FechaCompra = '1969-01-31';
                 }
-                
+
                 $FechaIngreso = DateTime::createFromFormat('d-m-Y', $FechaIngreso)->format('Y-m-d');
 
                 $query = "UPDATE `inventario_ingresos` set `fecha_compra` = '$FechaCompra', `fecha_ingreso` = '$FechaIngreso', `numero_factura` = '$this->NumeroFactura', `modelo_producto_id` = '$this->Modelo', `proveedor_id` = '$this->Proveedor', `valor` = '$this->Valor', `cantidad` = '$this->Cantidad', `numero_serie` = '$this->NumeroSerie' , `mac_address` = '$this->MacAddress', `estado` = '$this->Estado' where `id` = '$this->Id'";
