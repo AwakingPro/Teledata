@@ -136,7 +136,7 @@
                                 <div class="clearfix m-b-10"></div>
 
                                 <div class="col-md-12">
-                                    <div class="form-group unico">
+                                    <div class="form-group">
                                         <label class="control-label" for="name">Numero de Serie</label>
                                         <input id="numero_serie" name="numero_serie" validation="not_null" placeholder="Ingrese el numero de serie" class="form-control input-sm number numero_serie" data-nombre="Numero de Serie">
                                     </div>

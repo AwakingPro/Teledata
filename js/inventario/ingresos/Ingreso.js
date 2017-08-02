@@ -474,15 +474,12 @@ $(document).ready(function(){
 
         $('#storeIngreso').find('input[name="cantidad"]').val('');
         $('#storeIngreso').find('input[name="mac_address"]').val('');
-        $('#storeIngreso').find('input[name="numero_serie"]').val('');
 
         if($(this).val() == 1){
             $('.unico').show()
             $('#storeIngreso').find('input[name="mac_address"]').attr('validation','not_null');
-            $('#storeIngreso').find('input[name="numero_serie"]').attr('validation','not_null');
         }else{
             $('#storeIngreso').find('input[name="mac_address"]').removeAttr('validation');
-            $('#storeIngreso').find('input[name="numero_serie"]').removeAttr('validation');
             $('.unico').hide() 
         }
     });

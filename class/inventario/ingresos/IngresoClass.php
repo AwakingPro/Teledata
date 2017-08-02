@@ -24,12 +24,11 @@
             $ArrayMacAddress = isset($ArrayMacAddress) ? trim($ArrayMacAddress) : "";
 
             if($TipoIngreso == 1){
-                if($NumeroSerie && $MacAddress){
+                if($MacAddress){
                     $Boolean1 = true;
                 }else{
                     $Boolean1 = false;
                     $MacAddress = 0;
-                    $NumeroSerie = 0;
                 }
             }else{
                 $Boolean1 = true;
@@ -57,7 +56,7 @@
                 $Valor = 0;
             }
 
-            if(!empty($FechaIngreso) && !empty($Bodega) && !empty($Modelo) && !empty($Cantidad) && !empty($Estado) && $Acceso){
+            if(!empty($FechaIngreso) && !empty($Bodega) && !empty($Modelo) && !empty($Cantidad) && !empty($Estado) && !empty($NumeroSerie) && $Acceso){
 
                 session_start();
 
