@@ -76,7 +76,7 @@
                 if($FechaCompra){
                     $FechaCompra = DateTime::createFromFormat('d-m-Y', $FechaCompra)->format('Y-m-d');
                 }else{
-                    $FechaCompra = '0000-00-00';
+                    $FechaCompra = '1969-01-31';
                 }
                
                 $FechaIngreso = DateTime::createFromFormat('d-m-Y', $FechaIngreso)->format('Y-m-d');
@@ -136,6 +136,7 @@
                         array_push($array,$tmp);
 
                         $response_array['array'] = $array;
+                        $response_array['query'] = $query; 
                         $response_array['status'] = 1; 
                     }else{
                         $response_array['query'] = $query; 
