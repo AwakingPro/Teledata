@@ -51,15 +51,15 @@
                 $run = new Method;
                 $id = $run->insert($query);
 
-                // if($data){
+                if($id){
 
                     $array = array('id'=> $id, 'codigo' => $this->Codigo, 'servicio' => $this->Servicio, 'cantidad' => $this->Cantidad, 'precio' => $this->Precio, 'exencion' => $this->Exencion, 'total' => $this->Total);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             
             }else{
                 $response_array['status'] = 2; 
@@ -118,9 +118,7 @@
                         
                         $response_array['array'] = $array;
                         $response_array['status'] = 1; 
-                        // }else{
-                        //     $response_array['status'] = 0; 
-                        // }
+
                     }else{
                         $response_array['status'] = 0; 
                     }
@@ -142,7 +140,7 @@
 
             $query = "DELETE from `nota_venta_tmp` where `usuario_id` = '$this->Usuario'";
             $run = new Method;
-            $data = $run->insert($query);
+            $data = $run->delete($query);
 
             $query = 'SELECT * FROM personaempresa';
             $run = new Method;
@@ -161,7 +159,7 @@
 
             $query = "DELETE from `nota_venta_tmp` where `usuario_id` = '$this->Usuario'";
             $run = new Method;
-            $data = $run->insert($query);
+            $data = $run->delete($query);
 
             $query = "SELECT * FROM personaempresa where `Rut` = '$rut'";
             $run = new Method;
@@ -253,7 +251,7 @@
 
                 $query = "DELETE from `nota_venta` where `id` = '$this->Id'";
                 $run = new Method;
-                $data = $run->insert($query);
+                $data = $run->delete($query);
                 $response_array['status'] = 1; 
                     
                

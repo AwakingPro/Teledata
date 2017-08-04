@@ -68,18 +68,18 @@
 
                 $query = "UPDATE `mantenedor_site` set `nombre` = '$this->Nombre', `direccion` = '$this->Direccion', `telefono` = '$this->Telefono', `personal_id` = '$this->Personal', `correo` = '$this->Correo' where `id` = '$this->Id'";
                 $run = new Method;
-                $data = $run->insert($query);
+                $data = $run->update($query);
 
-                // if($data){
+                if($data){
 
                     $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo, 'id' => $this->Id);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }
@@ -111,11 +111,11 @@
 
                         $query = "DELETE from `mantenedor_site` where `id` = '$this->Id'";
                         $run = new Method;
-                        $data = $run->insert($query);
+                        $data = $run->delete($query);
 
                         $query = "DELETE from `inventario_egresos` where `destino_tipo` = '3' and `destino_id` = '$this->Id'";
                         $run = new Method;
-                        $data = $run->insert($query);
+                        $data = $run->delete($query);
 
                         $response_array['status'] = 1;
 
@@ -317,17 +317,17 @@
 
                 $query = "UPDATE radio_ingresos SET estacion_id = '$this->Estacion', funcion = '$this->Funcion', alarma_activada = '$this->AlarmaActivada', direccion_ip = '$this->DireccionIp', puerto_acceso = '$this->PuertoAcceso', ancho_canal = '$this->AnchoCanal', frecuencia = '$this->Frecuencia', tx_power = '$this->TxPower', producto_id = '$this->Producto' where `id` = '$this->Id'";
                 $run = new Method;
-                $data = $run->insert($query);
+                $data = $run->update($query);
 
-                // if($id){
+                if($data){
 
                     $array = array('id'=> $this->Id, 'estacion_id' => $this->Estacion,'funcion' => $this->Funcion,'alarma_activada' => $this->AlarmaActivada, 'direccion_ip' => $this->DireccionIp, 'puerto_acceso' => $this->PuertoAcceso, 'ancho_canal'=> $this->AnchoCanal, 'frecuencia' => $this->Frecuencia, 'tx_power' => $this->TxPower, 'producto_id' => $this->Producto);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }
@@ -358,9 +358,9 @@
                     $run = new Method;
                     $data = $run->delete($query);
 
-                    $query = "UPDATE inventario_ingresos SET bodega_tipo = '', bodega_id = '' where `id` = '$this->Producto'";
+                    $query = "UPDATE inventario_ingresos SET bodega_tipo = '', bodega_id = '' where id = '$this->Producto'";
                     $run = new Method;
-                    $data = $run->insert($query);
+                    $data = $run->update($query);
 
                     $response_array['status'] = 1; 
                 }else{

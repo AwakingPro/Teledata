@@ -202,17 +202,17 @@
 
                 $query = "UPDATE `inventario_ingresos` set `fecha_compra` = '$FechaCompra', `fecha_ingreso` = '$FechaIngreso', `numero_factura` = '$this->NumeroFactura', `modelo_producto_id` = '$this->Modelo', `proveedor_id` = '$this->Proveedor', `valor` = '$this->Valor', `cantidad` = '$this->Cantidad', `numero_serie` = '$this->NumeroSerie' , `mac_address` = '$this->MacAddress', `estado` = '$this->Estado' where `id` = '$this->Id'";
                 $run = new Method;
-                $id = $run->insert($query);
+                $data = $run->update($query);
 
-                // if($id){
+                if($data){
 
                     $array = array('id' => $this->Id, 'fecha_compra' => $this->FechaCompra, 'fecha_ingreso' => $this->FechaIngreso, 'numero_factura' => $this->NumeroFactura,'modelo_producto_id' => $this->Modelo, 'proveedor_id' => $this->Proveedor, 'valor' => $this->Valor,'cantidad' => $this->Cantidad, 'numero_serie' => $this->NumeroSerie, 'mac_address' => $this->MacAddress, 'estado' => $this->Estado);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }

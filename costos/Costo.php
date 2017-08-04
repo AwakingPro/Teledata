@@ -58,18 +58,18 @@
 								<div class="clearfix m-b-10"></div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label class="control-label" for="name">Responsable</label>
-										<div class="select">
-											<select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
-											</select>
-										</div>
+										<label class="control-label" for="name">Correo</label>
+										<input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm">
 									</div>
 								</div>
 								<div class="clearfix m-b-10"></div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label class="control-label" for="name">Correo</label>
-										<input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm">
+										<label class="control-label" for="name">Responsable</label>
+										<div class="select">
+											<select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
+											</select>
+										</div>
 									</div>
 								</div>
 							</form>
@@ -116,18 +116,18 @@
 												<div class="clearfix m-b-10"></div>
 												<div class="col-md-12">
 													<div class="form-group">
-														<label class="control-label" for="name">Responsable</label>
-														<div class="select">
-															<select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
-															</select>
-														</div>
+														<label class="control-label" for="name">Correo</label>
+														<input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm">
 													</div>
 												</div>
 												<div class="clearfix m-b-10"></div>
 												<div class="col-md-12">
 													<div class="form-group">
-														<label class="control-label" for="name">Correo</label>
-														<input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm">
+														<label class="control-label" for="name">Responsable</label>
+														<div class="select">
+															<select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
+															</select>
+														</div>
 													</div>
 												</div>
 											</form>

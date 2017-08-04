@@ -68,18 +68,18 @@
 
                 $query = "UPDATE `mantenedor_proveedores` set `nombre` = '$this->Nombre', `direccion` = '$this->Direccion', `telefono` = '$this->Telefono', `contacto` = '$this->Contacto', `correo` = '$this->Correo' where `id` = '$this->Id'";
                 $run = new Method;
-                $data = $run->insert($query);
+                $data = $run->update($query);
 
-                // if($Query){
+                if($data){
 
                     $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono,'contacto' => $this->Contacto,'correo' => $this->Correo, 'id' => $this->Id);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }
