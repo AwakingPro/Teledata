@@ -192,7 +192,7 @@ $(document).ready(function() {
 			value = $.parseJSON(data);
 			$('[name="Nombre_update"]').val(value[0][3]);
 			$('[name="Rut_update"]').val(value[0][1]);
-			$('[name="Dv_update"]').val(value[0][2]);
+			$('[name="Dv_update"]').selectpicker('val',value[0][2]);
 			$('[name="DireccionComercial_update"]').val(value[0][4]);
 			$('[name="Contacto_update"]').val(value[0][7]);
 			$('[name="Telefono_update"]').val(value[0][9]);

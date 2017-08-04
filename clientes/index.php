@@ -64,7 +64,7 @@
 													</div>
 													<div class="col-md-4 form-group">
 														<label>Dv</label>
-														<select name="DV" class="form-control selectpicker" data-live-search="true">
+														<select name="Dv" class="form-control selectpicker" data-live-search="true">
 															<option value="">Seleccione...</option>
 															<option>1</option>
 															<option>2</option>
