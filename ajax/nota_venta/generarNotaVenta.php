@@ -1,4 +1,13 @@
 <?php
+header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+header("Content-Disposition: attachment; filename=\"Nota de Venta ".date('d-m-Y').".xlsx\"");
+header("Cache-Control: max-age=0");
+header("Content-Type: application/force-download");
+header("Content-Type: application/octet-stream");
+header("Content-Type: application/download");
+header("Content-Description: File Transfer");
+header("Content-Transfer-Encoding: Binary");
+
 /** Incluir la libreria PHPExcel */
 require_once '../../plugins/PHPExcel-1.8/Classes/PHPExcel.php';
 
@@ -138,6 +147,7 @@ $objPHPExcel->getActiveSheet()->setTitle('Nota de Venta');
 // Establecer la hoja activa, para que cuando se abra el documento se muestre primero.
 $objPHPExcel->setActiveSheetIndex(0);
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
-$objWriter->save('../../reportes/nota_venta/Nota de Venta '.date("d-m-Y").'.xlsx');
+// $objWriter->save('../../reportes/nota_venta/Nota de Venta '.date("d-m-Y").'.xlsx');
+$objWriter->save('php://output');
 exit;
 ?>
