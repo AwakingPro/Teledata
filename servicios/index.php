@@ -186,7 +186,19 @@
 					</div>
 					<div class="col-md-4 form-group">
 						<label>Dv</label>
-						<input name="Dv" class="form-control">
+						<select name="Dv" class="form-control selectpicker" data-live-search="true">
+							<option value="">Seleccione...</option>
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+							<option>6</option>
+							<option>7</option>
+							<option>8</option>
+							<option>9</option>
+							<option>K</option>
+						</select>
 					</div>
 				</div>
 				<div class="row">
@@ -231,7 +243,7 @@
 </div>
 <div class="modal fade" id="ModalTipoFacturacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog" role="document">
-		<div class="modal-content">
+		<div class="modal-content containerTipoFactura">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">Agregar Tipo de Facturación</h4>
@@ -250,7 +262,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-primary">Guardar</button>
+				<button type="button" class="btn btn-primary agregarTipoFacturacion">Guardar</button>
 			</div>
 		</div>
 	</div>

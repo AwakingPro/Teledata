@@ -17,7 +17,21 @@ $(document).ready(function() {
 				bootbox.alert('<h3 class="text-center">El servicio #'+data+' se registro con éxito.</h3>');
 			}else{
 				console.log(data);
-				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar el ticket.</h3>');
+				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
+			}
+		});
+	});
+
+	$(document).on('click', '.agregarTipoFacturacion', function() {
+		$.postFormValues('../ajax/servicios/insertTipoFacturacion.php','.containerTipoFactura',function(data){
+			if (Number(data) > 0){
+				$('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php',function(){
+					$('select[name="TipoFactura"]').selectpicker('refresh');
+				});
+				bootbox.alert('<h3 class="text-center">Se registro con éxito.</h3>');
+			}else{
+				console.log(data);
+				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
 			}
 		});
 	});
