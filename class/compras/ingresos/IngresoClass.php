@@ -72,17 +72,17 @@
 
                 $query = "UPDATE `compras_ingresos` set  `numero_factura` = '$this->NumeroFactura', `fecha_emision_factura` = '$FechaEmisionFactura', `proveedor_id` = '$this->Proveedor', `estado_id` = '$this->Estado', `centro_costo_id` = '$this->CentroCosto' where `id` = '$this->Id'";
                 $run = new Method;
-                $id = $run->insert($query);
+                $data = $run->update($query);
 
-                // if($id){
+                if($data){
 
                     $array = array('id' => $Id, 'numero_factura' => $this->NumeroFactura,'fecha_emision_factura' => $this->FechaEmisionFactura, 'proveedor_id' => $this->Proveedor, 'estado_id' => $this->Estado, 'centro_costo_id' => $this->CentroCosto);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }
@@ -103,7 +103,7 @@
 
                 $query = "DELETE from `compras_ingresos` where `id` = '$this->Id'";
                 $run = new Method;
-                $data = $run->insert($query);
+                $data = $run->delete($query);
                 $response_array['status'] = 1; 
 
                 

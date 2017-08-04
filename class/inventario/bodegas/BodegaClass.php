@@ -30,15 +30,15 @@
                 $run = new Method;
                 $id = $run->insert($query);
 
-                // if($data){
+                if($id){
 
                     $array = array('id'=> $id, 'nombre' => $this->Nombre,'principal' => $this->Principal,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }
@@ -72,18 +72,18 @@
 
                 $query = "UPDATE `mantenedor_bodegas` set `nombre` = '$this->Nombre', `principal` = '$this->Principal', `direccion` = '$this->Direccion', `telefono` = '$this->Telefono', `personal_id` = '$this->Personal', `correo` = '$this->Correo' where `id` = '$this->Id'";
                 $run = new Method;
-                $data = $run->insert($query);
+                $data = $run->update($query);
 
-                // if($data){
+                if($data){
 
                     $array = array('nombre' => $this->Nombre, 'principal' => $this->Principal,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo, 'id' => $this->Id);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }
@@ -109,10 +109,10 @@
 
                     $query = "DELETE from `mantenedor_bodegas` where `id` = '$this->Id'";
                     $run = new Method;
-                    $data = $run->insert($query);
+                    $data = $run->delete($query);
                     $query = "DELETE from `inventario_egresos` where `destino_tipo` = '1' and `destino_id` = '$this->Id'";
                     $run = new Method;
-                    $data = $run->insert($query);
+                    $data = $run->delete($query);
                     $response_array['status'] = 1; 
                     
                 }else{

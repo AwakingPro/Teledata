@@ -28,15 +28,15 @@
                 $run = new Method;
                 $id = $run->insert($query);
 
-                // if($data){
+                if($id){
 
                     $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }
@@ -68,18 +68,18 @@
 
                 $query = "UPDATE `mantenedor_costos` set `nombre` = '$this->Nombre', `direccion` = '$this->Direccion', `telefono` = '$this->Telefono', `personal_id` = '$this->Personal', `correo` = '$this->Correo' where `id` = '$this->Id'";
                 $run = new Method;
-                $data = $run->insert($query);
+                $data = $run->update($query);
 
-                // if($data){
+                if($data){
 
                     $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo, 'id' => $this->Id);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }
@@ -99,7 +99,7 @@
 
                 $query = "DELETE from `mantenedor_costos` where `id` = '$this->Id'";
                 $run = new Method;
-                $data = $run->insert($query);
+                $data = $run->delete($query);
                 $response_array['status'] = 1; 
                     
                

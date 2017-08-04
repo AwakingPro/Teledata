@@ -54,18 +54,18 @@
 
                 $query = "UPDATE `mantenedor_tipo_producto` set `nombre` = '$this->Nombre', `descripcion` = '$this->Descripcion' where `id` = '$this->Id'";
                 $run = new Method;
-                $data = $run->insert($query);
+                $data = $run->update($query);
 
-                // if($Query){
+                if($data){
 
                     $array = array('nombre' => $this->Nombre,'descripcion' => $this->Descripcion, 'id' => $this->Id);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
 
-                // }else{
-                //     $response_array['status'] = 0; 
-                // }
+                }else{
+                    $response_array['status'] = 0; 
+                }
             }else{
                 $response_array['status'] = 2; 
             }
@@ -91,7 +91,7 @@
 
                     $query = "DELETE from `mantenedor_tipo_producto` where `id` = '$this->Id'";
                     $run = new Method;
-                    $data = $run->insert($query);
+                    $data = $run->delete($query);
                     $response_array['status'] = 1; 
                     
                 }else{
