@@ -7,7 +7,7 @@
 		<title>Teledata</title>
 		<!--STYLESHEET-->
 		<link href="../css/bootstrap.min.css" rel="stylesheet">
-		<link href="../css/nifty.min.css" rel="stylesheet">
+		<link href="../css/nifty.css" rel="stylesheet">
 		<link href="../premium/icon-sets/solid-icons/premium-solid-icons.min.css" rel="stylesheet">
 		<link href="../plugins/ionicons/css/ionicons.min.css" rel="stylesheet">
 		<link href="../plugins/themify-icons/themify-icons.min.css" rel="stylesheet">
@@ -205,7 +205,7 @@
 										<!--SCRIPT-->
 										<script src="../js/jquery-2.2.1.min.js"></script>
 								        <script src="../js/bootstrap.min.js"></script>
-								        <script src="../js/js/nifty.min.js"></script>
+
        									<script src="../js/demo/nifty.demo.js"></script>
 
 								        <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
