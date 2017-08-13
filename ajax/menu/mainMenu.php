@@ -1,10 +1,7 @@
 <?php
-	require_once('../../class/methods_global/methods.php');
-	session_start();
 	$query = 'SELECT descripcion, enlace, icono, id_menu, permisos FROM menu';
-	$run = new Method;
 	$data = $run->select($query);
-	$url = explode('/', $_POST['url']);
+	$url = explode('/', $_SERVER['REQUEST_URI']);
 	$subM = 0;
 	if (count(array_filter($url,"strlen")) > 2) {
 		$url = '../'.$url[2].'/'.$url[3];

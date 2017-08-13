@@ -70,3 +70,7 @@ div.bg-img{
 	margin: 0;
 			background: #2b2f33;
 }
+
+.nano-content{
+	overflow: hidden !important;
+}

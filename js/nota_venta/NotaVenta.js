@@ -11,7 +11,7 @@ $(document).ready(function(){
         paging: false,
         iDisplayLength: 100,
         processing: true,
-        serverSide: false,  
+        serverSide: false,
         bInfo:false,
         bFilter:false,
         order: [[0, 'asc']],
@@ -43,7 +43,7 @@ $(document).ready(function(){
         paging: false,
         iDisplayLength: 100,
         processing: true,
-        serverSide: false,  
+        serverSide: false,
         bInfo:false,
         bFilter:false,
         order: [[0, 'asc']],
@@ -96,7 +96,7 @@ $(document).ready(function(){
 
             $('.selectpicker').selectpicker('render');
             $('.selectpicker').selectpicker('refresh');
-        
+
         }
     });
 
@@ -148,7 +148,7 @@ $(document).ready(function(){
 
             $('#codigo').selectpicker()
 
-            setTimeout(function() {       
+            setTimeout(function() {
                 $('.selectpicker').selectpicker('render');
                 $('.selectpicker').selectpicker('refresh');
             }, 1000);
@@ -160,7 +160,7 @@ $(document).ready(function(){
             $('#precio').prop('disabled', false)
         }
 
-        
+
     });
 
     $('#personaempresa_id').on('change', function () {
@@ -183,7 +183,7 @@ $(document).ready(function(){
                     $('#direccion').val(response.array[0].direccion);
                     $('#contacto').val(response.array[0].contacto);
                     $('#rut').val(response.array[0].rut);
-                    
+
                 }
             });
 
@@ -202,7 +202,7 @@ $(document).ready(function(){
             })
 
 
-            setTimeout(function() {       
+            setTimeout(function() {
                 $('.selectpicker').selectpicker('render');
                 $('.selectpicker').selectpicker('refresh');
             }, 1000);
@@ -212,7 +212,7 @@ $(document).ready(function(){
 
             $('#precio').val('')
             $('#total').val('')
-        }            
+        }
 
         $('#cantidad').val(1)
     });
@@ -241,7 +241,7 @@ $(document).ready(function(){
 
                     if(!precio || precio < 0){
                         precio = 0
-                    }            
+                    }
 
                     $('#servicio').val(response.array[0].Servicio);
                     $('#precio').val(formatcurrency(precio));
@@ -253,7 +253,7 @@ $(document).ready(function(){
 
                     $('#total').val(formatcurrency(precio));
 
-                
+
                 }
             });
         }else{
@@ -282,7 +282,7 @@ $(document).ready(function(){
             if(!total_nota || isNaN(total_nota)){
                 total_nota = 0;
             }
-            
+
             $('#total').val(formatcurrency(total_nota))
         }
     });
@@ -327,7 +327,7 @@ $(document).ready(function(){
             if(!total_nota || isNaN(total_nota)){
                 total_nota = 0;
             }
-            
+
             $('#total').val(formatcurrency(total_nota))
         }
     });
@@ -418,18 +418,18 @@ $(document).ready(function(){
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectId = ObjectTR.attr("id");
 
-        swal({   
-            title: "Desea eliminar este registro?",   
-            text: "Confirmar eliminación!",   
-            type: "warning",   
-            showCancelButton: true,   
-            confirmButtonColor: "#DD6B55",   
-            confirmButtonText: "Eliminar!",  
-            cancelButtonText: "Cancelar",         
+        swal({
+            title: "Desea eliminar este registro?",
+            text: "Confirmar eliminación!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Eliminar!",
+            cancelButtonText: "Cancelar",
             showLoaderOnConfirm: true
-        },function(isConfirm){   
+        },function(isConfirm){
             if (isConfirm) {
-    
+
                 $.ajax({
                     url: "../includes/nota_venta/deleteServicio.php",
                     type: 'POST',
@@ -467,7 +467,7 @@ $(document).ready(function(){
                             }else{
                                 swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
                             }
-                        }, 1000);  
+                        }, 1000);
                     },
                     error:function(){
                         swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
@@ -567,14 +567,14 @@ $(document).ready(function(){
                 $.each(response.array, function( index, array ) {
                     $('#personaempresa_id').append('<option value="'+array.rut+'" data-content="'+array.nombre+'"></option>');
                 });
-            
+
             }
         });
 
-        setTimeout(function() {       
+        setTimeout(function() {
             $('.selectpicker').selectpicker('render');
             $('.selectpicker').selectpicker('refresh');
-        }, 1000); 
+        }, 1000);
 
         $('html,body').animate({
             scrollTop: 0
@@ -587,18 +587,18 @@ $(document).ready(function(){
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectId = ObjectTR.attr("id");
 
-        swal({   
-            title: "Desea eliminar este registro?",   
-            text: "Confirmar eliminación!",   
-            type: "warning",   
-            showCancelButton: true,   
-            confirmButtonColor: "#DD6B55",   
-            confirmButtonText: "Eliminar!",  
-            cancelButtonText: "Cancelar",         
+        swal({
+            title: "Desea eliminar este registro?",
+            text: "Confirmar eliminación!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Eliminar!",
+            cancelButtonText: "Cancelar",
             showLoaderOnConfirm: true
-        },function(isConfirm){   
+        },function(isConfirm){
             if (isConfirm) {
-    
+
                 $.ajax({
                     url: "../includes/nota_venta/deleteNotaVenta.php",
                     type: 'POST',
@@ -615,7 +615,7 @@ $(document).ready(function(){
                             }else{
                                 swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
                             }
-                        }, 1000);  
+                        }, 1000);
                     },
                     error:function(){
                         swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');

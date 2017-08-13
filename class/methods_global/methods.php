@@ -2,6 +2,7 @@
 	/**
 	* Métodos globales
 	*/
+
 	include_once('settings_mysql.php');
 	class Method {
 		private $host;

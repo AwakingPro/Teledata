@@ -1,5 +1,4 @@
 <?php require_once('../class/methods_global/methods.php'); ?>
-
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -352,7 +351,7 @@
 
     <div id="container" class="effect aside-float aside-bright mainnav-sm">
 
-            <div class="containerHeader"></div>
+            <div class="containerHeader"><?php require('../ajax/header/mainHeader.php') ?></div>
 
             <div class="boxed">
                 <div id="content-container">
@@ -515,14 +514,13 @@
                             <div class='nano'>
                                 <div class='nano-content'>
                                     <ul id='mainnav-menu' class='list-group'>
+                                    <?php include('../ajax/menu/mainMenu.php') ?>
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </nav>
-            </div>
-            <?php include("../layout/footer.php"); ?>
         </div>
 
         <!--SCRIPT-->

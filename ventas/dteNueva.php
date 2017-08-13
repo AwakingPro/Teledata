@@ -55,7 +55,7 @@
 <div id="container" class="effect aside-float aside-bright mainnav-sm">
 
 
-   <div class="containerHeader"></div>
+   <div class="containerHeader"><?php require('../ajax/header/mainHeader.php') ?></div>
     <div class="boxed">
         <div id="content-container">
             <div id="page-title">
