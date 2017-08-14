@@ -62,4 +62,32 @@ $(document).ready(function() {
 		});
 	});
 
+	$(document).on('click', '.update-usuarios', function() {
+		$('#editarPerfil').modal('show')
+		$.post('../ajax/registroUsuario/dataPerfil.php', {id: $(this).attr('attr')}, function(data) {
+			value = $.parseJSON(data);
+			$('[name="usuarioUpdate"]').val(value[0][1]);
+			$('[name="nombreUpdate"]').val(value[0][2]);
+			$('[name="previlegiosUpdate"]').selectpicker('val',value[0][4]);
+			$('[name="cargoUpdate"]').val(value[0][5]);
+			$('[name="correoUpdate"]').val(value[0][6]);
+			$('[name="idPerfil"]').val(value[0][0]);
+		});
+	});
+
+	$(document).on('click', '.actualizarPerfil', function() {
+		$.postFormValues('../ajax/registroUsuario/updatePerfil.php','.container-form-update',function(data){
+			$('.listaUsuarios').load('../ajax/registroUsuario/listaUSuarios.php',function(){
+				var count = $('.listaUsuarios > .tabeData tr th').length -1;
+				$('.listaUsuarios > .tabeData').dataTable({
+					"columnDefs": [{
+						'orderable': false,
+						'targets': [count]
+					}, ]
+				});
+			});
+			$('#editarPerfil').modal('hide');
+			bootbox.alert('<h3 class="text-center">El Perfil se actualizo con éxito.</h3>');
+		});
+	});
 });

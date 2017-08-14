@@ -137,3 +137,55 @@
 
 	</body>
 </html>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="editarPerfil" aria-labelledby="editarCliente">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Editar perfil</h4>
+			</div>
+			<div class="modal-body container-form-update">
+				<div class="row">
+							<div class="col-md-6 form-group">
+								<label>Usuario</label>
+								<input name="usuarioUpdate" class="form-control">
+								<input name="idPerfil" class="form-control" type="hidden">
+							</div>
+							<div class="col-md-6 form-group">
+								<label>Nombre</label>
+								<input name="nombreUpdate" class="form-control">
+							</div>
+							<div class="col-md-6 form-group">
+								<label>Password</label>
+								<input type="password" name="passUpdate" class="form-control">
+							</div>
+							<div class="col-md-6 form-group">
+								<label>Privelegios</label>
+								<select name="previlegiosUpdate" class="selectpicker form-control" data-live-search="true">
+									<option value=""> Seleccione...</option>
+									<option value="1">Administrador</option>
+									<option value="2">Soporte</option>
+									<option value="3">Terreno</option>
+								</select>
+							</div>
+							<div class="col-md-6 form-group">
+								<label>Cargo</label>
+								<input name="cargoUpdate" class="form-control">
+							</div>
+							<div class="col-md-6 form-group">
+								<label>Correo</label>
+								<input name="correoUpdate" class="form-control">
+							</div>
+
+						</div>
+				<div class="row">
+					<div class="col-md-12">
+						<br>
+						<button type="button" class="btn btn-primary actualizarPerfil">Actualizar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
