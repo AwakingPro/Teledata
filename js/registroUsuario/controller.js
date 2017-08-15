@@ -64,6 +64,7 @@ $(document).ready(function() {
 
 	$(document).on('click', '.update-usuarios', function() {
 		$('#editarPerfil').modal('show')
+		$('[name="passUpdate"]').val('');
 		$.post('../ajax/registroUsuario/dataPerfil.php', {id: $(this).attr('attr')}, function(data) {
 			value = $.parseJSON(data);
 			$('[name="usuarioUpdate"]').val(value[0][1]);
