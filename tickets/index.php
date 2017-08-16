@@ -271,3 +271,78 @@
 		</div><!-- /.modal-content -->
 	</div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
+
+<div class="modal fade" id="modalClienteExtra" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Registro de Cliente Extra</h4>
+			</div>
+			<div class="modal-body container-form2">
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<label>Cliente</label>
+						<input name="Nombre" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Rut</label>
+						<input name="Rut" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Dv</label>
+						<select name="Dv" class="form-control selectpicker" data-live-search="true">
+							<option value="">Seleccione...</option>
+							<option>1</option>
+							<option>2</option>
+							<option>3</option>
+							<option>4</option>
+							<option>5</option>
+							<option>6</option>
+							<option>7</option>
+							<option>8</option>
+							<option>9</option>
+							<option>K</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Dirección Comercial</label>
+						<textarea name="DireccionComercial" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<label>Contacto</label>
+						<input name="Contacto" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Teléfono</label>
+						<input name="Telefono" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Correo</label>
+						<input name="Correo" class="form-control">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Giro</label>
+						<input name="Giro" class="form-control">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<label>Comentarios</label>
+						<textarea name="Comentario" class="form-control"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-primary guardarCliente">Guardar Cliente</button>
+			</div>
+		</div>
+	</div>
+</div>
