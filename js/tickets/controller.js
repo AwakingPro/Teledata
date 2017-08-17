@@ -207,7 +207,7 @@ $.post('../ajax/privilegios.php', function(data) {
 					$('input, select, textarea').val('');
 					bootbox.alert('<h3 class="text-center">El ticket #'+data+' se registro con éxito.</h3>');
 					$('.cont-form3 input, .cont-form3 select, .cont-form3 textarea').value('')
-					$('.cont-form3 select').selectpicker('val', '');
+					$('.cont-form3 select').selectpicker('render');
 				}else{
 					console.log(data);
 					bootbox.alert('<h3 class="text-center">Se produjo un error al guardar el ticket.</h3>');
