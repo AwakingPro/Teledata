@@ -273,12 +273,15 @@ $.post('../ajax/privilegios.php', function(data) {
 			$('[name="tiempo"]').val("");
 			$('[name="idUpdatePrioridad"]').val("");
 		});
+
 		$('[name="Tipo"]').change(function() {
-			$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
+			var id = $(this).selectpicker('val');
+			$.post('../ajax/tickets/selectSubTipoTicket.php', {id:id}, function(data) {
 				$('[name="Subtipo"]').html(data);
 				$('[name="Subtipo"]').selectpicker('refresh');
 			});
 		});
+
 		$('[name="TipoUpdate"]').change(function() {
 			$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
 				$('[name="SubtipoUpdate"]').html(data);

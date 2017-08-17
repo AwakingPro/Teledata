@@ -131,7 +131,7 @@
 										<div class="col-md-6 form-group">
 											<label >Subtipo</label>
 											<div class="input-group">
-												<select name="Subtipo" class="selectpicker form-control" data-live-search="true">
+												<select name="Subtipo" class="selectpicker form-control subTipo" data-live-search="true">
 													<option value="">Seleccione...</option>
 												</select>
 												<span class="input-group-btn">

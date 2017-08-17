@@ -148,7 +148,7 @@
 							</div>
 							<div class="col-md-6 form-group">
 								<label >Subtipo</label>
-								<select name="SubtipoUpdate" class="form-control" data-live-search="true">
+								<select name="SubtipoUpdate" class="form-control subTipo" data-live-search="true">
 									<option value="">Seleccione...</option>
 								</select>
 							</div>
