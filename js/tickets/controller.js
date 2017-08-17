@@ -150,6 +150,8 @@ $.post('../ajax/privilegios.php', function(data) {
 
 					$('input, select, textarea').val('');
 					bootbox.alert('<h3 class="text-center">El ticket #'+data+' se registro con éxito.</h3>');
+					$('.cont-form1 input, .cont-form1 select, .cont-form1 textarea').value('')
+					$('.cont-form1 select').selectpicker('val', '');
 
 				}else{
 					console.log(data);
@@ -546,6 +548,8 @@ $.post('../ajax/privilegios.php', function(data) {
 					});
 					$('[name="Tipo"], [name="TipoUpdate"], [name="nombreTipo"]').load('../ajax/tickets/selectTipoTicket.php');
 					bootbox.alert('<h3 class="text-center">El tipo de ticket se registro con éxito.</h3>');
+					$('.cont-form5 input, .cont-form5 select, .cont-form5 textarea').value('')
+					$('.cont-form5 select').selectpicker('val', '');
 				}else{
 					console.log(data);
 					bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
@@ -568,6 +572,8 @@ $.post('../ajax/privilegios.php', function(data) {
 					$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
 						$('[name="Subtipo"]').html(data);
 					});
+					$('.cont-form6 input, .cont-form6 select, .cont-form6 textarea').value('')
+					$('.cont-form6 select').selectpicker('val', '');
 					bootbox.alert('<h3 class="text-center">El Subtipo de ticket se registro con éxito.</h3>');
 				}else{
 					console.log(data);
@@ -607,6 +613,8 @@ $.post('../ajax/privilegios.php', function(data) {
 			if (Number(value[0]) > 0){
 				$('#modalClienteExtra').modal('hide');
 				bootbox.alert('<h3 class="text-center">El cliente #'+value[0]+' se registro con éxito.</h3>');
+				$('.container-form2 input, .container-form2 select, .container-form2 textarea').value('')
+				$('.container-form2 select').selectpicker('val', '');
 			}else{
 				console.log(data);
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar el ticket.</h3>');
