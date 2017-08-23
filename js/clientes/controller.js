@@ -224,7 +224,7 @@ $(document).ready(function() {
 				});
 			});
 			$('#editarCliente').modal('hide');
-			bootbox.alert('<h3 class="text-center">El ticket se actualizo con éxito.</h3>');
+			bootbox.alert('<h3 class="text-center">El cliente se actualizo con éxito.</h3>');
 		});
 	});
 
