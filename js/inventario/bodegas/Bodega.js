@@ -85,7 +85,7 @@ $(document).ready(function(){
         var data = $('#storeBodega').serialize();
         var array = $('#storeBodega').serializeArray();
 
-        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[2].value, 'Dirección') && ValidarString(array[3].value, 'Télefono') && ValidarCorreo(array[5].value)){
+        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[2].value, 'Dirección') && ValidarString(array[3].value, 'Télefono') && ValidarCorreo(array[4].value)){
 
             $.ajax({
                 type: "POST",
@@ -191,7 +191,7 @@ $(document).ready(function(){
         var data = $('#updateBodega').serialize();
         var array = $('#updateBodega').serializeArray();
 
-        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[3].value, 'Dirección') && ValidarString(array[4].value, 'Télefono') && ValidarCorreo(array[6].value)){
+        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[3].value, 'Dirección') && ValidarString(array[4].value, 'Télefono') && ValidarCorreo(array[5].value)){
        
             $.ajax({
                 type: "POST",
