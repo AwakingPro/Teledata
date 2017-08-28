@@ -101,7 +101,9 @@ $(document).ready(function() {
 	$(document).on('click', '.listDatosTecnicos', function() {
 		var id = $(this).attr('attr');
 		$.post('../ajax/cliente/tipolistModal.php', {id: id}, function(data) {
+			console.log(data);
 			$.post('../ajax/cliente/'+data, {id: id}, function(data) {
+				console.log(data);
 				$('.containerListDatosTecnicos').html(data);
 				var count = $('.containerListDatosTecnicos > .tabeData tr th').length -1;
 				$('.containerListDatosTecnicos > .tabeData').dataTable({
