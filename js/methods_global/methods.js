@@ -34,12 +34,26 @@ $.postFormValues = function(url, form,callback) {
 
 $.validate = function(obj) {
 	if (obj.hasAttribute('validate')) {
+		console.log($(obj).val());
+		console.log($(obj).attr('name'));
 		switch($(obj).attr('validate')) {
 			case 'not_null':
 				if ($(obj).val() == "") {
-					bootbox.alert('<h3 class="text-center">Disculpe el campo '+$(obj).attr('name')+' es obligatorio.</h3>');
-					break;
+					$(obj).parent('.form-group').addClass('has-error');
+					bootbox.alert('<h3 class="text-center">Disculpe el campo '+$(obj).siblings('label').html()+' es obligatorio.</h3>');
+				}else{
+					return true;
 				}
+				break;
+			case 'email':
+				emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+				if (emailRegex.test($(obj).val())) {
+					return true;
+				} else {
+					$(obj).parent('.form-group').addClass('has-error');
+					bootbox.alert('<h3 class="text-center">Disculpe el campo '+$(obj).siblings('label').html()+' no es correcto.</h3>');
+				}
+				break;
 			default:
 				return true;
 		}
@@ -48,31 +62,9 @@ $.validate = function(obj) {
 	}
 }
 
-/*$.post('../ajax/menu/mainMenu.php', {url: window.location.pathname}, function(data) {
-	$('#mainnav-menu').html(data);
-	$('.effect').attr('attr', '');
-	$('.menu-items').hover(function() {
-		if ($('.effect').attr('attr') == '') {
-			$('.hover-menu').remove()
-			var x = $(this).position();
-			var top = x.top + 41;
-			$('body').append('<span class="hover-menu" style="top:'+top+'px;">'+$(this).html()+'</span>')
-		}else{
-			$('.menu-items').click(function() {
-				if ($(this).find('ul').hasClass('in')){
-				    $(this).find('ul').removeClass('in');
-				}else{
-				    $(this).find('ul').addClass('in');
-				}
-			});
-		}
-	}, function(){
-		$('.hover-menu').hover(function(){}, function() {
-			$('.hover-menu').remove()
-		});
-	});
-
-})*/
+$('input').blur(function() {
+	$(this).parent('.form-group').removeClass('has-error');
+});
 
 $('.effect').attr('attr', '');
 $('.menu-items').hover(function() {
@@ -95,8 +87,6 @@ $('.menu-items').hover(function() {
 		$('.hover-menu').remove()
 	});
 });
-
-//$('.containerHeader').load('../ajax/header/mainHeader.php');
 
 
 $(document).on('click', '.itemsMenu', function() {

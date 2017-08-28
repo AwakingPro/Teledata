@@ -57,7 +57,7 @@
 												<div class="row">
 													<div class="col-md-4 form-group">
 														<label>Cliente</label>
-														<input name="Nombre" class="form-control">
+														<input name="Nombre" class="form-control" validate="not_null">
 													</div>
 													<div class="col-md-4 form-group">
 														<label>Rut</label>
@@ -83,33 +83,33 @@
 												<div class="row">
 													<div class="col-md-12 form-group">
 														<label>Dirección  Comercial</label>
-														<textarea name="DireccionComercial" class="form-control"></textarea>
+														<textarea name="DireccionComercial" class="form-control" validate="not_null"></textarea>
 													</div>
 												</div>
 												<div class="row">
 													<div class="col-md-4 form-group">
 														<label>Contacto</label>
-														<input name="Contacto" class="form-control">
+														<input name="Contacto" class="form-control" validate="not_null">
 													</div>
 													<div class="col-md-4 form-group">
 														<label>Teléfono</label>
-														<input name="Telefono" class="form-control">
+														<input name="Telefono" class="form-control" validate="not_null">
 													</div>
 													<div class="col-md-4 form-group">
 														<label>Correo</label>
-														<input name="Correo" class="form-control">
+														<input name="Correo" class="form-control" validate="email">
 													</div>
 												</div>
 												<div class="row">
 													<div class="col-md-12 form-group">
 														<label>Giro</label>
-														<input name="Giro" class="form-control">
+														<input name="Giro" class="form-control" validate="not_null">
 													</div>
 												</div>
 												<div class="row">
 													<div class="col-md-12 form-group">
 														<label>Comentarios</label>
-														<textarea name="Comentario" class="form-control"></textarea>
+														<textarea name="Comentario" class="form-control" validate="not_null"></textarea>
 													</div>
 												</div>
 												<div class="row">
