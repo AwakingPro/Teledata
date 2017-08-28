@@ -220,7 +220,7 @@
 					</div>
 					<div class="col-md-4 form-group">
 						<label>Correo</label>
-						<input name="Correo" class="form-control">
+						<input name="Correo" class="form-control" validate="email">
 					</div>
 				</div>
 				<div class="row">

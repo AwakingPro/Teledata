@@ -111,7 +111,7 @@
 							</div>
 							<div class="col-md-6 form-group">
 								<label>Correo</label>
-								<input name="correo" class="form-control">
+								<input name="correo" class="form-control" validate="email">
 							</div>
 
 						</div>
@@ -175,7 +175,7 @@
 							</div>
 							<div class="col-md-6 form-group">
 								<label>Correo</label>
-								<input name="correoUpdate" class="form-control">
+								<input name="correoUpdate" class="form-control" validate="email">
 							</div>
 
 						</div>

@@ -74,7 +74,7 @@
 												</div>
 												<div class="form-group">
 													<label>Correo</label>
-													<input type="text" class="form-control" name="Correo">
+													<input type="text" class="form-control" name="Correo" validate="email">
 												</div>
 										</div>
 										<div class="col-md-6">
