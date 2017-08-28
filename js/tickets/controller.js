@@ -459,17 +459,18 @@ $.post('../ajax/privilegios.php', function(data) {
 			var id = $(this).attr('attr');
 			$('#actualizarTikect').modal('show');
 			$.post('../ajax/tickets/dataUpdateTickets.php', {id:id}, function(data) {
+				console.log(data);
 				value = $.parseJSON(data);
 				$('[name="idUpdateTicket"]').val(value[0][0])
-				$('[name="ClienteUpdate"]').val(value[0][1]);
-				$('[name="OrigenUpdate"]').val(value[0][2]);
-				$('[name="DepartamentoUpdate"]').val(value[0][3]);
-				$('[name="TipoUpdate"]').val(value[0][4]);
-				$('[name="SubtipoUpdate"]').val(value[0][5]);
-				$('[name="PrioridadUpdate"]').val(value[0][6]);
-				$('[name="AsignarAUpdate"]').val(value[0][7]);
-				$('[name="EstadoUpdate"]').val(value[0][8]);
-				$('[name="ServicioUpdate"]').val(value[0][10]);
+				$('[name="ClienteUpdate"]').selectpicker('val',value[0][1]);
+				$('[name="OrigenUpdate"]').selectpicker('val',value[0][2]);
+				$('[name="DepartamentoUpdate"]').selectpicker('val',value[0][3]);
+				$('[name="TipoUpdate"]').selectpicker('val',value[0][4]);
+				$('[name="SubtipoUpdate"]').selectpicker('val',value[0][5]);
+				$('[name="PrioridadUpdate"]').selectpicker('val',value[0][6]);
+				$('[name="AsignarAUpdate"]').selectpicker('val',value[0][7]);
+				$('[name="EstadoUpdate"]').selectpicker('val',value[0][8]);
+				$('[name="ServicioUpdate"]').selectpicker('val',value[0][10]);
 				$('[name="ObservacionesUpdate"]').val(value[0][11]);
 				$.post('../ajax/tickets/selectSubTipoTicket.php', {id:value[0][4]}, function(data) {
 					$('[name="SubtipoUpdate"]').html(data);
