@@ -2,7 +2,7 @@
 	require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
 	tickets.IdTickets as '#',
-	tickets.IdCliente as Cliente,
+	usuarios.nombre as Cliente,
 	tickets.Origen,
 	tickets.Departamento,
 	usuarios.usuario as Usuario,

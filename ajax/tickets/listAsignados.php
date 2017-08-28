@@ -3,7 +3,7 @@
 	session_start();
 	$query = "SELECT
 	tickets.IdTickets as '#',
-	tickets.IdCliente as Cliente,
+	usuarios.nombre as Cliente,
 	tickets.Origen,
 	tickets.Departamento,
 	usuarios.usuario as Usuario,
