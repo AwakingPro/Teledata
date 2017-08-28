@@ -73,6 +73,8 @@ $(document).ready(function(){
 
     $('#showCliente')[0].reset();
     $('#addServicio')[0].reset();
+    $('#automatico').prop('checked',true);
+    $('#label_automatico').addClass('active')
 
     //CONFIGURACION DEL SELECTPICKER, DATETIMEPICKER Y DATA-MASK
 
@@ -126,6 +128,8 @@ $(document).ready(function(){
         value = $("input[name='switch_codigo']:checked").val()
         $('#codigo_container').empty()
         if(value == 1){
+            $('#label_manual').removeClass('active')
+            $('#label_automatico').addClass('active')
             $('#servicio').prop('disabled', true)
             $('#precio').prop('disabled', true)
             append = '<select class="selectpicker form-control" name="codigo" id="codigo"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Código"></select>'
@@ -154,6 +158,8 @@ $(document).ready(function(){
             }, 1000);
 
         }else{
+            $('#label_automatico').removeClass('active')
+            $('#label_manual').addClass('active')
             append = '<input id="codigo" name="codigo" class="form-control input-sm" validation="not_null" data-nombre="Código">'
             $('#codigo_container').append(append)
             $('#servicio').prop('disabled', false)
@@ -218,6 +224,7 @@ $(document).ready(function(){
     });
 
     $('body').on('change', '#codigo', function (){
+
         value = $("input[name='switch_codigo']:checked").val()
 
         if(value == 1){

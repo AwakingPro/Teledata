@@ -110,8 +110,8 @@
                                                 <div class="row" style="margin-top: 20px">
                                                     <form id="addServicio">
                                                         <div class="col-md-2">
-                                                            <label class="form-radio form-icon form-text"><input id="automatico" name="switch_codigo" type="radio" value="1" checked>Automático</label>
-                                                            <label class="form-radio form-icon form-text"><input id="manual" name="switch_codigo" type="radio" value="2">Manual</label>
+                                                            <label id="label_automatico" class="label_tipo form-radio form-icon form-text"><input id="automatico" name="switch_codigo" type="radio" value="1" checked>Automático</label>
+                                                            <label id="label_manual" class="label_tipo form-radio form-icon form-text"><input id="manual" name="switch_codigo" type="radio" value="2">Manual</label>
                                                         </div>
                                                         <div class="clearfix"></div>
                                                         <div class="col-md-2">
@@ -309,8 +309,6 @@
 
         <script src="../js/jquery-2.2.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
-
-        <script src="../js/demo/nifty.demo.js"></script>
 
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
