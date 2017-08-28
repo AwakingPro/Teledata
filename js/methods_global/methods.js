@@ -9,7 +9,6 @@ $.postFormValues = function(url, form,callback) {
 				countObjs++;
 				if ($.validate(obj)) {
 					formValues.append($(obj).attr('name'), $(obj).val());
-					console.log($(obj).attr('name') +' - '+$(obj).val());
 					countValidates++;
 				}else{
 					return false;
