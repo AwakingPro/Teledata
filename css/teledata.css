@@ -15,7 +15,7 @@ div.bg-img{
 	margin-right: 10px;
 	cursor: pointer;
 }
-}#navbar .brand-title {
+#navbar .brand-title {
     padding: 0 1.5em 0 5px;
 }
 
@@ -73,4 +73,19 @@ div.bg-img{
 
 .nano-content{
 	overflow: hidden !important;
+}
+
+.tab-pane .nav-tabs > li > a{
+	padding: 5px;
+	padding-bottom: 0px;
+}
+
+.tab-pane .nav-tabs > li{
+	margin-right: 10px;
+	margin-bottom: 15px;
+}
+
+
+.tab-pane .nav-tabs > .active{
+	border-bottom: 3px solid;
 }
