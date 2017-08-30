@@ -387,6 +387,23 @@ $(document).ready(function() {
 		$(this).parents('.row').remove()
 	});
 
+	$('.agregarCampCorreo').on('click', function() {
+		$('.contenedorExtraCorreo').append('<div class="row">'+
+					'<div class="col-md-9 form-group">'+
+					'<label>Correo</label>'+
+						'<input name="extra_telefono" class="form-control">'+
+					'</div>'+
+					'<div class="col-md-3">'+
+						'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampCorreo"><i class="glyphicon glyphicon-remove"></i></button>'+
+					'</div>'+
+				'</div>');
+	});
+
+
+	$(document).on('click', '.removeCampCorreo', function() {
+		$(this).parents('.row').remove()
+	});
+
 
 
 
