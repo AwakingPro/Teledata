@@ -272,7 +272,18 @@
 				<h4 class="modal-title">Telefono Extra</h4>
 			</div>
 			<div class="modal-body container-form-update">
+				<div class="row">
+					<div class="col-md-9 form-group">
+					<label>Telefono</label>
+						<input name="extra_telefono" class="form-control">
+					</div>
+					<div class="col-md-3">
+						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampTele"><i class="glyphicon glyphicon-plus"></i></button>
+					</div>
+				</div>
+				<div class="contenedorExtraTelefono">
 
+				</div>
 			</div>
 		</div>
 	</div>

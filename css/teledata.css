@@ -89,3 +89,7 @@ div.bg-img{
 .tab-pane .nav-tabs > .active{
 	border-bottom: 3px solid;
 }
+
+.mgExtraButton{
+	margin-top: 22px;
+}

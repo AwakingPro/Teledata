@@ -80,20 +80,20 @@ $(document).ready(function() {
 			if(data.trim() == 'arriendoEquipos.php'){
 
 				$.ajax({
-                    type: "POST",
-                    url: "../includes/inventario/egresos/getBodega.php",
-                    success: function(response){
+										type: "POST",
+										url: "../includes/inventario/egresos/getBodega.php",
+										success: function(response){
 
-                        $.each(response.array, function( index, array ) {
-                            $('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
-                        });
-                    }
-                });
+												$.each(response.array, function( index, array ) {
+														$('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+												});
+										}
+								});
 
-                setTimeout(function() {
-	                $('#origen_id').selectpicker('render');
-	                $('#origen_id').selectpicker('refresh');
-                }, 1000);
+								setTimeout(function() {
+									$('#origen_id').selectpicker('render');
+									$('#origen_id').selectpicker('refresh');
+								}, 1000);
 			}
 		});
 	});
@@ -370,34 +370,59 @@ $(document).ready(function() {
 		});
 	});
 
-    $(document).on('change', '#origen_id', function () {
+	$('.agregarCampTele').on('click', function() {
+		$('.contenedorExtraTelefono').append('<div class="row">'+
+					'<div class="col-md-9 form-group">'+
+					'<label>Telefono</label>'+
+						'<input name="extra_telefono" class="form-control">'+
+					'</div>'+
+					'<div class="col-md-3">'+
+						'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampTele"><i class="glyphicon glyphicon-remove"></i></button>'+
+					'</div>'+
+				'</div>');
+	});
 
-        $('#producto_id').empty();
-        $('#producto_id').append(new Option('Seleccione Opción',''));
 
-        origen_tipo = 1
-        origen_id = $(this).val();
+	$(document).on('click', '.removeCampTele', function() {
+		$(this).parents('.row').remove()
+	});
 
-        if(origen_id){
 
-	        $.ajax({
-	            type: "POST",
-	            url: "../includes/inventario/egresos/getProducto.php",
-	            data:"&origen_tipo="+origen_tipo+"&origen_id="+origen_id,
-	            success: function(response){
 
-	                $.each(response.array, function( index, array ) {
-	                    $('#producto_id').append('<option value="'+array.id+'" data-content="'+array.tipo + ' ' + array.marca + ' ' + array.modelo+ ' - ' + array.numero_serie+'"></option>');
-	                });
-	            }
-	        });
-    	}
 
-    	setTimeout(function() {
-            $('#producto_id').selectpicker('render');
-            $('#producto_id').selectpicker('refresh');
-        }, 1000);
 
-    });
+
+
+
+
+		$(document).on('change', '#origen_id', function () {
+
+				$('#producto_id').empty();
+				$('#producto_id').append(new Option('Seleccione Opción',''));
+
+				origen_tipo = 1
+				origen_id = $(this).val();
+
+				if(origen_id){
+
+					$.ajax({
+							type: "POST",
+							url: "../includes/inventario/egresos/getProducto.php",
+							data:"&origen_tipo="+origen_tipo+"&origen_id="+origen_id,
+							success: function(response){
+
+									$.each(response.array, function( index, array ) {
+											$('#producto_id').append('<option value="'+array.id+'" data-content="'+array.tipo + ' ' + array.marca + ' ' + array.modelo+ ' - ' + array.numero_serie+'"></option>');
+									});
+							}
+					});
+			}
+
+			setTimeout(function() {
+						$('#producto_id').selectpicker('render');
+						$('#producto_id').selectpicker('refresh');
+				}, 1000);
+
+		});
 
 });
