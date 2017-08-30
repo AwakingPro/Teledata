@@ -17,7 +17,7 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.guardarCliente', function() {
-		$.postFormValues('../ajax/cliente/insertCliente.php','.form-cont1',function(data){
+		$.postFormValues('../ajax/cliente/insertCliente.php','.form-cont1, .container-form-extraTelefono, .container-form-extraCorreo',function(data){
 			if (Number(data) > 0){
 				$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
 					var count = $('.listaCliente > .tabeData tr th').length -1;
@@ -101,9 +101,7 @@ $(document).ready(function() {
 	$(document).on('click', '.listDatosTecnicos', function() {
 		var id = $(this).attr('attr');
 		$.post('../ajax/cliente/tipolistModal.php', {id: id}, function(data) {
-			console.log(data);
 			$.post('../ajax/cliente/'+data, {id: id}, function(data) {
-				console.log(data);
 				$('.containerListDatosTecnicos').html(data);
 				var count = $('.containerListDatosTecnicos > .tabeData tr th').length -1;
 				$('.containerListDatosTecnicos > .tabeData').dataTable({
@@ -119,7 +117,6 @@ $(document).ready(function() {
 
 	$(document).on('click', '.guardarDatosTecnicos', function() {
 		var url = $('.container-form-datosTecnicos').attr('attr');
-		console.log(url);
 		$.postFormValues('../ajax/cliente/'+url,'.container-form-datosTecnicos',function(data){
 			if (Number(data) > 0){
 				$('.modal').modal('hide')
@@ -374,7 +371,7 @@ $(document).ready(function() {
 		$('.contenedorExtraTelefono').append('<div class="row">'+
 					'<div class="col-md-9 form-group">'+
 					'<label>Telefono</label>'+
-						'<input name="extra_telefono" class="form-control">'+
+						'<input name="extra_telefono[]" class="form-control">'+
 					'</div>'+
 					'<div class="col-md-3">'+
 						'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampTele"><i class="glyphicon glyphicon-remove"></i></button>'+
@@ -391,7 +388,7 @@ $(document).ready(function() {
 		$('.contenedorExtraCorreo').append('<div class="row">'+
 					'<div class="col-md-9 form-group">'+
 					'<label>Correo</label>'+
-						'<input name="extra_telefono" class="form-control">'+
+						'<input name="extra_correo[]" class="form-control">'+
 					'</div>'+
 					'<div class="col-md-3">'+
 						'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampCorreo"><i class="glyphicon glyphicon-remove"></i></button>'+

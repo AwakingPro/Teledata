@@ -275,7 +275,7 @@
 				<div class="row">
 					<div class="col-md-9 form-group">
 					<label>Telefono</label>
-						<input name="extra_telefono" class="form-control">
+						<input name="extra_telefono[]" class="form-control">
 					</div>
 					<div class="col-md-3">
 						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampTele"><i class="glyphicon glyphicon-plus"></i></button>
@@ -284,6 +284,9 @@
 				<div class="contenedorExtraTelefono">
 
 				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 			</div>
 		</div>
 	</div>
@@ -300,7 +303,7 @@
 				<div class="row">
 					<div class="col-md-9 form-group">
 					<label>Correo</label>
-						<input name="extra_correo" class="form-control">
+						<input name="extra_correo[]" class="form-control">
 					</div>
 					<div class="col-md-3">
 						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampCorreo"><i class="glyphicon glyphicon-plus"></i></button>
@@ -309,6 +312,10 @@
 				<div class="contenedorExtraCorreo">
 
 				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			</div>
 			</div>
 		</div>
 	</div>

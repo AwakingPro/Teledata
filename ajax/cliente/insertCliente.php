@@ -3,5 +3,27 @@
 	$query = "INSERT INTO personaempresa (rut, dv, nombre, giro, direccion, correo, contacto, comentario, telefono) VALUES ('".$_POST['Rut']."', '".$_POST['Dv']."', '".$_POST['Nombre']."', '".$_POST['Giro']."', '".$_POST['DireccionComercial']."', '".$_POST['Correo']."', '".$_POST['Contacto']."', '".$_POST['Comentario']."', '".$_POST['Telefono']."')";
 	$run = new Method;
 	$data = $run->insert($query);
-	echo $data;
+	$id = $data;
+	if($id > 0){
+		if (count($_POST['extra_telefono']) > 0) {
+			for ($i=0; $i < count($_POST['extra_telefono']); $i++) {
+				if ($_POST['extra_telefono'][$i] != "") {
+					$query = "INSERT INTO telefono_extra (IdUsuario, Telefono) VALUES ('".$id."', '".$_POST['extra_telefono'][$i]."')";
+					$data = $run->insert($query);
+				}
+
+			}
+		}
+
+		if (count($_POST['extra_correo']) > 0) {
+			for ($i=0; $i < count($_POST['extra_correo']); $i++) {
+				if ($_POST['extra_correo'][$i] != "") {
+					$query = "INSERT INTO correo_extra (IdUsuario, Correo) VALUES ('".$id."', '".$_POST['extra_correo'][$i]."')";
+					$data = $run->insert($query);
+				}
+
+			}
+		}
+	}
+	echo $id;
  ?>
