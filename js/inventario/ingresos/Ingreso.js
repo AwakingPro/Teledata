@@ -614,6 +614,7 @@ $(document).ready(function(){
             $('.proveedor_id').removeAttr('validation');
             $('.valor').removeAttr('validation');
             $('.nuevo').hide() 
+            $('.fecha_ingreso').val('01-01-2012')
         }
 
         $('.selectpicker').selectpicker('render');

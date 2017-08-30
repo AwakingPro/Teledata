@@ -46,8 +46,15 @@
                             <div class="clearfix m-b-10"></div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-label" for="name">Télefono</label>
+                                    <label class="control-label" for="name">Télefono Estación</label>
                                     <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Contacto Estación</label>
+                                    <input id="contacto" name="contacto" type="text" placeholder="Ingrese el contacto" class="form-control input-sm" validation="not_null" data-nombre="Contacto">
                                 </div>
                             </div>
                             <div class="clearfix m-b-10"></div>
@@ -60,11 +67,55 @@
                             <div class="clearfix m-b-10"></div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-label" for="name">Responsable</label>
+                                    <label class="control-label" for="name">Responsable Teledata</label>
                                     <div class="select">
                                         <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
                                         </select>
                                     </div>
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Dueño Cerro</label>
+                                    <input id="dueno_cerro" name="dueno_cerro" type="text" placeholder="Ingrese Dueño Cerro" class="form-control input-sm" validation="not_null" data-nombre="Dueño Cerro">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Coordenadas</label>
+                                    <input id="latitud_coordenada" name="latitud_coordenada" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas insert" validation="not_null" data-nombre="Latitud">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">&nbsp;</label>
+                                    <input id="longitud_coordenada" name="longitud_coordenada" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas insert" validation="not_null" data-nombre="Longitud">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div id="EstacionFormMap" style="height:350px; width:100%;"></div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Coordenadas Acceso Site</label>
+                                    <input id="latitud_coordenada_site" name="latitud_coordenada_site" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas insert" validation="not_null" data-nombre="Latitud">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">&nbsp;</label>
+                                    <input id="longitud_coordenada_site" name="longitud_coordenada_site" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas insert" validation="not_null" data-nombre="Longitud">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div id="EstacionFormSiteMap" style="height:350px; width:100%;"></div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Datos Proveedor Eléctrico</label>
+                                    <textarea id="datos_proveedor_electrico" name="datos_proveedor_electrico" rows="4" class="form-control" placeholder="Ingrese los datos del proveedor eléctrico" validation="not_null" data-nombre="Datos Proveedor Eléctrico"></textarea>
                                 </div>
                             </div>
                         </form>
@@ -105,8 +156,15 @@
                             <div class="clearfix m-b-10"></div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-label" for="name">Télefono</label>
+                                    <label class="control-label" for="name">Télefono Estación</label>
                                     <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Contacto Estación</label>
+                                    <input id="contacto" name="contacto" type="text" placeholder="Ingrese el contacto" class="form-control input-sm" validation="not_null" data-nombre="Contacto">
                                 </div>
                             </div>
                             <div class="clearfix m-b-10"></div>
@@ -119,20 +177,58 @@
                             <div class="clearfix m-b-10"></div>
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label class="control-label" for="name">Responsable</label>
+                                    <label class="control-label" for="name">Responsable Teledata</label>
                                     <div class="select">
                                         <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
                                         </select>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="clearfix m-b-10"></div>
-
                             <div class="col-md-12">
-                                <div id="google-map" class="google-map"></div>
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Dueño Cerro</label>
+                                    <input id="dueno_cerro" name="dueno_cerro" type="text" placeholder="Ingrese Dueño Cerro" class="form-control input-sm" validation="not_null" data-nombre="Dueño Cerro">
+                                </div>
                             </div>
-
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Coordenadas</label>
+                                    <input id="latitud_coordenada" name="latitud_coordenada" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas update" validation="not_null" data-nombre="Latitud">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">&nbsp;</label>
+                                    <input id="longitud_coordenada" name="longitud_coordenada" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas update" validation="not_null" data-nombre="Longitud">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div id="EstacionFormUpdateMap" style="height:350px; width:100%;"></div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Coordenadas Acceso Site</label>
+                                    <input id="latitud_coordenada_site" name="latitud_coordenada_site" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas update" validation="not_null" data-nombre="Latitud">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">&nbsp;</label>
+                                    <input id="longitud_coordenada_site" name="longitud_coordenada_site" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas update" validation="not_null" data-nombre="Longitud">
+                                </div>
+                            </div>
+                            <div class="clearfix m-b-10"></div>
+                            <div id="EstacionFormUpdateSiteMap" style="height:350px; width:100%;"></div>
+                            <div class="clearfix m-b-10"></div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label class="control-label" for="name">Datos Proveedor Eléctrico</label>
+                                    <textarea id="datos_proveedor_electrico" name="datos_proveedor_electrico" rows="4" class="form-control" placeholder="Ingrese los datos del proveedor eléctrico" validation="not_null" data-nombre="Datos Proveedor Eléctrico"></textarea>
+                                </div>
+                            </div>
+                            
                         </form>
                     </div>
                 </div><!-- /.modal-body -->
@@ -396,6 +492,7 @@
                                                                     <th class="text-center">Nombre</th>
                                                                     <th class="text-center">Dirección</th>
                                                                     <th class="text-center">Teléfono</th>
+                                                                    <th class="text-center">Contacto</th>
                                                                     <th class="text-center">Correo</th>
                                                                     <th class="text-center">Responsable</th>
                                                                     <th class="text-center">Acción</th>
@@ -527,16 +624,14 @@
 
         <script src="../js/jquery-2.2.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
-
-        <script src="../js/demo/nifty.demo.js"></script>
-
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="../plugins/sweetalert/sweetalert.min.js"></script>
         <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="../plugins/bootbox/bootbox.min.js"></script>
         <script src="../js/global/validations.js"></script>
         <script src="../js/radio/Radio.js"></script>
-        <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC1-pVuH3Dql03pSk_oSHcMf0E-UJpJZKM"></script> -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
 
     </body>
 </html>
