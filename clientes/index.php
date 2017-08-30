@@ -93,11 +93,22 @@
 													</div>
 													<div class="col-md-4 form-group">
 														<label>Teléfono</label>
-														<input name="Telefono" class="form-control" validate="not_null">
+														<div class="input-group">
+															<input name="Telefono" class="form-control" validate="not_null">
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraTelefono"><i class="fa fa-plus" aria-hidden="true"></i></button>
+															</span>
+														</div>
 													</div>
 													<div class="col-md-4 form-group">
 														<label>Correo</label>
-														<input name="Correo" class="form-control" validate="email">
+														<div class="input-group">
+															<input name="Correo" class="form-control" validate="email">
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraCorreo"><i class="fa fa-plus" aria-hidden="true"></i></button>
+															</span>
+														</div>
+
 													</div>
 												</div>
 												<div class="row">
@@ -248,6 +259,34 @@
 						<button type="button" class="btn btn-primary actualizarCliente">Actualizar</button>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="extraTelefono" aria-labelledby="editarCliente">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Telefono Extra</h4>
+			</div>
+			<div class="modal-body container-form-update">
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="extraCorreo" aria-labelledby="editarCliente">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Telefono Extra</h4>
+			</div>
+			<div class="modal-body container-form-update">
+
 			</div>
 		</div>
 	</div>
