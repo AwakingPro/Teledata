@@ -1,4 +1,251 @@
+// Calculate maximum latitude value on mercator projection
+var maxLat = Math.atan(Math.sinh(Math.PI)) * 180 / Math.PI;
+var center
+var mapOptions
+var map
+var mapCenter
+
 $(document).ready(function(){
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function initialize() {
+
+        center = new google.maps.LatLng(0, 0);
+
+        mapOptions = {
+            zoom: 20,
+            center: center,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        EstacionFormMap = new google.maps.Map(document.getElementById("EstacionFormMap"), mapOptions);
+        EstacionFormSiteMap = new google.maps.Map(document.getElementById("EstacionFormSiteMap"), mapOptions);
+        EstacionFormUpdateMap = new google.maps.Map(document.getElementById("EstacionFormUpdateMap"), mapOptions);
+        EstacionFormUpdateSiteMap = new google.maps.Map(document.getElementById("EstacionFormUpdateSiteMap"), mapOptions);
+    }
+
+    function showMap(lat, lng) {
+
+        // Validate user input as numbers
+        lat = (!isNumber(lat) ? 0 : lat);
+        lng = (!isNumber(lng) ? 0 : lng);
+
+        // Create LatLng object
+        mapCenter = new google.maps.LatLng(lat, lng);
+
+        var marker = new google.maps.Marker({
+            position: mapCenter,
+            title: 'Marker title',
+            map: EstacionFormUpdateMap
+        });
+
+        marker.setMap(EstacionFormUpdateMap);
+
+        setTimeout(function() {
+            google.maps.event.trigger(EstacionFormUpdateMap, "resize");
+            EstacionFormUpdateMap.setCenter(mapCenter);
+            EstacionFormUpdateMap.setZoom(EstacionFormUpdateMap.getZoom());
+        }, 1000)
+    }
+
+    function showMapSite(lat, lng) {
+
+        // Validate user input as numbers
+        lat = (!isNumber(lat) ? 0 : lat);
+        lng = (!isNumber(lng) ? 0 : lng);
+
+        // Create LatLng object
+        mapCenter = new google.maps.LatLng(lat, lng);
+
+        var marker = new google.maps.Marker({
+            position: mapCenter,
+            title: 'Marker title',
+            map: EstacionFormUpdateSiteMap
+        });
+
+        marker.setMap(EstacionFormUpdateSiteMap);
+
+        setTimeout(function() {
+            google.maps.event.trigger(EstacionFormUpdateSiteMap, "resize");
+            EstacionFormUpdateSiteMap.setCenter(mapCenter);
+            EstacionFormUpdateSiteMap.setZoom(EstacionFormUpdateSiteMap.getZoom());
+        }, 1000)
+    }
+
+    function isNumber(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
+    function latRange(n) {
+        return Math.min(Math.max(parseInt(n), -maxLat), maxLat);
+    }
+
+    function lngRange(n) {
+        return Math.min(Math.max(parseInt(n), -180), 180);
+    }
+
+    function validLatitude(lat){    
+        return isFinite(lat) && Math.abs(lat) <= 90;
+    }
+
+    function validLongitude(lng){ 
+        return isFinite(lng) && Math.abs(lng) <= 180;   
+    }
+
+    $(".coordenadas").on('blur', function() {
+        if($(this).hasClass('insert')){
+            if($(this).attr('id') == 'latitud_coordenada' || $(this).attr('id') == 'longitud_coordenada'){
+
+                latitud = $('#storeEstacion').find('input[name="latitud_coordenada"]').val();
+                longitud = $('#storeEstacion').find('input[name="longitud_coordenada"]').val();
+
+                if($(this).attr('id') == 'latitud_coordenada' && latitud){
+                    if(latitud){
+                        if(!validLatitude(latitud)){
+                            bootbox.alert("Ups! Debe ingresar una latitud valida");
+                            $(this).val('')
+                        }
+                    }
+                }else if($(this).attr('id') == 'longitud_coordenada' && longitud){
+                    if(!validLongitude(longitud)){
+                        bootbox.alert("Ups! Debe ingresar una longitud valida");
+                        $(this).val('')
+                    }
+                }
+
+                if(latitud && longitud){
+
+                    mapCenter = new google.maps.LatLng(latitud, longitud);
+
+                    // var marker = new google.maps.Marker({
+                    //     position: mapCenter,
+                    //     title: 'Marker title',
+                    //     map: EstacionFormMap
+                    // });
+
+                    // marker.setMap(EstacionFormMap);
+
+                    setTimeout(function() {
+                        google.maps.event.trigger(EstacionFormMap, "resize");
+                        EstacionFormMap.setCenter(mapCenter);
+                        EstacionFormMap.setZoom(EstacionFormMap.getZoom());
+                    }, 1000)
+                }
+                
+            }else{
+                latitud = $('#storeEstacion').find('input[name="latitud_coordenada_site"]').val();
+                longitud = $('#storeEstacion').find('input[name="longitud_coordenada_site"]').val();
+
+                if($(this).attr('id') == 'latitud_coordenada_site' && latitud){
+                    if(latitud){
+                        if(!validLatitude(latitud)){
+                            bootbox.alert("Ups! Debe ingresar una latitud valida");
+                            $(this).val('')
+                        }
+                    }
+                }else if($(this).attr('id') == 'longitud_coordenada_site' && longitud){
+                    if(!validLongitude(longitud)){
+                        bootbox.alert("Ups! Debe ingresar una longitud valida");
+                        $(this).val('')
+                    }
+                }
+
+                if(latitud && longitud){
+
+                    mapCenter = new google.maps.LatLng(latitud, longitud);
+
+                    // var marker = new google.maps.Marker({
+                    //     position: mapCenter,
+                    //     title: 'Marker title',
+                    //     map: EstacionFormSiteMap
+                    // });
+
+                    // marker.setMap(EstacionFormMap);
+
+                    setTimeout(function() {
+                        google.maps.event.trigger(EstacionFormSiteMap, "resize");
+                        EstacionFormSiteMap.setCenter(mapCenter);
+                        EstacionFormSiteMap.setZoom(EstacionFormSiteMap.getZoom());
+                    }, 1000)
+                }
+            }
+        }else{
+            if($(this).attr('id') == 'latitud_coordenada' || $(this).attr('id') == 'longitud_coordenada'){
+
+                latitud = $('#updateEstacion').find('input[name="latitud_coordenada"]').val();
+                longitud = $('#updateEstacion').find('input[name="longitud_coordenada"]').val();
+
+                if($(this).attr('id') == 'latitud_coordenada' && latitud){
+                    if(!validLatitude(latitud)){
+                        bootbox.alert("Ups! Debe ingresar una latitud valida");
+                        $(this).val('')
+                    } 
+                }else if($(this).attr('id') == 'longitud_coordenada' && longitud){
+                    if(!validLongitude(longitud)){
+                        bootbox.alert("Ups! Debe ingresar una longitud valida");
+                        $(this).val('')
+                    }
+                }
+
+                if(latitud && longitud){
+
+                    mapCenter = new google.maps.LatLng(latitud, longitud);
+
+                    // var marker = new google.maps.Marker({
+                    //     position: mapCenter,
+                    //     title: 'Marker title',
+                    //     map: EstacionFormUpdateMap
+                    // });
+
+                    // marker.setMap(EstacionFormUpdateMap);
+
+                    setTimeout(function() {
+                        google.maps.event.trigger(EstacionFormUpdateMap, "resize");
+                        EstacionFormUpdateMap.setCenter(mapCenter);
+                        EstacionFormUpdateMap.setZoom(EstacionFormUpdateMap.getZoom());
+                    }, 1000)
+                }
+
+            }else{
+                latitud = $('#updateEstacion').find('input[name="latitud_coordenada_site"]').val();
+                longitud = $('#updateEstacion').find('input[name="longitud_coordenada_site"]').val();
+
+                if($(this).attr('id') == 'latitud_coordenada_site' && latitud){
+                    if(latitud){
+                        if(!validLatitude(latitud)){
+                            bootbox.alert("Ups! Debe ingresar una latitud valida");
+                            $(this).val('')
+                        }
+                    }
+                }else if($(this).attr('id') == 'longitud_coordenada_site' && longitud){
+                    if(!validLongitude(longitud)){
+                        bootbox.alert("Ups! Debe ingresar una longitud valida");
+                        $(this).val('')
+                    }
+                }
+
+                if(latitud && longitud){
+
+                    mapCenter = new google.maps.LatLng(latitud, longitud);
+
+                    // var marker = new google.maps.Marker({
+                    //     position: mapCenter,
+                    //     title: 'Marker title',
+                    //     map: EstacionFormUpdateSiteMap
+                    // });
+
+                    // marker.setMap(EstacionFormMap);
+
+                    setTimeout(function() {
+                        google.maps.event.trigger(EstacionFormUpdateSiteMap, "resize");
+                        EstacionFormUpdateSiteMap.setCenter(mapCenter);
+                        EstacionFormUpdateSiteMap.setZoom(EstacionFormUpdateSiteMap.getZoom());
+                    }, 1000)
+                }
+            }
+        }
+    })
 
     EstacionTable = $('#EstacionTable').DataTable({
         paging: false,
@@ -42,6 +289,7 @@ $(document).ready(function(){
                   ''+array.nombre+'',
                   ''+array.direccion+'',
                   ''+array.telefono+'',
+                  ''+array.contacto+'',
                   ''+array.personal+'',
                   ''+array.correo+'',
                   ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
@@ -50,7 +298,12 @@ $(document).ready(function(){
                 $( rowNode )
                     .attr('id','estacion_'+array.id)
                     .data('personal_id',array.personal_id)
-                    .data('kml',array.kml)
+                    .data('dueno_cerro',array.dueno_cerro)
+                    .data('latitud_coordenada',array.latitud_coordenada)
+                    .data('longitud_coordenada',array.longitud_coordenada)
+                    .data('latitud_coordenada_site',array.latitud_coordenada_site)
+                    .data('longitud_coordenada_site',array.longitud_coordenada_site)
+                    .data('datos_proveedor_electrico',array.datos_proveedor_electrico)
                     .addClass('text-center');
 
                 $('.estacion_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
@@ -113,6 +366,7 @@ $(document).ready(function(){
                   ''+response.array.nombre+'',
                   ''+response.array.direccion+'',
                   ''+response.array.telefono+'',
+                  ''+response.array.contacto+'',
                   ''+Personal+'',
                   ''+response.array.correo+'',
                   ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
@@ -121,14 +375,17 @@ $(document).ready(function(){
                 $( rowNode )
                     .attr('id','estacion_'+response.array.id)
                     .data('personal_id',response.array.personal_id)
+                    .data('dueno_cerro',response.array.dueno_cerro)
+                    .data('latitud_coordenada',response.array.latitud_coordenada)
+                    .data('longitud_coordenada',response.array.longitud_coordenada)
+                    .data('latitud_coordenada_site',response.array.latitud_coordenada_site)
+                    .data('longitud_coordenada_site',response.array.longitud_coordenada_site)
+                    .data('datos_proveedor_electrico',response.array.datos_proveedor_electrico)
                     .addClass('text-center');
 
                 $('.estacion_id').append('<option value="'+response.array.id+'" data-content="'+response.array.nombre+'"></option>');
                 $('.estacion_id').val(response.array.id);
-
-                $('#storeEstacion')[0].reset();
-                $('.selectpicker').selectpicker('render');
-                $('.selectpicker').selectpicker('refresh');
+                
                 $('.modal').modal('hide');
 
             }else if(response.status == 2){
@@ -156,6 +413,26 @@ $(document).ready(function(){
         });
     });
 
+    $("#EstacionForm").on("shown.bs.modal", function () { 
+        $('#storeEstacion')[0].reset();
+        mapCenter = new google.maps.LatLng(0, 0);
+
+        setTimeout(function() {
+            google.maps.event.trigger(EstacionFormMap, "resize");
+            EstacionFormMap.setCenter(mapCenter);
+            EstacionFormMap.setZoom(EstacionFormMap.getZoom());
+        }, 1000)
+
+        setTimeout(function() {
+            google.maps.event.trigger(EstacionFormSiteMap, "resize");
+            EstacionFormSiteMap.setCenter(mapCenter);
+            EstacionFormSiteMap.setZoom(EstacionFormSiteMap.getZoom());
+        }, 1000)
+
+        $('.selectpicker').selectpicker('render');
+        $('.selectpicker').selectpicker('refresh');
+    });
+
     $('#EstacionTable tbody').on( 'click', 'i.fa', function () {
 
         var ObjectMe = $(this);
@@ -167,16 +444,31 @@ $(document).ready(function(){
         var ObjectName = ObjectTR.find("td").eq(0).text();
         var ObjectAddress = ObjectTR.find("td").eq(1).text();
         var ObjectTelephone = ObjectTR.find("td").eq(2).text();
-        var ObjectPersonal = ObjectTR.data("personal_id");
+        var ObjectContact = ObjectTR.find("td").eq(3).text();
         var ObjectEmail = ObjectTR.find("td").eq(4).text();
-        var ObjectKml = ObjectTR.data("kml");
+        var ObjectPersonal = ObjectTR.data("personal_id");
+
+        var ObjectOwner = ObjectTR.data("dueno_cerro");
+        var ObjectLatitude = ObjectTR.data("latitud_coordenada");
+        var ObjectLongitude = ObjectTR.data("longitud_coordenada");
+        var ObjectLatitudeSite = ObjectTR.data("latitud_coordenada_site");
+        var ObjectLongitudeSite = ObjectTR.data("longitud_coordenada_site");
+        var ObjectDataProvider = ObjectTR.data("datos_proveedor_electrico");
 
         $('#updateEstacion').find('input[name="id"]').val(ObjectId);
         $('#updateEstacion').find('input[name="nombre"]').val(ObjectName);
         $('#updateEstacion').find('textarea[name="direccion"]').text(ObjectAddress);
         $('#updateEstacion').find('input[name="telefono"]').val(ObjectTelephone);
-        $('#updateEstacion').find('select[name="personal_id"]').val(ObjectPersonal);
+        $('#updateEstacion').find('input[name="contacto"]').val(ObjectContact);
         $('#updateEstacion').find('input[name="correo"]').val(ObjectEmail);
+        $('#updateEstacion').find('select[name="personal_id"]').val(ObjectPersonal);
+
+        $('#updateEstacion').find('input[name="dueno_cerro"]').val(ObjectOwner);
+        $('#updateEstacion').find('input[name="latitud_coordenada"]').val(ObjectLatitude);
+        $('#updateEstacion').find('input[name="longitud_coordenada"]').val(ObjectLongitude);
+        $('#updateEstacion').find('input[name="latitud_coordenada_site"]').val(ObjectLatitudeSite);
+        $('#updateEstacion').find('input[name="longitud_coordenada_site"]').val(ObjectLongitudeSite);
+        $('#updateEstacion').find('textarea[name="datos_proveedor_electrico"]').text(ObjectDataProvider);
 
         if($(this).hasClass('fa-search')){
             $("#EstacionFormUpdate :input").attr("readonly", true);
@@ -190,42 +482,13 @@ $(document).ready(function(){
             $('#EstacionFormUpdate').modal('show');
         }
 
-        // if(ObjectKml){
-
-        //     Estacion = ObjectId;
-
-        //     google.maps.event.addDomListener(window, 'load', function () {
-        //        initialize(-19.257753, 146.823688);
-        //     });
-
-        //     $('#google-map').show()
-
-        // }else{
-        //     $('#google-map').hide()
-        // }
-
+        showMap(ObjectLatitude, ObjectLongitude);
+        showMapSite(ObjectLatitudeSite, ObjectLongitudeSite);
 
         $('.selectpicker').selectpicker('render');
         $('.selectpicker').selectpicker('refresh');
   
     });
-
-    // function initialize(latitute,longitute){
-
-    //     var mapOptions = {
-    //         center: new google.maps.LatLng(latitute, longitute),
-    //         zoom: 2,
-    //         mapTypeId: google.maps.MapTypeId.TERRAIN
-    //     }
-
-    //     var url = document.location.origin+'/Teledata/ajax/radio/kml/kml_'+Estacion+'.kml'
-    //     var map = new google.maps.Map($('#google-map'), mapOptions);
-    //     var kmlLayer = new google.maps.KmlLayer({
-    //       url: url
-    //     });
-
-    //     kmlLayer.setMap(map);
-    // }
 
     $('body').on('click', '#actualizarEstacion', function () {
 
@@ -248,11 +511,18 @@ $(document).ready(function(){
 
                 ObjectTR = $("#estacion_"+response.array.id);
                 ObjectTR.data('personal_id', response.array.personal_id)
+                ObjectTR.data('dueno_cerro', response.array.dueno_cerro)
+                ObjectTR.data('latitud_coordenada', response.array.latitud_coordenada)
+                ObjectTR.data('longitud_coordenada', response.array.longitud_coordenada)
+                ObjectTR.data('latitud_coordenada_site', response.array.latitud_coordenada_site)
+                ObjectTR.data('longitud_coordenada_site', response.array.longitud_coordenada_site)
+                ObjectTR.data('datos_proveedor_electrico', response.array.datos_proveedor_electrico)
                 ObjectTR.find("td").eq(0).html(response.array.nombre);
                 ObjectTR.find("td").eq(1).html(response.array.direccion);
                 ObjectTR.find("td").eq(2).html(response.array.telefono);
-                ObjectTR.find("td").eq(3).html(Personal);
+                ObjectTR.find("td").eq(3).html(response.array.contacto);
                 ObjectTR.find("td").eq(4).html(response.array.correo);
+                ObjectTR.find("td").eq(5).html(Personal);
                 
                 $('.modal').modal('hide');
                 

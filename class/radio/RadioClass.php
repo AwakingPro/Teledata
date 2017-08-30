@@ -5,7 +5,7 @@
 
     class Radio{
 
-    	public function CrearEstacion($Nombre,$Direccion,$Telefono,$Correo,$Personal){
+    	public function CrearEstacion($Nombre,$Direccion,$Telefono,$Correo,$Personal,$Contacto,$DuenoCerro,$LatitudCoordenada,$LongitudCoordenada,$LatitudCoordenadaSite,$LongitudCoordenadaSite,$DatosProveedorElectrico){
 
             $response_array = array();
 
@@ -14,23 +14,36 @@
             $Telefono = isset($Telefono) ? trim($Telefono) : "";
             $Personal = isset($Personal) ? trim($Personal) : "";
             $Correo = isset($Correo) ? trim($Correo) : "";
+            $Contacto = isset($Contacto) ? trim($Contacto) : "";
+            $DuenoCerro = isset($DuenoCerro) ? trim($DuenoCerro) : "";
+            $LatitudCoordenada = isset($LatitudCoordenada) ? trim($LatitudCoordenada) : "";
+            $LongitudCoordenada = isset($LongitudCoordenada) ? trim($LongitudCoordenada) : "";
+            $LatitudCoordenadaSite = isset($LatitudCoordenadaSite) ? trim($LatitudCoordenadaSite) : "";
+            $LongitudCoordenadaSite = isset($LongitudCoordenadaSite) ? trim($LongitudCoordenadaSite) : "";
+            $DatosProveedorElectrico = isset($Correo) ? trim($DatosProveedorElectrico) : "";
 
-            if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Personal) &&
-                !empty($Correo)){
+            if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Personal) && !empty($Correo) && !empty($Contacto) && !empty($DuenoCerro)  && !empty($LatitudCoordenada)  && !empty($LongitudCoordenada) && !empty($LatitudCoordenadaSite) && !empty($LongitudCoordenadaSite) && !empty($DatosProveedorElectrico)){
 
                 $this->Nombre=$Nombre;
                 $this->Direccion=$Direccion;
                 $this->Telefono=$Telefono;
                 $this->Personal=$Personal;
                 $this->Correo=$Correo;
+                $this->Contacto=$Contacto;
+                $this->DuenoCerro=$DuenoCerro;
+                $this->LatitudCoordenada=$LatitudCoordenada;
+                $this->LongitudCoordenada=$LongitudCoordenada;
+                $this->LatitudCoordenadaSite=$LatitudCoordenadaSite;
+                $this->LongitudCoordenadaSite=$LongitudCoordenadaSite;
+                $this->DatosProveedorElectrico=$DatosProveedorElectrico;
 
-                $query = "INSERT INTO mantenedor_site(nombre, direccion, telefono, personal_id, correo, kmz) VALUES ('$this->Nombre','$this->Direccion','$this->Telefono','$this->Personal','$this->Correo', '0')";
+                $query = "INSERT INTO mantenedor_site(nombre, direccion, telefono, personal_id, correo, contacto, dueno_cerro, latitud_coordenada, longitud_coordenada, latitud_coordenada_site, longitud_coordenada_site, datos_proveedor_electrico) VALUES ('$this->Nombre','$this->Direccion','$this->Telefono','$this->Personal','$this->Correo','$this->Contacto','$this->DuenoCerro','$this->LatitudCoordenada','$this->LongitudCoordenada','$this->LatitudCoordenadaSite','$this->LongitudCoordenadaSite','$this->DatosProveedorElectrico')";
                 $run = new Method;
                 $id = $run->insert($query);
 
                 if($id){
 
-                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo);
+                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo, 'contacto' => $this->Contacto,'dueno_cerro' => $this->DuenoCerro,'latitud_coordenada' => $this->LatitudCoordenada, 'longitud_coordenada' => $this->LongitudCoordenada, 'latitud_coordenada_site' => $this->LatitudCoordenadaSite, 'longitud_coordenada_site' => $this->LongitudCoordenadaSite, 'datos_proveedor_electrico' => $this->DatosProveedorElectrico);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -46,7 +59,7 @@
 
     	} 
 
-        function updateEstacion($Nombre,$Direccion,$Telefono,$Personal,$Correo, $Id){
+        function updateEstacion($Id,$Nombre,$Direccion,$Telefono,$Personal,$Correo,$Contacto,$DuenoCerro,$LatitudCoordenada,$LongitudCoordenada,$LatitudCoordenadaSite,$LongitudCoordenadaSite,$DatosProveedorElectrico){
 
             $response_array = array();
 
@@ -55,9 +68,16 @@
             $Telefono = isset($Telefono) ? trim($Telefono) : "";
             $Personal = isset($Personal) ? trim($Personal) : "";
             $Correo = isset($Correo) ? trim($Correo) : "";
+            $Contacto = isset($Contacto) ? trim($Contacto) : "";
+            $DuenoCerro = isset($DuenoCerro) ? trim($DuenoCerro) : "";
+            $LatitudCoordenada = isset($LatitudCoordenada) ? trim($LatitudCoordenada) : "";
+            $LongitudCoordenada = isset($LongitudCoordenada) ? trim($LongitudCoordenada) : "";
+            $LatitudCoordenadaSite = isset($LatitudCoordenadaSite) ? trim($LatitudCoordenadaSite) : "";
+            $LongitudCoordenadaSite = isset($LongitudCoordenadaSite) ? trim($LongitudCoordenadaSite) : "";
+            $DatosProveedorElectrico = isset($DatosProveedorElectrico) ? trim($DatosProveedorElectrico) : "";
 
-            if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Personal) &&
-                !empty($Correo)){
+
+            if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Personal) && !empty($Correo) && !empty($Contacto) && !empty($DuenoCerro)  && !empty($LatitudCoordenada)  && !empty($LongitudCoordenada) && !empty($LatitudCoordenadaSite) && !empty($LongitudCoordenadaSite) && !empty($DatosProveedorElectrico)){
 
                 $this->Id=$Id;
                 $this->Nombre=$Nombre;
@@ -65,14 +85,21 @@
                 $this->Telefono=$Telefono;
                 $this->Personal=$Personal;
                 $this->Correo=$Correo;
+                $this->Contacto=$Contacto;
+                $this->DuenoCerro=$DuenoCerro;
+                $this->LatitudCoordenada=$LatitudCoordenada;
+                $this->LongitudCoordenada=$LongitudCoordenada;
+                $this->LatitudCoordenadaSite=$LatitudCoordenadaSite;
+                $this->LongitudCoordenadaSite=$LongitudCoordenadaSite;
+                $this->DatosProveedorElectrico=$DatosProveedorElectrico;
 
-                $query = "UPDATE `mantenedor_site` set `nombre` = '$this->Nombre', `direccion` = '$this->Direccion', `telefono` = '$this->Telefono', `personal_id` = '$this->Personal', `correo` = '$this->Correo' where `id` = '$this->Id'";
+                $query = "UPDATE `mantenedor_site` set `nombre` = '$this->Nombre', `direccion` = '$this->Direccion', `telefono` = '$this->Telefono', `personal_id` = '$this->Personal', `correo` = '$this->Correo', `contacto` = '$this->Contacto', `dueno_cerro` = '$this->DuenoCerro', `latitud_coordenada` = '$this->LatitudCoordenada', `longitud_coordenada` = '$this->LongitudCoordenada', `latitud_coordenada_site` = '$this->LatitudCoordenadaSite', `longitud_coordenada_site` = '$this->LongitudCoordenadaSite', `datos_proveedor_electrico` = '$this->DatosProveedorElectrico' where `id` = '$this->Id'";
                 $run = new Method;
                 $data = $run->update($query);
 
                 if($data){
 
-                    $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo, 'id' => $this->Id);
+                    $array = array('id' => $this->Id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo, 'contacto' => $this->Contacto,'dueno_cerro' => $this->DuenoCerro,'latitud_coordenada' => $this->LatitudCoordenada, 'longitud_coordenada' => $this->LongitudCoordenada, 'latitud_coordenada_site' => $this->LatitudCoordenadaSite, 'longitud_coordenada_site' => $this->LongitudCoordenadaSite, 'datos_proveedor_electrico' => $this->DatosProveedorElectrico);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
