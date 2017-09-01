@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $.ajax({
         type: "POST",
-        url: "../includes/admin/GetDatatableMenu.php",
+        url: "../includes/admin/getDatatableMenu.php",
         dataType: 'html',
         success: function(data){
 
@@ -20,7 +20,7 @@ $(document).ready(function(){
                         $('#'+index).append('<td>'+array+'</td>')
                     }
                 });
-                
+
                 $('#TableMenu_tbody').append('</tr>')
             });
 
