@@ -93,3 +93,8 @@ div.bg-img{
 .mgExtraButton{
 	margin-top: 22px;
 }
+
+.iconItemsMenu{
+    margin-top: 15px;
+    cursor: pointer;
+}
