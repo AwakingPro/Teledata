@@ -97,4 +97,9 @@ div.bg-img{
 .iconItemsMenu{
     margin-top: 15px;
     cursor: pointer;
+    margin-left: 15px;
+}
+
+.subMenuItems{
+	margin-left: 60px;
 }

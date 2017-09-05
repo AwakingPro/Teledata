@@ -21,6 +21,7 @@
 			          '.$data[$i][1].'
 			        </a>
 			        <i class="glyphicon glyphicon-trash pull-right iconItemsMenu"></i>
+			        <i class="glyphicon glyphicon-edit pull-right iconItemsMenu"></i>
 			      </h4>
 			    </div>
 			    <div id="collapseTwo'.$i.'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo'.$i.'">
@@ -33,6 +34,45 @@
 			      </div>
 			    </div>
 			  </div>';
+
+			  $query2 = "SELECT
+				submenu.IdSubMenu,
+				submenu.Id_menu,
+				submenu.Nombre,
+				submenu.Enlace
+				FROM
+				submenu
+				WHERE
+				submenu.Id_menu =".$data[$i][0];
+			$data2 = $run->select($query2);
+
+
+				if (count($data2) > 0) {
+
+					for ($j=0; $j < count($data2); $j++) {
+						$list.= '  <div class="panel panel-default subMenuItems">
+						    <div class="panel-heading" role="tab" id="headingTwo'.$i.'-'.$j.'">
+						      <h4 class="panel-title">
+						        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo'.$i.'-'.$j.'" aria-expanded="false" aria-controls="collapseTwo'.$i.'-'.$j.'">
+						          '.$data2[$j][2].'
+						        </a>
+						        <i class="glyphicon glyphicon-trash pull-right iconItemsMenu"></i>
+						        <i class="glyphicon glyphicon-edit pull-right iconItemsMenu"></i>
+						      </h4>
+						    </div>
+						    <div id="collapseTwo'.$i.'-'.$j.'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo'.$i.'-'.$j.'">
+						      <div class="panel-body">
+						      adasd <br>
+						      adasd <br>
+						      adasd <br>
+						      adasd <br>
+
+						      </div>
+						    </div>
+						  </div>';
+
+				}
+			}
 		}
 	}
 ?>
