@@ -5,32 +5,29 @@
 
     class Costo{
 
-    	public function CrearCosto($Nombre,$Direccion,$Telefono,$Personal,$Correo){
+    	public function CrearCosto($Nombre,$Personal,$Correo,$Direccion){
 
             $response_array = array();
 
             $Nombre = isset($Nombre) ? trim($Nombre) : "";
-            $Direccion = isset($Direccion) ? trim($Direccion) : "";
-            $Telefono = isset($Telefono) ? trim($Telefono) : "";
             $Personal = isset($Personal) ? trim($Personal) : "";
             $Correo = isset($Correo) ? trim($Correo) : "";
+            $Direccion = isset($Direccion) ? trim($Direccion) : "";
 
-            if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Personal) &&
-                !empty($Correo)){
+            if(!empty($Nombre) && !empty($Personal) && !empty($Correo) && !empty($Direccion)){
 
                 $this->Nombre=$Nombre;
-                $this->Direccion=$Direccion;
-                $this->Telefono=$Telefono;
                 $this->Personal=$Personal;
                 $this->Correo=$Correo;
+                $this->Direccion=$Direccion;
 
-                $query = "INSERT INTO mantenedor_costos(nombre, direccion, telefono, personal_id, correo) VALUES ('$this->Nombre','$this->Direccion','$this->Telefono','$this->Personal','$this->Correo')";
+                $query = "INSERT INTO mantenedor_costos(nombre, direccion, personal_id, correo, telefono) VALUES ('$this->Nombre','$this->Direccion','$this->Personal','$this->Correo', '0')";
                 $run = new Method;
                 $id = $run->insert($query);
 
                 if($id){
 
-                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo);
+                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion, 'personal_id' => $this->Personal, 'correo' => $this->Correo);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -46,33 +43,31 @@
     	} 
 
 
-        function updateCosto($Nombre,$Direccion,$Telefono,$Personal,$Correo, $Id){
+        function updateCosto($Nombre,$Personal,$Correo,$Direccion, $Id){
 
             $response_array = array();
 
+            
             $Nombre = isset($Nombre) ? trim($Nombre) : "";
-            $Direccion = isset($Direccion) ? trim($Direccion) : "";
-            $Telefono = isset($Telefono) ? trim($Telefono) : "";
             $Personal = isset($Personal) ? trim($Personal) : "";
             $Correo = isset($Correo) ? trim($Correo) : "";
+            $Direccion = isset($Direccion) ? trim($Direccion) : "";
 
-            if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Personal) &&
-                !empty($Correo)){
+            if(!empty($Nombre) && !empty($Personal) && !empty($Correo) && !empty($Direccion)){
 
-                $this->Id=$Id;
                 $this->Nombre=$Nombre;
-                $this->Direccion=$Direccion;
-                $this->Telefono=$Telefono;
                 $this->Personal=$Personal;
                 $this->Correo=$Correo;
+                $this->Direccion=$Direccion;
+                $this->Id=$Id;
 
-                $query = "UPDATE `mantenedor_costos` set `nombre` = '$this->Nombre', `direccion` = '$this->Direccion', `telefono` = '$this->Telefono', `personal_id` = '$this->Personal', `correo` = '$this->Correo' where `id` = '$this->Id'";
+                $query = "UPDATE `mantenedor_costos` set `nombre` = '$this->Nombre', `direccion` = '$this->Direccion', `personal_id` = '$this->Personal', `correo` = '$this->Correo' where `id` = '$this->Id'";
                 $run = new Method;
                 $data = $run->update($query);
 
                 if($data){
 
-                    $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono, 'personal_id' => $this->Personal, 'correo' => $this->Correo, 'id' => $this->Id);
+                    $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion, 'personal_id' => $this->Personal, 'correo' => $this->Correo, 'id' => $this->Id);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 

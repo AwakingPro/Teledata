@@ -40,10 +40,9 @@ $(document).ready(function(){
 
                 var rowNode = Table.row.add([
                   ''+array.nombre+'',
-                  ''+array.direccion+'',
-                  ''+array.telefono+'',
                   ''+array.personal+'',
                   ''+array.correo+'',
+                  ''+array.direccion+'',
                   ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
@@ -77,7 +76,7 @@ $(document).ready(function(){
         var data = $('#formStore').serialize();
         var array = $('#formStore').serializeArray();
 
-        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[1].value, 'Dirección') && ValidarString(array[2].value, 'Télefono') && ValidarCorreo(array[4].value)){
+        if(ValidarString(array[0].value, 'Nombre') && ValidarCorreo(array[2].value) && ValidarString(array[3].value, 'Comentario')){
 
             $.ajax({
                 type: "POST",
@@ -99,10 +98,9 @@ $(document).ready(function(){
 
                         var rowNode = Table.row.add([
                           ''+response.array.nombre+'',
-                          ''+response.array.direccion+'',
-                          ''+response.array.telefono+'',
                           ''+Personal+'',
                           ''+response.array.correo+'',
+                          ''+response.array.direccion+'',
                           ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                         ]).draw(false).node();
 
@@ -149,16 +147,14 @@ $(document).ready(function(){
         ObjectTR.addClass("Selected");
         var ObjectId = ObjectTR.attr("id");
         var ObjectName = ObjectTR.find("td").eq(0).text();
-        var ObjectAddress = ObjectTR.find("td").eq(1).text();
-        var ObjectTelephone = ObjectTR.find("td").eq(2).text();
         var ObjectPersonal = ObjectTR.data("personal_id");
-        var ObjectEmail = ObjectTR.find("td").eq(4).text();
+        var ObjectEmail = ObjectTR.find("td").eq(2).text();
+        var ObjectAddress = ObjectTR.find("td").eq(3).text();
         $('#formUpdate').find('input[name="id"]').val(ObjectId);
         $('#formUpdate').find('input[name="nombre"]').val(ObjectName);
-        $('#formUpdate').find('textarea[name="direccion"]').text(ObjectAddress);
-        $('#formUpdate').find('input[name="telefono"]').val(ObjectTelephone);
         $('#formUpdate').find('select[name="personal_id"]').val(ObjectPersonal);
         $('#formUpdate').find('input[name="correo"]').val(ObjectEmail);
+        $('#formUpdate').find('textarea[name="direccion"]').text(ObjectAddress);
 
         $('.selectpicker').selectpicker('refresh');
 
@@ -172,7 +168,7 @@ $(document).ready(function(){
         var data = $('#formUpdate').serialize();
         var array = $('#formUpdate').serializeArray();
 
-        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Dirección') && ValidarString(array[3].value, 'Télefono') && ValidarCorreo(array[5].value)){
+        if(ValidarString(array[1].value, 'Nombre') && ValidarCorreo(array[3].value) && ValidarString(array[4].value, 'Comentario')){
        
             $.ajax({
                 type: "POST",
@@ -195,10 +191,9 @@ $(document).ready(function(){
                         ObjectTR = $("#"+response.array.id);
                         ObjectTR.data('personal_id', response.array.personal_id)
                         ObjectTR.find("td").eq(0).html(response.array.nombre);
-                        ObjectTR.find("td").eq(1).html(response.array.direccion);
-                        ObjectTR.find("td").eq(2).html(response.array.telefono);
-                        ObjectTR.find("td").eq(3).html(Personal);
-                        ObjectTR.find("td").eq(4).html(response.array.correo);
+                        ObjectTR.find("td").eq(1).html(Personal);
+                        ObjectTR.find("td").eq(2).html(response.array.correo);
+                        ObjectTR.find("td").eq(3).html(response.array.direccion);
                         
                         $('.modal').modal('hide');
                         

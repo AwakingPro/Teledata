@@ -44,15 +44,11 @@
 								<div class="clearfix m-b-10"></div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label class="control-label" for="name">Dirección</label>
-										<textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección"></textarea>
-									</div>
-								</div>
-								<div class="clearfix m-b-10"></div>
-								<div class="col-md-12">
-									<div class="form-group">
-										<label class="control-label" for="name">Télefono</label>
-										<input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm">
+										<label class="control-label" for="name">Responsable</label>
+										<div class="select">
+											<select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
+											</select>
+										</div>
 									</div>
 								</div>
 								<div class="clearfix m-b-10"></div>
@@ -65,11 +61,8 @@
 								<div class="clearfix m-b-10"></div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label class="control-label" for="name">Responsable</label>
-										<div class="select">
-											<select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
-											</select>
-										</div>
+										<label class="control-label" for="name">Comentario</label>
+										<textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección"></textarea>
 									</div>
 								</div>
 							</form>
@@ -102,15 +95,11 @@
 												<div class="clearfix m-b-10"></div>
 												<div class="col-md-12">
 													<div class="form-group">
-														<label class="control-label" for="name">Dirección</label>
-														<textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección"></textarea>
-													</div>
-												</div>
-												<div class="clearfix m-b-10"></div>
-												<div class="col-md-12">
-													<div class="form-group">
-														<label class="control-label" for="name">Teléfono</label>
-														<input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm">
+														<label class="control-label" for="name">Responsable</label>
+														<div class="select">
+															<select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
+															</select>
+														</div>
 													</div>
 												</div>
 												<div class="clearfix m-b-10"></div>
@@ -123,11 +112,8 @@
 												<div class="clearfix m-b-10"></div>
 												<div class="col-md-12">
 													<div class="form-group">
-														<label class="control-label" for="name">Responsable</label>
-														<div class="select">
-															<select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
-															</select>
-														</div>
+														<label class="control-label" for="name">Comentario</label>
+														<textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección"></textarea>
 													</div>
 												</div>
 											</form>
@@ -142,7 +128,9 @@
 										</div><!-- /.modal-dialog -->
 										</div><!-- /.modal -->
 										<div id="container" class="effect aside-float aside-bright mainnav-sm">
-											<div class="containerHeader"><?php require('../ajax/header/mainHeader.php') ?></div>
+											<div class="containerHeader">
+												<?php require('../ajax/header/mainHeader.php') ?>
+											</div>
 											<div class="boxed">
 												<div id="content-container">
 													<div id="page-title">
@@ -164,10 +152,9 @@
 																					<thead>
 																						<tr>
 																							<th class="text-center">Nombre</th>
-																							<th class="text-center">Dirección</th>
-																							<th class="text-center">Teléfono</th>
 																							<th class="text-center">Responsable</th>
 																							<th class="text-center">Correo</th>
+																							<th class="text-center">Comentario</th>
 																							<th class="text-center">Acción</th>
 																						</tr>
 																					</thead>
