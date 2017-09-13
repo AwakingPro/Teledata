@@ -86,6 +86,8 @@ $(document).ready(function(){
                     .data('proveedor_id',array.proveedor_id)
                     .data('centro_costo_id',array.centro_costo_id)
                     .data('estado_id',array.estado_id)
+                    .data('numero_detalle',array.numero_detalle)
+                    .data('fecha_detalle',array.fecha_detalle)
                     .addClass('text-center')
             });
         }
@@ -150,6 +152,31 @@ $(document).ready(function(){
         }
     });
 
+    $('select[name=estado_id]').on('change', function () {
+        if($(this).find('option:selected').data('content') != "Otros"){
+            $('.detalle').show()
+            $('.label_numero_detalle').text('Numero de Cuenta')
+            $('.numero_detalle').attr('placeholder',"Ingrese el numero de cuenta")
+            $('.numero_detalle').data('placeholder',"Numero de Cuenta")
+            $('.numero_detalle').addClass('number')
+        }else{
+            $('.detalle').hide()
+            $('.label_numero_detalle').text('Detalle')
+            $('.numero_detalle').attr('placeholder',"Ingrese el detalle")
+            $('.numero_detalle').data('placeholder',"Detalle")
+            $('.numero_detalle').removeClass('number')
+        }
+    });
+
+    $('#IngresoForm').on('hidden.bs.modal', function () {
+
+        $('#storeIngreso')[0].reset();
+
+        $('.selectpicker').selectpicker('render');
+        $('.selectpicker').selectpicker('refresh');
+
+    });
+
 
     $('body').on('click', '#guardarIngreso', function () {
 
@@ -183,6 +210,8 @@ $(document).ready(function(){
                     .data('proveedor_id',response.array.proveedor_id)
                     .data('centro_costo_id',response.array.centro_costo_id)
                     .data('estado_id',response.array.estado_id)
+                    .data('numero_detalle',response.array.numero_detalle)
+                    .data('fecha_detalle',response.array.fecha_detalle)
                     .addClass('text-center')
 
                 $('#storeIngreso')[0].reset();
@@ -236,6 +265,14 @@ $(document).ready(function(){
         var ObjectProvider = ObjectTR.data("proveedor_id");
         var ObjectState = ObjectTR.data("estado_id");
         var ObjectCost = ObjectTR.data("centro_costo_id");
+        var ObjectDetailNumber = ObjectTR.data("numero_detalle");
+        var ObjectDetailDate = ObjectTR.data("fecha_detalle");
+
+        if(ObjectDetailDate && ObjectDetailDate != '0000-00-00'){
+            ObjectDetailDate = moment(ObjectDetailDate).format('DD-MM-YYYY');
+        }else{
+            ObjectDetailDate = ''
+        }
 
         $('#updateIngreso').find('input[name="id"]').val(ObjectId);
         $('#updateIngreso').find('input[name="numero_factura"]').val(ObjectBill);
@@ -243,6 +280,8 @@ $(document).ready(function(){
         $('#updateIngreso').find('select[name="proveedor_id"]').val(ObjectProvider);
         $('#updateIngreso').find('select[name="estado_id"]').val(ObjectState);
         $('#updateIngreso').find('select[name="centro_costo_id"]').val(ObjectCost);
+        $('#updateIngreso').find('input[name="numero_detalle"]').val(ObjectDetailNumber);
+        $('#updateIngreso').find('input[name="fecha_detalle"]').val(ObjectDetailDate);
 
         if($(this).hasClass('fa-search')){
             $("#IngresoFormUpdate :input").attr("readonly", true);
@@ -258,6 +297,20 @@ $(document).ready(function(){
 
         $('.selectpicker').selectpicker('render');
         $('.selectpicker').selectpicker('refresh');
+
+        if($('#updateIngreso').find('input[name="estado_id"]').find('option:selected').data('content') != "Otros"){
+            $('.detalle').show()
+            $('.label_numero_detalle').text('Numero de Cuenta')
+            $('.numero_detalle').attr('placeholder',"Ingrese el numero de cuenta")
+            $('.numero_detalle').data('placeholder',"Numero de Cuenta")
+            $('.numero_detalle').addClass('number')
+        }else{
+            $('.detalle').hide()
+            $('.label_numero_detalle').text('Detalle')
+            $('.numero_detalle').attr('placeholder',"Ingrese el detalle")
+            $('.numero_detalle').data('placeholder',"Detalle")
+            $('.numero_detalle').removeClass('number')
+        }
   
     });
 
@@ -285,6 +338,8 @@ $(document).ready(function(){
                 ObjectTR.data('proveedor_id', response.array.proveedor_id)
                 ObjectTR.data('centro_costo_id', response.array.centro_costo_id)
                 ObjectTR.data('estado_id', response.array.estado_id)
+                ObjectTR.data('numero_detalle', response.array.numero_detalle)
+                ObjectTR.data('fecha_detalle', response.array.fecha_detalle)
                 ObjectTR.find("td").eq(0).html(response.array.numero_factura);
                 ObjectTR.find("td").eq(1).html(response.array.fecha_emision_factura);
                 ObjectTR.find("td").eq(2).html(Proveedor);

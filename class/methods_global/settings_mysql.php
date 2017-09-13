@@ -6,6 +6,6 @@
 	define("host","localhost");
 	define("user","root");
 	define("password","m9a7r5s3");
-	//define("password","");
+	// define("password","");
 	define("nameDataBase","teledata");
  ?>

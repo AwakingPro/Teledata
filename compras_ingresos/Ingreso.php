@@ -86,6 +86,24 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label class="control-label label_numero_detalle" for="name">Numero de Cuenta</label>
+                                        <input id="numero_detalle" name="numero_detalle" validation="not_null" placeholder="Ingrese el numero de cuenta" class="form-control input-sm number numero_detalle" data-nombre="Numero de Cuenta">
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12 detalle">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Fecha de Pago</label>
+                                        <input id="fecha_detalle" name="fecha_detalle" validation="not_null"  type="text" placeholder="Seleccione la fecha de pago" class="form-control date fecha_detalle" data-nombre="Fecha de Pago">
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label class="control-label" for="name">Centro de Costos - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalCosto">Crear Registro Nuevo</label></label>
                                         <div class="select">
                                             <select class="selectpicker form-control centro_costo_id" id="centro_costo_id" name="centro_costo_id" validation="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
@@ -156,6 +174,24 @@
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label label_numero_detalle" for="name">Numero de Cuenta</label>
+                                        <input id="numero_detalle" name="numero_detalle" validation="not_null" placeholder="Ingrese el numero de cuenta" class="form-control input-sm number numero_detalle" data-nombre="Numero de Cuenta">
+                                    </div>
+                                </div>
+
+                                <div class="clearfix m-b-10"></div>
+
+                                <div class="col-md-12 detalle">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Fecha de Pago</label>
+                                        <input id="fecha_detalle" name="fecha_detalle" validation="not_null"  type="text" placeholder="Seleccione la fecha de pago" class="form-control date fecha_detalle" data-nombre="Fecha de Pago">
                                     </div>
                                 </div>
 
