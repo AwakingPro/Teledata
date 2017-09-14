@@ -401,6 +401,27 @@ $(document).ready(function() {
 		$(this).parents('.row').remove()
 	});
 
+	$('.agregarCampContacto').on('click', function() {
+		$('.contenedorContactosExtras').append('<div class="row">'+
+					'<div class="col-md-5 form-group">'+
+						'<label>Tipo de contacto</label>'+
+						'<input name="extra_TipoContacto[]" class="form-control">'+
+					'</div>'+
+					'<div class="col-md-5 form-group">'+
+						'<label>Contacto</label>'+
+						'<input name="extra_Contacto[]" class="form-control">'+
+					'</div>'+
+					'<div class="col-md-2">'+
+						'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampContacto"><i class="glyphicon glyphicon-remove"></i></button>'+
+					'</div>'+
+				'</div>');
+	});
+
+
+	$(document).on('click', '.removeCampContacto', function() {
+		$(this).parents('.row').remove()
+	});
+
 
 
 

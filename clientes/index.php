@@ -89,7 +89,12 @@
 												<div class="row">
 													<div class="col-md-4 form-group">
 														<label>Contacto</label>
-														<input name="Contacto" class="form-control" validate="not_null">
+														<div class="input-group">
+															<input name="Contacto" class="form-control" validate="not_null">
+															<span class="input-group-btn">
+																<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraContactos"><i class="fa fa-plus" aria-hidden="true"></i></button>
+															</span>
+														</div>
 													</div>
 													<div class="col-md-4 form-group">
 														<label>Teléfono</label>
@@ -310,6 +315,39 @@
 					</div>
 				</div>
 				<div class="contenedorExtraCorreo">
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+			</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="extraContactos" aria-labelledby="editarCliente">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Contacto extra</h4>
+			</div>
+			<div class="modal-body container-form-extraCorreo">
+				<div class="row">
+					<div class="col-md-5 form-group">
+						<label>Tipo de contacto</label>
+						<input name="extra_TipoContacto[]" class="form-control">
+					</div>
+					<div class="col-md-5 form-group">
+						<label>Contacto</label>
+						<input name="extra_Contacto[]" class="form-control">
+					</div>
+					<div class="col-md-2">
+						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampContacto"><i class="glyphicon glyphicon-plus"></i></button>
+					</div>
+				</div>
+				<div class="contenedorContactosExtras">
 
 				</div>
 			</div>
