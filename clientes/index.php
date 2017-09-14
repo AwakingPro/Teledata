@@ -56,7 +56,7 @@
 												</div>
 												<div class="row">
 													<div class="col-md-4 form-group">
-														<label>Cliente</label>
+														<label> Razón social / Cliente</label>
 														<input name="Nombre" class="form-control" validate="not_null">
 													</div>
 													<div class="col-md-4 form-group">

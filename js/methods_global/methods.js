@@ -51,7 +51,7 @@ $.validate = function(obj) {
 					return true;
 				} else {
 					$(obj).parent('.form-group').addClass('has-error');
-					bootbox.alert('<h3 class="text-center">Disculpe el campo '+$(obj).siblings('label').html()+' no es correcto.</h3>');
+					bootbox.alert('<h3 class="text-center">Disculpe el campo correo no es correcto.</h3>');
 				}
 				break;
 			default:
