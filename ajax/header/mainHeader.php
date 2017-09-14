@@ -1,10 +1,9 @@
 <?php
-if (isset($_SESSION['idUsuario']) || empty($_SESSION['idUsuario'])) {
-	echo "<script> window.location = '../index.php' </script>";
-}
-
 $run = new Method;
 session_start();
+if (!isset($_SESSION['idUsuario']) || empty($_SESSION['idUsuario'])) {
+	echo "<script> window.location = '../index.php' </script>";
+}
 $query = 'SELECT nombre FROM usuarios WHERE id ='.$_SESSION['idUsuario'];
 $data = $run->select($query);
 if (file_exists('../ajax/perfil/img-profile/'.$_SESSION['idUsuario'].'.jpg')) {
