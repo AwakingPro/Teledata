@@ -23,13 +23,13 @@
 				return $mysqli;
 			}
 		}
-		public function log($query){
+		public function log($query,$operacion){
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				if (!isset($_SESSION['idUsuario']) || empty($_SESSION['idUsuario'])) {
-					$resultado = $mysqli->query('INSERT INTO log_query (IdUsuario, Fecha, Query) VALUES (0, "'.date("Y-m-d H:i:s").'", "'.$query.'")');
+					$resultado = $mysqli->query('INSERT INTO log_query (IdUsuario, Fecha, Query, TipoOperacion) VALUES (0, "'.date("Y-m-d H:i:s").'", "'.$query.'", "'.$operacion.'")');
 				}else{
-					$resultado = $mysqli->query('INSERT INTO log_query (IdUsuario, Fecha, Query) VALUES ("'.$_SESSION['idUsuario'].'", "'.date("Y-m-d H:i:s").'", "'.$query.'")');
+					$resultado = $mysqli->query('INSERT INTO log_query (IdUsuario, Fecha, Query, TipoOperacion) VALUES ("'.$_SESSION['idUsuario'].'", "'.date("Y-m-d H:i:s").'", "'.$query.'", "'.$operacion.'")');
 				}
 				if ($resultado) {
 					$return = true;
@@ -48,7 +48,7 @@
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				$resultado = $mysqli->query($query);
-				$this->log($query);
+				$this->log($query, 'insert');
 				if ($resultado) {
 					$return = $mysqli->insert_id;
 					$mysqli->close();
@@ -67,7 +67,7 @@
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				$resultado = $mysqli->query($query);
-				$this->log($query);
+				$this->log($query, 'delete', 'delete');
 				if ($resultado) {
 					$return = true;
 					$mysqli->close();
@@ -84,7 +84,7 @@
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				$resultado = $mysqli->query($query);
-				$this->log($query);
+				$this->log($query, 'update');
 				if ($resultado) {
 					$return = true;
 					$mysqli->close();
@@ -103,7 +103,7 @@
 			if ($mysqli) {
 				$rows = array();
 				if ($resultado = $mysqli->query($query)) {
-					$this->log($query);
+					$this->log($query, 'select');
 					while ($fila = $resultado->fetch_array(MYSQLI_BOTH)) {
 						$rows[] = $fila;
 					}
@@ -154,6 +154,42 @@
 				return 'No hay conexion';
 			}
 		}
+
+		function listViewSingle($post) {
+			$mysqli = $this->conexion();
+			if ($mysqli) {
+				if ($resultado = $mysqli->query($post)) {
+					while ($field = mysqli_fetch_field($resultado)) {
+						$fields[] = $field->name;
+						$table[] = $field->table;
+					}
+					$tabla = "<table class='table table-striped table-hover tabeData'><thead><tr>";
+					for ($i=0; $i < count($fields) ; $i++) {
+						$tabla.="<th>".$fields[$i]."</th>";
+					}
+					$tabla.="</tr></thead><tbody>";
+					while ($fila = $resultado->fetch_array(MYSQLI_NUM)) {
+						$rows[] = $fila;
+					}
+					if (isset($rows)) {
+						for ($i=0; $i < count($rows) ; $i++) {
+							$tabla.= '<tr>';
+							foreach ($rows[$i] as $clave => $valor) {
+								$tabla.="<td>".$valor."</td>";
+							}
+							$tabla.= '</tr>';
+						}
+					}
+					$tabla.="</tbody></table>";
+					return $tabla;
+				}else{
+					return 'Problemas en el query de consulta';
+				}
+			}else{
+				return 'No hay conexion';
+			}
+		}
+
 		function listViewTicktes($post) {
 			$mysqli = $this->conexion();
 			if ($mysqli) {

@@ -4,10 +4,11 @@
 	log_query.IdLogSql,
 	log_query.IdUsuario,
 	log_query.Fecha,
-	log_query.`Query`
+	TipoOperacion,
+	log_query.Query
 	FROM
 	log_query";
 	$run = new Method;
-	$lista = $run->listView($query);
+	$lista = $run->listViewSingle($query);
 	echo $lista;
  ?>
