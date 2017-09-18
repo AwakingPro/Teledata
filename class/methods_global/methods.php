@@ -23,10 +23,32 @@
 				return $mysqli;
 			}
 		}
+		public function log($query){
+			$mysqli = $this->conexion();
+			if ($mysqli) {
+				if (!isset($_SESSION['idUsuario']) || empty($_SESSION['idUsuario'])) {
+					$resultado = $mysqli->query('INSERT INTO log_query (IdUsuario, Fecha, Query) VALUES (0, "'.date("Y-m-d H:i:s").'", "'.$query.'")');
+				}else{
+					$resultado = $mysqli->query('INSERT INTO log_query (IdUsuario, Fecha, Query) VALUES ("'.$_SESSION['idUsuario'].'", "'.date("Y-m-d H:i:s").'", "'.$query.'")');
+				}
+				if ($resultado) {
+					$return = true;
+					$mysqli->close();
+				}else{
+					$return = false;
+					$mysqli->close();
+				}
+				return $return;
+			}else{
+				return 'No hay conexion';
+			}
+		}
+
 		public function insert($query){
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				$resultado = $mysqli->query($query);
+				$this->log($query);
 				if ($resultado) {
 					$return = $mysqli->insert_id;
 					$mysqli->close();
@@ -40,10 +62,12 @@
 				return 'No hay conexion';
 			}
 		}
+
 		public function delete($query){
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				$resultado = $mysqli->query($query);
+				$this->log($query);
 				if ($resultado) {
 					$return = true;
 					$mysqli->close();
@@ -60,6 +84,7 @@
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				$resultado = $mysqli->query($query);
+				$this->log($query);
 				if ($resultado) {
 					$return = true;
 					$mysqli->close();
@@ -78,6 +103,7 @@
 			if ($mysqli) {
 				$rows = array();
 				if ($resultado = $mysqli->query($query)) {
+					$this->log($query);
 					while ($fila = $resultado->fetch_array(MYSQLI_BOTH)) {
 						$rows[] = $fila;
 					}
