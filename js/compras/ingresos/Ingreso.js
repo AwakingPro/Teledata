@@ -153,7 +153,8 @@ $(document).ready(function(){
     });
 
     $('select[name=estado_id]').on('change', function () {
-        if($(this).find('option:selected').data('content') != "Otros"){
+        estado = $(this).find('option:selected').data('content')
+        if(estado == "Pagado Transferencia" || estado == "Tarjeta de Credito" || estado == "Cheque"){
             $('.detalle').show()
             $('.label_numero_detalle').text('Numero de Cuenta')
             $('.numero_detalle').attr('placeholder',"Ingrese el numero de cuenta")

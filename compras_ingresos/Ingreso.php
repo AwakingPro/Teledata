@@ -86,14 +86,14 @@
 
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label label_numero_detalle" for="name">Numero de Cuenta</label>
-                                        <input id="numero_detalle" name="numero_detalle" validation="not_null" placeholder="Ingrese el numero de cuenta" class="form-control input-sm number numero_detalle" data-nombre="Numero de Cuenta">
+                                        <label class="control-label label_numero_detalle" for="name">Detalle</label>
+                                        <input id="numero_detalle" name="numero_detalle" validation="not_null" placeholder="Ingrese el detalle" class="form-control input-sm number numero_detalle" data-nombre="Detalle">
                                     </div>
                                 </div>
 
                                 <div class="clearfix m-b-10"></div>
 
-                                <div class="col-md-12 detalle">
+                                <div class="col-md-12 detalle" style="display:none">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha de Pago</label>
                                         <input id="fecha_detalle" name="fecha_detalle" validation="not_null"  type="text" placeholder="Seleccione la fecha de pago" class="form-control date fecha_detalle" data-nombre="Fecha de Pago">
