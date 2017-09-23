@@ -69,8 +69,8 @@
 	$query = 'SELECT
 		servicios.Id,
 		servicios.Codigo,
-		servicios.TiepoFacturacion,
-		mantenedor_tipo_factura.descripcion
+		servicios.TiepoFacturacion as Tiempo_Facturacion,
+		mantenedor_tipo_factura.descripcion as Descripcion
 		FROM
 		servicios
 		INNER JOIN mantenedor_tipo_factura ON servicios.TipoFactura = mantenedor_tipo_factura.codigo

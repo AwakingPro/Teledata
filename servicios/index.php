@@ -39,94 +39,100 @@
 									<div class="panel-body container-form">
 										<h3>Registrar Servicios</h3><br>
 										<div class="row" >
-											<div class="col-md-6 form-group">
-												<label >Cliente</label>
-												<div class="input-group">
-													<select name="Rut" class="form-control" data-live-search="true">
-														<option value="">Seleccione...</option>
-													</select>
-													<span class="input-group-btn">
-														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCliente"><i class="fa fa-plus" aria-hidden="true"></i></button>
-													</span>
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6 form-group">
-												<label>Grupo</label>
-												<div class="input-group">
-													<select name="Grupo" class="form-control selectpicker" data-live-search="true">
-														<option value="">Seleccione...</option>
-														<option value="1">Grupo 1</option>
-														<option value="2">Grupo 2</option>
-														<option value="3">Grupo 3</option>
-													</select>
-													<span class="input-group-btn">
-														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#grupo"><i class="fa fa-plus" aria-hidden="true"></i></button>
-													</span>
-												</div>
-											</div>
-											<div class="col-md-6 form-group">
-												<label>Tipo de Facturación</label>
-												<div class="input-group">
-													<select name="TipoFactura" class="form-control" data-live-search="true">
-														<option value="">Seleccione...</option>
-													</select>
-													<span class="input-group-btn">
-														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalTipoFacturacion"><i class="fa fa-plus" aria-hidden="true"></i></button>
-													</span>
-												</div>
-											</div>
-										</div>
-										<div class="row" >
-											<div class="col-md-6 form-group">
-												<label >Valor</label>
-												<div class="input-group">
-													<input type="text"  name="Valor" class="form-control">
-													<span class="input-group-addon" style="padding: 0px; border: 0px solid">
-														<select name="tipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
-															<option value="Pesos">Pesos</option>
-															<option value="UF">UF</option>
+											<form id="formServicio">
+												<div class="col-md-6 form-group">
+													<label >Cliente</label>
+													<div class="input-group">
+														<select id="Rut" name="Rut" class="form-control" data-live-search="true">
+															<option value="">Seleccione...</option>
 														</select>
-													</span>
-												</div>
-											</div>
-											<div class="col-md-6 form-group">
-												<label >Descuento</label>
-												<div class="input-group">
-													<input type="text" name="Descuento" class="form-control">
-													<span class="input-group-addon">%</span>
-												</div>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-6 form-group">
-												<label >Servicio</label>
-												<select name="TipoServicio" class="form-control" data-live-search="true">
-													<option value="">Seleccione...</option>
-												</select>
+														<span class="input-group-btn">
+															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCliente"><i class="fa fa-plus" aria-hidden="true"></i></button>
+														</span>
+													</div>
 
-											</div>
-											<div class="col-md-6 form-group">
-												<label >Tiempo de Facturación</label>
-												<select name="TiepoFacturacion" class="form-control selectpicker" data-live-search="tue">
-													<option value="">Seleccione...</option>
-													<option >Mensual</option>
-													<option >Semestral</option>
-													<option >Anual</option>
-												</select>
-											</div>
-										</div>
-										<div class="row">
-											<div class="col-md-12 form-group">
-												<label> Descripción</label>
-												<textarea name="Descripcion" class="form-control" rows="5"></textarea>
-											</div>
-											<div class="row">
-												<div class="col-md-12">
+													<br>
+
+													<label>Grupo</label>
+													<div class="input-group">
+														<select name="Grupo" class="form-control selectpicker" data-live-search="true">
+															<option value="">Seleccione...</option>
+															<option value="1">Grupo 1</option>
+															<option value="2">Grupo 2</option>
+															<option value="3">Grupo 3</option>
+														</select>
+														<span class="input-group-btn">
+															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#grupo"><i class="fa fa-plus" aria-hidden="true"></i></button>
+														</span>
+													</div>
+
+													<br>
+
+													<label>Tipo de Facturación</label>
+													<div class="input-group">
+														<select name="TipoFactura" class="form-control" data-live-search="true">
+															<option value="">Seleccione...</option>
+														</select>
+														<span class="input-group-btn">
+															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalTipoFacturacion"><i class="fa fa-plus" aria-hidden="true"></i></button>
+														</span>
+													</div>
+
+													<br>
+
+													<label >Valor</label>
+													<div class="input-group">
+														<input type="text"  name="Valor" class="form-control">
+														<span class="input-group-addon" style="padding: 0px; border: 0px solid">
+															<select name="tipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
+																<option value="Pesos">Pesos</option>
+																<option value="UF">UF</option>
+															</select>
+														</span>
+													</div>
+
+													<br>
+
+													<label >Descuento</label>
+													<div class="input-group">
+														<input type="text" name="Descuento" class="form-control">
+														<span class="input-group-addon">%</span>
+													</div>
+
+													<br>
+						
+													<label >Servicio</label>
+													<select name="TipoServicio" class="form-control" data-live-search="true">
+														<option value="">Seleccione...</option>
+													</select>
+
+													<br><br>
+
+													<label >Tiempo de Facturación</label>
+													<select name="TiepoFacturacion" class="form-control selectpicker" data-live-search="tue">
+														<option value="">Seleccione...</option>
+														<option >Mensual</option>
+														<option >Semestral</option>
+														<option >Anual</option>
+													</select>
+													
+													<br><br>
+
+													<label> Descripción</label>
+													<textarea name="Descripcion" class="form-control" rows="5"></textarea>
+
+													<br>
+
 													<button type="button" class="btn btn-primary guardarServ">Guardar</button>
+
 												</div>
-											</div>
+											</form>
+											
+											<div class="col-md-6 form-group">
+												<div class="dataServicios" id="tab-Servicios">
+								                </div>
+							            	</div>
+
 										</div>
 									</div>
 								</div>
@@ -169,6 +175,36 @@
 		<script src="../js/servicios/controller.js"></script>
 	</body>
 </html>
+
+<div class="modal fade" tabindex="-1" role="dialog" id="verServicios" aria-labelledby="verServicios">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Lista de Datos técnicos</h4>
+			</div>
+			<div class="modal-body containerListDatosTecnicos">
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="agregarDatosTecnicos">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Agregar Datos Técnicos</h4>
+			</div>
+			<div class="modal-body containerTipoServicio">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary guardarDatosTecnicos">Guardar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <div class="modal fade" id="ModalCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
