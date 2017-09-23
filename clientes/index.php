@@ -81,6 +81,12 @@
 													</div>
 												</div>
 												<div class="row">
+												<div class="col-md-12 form-group">
+														<label>Alias</label>
+														<input name="alias" class="form-control">
+													</div>
+												</div>
+												<div class="row">
 													<div class="col-md-12 form-group">
 														<label>Dirección  Comercial</label>
 														<textarea name="DireccionComercial" class="form-control" validate="not_null"></textarea>
