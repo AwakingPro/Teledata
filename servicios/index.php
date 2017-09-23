@@ -29,7 +29,7 @@
 					</ol>
 					<div id="page-content">
 						<div class="row">
-							<div class="col-md-12">
+							<div class="col-md-6">
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
@@ -37,10 +37,9 @@
 									</div>
 									<!--Panel body-->
 									<div class="panel-body container-form">
-										<h3>Registrar Servicios</h3><br>
 										<div class="row" >
 											<form id="formServicio">
-												<div class="col-md-6 form-group">
+												<div class="col-md-12 form-group">
 													<label >Cliente</label>
 													<div class="input-group">
 														<select id="Rut" name="Rut" class="form-control" data-live-search="true">
@@ -127,8 +126,20 @@
 
 												</div>
 											</form>
-											
-											<div class="col-md-6 form-group">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6">
+								<div class="panel ">
+									<!--Panel heading-->
+									<div class="panel-heading">
+									</div>
+									<!--Panel body-->
+									<div class="panel-body container-form">
+										<div class="row" >
+
+											<div class="col-md-12 form-group">
 												<div class="dataServicios" id="tab-Servicios">
 								                </div>
 							            	</div>
