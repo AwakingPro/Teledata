@@ -126,7 +126,7 @@
                             $data = $run->insert($query);
                         }
 
-                        $array = array('id'=> $id, 'rut' => $this->Cliente, 'fecha' => $this->Fecha);
+                        $array = array('id'=> $id, 'rut' => $this->Cliente, 'fecha' => $this->Fecha, 'numero_oc' => $this->NumeroOc, 'solicitado_por' => $this->SolicitadoPor);
                         
                         $response_array['array'] = $array;
                         $response_array['status'] = 1; 
