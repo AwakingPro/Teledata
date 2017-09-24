@@ -109,6 +109,7 @@
 
                                                 <div class="row" style="margin-top: 20px">
                                                     <form id="addServicio">
+                                                        <input type="hidden" id="rut_tmp" name="rut_tmp"></input>
                                                         <div class="col-md-2">
                                                             <label id="label_automatico" class="label_tipo form-radio form-icon form-text"><input id="automatico" name="switch_codigo" type="radio" value="1" checked>Automático</label>
                                                             <label id="label_manual" class="label_tipo form-radio form-icon form-text"><input id="manual" name="switch_codigo" type="radio" value="2">Manual</label>

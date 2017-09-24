@@ -5,7 +5,7 @@
 
     class NotaVenta{
 
-    	public function GuardarServicio($Codigo,$Servicio,$Cantidad,$Precio){
+    	public function GuardarServicio($Codigo,$Servicio,$Cantidad,$Precio,$Cliente){
 
             $response_array = array();
 
@@ -48,6 +48,18 @@
                 $id = $run->insert($query);
 
                 if($id){
+
+                    if($Cliente){
+                        $query = "SELECT mantenedor_servicios.servicio as Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Codigo = '$this->Codigo'";
+                        $run = new Method;
+                        $data = $run->select($query);
+
+                        if(!$data){
+                            $query = "INSERT INTO servicios(Rut, Valor, Codigo, TipoMoneda, Grupo, TipoFactura, Descuento, IdServicio, TiepoFacturacion, Descripcion) VALUES ('$Cliente', '$this->Precio','$this->Codigo','Pesos','','','','','','')";
+                            $run = new Method;
+                            $servicio = $run->insert($query);
+                        }
+                    }
 
                     $array = array('id'=> $id, 'codigo' => $this->Codigo, 'servicio' => $this->Servicio, 'cantidad' => $this->Cantidad, 'precio' => $this->Precio, 'total' => $this->Total);
 
@@ -108,16 +120,6 @@
                             $query = "INSERT INTO nota_venta_detalle(nota_venta_id, codigo, servicio, cantidad, precio, exencion, total) VALUES ('$this->Id', '$this->Codigo','$this->Servicio','$this->Cantidad','$this->Precio','$this->Exencion','$this->Total')";
                             $run = new Method;
                             $data = $run->insert($query);
-
-                            $query = "SELECT mantenedor_servicios.servicio as Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Codigo = '$this->Codigo'";
-                            $run = new Method;
-                            $data = $run->select($query);
-
-                            if(!$data){
-                                $query = "INSERT INTO servicios(Rut, Valor, Codigo, TipoMoneda, Grupo, TipoFactura, Descuento, IdServicio, TiepoFacturacion, Descripcion) VALUES ('$this->Cliente', '$this->Precio','$this->Codigo','Pesos','','','','','','')";
-                                $run = new Method;
-                                $servicio = $run->insert($query);
-                            }
                         }
 
                         $array = array('id'=> $id, 'rut' => $this->Cliente, 'fecha' => $this->Fecha);

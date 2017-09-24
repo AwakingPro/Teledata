@@ -343,6 +343,9 @@ $(document).ready(function(){
 
     $('body').on('click', '#guardarServicio', function () {
 
+        $('#rut_tmp').val($('#personaempresa_id').val())
+        $('#rut_tmp').selectpicker('refresh')
+
         $.postFormValues('../includes/nota_venta/GuardarServicio.php', '#addServicio', function(response){
 
             if(response.status == 1){
