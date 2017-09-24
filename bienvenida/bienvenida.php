@@ -10,6 +10,8 @@
 		<link href="../css/demo/nifty-demo-icons.min.css" rel="stylesheet">
 		<link href="../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
+		<link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
+		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
@@ -80,7 +82,16 @@
 									</div>
 								</div>
 							</div>
-
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="panel">
+									<div class="panel-body">
+										<h3 style="margin-top: 0">Lista de clientes creados</h3>
+										<div class="listaCliente"></div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -109,6 +120,8 @@
 	<script src="../js/jquery-2.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/methods_global/methods.js"></script>
+	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
+	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 	<script src="../js/bienvenida/controller.js"></script>
 </body>
 </html>

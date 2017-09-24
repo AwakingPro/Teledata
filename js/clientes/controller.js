@@ -18,6 +18,7 @@ $(document).ready(function() {
 
 	$(document).on('click', '.guardarCliente', function() {
 		$.postFormValues('../ajax/cliente/insertCliente.php','.form-cont1, .container-form-extraTelefono, .container-form-extraCorreo',function(data){
+			console.log(data);
 			if (Number(data) > 0){
 				$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
 					var count = $('.listaCliente > .tabeData tr th').length -1;
@@ -457,7 +458,7 @@ $(document).ready(function() {
 	});
 
 	$('input[name="Rut"]').on('blur', function() {
-		
+
 		rut = $(this).val()
 		input = $(this)
 

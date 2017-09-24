@@ -25,4 +25,14 @@ $(document).ready(function() {
 
 	$('.nameUser').html($('.username ').html());
 	$('.imgUser').html('<img class="panel-media-img img-circle img-border-light" src="'+$('.img-user').attr('src')+'" alt="Profile Picture">');
+
+	$('.listaCliente').load('../ajax/bienvenida/listaCliente.php',function(){
+		var count = $('.listaCliente > .tabeData tr th').length -1;
+		$('.listaCliente > .tabeData').dataTable({
+			"columnDefs": [{
+				'orderable': false,
+				'targets': [count]
+			}, ]
+		});
+	});
 });
