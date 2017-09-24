@@ -1,5 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
+	session_start();
 
 	$Rut = $_POST['Rut'];
 	$Dv = $_POST['Dv'];
@@ -13,7 +14,7 @@
 	$Alias = $_POST['alias'];
 	$TipoCliente = $_POST['TipoCliente'];
 
-	$query = "INSERT INTO personaempresa (rut, dv, nombre, giro, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente) VALUES ('$Rut', '$Dv', '$Nombre', '$Giro', '$DireccionComercial', '$Correo', '$Contacto', '$Comentario', '$Telefono', '$Alias', '$TipoCliente')";
+	$query = "INSERT INTO personaempresa (rut, dv, nombre, giro, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente,IdUsuarioSession) VALUES ('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."','".$_SESSION['idUsuario']."')";
 	$run = new Method;
 	$data = $run->insert($query);
 	$id = $data;
@@ -52,4 +53,5 @@
 	}else{
 		echo false;
 	}
+
  ?>

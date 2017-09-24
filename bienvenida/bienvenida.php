@@ -80,7 +80,16 @@
 									</div>
 								</div>
 							</div>
-
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="panel">
+									<div class="panel-body">
+										<h3 style="margin-top: 0">Lista de clientes creados</h3>
+										<div class="listaCliente"></div>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
