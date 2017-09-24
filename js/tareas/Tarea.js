@@ -79,6 +79,7 @@ $(document).ready(function(){
                 if(array.Estatus == 1){
 
                     var rowNode = FinalizadasTable.row.add([
+                        ''+array.Cliente+'',
                         ''+array.Codigo+'',
                         ''+array.TiepoFacturacion+'',
                         ''+array.Descripcion+'',
@@ -91,6 +92,7 @@ $(document).ready(function(){
                         .addClass('text-center')
                 }else{
                     var rowNode = PendientesTable.row.add([
+                        ''+array.Cliente+'',
                         ''+array.Codigo+'',
                         ''+array.TiepoFacturacion+'',
                         ''+array.Descripcion+'',
@@ -135,12 +137,14 @@ $(document).ready(function(){
                 });
 
                 Row = $('#'+response.Id)
-                Codigo = $(Row).find("td").eq(0).html();
-                TiepoFacturacion = $(Row).find("td").eq(1).html();
-                Descripcion = $(Row).find("td").eq(2).html();
-                Grupo = $(Row).find("td").eq(3).html();
+                Cliente = $(Row).find("td").eq(0).html();
+                Codigo = $(Row).find("td").eq(1).html();
+                TiepoFacturacion = $(Row).find("td").eq(2).html();
+                Descripcion = $(Row).find("td").eq(3).html();
+                Grupo = $(Row).find("td").eq(4).html();
 
                 var rowNode = FinalizadasTable.row.add([
+                    ''+Cliente+'',
                     ''+Codigo+'',
                     ''+TiepoFacturacion+'',
                     ''+Descripcion+'',

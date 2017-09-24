@@ -7,7 +7,8 @@
 
     	public function showServicios(){
 
-    		$query = 'SELECT * FROM servicios';
+    		$query = 'SELECT servicios.*, personaempresa.nombre as Cliente FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut';
+
             $run = new Method;
             $data = $run->select($query);
 
