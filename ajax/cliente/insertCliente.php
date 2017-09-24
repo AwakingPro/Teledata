@@ -1,6 +1,19 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	$query = "INSERT INTO personaempresa (rut, dv, nombre, giro, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente) VALUES ('".$_POST['Rut']."', '".$_POST['Dv']."', '".$_POST['Nombre']."', '".$_POST['Giro']."', '".$_POST['DireccionComercial']."', '".$_POST['Correo']."', '".$_POST['Contacto']."', '".$_POST['Comentario']."', '".$_POST['Telefono']."','".$_POST['alias'].",'".$_POST['TipoCliente']."')";
+
+	$Rut = $_POST['Rut'];
+	$Dv = $_POST['Dv'];
+	$Nombre = $_POST['Nombre'];
+	$Giro = $_POST['Giro'];
+	$DireccionComercial = $_POST['DireccionComercial'];
+	$Correo = $_POST['Correo'];
+	$Contacto = $_POST['Contacto'];
+	$Comentario = $_POST['Comentario'];
+	$Telefono = $_POST['Telefono'];
+	$Alias = $_POST['alias'];
+	$TipoCliente = $_POST['TipoCliente'];
+
+	$query = "INSERT INTO personaempresa (rut, dv, nombre, giro, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente) VALUES ('$Rut', '$Dv', '$Nombre', '$Giro', '$DireccionComercial', '$Correo', '$Contacto', '$Comentario', '$Telefono', '$Alias', '$TipoCliente')";
 	$run = new Method;
 	$data = $run->insert($query);
 	$id = $data;

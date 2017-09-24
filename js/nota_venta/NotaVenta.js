@@ -81,8 +81,10 @@ $(document).ready(function(){
     $('.selectpicker').selectpicker();
     $('.date').datetimepicker({
         locale: 'es',
-        format: 'DD-MM-YYYY'
+        format: 'DD-MM-YYYY',
+        setDate: new Date()
     });
+    
     $(".number").mask("000.000.000.000",{reverse: true});
     $("#cantidad").mask("000000");
     $("#impuesto").mask("00");
@@ -93,7 +95,7 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('#personaempresa_id').append('<option value="'+array.rut+'" data-content="'+array.nombre+'"></option>');
+                $('#personaempresa_id').append('<option value="'+array.rut+'" data-content="'+array.nombre+ ' - ' +array.tipo_cliente+'"></option>');
             });
 
             $('.selectpicker').selectpicker('render');
