@@ -59,6 +59,7 @@
                                                 <table id="PendientesTable" class="table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
+                                                            <th class="text-center">Cliente</th>
                                                             <th class="text-center">Código</th>
                                                             <th class="text-center">Tiempo de Facturación</th>
                                                             <th class="text-center">Descripción</th>
@@ -82,6 +83,7 @@
                                                             <table id="FinalizadasTable" class="table table-striped table-bordered">
                                                                 <thead>
                                                                     <tr>
+                                                                        <th class="text-center">Cliente</th>
                                                                         <th class="text-center">Código</th>
                                                                         <th class="text-center">Tiempo de Facturación</th>
                                                                         <th class="text-center">Descripción</th>
@@ -178,8 +180,8 @@
                         <div class="clearfix m-b-10"></div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label" for="name">Usuario Pppoe</label>
-                                <input id="UsuarioPppoe" name="UsuarioPppoe" type="text" placeholder="Ingrese el Usuario Pppoe" class="form-control input-sm" validation="not_null" data-nombre="Usuario Pppoe">
+                                <label class="control-label" for="name">Usuario PPPoE</label>
+                                <input id="UsuarioPppoe" name="UsuarioPppoe" type="text" placeholder="Ingrese el Usuario PPPoE" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE">
                             </div>
                         </div>
                     </form>
