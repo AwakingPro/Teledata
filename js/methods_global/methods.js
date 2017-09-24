@@ -72,7 +72,7 @@ $.validate = function(obj) {
 }
 
 $('input').blur(function() {
-	$(this).parent('.form-group').removeClass('has-error');
+	$(this).closest('.form-group').removeClass('has-error');
 });
 
 $('.effect').attr('attr', '');
