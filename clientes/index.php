@@ -69,8 +69,8 @@
 															<input name="Rut" class="form-control" validate="not_null">
 														</div>
 														<div class="col-md-1 form-group">
-															<div class="text-center" style="padding-top: 30px">
-																<label><b>-</b></label>
+															<div class="text-center" style="padding-top: 5px">
+																<h3>-</h3>
 															</div>
 														</div>
 														<div class="col-md-1 form-group">
@@ -235,8 +235,8 @@
 						<input name="Rut_update" class="form-control">
 					</div>
 					<div class="col-md-1 form-group">
-						<div class="text-center" style="padding-top: 30px">
-							<label><b>-</b></label>
+						<div class="text-center" style="padding-top: 5px">
+							<h3>-</h3>
 						</div>
 					</div>
 					<div class="col-md-1 form-group">

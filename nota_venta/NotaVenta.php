@@ -104,11 +104,26 @@
                                                                 <input id="direccion" name="direccion" class="form-control input-sm" disabled>
                                                             </div>
                                                         </div>
+
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="name">Numero de OC</label>
+                                                                <input id="numero_oc" name="numero_oc" class="form-control input-sm" validation="not_null" data-nombre="Numero de OC">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="solicitado_por">Solicitado Por</label>
+                                                                <input id="solicitado_por" name="solicitado_por" class="form-control input-sm" validation="not_null" data-nombre="Solicitado Por">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </form>
 
                                                 <div class="row" style="margin-top: 20px">
                                                     <form id="addServicio">
+                                                        <input type="hidden" id="rut_tmp" name="rut_tmp"></input>
                                                         <div class="col-md-2">
                                                             <label id="label_automatico" class="label_tipo form-radio form-icon form-text"><input id="automatico" name="switch_codigo" type="radio" value="1" checked>Automático</label>
                                                             <label id="label_manual" class="label_tipo form-radio form-icon form-text"><input id="manual" name="switch_codigo" type="radio" value="2">Manual</label>
@@ -154,7 +169,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-1">
+<!--                                                         <div class="col-md-1">
                                                             <div class="form-group">
                                                                 <div class="text-center">
                                                                     <label class="control-label h5" for="name">Exención</label>
@@ -164,7 +179,7 @@
                                                                     <option value="2">No Afecto</option>
                                                                 </select>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
 
                                                         <div class="col-md-2">
                                                             <div class="form-group">
@@ -193,8 +208,7 @@
                                                                         <th class="text-center">Detalle</th>
                                                                         <th class="text-center">Valor Neto</th>
                                                                         <th class="text-center">Cantidad</th>
-                                                                        <th class="text-center">Indic. Exención</th>
-                                                                        <th class="text-center">Total</th>
+                                                                        <th class="text-center">Total I.V.A. Incluido</th>
                                                                         <th class="text-center">Acción</th>
                                                                     </tr>
                                                                 </thead>
@@ -216,7 +230,7 @@
                                                     <div class="col-sm-5 col-sm-offset-7">
                                                         <div class="col-sm-offset-4">
                                                             <div class="col-md-6" style="text-align: right">
-                                                                <h5>Neto:</h5>
+                                                                <h5>Valor Total Neto:</h5>
                                                             </div>
                                                             <div class="col-md-6" style="text-align: right">
                                                                 <h5 id="neto" style="border-bottom: 1px solid #ccc;">0</h5>
@@ -234,7 +248,7 @@
 
                                                         <div class="col-sm-offset-4">
                                                             <div class="col-md-6" style="text-align: right">
-                                                                <h5>Total:</h5>
+                                                                <h5>Valor Total I.V.A. Incluido:</h5>
                                                             </div>
                                                             <div class="col-md-6" style="text-align: right">
                                                                 <h5 id="total_nota" style="border-bottom: 1px solid #ccc;">0</h5>
@@ -264,6 +278,8 @@
                                                                     <tr>
                                                                         <th class="text-center">Fecha</th>
                                                                         <th class="text-center">Rut</th>
+                                                                        <th class="text-center">Numero de OC</th>
+                                                                        <th class="text-center">Solicitado Por</th>
                                                                         <th class="text-center">Acción</th>
                                                                     </tr>
                                                                 </thead>

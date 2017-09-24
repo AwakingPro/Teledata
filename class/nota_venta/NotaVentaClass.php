@@ -5,7 +5,7 @@
 
     class NotaVenta{
 
-    	public function GuardarServicio($Codigo,$Servicio,$Cantidad,$Precio,$Exencion){
+    	public function GuardarServicio($Codigo,$Servicio,$Cantidad,$Precio,$Cliente){
 
             $response_array = array();
 
@@ -13,15 +13,13 @@
             $Servicio = isset($Servicio) ? trim($Servicio) : "";
             $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
             $Precio = isset($Precio) ? trim($Precio) : "";
-            $Exencion = isset($Exencion) ? trim($Exencion) : "";
 
-            if(!empty($Codigo) && !empty($Servicio) && !empty($Cantidad) && !empty($Precio) && !empty($Exencion)){
+            if(!empty($Codigo) && !empty($Servicio) && !empty($Cantidad) && !empty($Precio)){
 
                 session_start();
 
                 $this->Codigo=$Codigo;
                 $this->Cantidad=intval($Cantidad);
-                $this->Exencion=$Exencion;
                 $this->Usuario=$_SESSION['idUsuario'];
 
                 $query = "SELECT mantenedor_servicios.servicio as Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Codigo = '$this->Codigo'";
@@ -42,18 +40,28 @@
 
                 $this->Total = $this->Precio * $this->Cantidad;
 
-                if($this->Exencion == 1){
-                    $Impuesto = $this->Total * 0.19;
-                    $this->Total = $this->Total + $Impuesto;
-                }
-
-                $query = "INSERT INTO nota_venta_tmp(codigo, servicio, cantidad, precio, exencion, total, usuario_id) VALUES ('$this->Codigo','$this->Servicio','$this->Cantidad','$this->Precio','$this->Exencion','$this->Total','$this->Usuario')";
+                $Impuesto = $this->Total * 0.19;
+                $this->Total = $this->Total + $Impuesto;
+                
+                $query = "INSERT INTO nota_venta_tmp(codigo, servicio, cantidad, precio, exencion, total, usuario_id) VALUES ('$this->Codigo','$this->Servicio','$this->Cantidad','$this->Precio','1','$this->Total','$this->Usuario')";
                 $run = new Method;
                 $id = $run->insert($query);
 
                 if($id){
 
-                    $array = array('id'=> $id, 'codigo' => $this->Codigo, 'servicio' => $this->Servicio, 'cantidad' => $this->Cantidad, 'precio' => $this->Precio, 'exencion' => $this->Exencion, 'total' => $this->Total);
+                    if($Cliente){
+                        $query = "SELECT mantenedor_servicios.servicio as Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Codigo = '$this->Codigo'";
+                        $run = new Method;
+                        $data = $run->select($query);
+
+                        if(!$data){
+                            $query = "INSERT INTO servicios(Rut, Valor, Codigo, TipoMoneda, Grupo, TipoFactura, Descuento, IdServicio, TiepoFacturacion, Descripcion) VALUES ('$Cliente', '$this->Precio','$this->Codigo','Pesos','','','','','','')";
+                            $run = new Method;
+                            $servicio = $run->insert($query);
+                        }
+                    }
+
+                    $array = array('id'=> $id, 'codigo' => $this->Codigo, 'servicio' => $this->Servicio, 'cantidad' => $this->Cantidad, 'precio' => $this->Precio, 'total' => $this->Total);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -69,19 +77,23 @@
 
     	} 
 
-        public function GuardarNotaVenta($Cliente,$Fecha){
+        public function GuardarNotaVenta($Cliente,$Fecha,$NumeroOc,$SolicitadoPor){
 
             $response_array = array();
 
             $Cliente = isset($Cliente) ? trim($Cliente) : "";
             $Fecha = isset($Fecha) ? trim($Fecha) : "";
+            $NumeroOc = isset($NumeroOc) ? trim($NumeroOc) : "";
+            $SolicitadoPor = isset($SolicitadoPor) ? trim($SolicitadoPor) : "";
 
-            if(!empty($Cliente) && !empty($Fecha)){
+            if(!empty($Cliente) && !empty($Fecha) && !empty($NumeroOc) && !empty($SolicitadoPor)){
 
                 session_start();
 
                 $this->Cliente=$Cliente;
                 $this->Fecha=$Fecha;
+                $this->NumeroOc=$NumeroOc;
+                $this->SolicitadoPor=$SolicitadoPor;
                 $this->Usuario=$_SESSION['idUsuario'];
 
                 $query = "SELECT * FROM nota_venta_tmp where usuario_id = '$this->Usuario'";
@@ -92,7 +104,7 @@
 
                     $Fecha = DateTime::createFromFormat('d-m-Y', $Fecha)->format('Y-m-d');
 
-                    $query = "INSERT INTO nota_venta(rut, fecha) VALUES ('$this->Cliente','$Fecha')";
+                    $query = "INSERT INTO nota_venta(rut, fecha, numero_oc, solicitado_por) VALUES ('$this->Cliente','$Fecha','$this->NumeroOc','$this->SolicitadoPor')";
                     $run = new Method;
                     $id = $run->insert($query);
 
@@ -114,7 +126,7 @@
                             $data = $run->insert($query);
                         }
 
-                        $array = array('id'=> $id, 'rut' => $this->Cliente, 'fecha' => $this->Fecha);
+                        $array = array('id'=> $id, 'rut' => $this->Cliente, 'fecha' => $this->Fecha, 'numero_oc' => $this->NumeroOc, 'solicitado_por' => $this->SolicitadoPor);
                         
                         $response_array['array'] = $array;
                         $response_array['status'] = 1; 
