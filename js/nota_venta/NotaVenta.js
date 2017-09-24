@@ -128,7 +128,7 @@ $(document).ready(function(){
 
     $('input[name=switch_codigo]').on('change', function () {
         value = $("input[name='switch_codigo']:checked").val()
-        $('#codigo_container').empty()
+        $('#codigo_container').empty();
         if(value == 1){
             $('#label_manual').removeClass('active')
             $('#label_automatico').addClass('active')
@@ -168,6 +168,12 @@ $(document).ready(function(){
             $('#precio').prop('disabled', false)
         }
 
+        $('#codigo').val('')
+        $('#servicio').val('')
+        $('#precio').val('')
+        $('#total').val('')
+
+        $('.selectpicker').selectpicker('refresh')
 
     });
 
@@ -225,54 +231,71 @@ $(document).ready(function(){
         $('#cantidad').val(1)
     });
 
-    $('body').on('change', '#codigo', function (){
+    $('body').on('change', 'select[name="codigo"]', function (){
 
-        value = $("input[name='switch_codigo']:checked").val()
+        $('#servicio').prop('disabled', true)
+        $('#precio').prop('disabled', true)
 
-        if(value == 1){
+        $('#servicio').val('')
+        $('#precio').val('')
+        $('#total').val('')
 
-            $('#servicio').prop('disabled', true)
-            $('#precio').prop('disabled', true)
+        datos = $('#addServicio').serialize();
 
-            $('#servicio').val('')
-            $('#precio').val('')
-            $('#total').val('')
+        $.ajax({
+            type: "POST",
+            url: "../includes/nota_venta/showServicio.php",
+            data: datos,
+            success: function(response){
 
-            datos = $('#addServicio').serialize();
+                precio = parseFloat(response.array[0].Precio)
 
+                if(!precio || precio < 0){
+                    precio = 0
+                }
+
+                $('#servicio').val(response.array[0].Servicio);
+                $('#precio').val(formatcurrency(precio));
+
+                impuesto = precio * 0.19
+                precio = precio + impuesto
+                
+
+                $('#total').val(formatcurrency(precio));
+
+
+            }
+        });
+    
+        $('#cantidad').val(1)
+
+    });
+
+    $('body').on('blur', 'input[name="codigo"]', function (){
+
+        datos = $('#addServicio').serialize();
+        input = $(this)
+        codigo = $(this).val()
+
+        if(codigo){
             $.ajax({
                 type: "POST",
                 url: "../includes/nota_venta/showServicio.php",
                 data: datos,
                 success: function(response){
-
-                    precio = parseFloat(response.array[0].Precio)
-
-                    if(!precio || precio < 0){
-                        precio = 0
+                    if(response.array.length){
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon : 'fa fa-check',
+                            message : 'Ya este codigo esta registrado',
+                            container : 'floating',
+                            timer : 3000
+                        });
+                        $(input).val('')
                     }
-
-                    $('#servicio').val(response.array[0].Servicio);
-                    $('#precio').val(formatcurrency(precio));
-
-                    if($('#exencion').val() == 1){
-                        impuesto = precio * 0.19
-                        precio = precio + impuesto
-                    }
-
-                    $('#total').val(formatcurrency(precio));
-
-
                 }
             });
-        }else{
-
-            $('#servicio').prop('disabled', false)
-            $('#precio').prop('disabled', false)
         }
-
-        $('#cantidad').val(1)
-
     });
 
     $('#cantidad').on('change', function () {
@@ -283,10 +306,10 @@ $(document).ready(function(){
             precio = parseFloat(precio)
             total_nota = precio * cantidad
 
-            if($('#exencion').val() == 1){
-                impuesto = total_nota * 0.19
-                total_nota = total_nota + impuesto
-            }
+
+            impuesto = total_nota * 0.19
+            total_nota = total_nota + impuesto
+            
 
             if(!total_nota || isNaN(total_nota)){
                 total_nota = 0;
@@ -305,33 +328,10 @@ $(document).ready(function(){
             precio = parseFloat(precio)
             total_nota = precio * cantidad
 
-            if($('#exencion').val() == 1){
-                impuesto = total_nota * 0.19
-                total_nota = total_nota + impuesto
-            }
-
-            if(!total_nota || isNaN(total_nota)){
-                total_nota = 0;
-            }
-
-            $('#total').val(formatcurrency(total_nota))
-        }
-    });
-
-    $('#exencion').on('change', function () {
-
-        if($('#codigo') && $('#precio')){
-
-            cantidad = parseInt($('#cantidad').val())
-            precio = $('#precio').val()
-            precio = precio.replace('.', '')
-            precio = parseFloat(precio)
-            total_nota = precio * cantidad
-
-            if($('#exencion').val() == 1){
-                impuesto = total_nota * 0.19
-                total_nota = total_nota + impuesto
-            }
+            
+            impuesto = total_nota * 0.19
+            total_nota = total_nota + impuesto
+            
 
             if(!total_nota || isNaN(total_nota)){
                 total_nota = 0;
@@ -360,13 +360,8 @@ $(document).ready(function(){
                 neto_tmp = neto_tmp * cantidad
                 impuesto = neto_tmp * 0.19
                 neto = neto + neto_tmp
-
-                if(response.array.exencion == 1){
-                    imp_exencion = 'Afecto'
-                    iva = iva + impuesto;
-                }else{
-                    imp_exencion = 'No Afecto'
-                }
+                iva = iva + impuesto;
+                
 
                 precio = parseFloat(response.array.precio)
                 total_tmp = parseFloat(response.array.total)
@@ -381,7 +376,6 @@ $(document).ready(function(){
                     ''+response.array.servicio+'',
                     ''+formatcurrency(precio)+'',
                     ''+response.array.cantidad+'',
-                    ''+imp_exencion+'',
                     ''+formatcurrency(total_tmp)+'',
                     ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveServicio"></i>'+'',
                 ]).draw(false).node();
@@ -391,6 +385,7 @@ $(document).ready(function(){
                     .addClass('text-center')
 
                 $('#addServicio')[0].reset();
+                $('#cantidad').val(1)
                 $('.selectpicker').selectpicker('render');
                 $('.selectpicker').selectpicker('refresh');
 
@@ -415,9 +410,6 @@ $(document).ready(function(){
                 });
 
             }
-
-            $('#servicio').prop('disabled', true)
-            $('#precio').prop('disabled', true)
         });
     });
 
@@ -453,10 +445,8 @@ $(document).ready(function(){
                                 impuesto = neto_tmp * 0.19
 
                                 neto = neto - neto_tmp
-
-                                if(response.array[0].exencion == 1){
-                                    iva = iva - impuesto;
-                                }
+                                iva = iva - impuesto;
+                                
 
                                 precio = parseFloat(response.array[0].total)
                                 total = total - precio
@@ -549,13 +539,11 @@ $(document).ready(function(){
     $('#cancelar').on('click', function () {
 
         var neto = 0
-        var exencion = 0
         var iva = 0
         var total = 0
 
         $('#neto').text(neto)
         $('#iva').text(iva)
-        $('#exencion_nota').text(exencion)
         $('#total_nota').text(total)
 
         $('#showCliente')[0].reset();

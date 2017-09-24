@@ -154,7 +154,7 @@
                                                             </div>
                                                         </div>
 
-                                                        <div class="col-md-1">
+<!--                                                         <div class="col-md-1">
                                                             <div class="form-group">
                                                                 <div class="text-center">
                                                                     <label class="control-label h5" for="name">Exención</label>
@@ -164,7 +164,7 @@
                                                                     <option value="2">No Afecto</option>
                                                                 </select>
                                                             </div>
-                                                        </div>
+                                                        </div> -->
 
                                                         <div class="col-md-2">
                                                             <div class="form-group">
@@ -193,8 +193,7 @@
                                                                         <th class="text-center">Detalle</th>
                                                                         <th class="text-center">Valor Neto</th>
                                                                         <th class="text-center">Cantidad</th>
-                                                                        <th class="text-center">Indic. Exención</th>
-                                                                        <th class="text-center">Total</th>
+                                                                        <th class="text-center">Total I.V.A. Incluido</th>
                                                                         <th class="text-center">Acción</th>
                                                                     </tr>
                                                                 </thead>
@@ -216,7 +215,7 @@
                                                     <div class="col-sm-5 col-sm-offset-7">
                                                         <div class="col-sm-offset-4">
                                                             <div class="col-md-6" style="text-align: right">
-                                                                <h5>Neto:</h5>
+                                                                <h5>Valor Total Neto:</h5>
                                                             </div>
                                                             <div class="col-md-6" style="text-align: right">
                                                                 <h5 id="neto" style="border-bottom: 1px solid #ccc;">0</h5>
@@ -234,7 +233,7 @@
 
                                                         <div class="col-sm-offset-4">
                                                             <div class="col-md-6" style="text-align: right">
-                                                                <h5>Total:</h5>
+                                                                <h5>Valor Total I.V.A. Incluido:</h5>
                                                             </div>
                                                             <div class="col-md-6" style="text-align: right">
                                                                 <h5 id="total_nota" style="border-bottom: 1px solid #ccc;">0</h5>
