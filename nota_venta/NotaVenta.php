@@ -104,6 +104,20 @@
                                                                 <input id="direccion" name="direccion" class="form-control input-sm" disabled>
                                                             </div>
                                                         </div>
+
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="name">Numero de OC</label>
+                                                                <input id="numero_oc" name="numero_oc" class="form-control input-sm" validation="not_null" data-nombre="Numero de OC">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="solicitado_por">Solicitado Por</label>
+                                                                <input id="solicitado_por" name="solicitado_por" class="form-control input-sm" validation="not_null" data-nombre="Solicitado Por">
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </form>
 
@@ -264,6 +278,8 @@
                                                                     <tr>
                                                                         <th class="text-center">Fecha</th>
                                                                         <th class="text-center">Rut</th>
+                                                                        <th class="text-center">Numero de OC</th>
+                                                                        <th class="text-center">Solicitado Por</th>
                                                                         <th class="text-center">Acción</th>
                                                                     </tr>
                                                                 </thead>

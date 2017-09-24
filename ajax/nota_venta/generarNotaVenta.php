@@ -31,10 +31,12 @@ $objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('C1', 'Rut')
 	->setCellValue('D1', 'Giro')
 	->setCellValue('E1', 'Contacto')
-	->setCellValue('F1', 'Direccion');
+	->setCellValue('F1', 'Direccion')
+	->setCellValue('G1', 'Numero de OC')
+	->setCellValue('H1', 'Solicitado Por');
 
 
-foreach (range(0, 5) as $col) {
+foreach (range(0, 7) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 
@@ -63,7 +65,9 @@ if (count($nota_venta) > 0) {
 		->setCellValue('C'.$index, $rut)
 		->setCellValue('D'.$index, $cliente[0][4])
 		->setCellValue('E'.$index, $cliente[0][7])
-		->setCellValue('F'.$index, $cliente[0][5]);
+		->setCellValue('F'.$index, $cliente[0][5])
+		->setCellValue('G'.$index, $nota_venta[0][3])
+		->setCellValue('H'.$index, $nota_venta[0][4]);
 	}
 
 	$index = 5;

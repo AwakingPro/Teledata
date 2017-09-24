@@ -77,19 +77,23 @@
 
     	} 
 
-        public function GuardarNotaVenta($Cliente,$Fecha){
+        public function GuardarNotaVenta($Cliente,$Fecha,$NumeroOc,$SolicitadoPor){
 
             $response_array = array();
 
             $Cliente = isset($Cliente) ? trim($Cliente) : "";
             $Fecha = isset($Fecha) ? trim($Fecha) : "";
+            $NumeroOc = isset($NumeroOc) ? trim($NumeroOc) : "";
+            $SolicitadoPor = isset($SolicitadoPor) ? trim($SolicitadoPor) : "";
 
-            if(!empty($Cliente) && !empty($Fecha)){
+            if(!empty($Cliente) && !empty($Fecha) && !empty($NumeroOc) && !empty($SolicitadoPor)){
 
                 session_start();
 
                 $this->Cliente=$Cliente;
                 $this->Fecha=$Fecha;
+                $this->NumeroOc=$NumeroOc;
+                $this->SolicitadoPor=$SolicitadoPor;
                 $this->Usuario=$_SESSION['idUsuario'];
 
                 $query = "SELECT * FROM nota_venta_tmp where usuario_id = '$this->Usuario'";
@@ -100,7 +104,7 @@
 
                     $Fecha = DateTime::createFromFormat('d-m-Y', $Fecha)->format('Y-m-d');
 
-                    $query = "INSERT INTO nota_venta(rut, fecha) VALUES ('$this->Cliente','$Fecha')";
+                    $query = "INSERT INTO nota_venta(rut, fecha, numero_oc, solicitado_por) VALUES ('$this->Cliente','$Fecha','$this->NumeroOc','$this->SolicitadoPor')";
                     $run = new Method;
                     $id = $run->insert($query);
 

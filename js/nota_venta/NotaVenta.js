@@ -116,6 +116,8 @@ $(document).ready(function(){
                 var rowNode = NotaVentaTable.row.add([
                     ''+fecha+'',
                     ''+array.rut+'',
+                    ''+array.numero_oc+'',
+                    ''+array.solicitado_por+'',
                     ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-excel-o Generate"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveNota"></i>'+'',
                 ]).draw(false).node();
 
@@ -196,7 +198,7 @@ $(document).ready(function(){
                     $('#giro').val(response.array[0].giro);
                     $('#direccion').val(response.array[0].direccion);
                     $('#contacto').val(response.array[0].contacto);
-                    $('#rut').val(response.array[0].rut);
+                    $('#rut').val(response.array[0].rut+'-'+response.array[0].dv);
 
                 }
             });
@@ -496,6 +498,8 @@ $(document).ready(function(){
                 var rowNode = NotaVentaTable.row.add([
                     ''+response.array.fecha+'',
                     ''+response.array.rut+'',
+                    ''+response.array.numero_oc+'',
+                    ''+response.array.solicitado_por+'',
                     ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-excel-o Generate"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveNota"></i>'+'',
                 ]).draw(false).node();
 

@@ -134,6 +134,7 @@
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
+										<h3 class="panel-title">Servicios registrados</h3>
 									</div>
 									<!--Panel body-->
 									<div class="panel-body container-form">
