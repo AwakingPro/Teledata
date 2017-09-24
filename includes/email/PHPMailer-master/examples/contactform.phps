@@ -53,7 +53,7 @@ EOT;
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
     <title>Contact form</title>
 </head>
 <body>

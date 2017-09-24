@@ -20,6 +20,7 @@
 			if ($mysqli->connect_error) {
 				return 'Error de Conexión (' . $mysqli->connect_errno . ') '. $mysqli->connect_error;
 			}else{
+				$mysqli->query("SET NAMES 'utf8'");
 				return $mysqli;
 			}
 		}
