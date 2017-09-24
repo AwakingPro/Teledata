@@ -455,13 +455,16 @@ $(document).ready(function() {
 	});
 
 	$('input[name="Rut"]').on('blur', function() {
+		
 		rut = $(this).val()
+		input = $(this)
+
 		if(rut){
 			$.post('../ajax/cliente/listCliente.php', {rut: rut}, function(data) {
 				data = $.parseJSON(data);
 				if(data.length){
 					bootbox.alert('<h3 class="text-center">Ups! Este rut ya esta registrado.</h3>');
-					$(this).val('')
+					$(input).val('')
 				}
 			});
 		}
