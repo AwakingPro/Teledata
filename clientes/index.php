@@ -54,86 +54,88 @@
 														<h3>Crear Nuevo Cliente</h3><br>
 													</div>
 												</div>
-												<div class="row">
-													<div class="col-md-4 form-group">
-														<label>Rut</label>
-														<input name="Rut" class="form-control" validate="not_null">
+												<form id="insertCliente">
+													<div class="row">
+														<div class="col-md-4 form-group">
+															<label>Rut</label>
+															<input name="Rut" class="form-control" validate="not_null">
+														</div>
+														<div class="col-md-4 form-group">
+															<label> Razón social / Cliente</label>
+															<input name="Nombre" class="form-control" validate="not_null">
+														</div>
+														<div class="col-md-4 form-group">
+															<label>Dv</label>
+															<select name="Dv" class="form-control selectpicker" data-live-search="true" validate="not_null">
+																<option value="">Seleccione...</option>
+																<option>1</option>
+																<option>2</option>
+																<option>3</option>
+																<option>4</option>
+																<option>5</option>
+																<option>6</option>
+																<option>7</option>
+																<option>8</option>
+																<option>9</option>
+																<option>K</option>
+															</select>
+														</div>
 													</div>
-													<div class="col-md-4 form-group">
-														<label> Razón social / Cliente</label>
-														<input name="Nombre" class="form-control" validate="not_null">
-													</div>
-													<div class="col-md-4 form-group">
-														<label>Dv</label>
-														<select name="Dv" class="form-control selectpicker" data-live-search="true" validate="not_null">
-															<option value="">Seleccione...</option>
-															<option>1</option>
-															<option>2</option>
-															<option>3</option>
-															<option>4</option>
-															<option>5</option>
-															<option>6</option>
-															<option>7</option>
-															<option>8</option>
-															<option>9</option>
-															<option>K</option>
-														</select>
-													</div>
-												</div>
-												<div class="row">
-												<div class="col-md-12 form-group">
-														<label>Alias</label>
-														<input name="alias" class="form-control" validate="not_null">
-													</div>
-												</div>
-												<div class="row">
+													<div class="row">
 													<div class="col-md-12 form-group">
-														<label>Dirección  Comercial</label>
-														<textarea name="DireccionComercial" class="form-control" validate="not_null"></textarea>
-													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-4 form-group">
-														<label>Contacto</label>
-														<div class="input-group">
-															<input name="Contacto" class="form-control" validate="not_null">
-															<span class="input-group-btn">
-																<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraContactos"><i class="fa fa-plus" aria-hidden="true"></i></button>
-															</span>
+															<label>Alias</label>
+															<input name="alias" class="form-control" validate="not_null">
 														</div>
 													</div>
-													<div class="col-md-4 form-group">
-														<label>Teléfono</label>
-														<div class="input-group">
-															<input name="Telefono" class="form-control" validate="not_null">
-															<span class="input-group-btn">
-																<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraTelefono"><i class="fa fa-plus" aria-hidden="true"></i></button>
-															</span>
+													<div class="row">
+														<div class="col-md-12 form-group">
+															<label>Dirección  Comercial</label>
+															<textarea name="DireccionComercial" class="form-control" validate="not_null"></textarea>
 														</div>
 													</div>
-													<div class="col-md-4 form-group">
-														<label>Correo</label>
-														<div class="input-group">
-															<input name="Correo" class="form-control" validate="email">
-															<span class="input-group-btn">
-																<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraCorreo"><i class="fa fa-plus" aria-hidden="true"></i></button>
-															</span>
+													<div class="row">
+														<div class="col-md-4 form-group">
+															<label>Contacto</label>
+															<div class="input-group">
+																<input name="Contacto" class="form-control" validate="not_null">
+																<span class="input-group-btn">
+																	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraContactos"><i class="fa fa-plus" aria-hidden="true"></i></button>
+																</span>
+															</div>
 														</div>
+														<div class="col-md-4 form-group">
+															<label>Teléfono</label>
+															<div class="input-group">
+																<input name="Telefono" class="form-control" validate="not_null">
+																<span class="input-group-btn">
+																	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraTelefono"><i class="fa fa-plus" aria-hidden="true"></i></button>
+																</span>
+															</div>
+														</div>
+														<div class="col-md-4 form-group">
+															<label>Correo</label>
+															<div class="input-group">
+																<input name="Correo" class="form-control" validate="email">
+																<span class="input-group-btn">
+																	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraCorreo"><i class="fa fa-plus" aria-hidden="true"></i></button>
+																</span>
+															</div>
 
+														</div>
 													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-12 form-group">
-														<label>Giro</label>
-														<input name="Giro" class="form-control" validate="not_null">
+													<div class="row">
+														<div class="col-md-12 form-group">
+															<label>Giro</label>
+															<input name="Giro" class="form-control" validate="not_null">
+														</div>
 													</div>
-												</div>
-												<div class="row">
-													<div class="col-md-12 form-group">
-														<label>Comentarios</label>
-														<textarea name="Comentario" class="form-control" validate="not_null"></textarea>
+													<div class="row">
+														<div class="col-md-12 form-group">
+															<label>Comentarios</label>
+															<textarea name="Comentario" class="form-control" validate="not_null"></textarea>
+														</div>
 													</div>
-												</div>
+												</form>
 												<div class="row">
 													<div class="col-md-12">
 														<br>
