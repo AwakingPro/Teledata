@@ -1,6 +1,7 @@
 $(document).ready(function() {
 
 	$('[name="Valor"]').number( true, 0,',','.');
+	$('.selectpicker').selectpicker();
 
 	$('select[name="Rut"]').load('../ajax/servicios/selectClientes.php',function(){
 		$('select[name="Rut"]').selectpicker();
