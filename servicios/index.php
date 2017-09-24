@@ -80,7 +80,7 @@
 													<br>
 
 													<label>Alias</label>
-													<div class="input-group">
+													<div class="form-group">
 														<input type="text" name="Alias" class="form-control">
 													</div>
 
