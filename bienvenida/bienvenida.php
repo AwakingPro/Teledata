@@ -27,20 +27,11 @@
 									<div class="panel-bg-cover">
 										<img class="img-responsive" src="../img/thumbs/img1.jpg" alt="Image">
 									</div>
-									<div class="panel-media">
+									<div class="panel-media imgUser">
 										<img class="panel-media-img img-circle img-border-light" src="../img/av1.png" alt="Profile Picture">
-										<div class="row">
-											<div class="col-lg-7">
-												<h3 class="panel-media-heading"></h3>
-												<a href="#" class="btn-link"></a>
-												<p class="text-muted mar-btm"></p>
-											</div>
-											<div class="col-lg-5 text-lg-right">
-											</div>
-										</div>
 									</div>
 									<div class="panel-body">
-										<h4 class="nameUser">Teledata ERP</h4>
+										<h3 class="nameUser">Teledata ERP</h3>
 										<br>
 										Para obtener ayuda descargue aquí el manual de usuario <br>
 										<i class="pli-information icon-lg icon-fw"></i> Ayuda

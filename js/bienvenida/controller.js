@@ -24,4 +24,5 @@ $(document).ready(function() {
 	});
 
 	$('.nameUser').html($('.username ').html());
+	$('.imgUser').html('<img class="panel-media-img img-circle img-border-light" src="'+$('.img-user').attr('src')+'" alt="Profile Picture">');
 });
