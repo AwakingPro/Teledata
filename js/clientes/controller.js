@@ -82,20 +82,20 @@ $(document).ready(function() {
 			if(data.trim() == 'arriendoEquipos.php'){
 
 				$.ajax({
-										type: "POST",
-										url: "../includes/inventario/egresos/getBodega.php",
-										success: function(response){
+					type: "POST",
+					url: "../includes/inventario/egresos/getBodega.php",
+					success: function(response){
 
-												$.each(response.array, function( index, array ) {
-														$('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
-												});
-										}
-								});
+							$.each(response.array, function( index, array ) {
+									$('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+							});
+					}
+				});
 
-								setTimeout(function() {
-									$('#origen_id').selectpicker('render');
-									$('#origen_id').selectpicker('refresh');
-								}, 1000);
+				setTimeout(function() {
+					$('#origen_id').selectpicker('render');
+					$('#origen_id').selectpicker('refresh');
+				}, 1000);
 			}
 		});
 	});
@@ -203,13 +203,15 @@ $(document).ready(function() {
 			$('[name="Nombre_update"]').val(value[0][3]);
 			$('[name="Rut_update"]').val(value[0][1]);
 			$('[name="Dv_update"]').selectpicker('val',value[0][2]);
-			$('[name="DireccionComercial_update"]').val(value[0][4]);
+			$('[name="DireccionComercial_update"]').val(value[0][5]);
 			$('[name="Contacto_update"]').val(value[0][7]);
 			$('[name="Telefono_update"]').val(value[0][9]);
 			$('[name="Correo_update"]').val(value[0][6]);
 			$('[name="Giro_update"]').val(value[0][4]);
 			$('[name="Comentario_update"]').val(value[0][8]);
+			$('[name="TipoCliente_update"]').val(value[0][10]);
 			$('[name="IdCliente"]').val(value[0][0]);
+			$('.selectpicker').selectpicker('refresh');
 		});
 	});
 
@@ -467,6 +469,14 @@ $(document).ready(function() {
 					$(input).val('')
 				}
 			});
+		}
+	});
+
+	$('select[name="TipoCliente"]').on('change', function() {
+		if($(this).val() == "Boleta"){
+			$('input[name="Giro"]').removeAttr('validate')
+		}else{
+			$('input[name="Giro"]').attr('validate','not_null')
 		}
 	});
 });

@@ -56,15 +56,24 @@
 												</div>
 												<form id="insertCliente">
 													<div class="row">
-														<div class="col-md-4 form-group">
+														<div class="col-md-5 form-group">
+															<label>Tipo de Cliente</label>
+															<select name="TipoCliente" class="form-control selectpicker" data-live-search="true" validate="not_null">
+																<option value="">Seleccione...</option>
+																<option value="Boleta">Boleta</option>
+																<option value="Factura">Factura</option>
+															</select>
+														</div>
+														<div class="col-md-5 form-group">
 															<label>Rut</label>
 															<input name="Rut" class="form-control" validate="not_null">
 														</div>
-														<div class="col-md-4 form-group">
-															<label> Razón social / Cliente</label>
-															<input name="Nombre" class="form-control" validate="not_null">
+														<div class="col-md-1 form-group">
+															<div class="text-center" style="padding-top: 30px">
+																<label><b>-</b></label>
+															</div>
 														</div>
-														<div class="col-md-4 form-group">
+														<div class="col-md-1 form-group">
 															<label>Dv</label>
 															<select name="Dv" class="form-control selectpicker" data-live-search="true" validate="not_null">
 																<option value="">Seleccione...</option>
@@ -82,7 +91,11 @@
 														</div>
 													</div>
 													<div class="row">
-													<div class="col-md-12 form-group">
+														<div class="col-md-6 form-group">
+															<label> Razón social / Cliente</label>
+															<input name="Nombre" class="form-control" validate="not_null">
+														</div>
+														<div class="col-md-6 form-group">
 															<label>Alias</label>
 															<input name="alias" class="form-control" validate="not_null">
 														</div>
@@ -126,7 +139,7 @@
 													<div class="row">
 														<div class="col-md-12 form-group">
 															<label>Giro</label>
-															<input name="Giro" class="form-control" validate="not_null">
+															<input name="Giro" class="form-control">
 														</div>
 													</div>
 													<div class="row">
@@ -207,17 +220,26 @@
 						<h3>Datos del Cliente</h3><br>
 					</div>
 				</div>
+				<input type="hidden" name="IdCliente">
 				<div class="row">
-					<div class="col-md-4 form-group">
+					<div class="col-md-5 form-group">
+						<label>Tipo de Cliente</label>
+						<select name="TipoCliente_update" class="form-control selectpicker" data-live-search="true">
+							<option value="">Seleccione...</option>
+							<option value="Boleta">Boleta</option>
+							<option value="Factura">Factura</option>
+						</select>
+					</div>
+					<div class="col-md-5 form-group">
 						<label>Rut</label>
 						<input name="Rut_update" class="form-control">
 					</div>
-					<div class="col-md-4 form-group">
-						<label>Cliente</label>
-						<input name="Nombre_update" class="form-control">
-						<input type="hidden" name="IdCliente">
+					<div class="col-md-1 form-group">
+						<div class="text-center" style="padding-top: 30px">
+							<label><b>-</b></label>
+						</div>
 					</div>
-					<div class="col-md-4 form-group">
+					<div class="col-md-1 form-group">
 						<label>Dv</label>
 						<select name="Dv_update" class="form-control selectpicker" data-live-search="true">
 							<option value="">Seleccione...</option>
@@ -232,6 +254,16 @@
 							<option>9</option>
 							<option>K</option>
 						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<label> Razón social / Cliente</label>
+						<input name="Nombre_update" class="form-control">
+					</div>
+					<div class="col-md-6 form-group">
+						<label>Alias</label>
+						<input name="alias_update" class="form-control">
 					</div>
 				</div>
 				<div class="row">
