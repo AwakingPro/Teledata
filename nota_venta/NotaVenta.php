@@ -130,9 +130,18 @@
                                                         <div class="col-md-3">
                                                             <div class="form-group">
                                                                 <div class="text-center">
-                                                                    <label class="control-label h5" for="name">Servicio</label>
+                                                                    <label class="control-label h5" for="name">Detalle</label>
                                                                 </div>
-                                                                <input id="servicio" name="servicio" class="form-control input-sm" validation="not_null" data-nombre="Servicio" disabled>
+                                                                <input id="servicio" name="servicio" class="form-control input-sm" validation="not_null" data-nombre="Detalle" disabled>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-2">
+                                                            <div class="form-group">
+                                                                <div class="text-center">
+                                                                    <label class="control-label h5" for="name">Valor Neto</label>
+                                                                </div>
+                                                                <input id="precio" name="precio" class="form-control input-sm number" validation="not_null" data-nombre="Valor Neto" disabled>
                                                             </div>
                                                         </div>
 
@@ -142,15 +151,6 @@
                                                                     <label class="control-label h5" for="name">Cantidad</label>
                                                                 </div>
                                                                 <input id="cantidad" name="cantidad" class="form-control input-sm" maxlength="6" validation="not_null" data-nombre="Cantidad">
-                                                            </div>
-                                                        </div>
-
-                                                        <div class="col-md-2">
-                                                            <div class="form-group">
-                                                                <div class="text-center">
-                                                                    <label class="control-label h5" for="name">Precio</label>
-                                                                </div>
-                                                                <input id="precio" name="precio" class="form-control input-sm number" validation="not_null" data-nombre="Precio" disabled>
                                                             </div>
                                                         </div>
 
@@ -190,9 +190,9 @@
                                                                 <thead>
                                                                     <tr>
                                                                         <th class="text-center">Código</th>
-                                                                        <th class="text-center">Servicio</th>
+                                                                        <th class="text-center">Detalle</th>
+                                                                        <th class="text-center">Valor Neto</th>
                                                                         <th class="text-center">Cantidad</th>
-                                                                        <th class="text-center">Precio</th>
                                                                         <th class="text-center">Indic. Exención</th>
                                                                         <th class="text-center">Total</th>
                                                                         <th class="text-center">Acción</th>

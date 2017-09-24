@@ -465,7 +465,7 @@ $(document).ready(function() {
 			$.post('../ajax/cliente/listCliente.php', {rut: rut}, function(data) {
 				data = $.parseJSON(data);
 				if(data.length){
-					bootbox.alert('<h3 class="text-center">Ups! Este rut ya esta registrado.</h3>');
+					bootbox.alert('<h3 class="text-center">Este rut ya esta registrado.</h3>');
 					$(input).val('')
 				}
 			});

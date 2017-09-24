@@ -379,8 +379,8 @@ $(document).ready(function(){
                 var rowNode = ServicioTable.row.add([
                     ''+response.array.codigo+'',
                     ''+response.array.servicio+'',
-                    ''+response.array.cantidad+'',
                     ''+formatcurrency(precio)+'',
+                    ''+response.array.cantidad+'',
                     ''+imp_exencion+'',
                     ''+formatcurrency(total_tmp)+'',
                     ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveServicio"></i>'+'',
