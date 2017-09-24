@@ -22,33 +22,74 @@
 					</div>
 					<div id="page-content">
 						<div class="row">
-							<div class="eq-height">
-								<div class="col-sm-12 eq-box-sm">
-									<div class="panel">
-										<div class="panel-bg-cover">
-											<img class="img-responsive" src="../img/thumbs/img1.jpg" alt="Image">
-										</div>
-										<div class="panel-media">
-											<img class="panel-media-img img-circle img-border-light" src="../img/av1.png" alt="Profile Picture">
-											<div class="row">
-												<div class="col-lg-7">
-													<h3 class="panel-media-heading"></h3>
-													<a href="#" class="btn-link"></a>
-													<p class="text-muted mar-btm"></p>
-												</div>
-												<div class="col-lg-5 text-lg-right">
-												</div>
+							<div class="col-md-4">
+								<div class="panel">
+									<div class="panel-bg-cover">
+										<img class="img-responsive" src="../img/thumbs/img1.jpg" alt="Image">
+									</div>
+									<div class="panel-media">
+										<img class="panel-media-img img-circle img-border-light" src="../img/av1.png" alt="Profile Picture">
+										<div class="row">
+											<div class="col-lg-7">
+												<h3 class="panel-media-heading"></h3>
+												<a href="#" class="btn-link"></a>
+												<p class="text-muted mar-btm"></p>
+											</div>
+											<div class="col-lg-5 text-lg-right">
 											</div>
 										</div>
+									</div>
+									<div class="panel-body">
+										<h4 class="nameUser">Teledata ERP</h4>
+										<br>
+										Para obtener ayuda descargue aquí el manual de usuario <br>
+										<i class="pli-information icon-lg icon-fw"></i> Ayuda
+									</div>
+								</div>
+							</div>
+
+							<div class="col-md-4">
+								<div class="col-md-12">
+									<div class="panel">
 										<div class="panel-body">
-											<h4>Teledata ERP</h4>
+											<h3 style="margin-top: 0">Total de Tickes</h3>
 											<br>
-											Para obtener ayuda descargue aquí el manual de usuario
-											<i class="pli-information icon-lg icon-fw"></i> Ayuda
+											<h2 style="margin-top: 0"><span class="total"></span> <br> Tickets</h2>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="panel">
+										<div class="panel-body">
+											<h3 style="margin-top: 0">Tickes Abiertos</h3>
+											<br>
+											<h2 style="margin-top: 0"><span class="abiertos"></span> <br> Tickets abiertos</h2>
 										</div>
 									</div>
 								</div>
 							</div>
+
+							<div class="col-md-4">
+								<div class="col-md-12">
+									<div class="panel">
+										<div class="panel-body">
+											<h3 style="margin-top: 0">Tickes Cerrados</h3>
+											<br>
+											<h2 style="margin-top: 0"><span class="cerrados"></span> <br> Tickets cerrados</h2>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="panel">
+										<div class="panel-body">
+											<h3 style="margin-top: 0">Tickes Finalizados</h3>
+											<br>
+											<h2 style="margin-top: 0"><span class="finalizados"></span> <br> Tickets finalizados</h2>
+										</div>
+									</div>
+								</div>
+							</div>
+
 						</div>
 					</div>
 				</div>
@@ -77,5 +118,6 @@
 	<script src="../js/jquery-2.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/methods_global/methods.js"></script>
+	<script src="../js/bienvenida/controller.js"></script>
 </body>
 </html>
