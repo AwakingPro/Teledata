@@ -82,9 +82,9 @@ $(document).ready(function(){
     $('.date').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY',
-        setDate: new Date()
+        defaultDate: new Date()
     });
-    
+
     $(".number").mask("000.000.000.000",{reverse: true});
     $("#cantidad").mask("000000");
     $("#impuesto").mask("00");
