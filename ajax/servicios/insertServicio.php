@@ -17,7 +17,7 @@
     }
 
 	$Codigo = $_POST['Rut']."-".$dv.$_POST['TipoFactura'].$ContarFinal;
-	$query = "INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion,TipoMoneda) VALUES ('".$_POST['Rut']."', '".$_POST['Grupo']."','".$_POST['TipoFactura']."' , '".$_POST['Valor']."','$Descuento' ,'".$_POST['TipoServicio']."' ,'".$_POST['TiepoFacturacion']."' ,'".$Codigo."' ,'".$_POST['Descripcion']."', '".$_POST['tipoMoneda']."' )";
+	$query = "INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, Alias) VALUES ('".$_POST['Rut']."', '".$_POST['Grupo']."','".$_POST['TipoFactura']."' , '".$_POST['Valor']."','$Descuento' ,'".$_POST['TipoServicio']."' ,'".$_POST['TiepoFacturacion']."' ,'".$Codigo."' ,'".$_POST['Descripcion']."', '".$_POST['tipoMoneda']."', '".$_POST['Alias']."')";
 	$data = $run->insert($query);
 	echo $data
  ?>
