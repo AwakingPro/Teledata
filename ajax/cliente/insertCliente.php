@@ -1,7 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
 	$query = "INSERT INTO personaempresa (rut, dv, nombre, giro, direccion, correo, contacto, comentario, telefono, alias) VALUES ('".$_POST['Rut']."', '".$_POST['Dv']."', '".$_POST['Nombre']."', '".$_POST['Giro']."', '".$_POST['DireccionComercial']."', '".$_POST['Correo']."', '".$_POST['Contacto']."', '".$_POST['Comentario']."', '".$_POST['Telefono']."','".$_POST['alias']."')";
-	echo $query;
 	$run = new Method;
 	$data = $run->insert($query);
 	$id = $data;
