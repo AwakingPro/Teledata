@@ -39,8 +39,17 @@ $.validate = function(obj) {
 		switch($(obj).attr('validate')) {
 			case 'not_null':
 				if ($(obj).val() == "") {
-					$(obj).parent('.form-group').addClass('has-error');
-					bootbox.alert('<h3 class="text-center">Disculpe el campo '+$(obj).siblings('label').html()+' es obligatorio.</h3>');
+
+					label = $(obj).siblings('label').html()
+
+					if(label){
+						$(obj).parent('.form-group').addClass('has-error');
+					}else{
+						label = $(obj).parent().siblings('label').html()
+						$(obj).closest('.form-group').addClass('has-error');
+					}
+
+					bootbox.alert('<h3 class="text-center">Disculpe el campo '+label+' es obligatorio.</h3>');
 				}else{
 					return true;
 				}

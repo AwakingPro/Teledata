@@ -49,8 +49,8 @@
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				$resultado = $mysqli->query($query);
-				$this->log($query, 'insert');
 				if ($resultado) {
+					$this->log($query, 'insert');
 					$return = $mysqli->insert_id;
 					$mysqli->close();
 				}else{
@@ -68,8 +68,8 @@
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				$resultado = $mysqli->query($query);
-				$this->log($query, 'delete', 'delete');
 				if ($resultado) {
+					$this->log($query, 'delete', 'delete');
 					$return = true;
 					$mysqli->close();
 				}else{
@@ -85,8 +85,8 @@
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				$resultado = $mysqli->query($query);
-				$this->log($query, 'update');
 				if ($resultado) {
+					$this->log($query, 'update');
 					$return = true;
 					$mysqli->close();
 				}else{
@@ -140,8 +140,8 @@
 								$tabla.="<td>".$valor."</td>";
 							}
 							$tabla.='<td class="optionTable">
-								<i class="fa fa-trash-o delete-'.$table[0].'"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>
 								<i class="fa fa-pencil-square-o update-'.$table[0].'" attr="'.$rows[$i][0].'"  aria-hidden="true" title="Editar"></i>
+								<i class="fa fa-trash-o delete-'.$table[0].'"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>
 								</td>';
 							$tabla.= '</tr>';
 						}

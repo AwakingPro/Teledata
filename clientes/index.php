@@ -56,16 +56,16 @@
 												</div>
 												<div class="row">
 													<div class="col-md-4 form-group">
+														<label>Rut</label>
+														<input name="Rut" class="form-control" validate="not_null">
+													</div>
+													<div class="col-md-4 form-group">
 														<label> Razón social / Cliente</label>
 														<input name="Nombre" class="form-control" validate="not_null">
 													</div>
 													<div class="col-md-4 form-group">
-														<label>Rut</label>
-														<input name="Rut" class="form-control">
-													</div>
-													<div class="col-md-4 form-group">
 														<label>Dv</label>
-														<select name="Dv" class="form-control selectpicker" data-live-search="true">
+														<select name="Dv" class="form-control selectpicker" data-live-search="true" validate="not_null">
 															<option value="">Seleccione...</option>
 															<option>1</option>
 															<option>2</option>
@@ -83,7 +83,7 @@
 												<div class="row">
 												<div class="col-md-12 form-group">
 														<label>Alias</label>
-														<input name="alias" class="form-control">
+														<input name="alias" class="form-control" validate="not_null">
 													</div>
 												</div>
 												<div class="row">
@@ -207,13 +207,13 @@
 				</div>
 				<div class="row">
 					<div class="col-md-4 form-group">
+						<label>Rut</label>
+						<input name="Rut_update" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
 						<label>Cliente</label>
 						<input name="Nombre_update" class="form-control">
 						<input type="hidden" name="IdCliente">
-					</div>
-					<div class="col-md-4 form-group">
-						<label>Rut</label>
-						<input name="Rut_update" class="form-control">
 					</div>
 					<div class="col-md-4 form-group">
 						<label>Dv</label>
