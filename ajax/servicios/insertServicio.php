@@ -17,27 +17,27 @@
 		$Descuento = 0;
 	}
 
-    $Rut = $_POST['Rut'];
-    $Grupo = $_POST['Grupo'];
-    $TipoFactura = $_POST['TipoFactura'];
-    $Valor = $_POST['Valor'];
-    $TipoServicio = $_POST['TipoServicio'];
-    $TiepoFacturacion = $_POST['TiepoFacturacion'];
-    $Descripcion = $_POST['Descripcion'];
-    $tipoMoneda = $_POST['tipoMoneda'];
-    $idUsuario = $_SESSION['idUsuario'];
-    $Alias = $_POST['Alias'];
-    $Direccion = $_POST['Direccion'];
-    $Latitud = $_POST['Latitud'];
-    $Longitud = $_POST['Longitud'];
-    $Referencia = $_POST['Referencia'];
-    $Contacto = $_POST['Contacto'];
-    $Fono = $_POST['Fono'];
-    $PosibleEstacion = $_POST['PosibleEstacion'];
-    $Equipamiento = $_POST['Equipamiento'];
-    $SenalTeorica = $_POST['SenalTeorica'];
-	$Codigo = $Rut."-".$dv.$TipoFactura.$ContarFinal;
+    $Rut = isset($_POST['Rut']) ? trim($_POST['Rut']) : "";
+    $Grupo = isset($_POST['Grupo']) ? trim($_POST['Grupo']) : "";
+    $TipoFactura = isset($_POST['TipoFactura']) ? trim($_POST['TipoFactura']) : "";
+    $Valor = isset($_POST['Valor']) ? trim($_POST['Valor']) : "";
+    $TipoServicio = isset($_POST['TipoServicio']) ? trim($_POST['TipoServicio']) : "";
+    $TiepoFacturacion = isset($_POST['TiepoFacturacion']) ? trim($_POST['TiepoFacturacion']) : "";
+    $Descripcion = isset($_POST['Descripcion']) ? trim($_POST['Descripcion']) : "";
+    $tipoMoneda = isset($_POST['tipoMoneda']) ? trim($_POST['tipoMoneda']) : "";
+    $Alias = isset($_POST['Alias']) ? trim($_POST['Alias']) : "";
+    $Direccion = isset($_POST['Direccion']) ? trim($_POST['Direccion']) : "";
+    $Latitud = isset($_POST['Latitud']) ? trim($_POST['Latitud']) : "";
+    $Longitud = isset($_POST['Longitud']) ? trim($_POST['Longitud']) : "";
+    $Referencia = isset($_POST['Referencia']) ? trim($_POST['Referencia']) : "";
+    $Contacto = isset($_POST['Contacto']) ? trim($_POST['Contacto']) : "";
+    $Fono = isset($_POST['Fono']) ? trim($_POST['Fono']) : "";
+    $PosibleEstacion = isset($_POST['PosibleEstacion']) ? trim($_POST['PosibleEstacion']) : "";
+    $Equipamiento = isset($_POST['Equipamiento']) ? trim($_POST['Equipamiento']) : "";
+    $SenalTeorica = isset($_POST['SenalTeorica']) ? trim($_POST['SenalTeorica']) : "";
+    $Codigo = $Rut."-".$dv.$TipoFactura.$ContarFinal;
     $FechaInstalacion = date("Y-m-d");
+    $idUsuario = $_SESSION['idUsuario'];
 
 	$query = " INSERT INTO servicios
                 (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica)
