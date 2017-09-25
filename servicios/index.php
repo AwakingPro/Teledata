@@ -79,10 +79,32 @@
 
 													<br>
 
-													<label>Alias</label>
+													<label >Tiempo de Facturación</label>
+													<select name="TiepoFacturacion" class="form-control selectpicker" data-live-search="tue">
+														<option value="">Seleccione...</option>
+														<option >Mensual</option>
+														<option >Semestral</option>
+														<option >Anual</option>
+													</select>
+													
+													<br><br>
+
+													<label>Servicio</label>
+													<select name="TipoServicio" class="form-control" data-live-search="true">
+														<option value="">Seleccione...</option>
+													</select>
+
+													<br><br>
+
+													<label>Apellido del Servicio</label>
 													<div class="form-group">
 														<input type="text" name="Alias" class="form-control">
 													</div>
+
+													<br>	
+
+													<label> Descripción</label>
+													<textarea name="Descripcion" class="form-control" rows="5"></textarea>
 
 													<br>
 
@@ -104,28 +126,6 @@
 														<input type="text" name="Descuento" class="form-control">
 														<span class="input-group-addon">%</span>
 													</div>
-
-													<br>
-						
-													<label >Servicio</label>
-													<select name="TipoServicio" class="form-control" data-live-search="true">
-														<option value="">Seleccione...</option>
-													</select>
-
-													<br><br>
-
-													<label >Tiempo de Facturación</label>
-													<select name="TiepoFacturacion" class="form-control selectpicker" data-live-search="tue">
-														<option value="">Seleccione...</option>
-														<option >Mensual</option>
-														<option >Semestral</option>
-														<option >Anual</option>
-													</select>
-													
-													<br><br>
-
-													<label> Descripción</label>
-													<textarea name="Descripcion" class="form-control" rows="5"></textarea>
 
 													<br>
 
