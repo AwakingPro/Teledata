@@ -1,4 +1,76 @@
-$(document).ready(function() {
+var maxLat = Math.atan(Math.sinh(Math.PI)) * 180 / Math.PI;
+var center
+var mapOptions
+var map
+var mapCenter
+
+$(document).ready(function(){
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function initialize() {
+
+        center = new google.maps.LatLng(0, 0);
+
+        mapOptions = {
+            zoom: 20,
+            center: center,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        Map = new google.maps.Map(document.getElementById("Map"), mapOptions);
+    }
+
+    function isNumber(n) {
+        return !isNaN(parseFloat(n)) && isFinite(n);
+    }
+
+    function latRange(n) {
+        return Math.min(Math.max(parseInt(n), -maxLat), maxLat);
+    }
+
+    function lngRange(n) {
+        return Math.min(Math.max(parseInt(n), -180), 180);
+    }
+
+    function validLatitude(lat){    
+        return isFinite(lat) && Math.abs(lat) <= 90;
+    }
+
+    function validLongitude(lng){ 
+        return isFinite(lng) && Math.abs(lng) <= 180;   
+    }
+
+    $(".coordenadas").on('blur', function() {
+
+        latitud = $('#Latitud').val();
+        longitud = $('#Longitud').val();
+
+        if($(this).attr('id') == 'Latitud' && latitud){
+            if(latitud){
+                if(!validLatitude(latitud)){
+                    bootbox.alert("Ups! Debe ingresar una latitud valida");
+                    $(this).val('')
+                }
+            }
+        }else if($(this).attr('id') == 'Longitud' && longitud){
+            if(!validLongitude(longitud)){
+                bootbox.alert("Ups! Debe ingresar una longitud valida");
+                $(this).val('')
+            }
+        }
+
+        if(latitud && longitud){
+
+            mapCenter = new google.maps.LatLng(latitud, longitud);
+
+            setTimeout(function() {
+                google.maps.event.trigger(Map, "resize");
+                Map.setCenter(mapCenter);
+                Map.setZoom(Map.getZoom());
+            }, 1000)
+        }
+    })
 
 	$('[name="Valor"]').number( true, 0,',','.');
 	$('.selectpicker').selectpicker();

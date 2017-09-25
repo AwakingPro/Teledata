@@ -127,7 +127,73 @@
 														<span class="input-group-addon">%</span>
 													</div>
 
+													<br>	
+
+													<label>Dirección</label>
+													<textarea name="Direccion" class="form-control" rows="5"></textarea>
+
 													<br>
+
+													<div class="col-md-6">
+						                                <div class="form-group">
+						                                    <label class="control-label" for="Latitud">Coordenadas</label>
+						                                    <input id="Latitud" name="Latitud" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas">
+						                                </div>
+						                            </div>
+						                            <div class="col-md-6">
+						                                <div class="form-group">
+						                                    <label class="control-label" for="name">&nbsp;</label>
+						                                    <input id="Longitud" name="Longitud" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas">
+						                                </div>
+						                            </div>
+
+						                            <br>
+
+						                            <div id="Map" style="height:350px; width:100%;"></div>
+
+						                            <br>
+
+													<label>Referencia</label>
+													<div class="form-group">
+														<input type="text" name="Referencia" class="form-control">
+													</div>
+
+													<br>	
+
+													<label>Contacto</label>
+													<div class="form-group">
+														<input type="text" name="Contacto" class="form-control">
+													</div>
+
+													<br>	
+
+													<label>Fono Contacto</label>
+													<div class="form-group">
+														<input type="text" name="Fono" class="form-control">
+													</div>
+
+													<br>	
+
+													<label>Posible estación que cuelga</label>
+													<div class="form-group">
+														<input type="text" name="PosibleEstacion" class="form-control">
+													</div>
+
+													<br>	
+
+													<label>Equipamiento</label>
+													<div class="form-group">
+														<input type="text" name="Equipamiento" class="form-control">
+													</div>
+
+													<br>	
+
+													<label>Señal Teorica</label>
+													<div class="form-group">
+														<input type="text" name="SenalTeorica" class="form-control">
+													</div>
+
+													<br>	
 
 													<button type="button" class="btn btn-primary guardarServ">Guardar</button>
 
@@ -189,6 +255,7 @@
 		<script src="../js/methods_global/methods.js"></script>
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
 
 
 

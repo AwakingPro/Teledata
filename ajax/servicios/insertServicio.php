@@ -27,13 +27,22 @@
     $tipoMoneda = $_POST['tipoMoneda'];
     $idUsuario = $_SESSION['idUsuario'];
     $Alias = $_POST['Alias'];
+    $Direccion = $_POST['Direccion'];
+    $Latitud = $_POST['Latitud'];
+    $Longitud = $_POST['Longitud'];
+    $Referencia = $_POST['Referencia'];
+    $Contacto = $_POST['Contacto'];
+    $Fono = $_POST['Fono'];
+    $PosibleEstacion = $_POST['PosibleEstacion'];
+    $Equipamiento = $_POST['Equipamiento'];
+    $SenalTeorica = $_POST['SenalTeorica'];
 	$Codigo = $Rut."-".$dv.$TipoFactura.$ContarFinal;
     $FechaInstalacion = date("Y-m-d");
 
 	$query = " INSERT INTO servicios 
-                (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe) 
+                (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica) 
                 VALUES  
-                ('$Rut', '$Grupo', '$TipoFactura', '$Valor', '$Descuento', '$TipoServicio', '$TiepoFacturacion', '$Codigo', '$Descripcion', '$tipoMoneda', '$idUsuario', '$Alias', '0', '$FechaInstalacion', '', '', '')";
+                ('$Rut', '$Grupo', '$TipoFactura', '$Valor', '$Descuento', '$TipoServicio', '$TiepoFacturacion', '$Codigo', '$Descripcion', '$tipoMoneda', '$idUsuario', '$Alias', '0', '$FechaInstalacion', '', '', '', '$Direccion', '$Latitud', '$Longitud', '$Referencia', '$Contacto', '$Fono', '$PosibleEstacion', '$Equipamiento', '$SenalTeorica')";
 	$data = $run->insert($query);
 	echo $data
  ?>
