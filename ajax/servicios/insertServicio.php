@@ -27,12 +27,13 @@
     $tipoMoneda = $_POST['tipoMoneda'];
     $idUsuario = $_SESSION['idUsuario'];
     $Alias = $_POST['Alias'];
+	$Codigo = $Rut."-".$dv.$TipoFactura.$ContarFinal;
+    $FechaInstalacion = date("Y-m-d");
 
-	$Codigo = $_POST['Rut']."-".$dv.$_POST['TipoFactura'].$ContarFinal;
 	$query = " INSERT INTO servicios 
                 (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe) 
                 VALUES  
-                ('$Rut', '$Grupo','$TipoFactura' , '$Valor','$Descuento' ,'$TipoServicio' ,'$TiepoFacturacion' ,'$Codigo' ,'$Descripcion', '$tipoMoneda', '$idUsuario', '$Alias','','','','','')";
+                ('$Rut', '$Grupo', '$TipoFactura', '$Valor', '$Descuento', '$TipoServicio', '$TiepoFacturacion', '$Codigo', '$Descripcion', '$tipoMoneda', '$idUsuario', '$Alias', '0', '$FechaInstalacion', '', '', '')";
 	$data = $run->insert($query);
 	echo $data
  ?>
