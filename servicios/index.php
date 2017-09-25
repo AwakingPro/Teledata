@@ -79,6 +79,13 @@
 
 													<br>
 
+													<label>Alias</label>
+													<div class="form-group">
+														<input type="text" name="Alias" class="form-control">
+													</div>
+
+													<br>
+
 													<label >Valor</label>
 													<div class="input-group">
 														<input type="text"  name="Valor" class="form-control">
