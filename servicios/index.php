@@ -174,7 +174,7 @@
 
 													<br>	
 
-													<label>Posible estación que cuelga</label>
+													<label>Estación de Referencia</label>
 													<div class="form-group">
 														<input type="text" name="PosibleEstacion" class="form-control">
 													</div>
