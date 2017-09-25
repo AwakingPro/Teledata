@@ -15,6 +15,7 @@ $(document).ready(function() {
 
 	$(document).on('click', '.guardarServ', function() {
 		$.postFormValues('../ajax/servicios/insertServicio.php','.container-form',function(data){
+			console.log(data);
 			if (Number(data) > 0){
 				bootbox.alert('<h3 class="text-center">El servicio #'+data+' se registro con éxito.</h3>');
 			}else{
@@ -36,7 +37,7 @@ $(document).ready(function() {
 						"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
-					}, ],	
+					}, ],
 					language: {
                         processing:     "Procesando ...",
                         search:         '<div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>',
@@ -103,7 +104,7 @@ $(document).ready(function() {
 						"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
-					}, ],	
+					}, ],
 					language: {
                         processing:     "Procesando ...",
                         search:         '<div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>',
@@ -206,7 +207,7 @@ $(document).ready(function() {
 									"columnDefs": [{
 									'orderable': false,
 									'targets': [count]
-								}, ],	
+								}, ],
 								language: {
 			                        processing:     "Procesando ...",
 			                        search:         '<div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>',

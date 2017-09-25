@@ -35,4 +35,14 @@ $(document).ready(function() {
 			}, ]
 		});
 	});
+
+	$('.listaServicio').load('../ajax/bienvenida/listaServicio.php',function(){
+		var count = $('.listaServicio > .tabeData tr th').length -1;
+		$('.listaServicio > .tabeData').dataTable({
+			"columnDefs": [{
+				'orderable': false,
+				'targets': [count]
+			}, ]
+		});
+	});
 });
