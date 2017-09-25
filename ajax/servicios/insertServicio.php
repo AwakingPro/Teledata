@@ -2,7 +2,7 @@
 	require_once('../../class/methods_global/methods.php');
 	session_start();
 	$run = new Method;
-	$dv = $run->select("SELECT dv FROM PersonaEmpresa WHERE rut = ".$_POST['Rut']);
+	$dv = $run->select("SELECT dv FROM personaempresa WHERE rut = ".$_POST['Rut']);
 	$dv = $dv[0][0];
 	$Contar = count($run->select("SELECT Rut FROM servicios WHERE Rut = ". $_POST['Rut'] ."  AND IdServicio = ".$_POST['TipoServicio']));
 	$Contar = $Contar+1;
@@ -39,9 +39,9 @@
 	$Codigo = $Rut."-".$dv.$TipoFactura.$ContarFinal;
     $FechaInstalacion = date("Y-m-d");
 
-	$query = " INSERT INTO servicios 
-                (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica) 
-                VALUES  
+	$query = " INSERT INTO servicios
+                (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica)
+                VALUES
                 ('$Rut', '$Grupo', '$TipoFactura', '$Valor', '$Descuento', '$TipoServicio', '$TiepoFacturacion', '$Codigo', '$Descripcion', '$tipoMoneda', '$idUsuario', '$Alias', '0', '$FechaInstalacion', '', '', '', '$Direccion', '$Latitud', '$Longitud', '$Referencia', '$Contacto', '$Fono', '$PosibleEstacion', '$Equipamiento', '$SenalTeorica')";
 	$data = $run->insert($query);
 	echo $data
