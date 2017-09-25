@@ -4,7 +4,6 @@
 	log_login.IdLogLogin,
 	log_login.IdUsuario,
 	log_login.Usuario,
-	log_login.Pass,
 	log_login.Fecha,
 	log_login.Proceso
 	FROM
