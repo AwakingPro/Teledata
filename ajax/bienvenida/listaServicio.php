@@ -13,7 +13,7 @@
 	WHERE
 		servicios.IdUsuarioSession ='.$_SESSION['idUsuario'];
 	$run = new Method;
-	$lista = $run->listViewServicios($query);
+	$lista = $run->listViewSingle($query);
 	echo $lista;
 
  ?>
