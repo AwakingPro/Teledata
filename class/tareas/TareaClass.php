@@ -7,7 +7,7 @@
 
     	public function showServicios(){
 
-    		$query = 'SELECT servicios.*, personaempresa.nombre as Cliente FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut';
+    		$query = 'SELECT servicios.*, personaempresa.nombre as Cliente, usuarios.nombre as Usuario FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut LEFT JOIN usuarios ON servicios.IdUsuarioAsignado = usuarios.id';
 
             $run = new Method;
             $data = $run->select($query);
@@ -16,6 +16,46 @@
 
             echo json_encode($response_array);
     	}
+
+    	function asignarTareas($Tareas,$IdUsuarioAsignado){
+
+	        $response_array = array();
+	        $array = array();
+
+	        $Tareas = isset($Tareas) ? trim($Tareas) : "";
+	        $IdUsuarioAsignado = isset($IdUsuarioAsignado) ? trim($IdUsuarioAsignado) : "";
+
+	        if(!empty($IdUsuarioAsignado) && !empty($IdUsuarioAsignado)){
+
+	        	$run = new Method;
+
+	            $this->IdUsuarioAsignado=$IdUsuarioAsignado;
+
+	           	$query = "SELECT nombre FROM usuarios where id = '$this->IdUsuarioAsignado'";
+	           	$data = $run->select($query);
+		        $Usuario = $data[0]['nombre'];
+
+	            $Tareas = explode(",", $Tareas);
+
+	            foreach($Tareas as $Tarea){
+	            	if($Tarea){
+		            	$query = "UPDATE `servicios` set `IdUsuarioAsignado` = '$this->IdUsuarioAsignado' where `Id` = '$Tarea'";
+			            $data = $run->update($query);
+			            $array[] = $Tarea;
+		            }
+	            }
+	       	
+	       		$response_array['Usuario'] = $Usuario;
+	            $response_array['array'] = $array;
+
+	            $response_array['status'] = 1; 
+
+	        }else{
+	            $response_array['status'] = 2; 
+	        }
+
+	        echo json_encode($response_array);
+	    }
     
 	    function storeTarea($Id,$FechaInstalacion,$InstaladoPor,$Comentario,$UsuarioPppoe){
 
