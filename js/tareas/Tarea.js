@@ -111,11 +111,11 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('#IdUsuarioAsignado').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                $('.IdUsuarioAsignado').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
 
             setTimeout(function(){
-                $('#IdUsuarioAsignado').selectpicker('refresh');
+                $('.IdUsuarioAsignado').selectpicker('refresh');
             },500)
         
         }
@@ -159,7 +159,7 @@ $(document).ready(function(){
                             ''+array.TiepoFacturacion+'',
                             ''+array.Descripcion+'',
                             ''+array.Grupo+'',
-                            ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
+                            ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-tasks Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
                         ]).draw(false).node();
 
                         $( rowNode )
@@ -227,7 +227,7 @@ $(document).ready(function(){
                         ''+TiepoFacturacion+'',
                         ''+Descripcion+'',
                         ''+Grupo+'',
-                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
+                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-tasks Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -247,6 +247,62 @@ $(document).ready(function(){
                 $("#AsignarModal").css({
                     "opacity": ("0.2")
                 });
+                $('.modal').modal('hide');
+
+            }else if(response.status == 2){
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Debe llenar todos los campos',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+            }else if(response.status == 99){
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Debe llenar los datos de los productos',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+            }else{
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'Ocurrió un error en el Proceso',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+            }
+        });
+    });
+
+    $('body').on('click', '#Reasignar', function () {
+
+        $.postFormValues('../includes/tareas/reasignarTarea.php', '#reasignarTarea', function(response){
+
+            if(response.status == 1){
+
+                $.niftyNoty({
+                    type: 'success',
+                    icon : 'fa fa-check',
+                    message : 'Registro Guardado Exitosamente',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+                Usuario = response.Usuario
+                Row = $('#'+response.Id)
+                Cliente = $(Row).find("td").eq(0).html(Usuario);
+                 
+                $('#reasignarTarea')[0].reset();
+                $('.selectpicker').selectpicker('refresh')
                 $('.modal').modal('hide');
 
             }else if(response.status == 2){
@@ -373,6 +429,20 @@ $(document).ready(function(){
             }
         });
     });
+
+    $('body').on( 'click', 'i.fa-tasks', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        ObjectTR.addClass("Selected");
+        var ObjectId = ObjectTR.attr("id");
+        var ObjectCode = ObjectTR.find("td").eq(2).text();
+        $('#reasignarTarea').find('input[name="Id"]').val(ObjectId);
+        $('.Codigo').text(ObjectCode);
+
+        $('#modalReasignar').modal('show');
+  
+    })
 
     function getChecked(){
 
