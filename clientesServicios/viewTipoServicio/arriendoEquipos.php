@@ -20,7 +20,7 @@
 			</select>
 		</div>
 	</div>
-	
+
 	<input type="hidden" id="destino_tipo" value="2" name="destino_tipo">
 	<input type="hidden" id="destino_id" name="destino_id">
 
