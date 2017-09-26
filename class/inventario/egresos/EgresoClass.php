@@ -26,7 +26,7 @@
 
 			if(!empty($ProductoId) && !empty($DestinoTipo) && !empty($DestinoId)){
 
-				$query = "SELECT * FROM inventario_ingresos WHERE ID = '$ProductoId'";
+				$query = "SELECT * FROM inventario_ingresos WHERE id = '$ProductoId'";
 				$run = new Method;
 				$Producto = $run->select($query);
 
