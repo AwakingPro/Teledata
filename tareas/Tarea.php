@@ -282,6 +282,32 @@
                                 <input id="UsuarioPppoe" name="UsuarioPppoe" type="text" placeholder="Ingrese el Usuario PPPoE" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE">
                             </div>
                         </div>
+                        <div class="clearfix m-b-10"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Señal Final</label>
+                                <input id="SenalFinal" name="SenalFinal" type="text" placeholder="Ingrese la Señal Final" class="form-control input-sm" validation="not_null" data-nombre="Señal Final">
+                            </div>
+                        </div>
+                        <div class="clearfix m-b-10"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Estación Final</label>
+                                <input id="EstacionFinal" name="EstacionFinal" type="text" placeholder="Ingrese la Estación Final" class="form-control input-sm" validation="not_null" data-nombre="Estación Final">
+                            </div>
+                        </div>
+                        <div class="clearfix m-b-10"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Estatus</label>
+                                <div class="select">
+                                    <select class="selectpicker form-control" name="Estatus" id="Estatus"  data-live-search="true" data-container="body">
+                                        <option value = "1">Finalizado</option>
+                                        <option value = "2">Pendiente</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div><!-- /.modal-body -->

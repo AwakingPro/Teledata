@@ -367,30 +367,32 @@ $(document).ready(function(){
                     timer : 3000
                 });
 
-                Row = $('#'+response.Id)
-                Usuario = $(Row).find("td").eq(0).html();
-                Cliente = $(Row).find("td").eq(1).html();
-                Codigo = $(Row).find("td").eq(2).html();
-                TiepoFacturacion = $(Row).find("td").eq(3).html();
-                Descripcion = $(Row).find("td").eq(4).html();
-                Grupo = $(Row).find("td").eq(5).html();
+                if(response.Estatus == 1){
+                    Row = $('#'+response.Id)
+                    Usuario = $(Row).find("td").eq(0).html();
+                    Cliente = $(Row).find("td").eq(1).html();
+                    Codigo = $(Row).find("td").eq(2).html();
+                    TiepoFacturacion = $(Row).find("td").eq(3).html();
+                    Descripcion = $(Row).find("td").eq(4).html();
+                    Grupo = $(Row).find("td").eq(5).html();
 
-                var rowNode = FinalizadasTable.row.add([
-                    ''+Usuario+'',
-                    ''+Cliente+'',
-                    ''+Codigo+'',
-                    ''+TiepoFacturacion+'',
-                    ''+Descripcion+'',
-                    ''+Grupo+'',
-                ]).draw(false).node();
+                    var rowNode = FinalizadasTable.row.add([
+                        ''+Usuario+'',
+                        ''+Cliente+'',
+                        ''+Codigo+'',
+                        ''+TiepoFacturacion+'',
+                        ''+Descripcion+'',
+                        ''+Grupo+'',
+                    ]).draw(false).node();
 
-                $(rowNode)
-                    .attr('id',response.Id)
-                    .addClass('text-center')
+                    $(rowNode)
+                        .attr('id',response.Id)
+                        .addClass('text-center')
 
-                AsignadasTable.row($('#'+response.Id))
-                    .remove()
-                    .draw();
+                    AsignadasTable.row($('#'+response.Id))
+                        .remove()
+                        .draw();
+                }
              
 
                 $('#storeTarea')[0].reset();

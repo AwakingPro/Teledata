@@ -94,7 +94,7 @@
 	        echo json_encode($response_array);
 	    }
     
-	    function storeTarea($Id,$FechaInstalacion,$InstaladoPor,$Comentario,$UsuarioPppoe){
+	    function storeTarea($Id,$FechaInstalacion,$InstaladoPor,$Comentario,$UsuarioPppoe,$SenalFinal,$EstacionFinal,$Estatus){
 
 	        $response_array = array();
 
@@ -102,23 +102,34 @@
 	        $InstaladoPor = isset($InstaladoPor) ? trim($InstaladoPor) : "";
 	        $Comentario = isset($Comentario) ? trim($Comentario) : "";
 	        $UsuarioPppoe = isset($UsuarioPppoe) ? trim($UsuarioPppoe) : "";
+	        $EstacionFinal = isset($EstacionFinal) ? trim($EstacionFinal) : "";
+	        $SenalFinal = isset($SenalFinal) ? trim($SenalFinal) : "";
+	        $Estatus = isset($Estatus) ? trim($Estatus) : "";
 
-	        if(!empty($FechaInstalacion) && !empty($InstaladoPor)  && !empty($Comentario)  && !empty($UsuarioPppoe)){
+	        if(!empty($FechaInstalacion) && !empty($InstaladoPor)  && !empty($Comentario)  && !empty($UsuarioPppoe) && !empty($EstacionFinal) && !empty($SenalFinal) && !empty($Estatus)){
 
 	        	$FechaInstalacion = DateTime::createFromFormat('d-m-Y', $FechaInstalacion)->format('Y-m-d');
+
+	        	if($Estatus == 2){
+	        		$Estatus = 0;
+	        	}
 
 	            $this->Id=$Id;
 	            $this->FechaInstalacion=$FechaInstalacion;
 	            $this->InstaladoPor=$InstaladoPor;
 	            $this->Comentario=$Comentario;
 	            $this->UsuarioPppoe=$UsuarioPppoe;
+	            $this->EstacionFinal=$EstacionFinal;
+	            $this->SenalFinal=$SenalFinal;
+	            $this->Estatus=$Estatus;
 
-	            $query = "UPDATE `servicios` set `FechaInstalacion` = '$this->FechaInstalacion', `InstaladoPor` = '$this->InstaladoPor', `Comentario` = '$this->Comentario', `UsuarioPppoe` = '$this->UsuarioPppoe', `Estatus` = '1' where `Id` = '$this->Id'";
+	            $query = "UPDATE `servicios` set `FechaInstalacion` = '$this->FechaInstalacion', `InstaladoPor` = '$this->InstaladoPor', `Comentario` = '$this->Comentario', `UsuarioPppoe` = '$this->UsuarioPppoe', `EstacionFinal` = '$this->EstacionFinal', `SenalFinal` = '$this->SenalFinal', `Estatus` = '$this->Estatus' where `Id` = '$this->Id'";
 	            $run = new Method;
 	            $data = $run->update($query);
 
 	            if($data){
 
+	            	$response_array['Estatus'] = $this->Estatus;
 	            	$response_array['Id'] = $this->Id;
 	                $response_array['status'] = 1; 
 
