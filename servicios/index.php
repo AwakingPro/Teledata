@@ -186,6 +186,13 @@
 														<input type="text" name="Equipamiento" class="form-control">
 													</div>
 
+													<br>
+
+													<label>Usuario PPPoE</label>
+													<div class="form-group">
+														<input type="text" name="UsuarioPppoe" class="form-control">
+													</div>
+
 													<br>	
 
 													<label>Señal Teorica</label>
