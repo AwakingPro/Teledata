@@ -12,6 +12,6 @@
 	WHERE
 	personaempresa.IdUsuarioSession =".$_SESSION['idUsuario'];
 	$run = new Method;
-	$lista = $run->listView($query);
+	$lista = $run->listViewSingle($query);
 	echo $lista;
  ?>
