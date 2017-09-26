@@ -62,6 +62,7 @@
 																<option value="">Seleccione...</option>
 																<option value="Boleta">Boleta</option>
 																<option value="Factura">Factura</option>
+																<option value="Canje">Canje</option>
 															</select>
 														</div>
 														<div class="col-md-5 form-group">

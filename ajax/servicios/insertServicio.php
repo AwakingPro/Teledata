@@ -34,6 +34,7 @@
     $Fono = isset($_POST['Fono']) ? trim($_POST['Fono']) : "";
     $PosibleEstacion = isset($_POST['PosibleEstacion']) ? trim($_POST['PosibleEstacion']) : "";
     $Equipamiento = isset($_POST['Equipamiento']) ? trim($_POST['Equipamiento']) : "";
+    $UsuarioPppoe = isset($_POST['UsuarioPppoe']) ? trim($_POST['UsuarioPppoe']) : "";
     $SenalTeorica = isset($_POST['SenalTeorica']) ? trim($_POST['SenalTeorica']) : "";
     $Codigo = $Rut."-".$dv.$TipoFactura.$ContarFinal;
     $FechaInstalacion = date("Y-m-d");
@@ -42,7 +43,7 @@
 	$query = " INSERT INTO servicios
                 (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica)
                 VALUES
-                ('$Rut', '$Grupo', '$TipoFactura', '$Valor', '$Descuento', '$TipoServicio', '$TiepoFacturacion', '$Codigo', '$Descripcion', '$tipoMoneda', '$idUsuario', '$Alias', '0', '$FechaInstalacion', '', '', '', '$Direccion', '$Latitud', '$Longitud', '$Referencia', '$Contacto', '$Fono', '$PosibleEstacion', '$Equipamiento', '$SenalTeorica')";
+                ('$Rut', '$Grupo', '$TipoFactura', '$Valor', '$Descuento', '$TipoServicio', '$TiepoFacturacion', '$Codigo', '$Descripcion', '$tipoMoneda', '$idUsuario', '$Alias', '0', '$FechaInstalacion', '', '', '$UsuarioPppoe', '$Direccion', '$Latitud', '$Longitud', '$Referencia', '$Contacto', '$Fono', '$PosibleEstacion', '$Equipamiento', '$SenalTeorica')";
 	$data = $run->insert($query);
 	echo $data
  ?>
