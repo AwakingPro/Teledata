@@ -56,7 +56,7 @@
 						$FechaMovimiento = $DateTime->format('Y-m-d');
 						$HoraMovimiento = $DateTime->format('H:i:s');
 
-						$query = "INSERT INTO inventario_egresos(destino_tipo, destino_id, fecha_movimiento, hora_movimiento, usuario_id, producto_id) VALUES ('$DestinoTipo','$DestinoId','$FechaMovimiento','$HoraMovimiento','$Usuario','$ProductoId')";
+						$query = "INSERT INTO inventario_egresos(destino_tipo, destino_id, fecha_movimiento, hora_movimiento, usuario_id, producto_id) VALUES ('".$DestinoTipo."','".$DestinoId."','".$FechaMovimiento."','".$HoraMovimiento."','".$Usuario."','".$ProductoId."')";
 
 						$run = new Method;
 						$id = $run->insert($query);
