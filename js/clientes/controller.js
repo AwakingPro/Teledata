@@ -102,6 +102,7 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.listDatosTecnicos', function() {
+		$('.containerListDatosTecnicos').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
 		var id = $(this).attr('attr');
 		$.post('../ajax/cliente/tipolistModal.php', {id: id}, function(data) {
 			$.post('../ajax/cliente/'+data, {id: id}, function(data) {
