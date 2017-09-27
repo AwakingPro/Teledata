@@ -33,12 +33,12 @@ $(document).ready(function(){
         return Math.min(Math.max(parseInt(n), -180), 180);
     }
 
-    function validLatitude(lat){    
+    function validLatitude(lat){
         return isFinite(lat) && Math.abs(lat) <= 90;
     }
 
-    function validLongitude(lng){ 
-        return isFinite(lng) && Math.abs(lng) <= 180;   
+    function validLongitude(lng){
+        return isFinite(lng) && Math.abs(lng) <= 180;
     }
 
     $(".coordenadas").on('blur', function() {
@@ -321,6 +321,38 @@ $(document).ready(function(){
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
 			}
 		});
+	});
+
+		$(document).on('change', '#origen_id', function () {
+
+		$('#producto_id').empty();
+		$('#producto_id').append(new Option('Seleccione Opción',''));
+
+		origen_tipo = 1
+		origen_id = $(this).val();
+
+		console.log(origen_tipo + '  ' +origen_id);
+
+		if(origen_id){
+
+			$.ajax({
+					type: "POST",
+					url: "../includes/inventario/egresos/getProducto.php",
+					data:"&origen_tipo="+origen_tipo+"&origen_id="+origen_id,
+					success: function(response){
+							console.log(response);
+							$.each(response.array, function( index, array ) {
+									$('#producto_id').append('<option value="'+array.id+'" data-content="'+array.tipo + ' ' + array.marca + ' ' + array.modelo+ ' - ' + array.numero_serie+'"></option>');
+							});
+					}
+			});
+		}
+
+		setTimeout(function() {
+				$('#producto_id').selectpicker('render');
+				$('#producto_id').selectpicker('refresh');
+		}, 1000);
+
 	});
 
 });

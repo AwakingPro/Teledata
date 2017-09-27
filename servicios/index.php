@@ -86,7 +86,7 @@
 														<option >Semestral</option>
 														<option >Anual</option>
 													</select>
-													
+
 													<br><br>
 
 													<label>Servicio</label>
@@ -101,7 +101,7 @@
 														<input type="text" name="Alias" class="form-control">
 													</div>
 
-													<br>	
+													<br>
 
 													<label> Descripción</label>
 													<textarea name="Descripcion" class="form-control" rows="5"></textarea>
@@ -127,7 +127,7 @@
 														<span class="input-group-addon">%</span>
 													</div>
 
-													<br>	
+													<br>
 
 													<label>Dirección</label>
 													<textarea name="Direccion" class="form-control" rows="5"></textarea>
@@ -158,28 +158,28 @@
 														<input type="text" name="Referencia" class="form-control">
 													</div>
 
-													<br>	
+													<br>
 
 													<label>Contacto</label>
 													<div class="form-group">
 														<input type="text" name="Contacto" class="form-control">
 													</div>
 
-													<br>	
+													<br>
 
 													<label>Fono Contacto</label>
 													<div class="form-group">
 														<input type="text" name="Fono" class="form-control">
 													</div>
 
-													<br>	
+													<br>
 
 													<label>Estación de Referencia</label>
 													<div class="form-group">
 														<input type="text" name="PosibleEstacion" class="form-control">
 													</div>
 
-													<br>	
+													<br>
 
 													<label>Equipamiento</label>
 													<div class="form-group">
@@ -193,14 +193,14 @@
 														<input type="text" name="UsuarioPppoe" class="form-control">
 													</div>
 
-													<br>	
+													<br>
 
 													<label>Señal Teorica</label>
 													<div class="form-group">
 														<input type="text" name="SenalTeorica" class="form-control">
 													</div>
 
-													<br>	
+													<br>
 
 													<button type="button" class="btn btn-primary guardarServ">Guardar</button>
 
