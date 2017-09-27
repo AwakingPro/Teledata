@@ -36,7 +36,7 @@
 						$Acceso = 1;
 					}else{
 
-						$query = "SELECT * from `radio_ingresos` where `producto_id` = '$ProductoId'";
+						$query = "SELECT * from radio_ingresos where producto_id = '$ProductoId'";
 						$run = new Method;
 						$Radio = $run->select($query);
 

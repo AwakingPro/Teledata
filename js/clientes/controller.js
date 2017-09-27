@@ -121,6 +121,7 @@ $(document).ready(function() {
 	$(document).on('click', '.guardarDatosTecnicos', function() {
 		var url = $('.container-form-datosTecnicos').attr('attr');
 		$.postFormValues('../ajax/cliente/'+url,'.container-form-datosTecnicos',function(data){
+			console.log(data);
 			if (Number(data) > 0){
 				$('.modal').modal('hide')
 				bootbox.alert('<h3 class="text-center">Los datos se registraron con éxito.</h3>');
