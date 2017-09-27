@@ -8,7 +8,4 @@
 	$Egreso = new Egreso();
 	$Egreso->storeMovimiento($_POST['producto_id'],$_POST['destino_tipo'],$_POST['destino_id']);
 
-
-
-
 ?>
