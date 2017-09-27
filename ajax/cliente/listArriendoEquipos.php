@@ -2,9 +2,9 @@
 	require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
 	arriendo_equipos_datos.IdArriendoEquiposDatos,
-	mantenedor_modelo_producto.nombre,
-	mantenedor_marca_producto.nombre,
-	mantenedor_tipo_producto.nombre
+	mantenedor_modelo_producto.nombre as 'Modelo',
+	mantenedor_marca_producto.nombre as 'Marca',
+	mantenedor_tipo_producto.nombre as 'Tipo'
 	FROM
 	arriendo_equipos_datos
 	INNER JOIN inventario_ingresos ON arriendo_equipos_datos.IdProducto = inventario_ingresos.id
