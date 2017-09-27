@@ -43,6 +43,7 @@
 							</button>
 							<br>
 						</form>
+						<div class="load"></div>
 					</div>
 				</div>
 			</div>
