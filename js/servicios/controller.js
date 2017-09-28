@@ -206,6 +206,7 @@ $(document).ready(function(){
 	});
 
 	$(document).on('click', '.listDatosTecnicos', function() {
+		$('.containerListDatosTecnicos').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
 		var id = $(this).attr('attr');
 		$.post('../ajax/cliente/tipolistModal.php', {id: id}, function(data) {
 			$.post('../ajax/cliente/'+data, {id: id}, function(data) {
@@ -223,7 +224,7 @@ $(document).ready(function(){
 	});
 
 	$(document).on('click', '.agregarDatosTecnicos', function() {
-
+		$('.containerTipoServicio').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
 		var id = $(this).attr('attr');
 
 		$.post('../ajax/cliente/tipoViewModal.php', {id: id}, function(data) {
@@ -232,25 +233,25 @@ $(document).ready(function(){
 				$('[name="idServicio"]').val(id);
 				$('#destino_id').val(id)
 				$('select').selectpicker();
+				if(data.trim() == 'arriendoEquipos.php'){
+
+					$.ajax({
+						type: "POST",
+						url: "../includes/inventario/egresos/getBodega.php",
+						success: function(response){
+							$.each(response.array, function( index, array ) {
+									$('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+							});
+						}
+					});
+
+					setTimeout(function() {
+						$('#origen_id').selectpicker('render');
+						$('#origen_id').selectpicker('refresh');
+					}, 1000);
+				}
 			});
 
-			if(data.trim() == 'arriendoEquipos.php'){
-
-				$.ajax({
-					type: "POST",
-					url: "../includes/inventario/egresos/getBodega.php",
-					success: function(response){
-						$.each(response.array, function( index, array ) {
-								$('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
-						});
-					}
-				});
-
-				setTimeout(function() {
-					$('#origen_id').selectpicker('render');
-					$('#origen_id').selectpicker('refresh');
-				}, 1000);
-			}
 		});
 	});
 
@@ -323,7 +324,7 @@ $(document).ready(function(){
 		});
 	});
 
-		$(document).on('change', '#origen_id', function () {
+	$(document).on('change', '#origen_id', function () {
 
 		$('#producto_id').empty();
 		$('#producto_id').append(new Option('Seleccione Opción',''));
