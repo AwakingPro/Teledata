@@ -33,7 +33,8 @@ $objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('E1', 'Contacto')
 	->setCellValue('F1', 'Direccion')
 	->setCellValue('G1', 'Numero de OC')
-	->setCellValue('H1', 'Solicitado Por');
+	->setCellValue('H1', 'Solicitado Por')
+	->setCellValue('H1', 'Lugar de Retiro');
 
 
 foreach (range(0, 7) as $col) {
@@ -67,7 +68,8 @@ if (count($nota_venta) > 0) {
 		->setCellValue('E'.$index, $cliente[0][7])
 		->setCellValue('F'.$index, $cliente[0][5])
 		->setCellValue('G'.$index, $nota_venta[0][3])
-		->setCellValue('H'.$index, $nota_venta[0][4]);
+		->setCellValue('H'.$index, $nota_venta[0][4])
+		->setCellValue('H'.$index, $nota_venta[0][5]);
 	}
 
 	$index = 5;

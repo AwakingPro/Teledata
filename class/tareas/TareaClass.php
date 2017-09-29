@@ -1,6 +1,10 @@
 <?php
 
+	require("../../includes/email/PHPMailer-master/class.phpmailer.php");
+	require("../../includes/email/PHPMailer-master/class.smtp.php");
     include('../../class/methods_global/methods.php'); 
+    include('../../class/email/EmailClass.php');  
+
     header('Content-type: application/json');
 
     class Tarea{
@@ -21,6 +25,7 @@
 
 	        $response_array = array();
 	        $array = array();
+	        $Codigos = array();
 
 	        $Tareas = isset($Tareas) ? trim($Tareas) : "";
 	        $IdUsuarioAsignado = isset($IdUsuarioAsignado) ? trim($IdUsuarioAsignado) : "";
@@ -31,30 +36,81 @@
 
 	            $this->IdUsuarioAsignado=$IdUsuarioAsignado;
 
-	           	$query = "SELECT nombre FROM usuarios where id = '$this->IdUsuarioAsignado'";
+	           	$query = "SELECT * FROM usuarios where id = '$this->IdUsuarioAsignado'";
 	           	$data = $run->select($query);
-		        $Usuario = $data[0]['nombre'];
+		        $Usuario = $data[0];
 
 	            $Tareas = explode(",", $Tareas);
 
 	            foreach($Tareas as $Tarea){
 	            	if($Tarea){
+
+	            		$query = "SELECT Codigo FROM servicios where Id = '$Tarea'";
+			           	$data = $run->select($query);
+				        $Codigo = $data[0]['Codigo'];
+				        $Codigos[] = $Codigo;
+
 		            	$query = "UPDATE `servicios` set `IdUsuarioAsignado` = '$this->IdUsuarioAsignado' where `Id` = '$Tarea'";
 			            $data = $run->update($query);
 			            $array[] = $Tarea;
 		            }
 	            }
-	       	
-	       		$response_array['Usuario'] = $Usuario;
-	            $response_array['array'] = $array;
 
-	            $response_array['status'] = 1; 
+	           	if($Usuario['email']){
+	           		$Codigos = implode(", ", $Codigos);
+	           		$Estatus = $this->enviarCorreo($Usuario,$Codigos);
+	           	}else{
+	           		$Estatus = true;
+	           	}
+
+	            if($Estatus){
+
+		       		$response_array['Usuario'] = $Usuario['nombre'];
+		            $response_array['array'] = $array;
+
+		            $response_array['status'] = 1; 
+
+	        	}else{
+	        		$response_array['status'] = 99; 
+	        	}
 
 	        }else{
 	            $response_array['status'] = 2; 
 	        }
 
 	        echo json_encode($response_array);
+	    }
+
+
+	    public function enviarCorreo($Usuario,$Codigos){
+
+	    	$Nombre = $Usuario['nombre'];
+	    	$Correo = $Usuario['email'];
+
+	    	$Asunto = 'Ha recibido nuevas tareas';
+
+			$Html = 
+			"<html>
+				<head>
+					<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+					<style>
+					body{font-family:Open Sans;font-size:14px;}
+					table{font-size:13px;border-collapse:collapse;}
+					th{padding:8px;text-align:left;color:#595e62;border-bottom: 2px solid rgba(0,0,0,0.14);font-size:14px;}
+					td{padding:8px;border-bottom: 1px solid rgba(0,0,0,0.05);}
+					</style>
+				</head>
+				<body>
+				Estimado $Nombre,<br>
+					Se le han asignado las tareas con los codigos $Codigos.<br>
+				</body>
+			</html>";
+
+			$Email = new Email();
+			$Estatus = $Email->SendMail($Html,$Asunto,$Correo);
+			
+			return $Estatus;
+
 	    }
 
 	    function reasignarTarea($Id,$IdUsuarioAsignado){

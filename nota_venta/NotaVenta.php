@@ -95,16 +95,17 @@
                                                                 <input id="contacto" name="contacto" class="form-control input-sm" disabled>
                                                             </div>
                                                         </div>
-                                                    </div>
 
-                                                    <div class="row">
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label class="control-label" for="name">Dirección</label>
                                                                 <input id="direccion" name="direccion" class="form-control input-sm" disabled>
                                                             </div>
                                                         </div>
+                                                    </div>
 
+                                                    <div class="row">
+                                
                                                         <div class="col-md-4">
                                                             <div class="form-group">
                                                                 <label class="control-label" for="name">Numero de OC</label>
@@ -116,6 +117,13 @@
                                                             <div class="form-group">
                                                                 <label class="control-label" for="solicitado_por">Solicitado Por</label>
                                                                 <input id="solicitado_por" name="solicitado_por" class="form-control input-sm" validation="not_null" data-nombre="Solicitado Por">
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-md-4">
+                                                            <div class="form-group">
+                                                                <label class="control-label" for="name">Lugar de Retiro</label>
+                                                                <input id="retiro" name="retiro" class="form-control input-sm" validation="not_null" data-nombre="Lugar de Retiro">
                                                             </div>
                                                         </div>
                                                     </div>
