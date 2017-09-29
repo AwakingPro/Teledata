@@ -56,12 +56,12 @@
 		            }
 	            }
 
-	           	if($Usuario['email']){
-	           		$Codigos = implode(", ", $Codigos);
-	           		$Estatus = $this->enviarCorreo($Usuario,$Codigos);
-	           	}else{
+	           	// if($Usuario['email']){
+	           	// 	$Codigos = implode(", ", $Codigos);
+	           	// 	$Estatus = $this->enviarCorreo($Usuario,$Codigos);
+	           	// }else{
 	           		$Estatus = true;
-	           	}
+	           	// }
 
 	            if($Estatus){
 
