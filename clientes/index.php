@@ -108,6 +108,12 @@
 														</div>
 													</div>
 													<div class="row">
+														<div class="col-md-12 form-group">
+															<label>Giro</label>
+															<input name="Giro" class="form-control">
+														</div>
+													</div>
+													<div class="row">
 														<div class="col-md-4 form-group">
 															<label>Contacto</label>
 															<div class="input-group">
@@ -135,12 +141,6 @@
 																</span>
 															</div>
 
-														</div>
-													</div>
-													<div class="row">
-														<div class="col-md-12 form-group">
-															<label>Giro</label>
-															<input name="Giro" class="form-control">
 														</div>
 													</div>
 													<div class="row">
