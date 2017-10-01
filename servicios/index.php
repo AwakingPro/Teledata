@@ -67,7 +67,7 @@
 
 													<br>
 
-													<label>Tipo de Facturación</label>
+													<label>Tipo de Cobro de servicio mensual</label>
 													<div class="input-group">
 														<select name="TipoFactura" class="form-control" data-live-search="true">
 															<option value="">Seleccione...</option>

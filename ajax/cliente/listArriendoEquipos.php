@@ -14,6 +14,6 @@
 	WHERE
 		arriendo_equipos_datos.IdServivio = ".$_POST['id'];
 	$run = new Method;
-	$lista = $run->listView($query);
+	$lista = $run->listViewDelete($query);
 	echo $lista;
  ?>
