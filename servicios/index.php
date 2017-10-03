@@ -376,22 +376,15 @@
 				<div class="row">
 					<div class="col-md-4 form-group">
 						<label>Contacto</label>
-						<div class="input-group">
-							<input name="Contacto" class="form-control" validate="not_null">
-						</div>
+						<input name="Contacto" class="form-control" validate="not_null">
 					</div>
 					<div class="col-md-4 form-group">
 						<label>Teléfono</label>
-						<div class="input-group">
-							<input name="Telefono" class="form-control" validate="not_null">
-						</div>
+						<input name="Telefono" class="form-control" validate="not_null">
 					</div>
 					<div class="col-md-4 form-group">
 						<label>Correo</label>
-						<div class="input-group">
-							<input name="Correo" class="form-control" validate="email">
-						</div>
-
+						<input name="Correo" class="form-control" validate="email">
 					</div>
 				</div>
 				<div class="row">

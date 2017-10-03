@@ -22,5 +22,5 @@
 			('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$_SESSION['idUsuario']."', '".$Comuna."', '".$Ciudad."')";
 	$run = new Method;
 	$id = $run->insert($query);
-	echo $data
+	echo $id
  ?>

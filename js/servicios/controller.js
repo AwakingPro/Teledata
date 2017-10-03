@@ -172,12 +172,13 @@ $(document).ready(function(){
 	});
 
 	$(document).on('click', '.guardarCliente', function() {
-		$.postFormValues('../ajax/cliente/insertCliente.php','.container-form2',function(data){
+		$.postFormValues('../ajax/servicios/insertCliente.php','.container-form2',function(data){
 			if (Number(data) > 0){
+				$('.modal').modal('hide');
 				bootbox.alert('<h3 class="text-center">El cliente #'+data+' se registro con éxito.</h3>');
 			}else{
 				console.log(data);
-				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar el ticket.</h3>');
+				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar el cliente.</h3>');
 			}
 		});
 	});
@@ -372,6 +373,30 @@ $(document).ready(function(){
 				$('#producto_id').selectpicker('refresh');
 		}, 1000);
 
+	});
+
+	$('input[name="Rut"]').on('blur', function() {
+
+		rut = $(this).val()
+		input = $(this)
+
+		if(rut){
+			$.post('../ajax/cliente/listCliente.php', {rut: rut}, function(data) {
+				data = $.parseJSON(data);
+				if(data.length){
+					bootbox.alert('<h3 class="text-center">Este rut ya esta registrado.</h3>');
+					$(input).val('')
+				}
+			});
+		}
+	});
+
+	$('select[name="TipoCliente"]').on('change', function() {
+		if($(this).val() == "Boleta"){
+			$('input[name="Giro"]').removeAttr('validate')
+		}else{
+			$('input[name="Giro"]').attr('validate','not_null')
+		}
 	});
 
 });
