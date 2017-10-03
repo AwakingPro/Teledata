@@ -103,32 +103,28 @@
                 $run = new Method;
                 $detalle_nota = $run->select($query);
 
-
-                $ejecutivos = $_POST['ejecutivos'];
-
-                '1,2,56,34'
-
-                $ejecutivos = explode(',',$ejecutivos);
-
-                array(1,2,56,34);
-
                 if($detalle_nota){
 
                     $Fecha = DateTime::createFromFormat('d-m-Y', $Fecha)->format('Y-m-d');
 
-                    $query = "INSERT INTO grupos(nombre) VALUES ('$Nombre')";
+                    $query = "INSERT INTO nota_venta(rut, fecha, numero_oc, solicitado_por, retiro) VALUES ('$this->Cliente','$Fecha','$this->NumeroOc','$this->SolicitadoPor','$this->Retiro')";
                     $run = new Method;
-                    $grupo_id = $run->insert($query);
+                    $id  = $run->insert($query);
 
-                    if($grupo_id){
+                    if($id){
 
                         $this->Id=$id;
 
-                        foreach($ejecutivos as $id){
+                        foreach($detalle_nota as $detalle){
 
                             $this->Codigo=$detalle['codigo'];
+                            $this->Cantidad=$detalle['cantidad'];
+                            $this->Exencion=$detalle['exencion'];
+                            $this->Servicio=$detalle['servicio'];
+                            $this->Precio=$detalle['precio'];
+                            $this->Total=$detalle['total'];
 
-                            $query = "INSERT INTO grupos_ejecutivos(grupo_id, ejecutivo_id) VALUES ('$grupo_id', '$id')";
+                            $query = "INSERT INTO nota_venta_detalle(nota_venta_id, codigo, servicio, cantidad, precio, exencion, total) VALUES ('$this->Id', '$this->Codigo','$this->Servicio','$this->Cantidad','$this->Precio','$this->Exencion','$this->Total')";
                             $run = new Method;
                             $data = $run->insert($query);
                         }
