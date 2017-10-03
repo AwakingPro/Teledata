@@ -67,7 +67,7 @@
 
 													<br>
 
-													<label>Tipo de Facturación</label>
+													<label>Tipo de Cobro de servicio mensual</label>
 													<div class="input-group">
 														<select name="TipoFactura" class="form-control" data-live-search="true">
 															<option value="">Seleccione...</option>
@@ -181,16 +181,16 @@
 
 													<br>
 
-													<label>Equipamiento</label>
+													<label>Usuario PPPoE</label>
 													<div class="form-group">
-														<input type="text" name="Equipamiento" class="form-control">
+														<input type="text" name="UsuarioPppoe" class="form-control">
 													</div>
 
 													<br>
 
-													<label>Usuario PPPoE</label>
+													<label>Equipamiento</label>
 													<div class="form-group">
-														<input type="text" name="UsuarioPppoe" class="form-control">
+														<input type="text" name="Equipamiento" class="form-control">
 													</div>
 
 													<br>
@@ -441,7 +441,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title" id="myModalLabel">Agregar Grupo</h4>
 			</div>
-			<div class="modal-body">
+			<div class="modal-body containerGrupo">
 				<div class="row">
 					<div class="col-md-12 form-group">
 						<label>Nombre del grupo</label>
@@ -451,7 +451,7 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-primary">Guardar</button>
+				<button type="button" class="btn btn-primary agregarGrupo">Guardar</button>
 			</div>
 		</div>
 	</div>
