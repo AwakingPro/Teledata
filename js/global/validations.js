@@ -32,13 +32,13 @@ function ValidarCorreo(Correo) {
     }
 };
 
-function ValidarString(Text, Input) {
+function ValidarString(Input, Text) {
     var sw1 = 0;
-    if (Text.trim() == "") {
+    if (Input.trim() == "") {
         $.niftyNoty({
             type: 'danger',
             icon : 'fa fa-check',
-            message : 'Debe llenar el campo '+Input,
+            message : 'Debe llenar el campo '+Text,
             container : 'floating',
             timer : 3000
         });

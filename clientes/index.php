@@ -98,7 +98,7 @@
 														</div>
 														<div class="col-md-6 form-group">
 															<label>Alias</label>
-															<input name="alias" class="form-control" validate="not_null">
+															<input name="Alias" class="form-control" validate="not_null">
 														</div>
 													</div>
 													<div class="row">
@@ -108,7 +108,15 @@
 														</div>
 													</div>
 													<div class="row">
-														<div class="col-md-12 form-group">
+														<div class="col-md-4 form-group">
+															<label>Ciudad</label>
+															<input name="Ciudad" class="form-control">
+														</div>
+														<div class="col-md-4 form-group">
+															<label>Comuna</label>
+															<input name="Comuna" class="form-control">
+														</div>
+														<div class="col-md-4 form-group">
 															<label>Giro</label>
 															<input name="Giro" class="form-control">
 														</div>
@@ -264,7 +272,7 @@
 					</div>
 					<div class="col-md-6 form-group">
 						<label>Alias</label>
-						<input name="alias_update" class="form-control">
+						<input name="Alias_update" class="form-control">
 					</div>
 				</div>
 				<div class="row">
@@ -288,9 +296,17 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-12 form-group">
+					<div class="col-md-4 form-group">
 						<label>Giro</label>
 						<input name="Giro_update" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Ciudad</label>
+						<input name="Ciudad_update" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Comuna</label>
+						<input name="Comuna_update" class="form-control">
 					</div>
 				</div>
 				<div class="row">

@@ -209,17 +209,21 @@ $(document).ready(function() {
 		$('#editarCliente').modal('show');
 		$.post('../ajax/cliente/dataClienteUpdate.php', {id: $(this).attr('attr')}, function(data) {
 			value = $.parseJSON(data);
-			$('[name="Nombre_update"]').val(value[0][3]);
-			$('[name="Rut_update"]').val(value[0][1]);
-			$('[name="Dv_update"]').selectpicker('val',value[0][2]);
-			$('[name="DireccionComercial_update"]').val(value[0][5]);
-			$('[name="Contacto_update"]').val(value[0][7]);
-			$('[name="Telefono_update"]').val(value[0][9]);
-			$('[name="Correo_update"]').val(value[0][6]);
-			$('[name="Giro_update"]').val(value[0][4]);
-			$('[name="Comentario_update"]').val(value[0][8]);
-			$('[name="TipoCliente_update"]').val(value[0][10]);
-			$('[name="IdCliente"]').val(value[0][0]);
+
+			$('[name="Nombre_update"]').val(value[0]['nombre']);
+			$('[name="Rut_update"]').val(value[0]['rut']);
+			$('[name="Dv_update"]').selectpicker('val',value[0]['dv']);
+			$('[name="DireccionComercial_update"]').val(value[0]['direccion']);
+			$('[name="Contacto_update"]').val(value[0]['contacto']);
+			$('[name="Telefono_update"]').val(value[0]['telefono']);
+			$('[name="Correo_update"]').val(value[0]['correo']);
+			$('[name="Giro_update"]').val(value[0]['giro']);
+			$('[name="Comentario_update"]').val(value[0]['comentario']);
+			$('[name="TipoCliente_update"]').val(value[0]['tipo_cliente']);
+			$('[name="Alias_update"]').val(value[0]['alias']);
+			$('[name="Comuna_update"]').val(value[0]['comuna']);
+			$('[name="Ciudad_update"]').val(value[0]['ciudad']);
+			$('[name="IdCliente"]').val(value[0]['id']);
 			$('.selectpicker').selectpicker('refresh');
 		});
 	});
