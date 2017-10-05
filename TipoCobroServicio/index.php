@@ -40,12 +40,15 @@
 										<!--Tabs content-->
 										<div class="tab-content">
 											<h3>Agregar tipo de cobro</h3><br>
-												<div class="row">
-													<div class="col-md-9">
-														<input type="text" class="form-control" name="">
+												<div class="row containerTipoFactura">
+													<div class="col-md-4">
+														<input type="text" class="form-control" name="TipoFacCodigo">
+													</div>
+													<div class="col-md-5">
+														<input type="text" class="form-control" name="TipoFacDescripcion">
 													</div>
 													<div class="col-md-3">
-														<button type="button" class="btn btn-primary btn-block agregarCobro">Agregar</button>
+														<button type="button" class="btn btn-primary btn-block agregarTipoFacturacion">Agregar</button>
 													</div>
 												</div>
 												<br><br>
