@@ -41,11 +41,11 @@
 										<div class="tab-content">
 											<h3>Agregar grupo</h3><br>
 												<div class="row">
-													<div class="col-md-9">
-														<input type="text" class="form-control" name="">
+													<div class="col-md-9 containerGrupo">
+														<input type="text" class="form-control" name="NomGrupo">
 													</div>
 													<div class="col-md-3">
-														<button type="button" class="btn btn-primary btn-block agregarCobro">Agregar</button>
+														<button type="button" class="btn btn-primary btn-block agregarGrupo">Agregar</button>
 													</div>
 												</div>
 												<br><br>
