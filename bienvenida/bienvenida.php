@@ -20,7 +20,7 @@
 			<div class="boxed">
 				<div id="content-container">
 					<div id="page-title">
-						<h1>Bienvenidos a ERP Teledata</h1>
+						<!-- <h1>Bienvenidos a ERP Teledata</h1> -->
 					</div>
 					<div id="page-content">
 						<div class="row">
@@ -40,47 +40,96 @@
 									</div>
 								</div>
 							</div>
-
 							<div class="col-md-4">
 								<div class="col-md-12">
 									<div class="panel">
 										<div class="panel-body">
-											<h3 style="margin-top: 0">Total de Tickes</h3>
-											<br>
-											<h2 style="margin-top: 0"><span class="total"></span> <br> Tickets</h2>
+											<div class="row">
+												<div class="col-md-10"><h1 class="marginNull numberMiniPanel" style="color: #2ab4c0; margin-left: 5px;"><span class="total"></span></h1> </div>
+												<div class="col-md-2"><h1 class="marginNull" style="    color: #cbd4e0;"><i class="fa fa-ticket" aria-hidden="true"></i></h1></div>
+												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales</h2></div>
+												<div class="col-md-12" style="margin-top: 15px;">
+													<div class="progress">
+														<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+															<span class="sr-only">60% Complete</span>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-10 smalTextMiniPanel"> El porcentaje es de </div>
+												<div class="col-md-2 smalTextMiniPanel">10%</div>
+											</div>
 										</div>
 									</div>
 								</div>
+
 								<div class="col-md-12">
 									<div class="panel">
 										<div class="panel-body">
-											<h3 style="margin-top: 0">Tickes Abiertos</h3>
-											<br>
-											<h2 style="margin-top: 0"><span class="abiertos"></span> <br> Tickets abiertos</h2>
+											<div class="row">
+												<div class="col-md-10"><h1 class="marginNull numberMiniPanel" style="color: #f36a5a; margin-left: 5px;"><span class="abiertos"></span></h1> </div>
+												<div class="col-md-2"><h1 class="marginNull" style="    color: #cbd4e0;"><i class="fa fa-ticket" aria-hidden="true"></i></h1></div>
+												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales abiertos</h2></div>
+												<div class="col-md-12" style="margin-top: 15px;">
+													<div class="progress">
+														<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+															<span class="sr-only">60% Complete</span>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-10 smalTextMiniPanel"> El porcentaje es de </div>
+												<div class="col-md-2 smalTextMiniPanel">10%</div>
+											</div>
 										</div>
 									</div>
 								</div>
+
 							</div>
-
 							<div class="col-md-4">
-								<div class="col-md-12">
+
+
+
+							<div class="col-md-12">
 									<div class="panel">
 										<div class="panel-body">
-											<h3 style="margin-top: 0">Tickes Cerrados</h3>
-											<br>
-											<h2 style="margin-top: 0"><span class="cerrados"></span> <br> Tickets cerrados</h2>
+											<div class="row">
+												<div class="col-md-10"><h1 class="marginNull numberMiniPanel" style="color: #8877a9; margin-left: 5px;"><span class="cerrados"></span></h1> </div>
+												<div class="col-md-2"><h1 class="marginNull" style="    color: #cbd4e0;"><i class="fa fa-ticket" aria-hidden="true"></i></h1></div>
+												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales cerrados</h2></div>
+												<div class="col-md-12" style="margin-top: 15px;">
+													<div class="progress">
+														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+															<span class="sr-only">60% Complete</span>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-10 smalTextMiniPanel"> El porcentaje es de </div>
+												<div class="col-md-2 smalTextMiniPanel">10%</div>
+											</div>
 										</div>
 									</div>
 								</div>
+
 								<div class="col-md-12">
 									<div class="panel">
 										<div class="panel-body">
-											<h3 style="margin-top: 0">Tickes Finalizados</h3>
-											<br>
-											<h2 style="margin-top: 0"><span class="finalizados"></span> <br> Tickets finalizados</h2>
+											<div class="row">
+												<div class="col-md-10"><h1 class="marginNull numberMiniPanel" style="color: #5C9BD1; margin-left: 5px;"><span class="finalizados"></span></h1> </div>
+												<div class="col-md-2"><h1 class="marginNull" style="    color: #cbd4e0;"><i class="fa fa-ticket" aria-hidden="true"></i></h1></div>
+												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales finalizados</h2></div>
+												<div class="col-md-12" style="margin-top: 15px;">
+													<div class="progress">
+														<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+															<span class="sr-only">60% Complete</span>
+														</div>
+													</div>
+												</div>
+												<div class="col-md-10 smalTextMiniPanel"> El porcentaje es de </div>
+												<div class="col-md-2 smalTextMiniPanel">10%</div>
+											</div>
 										</div>
 									</div>
 								</div>
+
 							</div>
 						</div>
 						<div class="row">
@@ -104,7 +153,7 @@
 					</div>
 				</div>
 			</div>
-           	 		<nav id='mainnav-container'>
+			<nav id='mainnav-container'>
 				<div id='mainnav'>
 					<div id='mainnav-shortcut'>
 						<ul class='list-unstyled'>
@@ -122,9 +171,9 @@
 					</div>
 				</div>
 			</nav>
-        </div>
-        <?php include("../layout/footer.php"); ?>
-    </div>
+		</div>
+		<?php include("../layout/footer.php"); ?>
+	</div>
 	<script src="../js/jquery-2.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/methods_global/methods.js"></script>

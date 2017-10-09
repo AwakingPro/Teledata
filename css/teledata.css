@@ -132,3 +132,26 @@ div.bg-img{
     transform: rotate(359deg);
   }
 }
+
+.marginNull{
+	margin: 0 ;
+}
+
+.textMiniPanel {
+    font-size: 14px;
+    color: #AAB5BC;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.numberMiniPanel{
+	font-size: 30px;
+	font-weight: 400;
+}
+
+.smalTextMiniPanel{
+	font-size: 11px;
+	color: #AAB5BC;
+	font-weight: 600;
+	text-transform: uppercase;
+}
