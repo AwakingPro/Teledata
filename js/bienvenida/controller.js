@@ -1,27 +1,37 @@
 $(document).ready(function() {
 	$.post('../ajax/bienvenida/countTickets.php', function(data) {
 		value = $.parseJSON(data);
-		console.log(value[0][0]);
 		$('.total').html(value[0][0]);
 	});
 
 	$.post('../ajax/bienvenida/countTicketsAbierto.php', function(data) {
 		value = $.parseJSON(data);
-		console.log(value[0][0]);
 		$('.abiertos').html(value[0][0]);
 	});
 
 	$.post('../ajax/bienvenida/countTicketsCerrados.php', function(data) {
 		value = $.parseJSON(data);
-		console.log(value[0][0]);
 		$('.cerrados').html(value[0][0]);
 	});
 
 	$.post('../ajax/bienvenida/coutTicketsFinalizado.php', function(data) {
 		value = $.parseJSON(data);
-		console.log(value[0][0]);
 		$('.finalizados').html(value[0][0]);
 	});
+
+	$.post('../ajax/bienvenida/porcentajesTickes.php', function(data) {
+		value = $.parseJSON(data);
+		console.log(value);
+		$('.porcAbiertos').css('width', value[0]+'%');
+		$('.porcAbiertosTxt').html(value[0]+'%');
+
+		$('.porcCerrados').css('width', value[1]+'%');
+		$('.porcCerradosTxt').html(value[1]+'%');
+
+		$('.porcFinalizado').css('width', value[1]+'%');
+		$('.porcFinalizadoTxt').html(value[1]+'%');
+	});
+
 
 	$('.nameUser').html($('.username ').html());
 	$('.imgUser').html('<img class="panel-media-img img-circle img-border-light" src="'+$('.img-user').attr('src')+'" alt="Profile Picture">');

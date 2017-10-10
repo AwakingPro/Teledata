@@ -50,13 +50,13 @@
 												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales</h2></div>
 												<div class="col-md-12" style="margin-top: 15px;">
 													<div class="progress">
-														<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+														<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
 															<span class="sr-only">60% Complete</span>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-10 smalTextMiniPanel"> El porcentaje es de </div>
-												<div class="col-md-2 smalTextMiniPanel">10%</div>
+												<div class="col-md-2 smalTextMiniPanel">100%</div>
 											</div>
 										</div>
 									</div>
@@ -71,13 +71,13 @@
 												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales abiertos</h2></div>
 												<div class="col-md-12" style="margin-top: 15px;">
 													<div class="progress">
-														<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+														<div class="progress-bar progress-bar-danger porcAbiertos" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
 															<span class="sr-only">60% Complete</span>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-10 smalTextMiniPanel"> El porcentaje es de </div>
-												<div class="col-md-2 smalTextMiniPanel">10%</div>
+												<div class="col-md-2 smalTextMiniPanel porcAbiertosTxt">0%</div>
 											</div>
 										</div>
 									</div>
@@ -97,13 +97,13 @@
 												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales cerrados</h2></div>
 												<div class="col-md-12" style="margin-top: 15px;">
 													<div class="progress">
-														<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+														<div class="progress-bar porcCerrados" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
 															<span class="sr-only">60% Complete</span>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-10 smalTextMiniPanel"> El porcentaje es de </div>
-												<div class="col-md-2 smalTextMiniPanel">10%</div>
+												<div class="col-md-2 smalTextMiniPanel porcCerradosTxt">0%</div>
 											</div>
 										</div>
 									</div>
@@ -118,13 +118,13 @@
 												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales finalizados</h2></div>
 												<div class="col-md-12" style="margin-top: 15px;">
 													<div class="progress">
-														<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
+														<div class="progress-bar progress-bar-info porcFinalizado" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
 															<span class="sr-only">60% Complete</span>
 														</div>
 													</div>
 												</div>
 												<div class="col-md-10 smalTextMiniPanel"> El porcentaje es de </div>
-												<div class="col-md-2 smalTextMiniPanel">10%</div>
+												<div class="col-md-2 smalTextMiniPanel porcFinalizadoTxt">0%</div>
 											</div>
 										</div>
 									</div>
