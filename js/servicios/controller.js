@@ -110,6 +110,7 @@ $(document).ready(function(){
 				$('.dataServicios').html(values[1]);
 				var count = $('.dataServicios > .tabeData tr th').length -1;
 				$('.dataServicios > .tabeData').dataTable({
+						"scrollX": true,
 						"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
@@ -192,6 +193,7 @@ $(document).ready(function(){
 				$('.dataServicios').html(values[1]);
 				var count = $('.dataServicios > .tabeData tr th').length -1;
 				$('.dataServicios > .tabeData').dataTable({
+						"scrollX": true,
 						"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
@@ -296,6 +298,7 @@ $(document).ready(function(){
 							$('.dataServicios').html(values[1]);
 							var count = $('.dataServicios > .tabeData tr th').length -1;
 							$('.dataServicios > .tabeData').dataTable({
+									"scrollX": true,
 									"columnDefs": [{
 									'orderable': false,
 									'targets': [count]
