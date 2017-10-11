@@ -25,7 +25,7 @@
 	</div>
 	<div class="col-md-4 form-group" rows="5">
 		<label>Fecha Instalación</label>
-		<input name="fechaInstalacion" class="form-control">
+		<input name="fechaInstalacion" class="form-control date">
 	</div>
 	<div class="col-md-4 form-group" rows="5">
 		<label>Técnico Instalador</label>

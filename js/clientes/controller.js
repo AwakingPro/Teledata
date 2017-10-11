@@ -79,7 +79,10 @@ $(document).ready(function() {
 				$('[name="idServicio"]').val(id);
 				$('#destino_id').val(id)
 				$('select').selectpicker();
-
+				$('.date').datepicker({
+					locale: 'es',
+					format: 'yyyy-mm-dd'
+				});
 				if(data.trim() == 'arriendoEquipos.php'){
 
 					$.ajax({
