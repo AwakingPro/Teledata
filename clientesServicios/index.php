@@ -11,6 +11,7 @@
 		<link href="../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
 		<link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
+		<link href="../plugins/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
@@ -146,7 +147,7 @@
 
 	<script src="../js/jquery-2.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
-
+        	<script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 	<script src="../plugins/bootbox/bootbox.min.js"></script>
 	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
