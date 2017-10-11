@@ -56,12 +56,12 @@
 		            }
 	            }
 
-	           	// if($Usuario['email']){
-	           	// 	$Codigos = implode(", ", $Codigos);
-	           	// 	$Estatus = $this->enviarCorreo($Usuario,$Codigos);
-	           	// }else{
+	           	if($Usuario['email']){
+	           		$Codigos = implode(", ", $Codigos);
+	           		$Estatus = $this->enviarCorreo($Usuario,$Codigos);
+	           	}else{
 	           		$Estatus = true;
-	           	// }
+	           	}
 
 	            if($Estatus){
 
@@ -73,6 +73,52 @@
 	        	}else{
 	        		$response_array['status'] = 99; 
 	        	}
+
+	        }else{
+	            $response_array['status'] = 2; 
+	        }
+
+	        echo json_encode($response_array);
+	    }
+
+	    function reasignarTarea($Id,$IdUsuarioAsignado){
+
+	        $response_array = array();
+
+	        $Id = isset($Id) ? trim($Id) : "";
+	        $IdUsuarioAsignado = isset($IdUsuarioAsignado) ? trim($IdUsuarioAsignado) : "";
+
+	        if(!empty($Id) && !empty($IdUsuarioAsignado)){
+
+	        	$run = new Method;
+
+	            $this->Id=$Id;
+	            $this->IdUsuarioAsignado=$IdUsuarioAsignado;
+
+	           	$query = "SELECT * FROM usuarios where id = '$this->IdUsuarioAsignado'";
+	           	$data = $run->select($query);
+		        $Usuario = $data[0];
+	            
+	        	$query = "UPDATE `servicios` set `IdUsuarioAsignado` = '$this->IdUsuarioAsignado' where `Id` = '$this->Id'";
+	            $data = $run->update($query);
+
+	            if($Usuario['email']){
+	            	$query = "SELECT Codigo FROM servicios where Id = '$this->Id'";
+		           	$data = $run->select($query);
+			        $Codigo = $data[0]['Codigo'];
+	           		$Estatus = $this->enviarCorreo($Usuario,$Codigo);
+	           	}else{
+	           		$Estatus = true;
+	           	}
+
+	            if($Estatus){
+	            	$response_array['Usuario'] = $Usuario['nombre'];
+	            	$response_array['Id'] = $this->Id;
+	                $response_array['status'] = 1; 
+
+	            }else{
+	                $response_array['status'] = 0; 
+	            }
 
 	        }else{
 	            $response_array['status'] = 2; 
@@ -111,43 +157,6 @@
 			
 			return $Estatus;
 
-	    }
-
-	    function reasignarTarea($Id,$IdUsuarioAsignado){
-
-	        $response_array = array();
-
-	        $Id = isset($Id) ? trim($Id) : "";
-	        $IdUsuarioAsignado = isset($IdUsuarioAsignado) ? trim($IdUsuarioAsignado) : "";
-
-	        if(!empty($Id) && !empty($IdUsuarioAsignado)){
-
-	        	$run = new Method;
-
-	            $this->Id=$Id;
-	            $this->IdUsuarioAsignado=$IdUsuarioAsignado;
-
-	           	$query = "SELECT nombre FROM usuarios where id = '$this->IdUsuarioAsignado'";
-	           	$data = $run->select($query);
-		        $Usuario = $data[0]['nombre'];
-	            
-	        	$query = "UPDATE `servicios` set `IdUsuarioAsignado` = '$this->IdUsuarioAsignado' where `Id` = '$this->Id'";
-	            $data = $run->update($query);
-
-	            if($data){
-	            	$response_array['Usuario'] = $Usuario;
-	            	$response_array['Id'] = $this->Id;
-	                $response_array['status'] = 1; 
-
-	            }else{
-	                $response_array['status'] = 0; 
-	            }
-
-	        }else{
-	            $response_array['status'] = 2; 
-	        }
-
-	        echo json_encode($response_array);
 	    }
     
 	    function storeTarea($Id,$FechaInstalacion,$InstaladoPor,$Comentario,$UsuarioPppoe,$SenalFinal,$EstacionFinal,$Estatus){

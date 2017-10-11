@@ -19,13 +19,13 @@ class Email
 		
 		// $mail->SMTPSecure = "ssl";
 		$mail->SMTPSecure = "TLS";
-		$mail->Host = "smtp.gmail.com"; 
+		$mail->Host = "teledata.cl"; 
 		// $mail->Port = 25;  
 		$mail->Port = 587;  
-		$mail->Username = "easydanceoficial@gmail.com";  
-		$mail->Password = "sentkhbsdhuojpdk";  
-		$mail->From = "easydanceoficial@gmail.com";
-		$mail->FromName = "Easy Dance";  
+		$mail->Username = "erp@teledata.cl";  
+		$mail->Password = "6stmailerp";  
+		$mail->From = "erp@teledata.cl";
+		$mail->FromName = "Teledata";  
 		$mail->Subject = $subject;  
 		$mail->IsHTML(true);  
 		$mail->MsgHTML($html); 

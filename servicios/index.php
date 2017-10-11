@@ -188,7 +188,7 @@
 
 													<br>
 
-													<label>Equipamiento</label>
+													<label>Equipamiento Sugerido</label>
 													<div class="form-group">
 														<input type="text" name="Equipamiento" class="form-control">
 													</div>

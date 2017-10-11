@@ -109,16 +109,16 @@
 													</div>
 													<div class="row">
 														<div class="col-md-4 form-group">
+															<label>Giro</label>
+															<input name="Giro" class="form-control">
+														</div>									
+														<div class="col-md-4 form-group">
 															<label>Ciudad</label>
 															<input name="Ciudad" class="form-control">
 														</div>
 														<div class="col-md-4 form-group">
 															<label>Comuna</label>
 															<input name="Comuna" class="form-control">
-														</div>
-														<div class="col-md-4 form-group">
-															<label>Giro</label>
-															<input name="Giro" class="form-control">
 														</div>
 													</div>
 													<div class="row">
@@ -283,20 +283,6 @@
 				</div>
 				<div class="row">
 					<div class="col-md-4 form-group">
-						<label>Contacto</label>
-						<input name="Contacto_update" class="form-control">
-					</div>
-					<div class="col-md-4 form-group">
-						<label>Teléfono</label>
-						<input name="Telefono_update" class="form-control">
-					</div>
-					<div class="col-md-4 form-group">
-						<label>Correo</label>
-						<input name="Correo_update" class="form-control">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4 form-group">
 						<label>Giro</label>
 						<input name="Giro_update" class="form-control">
 					</div>
@@ -307,6 +293,20 @@
 					<div class="col-md-4 form-group">
 						<label>Comuna</label>
 						<input name="Comuna_update" class="form-control">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<label>Contacto</label>
+						<input name="Contacto_update" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Teléfono</label>
+						<input name="Telefono_update" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Correo</label>
+						<input name="Correo_update" class="form-control">
 					</div>
 				</div>
 				<div class="row">
