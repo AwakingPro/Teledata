@@ -19,7 +19,7 @@ class Email
 		
 		// $mail->SMTPSecure = "ssl";
 		$mail->SMTPSecure = "TLS";
-		$mail->Host = "teledata.cl"; 
+		$mail->Host = "mail.teledata.cl"; 
 		// $mail->Port = 25;  
 		$mail->Port = 587;  
 		$mail->Username = "erp@teledata.cl";  
