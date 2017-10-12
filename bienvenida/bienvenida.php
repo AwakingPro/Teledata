@@ -48,7 +48,7 @@
 												<div class="col-md-10"><h1 class="marginNull numberMiniPanel" style="color: #2ab4c0; margin-left: 5px;"><span class="total"></span></h1> </div>
 												<div class="col-md-2"><h1 class="marginNull" style="    color: #cbd4e0;"><i class="fa fa-ticket" aria-hidden="true"></i></h1></div>
 												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales</h2></div>
-												<div class="col-md-12" style="margin-top: 15px;">
+												<div class="col-md-12" style="margin-top: 27px;">
 													<div class="progress">
 														<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
 															<span class="sr-only">60% Complete</span>
@@ -69,7 +69,7 @@
 												<div class="col-md-10"><h1 class="marginNull numberMiniPanel" style="color: #f36a5a; margin-left: 5px;"><span class="abiertos"></span></h1> </div>
 												<div class="col-md-2"><h1 class="marginNull" style="    color: #cbd4e0;"><i class="fa fa-ticket" aria-hidden="true"></i></h1></div>
 												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales abiertos</h2></div>
-												<div class="col-md-12" style="margin-top: 15px;">
+												<div class="col-md-12" style="margin-top: 27px;">
 													<div class="progress">
 														<div class="progress-bar progress-bar-danger porcAbiertos" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
 															<span class="sr-only">60% Complete</span>
@@ -95,7 +95,7 @@
 												<div class="col-md-10"><h1 class="marginNull numberMiniPanel" style="color: #8877a9; margin-left: 5px;"><span class="cerrados"></span></h1> </div>
 												<div class="col-md-2"><h1 class="marginNull" style="    color: #cbd4e0;"><i class="fa fa-ticket" aria-hidden="true"></i></h1></div>
 												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales cerrados</h2></div>
-												<div class="col-md-12" style="margin-top: 15px;">
+												<div class="col-md-12" style="margin-top: 27px;">
 													<div class="progress">
 														<div class="progress-bar porcCerrados" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
 															<span class="sr-only">60% Complete</span>
@@ -116,7 +116,7 @@
 												<div class="col-md-10"><h1 class="marginNull numberMiniPanel" style="color: #5C9BD1; margin-left: 5px;"><span class="finalizados"></span></h1> </div>
 												<div class="col-md-2"><h1 class="marginNull" style="    color: #cbd4e0;"><i class="fa fa-ticket" aria-hidden="true"></i></h1></div>
 												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales finalizados</h2></div>
-												<div class="col-md-12" style="margin-top: 15px;">
+												<div class="col-md-12" style="margin-top: 27px;">
 													<div class="progress">
 														<div class="progress-bar progress-bar-info porcFinalizado" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
 															<span class="sr-only">60% Complete</span>
