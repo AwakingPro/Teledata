@@ -169,10 +169,10 @@ $(document).on('click', '.tgl-menu-btn', function(event){
     event.preventDefault();
     if ($('.effect').attr('attr') == 1) {
         $('.effect').addClass('mainnav-sm');
-        $('.effect').removeClass('mainnav-lg');
+        $('.effect').removeClass('mainnav-in');
         $('.effect').attr('attr', '');
     }else{
-        $('.effect').addClass('mainnav-lg');
+        $('.effect').addClass('mainnav-in');
         $('.effect').removeClass('mainnav-sm');
         $('.effect').attr('attr', '1');
     }

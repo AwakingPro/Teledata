@@ -82,7 +82,7 @@
                 </nav>
             </div>
             <?php include("../layout/footer.php"); ?>
-        </div>        
+        </div>
 
         <!--===================================================-->
         <!-- END OF CONTAINER -->
