@@ -40,8 +40,8 @@
 										<div class="row" >
 											<form id="formServicio">
 												<div class="col-md-12 form-group">
-													<label >Cliente</label>
-													<div class="input-group">
+													<label class="campo-cliente" >Cliente</label>
+													<div class="input-group campo-cliente">
 														<select id="Rut" name="Rut" class="form-control" data-live-search="true">
 															<option value="">Seleccione...</option>
 														</select>
@@ -49,11 +49,9 @@
 															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalCliente"><i class="fa fa-plus" aria-hidden="true"></i></button>
 														</span>
 													</div>
-
 													<br>
-
-													<label>Grupo</label>
-													<div class="input-group">
+													<label class="compo-grupo">Grupo</label>
+													<div class="input-group compo-grupo">
 														<select name="Grupo" class="form-control selectpicker" data-live-search="true">
 															<option value="">Seleccione...</option>
 															<option value="1">Grupo 1</option>
@@ -64,11 +62,9 @@
 															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#grupo"><i class="fa fa-plus" aria-hidden="true"></i></button>
 														</span>
 													</div>
-
 													<br>
-
-													<label>Tipo de Cobro de servicio mensual</label>
-													<div class="input-group">
+													<label class="campo-cobreServicio">Tipo de Cobro de servicio mensual</label>
+													<div class="input-group campo-cobreServicio">
 														<select name="TipoFactura" class="form-control" data-live-search="true">
 															<option value="">Seleccione...</option>
 														</select>
@@ -76,40 +72,32 @@
 															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalTipoFacturacion"><i class="fa fa-plus" aria-hidden="true"></i></button>
 														</span>
 													</div>
-
 													<br>
-
-													<label >Tiempo de Facturación</label>
-													<select name="TiepoFacturacion" class="form-control selectpicker" data-live-search="tue">
+													<label class="compo-tipoFactura">Tiempo de Facturación</label>
+													<select name="TiepoFacturacion compo-tipoFactura" class="form-control selectpicker" data-live-search="tue">
 														<option value="">Seleccione...</option>
 														<option >Mensual</option>
 														<option >Semestral</option>
 														<option >Anual</option>
 													</select>
-
 													<br><br>
-
-													<label>Servicio</label>
-													<select name="TipoServicio" class="form-control" data-live-search="true">
-														<option value="">Seleccione...</option>
-													</select>
-
-													<br><br>
-
-													<label>Apellido del Servicio</label>
-													<div class="form-group">
-														<input type="text" name="Alias" class="form-control">
+													<div class="campo-servicio">
+														<label >Servicio</label>
+														<select name="TipoServicio" class="form-control" data-live-search="true">
+															<option value="">Seleccione...</option>
+														</select>
 													</div>
-
+													<br><br>
+													<label class="campo-apellidoServicio">Apellido del Servicio</label>
+													<div class="form-group">
+														<input type="text" name="Alias" class="form-control campo-apellidoServicio">
+													</div>
 													<br>
-
-													<label> Descripción</label>
-													<textarea name="Descripcion" class="form-control" rows="5"></textarea>
-
+													<label class="compo-descripcion"> Descripción</label>
+													<textarea name="Descripcion" class="form-control compo-descripcion" rows="5"></textarea>
 													<br>
-
-													<label >Valor</label>
-													<div class="input-group">
+													<label class="campo-valor" >Valor</label>
+													<div class="input-group campo-valor">
 														<input type="text"  name="Valor" class="form-control">
 														<span class="input-group-addon" style="padding: 0px; border: 0px solid">
 															<select name="tipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
@@ -118,92 +106,67 @@
 															</select>
 														</span>
 													</div>
-
 													<br>
-
-													<label >Descuento</label>
-													<div class="input-group">
+													<label class="campo-descuento">Descuento</label>
+													<div class="input-group campo-descuento">
 														<input type="text" name="Descuento" class="form-control">
 														<span class="input-group-addon">%</span>
 													</div>
-
 													<br>
-
-													<label>Dirección</label>
-													<textarea name="Direccion" class="form-control" rows="5"></textarea>
-
+													<label class="campo-direccion">Dirección</label>
+													<textarea name="Direccion" class="form-control campo-direccion" rows="5"></textarea>
 													<br>
-
-													<div class="col-md-6">
-						                                <div class="form-group">
-						                                    <label class="control-label" for="Latitud">Coordenadas</label>
-						                                    <input id="Latitud" name="Latitud" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas">
-						                                </div>
-						                            </div>
-						                            <div class="col-md-6">
-						                                <div class="form-group">
-						                                    <label class="control-label" for="name">&nbsp;</label>
-						                                    <input id="Longitud" name="Longitud" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas">
-						                                </div>
-						                            </div>
-
-						                            <br>
-
-						                            <div id="Map" style="height:350px; width:100%;"></div>
-
-						                            <br>
-
-													<label>Referencia</label>
-													<div class="form-group">
+													<div class="col-md-6 campo-cordenadas">
+														<div class="form-group">
+															<label class="control-label" for="Latitud">Coordenadas</label>
+															<input id="Latitud" name="Latitud" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas">
+														</div>
+													</div>
+													<div class="col-md-6 campo-cordenadas">
+														<div class="form-group">
+															<label class="control-label" for="name">&nbsp;</label>
+															<input id="Longitud" name="Longitud" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas">
+														</div>
+													</div>
+													<br>
+													<div id="Map" style="height:350px; width:100%;" class="campo-cordenadas"></div>
+													<br>
+													<label class="campo-referencia">Referencia</label>
+													<div class="form-group campo-referencia">
 														<input type="text" name="Referencia" class="form-control">
 													</div>
-
 													<br>
-
-													<label>Contacto</label>
-													<div class="form-group">
+													<label class="campo-contacto">Contacto</label>
+													<div class="form-group campo-contacto">
 														<input type="text" name="Contacto" class="form-control">
 													</div>
-
 													<br>
-
-													<label>Fono Contacto</label>
-													<div class="form-group">
+													<label class="campo-telefonoContacto">Fono Contacto</label>
+													<div class="form-group campo-telefonoContacto">
 														<input type="text" name="Fono" class="form-control">
 													</div>
-
 													<br>
-
-													<label>Estación de Referencia</label>
-													<div class="form-group">
+													<label class="campo-estacionReferencia">Estación de Referencia</label>
+													<div class="form-group campo-estacionReferencia">
 														<input type="text" name="PosibleEstacion" class="form-control">
 													</div>
-
 													<br>
-
-													<label>Usuario PPPoE</label>
-													<div class="form-group">
+													<label class="campo-usuarioPPPoE">Usuario PPPoE</label>
+													<div class="form-group campo-usuarioPPPoE">
 														<input type="text" name="UsuarioPppoe" class="form-control">
 													</div>
-
 													<br>
-
-													<label>Equipamiento Sugerido</label>
-													<div class="form-group">
+													<label class="campo-equipamiento">Equipamiento Sugerido</label>
+													<div class="form-group campo-equipamiento">
 														<input type="text" name="Equipamiento" class="form-control">
 													</div>
-
 													<br>
-
-													<label>Señal Teorica</label>
-													<div class="form-group">
+													<label class="campo-señalTeorica">Señal Teorica</label>
+													<div class="form-group campo-señalTeorica">
 														<input type="text" name="SenalTeorica" class="form-control">
 													</div>
-
 													<br>
-
 													<button type="button" class="btn btn-primary guardarServ">Guardar</button>
-
 												</div>
 											</form>
 										</div>
@@ -219,13 +182,11 @@
 									<!--Panel body-->
 									<div class="panel-body container-form">
 										<div class="row" >
-
 											<div class="col-md-12 form-group">
 												<div class="dataServicios" id="tab-Servicios">
 													<h4>No hay servicios</h4>
-								                </div>
-							            	</div>
-
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -255,7 +216,6 @@
 		</div>
 		<script src="../js/jquery-2.2.1.min.js"></script>
 		<script src="../js/bootstrap.min.js"></script>
-
 		<script src="../plugins/bootbox/bootbox.min.js"></script>
 		<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 		<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
@@ -263,13 +223,9 @@
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
-
-
-
 		<script src="../js/servicios/controller.js"></script>
 	</body>
 </html>
-
 <div class="modal fade" tabindex="-1" role="dialog" id="verServicios" aria-labelledby="verServicios">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
@@ -282,7 +238,6 @@
 		</div>
 	</div>
 </div>
-
 <div class="modal fade" id="agregarDatosTecnicos">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -295,157 +250,156 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary guardarDatosTecnicos">Guardar</button>
 			</div>
-		</div><!-- /.modal-content -->
-	</div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-<div class="modal fade" id="ModalCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Registro de Cliente</h4>
-			</div>
-			<div class="modal-body container-form2">
-				<div class="row">
-					<div class="col-md-5 form-group">
-						<label>Tipo de Cliente</label>
-						<select name="TipoCliente" class="form-control selectpicker" data-live-search="true" validate="not_null">
-							<option value="">Seleccione...</option>
-							<option value="Boleta">Boleta</option>
-							<option value="Factura">Factura</option>
-							<option value="Canje">Canje</option>
-						</select>
-					</div>
-					<div class="col-md-5 form-group">
-						<label>Rut</label>
-						<input name="Rut" class="form-control" validate="not_null">
-					</div>
-					<div class="col-md-1 form-group">
-						<div class="text-center" style="padding-top: 5px">
-							<h3>-</h3>
+			</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+			</div><!-- /.modal -->
+			<div class="modal fade" id="ModalCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">Registro de Cliente</h4>
+						</div>
+						<div class="modal-body container-form2">
+							<div class="row">
+								<div class="col-md-5 form-group">
+									<label>Tipo de Cliente</label>
+									<select name="TipoCliente" class="form-control selectpicker" data-live-search="true" validate="not_null">
+										<option value="">Seleccione...</option>
+										<option value="Boleta">Boleta</option>
+										<option value="Factura">Factura</option>
+										<option value="Canje">Canje</option>
+									</select>
+								</div>
+								<div class="col-md-5 form-group">
+									<label>Rut</label>
+									<input name="Rut" class="form-control" validate="not_null">
+								</div>
+								<div class="col-md-1 form-group">
+									<div class="text-center" style="padding-top: 5px">
+										<h3>-</h3>
+									</div>
+								</div>
+								<div class="col-md-1 form-group">
+									<label>Dv</label>
+									<select name="Dv" class="form-control selectpicker" data-live-search="true" validate="not_null">
+										<option value="">Seleccione...</option>
+										<option>1</option>
+										<option>2</option>
+										<option>3</option>
+										<option>4</option>
+										<option>5</option>
+										<option>6</option>
+										<option>7</option>
+										<option>8</option>
+										<option>9</option>
+										<option>K</option>
+									</select>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-6 form-group">
+									<label> Razón social / Cliente</label>
+									<input name="Nombre" class="form-control" validate="not_null">
+								</div>
+								<div class="col-md-6 form-group">
+									<label>Alias</label>
+									<input name="Alias" class="form-control" validate="not_null">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 form-group">
+									<label>Dirección  Comercial</label>
+									<textarea name="DireccionComercial" class="form-control" validate="not_null"></textarea>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4 form-group">
+									<label>Ciudad</label>
+									<input name="Ciudad" class="form-control">
+								</div>
+								<div class="col-md-4 form-group">
+									<label>Comuna</label>
+									<input name="Comuna" class="form-control">
+								</div>
+								<div class="col-md-4 form-group">
+									<label>Giro</label>
+									<input name="Giro" class="form-control">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-4 form-group">
+									<label>Contacto</label>
+									<input name="Contacto" class="form-control" validate="not_null">
+								</div>
+								<div class="col-md-4 form-group">
+									<label>Teléfono</label>
+									<input name="Telefono" class="form-control" validate="not_null">
+								</div>
+								<div class="col-md-4 form-group">
+									<label>Correo</label>
+									<input name="Correo" class="form-control" validate="email">
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 form-group">
+									<label>Comentarios</label>
+									<textarea name="Comentario" class="form-control" validate="not_null"></textarea>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-primary guardarCliente">Guardar Cliente</button>
 						</div>
 					</div>
-					<div class="col-md-1 form-group">
-						<label>Dv</label>
-						<select name="Dv" class="form-control selectpicker" data-live-search="true" validate="not_null">
-							<option value="">Seleccione...</option>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-							<option>6</option>
-							<option>7</option>
-							<option>8</option>
-							<option>9</option>
-							<option>K</option>
-						</select>
-					</div>
 				</div>
-				<div class="row">
-					<div class="col-md-6 form-group">
-						<label> Razón social / Cliente</label>
-						<input name="Nombre" class="form-control" validate="not_null">
-					</div>
-					<div class="col-md-6 form-group">
-						<label>Alias</label>
-						<input name="Alias" class="form-control" validate="not_null">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 form-group">
-						<label>Dirección  Comercial</label>
-						<textarea name="DireccionComercial" class="form-control" validate="not_null"></textarea>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4 form-group">
-						<label>Ciudad</label>
-						<input name="Ciudad" class="form-control">
-					</div>
-					<div class="col-md-4 form-group">
-						<label>Comuna</label>
-						<input name="Comuna" class="form-control">
-					</div>
-					<div class="col-md-4 form-group">
-						<label>Giro</label>
-						<input name="Giro" class="form-control">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4 form-group">
-						<label>Contacto</label>
-						<input name="Contacto" class="form-control" validate="not_null">
-					</div>
-					<div class="col-md-4 form-group">
-						<label>Teléfono</label>
-						<input name="Telefono" class="form-control" validate="not_null">
-					</div>
-					<div class="col-md-4 form-group">
-						<label>Correo</label>
-						<input name="Correo" class="form-control" validate="email">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 form-group">
-						<label>Comentarios</label>
-						<textarea name="Comentario" class="form-control" validate="not_null"></textarea>
-					</div>
-				</div>					
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-primary guardarCliente">Guardar Cliente</button>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="ModalTipoFacturacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content containerTipoFactura">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Agregar Tipo de Facturación</h4>
-			</div>
-			<div class="modal-body">
-				<div class="row">
-					<div class="col-md-6 form-group">
-						<label>Código</label>
-						<input name="TipoFacCodigo" class="form-control">
-					</div>
-					<div class="col-md-6 form-group">
-						<label>Descripción</label>
-						<input name="TipoFacDescripcion" class="form-control">
+			<div class="modal fade" id="ModalTipoFacturacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content containerTipoFactura">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">Agregar Tipo de Facturación</h4>
+						</div>
+						<div class="modal-body">
+							<div class="row">
+								<div class="col-md-6 form-group">
+									<label>Código</label>
+									<input name="TipoFacCodigo" class="form-control">
+								</div>
+								<div class="col-md-6 form-group">
+									<label>Descripción</label>
+									<input name="TipoFacDescripcion" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-primary agregarTipoFacturacion">Guardar</button>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-primary agregarTipoFacturacion">Guardar</button>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="grupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title" id="myModalLabel">Agregar Grupo</h4>
-			</div>
-			<div class="modal-body containerGrupo">
-				<div class="row">
-					<div class="col-md-12 form-group">
-						<label>Nombre del grupo</label>
-						<input name="NomGrupo" class="form-control">
+			<div class="modal fade" id="grupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							<h4 class="modal-title" id="myModalLabel">Agregar Grupo</h4>
+						</div>
+						<div class="modal-body containerGrupo">
+							<div class="row">
+								<div class="col-md-12 form-group">
+									<label>Nombre del grupo</label>
+									<input name="NomGrupo" class="form-control">
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+							<button type="button" class="btn btn-primary agregarGrupo">Guardar</button>
+						</div>
 					</div>
 				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				<button type="button" class="btn btn-primary agregarGrupo">Guardar</button>
-			</div>
-		</div>
-	</div>
-</div>
