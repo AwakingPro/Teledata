@@ -78,6 +78,12 @@ $(document).ready(function(){
 	$('select[name="Rut"]').load('../ajax/servicios/selectClientes.php',function(){
 		$('select[name="Rut"]').selectpicker();
 	});
+
+	$('select[name="TipoServicio"]').change(function(event) {
+		alert($(this).val());
+		$('.campo-apellidoServicio').show();
+	});
+
 	$('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php',function(){
 		$('select[name="TipoFactura"]').selectpicker();
 	});
@@ -88,6 +94,8 @@ $(document).ready(function(){
 	$('select[name="Grupo"]').load('../ajax/servicios/listGrupo.php',function(){
 		$('select[name="Grupo"]').selectpicker('refresh');
 	});
+
+
 
 	$(document).on('click', '.guardarServ', function() {
 		$.postFormValues('../ajax/servicios/insertServicio.php','.container-form',function(data){

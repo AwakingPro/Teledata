@@ -92,10 +92,10 @@
 													<div class="form-group">
 														<input type="text" name="Alias" class="form-control campo-apellidoServicio">
 													</div>
-													<br>
+													<br class="campo-apellidoServicio">
 													<label class="compo-descripcion"> Descripción</label>
 													<textarea name="Descripcion" class="form-control compo-descripcion" rows="5"></textarea>
-													<br>
+													<br class="campo-apellidoServicio">
 													<label class="campo-valor" >Valor</label>
 													<div class="input-group campo-valor">
 														<input type="text"  name="Valor" class="form-control">
@@ -106,16 +106,16 @@
 															</select>
 														</span>
 													</div>
-													<br>
+													<br class="campo-valor">
 													<label class="campo-descuento">Descuento</label>
 													<div class="input-group campo-descuento">
 														<input type="text" name="Descuento" class="form-control">
 														<span class="input-group-addon">%</span>
 													</div>
-													<br>
+													<br class="campo-descuento">
 													<label class="campo-direccion">Dirección</label>
 													<textarea name="Direccion" class="form-control campo-direccion" rows="5"></textarea>
-													<br>
+													<br class="campo-direccion">
 													<div class="col-md-6 campo-cordenadas">
 														<div class="form-group">
 															<label class="control-label" for="Latitud">Coordenadas</label>
@@ -128,44 +128,44 @@
 															<input id="Longitud" name="Longitud" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas">
 														</div>
 													</div>
-													<br>
+													<br class="campo-cordenadas">
 													<div id="Map" style="height:350px; width:100%;" class="campo-cordenadas"></div>
-													<br>
+													<br class="campo-cordenadas">
 													<label class="campo-referencia">Referencia</label>
 													<div class="form-group campo-referencia">
 														<input type="text" name="Referencia" class="form-control">
 													</div>
-													<br>
+													<br class="campo-referencia">
 													<label class="campo-contacto">Contacto</label>
 													<div class="form-group campo-contacto">
 														<input type="text" name="Contacto" class="form-control">
 													</div>
-													<br>
+													<br  class="campo-contacto">
 													<label class="campo-telefonoContacto">Fono Contacto</label>
 													<div class="form-group campo-telefonoContacto">
 														<input type="text" name="Fono" class="form-control">
 													</div>
-													<br>
+													<br class="campo-telefonoContacto">
 													<label class="campo-estacionReferencia">Estación de Referencia</label>
 													<div class="form-group campo-estacionReferencia">
 														<input type="text" name="PosibleEstacion" class="form-control">
 													</div>
-													<br>
+													<br class="campo-estacionReferencia">
 													<label class="campo-usuarioPPPoE">Usuario PPPoE</label>
 													<div class="form-group campo-usuarioPPPoE">
 														<input type="text" name="UsuarioPppoe" class="form-control">
 													</div>
-													<br>
+													<br class="campo-usuarioPPPoE">
 													<label class="campo-equipamiento">Equipamiento Sugerido</label>
 													<div class="form-group campo-equipamiento">
 														<input type="text" name="Equipamiento" class="form-control">
 													</div>
-													<br>
+													<br class="campo-equipamiento">
 													<label class="campo-señalTeorica">Señal Teorica</label>
 													<div class="form-group campo-señalTeorica">
 														<input type="text" name="SenalTeorica" class="form-control">
 													</div>
-													<br>
+													<br class="campo-señalTeorica">
 													<button type="button" class="btn btn-primary guardarServ">Guardar</button>
 												</div>
 											</form>
