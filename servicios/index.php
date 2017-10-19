@@ -87,17 +87,9 @@
 															<option value="">Seleccione...</option>
 														</select>
 													</div>
-													<br><br>
-													<label class="campo-apellidoServicio">Apellido del Servicio</label>
-													<div class="form-group">
-														<input type="text" name="Alias" class="form-control campo-apellidoServicio">
-													</div>
-													<br class="campo-apellidoServicio">
-													<label class="compo-descripcion"> Descripción</label>
-													<textarea name="Descripcion" class="form-control compo-descripcion" rows="5"></textarea>
-													<br class="campo-apellidoServicio">
-													<label class="campo-valor" >Valor</label>
-													<div class="input-group campo-valor">
+													<br>
+													<label>Valor</label>
+													<div class="input-group">
 														<input type="text"  name="Valor" class="form-control">
 														<span class="input-group-addon" style="padding: 0px; border: 0px solid">
 															<select name="tipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
@@ -106,13 +98,28 @@
 															</select>
 														</span>
 													</div>
-													<br class="campo-valor">
-													<label class="campo-descuento">Descuento</label>
-													<div class="input-group campo-descuento">
+													<br>
+													<label>Descuento</label>
+													<div class="input-group">
 														<input type="text" name="Descuento" class="form-control">
 														<span class="input-group-addon">%</span>
 													</div>
-													<br class="campo-descuento">
+													<br >
+
+													<br>
+													<label > Descripción</label>
+													<textarea name="Descripcion" class="form-control" rows="5"></textarea>
+													<br>
+
+
+
+													<label class="campo-apellidoServicio">Apellido del Servicio</label>
+													<div class="form-group">
+														<input type="text" name="Alias" class="form-control campo-apellidoServicio">
+													</div>
+
+
+
 													<label class="campo-direccion">Dirección</label>
 													<textarea name="Direccion" class="form-control campo-direccion" rows="5"></textarea>
 													<br class="campo-direccion">
