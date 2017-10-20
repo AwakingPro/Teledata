@@ -105,7 +105,6 @@
 														<span class="input-group-addon">%</span>
 													</div>
 													<br >
-
 													<br>
 													<label > Descripción</label>
 													<textarea name="Descripcion" class="form-control" rows="5"></textarea>
@@ -173,6 +172,9 @@
 														<input type="text" name="SenalTeorica" class="form-control">
 													</div>
 													<br class="campo-señalTeorica">
+
+													<div class="containerTipoServicioFormualario"></div>
+
 													<button type="button" class="btn btn-primary guardarServ">Guardar</button>
 												</div>
 											</form>

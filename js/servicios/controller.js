@@ -80,8 +80,52 @@ $(document).ready(function(){
 	});
 
 	$('select[name="TipoServicio"]').change(function(event) {
-		alert($(this).val());
-		$('.campo-apellidoServicio').show();
+		switch($(this).val()) {
+		    case '1':
+				url = "arriendoEquipos.php";
+				break;
+			case '2':
+				url = "mantencionRed.php";
+				break;
+			case '3':
+				url = "mensualidadIPFija.php";
+				break;
+			case '4':
+				url = "mensualidadPuertoPublicos.php";
+				break;
+			case '5':
+				url = "servicioInternet.php";
+				break;
+			case '6':
+				url = "traficoGenerado.php";
+				break;
+			default:
+       			url = "404.html";
+		}
+
+		alert(url);
+
+		$('.containerTipoServicioFormualario').load('../clientesServicios/viewTipoServicio/'+url,function(){
+				//$('[name="idServicio"]').val(id);
+				//$('#destino_id').val(id)
+				$('select').selectpicker();
+				if(data.trim() == 'arriendoEquipos.php'){
+					$.ajax({
+						type: "POST",
+						url: "../includes/inventario/egresos/getBodega.php",
+						success: function(response){
+							$.each(response.array, function( index, array ) {
+									$('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+							});
+						}
+					});
+					setTimeout(function() {
+						$('#origen_id').selectpicker('render');
+						$('#origen_id').selectpicker('refresh');
+					}, 1000);
+				}
+			});
+
 	});
 
 	$('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php',function(){
