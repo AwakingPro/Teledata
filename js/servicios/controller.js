@@ -103,11 +103,7 @@ $(document).ready(function() {
 				url = "404.html";
 		}
 
-		alert(url);
-
 		$('.containerTipoServicioFormualario').load('../clientesServicios/viewTipoServicio/' + url, function() {
-			//$('[name="idServicio"]').val(id);
-			//$('#destino_id').val(id)
 			$('select').selectpicker();
 			if (url.trim() == 'arriendoEquipos.php') {
 				$.ajax({
@@ -142,6 +138,7 @@ $(document).ready(function() {
 
 
 	$(document).on('click', '.guardarServ', function() {
+		alert('lol');
 		$.postFormValues('../ajax/servicios/insertServicio.php', '.container-form', function(data) {
 			console.log(data);
 			if (Number(data) > 0) {

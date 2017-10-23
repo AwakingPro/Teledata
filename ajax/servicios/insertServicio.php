@@ -1,5 +1,5 @@
 <?php
-	include("../../class/inventario/egresos/EgresoClass.php");
+	require_once('../../class/methods_global/methods.php');
 	session_start();
 	$run = new Method;
 	$dv = $run->select("SELECT dv FROM personaempresa WHERE rut = ".$_POST['Rut']);

@@ -189,7 +189,7 @@
 										<h3 class="panel-title">Servicios registrados</h3>
 									</div>
 									<!--Panel body-->
-									<div class="panel-body container-form">
+									<div class="panel-body">
 										<div class="row" >
 											<div class="col-md-12 form-group">
 												<div class="dataServicios" id="tab-Servicios">
