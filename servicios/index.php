@@ -33,7 +33,7 @@
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
-										<h3 class="panel-title">Modulo Servicios</h3>
+										<h3 class="panel-title">Módulo crear servicios</h3>
 									</div>
 									<!--Panel body-->
 									<div class="panel-body container-form">
