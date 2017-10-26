@@ -13,16 +13,16 @@
 			case 1:
 				echo "listArriendoEquipos.php";
 				break;
-			case 2:
+			case 5:
 				echo "listMantecionRed.php";
 				break;
-			case 3:
+			case 4:
 				echo "listMensualidIPFija.php";
 				break;
-			case 4:
+			case 3:
 				echo "listMensualidadPuertosPublicos.php";
 				break;
-			case 5:
+			case 2:
 				echo "listServivioInternet.php";
 				break;
 			case 6:

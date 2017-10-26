@@ -84,16 +84,16 @@ $(document).ready(function() {
 			case '1':
 				url = "arriendoEquipos.php";
 				break;
-			case '2':
+			case '5':
 				url = "mantencionRed.php";
 				break;
-			case '3':
+			case '4':
 				url = "mensualidadIPFija.php";
 				break;
-			case '4':
+			case '3':
 				url = "mensualidadPuertoPublicos.php";
 				break;
-			case '5':
+			case '2':
 				url = "servicioInternet.php";
 				break;
 			case '6':
