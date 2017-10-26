@@ -122,6 +122,7 @@
 													<label class="campo-direccion">Dirección</label>
 													<textarea name="Direccion" class="form-control campo-direccion" rows="5"></textarea>
 													<br class="campo-direccion">
+
 													<div class="col-md-6 campo-cordenadas">
 														<div class="form-group">
 															<label class="control-label" for="Latitud">Coordenadas</label>
@@ -135,6 +136,7 @@
 														</div>
 													</div>
 													<br class="campo-cordenadas">
+
 													<div id="Map" style="height:350px; width:100%;" class="campo-cordenadas"></div>
 													<br class="campo-cordenadas">
 													<label class="campo-referencia">Referencia</label>

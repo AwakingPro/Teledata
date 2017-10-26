@@ -155,19 +155,3 @@ div.bg-img{
 	font-weight: 600;
 	text-transform: uppercase;
 }
-
-.campo-apellidoServicio,
-.compo-descripcion,
-.campo-valor,
-.campo-descuento,
-.campo-direccion,
-.campo-cordenadas,
-.campo-referencia,
-.campo-contacto,
-.campo-telefonoContacto,
-.campo-estacionReferencia,
-.campo-usuarioPPPoE,
-.campo-equipamiento,
-.campo-señalTeorica{
-	display: none;
-}
