@@ -34,7 +34,7 @@
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
-										<h3 class="panel-title">Modulo de Servicios de Cliente</h3>
+										<h3 class="panel-title">Visualización de servicios de clientes </h3>
 									</div>
 									<!--Panel body-->
 									<div class="panel-body">
