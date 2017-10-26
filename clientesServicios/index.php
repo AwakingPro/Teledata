@@ -65,8 +65,8 @@
 												            <div class="panel-heading">
 												                <div class="panel-control" style="float: left;">
 												                    <ul class="nav nav-tabs">
-												                        <li class="active"><a href="#tab-Facturacion" data-toggle="tab">Facturación</a></li>
-												                        <li><a href="#tab-Servicios" data-toggle="tab">Servicios</a></li>
+												                        <li class="active"><a href="#tab-Servicios" data-toggle="tab">Servicios</a></li>
+												                        <li ><a href="#tab-Facturacion" data-toggle="tab">Datos de facturacion</a></li>
 												                    </ul>
 												                </div>
 												                <h3 class="panel-title">&nbsp;</h3>
@@ -75,10 +75,11 @@
 												            <!--Panel body-->
 												            <div class="panel-body">
 												                <div class="tab-content">
-												                    <div class="tab-pane fade in active dataFacturacion" id="tab-Facturacion">
+
+												                    <div class="tab-pane fade in active dataServicios" id="tab-Servicios">
 												                    <h4>No hay información</h4>
 												                    </div>
-												                    <div class="tab-pane fade dataServicios" id="tab-Servicios">
+												                    <div class="tab-pane fade dataFacturacion" id="tab-Facturacion">
 												                    <h4>No hay información</h4>
 												                    </div>
 												                </div>
