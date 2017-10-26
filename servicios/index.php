@@ -93,8 +93,8 @@
 														<input type="text"  name="Valor" class="form-control">
 														<span class="input-group-addon" style="padding: 0px; border: 0px solid">
 															<select name="tipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
-																<option value="Pesos">Pesos</option>
 																<option value="UF">UF</option>
+																<option value="Pesos">Pesos</option>
 															</select>
 														</span>
 													</div>
