@@ -58,7 +58,8 @@
 
 	           	if($Usuario['email']){
 	           		$Codigos = implode(", ", $Codigos);
-	           		$Estatus = $this->enviarCorreo($Usuario,$Codigos);
+	           		// $Estatus = $this->enviarCorreo($Usuario,$Codigos);
+	           		$Estatus = true;
 	           	}else{
 	           		$Estatus = true;
 	           	}

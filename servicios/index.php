@@ -154,7 +154,7 @@
 														<input type="text" name="Fono" class="form-control">
 													</div>
 													<br class="campo-telefonoContacto">
-													<label class="campo-estacionReferencia">estaciones de referencias</label>
+													<label class="campo-estacionReferencia">Estaciones de Referencia</label>
 													<div class="form-group campo-estacionReferencia">
 														<input type="text" name="PosibleEstacion" class="form-control">
 													</div>

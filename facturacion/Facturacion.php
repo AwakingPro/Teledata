@@ -74,11 +74,45 @@
                                 </div>
                                 <div id="individual" class="tab-pane fade">
                                     <div class="row" style="margin-top: 10px">
+                                        <div class="table-responsive">
+                                            <div class="col-md-12">
+                                                <table id="IndividualTable" class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">Cliente</th>
+                                                            <th class="text-center">Rut</th>
+                                                            <th class="text-center">Grupo Factura</th>
+                                                            <th class="text-center">Monto</th>
+                                                            <th class="text-center">Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div id="instalacion" class="tab-pane fade">
                                     <div class="row" style="margin-top: 10px">
-
+                                        <div class="table-responsive">
+                                            <div class="col-md-12">
+                                                <table id="InstalacionTable" class="table table-striped table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th class="text-center">Estatus</th>
+                                                            <th class="text-center">Cliente</th>
+                                                            <th class="text-center">Rut</th>
+                                                            <th class="text-center">Grupo Factura</th>
+                                                            <th class="text-center">Monto</th>
+                                                            <th class="text-center">Acción</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
