@@ -17,9 +17,9 @@
 	$Ciudad = isset($_POST['Ciudad']) ? trim($_POST['Ciudad']) : "";
 
 	$query = "INSERT INTO personaempresa 
-			(rut, dv, nombre, giro, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession, comuna, ciudad) 
+			(rut, dv, nombre, giro, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession, comuna, ciudad, boleta) 
 			VALUES 
-			('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$_SESSION['idUsuario']."', '".$Comuna."', '".$Ciudad."')";
+			('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$_SESSION['idUsuario']."', '".$Comuna."', '".$Ciudad."', '')";
 	$run = new Method;
 	$id = $run->insert($query);
 	if($id > 0){
