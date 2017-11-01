@@ -20,7 +20,7 @@
 
         public function storeFactura($Id){
 
-            if(function_exists('curl_version')){
+            if(in_array  ('curl', get_loaded_extensions())) {
 
                 //Demo
                 // $access_token='b6ae44d94c240baa08b9fb48aa4333aa712cf3c2';
