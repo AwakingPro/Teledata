@@ -184,9 +184,11 @@ $(document).ready(function(){
                         }else{
                             swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
                         }
-                    },error: function(response){
+                    },
+                    error: function(xhr, status, error){
                         setTimeout(function(){ 
-                            swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                            var err = JSON.parse(xhr.responseText);
+                            swal('Solicitud no procesada',err.Message,'error');
                         }, 1000);
                     }
                 });
