@@ -169,17 +169,22 @@
             //Esto es sólo para poder visualizar lo que se está retornando
             $Factura = json_decode($response, true);
 
-            $DocumentoId = $Factura['id'];
-            $UrlPdf = $Factura['urlPublicViewOriginal'];
-            $informedSii = $Factura['informedSii'];
-            $responseMsgSii = $Factura['responseMsgSii'];
+            if($Factura){
+                $DocumentoId = $Factura['id'];
+                $UrlPdf = $Factura['urlPublicViewOriginal'];
+                $informedSii = $Factura['informedSii'];
+                $responseMsgSii = $Factura['responseMsgSii'];
 
-            $query = "UPDATE `servicios` set `DocumentoIdBsale` = '$DocumentoId', `UrlPdfBsale` = '$UrlPdf', `informedSiiBsale` = '$informedSii', `responseMsgSiiBsale` = '$responseMsgSii', `EstatusFacturacion` = '1' where `id` = '$Id'";
-            $run = new Method;
-            $data = $run->update($query);
+                $query = "UPDATE `servicios` set `DocumentoIdBsale` = '$DocumentoId', `UrlPdfBsale` = '$UrlPdf', `informedSiiBsale` = '$informedSii', `responseMsgSiiBsale` = '$responseMsgSii', `EstatusFacturacion` = '1' where `id` = '$Id'";
+                $run = new Method;
+                $data = $run->update($query);
 
-            $response_array['UrlPdf'] = $UrlPdf;
-            $response_array['status'] = 1; 
+
+                $response_array['UrlPdf'] = $UrlPdf;
+                $response_array['status'] = 1; 
+            }else{
+                $response_array['status'] = 0;
+            }
 
             echo json_encode($response_array);
         }
