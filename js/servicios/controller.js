@@ -138,22 +138,22 @@ $(document).ready(function() {
 
 
 	$(document).on('click', '.guardarServ', function() {
-		alert('lol');
 		$.postFormValues('../ajax/servicios/insertServicio.php', '.container-form', function(data) {
 			console.log(data);
 			if (Number(data) > 0) {
+				
 				bootbox.alert('<h3 class="text-center">El servicio #' + data + ' se registro con éxito.</h3>');
+
+				Rut = $('#Rut').val()
+
+				$('#formServicio')[0].reset();
+				$('.selectpicker').selectpicker('refresh')
+				$('#Rut').val(Rut)
+
 			} else {
 				console.log(data);
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
 			}
-
-			Rut = $('#Rut').val()
-
-			$('#formServicio')[0].reset();
-			$('.selectpicker').selectpicker('refresh')
-			$('#Rut').val(Rut)
-
 			$.post('../ajax/cliente/dataCliente.php', {
 				rut: $('select[name="Rut"]').selectpicker('val')
 			}, function(data) {
