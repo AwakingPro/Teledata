@@ -181,6 +181,8 @@ $(document).ready(function(){
 
                             swal("Éxito!","La factura ha sido generada!","success");
 
+                        }else if(response.status == 99){
+                            swal('Solicitud no procesada','El servicio cUrl no esta disponible en el servidor, por favor contactar al administrador','error');
                         }else{
                             swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
                         }
