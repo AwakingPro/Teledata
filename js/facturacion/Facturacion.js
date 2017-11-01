@@ -182,10 +182,12 @@ $(document).ready(function(){
                             swal("Éxito!","La factura ha sido generada!","success");
 
                         }else{
-
                             swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
-
                         }
+                    },error: function(response){
+                        setTimeout(function(){ 
+                            swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                        }, 1000);
                     }
                 });
             }
