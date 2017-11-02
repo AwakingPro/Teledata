@@ -16,17 +16,19 @@
 	$Comuna = isset($_POST['Comuna']) ? trim($_POST['Comuna']) : "";
 	$Ciudad = isset($_POST['Ciudad']) ? trim($_POST['Ciudad']) : "";
 
-	$query = "INSERT INTO personaempresa 
-			(rut, dv, nombre, giro, comuna, ciudad, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession, boleta) 
-			VALUES 
-			('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Comuna."', '".$Ciudad."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$_SESSION['idUsuario']."', '0')";
+	$query = "INSERT INTO personaempresa
+			(rut, dv, nombre, giro, comuna, ciudad, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession)
+			VALUES
+			('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Comuna."', '".$Ciudad."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$_SESSION['idUsuario']."')";
 	$run = new Method;
 	$id = $run->insert($query);
+	echo $query;
+	echo $id;
 	if($id > 0){
 		if (count($_POST['extra_telefono']) > 0) {
 			for ($i=0; $i < count($_POST['extra_telefono']); $i++) {
 				if ($_POST['extra_telefono'][$i] != "") {
-					$query = "INSERT INTO telefono_extra (IdUsuario, Telefono) VALUES ('".$id."', '".$_POST['extra_telefono'][$i]."')";
+					 $query = "INSERT INTO telefono_extra (IdUsuario, Telefono) VALUES ('".$id."', '".$_POST['extra_telefono'][$i]."')";
 					$data = $run->insert($query);
 				}
 
@@ -36,7 +38,7 @@
 		if (count($_POST['extra_correo']) > 0) {
 			for ($i=0; $i < count($_POST['extra_correo']); $i++) {
 				if ($_POST['extra_correo'][$i] != "") {
-					$query = "INSERT INTO correo_extra (IdUsuario, Correo) VALUES ('".$id."', '".$_POST['extra_correo'][$i]."')";
+					 $query = "INSERT INTO correo_extra (IdUsuario, Correo) VALUES ('".$id."', '".$_POST['extra_correo'][$i]."')";
 					$data = $run->insert($query);
 				}
 
@@ -53,7 +55,6 @@
 			}
 		}
 
-		echo $id;
 	}else{
 		echo false;
 	}
