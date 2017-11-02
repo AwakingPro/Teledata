@@ -115,7 +115,7 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
-        url: "../includes/facturacion/showServicios.php",
+        url: "../includes/facturacion/facturas/showServicios.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
@@ -168,7 +168,7 @@ $(document).ready(function(){
 
                 $.ajax({
                     type: "POST",
-                    url: "../includes/facturacion/storeFactura.php",
+                    url: "../includes/facturacion/facturas/storeFactura.php",
                     data: "id="+ObjectId,
                     success: function(response){
 
@@ -181,6 +181,12 @@ $(document).ready(function(){
 
                             swal("Éxito!","La factura ha sido generada!","success");
 
+                        }else if(response.status == 2){
+                            swal('Solicitud no procesada','Debes ingresar el valor UF del mes en curso','error');
+                        }else if(response.status == 3){
+                            swal('Solicitud no procesada','El servicio no existe, por favor actualizar la pagina','error');
+                        }else if(response.status == 4){
+                            swal('Solicitud no procesada','El cliente no existe, por favor actualizar la pagina','error');
                         }else if(response.status == 99){
                             swal('Solicitud no procesada','El servicio cUrl no esta disponible en el servidor, por favor contactar al administrador','error');
                         }else{
