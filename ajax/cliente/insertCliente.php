@@ -22,7 +22,6 @@
 			('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Comuna."', '".$Ciudad."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$_SESSION['idUsuario']."')";
 	$run = new Method;
 	$id = $run->insert($query);
-	echo $query;
 	echo $id;
 	if($id > 0){
 		if (count($_POST['extra_telefono']) > 0) {
