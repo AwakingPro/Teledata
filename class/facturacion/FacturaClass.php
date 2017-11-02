@@ -139,13 +139,15 @@
 
                 //En demo hay que enviar obligatoriamente el priceListId, en producción hay que quitarlo
 
+                $Hoy = time();
+
                 $array = array(
                     "documentTypeId"     => 5,
                     // "documentTypeId"    => 82,
                     // "officeId"           => 83,
                     // "priceListId"        => 18,
-                    "emissionDate"      => time(),
-                    "expirationDate"    => time(),
+                    "emissionDate"      => $Hoy,
+                    "expirationDate"    => $Hoy,
                     "declareSii"        => 1,
                     "details"           => $details
                 );
@@ -177,7 +179,7 @@
                     $informedSii = $Factura['informedSii'];
                     $responseMsgSii = $Factura['responseMsgSii'];
 
-                    $query = "UPDATE `servicios` set `DocumentoIdBsale` = '$DocumentoId', `UrlPdfBsale` = '$UrlPdf', `informedSiiBsale` = '$informedSii', `responseMsgSiiBsale` = '$responseMsgSii', `EstatusFacturacion` = '1' where `id` = '$Id'";
+                    $query = "UPDATE `servicios` set `DocumentoIdBsale` = '$DocumentoId', `UrlPdfBsale` = '$UrlPdf', `informedSiiBsale` = '$informedSii', `responseMsgSiiBsale` = '$responseMsgSii', `EstatusFacturacion` = '1', `FechaFacturacion` = '$Hoy', `HoraFacturacion` = '$Hoy' where `id` = '$Id'";
                     $run = new Method;
                     $data = $run->update($query);
 
