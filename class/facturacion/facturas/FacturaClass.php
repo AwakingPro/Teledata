@@ -153,6 +153,8 @@
                             $Valor = floatval($Servicio['Valor']);
                         }
 
+                        echo $Valor;
+
                         $details = array();
                         $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Servicio["Servicio"], "discount" => floatval($Servicio["Descuento"]));
 

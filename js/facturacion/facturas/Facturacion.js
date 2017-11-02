@@ -177,6 +177,8 @@ $(document).ready(function(){
                             $(ObjectMe).after('<a href="'+response.UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>');
                             $(ObjectMe).remove();
 
+                            $('[data-toggle="popover"]').popover();
+
                             ObjectTR.find("td").eq(0).text('Pagada');
 
                             swal("Éxito!","La factura ha sido generada!","success");
