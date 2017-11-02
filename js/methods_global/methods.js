@@ -34,8 +34,6 @@ $.postFormValues = function(url, form,callback) {
 
 $.validate = function(obj) {
 	if (obj.hasAttribute('validate')) {
-		console.log($(obj).val());
-		console.log($(obj).attr('name'));
 		switch($(obj).attr('validate')) {
 			case 'not_null':
 				if ($(obj).val() == "") {
