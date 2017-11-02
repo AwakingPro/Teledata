@@ -23,9 +23,9 @@
             if(in_array  ('curl', get_loaded_extensions())) {
 
                 //Demo
-                $access_token='b6ae44d94c240baa08b9fb48aa4333aa712cf3c2';
+                // $access_token='b6ae44d94c240baa08b9fb48aa4333aa712cf3c2';
                 //Producción
-                // $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
+                $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
 
                 $query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Id = '$Id'";
 
@@ -140,10 +140,10 @@
                 //En demo hay que enviar obligatoriamente el priceListId, en producción hay que quitarlo
 
                 $array = array(
-                    // "documentTypeId"     => 5,
-                    "documentTypeId"    => 82,
+                    "documentTypeId"     => 5,
+                    // "documentTypeId"    => 82,
                     // "officeId"           => 83,
-                    "priceListId"        => 18,
+                    // "priceListId"        => 18,
                     "emissionDate"      => time(),
                     "expirationDate"    => time(),
                     "declareSii"        => 1,
