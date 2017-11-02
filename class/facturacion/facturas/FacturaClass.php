@@ -142,7 +142,7 @@
 
                             if($Uf){
                                 $Uf = $Uf[0];
-                                $Valor = str_replace('.','',$Uf['Valor']);
+                                $Valor = str_replace('.','',$Uf['valor']);
                                 $Valor = floatval($Servicio['Valor']) * floatval($Valor);
                             }else{
                                 $response_array['status'] = 2;
@@ -152,8 +152,6 @@
                         }else{
                             $Valor = floatval($Servicio['Valor']);
                         }
-
-                        echo $Valor;
 
                         $details = array();
                         $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Servicio["Servicio"], "discount" => floatval($Servicio["Descuento"]));
