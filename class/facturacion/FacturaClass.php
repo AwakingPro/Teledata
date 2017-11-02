@@ -23,9 +23,9 @@
             if(in_array  ('curl', get_loaded_extensions())) {
 
                 //Demo
-                // $access_token='b6ae44d94c240baa08b9fb48aa4333aa712cf3c2';
+                $access_token='b6ae44d94c240baa08b9fb48aa4333aa712cf3c2';
                 //Producción
-                $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
+                // $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
 
                 $query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Id = '$Id'";
 
@@ -139,15 +139,13 @@
 
                 //En demo hay que enviar obligatoriamente el priceListId, en producción hay que quitarlo
 
-                $Hoy = time();
-
                 $array = array(
-                    "documentTypeId"     => 5,
-                    // "documentTypeId"    => 82,
+                    // "documentTypeId"     => 5,
+                    "documentTypeId"    => 82,
                     // "officeId"           => 83,
-                    // "priceListId"        => 18,
-                    "emissionDate"      => $Hoy,
-                    "expirationDate"    => $Hoy,
+                    "priceListId"        => 18,
+                    "emissionDate"      => time(),
+                    "expirationDate"    => time(),
                     "declareSii"        => 1,
                     "details"           => $details
                 );
@@ -178,14 +176,16 @@
                     $UrlPdf = $Factura['urlPublicViewOriginal'];
                     $informedSii = $Factura['informedSii'];
                     $responseMsgSii = $Factura['responseMsgSii'];
+                    $Hoy = new DateTime(); 
+                    $Hoy = $Hoy->format('Y-m-d H:i:s');
 
                     $query = "UPDATE `servicios` set `DocumentoIdBsale` = '$DocumentoId', `UrlPdfBsale` = '$UrlPdf', `informedSiiBsale` = '$informedSii', `responseMsgSiiBsale` = '$responseMsgSii', `EstatusFacturacion` = '1', `FechaFacturacion` = '$Hoy', `HoraFacturacion` = '$Hoy' where `id` = '$Id'";
                     $run = new Method;
                     $data = $run->update($query);
 
-
                     $response_array['UrlPdf'] = $UrlPdf;
                     $response_array['status'] = 1; 
+
                 }else{
                     $response_array['status'] = 0;
                 }
