@@ -100,9 +100,9 @@
             if(in_array  ('curl', get_loaded_extensions())) {
 
                 //Demo
-                // $access_token='b6ae44d94c240baa08b9fb48aa4333aa712cf3c2';
+                $access_token='b6ae44d94c240baa08b9fb48aa4333aa712cf3c2';
                 //Producción
-                $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
+                // $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
 
                 if($Tipo == 2){
                     $query = "SELECT facturas_detalle.*, mantenedor_servicios.servicio as Servicio, servicios.Rut FROM facturas_detalle LEFT JOIN servicios ON servicios.Id = facturas_detalle.IdServicio LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio WHERE facturas_detalle.FacturaId = '$RutId'";
