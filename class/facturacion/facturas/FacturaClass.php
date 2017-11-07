@@ -17,7 +17,19 @@
             echo json_encode($response_array);
     	}
 
-        public function storeFactura($Id){
+        public function showFacturas(){
+
+            $query = 'SELECT facturas.*, personaempresa.nombre as Cliente FROM facturas INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut';
+
+            $run = new Method;
+            $data = $run->select($query);
+
+            $response_array['array'] = $data;
+
+            echo json_encode($response_array);
+        }
+
+        public function storeFactura($Id, $Tipo){
 
             if(in_array  ('curl', get_loaded_extensions())) {
 
@@ -26,7 +38,11 @@
                 //Producción
                 $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
 
-                $query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Id = '$Id'";
+                if($Tipo == 2){
+                    $query = "SELECT facturas.*, mantenedor_servicios.servicio as Servicio FROM facturas LEFT JOIN servicios ON servicios.Id = facturas.IdServicio LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where facturas.Id = '$Id'";
+                }else{
+                    $query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Id = '$Id'";
+                }
 
                 $run = new Method;
                 $Servicio = $run->select($query);
@@ -167,7 +183,6 @@
                         $array = array(
                             "documentTypeId"     => 5,
                             // "documentTypeId"    => 82,
-                            // "officeId"           => 83,
                             // "priceListId"        => 18,
                             "emissionDate"      => time(),
                             "expirationDate"    => time(),
@@ -207,7 +222,13 @@
                             $Hoy = new DateTime(); 
                             $Hoy = $Hoy->format('Y-m-d H:i:s');
 
-                            $query = "UPDATE `servicios` set `DocumentoIdBsale` = '$DocumentoId', `UrlPdfBsale` = '$UrlPdf', `informedSiiBsale` = '$informedSii', `responseMsgSiiBsale` = '$responseMsgSii', `EstatusFacturacion` = '1', `FechaFacturacion` = '$Hoy', `HoraFacturacion` = '$Hoy' where `id` = '$Id'";
+
+                            if($Tipo == 2){
+                                $query = "UPDATE `facturas` set `DocumentoIdBsale` = '$DocumentoId', `UrlPdfBsale` = '$UrlPdf', `informedSiiBsale` = '$informedSii', `responseMsgSiiBsale` = '$responseMsgSii', `EstatusFacturacion` = '1', `FechaFacturacion` = '$Hoy', `HoraFacturacion` = '$Hoy' where `Id` = '$Id'";
+                            }else{
+                                $query = "UPDATE `servicios` set `DocumentoIdBsale` = '$DocumentoId', `UrlPdfBsale` = '$UrlPdf', `informedSiiBsale` = '$informedSii', `responseMsgSiiBsale` = '$responseMsgSii', `EstatusFacturacion` = '1', `FechaFacturacion` = '$Hoy', `HoraFacturacion` = '$Hoy' where `Id` = '$Id'";
+                            }
+
                             $run = new Method;
                             $data = $run->update($query);
 
@@ -228,6 +249,51 @@
             }
 
             echo json_encode($response_array);
+        }
+
+        public function generarFacturasMensuales(){
+
+            $run = new Method;
+            $query = "SELECT * FROM variables_globales";
+            $Variables = $run->select($query);
+
+            if($Variables){
+
+                $Variables = $Variables[0];
+                $FechaComprobacion = $Variables['fecha_comprobacion'];
+                $Hoy = new DateTime(); 
+                $Hoy = $Hoy->format('Y-m-d');
+
+                if($Hoy > $FechaComprobacion){
+
+                    $query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio";
+                    $Servicios = $run->select($query);
+
+                    foreach($Servicios as $Servicio){
+
+                        $Rut = $Servicio['Rut'];
+                        $Grupo = $Servicio['Grupo'];
+                        $IdServicio = $Servicio['Id'];
+                        $Valor = $Servicio['Valor'];
+                        $Descuento = $Servicio['Descuento'];
+                        $TipoMoneda = $Servicio['TipoMoneda'];
+                        $Hoy = new DateTime(); 
+                        $Hoy = $Hoy->format('Y-m-d H:i:s');
+
+                        $query = "INSERT INTO facturas(Rut, Grupo, IdServicio, Valor, Descuento, TipoMoneda, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('$Rut', '$Grupo', '$IdServicio', '$Valor', '$Descuento', '$TipoMoneda', '0', '0', '', '0', '', '$Hoy', '$Hoy')";
+                        $data = $run->insert($query);
+                    }
+
+                    $FechaComprobacion = date('Y-m-d', strtotime('first day of next month'));
+                    $query = "UPDATE `variables_globales` set `fecha_comprobacion` = '$FechaComprobacion'";
+                    $update = $run->update($query);
+                }
+            }
+
+            $response_array['status'] = 1; 
+
+            echo json_encode($response_array);
+
         }
     }
 ?>

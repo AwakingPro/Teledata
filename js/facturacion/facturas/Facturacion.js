@@ -139,6 +139,42 @@ $(document).ready(function(){
 
                 $( rowNode )
                     .attr('id',array.Id)
+                    .data('tipo',3)
+                    .addClass('text-center')
+               
+            });
+
+            $('[data-toggle="popover"]').popover();
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "../includes/facturacion/facturas/showFacturas.php",
+        success: function(response){
+
+            $.each(response.array, function( index, array ) {
+
+                if(array.EstatusFacturacion == 1){
+                    Estatus = 'Pagada'
+                    Icono = '<a href="'+array.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
+                }else{
+                    Estatus = 'Por pagar'
+                    Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-files-o Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                }
+
+                var rowNode = IndividualTable.row.add([
+                    ''+Estatus+'',
+                    ''+array.Cliente+'',
+                    ''+array.Rut+'',
+                    ''+array.Grupo+'',
+                    ''+array.Valor+'',
+                    ''+Icono+''
+                ]).draw(false).node();
+
+                $( rowNode )
+                    .attr('id',array.Id)
+                    .data('tipo',2)
                     .addClass('text-center')
                
             });
@@ -152,6 +188,7 @@ $(document).ready(function(){
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectId = ObjectTR.attr("id");
+        var ObjectType = ObjectTR.data("tipo");
 
         swal({   
             title: "Deseas facturar este registro?",   
@@ -169,7 +206,7 @@ $(document).ready(function(){
                 $.ajax({
                     type: "POST",
                     url: "../includes/facturacion/facturas/storeFactura.php",
-                    data: "id="+ObjectId,
+                    data: "id="+ObjectId+"&tipo="+ObjectType,
                     success: function(response){
 
                         if(response.status == 1){

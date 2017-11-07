@@ -79,6 +79,7 @@
                                                 <table id="IndividualTable" class="table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
+                                                            <th class="text-center">Estatus</th>
                                                             <th class="text-center">Cliente</th>
                                                             <th class="text-center">Rut</th>
                                                             <th class="text-center">Grupo Factura</th>
