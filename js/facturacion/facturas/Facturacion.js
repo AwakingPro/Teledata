@@ -6,7 +6,7 @@ $(document).ready(function(){
         processing: true,
         serverSide: false,
         bInfo:false,
-        bFilter:false,
+        // bFilter:false,
         order: [[0, 'asc']],
         language: {
             processing:     "Procesando ...",
@@ -38,7 +38,7 @@ $(document).ready(function(){
         processing: true,
         serverSide: false,
         bInfo:false,
-        bFilter:false,
+        // bFilter:false,
         order: [[0, 'asc']],
         language: {
             processing:     "Procesando ...",
@@ -70,7 +70,7 @@ $(document).ready(function(){
         processing: true,
         serverSide: false,
         bInfo:false,
-        bFilter:false,
+        // bFilter:false,
         order: [[0, 'asc']],
         language: {
             processing:     "Procesando ...",
