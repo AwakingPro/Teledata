@@ -7,10 +7,54 @@
 
     	public function showServicios(){
 
-    		$query = 'SELECT servicios.*, personaempresa.nombre as Cliente FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut where servicios.estatus = 1';
+            $data = array();
+
+    		$query = 'SELECT servicios.Rut, servicios.Grupo, servicios.Valor, servicios.EstatusFacturacion, personaempresa.nombre as Cliente FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut where servicios.Estatus = 1 AND servicios.EstatusFacturacion = 0';
 
             $run = new Method;
-            $data = $run->select($query);
+            $servicios = $run->select($query);
+
+            if($servicios){
+                foreach($servicios as $servicio){
+
+                    if(!isset($data[$servicio['Rut'].'-'.$servicio['Grupo']])){
+                        $data[$servicio['Rut'].'-'.$servicio['Grupo']] = $servicio;
+                        $data[$servicio['Rut'].'-'.$servicio['Grupo']]['Tipo'] = 1;
+                    }
+
+                    $Valor = doubleval($data[$servicio['Rut'].'-'.$servicio['Grupo']]['Valor']);
+                    $Valor = $Valor + doubleval($servicio['Valor']);
+                    $Valor = $Valor . '.00';
+                    $data[$servicio['Rut'].'-'.$servicio['Grupo']]['Valor'] = $Valor;
+                }
+            }
+
+            $query = "  SELECT    facturas_detalle.*, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, personaempresa.nombre as Cliente, mantenedor_servicios.servicio as Servicio 
+                        FROM facturas_detalle 
+                        LEFT JOIN servicios ON servicios.Id = facturas_detalle.IdServicio 
+                        LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
+                        INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
+                        INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
+                        WHERE facturas.TipoFactura = '3'";
+
+            $run = new Method;
+            $facturas = $run->select($query);
+
+            if($facturas){
+
+                foreach($facturas as $factura){
+
+                    if(!isset($data[$factura['Id']])){
+                        $data[$factura['Id']] = $factura;
+                        $data[$factura['Id']]['Tipo'] = 2;
+                    }
+
+                    $Valor = doubleval($data[$factura['Id']]['Valor']);
+                    $Valor = $Valor + doubleval($factura['Valor']);
+                    $Valor = $Valor . '.00';
+                    $data[$factura['Id']]['Valor'] = $Valor;
+                }
+            }
 
             $response_array['array'] = $data;
 
@@ -19,17 +63,39 @@
 
         public function showFacturas(){
 
-            $query = 'SELECT facturas.*, personaempresa.nombre as Cliente FROM facturas INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut';
+            $query = "  SELECT    facturas_detalle.*, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, facturas.EstatusFacturacion, personaempresa.nombre as Cliente, mantenedor_servicios.servicio as Servicio 
+                        FROM facturas_detalle 
+                        LEFT JOIN servicios ON servicios.Id = facturas_detalle.IdServicio 
+                        LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
+                        INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
+                        INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
+                        WHERE facturas.TipoFactura = '2'";
 
             $run = new Method;
-            $data = $run->select($query);
+            $facturas = $run->select($query);
+
+            if($facturas){
+
+                foreach($facturas as $factura){
+
+                    if(!isset($data[$factura['Id']])){
+                        $data[$factura['Id']] = $factura;
+                        $data[$factura['Id']]['Tipo'] = 2;
+                    }
+
+                    $Valor = doubleval($data[$factura['Id']]['Valor']);
+                    $Valor = $Valor + doubleval($factura['Valor']);
+                    $Valor = $Valor . '.00';
+                    $data[$factura['Id']]['Valor'] = $Valor;
+                }
+            }
 
             $response_array['array'] = $data;
 
             echo json_encode($response_array);
         }
 
-        public function storeFactura($Id, $Tipo){
+        public function storeFactura($RutId, $Grupo, $Tipo){
 
             if(in_array  ('curl', get_loaded_extensions())) {
 
@@ -39,22 +105,20 @@
                 $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
 
                 if($Tipo == 2){
-                    $query = "SELECT facturas.*, mantenedor_servicios.servicio as Servicio FROM facturas LEFT JOIN servicios ON servicios.Id = facturas.IdServicio LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where facturas.Id = '$Id'";
+                    $query = "SELECT facturas_detalle.*, mantenedor_servicios.servicio as Servicio, servicios.Rut FROM facturas_detalle LEFT JOIN servicios ON servicios.Id = facturas_detalle.IdServicio LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio WHERE facturas_detalle.FacturaId = '$RutId'";
                 }else{
-                    $query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Id = '$Id'";
+                    $query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio WHERE servicios.Rut = '$RutId' AND servicios.Grupo = '$Grupo'";
                 }
 
                 $run = new Method;
-                $Servicio = $run->select($query);
+                $Servicios = $run->select($query);
 
-                if($Servicio){
+                if($Servicios){
 
-                    $Servicio = $Servicio[0];
+                    $Servicio = $Servicios[0];
                     $Rut = $Servicio['Rut'];
-                    $TipoMoneda = $Servicio['TipoMoneda'];
 
                     $query = "SELECT * from personaempresa where rut = '$Rut'";
-                    $run = new Method;
                     $cliente = $run->select($query);
 
                     if($cliente){
@@ -148,31 +212,36 @@
 
                         //CONSTRUCCION DEL ARRAY DE DETALLE
 
-                        if($TipoMoneda == 'UF'){
-
-                            $Mes = date('n');
-
-                            $query = "SELECT * from mantenedor_uf where mes = '$Mes' ORDER BY id DESC LIMIT 1";
-                            $run = new Method;
-                            $Uf = $run->select($query);
-
-                            if($Uf){
-                                $Uf = $Uf[0];
-                                $Valor = str_replace('.','',$Uf['valor']);
-                                $Valor = floatval($Servicio['Valor']) * floatval($Valor);
-                            }else{
-                                $response_array['status'] = 2;
-                                echo json_encode($response_array);
-                                return;
-                            }
-                        }else{
-                            $Valor = floatval($Servicio['Valor']);
-                        }
-
                         $details = array();
-                        $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Servicio["Servicio"], "discount" => floatval($Servicio["Descuento"]));
 
-                        array_push($details,$detail);
+                        foreach($Servicios as $Servicio){
+
+                            $TipoMoneda = $Servicio['TipoMoneda'];
+            
+                            if($TipoMoneda == 'UF'){
+
+                                $Mes = date('n');
+
+                                $query = "SELECT * from mantenedor_uf where mes = '$Mes' ORDER BY id DESC LIMIT 1";
+                                $Uf = $run->select($query);
+
+                                if($Uf){
+                                    $Uf = $Uf[0];
+                                    $Valor = str_replace('.','',$Uf['valor']);
+                                    $Valor = floatval($Servicio['Valor']) * floatval($Valor);
+                                }else{
+                                    $response_array['status'] = 2;
+                                    echo json_encode($response_array);
+                                    return;
+                                }
+                            }else{
+                                $Valor = floatval($Servicio['Valor']);
+                            }
+
+                            $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Servicio["Servicio"], "discount" => floatval($Servicio["Descuento"]));
+
+                            array_push($details,$detail);
+                        }
 
                         //documentTypeId de Factura para Demo
                         // "documentTypeId"    => 82
@@ -181,9 +250,9 @@
                         // "documentTypeId"    => 5
 
                         $array = array(
-                            "documentTypeId"     => 5,
-                            // "documentTypeId"    => 82,
-                            // "priceListId"        => 18,
+                            // "documentTypeId"     => 5,
+                            "documentTypeId"    => 82,
+                            "priceListId"        => 18,
                             "emissionDate"      => time(),
                             "expirationDate"    => time(),
                             "declareSii"        => 1,
@@ -209,33 +278,51 @@
                         curl_close($session);
 
                         //Esto es sólo para poder visualizar lo que se está retornando
-                        $Factura = json_decode($response, true);
+                        $FacturaBsale = json_decode($response, true);
+                        $UrlPdf = isset($FacturaBsale['urlPublicViewOriginal']) ? trim($FacturaBsale['urlPublicViewOriginal']) : "";
 
-                        if($Factura){
+                        if($UrlPdf){
 
                             //Para actualizar los datos del servicios con los datos de Bsale
 
-                            $DocumentoId = $Factura['id'];
-                            $UrlPdf = $Factura['urlPublicViewOriginal'];
-                            $informedSii = $Factura['informedSii'];
-                            $responseMsgSii = $Factura['responseMsgSii'];
+                            $DocumentoId = $FacturaBsale['id'];
+                            $informedSii = $FacturaBsale['informedSii'];
+                            $responseMsgSii = $FacturaBsale['responseMsgSii'];
                             $Hoy = new DateTime(); 
                             $Hoy = $Hoy->format('Y-m-d H:i:s');
 
-
                             if($Tipo == 2){
-                                $query = "UPDATE `facturas` set `DocumentoIdBsale` = '$DocumentoId', `UrlPdfBsale` = '$UrlPdf', `informedSiiBsale` = '$informedSii', `responseMsgSiiBsale` = '$responseMsgSii', `EstatusFacturacion` = '1', `FechaFacturacion` = '$Hoy', `HoraFacturacion` = '$Hoy' where `Id` = '$Id'";
-                            }else{
-                                $query = "UPDATE `servicios` set `DocumentoIdBsale` = '$DocumentoId', `UrlPdfBsale` = '$UrlPdf', `informedSiiBsale` = '$informedSii', `responseMsgSiiBsale` = '$responseMsgSii', `EstatusFacturacion` = '1', `FechaFacturacion` = '$Hoy', `HoraFacturacion` = '$Hoy' where `Id` = '$Id'";
-                            }
 
-                            $run = new Method;
-                            $data = $run->update($query);
+                                $query = "UPDATE `facturas` set `DocumentoIdBsale` = '$DocumentoId', `UrlPdfBsale` = '$UrlPdf', `informedSiiBsale` = '$informedSii', `responseMsgSiiBsale` = '$responseMsgSii', `EstatusFacturacion` = '1', `FechaFacturacion` = '$Hoy', `HoraFacturacion` = '$Hoy' where `Id` = '$RutId'";
+                                $data = $run->update($query);
+
+                            }else{
+
+                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('$Rut', '$Grupo', '3', '1', '$DocumentoId', '$UrlPdf', '$informedSii', '$responseMsgSii', '$Hoy', '$Hoy')";
+                                $FacturaId = $run->insert($query);
+
+                                foreach($Servicios as $Servicio){
+
+                                    $IdServicio = $Servicio['Id'];
+                                    $Valor = $Servicio['Valor'];
+                                    $Descuento = $Servicio['Descuento'];
+                                    $TipoMoneda = $Servicio['TipoMoneda'];
+
+                                    $query = "INSERT INTO facturas_detalle(FacturaId, IdServicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$IdServicio', '$Valor', '$Descuento', '$TipoMoneda')";
+                                    $data = $run->insert($query);
+
+                                    if($data){
+                                        $query = "UPDATE `servicios` set `EstatusFacturacion` = '1' where `Id` = '$IdServicio'";
+                                        $data = $run->update($query);
+                                    }
+                                }
+                            }
 
                             $response_array['UrlPdf'] = $UrlPdf;
                             $response_array['status'] = 1; 
 
                         }else{
+                            $response_array['Message'] = $FacturaBsale['error'];
                             $response_array['status'] = 0;
                         }
                     }else{
@@ -263,6 +350,7 @@
                 $FechaComprobacion = $Variables['fecha_comprobacion'];
                 $Hoy = new DateTime(); 
                 $Hoy = $Hoy->format('Y-m-d');
+                $Facturas = array();
 
                 if($Hoy > $FechaComprobacion){
 
@@ -273,6 +361,14 @@
 
                         $Rut = $Servicio['Rut'];
                         $Grupo = $Servicio['Grupo'];
+
+                        if(isset($Facturas[$Rut.'-'.$Grupo])){
+                            $FacturaId = $Facturas[$Rut.'-'.$Grupo];
+                        }else{
+                            $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('$Rut', '$Grupo', '2', '0', '0', '', '0', '', '$Hoy', '$Hoy')";
+                            $FacturaId = $run->insert($query);
+                        }
+
                         $IdServicio = $Servicio['Id'];
                         $Valor = $Servicio['Valor'];
                         $Descuento = $Servicio['Descuento'];
@@ -280,8 +376,9 @@
                         $Hoy = new DateTime(); 
                         $Hoy = $Hoy->format('Y-m-d H:i:s');
 
-                        $query = "INSERT INTO facturas(Rut, Grupo, IdServicio, Valor, Descuento, TipoMoneda, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('$Rut', '$Grupo', '$IdServicio', '$Valor', '$Descuento', '$TipoMoneda', '0', '0', '', '0', '', '$Hoy', '$Hoy')";
+                        $query = "INSERT INTO facturas_detalle(FacturaId, IdServicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$IdServicio', '$Valor', '$Descuento', '$TipoMoneda')";
                         $data = $run->insert($query);
+                        $Facturas[$Rut.'-'.$Grupo] = $FacturaId;
                     }
 
                     $FechaComprobacion = date('Y-m-d', strtotime('first day of next month'));

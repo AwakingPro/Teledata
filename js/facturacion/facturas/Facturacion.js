@@ -120,7 +120,7 @@ $(document).ready(function(){
 
             $.each(response.array, function( index, array ) {
 
-                if(array.EstatusFacturacion == 1){
+                if(array.Tipo == 2){
                     Estatus = 'Pagada'
                     Icono = '<a href="'+array.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
                 }else{
@@ -138,8 +138,9 @@ $(document).ready(function(){
                 ]).draw(false).node();
 
                 $( rowNode )
-                    .attr('id',array.Id)
-                    .data('tipo',3)
+                    .attr('rutid',array.Rut)
+                    .attr('grupo',array.Grupo)
+                    .attr('tipo',3)
                     .addClass('text-center')
                
             });
@@ -173,8 +174,9 @@ $(document).ready(function(){
                 ]).draw(false).node();
 
                 $( rowNode )
-                    .attr('id',array.Id)
-                    .data('tipo',2)
+                    .attr('rutid',array.Id)
+                    .attr('grupo',array.Grupo)
+                    .attr('tipo',2)
                     .addClass('text-center')
                
             });
@@ -187,8 +189,9 @@ $(document).ready(function(){
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
-        var ObjectId = ObjectTR.attr("id");
-        var ObjectType = ObjectTR.data("tipo");
+        var ObjectRutId = ObjectTR.attr("rutid");
+        var ObjectGroup = ObjectTR.attr("grupo");
+        var ObjectType = ObjectTR.attr("tipo");
 
         swal({   
             title: "Deseas facturar este registro?",   
@@ -206,7 +209,7 @@ $(document).ready(function(){
                 $.ajax({
                     type: "POST",
                     url: "../includes/facturacion/facturas/storeFactura.php",
-                    data: "id="+ObjectId+"&tipo="+ObjectType,
+                    data: "rutid="+ObjectRutId+"&grupo="+ObjectGroup+"&tipo="+ObjectType,
                     success: function(response){
 
                         if(response.status == 1){
@@ -229,7 +232,7 @@ $(document).ready(function(){
                         }else if(response.status == 99){
                             swal('Solicitud no procesada','El servicio cUrl no esta disponible en el servidor, por favor contactar al administrador','error');
                         }else{
-                            swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                            swal('Solicitud no procesada',response.Message,'error');
                         }
                     },
                     error: function(xhr, status, error){
