@@ -72,7 +72,7 @@ $(document).ready(function() {
 		}
 	})
 
-	$('[name="Valor"]').number(true, 0, ',', '.');
+	$('[name="Valor"]').number(true, 2, ',', '.');
 	$('.selectpicker').selectpicker();
 
 	$('select[name="Rut"]').load('../ajax/servicios/selectClientes.php', function() {
@@ -141,7 +141,7 @@ $(document).ready(function() {
 		$.postFormValues('../ajax/servicios/insertServicio.php', '.container-form', function(data) {
 			console.log(data);
 			if (Number(data) > 0) {
-				
+
 				bootbox.alert('<h3 class="text-center">El servicio #' + data + ' se registro con éxito.</h3>');
 
 				Rut = $('#Rut').val()
