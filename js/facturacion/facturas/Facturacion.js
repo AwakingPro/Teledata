@@ -133,7 +133,8 @@ $(document).ready(function(){
                     ''+array.Cliente+'',
                     ''+array.Rut+'',
                     ''+array.Grupo+'',
-                    ''+array.Valor+'',
+                    ''+array.ValorUF+'',
+                    ''+array.ValorPesos+'',
                     ''+Icono+''
                 ]).draw(false).node();
 
@@ -169,7 +170,8 @@ $(document).ready(function(){
                     ''+array.Cliente+'',
                     ''+array.Rut+'',
                     ''+array.Grupo+'',
-                    ''+array.Valor+'',
+                    ''+array.ValorUF+'',
+                    ''+array.ValorPesos+'',
                     ''+Icono+''
                 ]).draw(false).node();
 

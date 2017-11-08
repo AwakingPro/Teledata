@@ -5,27 +5,71 @@
 
     class Factura{
 
-    	public function showServicios(){
+    	public function showServicios(){            
+
+            $run = new Method;
+
+            $Mes = date('n');
+
+            $query = "SELECT * from mantenedor_uf where mes = '$Mes' ORDER BY id DESC LIMIT 1";
+            $UF = $run->select($query);
+
+            if($UF){
+                $UF = $UF[0];
+                $UF = str_replace('.','',$UF['valor']);
+                $UF = floatval($UF);
+            }else{
+                $UF = 1;
+            }
 
             $data = array();
 
-    		$query = 'SELECT servicios.Rut, servicios.Grupo, servicios.Valor, servicios.EstatusFacturacion, personaempresa.nombre as Cliente FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut where servicios.Estatus = 1 AND servicios.EstatusFacturacion = 0';
+    		$query = 'SELECT servicios.Rut, servicios.Grupo, servicios.Valor, servicios.TipoMoneda, servicios.EstatusFacturacion, personaempresa.nombre as Cliente FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut where servicios.Estatus = 1 AND servicios.EstatusFacturacion = 0';
 
-            $run = new Method;
             $servicios = $run->select($query);
 
             if($servicios){
                 foreach($servicios as $servicio){
 
-                    if(!isset($data[$servicio['Rut'].'-'.$servicio['Grupo']])){
-                        $data[$servicio['Rut'].'-'.$servicio['Grupo']] = $servicio;
-                        $data[$servicio['Rut'].'-'.$servicio['Grupo']]['Tipo'] = 1;
+                    $Rut = $servicio['Rut'];
+                    $Grupo = $servicio['Grupo'];
+                    $Index = $Rut.'-'.$Grupo;
+
+                    $TipoMoneda = $servicio['TipoMoneda'];
+
+                    if(!isset($data[$Index])){
+                        $data[$Index] = $servicio;
+                        $data[$Index]['Tipo'] = 1;
+                        $data[$Index]['ValorPesos'] = 0;
+                        $data[$Index]['ValorUF'] = 0;
                     }
 
-                    $Valor = doubleval($data[$servicio['Rut'].'-'.$servicio['Grupo']]['Valor']);
-                    $Valor = $Valor + doubleval($servicio['Valor']);
-                    $Valor = $Valor . '.00';
-                    $data[$servicio['Rut'].'-'.$servicio['Grupo']]['Valor'] = $Valor;
+                    if($TipoMoneda == 'UF'){
+                        
+                        $ValorUF = $data[$Index]['ValorUF'];
+                        $ValorTotal = $ValorUF + $servicio['Valor'];
+                        $ValorTotal = number_format($ValorTotal, 2);
+                        $data[$Index]['ValorUF'] = $ValorTotal;
+
+                        $ValorPesos = $ValorUF * $UF;
+                        $ValorTotal = $ValorPesos + $data[$Index]['ValorPesos'];
+                        $ValorTotal = number_format($ValorTotal, 2);
+                        $data[$Index]['ValorPesos'] = $ValorTotal;
+
+                    }else{
+
+                        $ValorPesos = $data[$Index]['ValorPesos'];
+                        $ValorTotal = $ValorPesos + $servicio['Valor'];
+                        $ValorTotal = number_format($ValorTotal, 2);
+                        $data[$Index]['ValorPesos'] = $ValorTotal;
+
+                        $ValorUF = $ValorPesos / $UF;
+                        $ValorTotal = $ValorUF + $data[$Index]['ValorUF'];
+                        $ValorTotal = number_format($ValorTotal, 2);
+                        $data[$Index]['ValorUF'] = $ValorTotal;
+
+                    }
+
                 }
             }
 
@@ -37,22 +81,47 @@
                         INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
                         WHERE facturas.TipoFactura = '3'";
 
-            $run = new Method;
             $facturas = $run->select($query);
 
             if($facturas){
 
                 foreach($facturas as $factura){
 
-                    if(!isset($data[$factura['Id']])){
-                        $data[$factura['Id']] = $factura;
-                        $data[$factura['Id']]['Tipo'] = 2;
+                    $Index = $factura['Id'];
+                    $TipoMoneda = $factura['TipoMoneda'];
+
+                    if(!isset($data[$Index])){
+                        $data[$Index] = $factura;
+                        $data[$Index]['Tipo'] = 2;
+                        $data[$Index]['ValorPesos'] = 0;
+                        $data[$Index]['ValorUF'] = 0;
                     }
 
-                    $Valor = doubleval($data[$factura['Id']]['Valor']);
-                    $Valor = $Valor + doubleval($factura['Valor']);
-                    $Valor = $Valor . '.00';
-                    $data[$factura['Id']]['Valor'] = $Valor;
+                    if($TipoMoneda == 'UF'){
+                        
+                        $ValorUF = $data[$Index]['ValorUF'];
+                        $ValorTotal = $ValorUF + $factura['Valor'];
+                        $ValorTotal = number_format($ValorTotal, 2);
+                        $data[$Index]['ValorUF'] = $ValorTotal;
+
+                        $ValorPesos = $ValorUF * $UF;
+                        $ValorTotal = $ValorPesos + $data[$Index]['ValorPesos'];
+                        $ValorTotal = number_format($ValorTotal, 2);
+                        $data[$Index]['ValorPesos'] = $ValorTotal;
+
+                    }else{
+
+                        $ValorPesos = $data[$Index]['ValorPesos'];
+                        $ValorTotal = $ValorPesos + $factura['Valor'];
+                        $ValorTotal = number_format($ValorTotal, 2);
+                        $data[$Index]['ValorPesos'] = $ValorTotal;
+
+                        $ValorUF = $ValorPesos / $UF;
+                        $ValorTotal = $ValorUF + $data[$Index]['ValorUF'];
+                        $ValorTotal = number_format($ValorTotal, 2);
+                        $data[$Index]['ValorUF'] = $ValorTotal;
+
+                    }
                 }
             }
 
@@ -63,6 +132,21 @@
 
         public function showFacturas(){
 
+            $run = new Method;
+
+            $Mes = date('n');
+
+            $query = "SELECT * from mantenedor_uf where mes = '$Mes' ORDER BY id DESC LIMIT 1";
+            $UF = $run->select($query);
+
+            if($UF){
+                $UF = $UF[0];
+                $UF = str_replace('.','',$UF['valor']);
+                $UF = floatval($UF);
+            }else{
+                $UF = 1;
+            }
+
             $query = "  SELECT    facturas_detalle.*, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, facturas.EstatusFacturacion, personaempresa.nombre as Cliente, mantenedor_servicios.servicio as Servicio 
                         FROM facturas_detalle 
                         LEFT JOIN servicios ON servicios.Id = facturas_detalle.IdServicio 
@@ -71,22 +155,48 @@
                         INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
                         WHERE facturas.TipoFactura = '2'";
 
-            $run = new Method;
             $facturas = $run->select($query);
+
+            $data = array();
 
             if($facturas){
 
                 foreach($facturas as $factura){
 
-                    if(!isset($data[$factura['Id']])){
-                        $data[$factura['Id']] = $factura;
-                        $data[$factura['Id']]['Tipo'] = 2;
+                    $Index = $factura['Id'];
+                    $TipoMoneda = $factura['TipoMoneda'];
+
+                    if(!isset($data[$Index])){
+                        $data[$Index] = $factura;
+                        $data[$Index]['ValorPesos'] = 0;
+                        $data[$Index]['ValorUF'] = 0;
                     }
 
-                    $Valor = doubleval($data[$factura['Id']]['Valor']);
-                    $Valor = $Valor + doubleval($factura['Valor']);
-                    $Valor = $Valor . '.00';
-                    $data[$factura['Id']]['Valor'] = $Valor;
+                    if($TipoMoneda == 'UF'){
+                        
+                        $ValorUF = $data[$Index]['ValorUF'];
+                        $ValorTotal = $ValorUF + $factura['Valor'];
+                        $ValorTotal = number_format($ValorTotal, 2);
+                        $data[$Index]['ValorUF'] = $ValorTotal;
+
+                        $ValorPesos = $ValorUF * $UF;
+                        $ValorTotal = $ValorPesos + $data[$Index]['ValorPesos'];
+                        $ValorTotal = number_format($ValorTotal, 2);
+                        $data[$Index]['ValorPesos'] = $ValorTotal;
+
+                    }else{
+
+                        $ValorPesos = $data[$Index]['ValorPesos'];
+                        $ValorTotal = $ValorPesos + $factura['Valor'];
+                        $ValorTotal = number_format($ValorTotal, 2);
+                        $data[$Index]['ValorPesos'] = $ValorTotal;
+
+                        $ValorUF = $ValorPesos / $UF;
+                        $ValorTotal = $ValorUF + $data[$Index]['ValorUF'];
+                        $ValorTotal = number_format($ValorTotal, 2);
+                        $data[$Index]['ValorUF'] = $ValorTotal;
+
+                    }
                 }
             }
 
