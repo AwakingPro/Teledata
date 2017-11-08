@@ -173,8 +173,13 @@
                     }
 
                     if($TipoMoneda == 'UF'){
+
+                        if(isset($data[$Index]['ValorUF'])){
+                            $ValorUF = $data[$Index]['ValorUF'];
+                        }else{
+                            $ValorUF = 0;
+                        }
                         
-                        $ValorUF = $data[$Index]['ValorUF'];
                         $ValorTotal = $ValorUF + $factura['Valor'];
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorUF'] = $ValorTotal;
@@ -186,23 +191,31 @@
                         }else{
                             $ValorTotal = 0;
                         }
+
                         $ValorTotal = $ValorPesos + $ValorTotal;
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorPesos'] = $ValorTotal;
 
                     }else{
 
-                        $ValorPesos = $data[$Index]['ValorPesos'];
+                        if(isset($data[$Index]['ValorPesos'])){
+                            $ValorPesos = $data[$Index]['ValorPesos'];
+                        }else{
+                            $ValorPesos = 0;
+                        }
+
                         $ValorTotal = $ValorPesos + $factura['Valor'];
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorPesos'] = $ValorTotal;
 
                         $ValorUF = $ValorPesos / $UF;
+
                         if(isset($data[$Index]['ValorUF'])){
                             $ValorTotal = $data[$Index]['ValorUF'];
                         }else{
                             $ValorTotal = 0;
                         }
+                        
                         $ValorTotal = $ValorUF + $ValorTotal;
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorUF'] = $ValorTotal;
