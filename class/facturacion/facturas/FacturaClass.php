@@ -180,7 +180,13 @@
                         $data[$Index]['ValorUF'] = $ValorTotal;
 
                         $ValorPesos = $ValorUF * $UF;
-                        $ValorTotal = $ValorPesos + $data[$Index]['ValorPesos'];
+
+                        if(isset($data[$Index]['ValorPesos'])){
+                            $ValorTotal = $data[$Index]['ValorPesos'];
+                        }else{
+                            $ValorTotal = 0;
+                        }
+                        $ValorTotal = $ValorPesos + $ValorTotal;
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorPesos'] = $ValorTotal;
 
@@ -192,7 +198,12 @@
                         $data[$Index]['ValorPesos'] = $ValorTotal;
 
                         $ValorUF = $ValorPesos / $UF;
-                        $ValorTotal = $ValorUF + $data[$Index]['ValorUF'];
+                        if(isset($data[$Index]['ValorUF'])){
+                            $ValorTotal = $data[$Index]['ValorUF'];
+                        }else{
+                            $ValorTotal = 0;
+                        }
+                        $ValorTotal = $ValorUF + $ValorTotal;
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorUF'] = $ValorTotal;
 
