@@ -366,7 +366,7 @@
                 // $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
 
                 if($Tipo == 2){
-                    $query = "SELECT facturas_detalle.*, mantenedor_servicios.servicio as Servicio, servicios.Rut FROM facturas_detalle LEFT JOIN servicios ON servicios.Id = facturas_detalle.IdServicio LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio WHERE facturas_detalle.FacturaId = '$RutId'";
+                    $query = "SELECT facturas_detalle.*, mantenedor_servicios.servicio as Servicio, servicios.Rut, servicios.Descripcion FROM facturas_detalle LEFT JOIN servicios ON servicios.Id = facturas_detalle.IdServicio LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio WHERE facturas_detalle.FacturaId = '$RutId'";
                 }else{
                     $query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio WHERE servicios.Rut = '$RutId' AND servicios.Grupo = '$Grupo'";
                 }
@@ -499,7 +499,13 @@
                                 $Valor = floatval($Servicio['Valor']);
                             }
 
-                            $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Servicio["Servicio"], "discount" => floatval($Servicio["Descuento"]));
+                            $Nombre = $Servicio["Servicio"];
+
+                            if($Servicio["Descripcion"]){
+                                $Nombre = $Nombre . ' - ' . $Servicio['Descripcion'];
+                            }
+
+                            $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Nombre, "discount" => floatval($Servicio["Descuento"]));
 
                             array_push($details,$detail);
                         }
