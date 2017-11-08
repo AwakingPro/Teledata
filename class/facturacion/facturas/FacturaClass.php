@@ -45,26 +45,32 @@
                     }
 
                     if($TipoMoneda == 'UF'){
-                        
-                        $ValorUF = $data[$Index]['ValorUF'];
-                        $ValorTotal = $ValorUF + $servicio['Valor'];
+
+                        $ValorUF = $servicio['Valor'];
+                        $ValorTotal = $ValorUF + $data[$Index]['ValorUF'];
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorUF'] = $ValorTotal;
 
                         $ValorPesos = $ValorUF * $UF;
-                        $ValorTotal = $ValorPesos + $data[$Index]['ValorPesos'];
+
+                        $ValorTotal = $data[$Index]['ValorPesos'];
+                        $ValorTotal = str_replace(',','',$ValorTotal);
+                        $ValorTotal = $ValorPesos + $ValorTotal;
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorPesos'] = $ValorTotal;
 
                     }else{
 
-                        $ValorPesos = $data[$Index]['ValorPesos'];
-                        $ValorTotal = $ValorPesos + $servicio['Valor'];
+                        $ValorPesos = $servicio['Valor'];
+                        $ValorTotal = $ValorPesos + $data[$Index]['ValorPesos'];
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorPesos'] = $ValorTotal;
 
                         $ValorUF = $ValorPesos / $UF;
-                        $ValorTotal = $ValorUF + $data[$Index]['ValorUF'];
+          
+                        $ValorTotal = $data[$Index]['ValorUF'];
+                        $ValorTotal = str_replace(',','',$ValorTotal);
+                        $ValorTotal = $ValorUF + $ValorTotal;
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorUF'] = $ValorTotal;
 
@@ -98,26 +104,32 @@
                     }
 
                     if($TipoMoneda == 'UF'){
-                        
-                        $ValorUF = $data[$Index]['ValorUF'];
-                        $ValorTotal = $ValorUF + $factura['Valor'];
+
+                        $ValorUF = $factura['Valor'];
+                        $ValorTotal = $ValorUF + $data[$Index]['ValorUF'];
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorUF'] = $ValorTotal;
 
                         $ValorPesos = $ValorUF * $UF;
-                        $ValorTotal = $ValorPesos + $data[$Index]['ValorPesos'];
+
+                        $ValorTotal = $data[$Index]['ValorPesos'];
+                        $ValorTotal = str_replace(',','',$ValorTotal);
+                        $ValorTotal = $ValorPesos + $ValorTotal;
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorPesos'] = $ValorTotal;
 
                     }else{
 
-                        $ValorPesos = $data[$Index]['ValorPesos'];
-                        $ValorTotal = $ValorPesos + $factura['Valor'];
+                        $ValorPesos = $factura['Valor'];
+                        $ValorTotal = $ValorPesos + $data[$Index]['ValorPesos'];
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorPesos'] = $ValorTotal;
 
                         $ValorUF = $ValorPesos / $UF;
-                        $ValorTotal = $ValorUF + $data[$Index]['ValorUF'];
+          
+                        $ValorTotal = $data[$Index]['ValorUF'];
+                        $ValorTotal = str_replace(',','',$ValorTotal);
+                        $ValorTotal = $ValorUF + $ValorTotal;
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorUF'] = $ValorTotal;
 
@@ -174,48 +186,30 @@
 
                     if($TipoMoneda == 'UF'){
 
-                        if(isset($data[$Index]['ValorUF'])){
-                            $ValorUF = $data[$Index]['ValorUF'];
-                        }else{
-                            $ValorUF = 0;
-                        }
-                        
-                        $ValorTotal = $ValorUF + $factura['Valor'];
+                        $ValorUF = $factura['Valor'];
+                        $ValorTotal = $ValorUF + $data[$Index]['ValorUF'];
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorUF'] = $ValorTotal;
 
                         $ValorPesos = $ValorUF * $UF;
 
-                        if(isset($data[$Index]['ValorPesos'])){
-                            $ValorTotal = $data[$Index]['ValorPesos'];
-                        }else{
-                            $ValorTotal = 0;
-                        }
-
+                        $ValorTotal = $data[$Index]['ValorPesos'];
+                        $ValorTotal = str_replace(',','',$ValorTotal);
                         $ValorTotal = $ValorPesos + $ValorTotal;
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorPesos'] = $ValorTotal;
 
                     }else{
 
-                        if(isset($data[$Index]['ValorPesos'])){
-                            $ValorPesos = $data[$Index]['ValorPesos'];
-                        }else{
-                            $ValorPesos = 0;
-                        }
-
-                        $ValorTotal = $ValorPesos + $factura['Valor'];
+                        $ValorPesos = $factura['Valor'];
+                        $ValorTotal = $ValorPesos + $data[$Index]['ValorPesos'];
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorPesos'] = $ValorTotal;
 
                         $ValorUF = $ValorPesos / $UF;
-
-                        if(isset($data[$Index]['ValorUF'])){
-                            $ValorTotal = $data[$Index]['ValorUF'];
-                        }else{
-                            $ValorTotal = 0;
-                        }
-                        
+          
+                        $ValorTotal = $data[$Index]['ValorUF'];
+                        $ValorTotal = str_replace(',','',$ValorTotal);
                         $ValorTotal = $ValorUF + $ValorTotal;
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorUF'] = $ValorTotal;
