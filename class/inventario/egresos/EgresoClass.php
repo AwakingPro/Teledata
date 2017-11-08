@@ -6,7 +6,9 @@
 	if($where != 'insertArriendoEquipos.php'){
 		include('../../../class/methods_global/methods.php');
 	}else{
-		include('../../class/methods_global/methods.php');
+		if ($where != 'insertServicio.php') {
+			include('../../class/methods_global/methods.php');
+		}
 	}
 
 	header('Content-type: application/json');
