@@ -62,12 +62,13 @@
                     }else{
 
                         $ValorPesos = $servicio['Valor'];
-                        $ValorTotal = $ValorPesos + $data[$Index]['ValorPesos'];
+                        $ValorTotal = str_replace(',','',$data[$Index]['ValorPesos']);
+                        $ValorTotal = $ValorPesos + $ValorTotal;
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorPesos'] = $ValorTotal;
 
                         $ValorUF = $ValorPesos / $UF;
-          
+
                         $ValorTotal = $data[$Index]['ValorUF'];
                         $ValorTotal = str_replace(',','',$ValorTotal);
                         $ValorTotal = $ValorUF + $ValorTotal;
@@ -121,7 +122,8 @@
                     }else{
 
                         $ValorPesos = $factura['Valor'];
-                        $ValorTotal = $ValorPesos + $data[$Index]['ValorPesos'];
+                        $ValorTotal = str_replace(',','',$data[$Index]['ValorPesos']);
+                        $ValorTotal = $ValorPesos + $ValorTotal;
                         $ValorTotal = number_format($ValorTotal, 2);
                         $data[$Index]['ValorPesos'] = $ValorTotal;
 
