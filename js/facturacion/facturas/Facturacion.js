@@ -96,6 +96,38 @@ $(document).ready(function(){
         }
     });
 
+    ModalTable = $('#ModalTable').DataTable({
+        paging: false,
+        iDisplayLength: 100,
+        processing: true,
+        serverSide: false,
+        bInfo:false,
+        bFilter:false,
+        order: [[0, 'asc']],
+        language: {
+            processing:     "Procesando ...",
+            search:         'Buscar',
+            lengthMenu:     "Mostrar _MENU_ Registros",
+            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+            infoFiltered:   "(filtrada de _MAX_ registros en total)",
+            infoPostFix:    "",
+            loadingRecords: "...",
+            zeroRecords:    "No se encontraron registros coincidentes",
+            emptyTable:     "No hay datos disponibles en la tabla",
+            paginate: {
+                first:      "Primero",
+                previous:   "Anterior",
+                next:       "Siguiente",
+                last:       "Ultimo"
+            },
+            aria: {
+                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                sortDescending: ": habilitado para ordenar la columna en orden descendente"
+            }
+        }
+    });
+
     //CONFIGURACION DEL SELECTPICKER, DATETIMEPICKER Y DATA-MASK
 
     $('.selectpicker').selectpicker();
@@ -125,7 +157,7 @@ $(document).ready(function(){
                     Icono = '<a href="'+array.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
                 }else{
                     Estatus = 'Por pagar'
-                    Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-files-o Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                    Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarServicio" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-files-o Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                 }
 
                 var rowNode = InstalacionTable.row.add([
@@ -162,7 +194,7 @@ $(document).ready(function(){
                     Icono = '<a href="'+array.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
                 }else{
                     Estatus = 'Por pagar'
-                    Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-files-o Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                    Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-files-o Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                 }
 
                 var rowNode = IndividualTable.row.add([
@@ -246,5 +278,84 @@ $(document).ready(function(){
                 });
             }
         });
+    });
+
+    $('body').on('click', '.VisualizarServicio', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectRutId = ObjectTR.attr("rutid");
+        var ObjectGroup = ObjectTR.attr("grupo");
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/showServicio.php",
+            data: "rut="+ObjectRutId+"&grupo="+ObjectGroup,
+            success: function(response){
+
+                ModalTable.clear().draw()
+
+                $.each(response.array, function( index, array ) {
+                    var rowNode = ModalTable.row.add([
+                        ''+array.Codigo+'',
+                        ''+array.Nombre+'',
+                        ''+array.Descripcion+'',
+                        ''+array.ValorUF+'',
+                        ''+array.ValorPesos+'',
+                    ]).draw(false).node();
+
+                    $( rowNode )
+                        .addClass('text-center')
+                });
+
+                $('#modalShow').modal('show')
+            },
+            error: function(xhr, status, error){
+                setTimeout(function(){ 
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada',err.Message,'error');
+                }, 1000);
+            }
+        });
+
+    });
+
+    $('body').on('click', '.VisualizarFactura', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectRutId = ObjectTR.attr("rutid");
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/showFactura.php",
+            data: "id="+ObjectRutId,
+            success: function(response){
+
+                ModalTable.clear().draw()
+
+                $.each(response.array, function( index, array ) {
+                    var rowNode = ModalTable.row.add([
+                        ''+array.Codigo+'',
+                        ''+array.Nombre+'',
+                        ''+array.Descripcion+'',
+                        ''+array.ValorUF+'',
+                        ''+array.ValorPesos+'',
+                    ]).draw(false).node();
+
+                    $( rowNode )
+                        .addClass('text-center')
+                });
+
+                $('#modalShow').modal('show')
+            },
+            error: function(xhr, status, error){
+                setTimeout(function(){ 
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada',err.Message,'error');
+                }, 1000);
+            }
+        });
+
     });
 });
