@@ -72,6 +72,18 @@ $(document).ready(function() {
 		}
 	})
 
+	$('[name="UsuarioPppoe"]').on('blur', function(event) {
+		alert($(this).val());
+		$.post('../ajax/servicios/usuarioPPPoE.php', {user: $(this).val()}, function(data) {
+			console.log(data);
+			//alert(data);
+			if (data != "true") {
+				//alert('El usuario ya existe');
+				//$(this).focus();
+			}
+		});
+	});
+
 	$('[name="Valor"]').number(true, 2, ',', '.');
 	$('.selectpicker').selectpicker();
 
