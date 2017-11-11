@@ -63,6 +63,7 @@
                                                     <th class="text-center">Tiempo de Facturación</th>
                                                     <th class="text-center">Por Hacer</th>
                                                     <th class="text-center">Comentario</th>
+                                                    <th class="text-center">Acción</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -164,6 +165,7 @@
         <script src="../js/global/validations.js"></script>
         <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
         <script src="../plugins/numbers/jquery.number.min.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
         <script src="../js/tareas/Tarea.js"></script>
     </body>
 </html>
@@ -349,6 +351,151 @@
                         <div class="form-group">
                             <label class="control-label" for="name">Estación Final</label>
                             <input id="EstacionFinal_update" name="EstacionFinal" type="text" placeholder="Ingrese la Estación Final" class="form-control input-sm" validation="not_null" data-nombre="Estación Final" disabled>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-body -->
+            <!-- <div class="modal-footer p-b-20 m-b-20">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-purple" id="guardarTarea" name="guardarTarea">Guardar</button>
+                </div>
+            </div> -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="modalServicio" class="modal fade" tabindex="-1" role="dialog" id="load">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                <h4 class="modal-title c-negro">Código: <span class="Codigo"></span> <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+            </div>
+            <div class="modal-body">
+                <form id = "showServicio">
+                    <div class="row" style="padding:20px">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="campo-cliente" >Cliente</label>
+                                <div class="campo-cliente">
+                                    <select id="Rut" name="Rut" class="form-control" data-live-search="true">
+                                        <option value="">Seleccione...</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <label class="compo-grupo">Grupo</label>
+                                <div class="compo-grupo">
+                                    <select id="Grupo" name="Grupo" class="form-control selectpicker" data-live-search="true">
+                                        <option value="">Seleccione...</option>
+                                        <option value="1">Grupo 1</option>
+                                        <option value="2">Grupo 2</option>
+                                        <option value="3">Grupo 3</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <label class="campo-cobreServicio">Tipo de Cobro de servicio mensual</label>
+                                <div class="campo-cobreServicio">
+                                    <select id="TipoFactura" name="TipoFactura" class="form-control" data-live-search="true">
+                                        <option value="">Seleccione...</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <label class="compo-tipoFactura">Tiempo de Facturación</label>
+                                <select id="TiepoFacturacion" name="TiepoFacturacion compo-tipoFactura" class="form-control selectpicker" data-live-search="tue">
+                                    <option value="">Seleccione...</option>
+                                    <option >Mensual</option>
+                                    <option >Semestral</option>
+                                    <option >Anual</option>
+                                </select>
+                                <br><br>
+                                <div class="campo-servicio">
+                                    <label >Servicio</label>
+                                    <select id="TipoServicio" name="TipoServicio" class="form-control" data-live-search="true">
+                                        <option value="">Seleccione...</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <label>Valor</label>
+                                <div class="input-group">
+                                    <input id="Valor" type="text"  name="Valor" class="form-control">
+                                    <span class="input-group-addon" style="padding: 0px; border: 0px solid">
+                                        <select id="tipoMoneda" name="tipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
+                                            <option value="UF">UF</option>
+                                            <option value="Pesos">Pesos</option>
+                                        </select>
+                                    </span>
+                                </div>
+                                <br>
+                                <label>Descuento</label>
+                                <div class="input-group">
+                                    <input type="text" id="Descuento" name="Descuento" class="form-control">
+                                    <span class="input-group-addon">%</span>
+                                </div>
+                                <br >
+                                <br>
+                                <label > Descripción</label>
+                                <textarea id="Descripcion" name="Descripcion" class="form-control" rows="5"></textarea>
+                                <br>
+
+                                <label class="campo-apellidoServicio">Apellido del Servicio</label>
+                                <div class="form-group">
+                                    <input id="Alias" type="text" name="Alias" class="form-control campo-apellidoServicio">
+                                </div>
+
+                                <label class="campo-direccion">Dirección</label>
+                                <textarea id="Direccion" name="Direccion" class="form-control campo-direccion" rows="5"></textarea>
+                                <br class="campo-direccion">
+
+                                <div class="col-md-6 campo-cordenadas">
+                                    <div class="form-group">
+                                        <label class="control-label" for="Latitud">Coordenadas</label>
+                                        <input id="Latitud" name="Latitud" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 campo-cordenadas">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">&nbsp;</label>
+                                        <input id="Longitud" name="Longitud" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas">
+                                    </div>
+                                </div>
+                                <br class="campo-cordenadas">
+
+                                <div id="Map" style="height:350px; width:100%;" class="campo-cordenadas"></div>
+                                <br class="campo-cordenadas">
+                                <label class="campo-referencia">Referencia</label>
+                                <div class="form-group campo-referencia">
+                                    <input id="Referencia" type="text" name="Referencia" class="form-control">
+                                </div>
+                                <br class="campo-referencia">
+                                <label class="campo-contacto">Contacto</label>
+                                <div class="form-group campo-contacto">
+                                    <input id="Contacto" type="text" name="Contacto" class="form-control">
+                                </div>
+                                <br  class="campo-contacto">
+                                <label class="campo-telefonoContacto">Fono Contacto</label>
+                                <div class="form-group campo-telefonoContacto">
+                                    <input id="Fono" type="text" name="Fono" class="form-control">
+                                </div>
+                                <br class="campo-telefonoContacto">
+                                <label class="campo-estacionReferencia">Estaciones de Referencia</label>
+                                <div class="form-group campo-estacionReferencia">
+                                    <input id="PosibleEstacion" type="text" name="PosibleEstacion" class="form-control">
+                                </div>
+                                <br class="campo-estacionReferencia">
+                                <label class="campo-usuarioPPPoE">Usuario PPPoE</label>
+                                <div class="form-group campo-usuarioPPPoE">
+                                    <input id="UsuarioPppoe" type="text" name="UsuarioPppoe" class="form-control">
+                                </div>
+                                <br class="campo-usuarioPPPoE">
+                                <label class="campo-equipamiento">Equipamiento Sugerido</label>
+                                <div class="form-group campo-equipamiento">
+                                    <input id="Equipamiento" type="text" name="Equipamiento" class="form-control">
+                                </div>
+                                <br class="campo-equipamiento">
+                                <label class="campo-señalTeorica">Señal Teorica</label>
+                                <div class="form-group campo-señalTeorica">
+                                    <input id="SenalTeorica" type="text" name="SenalTeorica" class="form-control">
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

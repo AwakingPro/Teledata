@@ -1,4 +1,42 @@
-$(document).ready(function(){
+var maxLat = Math.atan(Math.sinh(Math.PI)) * 180 / Math.PI;
+var center
+var mapOptions
+var map
+var mapCenter
+
+$(document).ready(function() {
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+    function initialize() {
+
+        center = new google.maps.LatLng(0, 0);
+
+        mapOptions = {
+            zoom: 20,
+            center: center,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        Map = new google.maps.Map(document.getElementById("Map"), mapOptions);
+    }
+
+    $('[name="Valor"]').number(true, 2, ',', '.');
+
+    $('select[name="Rut"]').load('../ajax/servicios/selectClientes.php', function() {
+        $('select[name="Rut"]').selectpicker();
+    });
+
+    $('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
+        $('select[name="TipoFactura"]').selectpicker();
+    });
+    $('select[name="TipoServicio"]').load('../ajax/servicios/selectTipoServicio.php', function() {
+        $('select[name="TipoServicio"]').selectpicker();
+    });
+
+    $('select[name="Grupo"]').load('../ajax/servicios/listGrupo.php', function() {
+        $('select[name="Grupo"]').selectpicker('refresh');
+    });
 
     $('.date').datetimepicker({
         locale: 'es',
@@ -160,7 +198,7 @@ $(document).ready(function(){
                             ''+array.TiepoFacturacion+'',
                             ''+array.Descripcion+'',
                             ''+array.Comentario+'',
-                            ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
+                            ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
                         ]).draw(false).node();
 
                         $( rowNode )
@@ -173,7 +211,8 @@ $(document).ready(function(){
                             ''+array.Codigo+'',
                             ''+array.TiepoFacturacion+'',
                             ''+array.Descripcion+'',
-                            ''+array.Comentario+''
+                            ''+array.Comentario+'',
+                            ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>'+''
                         ]).draw(false).node();
 
                         $( rowNode )
@@ -230,7 +269,7 @@ $(document).ready(function(){
                         ''+TiepoFacturacion+'',
                         ''+Descripcion+'',
                         ''+Comentario+'',
-                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
+                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -386,6 +425,7 @@ $(document).ready(function(){
                         ''+TiepoFacturacion+'',
                         ''+Descripcion+'',
                         ''+Comentario+'',
+                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Compare"></i>'+'',
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -509,6 +549,8 @@ $(document).ready(function(){
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectId = ObjectTR.attr("id");
+        var ObjectCode = ObjectTR.find("td").eq(2).text();
+        $('.Codigo').text(ObjectCode);
 
         $.ajax({
             type: "POST",
@@ -528,6 +570,59 @@ $(document).ready(function(){
                 }
 
                 $('#modalComparacion').modal('show')
+            },
+            error: function(xhr, status, error){
+                setTimeout(function(){ 
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada',err.Message,'error');
+                }, 1000);
+            }
+        });
+
+    });
+
+    $('body').on('click', '.Search', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = ObjectTR.attr("id");
+        var ObjectCode = ObjectTR.find("td").eq(2).text();
+        $('.Codigo').text(ObjectCode);
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/tareas/showTarea.php",
+            data: "id="+ObjectId,
+            success: function(response){
+
+                array = response.array
+
+                for(var name in array) {
+                    var value = array[name];
+                    if(name == "Descripcion" || name == "Direccion"){
+                        $('#showServicio').find('#'+name).text(value);
+                    }else{
+                        $('#showServicio').find('#'+name).val(value);
+                    }
+                    // console.log(name +': ' + value)
+                }
+
+                $('select').selectpicker('refresh')
+
+                latitud = $('#showServicio').find('input[name="Latitud"]').val();
+                longitud = $('#showServicio').find('input[name="Longitud"]').val();
+
+                if (latitud && longitud) {
+
+                    mapCenter = new google.maps.LatLng(latitud, longitud);
+
+                    setTimeout(function() {
+                        google.maps.event.trigger(Map, "resize");
+                        Map.setCenter(mapCenter);
+                        Map.setZoom(Map.getZoom());
+                    }, 1000)
+                }
+                $('#modalServicio').modal('show')
             },
             error: function(xhr, status, error){
                 setTimeout(function(){ 
