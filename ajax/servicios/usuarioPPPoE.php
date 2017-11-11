@@ -5,11 +5,10 @@
 		FROM
 		servicios
 		WHERE
-		UsuarioPppoe ="'.$_POST['user'].'".';
+		UsuarioPppoe ="'.$_POST['user'].'"';
 	$run = new Method;
 	$data = $run->select($query);
-	echo $data[1][0];
-	if ($data[1][0] == $_POST['user']) {
+	if (count($data) > 0) {
 		echo 'true';
 	}else{
 		echo 'false';

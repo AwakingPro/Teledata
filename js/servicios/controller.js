@@ -73,13 +73,11 @@ $(document).ready(function() {
 	})
 
 	$('[name="UsuarioPppoe"]').on('blur', function(event) {
-		alert($(this).val());
+		var camo = this;
 		$.post('../ajax/servicios/usuarioPPPoE.php', {user: $(this).val()}, function(data) {
-			console.log(data);
-			//alert(data);
-			if (data != "true") {
-				//alert('El usuario ya existe');
-				//$(this).focus();
+			if (data == "true") {
+				bootbox.alert('<h3 class="text-center">El usuario Pppoe ya esta registrado.</h3>');
+				$(camo).val();
 			}
 		});
 	});
