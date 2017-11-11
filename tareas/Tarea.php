@@ -39,10 +39,9 @@
                                         <div class="panel-control">
                                             <!--Nav tabs-->
                                             <ul class="nav nav-tabs">
-                                                <li class="active"><a data-toggle="tab" href="#pendientes" aria-expanded="true">Pendientes</a>
-                                            </li>
-                                            <li class=""><a data-toggle="tab" href="#asignadas" aria-expanded="true">Asignadas</a>
-                                            <li class=""><a data-toggle="tab" href="#finalizadas" aria-expanded="true">Finalizadas</a>
+                                            <li class="active"><a data-toggle="tab" href="#pendientes" aria-expanded="true">Pendientes</a></li>
+                                            <li class=""><a data-toggle="tab" href="#asignadas" aria-expanded="true">Asignadas</a></li>
+                                            <li class=""><a data-toggle="tab" href="#finalizadas" aria-expanded="true">Finalizadas</a></li>
                                         </li>
                                     </ul>
                                 </div>
@@ -62,8 +61,8 @@
                                                     <th class="text-center">Cliente</th>
                                                     <th class="text-center">Código</th>
                                                     <th class="text-center">Tiempo de Facturación</th>
-                                                    <th class="text-center">Descripción</th>
-                                                    <th class="text-center">Grupo</th>
+                                                    <th class="text-center">Por Hacer</th>
+                                                    <th class="text-center">Comentario</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -81,8 +80,8 @@
                                                                 <th class="text-center">Cliente</th>
                                                                 <th class="text-center">Código</th>
                                                                 <th class="text-center">Tiempo de Facturación</th>
-                                                                <th class="text-center">Descripción</th>
-                                                                <th class="text-center">Grupo</th>
+                                                                <th class="text-center">Por Hacer</th>
+                                                                <th class="text-center">Comentario</th>
                                                                 <th class="text-center">Acción</th>
                                                             </tr>
                                                         </thead>
@@ -104,8 +103,9 @@
                                                                 <th class="text-center">Cliente</th>
                                                                 <th class="text-center">Código</th>
                                                                 <th class="text-center">Tiempo de Facturación</th>
-                                                                <th class="text-center">Descripción</th>
-                                                                <th class="text-center">Grupo</th>
+                                                                <th class="text-center">Por Hacer</th>
+                                                                <th class="text-center">Comentario</th>
+                                                                <th class="text-center">Acción</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -140,163 +140,224 @@
                 </div>
             </div>
         </nav>
-    </div>
-    <?php include("../layout/footer.php"); ?>
-</div>
 
-<div id="loader-wrapper">
-    <div id="loader"></div>
+        <?php include("../layout/footer.php"); ?>
 
-    <div class="loader-section section-left"></div>
-    <div class="loader-section section-right"></div>
 
-</div>
-<!--SCRIPT-->
-<script src="../js/jquery-2.2.1.min.js"></script>
-<script src="../js/bootstrap.min.js"></script>
-<script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
-<script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-<script src="../plugins/sweetalert/sweetalert.min.js"></script>
-<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
-<script src="../plugins/moment/moment.js"></script>
-<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-<script src="../js/global/validations.js"></script>
-<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
-<script src="../plugins/numbers/jquery.number.min.js"></script>
-<script src="../js/tareas/Tarea.js"></script>
-</body>
+        <div id="loader-wrapper">
+            <div id="loader"></div>
+
+            <div class="loader-section section-left"></div>
+            <div class="loader-section section-right"></div>
+
+        </div>
+
+        <!--SCRIPT-->
+        <script src="../js/jquery-2.2.1.min.js"></script>
+        <script src="../js/bootstrap.min.js"></script>
+        <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
+        <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+        <script src="../plugins/sweetalert/sweetalert.min.js"></script>
+        <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="../plugins/moment/moment.js"></script>
+        <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+        <script src="../js/global/validations.js"></script>
+        <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
+        <script src="../plugins/numbers/jquery.number.min.js"></script>
+        <script src="../js/tareas/Tarea.js"></script>
+    </body>
 </html>
+
 <div id="modalAsignar" class="modal fade" tabindex="-1" role="dialog" id="load">
-<div class="modal-dialog" role="document">
-<div class="modal-content">
-    <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
-        <h4 class="modal-title c-negro">Asignar Tareas <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
-    </div>
-    <div class="modal-body">
-        <div class="row" style="padding:20px">
-            <form class="form-horizontal" id = "asignarTareas">
-                <input type="hidden" id="Tareas" name="Tareas">
-                <div class="col-md-12">
-                    <div class="form-group">
-                        <label class="control-label" for="name">Usuario</label>
-                        <div class="select">
-                            <select class="selectpicker form-control IdUsuarioAsignado" name="IdUsuarioAsignado" id="IdUsuarioAsignado"  data-live-search="true" data-container="body">
-                            </select>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                <h4 class="modal-title c-negro">Asignar Tareas <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="padding:20px">
+                    <form class="form-horizontal" id = "asignarTareas">
+                        <input type="hidden" id="Tareas" name="Tareas">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Usuario</label>
+                                <div class="select">
+                                    <select class="selectpicker form-control IdUsuarioAsignado" name="IdUsuarioAsignado" id="IdUsuarioAsignado"  data-live-search="true" data-container="body">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.modal-body -->
+            <div class="modal-footer p-b-20 m-b-20">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-purple" id="Asignar" name="Asignar">Asignar</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="modalReasignar" class="modal fade" tabindex="-1" role="dialog" id="load">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                <h4 class="modal-title c-negro">Código: <span class="Codigo"></span> <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="padding:20px">
+                    <form class="form-horizontal" id = "reasignarTarea">
+                        <input type="hidden" id="Id" name="Id">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Usuario</label>
+                                <div class="select">
+                                    <select class="selectpicker form-control IdUsuarioAsignado" name="IdUsuarioAsignado" id="IdUsuarioAsignado"  data-live-search="true" data-container="body">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.modal-body -->
+            <div class="modal-footer p-b-20 m-b-20">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-purple" id="Reasignar" name="Reasignar">Reasignar</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="modalTarea" class="modal fade" tabindex="-1" role="dialog" id="load">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                <h4 class="modal-title c-negro">Código: <span class="Codigo"></span> <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="padding:20px">
+                    <form class="form-horizontal" id = "storeTarea">
+                        <input type="hidden" id="Id" name="Id">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Fecha de Instalación</label>
+                                <input id="FechaInstalacion" name="FechaInstalacion" validation="not_null"  type="text" placeholder="Seleccione la Fechade Instalacion" class="form-control date" data-nombre="FechaInstalacion">
+                            </div>
+                        </div>
+                        <div class="clearfix m-b-10"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Instalado Por</label>
+                                <input id="nombre" name="InstaladoPor" type="text" placeholder="Ingrese el campo Instalado Por" class="form-control input-sm" validation="not_null" data-nombre="Instalado Por">
+                            </div>
+                        </div>
+                        <div class="clearfix m-b-10"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Usuario PPPoE</label>
+                                <input id="UsuarioPppoe" name="UsuarioPppoe" type="text" placeholder="Ingrese el Usuario PPPoE" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE">
+                            </div>
+                        </div>
+                        <div class="clearfix m-b-10"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Señal Final</label>
+                                <input id="SenalFinal" name="SenalFinal" type="text" placeholder="Ingrese la Señal Final" class="form-control input-sm" validation="not_null" data-nombre="Señal Final">
+                            </div>
+                        </div>
+                        <div class="clearfix m-b-10"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Estación Final</label>
+                                <input id="EstacionFinal" name="EstacionFinal" type="text" placeholder="Ingrese la Estación Final" class="form-control input-sm" validation="not_null" data-nombre="Estación Final">
+                            </div>
+                        </div>
+                        <div class="clearfix m-b-10"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Estatus</label>
+                                <div class="select">
+                                    <select class="selectpicker form-control" name="Estatus" id="Estatus"  data-live-search="true" data-container="body">
+                                        <option value = "1">Finalizado</option>
+                                        <option value = "2">Pendiente</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix m-b-10"></div>
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Comentario</label>
+                                <textarea id="Comentario" name="Comentario" rows="4" class="form-control" placeholder="Ingrese el Comentario" validation="not_null" data-nombre="Comentario"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div><!-- /.modal-body -->
+            <div class="modal-footer p-b-20 m-b-20">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-purple" id="guardarTarea" name="guardarTarea">Guardar</button>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div id="modalComparacion" class="modal fade" tabindex="-1" role="dialog" id="load">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                <h4 class="modal-title c-negro">Código: <span class="Codigo"></span> <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row" style="padding:20px">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="name">Posible Usuario PPPoE</label>
+                            <input id="UsuarioPppoeTeorico_update" name="UsuarioPppoeTeorico" type="text" placeholder="Ingrese el Usuario PPPoE" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="name">Usuario PPPoE Final</label>
+                            <input id="UsuarioPppoeFinal_update" name="UsuarioPppoeTeorico" type="text" placeholder="Ingrese el Usuario PPPoE" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE" disabled>
+                        </div>
+                    </div>
+                    <div class="clearfix m-b-10"></div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="name">Señal Teorica</label>
+                            <input id="SenalTeorica_update" name="SenalTeorica" type="text" placeholder="Ingrese la Señal Teorica" class="form-control input-sm" validation="not_null" data-nombre="Señal Teorica" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="name">Señal Final</label>
+                            <input id="SenalFinal_update" name="SenalFinal" type="text" placeholder="Ingrese la Señal Final" class="form-control input-sm" validation="not_null" data-nombre="Señal Final" disabled>
+                        </div>
+                    </div>
+                    <div class="clearfix m-b-10"></div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="name">Estaciones de Referencia</label>
+                            <input id="PosibleEstacion_update" name="PosibleEstacion" type="text" placeholder="Ingrese las Estaciones de Referencia" class="form-control input-sm" validation="not_null" data-nombre="Estaciones de Referencia" disabled>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="control-label" for="name">Estación Final</label>
+                            <input id="EstacionFinal_update" name="EstacionFinal" type="text" placeholder="Ingrese la Estación Final" class="form-control input-sm" validation="not_null" data-nombre="Estación Final" disabled>
                         </div>
                     </div>
                 </div>
-            </form>
-        </div>
-        </div><!-- /.modal-body -->
-        <div class="modal-footer p-b-20 m-b-20">
-            <div class="col-sm-12">
-                <button type="button" class="btn btn-purple" id="Asignar" name="Asignar">Asignar</button>
-            </div>
-        </div></form>
+            </div><!-- /.modal-body -->
+            <!-- <div class="modal-footer p-b-20 m-b-20">
+                <div class="col-sm-12">
+                    <button type="button" class="btn btn-purple" id="guardarTarea" name="guardarTarea">Guardar</button>
+                </div>
+            </div> -->
         </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-        </div><!-- /.modal -->
-        <div id="modalReasignar" class="modal fade" tabindex="-1" role="dialog" id="load">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
-                        <h4 class="modal-title c-negro">Código: <span class="Codigo"></span> <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row" style="padding:20px">
-                            <form class="form-horizontal" id = "reasignarTarea">
-                                <input type="hidden" id="Id" name="Id">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="control-label" for="name">Usuario</label>
-                                        <div class="select">
-                                            <select class="selectpicker form-control IdUsuarioAsignado" name="IdUsuarioAsignado" id="IdUsuarioAsignado"  data-live-search="true" data-container="body">
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        </div><!-- /.modal-body -->
-                        <div class="modal-footer p-b-20 m-b-20">
-                            <div class="col-sm-12">
-                                <button type="button" class="btn btn-purple" id="Reasignar" name="Reasignar">Reasignar</button>
-                            </div>
-                        </div></form>
-                        </div><!-- /.modal-content -->
-                        </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                        <div id="modalTarea" class="modal fade" tabindex="-1" role="dialog" id="load">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
-                                        <h4 class="modal-title c-negro">Código: <span class="Codigo"></span> <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row" style="padding:20px">
-                                            <form class="form-horizontal" id = "storeTarea">
-                                                <input type="hidden" id="Id" name="Id">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label" for="name">Fecha de Instación</label>
-                                                        <input id="FechaInstalacion" name="FechaInstalacion" validation="not_null"  type="text" placeholder="Seleccione la Fechade Instalacion" class="form-control date" data-nombre="FechaInstalacion">
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix m-b-10"></div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label" for="name">Instalado Por</label>
-                                                        <input id="nombre" name="InstaladoPor" type="text" placeholder="Ingrese el campo Instalado Por" class="form-control input-sm" validation="not_null" data-nombre="Instalado Por">
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix m-b-10"></div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label" for="name">Comentario</label>
-                                                        <textarea id="Comentario" name="Comentario" rows="4" class="form-control" placeholder="Ingrese el Comentario" validation="not_null" data-nombre="Comentario"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix m-b-10"></div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label" for="name">Usuario PPPoE</label>
-                                                        <input id="UsuarioPppoe" name="UsuarioPppoe" type="text" placeholder="Ingrese el Usuario PPPoE" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE">
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix m-b-10"></div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label" for="name">Señal Final</label>
-                                                        <input id="SenalFinal" name="SenalFinal" type="text" placeholder="Ingrese la Señal Final" class="form-control input-sm" validation="not_null" data-nombre="Señal Final">
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix m-b-10"></div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label" for="name">Estación Final</label>
-                                                        <input id="EstacionFinal" name="EstacionFinal" type="text" placeholder="Ingrese la Estación Final" class="form-control input-sm" validation="not_null" data-nombre="Estación Final">
-                                                    </div>
-                                                </div>
-                                                <div class="clearfix m-b-10"></div>
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <label class="control-label" for="name">Estatus</label>
-                                                        <div class="select">
-                                                            <select class="selectpicker form-control" name="Estatus" id="Estatus"  data-live-search="true" data-container="body">
-                                                                <option value = "1">Finalizado</option>
-                                                                <option value = "2">Pendiente</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                        </div><!-- /.modal-body -->
-                                        <div class="modal-footer p-b-20 m-b-20">
-                                            <div class="col-sm-12">
-                                                <button type="button" class="btn btn-purple" id="guardarTarea" name="guardarTarea">Guardar</button>
-                                            </div>
-                                        </div></form>
-                                        </div><!-- /.modal-content -->
-                                        </div><!-- /.modal-dialog -->
-                                        </div><!-- /.modal -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

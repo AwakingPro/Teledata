@@ -208,5 +208,21 @@
 
 	        echo json_encode($response_array);
 	    }
+
+	    public function showTarea($Id){
+
+    		$query = "SELECT * FROM servicios WHERE Id = '$Id'";
+
+            $run = new Method;
+            $data = $run->select($query);
+
+            if($data){
+            	$data = $data[0];
+            }
+
+            $response_array['array'] = $data;
+
+            echo json_encode($response_array);
+    	}
     }
 ?>

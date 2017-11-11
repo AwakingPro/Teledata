@@ -142,7 +142,8 @@ $(document).ready(function(){
                         ''+array.Codigo+'',
                         ''+array.TiepoFacturacion+'',
                         ''+array.Descripcion+'',
-                        ''+array.Grupo+''
+                        ''+array.Comentario+'',
+                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Compare"></i>'+'',
                     ]).draw(false).node();
 
                     $( rowNode )
@@ -158,8 +159,8 @@ $(document).ready(function(){
                             ''+array.Codigo+'',
                             ''+array.TiepoFacturacion+'',
                             ''+array.Descripcion+'',
-                            ''+array.Grupo+'',
-                            ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-tasks Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
+                            ''+array.Comentario+'',
+                            ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
                         ]).draw(false).node();
 
                         $( rowNode )
@@ -172,7 +173,7 @@ $(document).ready(function(){
                             ''+array.Codigo+'',
                             ''+array.TiepoFacturacion+'',
                             ''+array.Descripcion+'',
-                            ''+array.Grupo+''
+                            ''+array.Comentario+''
                         ]).draw(false).node();
 
                         $( rowNode )
@@ -183,9 +184,7 @@ $(document).ready(function(){
                 }
             });
 
-            setTimeout(function(){
-                $('body').addClass('loaded');
-            }, 3000);
+            $('body').addClass('loaded');
         }
     });
 
@@ -222,7 +221,7 @@ $(document).ready(function(){
                     Codigo = $(Row).find("td").eq(2).html();
                     TiepoFacturacion = $(Row).find("td").eq(3).html();
                     Descripcion = $(Row).find("td").eq(4).html();
-                    Grupo = $(Row).find("td").eq(5).html();
+                    Comentario = $(Row).find("td").eq(5).html();
 
                     var rowNode = AsignadasTable.row.add([
                         ''+Usuario+'',
@@ -230,8 +229,8 @@ $(document).ready(function(){
                         ''+Codigo+'',
                         ''+TiepoFacturacion+'',
                         ''+Descripcion+'',
-                        ''+Grupo+'',
-                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-tasks Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
+                        ''+Comentario+'',
+                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -378,7 +377,7 @@ $(document).ready(function(){
                     Codigo = $(Row).find("td").eq(2).html();
                     TiepoFacturacion = $(Row).find("td").eq(3).html();
                     Descripcion = $(Row).find("td").eq(4).html();
-                    Grupo = $(Row).find("td").eq(5).html();
+                    Comentario = $(Row).find("td").eq(5).html();
 
                     var rowNode = FinalizadasTable.row.add([
                         ''+Usuario+'',
@@ -386,7 +385,7 @@ $(document).ready(function(){
                         ''+Codigo+'',
                         ''+TiepoFacturacion+'',
                         ''+Descripcion+'',
-                        ''+Grupo+'',
+                        ''+Comentario+'',
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -436,7 +435,7 @@ $(document).ready(function(){
         });
     });
 
-    $('body').on( 'click', 'i.fa-tasks', function () {
+    $('body').on( 'click', 'i.fa-refresh', function () {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
@@ -503,5 +502,40 @@ $(document).ready(function(){
                 "opacity": ("0.2")
             });
         }
+    });
+
+    $('body').on('click', '.Compare', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = ObjectTR.attr("id");
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/tareas/showTarea.php",
+            data: "id="+ObjectId,
+            success: function(response){
+
+                if(response){
+                    $('#UsuarioPppoeTeorico_update').val(response.array.UsuarioPppoe)
+                    $('#UsuarioPppoeFinal_update').val(response.array.UsuarioPppoe)
+
+                    $('#SenalTeorica_update').val(response.array.SenalTeorica)
+                    $('#SenalFinal_update').val(response.array.SenalFinal)
+
+                    $('#PosibleEstacion_update').val(response.array.PosibleEstacion)
+                    $('#EstacionFinal_update').val(response.array.EstacionFinal)
+                }
+
+                $('#modalComparacion').modal('show')
+            },
+            error: function(xhr, status, error){
+                setTimeout(function(){ 
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada',err.Message,'error');
+                }, 1000);
+            }
+        });
+
     });
 });
