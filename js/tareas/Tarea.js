@@ -546,6 +546,8 @@ $(document).ready(function() {
 
     $('body').on('click', '.Compare', function () {
 
+        $('body').removeClass('loaded');
+
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectId = ObjectTR.attr("id");
@@ -569,6 +571,8 @@ $(document).ready(function() {
                     $('#EstacionFinal_update').val(response.array.EstacionFinal)
                 }
 
+                $('body').addClass('loaded');
+
                 $('#modalComparacion').modal('show')
             },
             error: function(xhr, status, error){
@@ -582,6 +586,8 @@ $(document).ready(function() {
     });
 
     $('body').on('click', '.Search', function () {
+
+        $('body').removeClass('loaded');
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
@@ -622,6 +628,8 @@ $(document).ready(function() {
                         Map.setZoom(Map.getZoom());
                     }, 1000)
                 }
+
+                $('body').addClass('loaded');
                 $('#modalServicio').modal('show')
             },
             error: function(xhr, status, error){
