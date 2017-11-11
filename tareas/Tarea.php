@@ -377,14 +377,14 @@
                             <div class="form-group">
                                 <label class="campo-cliente" >Cliente</label>
                                 <div class="campo-cliente">
-                                    <select id="Rut" name="Rut" class="form-control" data-live-search="true">
+                                    <select id="Rut" name="Rut" class="form-control" data-live-search="true" disabled>
                                         <option value="">Seleccione...</option>
                                     </select>
                                 </div>
                                 <br>
                                 <label class="compo-grupo">Grupo</label>
                                 <div class="compo-grupo">
-                                    <select id="Grupo" name="Grupo" class="form-control selectpicker" data-live-search="true">
+                                    <select id="Grupo" name="Grupo" class="form-control selectpicker" data-live-search="true" disabled>
                                         <option value="">Seleccione...</option>
                                         <option value="1">Grupo 1</option>
                                         <option value="2">Grupo 2</option>
@@ -394,13 +394,13 @@
                                 <br>
                                 <label class="campo-cobreServicio">Tipo de Cobro de servicio mensual</label>
                                 <div class="campo-cobreServicio">
-                                    <select id="TipoFactura" name="TipoFactura" class="form-control" data-live-search="true">
+                                    <select id="TipoFactura" name="TipoFactura" class="form-control" data-live-search="true" disabled>
                                         <option value="">Seleccione...</option>
                                     </select>
                                 </div>
                                 <br>
                                 <label class="compo-tipoFactura">Tiempo de Facturación</label>
-                                <select id="TiepoFacturacion" name="TiepoFacturacion compo-tipoFactura" class="form-control selectpicker" data-live-search="tue">
+                                <select id="TiepoFacturacion" name="TiepoFacturacion compo-tipoFactura" class="form-control selectpicker" data-live-search="true" disabled>
                                     <option value="">Seleccione...</option>
                                     <option >Mensual</option>
                                     <option >Semestral</option>
@@ -409,7 +409,7 @@
                                 <br><br>
                                 <div class="campo-servicio">
                                     <label >Servicio</label>
-                                    <select id="TipoServicio" name="TipoServicio" class="form-control" data-live-search="true">
+                                    <select id="IdServicio" name="IdServicio" class="form-control" data-live-search="true" disabled>
                                         <option value="">Seleccione...</option>
                                     </select>
                                 </div>
@@ -418,7 +418,7 @@
                                 <div class="input-group">
                                     <input id="Valor" type="text"  name="Valor" class="form-control">
                                     <span class="input-group-addon" style="padding: 0px; border: 0px solid">
-                                        <select id="tipoMoneda" name="tipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
+                                        <select id="tipoMoneda" name="tipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;" disabled>
                                             <option value="UF">UF</option>
                                             <option value="Pesos">Pesos</option>
                                         </select>
@@ -427,34 +427,34 @@
                                 <br>
                                 <label>Descuento</label>
                                 <div class="input-group">
-                                    <input type="text" id="Descuento" name="Descuento" class="form-control">
+                                    <input type="text" id="Descuento" name="Descuento" class="form-control" disabled>
                                     <span class="input-group-addon">%</span>
                                 </div>
                                 <br >
                                 <br>
                                 <label > Descripción</label>
-                                <textarea id="Descripcion" name="Descripcion" class="form-control" rows="5"></textarea>
+                                <textarea id="Descripcion" name="Descripcion" class="form-control" rows="5" disabled></textarea>
                                 <br>
 
                                 <label class="campo-apellidoServicio">Apellido del Servicio</label>
                                 <div class="form-group">
-                                    <input id="Alias" type="text" name="Alias" class="form-control campo-apellidoServicio">
+                                    <input id="Alias" type="text" name="Alias" class="form-control campo-apellidoServicio" disabled>
                                 </div>
 
                                 <label class="campo-direccion">Dirección</label>
-                                <textarea id="Direccion" name="Direccion" class="form-control campo-direccion" rows="5"></textarea>
+                                <textarea id="Direccion" name="Direccion" class="form-control campo-direccion" rows="5" disabled></textarea>
                                 <br class="campo-direccion">
 
                                 <div class="col-md-6 campo-cordenadas">
                                     <div class="form-group">
                                         <label class="control-label" for="Latitud">Coordenadas</label>
-                                        <input id="Latitud" name="Latitud" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas">
+                                        <input id="Latitud" name="Latitud" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas" disabled>
                                     </div>
                                 </div>
                                 <div class="col-md-6 campo-cordenadas">
                                     <div class="form-group">
                                         <label class="control-label" for="name">&nbsp;</label>
-                                        <input id="Longitud" name="Longitud" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas">
+                                        <input id="Longitud" name="Longitud" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas" disabled>
                                     </div>
                                 </div>
                                 <br class="campo-cordenadas">
@@ -463,37 +463,37 @@
                                 <br class="campo-cordenadas">
                                 <label class="campo-referencia">Referencia</label>
                                 <div class="form-group campo-referencia">
-                                    <input id="Referencia" type="text" name="Referencia" class="form-control">
+                                    <input id="Referencia" type="text" name="Referencia" class="form-control" disabled>
                                 </div>
                                 <br class="campo-referencia">
                                 <label class="campo-contacto">Contacto</label>
                                 <div class="form-group campo-contacto">
-                                    <input id="Contacto" type="text" name="Contacto" class="form-control">
+                                    <input id="Contacto" type="text" name="Contacto" class="form-control" disabled>
                                 </div>
                                 <br  class="campo-contacto">
                                 <label class="campo-telefonoContacto">Fono Contacto</label>
                                 <div class="form-group campo-telefonoContacto">
-                                    <input id="Fono" type="text" name="Fono" class="form-control">
+                                    <input id="Fono" type="text" name="Fono" class="form-control" disabled>
                                 </div>
                                 <br class="campo-telefonoContacto">
                                 <label class="campo-estacionReferencia">Estaciones de Referencia</label>
                                 <div class="form-group campo-estacionReferencia">
-                                    <input id="PosibleEstacion" type="text" name="PosibleEstacion" class="form-control">
+                                    <input id="PosibleEstacion" type="text" name="PosibleEstacion" class="form-control" disabled>
                                 </div>
                                 <br class="campo-estacionReferencia">
                                 <label class="campo-usuarioPPPoE">Usuario PPPoE</label>
                                 <div class="form-group campo-usuarioPPPoE">
-                                    <input id="UsuarioPppoe" type="text" name="UsuarioPppoe" class="form-control">
+                                    <input id="UsuarioPppoe" type="text" name="UsuarioPppoe" class="form-control" disabled>
                                 </div>
                                 <br class="campo-usuarioPPPoE">
                                 <label class="campo-equipamiento">Equipamiento Sugerido</label>
                                 <div class="form-group campo-equipamiento">
-                                    <input id="Equipamiento" type="text" name="Equipamiento" class="form-control">
+                                    <input id="Equipamiento" type="text" name="Equipamiento" class="form-control" disabled>
                                 </div>
                                 <br class="campo-equipamiento">
                                 <label class="campo-señalTeorica">Señal Teorica</label>
                                 <div class="form-group campo-señalTeorica">
-                                    <input id="SenalTeorica" type="text" name="SenalTeorica" class="form-control">
+                                    <input id="SenalTeorica" type="text" name="SenalTeorica" class="form-control" disabled>
                                 </div>
                             </div>
                         </div>

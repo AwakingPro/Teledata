@@ -30,8 +30,8 @@ $(document).ready(function() {
     $('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
         $('select[name="TipoFactura"]').selectpicker();
     });
-    $('select[name="TipoServicio"]').load('../ajax/servicios/selectTipoServicio.php', function() {
-        $('select[name="TipoServicio"]').selectpicker();
+    $('select[name="IdServicio"]').load('../ajax/servicios/selectTipoServicio.php', function() {
+        $('select[name="IdServicio"]').selectpicker();
     });
 
     $('select[name="Grupo"]').load('../ajax/servicios/listGrupo.php', function() {
