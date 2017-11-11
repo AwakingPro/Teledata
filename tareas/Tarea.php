@@ -416,7 +416,7 @@
                                 <br>
                                 <label>Valor</label>
                                 <div class="input-group">
-                                    <input id="Valor" type="text"  name="Valor" class="form-control">
+                                    <input id="Valor" type="text"  name="Valor" class="form-control" disabled>
                                     <span class="input-group-addon" style="padding: 0px; border: 0px solid">
                                         <select id="tipoMoneda" name="tipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;" disabled>
                                             <option value="UF">UF</option>
