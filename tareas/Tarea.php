@@ -16,6 +16,7 @@
         <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
         <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
         <link href="../css/teledata.css" rel="stylesheet">
+        <link href="../css/loader.css" rel="stylesheet">
     </head>
     <body>
         <div id="container" class="effect aside-float aside-bright mainnav-sm">
@@ -141,6 +142,14 @@
         </nav>
     </div>
     <?php include("../layout/footer.php"); ?>
+</div>
+
+<div id="loader-wrapper">
+    <div id="loader"></div>
+
+    <div class="loader-section section-left"></div>
+    <div class="loader-section section-right"></div>
+
 </div>
 <!--SCRIPT-->
 <script src="../js/jquery-2.2.1.min.js"></script>
