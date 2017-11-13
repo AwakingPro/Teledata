@@ -173,6 +173,14 @@
 													<div class="form-group campo-señalTeorica">
 														<input type="text" name="SenalTeorica" class="form-control">
 													</div>
+													<br class="campo-equipamiento">
+													<label class="campo-señalTeorica">Facturación Costo de instalación / Habilitación</label>
+													<div class="form-group campo-señalTeorica">
+														<select name="CostoInstalacion" class="form-control selectpicker">
+															<option>SI</option>
+															<option>NO</option>
+														</select>
+													</div>
 													<br class="campo-señalTeorica">
 
 													<div class="containerTipoServicioFormualario"></div>
