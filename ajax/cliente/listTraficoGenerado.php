@@ -1,8 +1,8 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
-		trafico_generado.IdTraficoGenerado,
-		trafico_generado.LineaTelefonica,
+		trafico_generado.IdTraficoGenerado as 'Id',
+		trafico_generado.LineaTelefonica as 'Linea Telefonica',
 		trafico_generado.Descripcion
 		FROM
 		trafico_generado
