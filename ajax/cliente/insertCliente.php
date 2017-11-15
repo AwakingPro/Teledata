@@ -15,11 +15,12 @@
 	$TipoCliente = isset($_POST['TipoCliente']) ? trim($_POST['TipoCliente']) : "";
 	$Comuna = isset($_POST['Comuna']) ? trim($_POST['Comuna']) : "";
 	$Ciudad = isset($_POST['Ciudad']) ? trim($_POST['Ciudad']) : "";
+	$CodigoCliente = $Rut.'-'.$Dv;
 
 	$query = "INSERT INTO personaempresa
-			(rut, dv, nombre, giro, comuna, ciudad, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession)
+			(rut, dv, nombre, giro, comuna, ciudad, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession,CodigoCliente)
 			VALUES
-			('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Comuna."', '".$Ciudad."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$_SESSION['idUsuario']."')";
+			('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Comuna."', '".$Ciudad."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$_SESSION['idUsuario']."','".$CodigoCliente."')";
 	$run = new Method;
 	$id = $run->insert($query);
 	echo $id;
