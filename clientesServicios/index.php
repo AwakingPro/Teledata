@@ -45,8 +45,8 @@
 												<div class="row">
 													<div class="col-md-2">
 														<select name="" class="form-control selectpicker tipoBusqueda" data-live-search="true">
-															<option value="1">Rut</option>
 															<option value="2">Nombre</option>
+															<option value="1">Rut</option>
 														</select>
 													</div>
 													<div class="col-md-4">

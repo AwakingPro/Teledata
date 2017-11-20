@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	$('[name="Rut_update"], [name="Rut"]').number( true, 0,'','');
 
-	$('select[name="rutCliente"]').load('../ajax/cliente/selectRutCliente.php',function(){
+	$('select[name="rutCliente"]').load('../ajax/cliente/selectNombreCliente.php',function(){
 		$('select[name="rutCliente"]').selectpicker();
 	});
 
