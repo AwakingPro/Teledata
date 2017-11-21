@@ -76,8 +76,10 @@ $(document).ready(function() {
 		var camo = this;
 		$.post('../ajax/servicios/usuarioPPPoE.php', {user: $(this).val()}, function(data) {
 			if (data == "true") {
+				$(camo).parent('.form-group').addClass('has-error');
+				$(camo).val('');
 				bootbox.alert('<h3 class="text-center">El usuario Pppoe ya esta registrado.</h3>');
-				$(camo).val();
+
 			}
 		});
 	});
