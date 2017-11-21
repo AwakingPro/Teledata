@@ -1,5 +1,5 @@
 <?php
-	$query = 'SELECT descripcion, enlace, icono, id_menu, permisos FROM menu';
+	$query = 'SELECT descripcion, enlace, icono, id_menu, permisos FROM menu ORDER BY id_menu';
 	$data = $run->select($query);
 	$url = explode('/', $_SERVER['REQUEST_URI']);
 	$subM = 0;
