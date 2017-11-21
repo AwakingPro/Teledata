@@ -163,6 +163,7 @@ $(document).ready(function() {
         type: "POST",
         url: "../includes/tareas/showServicios.php",
         success: function(response){
+            console.log(response);
 
             $.each(response.array, function( index, array ) {
 
@@ -176,7 +177,7 @@ $(document).ready(function() {
 
                     var rowNode = FinalizadasTable.row.add([
                         ''+Usuario+'',
-                        ''+array.Cliente+'',
+                        ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
                         ''+array.Codigo+'',
                         ''+array.Descripcion+'',
                         ''+array.Direccion+'',
@@ -192,7 +193,7 @@ $(document).ready(function() {
 
                         var rowNode = AsignadasTable.row.add([
                             ''+Usuario+'',
-                            ''+array.Cliente+'',
+                            ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
                             ''+array.Codigo+'',
                             ''+array.Descripcion+'',
                             ''+array.Direccion+'',
@@ -205,7 +206,7 @@ $(document).ready(function() {
                     }else{
                         var rowNode = PendientesTable.row.add([
                             ''+'<input name="select_check" id="select_check_"'+array.Id+' type="checkbox" />'+'',
-                            ''+array.Cliente+'',
+                            ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
                             ''+array.Codigo+'',
                             ''+array.Descripcion+'',
                             ''+array.Direccion+'',
@@ -223,6 +224,15 @@ $(document).ready(function() {
             $('body').addClass('loaded');
         }
     });
+
+    $(document).on('click', '.dataClienteTable', function(event) {
+        $('.container-dataCliente').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
+        $('#InfoClienteTable').modal('show');
+        $.post('../ajax/tarea/dataCliente.php', {id: $(this).attr('attrId')}, function(data) {
+             $('.container-dataCliente').html(data);
+        });
+    });
+
 
     $('#AsignarModal').click(function () {
 

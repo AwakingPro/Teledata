@@ -2,8 +2,8 @@
 
 	require("../../includes/email/PHPMailer-master/class.phpmailer.php");
 	require("../../includes/email/PHPMailer-master/class.smtp.php");
-    include('../../class/methods_global/methods.php'); 
-    include('../../class/email/EmailClass.php');  
+    include('../../class/methods_global/methods.php');
+    include('../../class/email/EmailClass.php');
 
     header('Content-type: application/json');
 
@@ -11,7 +11,11 @@
 
     	public function showServicios(){
 
-    		$query = 'SELECT servicios.*, personaempresa.nombre as Cliente, usuarios.nombre as Usuario FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut LEFT JOIN usuarios ON servicios.IdUsuarioAsignado = usuarios.id';
+    		$query = 'SELECT servicios.*,
+    			personaempresa.nombre as Cliente,
+    			personaempresa.id as IdPersonaEmpresa,
+    			usuarios.nombre as Usuario
+    		FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut LEFT JOIN usuarios ON servicios.IdUsuarioAsignado = usuarios.id';
 
             $run = new Method;
             $data = $run->select($query);
@@ -69,14 +73,14 @@
 		       		$response_array['Usuario'] = $Usuario['nombre'];
 		            $response_array['array'] = $array;
 
-		            $response_array['status'] = 1; 
+		            $response_array['status'] = 1;
 
 	        	}else{
-	        		$response_array['status'] = 99; 
+	        		$response_array['status'] = 99;
 	        	}
 
 	        }else{
-	            $response_array['status'] = 2; 
+	            $response_array['status'] = 2;
 	        }
 
 	        echo json_encode($response_array);
@@ -99,7 +103,7 @@
 	           	$query = "SELECT * FROM usuarios where id = '$this->IdUsuarioAsignado'";
 	           	$data = $run->select($query);
 		        $Usuario = $data[0];
-	            
+
 	        	$query = "UPDATE `servicios` set `IdUsuarioAsignado` = '$this->IdUsuarioAsignado' where `Id` = '$this->Id'";
 	            $data = $run->update($query);
 
@@ -115,14 +119,14 @@
 	            if($Estatus){
 	            	$response_array['Usuario'] = $Usuario['nombre'];
 	            	$response_array['Id'] = $this->Id;
-	                $response_array['status'] = 1; 
+	                $response_array['status'] = 1;
 
 	            }else{
-	                $response_array['status'] = 0; 
+	                $response_array['status'] = 0;
 	            }
 
 	        }else{
-	            $response_array['status'] = 2; 
+	            $response_array['status'] = 2;
 	        }
 
 	        echo json_encode($response_array);
@@ -136,7 +140,7 @@
 
 	    	$Asunto = 'Ha recibido nuevas tareas';
 
-			$Html = 
+			$Html =
 			"<html>
 				<head>
 					<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
@@ -155,11 +159,11 @@
 
 			$Email = new Email();
 			$Estatus = $Email->SendMail($Html,$Asunto,$Correo);
-			
+
 			return $Estatus;
 
 	    }
-    
+
 	    function storeTarea($Id,$FechaInstalacion,$InstaladoPor,$Comentario,$UsuarioPppoe,$SenalFinal,$EstacionFinal,$Estatus){
 
 	        $response_array = array();
@@ -197,13 +201,13 @@
 
 	            	$response_array['Estatus'] = $this->Estatus;
 	            	$response_array['Id'] = $this->Id;
-	                $response_array['status'] = 1; 
+	                $response_array['status'] = 1;
 
 	            }else{
-	                $response_array['status'] = 0; 
+	                $response_array['status'] = 0;
 	            }
 	        }else{
-	            $response_array['status'] = 2; 
+	            $response_array['status'] = 2;
 	        }
 
 	        echo json_encode($response_array);
