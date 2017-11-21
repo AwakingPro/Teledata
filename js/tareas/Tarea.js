@@ -155,7 +155,7 @@ $(document).ready(function() {
             setTimeout(function(){
                 $('.IdUsuarioAsignado').selectpicker('refresh');
             },500)
-        
+
         }
     });
 
@@ -178,9 +178,8 @@ $(document).ready(function() {
                         ''+Usuario+'',
                         ''+array.Cliente+'',
                         ''+array.Codigo+'',
-                        ''+array.TiepoFacturacion+'',
                         ''+array.Descripcion+'',
-                        ''+array.Comentario+'',
+                        ''+array.Direccion+'',
                         ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Compare"></i>'+'',
                     ]).draw(false).node();
 
@@ -195,9 +194,8 @@ $(document).ready(function() {
                             ''+Usuario+'',
                             ''+array.Cliente+'',
                             ''+array.Codigo+'',
-                            ''+array.TiepoFacturacion+'',
                             ''+array.Descripcion+'',
-                            ''+array.Comentario+'',
+                            ''+array.Direccion+'',
                             ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
                         ]).draw(false).node();
 
@@ -209,9 +207,8 @@ $(document).ready(function() {
                             ''+'<input name="select_check" id="select_check_"'+array.Id+' type="checkbox" />'+'',
                             ''+array.Cliente+'',
                             ''+array.Codigo+'',
-                            ''+array.TiepoFacturacion+'',
                             ''+array.Descripcion+'',
-                            ''+array.Comentario+'',
+                            ''+array.Direccion+'',
                             ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>'+''
                         ]).draw(false).node();
 
@@ -219,7 +216,7 @@ $(document).ready(function() {
                             .attr('id',array.Id)
                             .addClass('text-center')
                     }
-                    
+
                 }
             });
 
@@ -234,7 +231,7 @@ $(document).ready(function() {
         $('#Tareas').val(Tareas)
 
         $('#modalAsignar').modal('show');
-  
+
     });
 
     $('body').on('click', '#Asignar', function () {
@@ -280,7 +277,7 @@ $(document).ready(function() {
                         .remove()
                         .draw();
                 });
-             
+
 
                 $('#asignarTareas')[0].reset();
                 $('.selectpicker').selectpicker('refresh')
@@ -342,7 +339,7 @@ $(document).ready(function() {
                 Usuario = response.Usuario
                 Row = $('#'+response.Id)
                 Cliente = $(Row).find("td").eq(0).html(Usuario);
-                 
+
                 $('#reasignarTarea')[0].reset();
                 $('.selectpicker').selectpicker('refresh')
                 $('.modal').modal('hide');
@@ -392,7 +389,7 @@ $(document).ready(function() {
         $('#Codigo').text(ObjectCode);
 
         $('#modalTarea').modal('show');
-  
+
     });
 
     $('body').on('click', '#guardarTarea', function () {
@@ -436,7 +433,7 @@ $(document).ready(function() {
                         .remove()
                         .draw();
                 }
-             
+
 
                 $('#storeTarea')[0].reset();
                 $('.modal').modal('hide');
@@ -486,7 +483,7 @@ $(document).ready(function() {
         $('.Codigo').text(ObjectCode);
 
         $('#modalReasignar').modal('show');
-  
+
     })
 
     function getChecked(){
@@ -576,7 +573,7 @@ $(document).ready(function() {
                 $('#modalComparacion').modal('show')
             },
             error: function(xhr, status, error){
-                setTimeout(function(){ 
+                setTimeout(function(){
                     var err = JSON.parse(xhr.responseText);
                     swal('Solicitud no procesada',err.Message,'error');
                 }, 1000);
@@ -633,7 +630,7 @@ $(document).ready(function() {
                 $('#modalServicio').modal('show')
             },
             error: function(xhr, status, error){
-                setTimeout(function(){ 
+                setTimeout(function(){
                     var err = JSON.parse(xhr.responseText);
                     swal('Solicitud no procesada',err.Message,'error');
                 }, 1000);

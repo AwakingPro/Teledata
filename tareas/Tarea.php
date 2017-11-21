@@ -60,9 +60,8 @@
                                                     <th class="text-center"><input class="select-checkbox" name="select_all" id="select_all" type="checkbox"></th>
                                                     <th class="text-center">Cliente</th>
                                                     <th class="text-center">Código</th>
-                                                    <th class="text-center">Tiempo de Facturación</th>
                                                     <th class="text-center">Por Hacer</th>
-                                                    <th class="text-center">Comentario</th>
+                                                    <th class="text-center">Direccion</th>
                                                     <th class="text-center">Acción</th>
                                                 </tr>
                                             </thead>
@@ -80,9 +79,8 @@
                                                                 <th class="text-center">Usuario Asignado</th>
                                                                 <th class="text-center">Cliente</th>
                                                                 <th class="text-center">Código</th>
-                                                                <th class="text-center">Tiempo de Facturación</th>
                                                                 <th class="text-center">Por Hacer</th>
-                                                                <th class="text-center">Comentario</th>
+                                                                <th class="text-center">Direccion</th>
                                                                 <th class="text-center">Acción</th>
                                                             </tr>
                                                         </thead>
@@ -103,9 +101,8 @@
                                                                 <th class="text-center">Usuario Asignado</th>
                                                                 <th class="text-center">Cliente</th>
                                                                 <th class="text-center">Código</th>
-                                                                <th class="text-center">Tiempo de Facturación</th>
                                                                 <th class="text-center">Por Hacer</th>
-                                                                <th class="text-center">Comentario</th>
+                                                                <th class="text-center">Direccion</th>
                                                                 <th class="text-center">Acción</th>
                                                             </tr>
                                                         </thead>
