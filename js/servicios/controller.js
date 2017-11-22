@@ -156,7 +156,7 @@ $(document).ready(function() {
 
 				servicio_id = data
 
-				if($('#CostoInstalacion').val()){
+				if($('#CostoInstalacion').val() == 1 && ($('#TipoServicio').val() == 1 || $('#TipoServicio').val() == 2)){
 					var ObjectMe = $(this);
 
 			        swal({   
@@ -195,8 +195,8 @@ $(document).ready(function() {
 
 				Rut = $('#Rut').val()
 
-				// $('#formServicio')[0].reset();
-				// $('.selectpicker').selectpicker('refresh')
+				$('#formServicio')[0].reset();
+				$('.selectpicker').selectpicker('refresh')
 				$('#Rut').val(Rut)
 
 			} else {
