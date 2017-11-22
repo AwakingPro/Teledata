@@ -24,7 +24,7 @@
 
             $data = array();
 
-    		$query = 'SELECT servicios.Rut, servicios.Grupo, servicios.Valor, servicios.TipoMoneda, servicios.EstatusFacturacion, personaempresa.nombre as Cliente FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut where servicios.Estatus = 1 AND servicios.EstatusFacturacion = 0';
+    		$query = 'SELECT servicios.Rut, servicios.Grupo, servicios.Valor, servicios.TipoMoneda, servicios.EstatusFacturacion, personaempresa.nombre as Cliente FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut WHERE servicios.EstatusFacturacion = 0 AND servicios.CostoInstalacion = 1 AND (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1) AND (servicios.IdServicio = 1 OR servicios.IdServicio = 2)';
 
             $servicios = $run->select($query);
 

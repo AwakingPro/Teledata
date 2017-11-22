@@ -268,7 +268,7 @@
 				return 'No hay conexion';
 			}
 		}
-		function listViewTiketsSoporte($post) {
+		function listViewTicketsSoporte($post) {
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				if ($resultado = $mysqli->query($post)) {

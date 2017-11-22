@@ -21,7 +21,7 @@
 	$run = new Method;
 	session_start();
 	if ($_SESSION['idNivel'] != 1) {
-		$lista = $run->listViewTiketsSoporte($query);
+		$lista = $run->listViewTicketsSoporte($query);
 	}else{
 		$lista = $run->listViewTicktes($query);
 	}

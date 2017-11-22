@@ -20,7 +20,7 @@
 	WHERE tickets.AsignarA = ".$_SESSION['idUsuario'];
 	$run = new Method;
 	if ($_SESSION['idNivel'] != 1) {
-		$lista = $run->listViewTiketsSoporte($query);
+		$lista = $run->listViewTicketsSoporte($query);
 	}else{
 		$lista = $run->listViewTicktes($query);
 	}

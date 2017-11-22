@@ -199,6 +199,33 @@
 
 	            if($data){
 
+	            	$query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio";
+                    $Servicio = $run->select($query);
+
+                    if($Servicio){
+
+                    	$Servicio = $Servicio[0];
+
+		            	$Rut = $Servicio['Rut'];
+	                    $Grupo = $Servicio['Grupo'];
+
+	                    $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('$Rut', '$Grupo', '2', '0', '0', '', '0', '', '$Hoy', '$Hoy')";
+	                    $FacturaId = $run->insert($query);
+
+	                    if($FacturaId){
+
+		                    $IdServicio = $Servicio['Id'];
+		                    $Valor = $Servicio['Valor'];
+		                    $Descuento = $Servicio['Descuento'];
+		                    $TipoMoneda = $Servicio['TipoMoneda'];
+		                    $Hoy = new DateTime(); 
+		                    $Hoy = $Hoy->format('Y-m-d H:i:s');
+
+		                    $query = "INSERT INTO facturas_detalle(FacturaId, IdServicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$IdServicio', '$Valor', '$Descuento', '$TipoMoneda')";
+		                    $FacturaDetalle = $run->insert($query);
+	                    }
+                    }
+
 	            	$response_array['Estatus'] = $this->Estatus;
 	            	$response_array['Id'] = $this->Id;
 	                $response_array['status'] = 1;

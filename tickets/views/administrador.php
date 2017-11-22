@@ -31,7 +31,7 @@
 					<div id="tab-1" class="tab-pane fade active in cont-form2">
 						<div class="row">
 							<div class="col-md-12">
-								<h3>Buscar tiket en el sistema</h3><br>
+								<h3>Buscar Ticket en el sistema</h3><br>
 							</div>
 						</div>
 						<div class="row">

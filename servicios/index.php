@@ -13,6 +13,7 @@
 		<link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+		<link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
@@ -176,9 +177,9 @@
 													<br class="campo-equipamiento">
 													<label class="campo-señalTeorica">Facturación Costo de instalación / Habilitación</label>
 													<div class="form-group campo-señalTeorica">
-														<select name="CostoInstalacion" class="form-control selectpicker">
-															<option>SI</option>
-															<option>NO</option>
+														<select id="CostoInstalacion" name="CostoInstalacion" class="form-control selectpicker">
+															<option value="1">Si</option>
+															<option value="0">No</option>
 														</select>
 													</div>
 													<br class="campo-señalTeorica">
@@ -242,6 +243,7 @@
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
+		<script src="../plugins/sweetalert/sweetalert.min.js"></script>
 		<script src="../js/servicios/controller.js"></script>
 	</body>
 </html>

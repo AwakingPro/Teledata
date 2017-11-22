@@ -154,12 +154,49 @@ $(document).ready(function() {
 			console.log(data);
 			if (Number(data) > 0) {
 
-				bootbox.alert('<h3 class="text-center">El servicio #' + data + ' se registro con éxito.</h3>');
+				servicio_id = data
+
+				if($('#CostoInstalacion').val()){
+					var ObjectMe = $(this);
+
+			        swal({   
+			            title: "Desea facturar de inmediato el costo de instalacion?",   
+			            text: "Confirmar facturación!",   
+			            type: "warning",   
+			            showCancelButton: true,   
+			            confirmButtonColor: "#DD6B55",   
+			            confirmButtonText: "Aceptar!",  
+			            cancelButtonText: "Cancelar",         
+			            closeOnConfirm: true 
+			        },function(isConfirm){   
+			            if (isConfirm) {
+			                $.ajax({
+			                    url: "../ajax/servicios/updateCostoInstalacion.php",
+			                    type: 'POST',
+			                    data:"&id="+servicio_id,
+			                    success:function(response){
+			                        setTimeout(function() {
+			                            if(response == 1){
+			                                bootbox.alert('<h3 class="text-center">El servicio #' + servicio_id + ' se registro con éxito.</h3>');
+			                            }else{
+			                                swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+			                            }
+			                        }, 1000);  
+			                    },
+			                    error:function(){
+			                        swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+			                    }
+			                });
+			            }
+			        });
+				}else{
+					bootbox.alert('<h3 class="text-center">El servicio #' + servicio_id + ' se registro con éxito.</h3>');
+				}
 
 				Rut = $('#Rut').val()
 
-				$('#formServicio')[0].reset();
-				$('.selectpicker').selectpicker('refresh')
+				// $('#formServicio')[0].reset();
+				// $('.selectpicker').selectpicker('refresh')
 				$('#Rut').val(Rut)
 
 			} else {

@@ -307,7 +307,7 @@ $.post('../ajax/privilegios.php', function(data) {
 				},
 				callback: function (result) {
 					if (result == true) {
-						$.post('../ajax/tickets/deleteTikets.php', {id: id}, function(data) {
+						$.post('../ajax/tickets/deleteTickets.php', {id: id}, function(data) {
 							$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
 								var count = $('.listaAbiertos > .tabeData tr th').length -1;
 								$('.listaAbiertos > .tabeData').dataTable({
