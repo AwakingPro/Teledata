@@ -95,24 +95,31 @@ $(document).ready(function() {
 		switch ($(this).val()) {
 			case '1':
 				url = "arriendoEquipos.php";
-				break;
-			case '5':
-				url = "mantencionRed.php";
-				break;
-			case '4':
-				url = "mensualidadIPFija.php";
-				break;
-			case '3':
-				url = "mensualidadPuertoPublicos.php";
+				$('#divCostoInstalacion').show();
 				break;
 			case '2':
 				url = "servicioInternet.php";
+				$('#divCostoInstalacion').show();
+				break;
+			case '3':
+				url = "mensualidadPuertoPublicos.php";
+				$('#divCostoInstalacion').hide();
+				break;			
+			case '4':
+				url = "mensualidadIPFija.php";
+				$('#divCostoInstalacion').hide();
+				break;
+			case '5':
+				url = "mantencionRed.php";
+				$('#divCostoInstalacion').hide();
 				break;
 			case '6':
 				url = "traficoGenerado.php";
+				$('#divCostoInstalacion').hide();
 				break;
 			default:
 				url = "404.html";
+				$('#divCostoInstalacion').hide();
 		}
 
 		$('.containerTipoServicioFormualario').load('../clientesServicios/viewTipoServicio/' + url, function() {
