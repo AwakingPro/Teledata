@@ -199,7 +199,7 @@
 
 	            if($data){
 
-	            	$query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio";
+	            	$query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where `Id` = '$this->Id'";
                     $Servicio = $run->select($query);
 
                     if($Servicio){
@@ -208,6 +208,8 @@
 
 		            	$Rut = $Servicio['Rut'];
 	                    $Grupo = $Servicio['Grupo'];
+                    	$Hoy = new DateTime(); 
+	                    $Hoy = $Hoy->format('Y-m-d H:i:s');
 
 	                    $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('$Rut', '$Grupo', '2', '0', '0', '', '0', '', '$Hoy', '$Hoy')";
 	                    $FacturaId = $run->insert($query);
@@ -218,10 +220,17 @@
 		                    $Valor = $Servicio['Valor'];
 		                    $Descuento = $Servicio['Descuento'];
 		                    $TipoMoneda = $Servicio['TipoMoneda'];
-		                    $Hoy = new DateTime(); 
-		                    $Hoy = $Hoy->format('Y-m-d H:i:s');
 
-		                    $query = "INSERT INTO facturas_detalle(FacturaId, IdServicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$IdServicio', '$Valor', '$Descuento', '$TipoMoneda')";
+		                    $dt = new DateTime();
+							$Mes =  $dt->format('m');
+						    $Ano =  $dt->format('Y');
+						    $Dia =  $dt->format('d');
+						    $Diasdelmes = cal_days_in_month (CAL_GREGORIAN, $Mes,$Ano);
+						    $Montodiario = $Valor / $Diasdelmes;
+						    $Diasporfacturar = $Diasdelmes - $Dia;
+						    $Montoporfacturar = $Diasporfacturar * $Montodiario;
+
+		                    $query = "INSERT INTO facturas_detalle(FacturaId, IdServicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$IdServicio', '$Montoporfacturar', '$Descuento', '$TipoMoneda')";
 		                    $FacturaDetalle = $run->insert($query);
 	                    }
                     }
