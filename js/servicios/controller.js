@@ -104,7 +104,7 @@ $(document).ready(function() {
 			case '3':
 				url = "mensualidadPuertoPublicos.php";
 				$('#divCostoInstalacion').hide();
-				break;			
+				break;
 			case '4':
 				url = "mensualidadIPFija.php";
 				$('#divCostoInstalacion').hide();
@@ -166,16 +166,16 @@ $(document).ready(function() {
 				if($('#CostoInstalacion').val() == 1 && ($('#TipoServicio').val() == 1 || $('#TipoServicio').val() == 2)){
 					var ObjectMe = $(this);
 
-			        swal({   
-			            title: "Desea facturar de inmediato el costo de instalacion?",   
-			            text: "Confirmar facturación!",   
-			            type: "warning",   
-			            showCancelButton: true,   
-			            confirmButtonColor: "#DD6B55",   
-			            confirmButtonText: "Aceptar!",  
-			            cancelButtonText: "Cancelar",         
-			            closeOnConfirm: true 
-			        },function(isConfirm){   
+			        swal({
+			            title: "Desea facturar de inmediato el costo de instalacion?",
+			            text: "Confirmar facturación!",
+			            type: "warning",
+			            showCancelButton: true,
+			            confirmButtonColor: "#DD6B55",
+			            confirmButtonText: "Aceptar!",
+			            cancelButtonText: "Cancelar",
+			            closeOnConfirm: true
+			        },function(isConfirm){
 			            if (isConfirm) {
 			                $.ajax({
 			                    url: "../ajax/servicios/updateCostoInstalacion.php",
@@ -188,7 +188,7 @@ $(document).ready(function() {
 			                            }else{
 			                                swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
 			                            }
-			                        }, 1000);  
+			                        }, 1000);
 			                    },
 			                    error:function(){
 			                        swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');

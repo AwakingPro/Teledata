@@ -4,11 +4,11 @@
 	$where = substr($str, strrpos($str, '/') + 1);
 
 	if($where != 'insertArriendoEquipos.php'){
-		include('../../../class/methods_global/methods.php');
-	}else{
 		if ($where != 'insertServicio.php') {
-			include('../../class/methods_global/methods.php');
+			include('../../../class/methods_global/methods.php');
 		}
+	}else{
+		include('../../class/methods_global/methods.php');
 	}
 
 	header('Content-type: application/json');
