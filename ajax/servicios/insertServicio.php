@@ -52,7 +52,7 @@
 			$query = "INSERT INTO arriendo_equipos_datos (IdOrigen, IdProducto, TipoDestino, IdServivio) VALUES ('".$_POST['origen_id']."', '".$_POST['producto_id']."', '".$_POST['destino_tipo']."', '".$id."')";
 			$data = $run->insert($query);
 			$Egreso = new Egreso();
-			$Egreso->storeMovimiento($_POST['producto_id'],$_POST['destino_tipo'],$_POST['destino_id']);
+			$Egreso->storeMovimiento($_POST['producto_id'],$_POST['destino_tipo'],$id);
 			break;
 		case 2:
 			$query = "INSERT INTO mantencion_red (Descripcion, ComentarioDatosAdicionales,IdServivio) VALUES ('".$_POST['descripcion']."', '".$_POST['comentario']."', '".$id."')";

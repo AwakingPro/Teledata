@@ -3,12 +3,21 @@
 	$str = $_SERVER['SCRIPT_NAME'];
 	$where = substr($str, strrpos($str, '/') + 1);
 
-	if($where != 'insertArriendoEquipos.php'){
-		include('../../../class/methods_global/methods.php');
-	}else{
-		if ($where != 'insertServicio.php') {
-			include('../../class/methods_global/methods.php');
+	if(!isset($run)){
+
+		if($where != 'insertArriendoEquipos.php'){
+			include('../../../class/methods_global/methods.php');
+		}else{
+			if ($where != 'insertServicio.php') {
+				include('../../class/methods_global/methods.php');
+			}
 		}
+
+		$GLOBALS['return'] = true;
+
+	}else{
+
+		$GLOBALS['return'] = false;
 	}
 
 	header('Content-type: application/json');
@@ -51,7 +60,9 @@
 
 					if($Acceso){
 
-						session_start();
+						if (session_status() == PHP_SESSION_NONE) {
+						    session_start();
+						}
 
 						$Usuario=$_SESSION['idUsuario'];
 						$DateTime = new DateTime();
@@ -148,7 +159,9 @@
 				$response_array['status'] = 2;
 			}
 
-			echo json_encode($response_array);
+			if($GLOBALS['return'] == true){
+				echo json_encode($response_array);
+			}
 
 		}
 

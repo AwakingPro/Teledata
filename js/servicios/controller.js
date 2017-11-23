@@ -154,8 +154,6 @@ $(document).ready(function() {
 		$('select[name="Grupo"]').selectpicker('refresh');
 	});
 
-
-
 	$(document).on('click', '.guardarServ', function() {
 		$.postFormValues('../ajax/servicios/insertServicio.php', '.container-form', function(data) {
 			console.log(data);
