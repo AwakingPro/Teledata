@@ -408,9 +408,7 @@ $(document).ready(function() {
 					$.post('../ajax/cliente/eliminarServicio.php', {
 						id: id
 					}, function(data) {
-						$.post('../ajax/cliente/dataCliente.php', {
-							rut: $('select[name="rutCliente"]').selectpicker('val')
-						}, function(data) {
+						$.post('../ajax/cliente/dataCliente.php', {rut: $('select[name="Rut"]').selectpicker('val')}, function(data) {
 							values = $.parseJSON(data);
 							$('.dataServicios').html(values[1]);
 							var count = $('.dataServicios > .tabeData tr th').length - 1;
