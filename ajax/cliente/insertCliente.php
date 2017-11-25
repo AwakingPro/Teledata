@@ -2,8 +2,8 @@
 	require_once('../../class/methods_global/methods.php');
 	session_start();
 
-	$Rut = isset($_POST['Rut']) ? trim($_POST['Rut']) : "";
-	$Dv = isset($_POST['Dv']) ? trim($_POST['Dv']) : "";
+	$Rut = substr($_POST['Rut'], 0, strpos($_POST['Rut'], '-'));
+	$Dv = substr($_POST['Rut'], - 1);
 	$Nombre = isset($_POST['Nombre']) ? trim($_POST['Nombre']) : "";
 	$Giro = isset($_POST['Giro']) ? trim($_POST['Giro']) : "";
 	$DireccionComercial = isset($_POST['DireccionComercial']) ? trim($_POST['DireccionComercial']) : "";
@@ -15,7 +15,7 @@
 	$TipoCliente = isset($_POST['TipoCliente']) ? trim($_POST['TipoCliente']) : "";
 	$Comuna = isset($_POST['Comuna']) ? trim($_POST['Comuna']) : "";
 	$Ciudad = isset($_POST['Ciudad']) ? trim($_POST['Ciudad']) : "";
-	$CodigoCliente = $Rut.'-'.$Dv;
+	$CodigoCliente = isset($_POST['Rut']) ? trim($_POST['Rut']) : "";
 
 	$query = "INSERT INTO personaempresa
 			(rut, dv, nombre, giro, comuna, ciudad, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession,CodigoCliente)
