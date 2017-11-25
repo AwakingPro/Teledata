@@ -212,7 +212,7 @@ $(document).ready(function() {
 		$('#editarCliente').modal('show');
 		$.post('../ajax/cliente/dataClienteUpdate.php', {id: $(this).attr('attr')}, function(data) {
 			value = $.parseJSON(data);
-
+			console.log(value);
 			$('[name="Nombre_update"]').val(value[0]['nombre']);
 			$('[name="Rut_update"]').val(value[0]['rut']);
 			$('[name="Dv_update"]').selectpicker('val',value[0]['dv']);
