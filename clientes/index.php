@@ -49,7 +49,7 @@
 												</div>
 												<form id="insertCliente">
 													<div class="row">
-														<div class="col-md-5 form-group">
+														<div class="col-md-6 form-group">
 															<label>Tipo de Cliente</label>
 															<select name="TipoCliente" class="form-control selectpicker" data-live-search="true" validate="not_null">
 																<option value="">Seleccione...</option>
@@ -58,30 +58,9 @@
 																<option value="Canje">Canje</option>
 															</select>
 														</div>
-														<div class="col-md-5 form-group">
+														<div class="col-md-6 form-group">
 															<label>Rut</label>
 															<input name="Rut" class="form-control" validate="not_null">
-														</div>
-														<div class="col-md-1 form-group">
-															<div class="text-center" style="padding-top: 5px">
-																<h3>-</h3>
-															</div>
-														</div>
-														<div class="col-md-1 form-group">
-															<label>Dv</label>
-															<select name="Dv" class="form-control selectpicker" data-live-search="true" validate="not_null">
-																<option value="">Seleccione...</option>
-																<option>1</option>
-																<option>2</option>
-																<option>3</option>
-																<option>4</option>
-																<option>5</option>
-																<option>6</option>
-																<option>7</option>
-																<option>8</option>
-																<option>9</option>
-																<option>K</option>
-															</select>
 														</div>
 													</div>
 													<div class="row">
