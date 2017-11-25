@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	$('[name="Rut_update"], [name="Rut"]').number( true, 0,'','');
+	$('[name="Rut"]').number( true, 0,'','');
 
 	$('select[name="rutCliente"]').load('../ajax/cliente/selectNombreCliente.php',function(){
 		$('select[name="rutCliente"]').selectpicker();
@@ -212,10 +212,9 @@ $(document).ready(function() {
 		$('#editarCliente').modal('show');
 		$.post('../ajax/cliente/dataClienteUpdate.php', {id: $(this).attr('attr')}, function(data) {
 			value = $.parseJSON(data);
-			console.log(value);
+			console.log(value[0][3]);
 			$('[name="Nombre_update"]').val(value[0]['nombre']);
-			$('[name="Rut_update"]').val(value[0]['rut']);
-			$('[name="Dv_update"]').selectpicker('val',value[0]['dv']);
+			$('[name="Rut_update"]').val(value[0][3]);
 			$('[name="DireccionComercial_update"]').val(value[0]['direccion']);
 			$('[name="Contacto_update"]').val(value[0]['contacto']);
 			$('[name="Telefono_update"]').val(value[0]['telefono']);
