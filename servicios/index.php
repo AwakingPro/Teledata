@@ -84,7 +84,7 @@
 													<br><br>
 													<div class="campo-servicio">
 														<label >Servicio</label>
-														<select name="TipoServicio" class="form-control" data-live-search="true">
+														<select name="TipoServicio" id="TipoServicio" class="form-control" data-live-search="true">
 															<option value="">Seleccione...</option>
 														</select>
 													</div>
