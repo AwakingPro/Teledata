@@ -163,15 +163,18 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.guardarServ', function() {
+
+		Rut = $('#Rut').val()
+		BooleanCostoInstalacion = $('#BooleanCostoInstalacion').val();
+		TipoServicio = $('#TipoServicio').val();
+		console.log(BooleanCostoInstalacion)
+
 		$.postFormValues('../ajax/servicios/insertServicio.php', '.container-form', function(data) {
-			console.log(data);
 			if (Number(data) > 0) {
 
 				servicio_id = data
 
-				if($('#BooleanCostoInstalacion').val() == 1 && ($('#TipoServicio').val() == 1 || $('#TipoServicio').val() == 2)){
-					var ObjectMe = $(this);
-
+				if(BooleanCostoInstalacion == 1 && (TipoServicio == 1 || TipoServicio == 2)){
 			        swal({
 			            title: "Desea facturar de inmediato el costo de instalacion?",
 			            text: "Confirmar facturación!",
@@ -206,19 +209,16 @@ $(document).ready(function() {
 					bootbox.alert('<h3 class="text-center">El servicio #' + servicio_id + ' se registro con éxito.</h3>');
 				}
 
-				Rut = $('#Rut').val()
-
 				$('#formServicio')[0].reset();
 				$('.selectpicker').selectpicker('refresh')
 				$('#Rut').val(Rut)
 
 			} else {
-				console.log(data);
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
 			}
 
 			$.post('../ajax/cliente/dataCliente.php', {
-				rut: $('select[name="Rut"]').selectpicker('val')
+				rut: Rut
 			}, function(data) {
 				values = $.parseJSON(data);
 				$('.dataServicios').html(values[1]);
