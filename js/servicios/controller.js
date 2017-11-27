@@ -183,7 +183,8 @@ $(document).ready(function() {
 			            confirmButtonColor: "#DD6B55",
 			            confirmButtonText: "Aceptar!",
 			            cancelButtonText: "Cancelar",
-			            closeOnConfirm: true
+			            closeOnConfirm: true,
+			            allowOutsideClick: false
 			        },function(isConfirm){
 			            if (isConfirm) {
 			                $.ajax({
