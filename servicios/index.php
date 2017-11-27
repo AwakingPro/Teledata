@@ -175,16 +175,26 @@
 														<input type="text" name="SenalTeorica" class="form-control">
 													</div>
 													<br class="campo-equipamiento">
-													<div id="divCostoInstalacion">
+													<div id="divBooleanCostoInstalacion">
 														<label class="campo-señalTeorica">Facturación Costo de instalación / Habilitación</label>
 														<div class="form-group campo-señalTeorica">
-															<select id="CostoInstalacion" name="CostoInstalacion" class="form-control selectpicker">
+															<select id="BooleanCostoInstalacion" name="BooleanCostoInstalacion" class="form-control selectpicker">
 																<option value="1">Si</option>
 																<option value="0">No</option>
 															</select>
 														</div>
+
 														<br class="campo-señalTeorica">
+
+														<div id="divCostoInstalacion">
+															<label class="campo-señalTeorica">Costo de instalación / Habilitación</label>
+															<div class="form-group campo-señalTeorica">
+																<input type="text"  name="CostoInstalacion" class="form-control">
+															</div>
+															<br class="campo-señalTeorica">
+														</div>
 													</div>
+			
 
 													<div class="containerTipoServicioFormualario"></div>
 

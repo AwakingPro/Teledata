@@ -24,7 +24,7 @@
 
             $data = array();
 
-    		$query = 'SELECT servicios.Rut, servicios.Grupo, servicios.Valor, servicios.TipoMoneda, servicios.EstatusFacturacion, personaempresa.nombre as Cliente FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut WHERE servicios.EstatusFacturacion = 0 AND servicios.CostoInstalacion = 1 AND (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1) AND (servicios.IdServicio = 1 OR servicios.IdServicio = 2)';
+    		$query = 'SELECT servicios.Rut, servicios.Grupo, servicios.CostoInstalacion as Valor, servicios.TipoMoneda, servicios.EstatusFacturacion, personaempresa.nombre as Cliente FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut WHERE servicios.EstatusFacturacion = 0 AND servicios.CostoInstalacion > 0 AND (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1) AND (servicios.IdServicio = 1 OR servicios.IdServicio = 2)';
 
             $servicios = $run->select($query);
 
@@ -368,7 +368,7 @@
                 if($Tipo == 2){
                     $query = "SELECT facturas_detalle.*, mantenedor_servicios.servicio as Servicio, servicios.Rut, servicios.Descripcion FROM facturas_detalle LEFT JOIN servicios ON servicios.Id = facturas_detalle.IdServicio LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio WHERE facturas_detalle.FacturaId = '$RutId'";
                 }else{
-                    $query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio WHERE servicios.Rut = '$RutId' AND servicios.Grupo = '$Grupo'";
+                    $query = "SELECT servicios.*, servicios.CostoInstalacion as Valor, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio WHERE servicios.Rut = '$RutId' AND servicios.Grupo = '$Grupo'";
                 }
 
                 $run = new Method;

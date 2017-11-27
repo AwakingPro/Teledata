@@ -269,6 +269,10 @@ $(document).ready(function() {
                     Descripcion = $(Row).find("td").eq(4).html();
                     Comentario = $(Row).find("td").eq(5).html();
 
+                    PendientesTable.row($('#'+Id))
+                        .remove()
+                        .draw();
+
                     var rowNode = AsignadasTable.row.add([
                         ''+Usuario+'',
                         ''+Cliente+'',
@@ -282,10 +286,6 @@ $(document).ready(function() {
                     $(rowNode)
                         .attr('id',Id)
                         .addClass('text-center')
-
-                    PendientesTable.row($('#'+Id))
-                        .remove()
-                        .draw();
                 });
 
 
@@ -417,6 +417,7 @@ $(document).ready(function() {
                 });
 
                 if(response.Estatus == 1){
+                    
                     Row = $('#'+response.Id)
                     Usuario = $(Row).find("td").eq(0).html();
                     Cliente = $(Row).find("td").eq(1).html();
@@ -424,6 +425,10 @@ $(document).ready(function() {
                     TiepoFacturacion = $(Row).find("td").eq(3).html();
                     Descripcion = $(Row).find("td").eq(4).html();
                     Comentario = $(Row).find("td").eq(5).html();
+
+                    AsignadasTable.row($('#'+response.Id))
+                        .remove()
+                        .draw();
 
                     var rowNode = FinalizadasTable.row.add([
                         ''+Usuario+'',
@@ -439,9 +444,6 @@ $(document).ready(function() {
                         .attr('id',response.Id)
                         .addClass('text-center')
 
-                    AsignadasTable.row($('#'+response.Id))
-                        .remove()
-                        .draw();
                 }
 
 

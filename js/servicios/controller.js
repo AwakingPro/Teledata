@@ -85,6 +85,7 @@ $(document).ready(function() {
 	});
 
 	$('[name="Valor"]').number(true, 2, ',', '.');
+	$('[name="CostoInstalacion"]').number(true, 2, ',', '.');
 	$('.selectpicker').selectpicker();
 
 	$('select[name="Rut"]').load('../ajax/servicios/selectClientes.php', function() {
@@ -95,31 +96,31 @@ $(document).ready(function() {
 		switch ($(this).val()) {
 			case '1':
 				url = "arriendoEquipos.php";
-				$('#divCostoInstalacion').show();
+				$('#divBooleanCostoInstalacion').show();
 				break;
 			case '2':
 				url = "servicioInternet.php";
-				$('#divCostoInstalacion').show();
+				$('#divBooleanCostoInstalacion').show();
 				break;
 			case '3':
 				url = "mensualidadPuertoPublicos.php";
-				$('#divCostoInstalacion').hide();
+				$('#divBooleanCostoInstalacion').hide();
 				break;
 			case '4':
 				url = "mensualidadIPFija.php";
-				$('#divCostoInstalacion').hide();
+				$('#divBooleanCostoInstalacion').hide();
 				break;
 			case '5':
 				url = "mantencionRed.php";
-				$('#divCostoInstalacion').hide();
+				$('#divBooleanCostoInstalacion').hide();
 				break;
 			case '6':
 				url = "traficoGenerado.php";
-				$('#divCostoInstalacion').hide();
+				$('#divBooleanCostoInstalacion').hide();
 				break;
 			default:
 				url = "404.html";
-				$('#divCostoInstalacion').hide();
+				$('#divBooleanCostoInstalacion').hide();
 		}
 
 		$('.containerTipoServicioFormualario').load('../clientesServicios/viewTipoServicio/' + url, function() {
@@ -140,7 +141,14 @@ $(document).ready(function() {
 				}, 1000);
 			}
 		});
+	});
 
+	$('#BooleanCostoInstalacion').change(function(event) {
+		if($(this).val() == 1){
+			$('#divCostoInstalacion').show();
+		}else{
+			$('#divCostoInstalacion').hide();
+		}
 	});
 
 	$('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
@@ -161,7 +169,7 @@ $(document).ready(function() {
 
 				servicio_id = data
 
-				if($('#CostoInstalacion').val() == 1 && ($('#TipoServicio').val() == 1 || $('#TipoServicio').val() == 2)){
+				if($('#BooleanCostoInstalacion').val() == 1 && ($('#TipoServicio').val() == 1 || $('#TipoServicio').val() == 2)){
 					var ObjectMe = $(this);
 
 			        swal({
@@ -208,6 +216,7 @@ $(document).ready(function() {
 				console.log(data);
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
 			}
+
 			$.post('../ajax/cliente/dataCliente.php', {
 				rut: $('select[name="Rut"]').selectpicker('val')
 			}, function(data) {
