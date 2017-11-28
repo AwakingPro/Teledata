@@ -247,7 +247,7 @@
                         FROM servicios 
                         LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                         LEFT JOIN mantenedor_tipo_factura ON mantenedor_tipo_factura.codigo = servicios.TipoFactura 
-                        WHERE servicios.Rut = '$Rut' AND servicios.Grupo = '$Grupo' AND servicios.Estatus = 1";
+                        WHERE servicios.Rut = '$Rut' AND servicios.Grupo = '$Grupo' AND (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1)";
 
             $servicios = $run->select($query);
             $data = array();
