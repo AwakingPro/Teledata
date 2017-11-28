@@ -37,6 +37,13 @@
                             <form class="form-horizontal" id = "storeProveedor">
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label class="control-label" for="name">Rut</label>
+                                        <input id="rut" name="rut" type="text" placeholder="Ingrese su rut" class="form-control input-sm">
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label class="control-label" for="name">Nombre</label>
                                         <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm">
                                     </div>
@@ -90,6 +97,13 @@
                                         <div class="row" style="padding:20px">
                                             <form class="form-horizontal" id = "updateProveedor">
                                                 <input type="hidden" id="id" name="id">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="name">Rut</label>
+                                                        <input id="rut" name="rut" type="text" placeholder="Ingrese su rut" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix m-b-10"></div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Nombre</label>
@@ -157,6 +171,7 @@
                                                                                 <table id="ProveedorTable" class="table table-striped table-bordered">
                                                                                     <thead>
                                                                                         <tr>
+                                                                                            <th class="text-center">Rut</th>
                                                                                             <th class="text-center">Nombre</th>
                                                                                             <th class="text-center">Dirección</th>
                                                                                             <th class="text-center">Teléfono</th>

@@ -39,12 +39,13 @@ $(document).ready(function(){
             $.each(response.array, function( index, array ) {
 
                 var rowNode = Table.row.add([
-                  ''+array.nombre+'',
-                  ''+array.direccion+'',
-                  ''+array.telefono+'',
-                  ''+array.contacto+'',
-                  ''+array.correo+'',
-                  ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                    ''+array.rut+'-'+array.dv+'',
+                    ''+array.nombre+'',
+                    ''+array.direccion+'',
+                    ''+array.telefono+'',
+                    ''+array.contacto+'',
+                    ''+array.correo+'',
+                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
                 $( rowNode ).attr('id',array.id).addClass('text-center');
@@ -59,7 +60,7 @@ $(document).ready(function(){
         var data = $('#storeProveedor').serialize();
         var array = $('#storeProveedor').serializeArray();
 
-        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[1].value, 'Dirección') && ValidarString(array[2].value, 'Télefono') && ValidarString(array[3].value, 'Contacto') && ValidarCorreo(array[4].value)){
+        if(ValidarString(array[0].value, 'Rut') && ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Dirección') && ValidarString(array[3].value, 'Télefono') && ValidarString(array[4].value, 'Contacto') && ValidarCorreo(array[5].value)){
 
             $.ajax({
                 type: "POST",
@@ -78,12 +79,13 @@ $(document).ready(function(){
                         });
 
                         var rowNode = Table.row.add([
-                          ''+response.array.nombre+'',
-                          ''+response.array.direccion+'',
-                          ''+response.array.telefono+'',
-                          ''+response.array.contacto+'',
-                          ''+response.array.correo+'',
-                          ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
+                            ''+response.array.rut+'-'+response.array.dv+'',
+                            ''+response.array.nombre+'',
+                            ''+response.array.direccion+'',
+                            ''+response.array.telefono+'',
+                            ''+response.array.contacto+'',
+                            ''+response.array.correo+'',
+                            ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                         ]).draw(false).node();
 
                         $( rowNode ).attr('id',response.array.id).addClass('text-center')
@@ -123,12 +125,14 @@ $(document).ready(function(){
         var ObjectTR = ObjectMe.closest("tr");
         ObjectTR.addClass("Selected");
         var ObjectId = ObjectTR.attr("id");
-        var ObjectName = ObjectTR.find("td").eq(0).text();
-        var ObjectAddress = ObjectTR.find("td").eq(1).text();
-        var ObjectTelephone = ObjectTR.find("td").eq(2).text();
-        var ObjectContact = ObjectTR.find("td").eq(3).text();
-        var ObjectEmail = ObjectTR.find("td").eq(4).text();
+        var ObjectRut = ObjectTR.find("td").eq(0).text();
+        var ObjectName = ObjectTR.find("td").eq(1).text();
+        var ObjectAddress = ObjectTR.find("td").eq(2).text();
+        var ObjectTelephone = ObjectTR.find("td").eq(3).text();
+        var ObjectContact = ObjectTR.find("td").eq(4).text();
+        var ObjectEmail = ObjectTR.find("td").eq(5).text();
         $('#updateProveedor').find('input[name="id"]').val(ObjectId);
+        $('#updateProveedor').find('input[name="rut"]').val(ObjectRut);
         $('#updateProveedor').find('input[name="nombre"]').val(ObjectName);
         $('#updateProveedor').find('textarea[name="direccion"]').text(ObjectAddress);
         $('#updateProveedor').find('input[name="telefono"]').val(ObjectTelephone);
@@ -145,7 +149,9 @@ $(document).ready(function(){
         var data = $('#updateProveedor').serialize();
         var array = $('#updateProveedor').serializeArray();
 
-        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Dirección') && ValidarString(array[3].value, 'Télefono') && ValidarString(array[4].value, 'Contacto') && ValidarCorreo(array[5].value)){
+        console.log(array)
+
+        if(ValidarString(array[1].value, 'Rut') && ValidarString(array[2].value, 'Nombre') && ValidarString(array[3].value, 'Dirección') && ValidarString(array[4].value, 'Télefono') && ValidarString(array[5].value, 'Contacto') && ValidarCorreo(array[6].value)){
                         
             $.ajax({
                 type: "POST",
@@ -164,11 +170,12 @@ $(document).ready(function(){
                         });
 
                         ObjectTR = $("#"+response.array.id);
-                        ObjectTR.find("td").eq(0).html(response.array.nombre);
-                        ObjectTR.find("td").eq(1).html(response.array.direccion);
-                        ObjectTR.find("td").eq(2).html(response.array.telefono);
-                        ObjectTR.find("td").eq(3).html(response.array.contacto);
-                        ObjectTR.find("td").eq(4).html(response.array.correo);
+                        ObjectTR.find("td").eq(0).html(response.array.rut);
+                        ObjectTR.find("td").eq(1).html(response.array.nombre);
+                        ObjectTR.find("td").eq(2).html(response.array.direccion);
+                        ObjectTR.find("td").eq(3).html(response.array.telefono);
+                        ObjectTR.find("td").eq(4).html(response.array.contacto);
+                        ObjectTR.find("td").eq(5).html(response.array.correo);
                         
                         $('.modal').modal('hide');
                         

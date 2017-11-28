@@ -97,38 +97,24 @@ $(document).ready(function() {
 		switch ($(this).val()) {
 			case '1':
 				url = "arriendoEquipos.php";
-				$('#divBooleanCostoInstalacion').show();
-				$('input[name="CostoInstalacion"]').attr('validate','not_null')
 				break;
 			case '2':
 				url = "servicioInternet.php";
-				$('#divBooleanCostoInstalacion').show();
-				$('input[name="CostoInstalacion"]').attr('validate','not_null')
 				break;
 			case '3':
 				url = "mensualidadPuertoPublicos.php";
-				$('#divBooleanCostoInstalacion').hide();
-				$('input[name="CostoInstalacion"]').attr('validate','')
 				break;
 			case '4':
 				url = "mensualidadIPFija.php";
-				$('#divBooleanCostoInstalacion').hide();
-				$('input[name="CostoInstalacion"]').attr('validate','')
 				break;
 			case '5':
 				url = "mantencionRed.php";
-				$('#divBooleanCostoInstalacion').hide();
-				$('input[name="CostoInstalacion"]').attr('validate','')
 				break;
 			case '6':
 				url = "traficoGenerado.php";
-				$('#divBooleanCostoInstalacion').hide();
-				$('input[name="CostoInstalacion"]').attr('validate','')
 				break;
 			default:
 				url = "404.html";
-				$('#divBooleanCostoInstalacion').hide();
-				$('input[name="CostoInstalacion"]').attr('validate','')
 		}
 
 		$('.containerTipoServicioFormualario').load('../clientesServicios/viewTipoServicio/' + url, function() {
@@ -176,14 +162,13 @@ $(document).ready(function() {
 
 		Rut = $('#Rut').val()
 		BooleanCostoInstalacion = $('#BooleanCostoInstalacion').val();
-		TipoServicio = $('#TipoServicio').val();
 
 		$.postFormValues('../ajax/servicios/insertServicio.php', '.container-form', function(data) {
 			if (Number(data) > 0) {
 
 				servicio_id = data
 
-				if(BooleanCostoInstalacion == 1 && (TipoServicio == 1 || TipoServicio == 2)){
+				if(BooleanCostoInstalacion == 1){
 			        swal({
 			            title: "Desea facturar de inmediato el costo de instalacion?",
 			            text: "Confirmar facturación!",

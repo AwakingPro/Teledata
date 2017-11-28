@@ -37,6 +37,17 @@
                             <form class="form-horizontal" id = "storeIngreso">
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label class="control-label" for="name">Razón Social / Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
+                                        <div class="select">
+                                            <select class="selectpicker form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
+                                                <option value="">Seleccione Opción</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label class="control-label" for="name">Numero de Factura</label>
                                         <input id="numero_factura" name="numero_factura" validation="not_null" placeholder="Ingrese el numero de factura" class="form-control input-sm number numero_factura" data-nombre="Numero de Factura">
                                     </div>
@@ -46,17 +57,6 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha Emisión Factura</label>
                                         <input id="fecha_emision_factura" name="fecha_emision_factura" validation="not_null"  type="text" placeholder="Seleccione la fecha de emisión de la factura" class="form-control date fecha_emision_factura" data-nombre="Fecha Emisión Factura">
-                                    </div>
-                                </div>
-                                <div class="clearfix m-b-10"></div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="control-label" for="name">Razón Social / Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
-                                        <div class="select">
-                                            <select class="selectpicker form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
-                                                <option value="">Seleccione Opción</option>
-                                            </select>
-                                        </div>
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -196,6 +196,13 @@
                                                     <div class="modal-body">
                                                         <div class="row" style="padding:20px">
                                                             <form class="form-horizontal" id = "storeProveedor">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <label class="control-label" for="name">Rut</label>
+                                                                        <input id="rut" name="rut" type="text" placeholder="Ingrese su rut" class="form-control input-sm">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="clearfix m-b-10"></div>
                                                                 <div class="col-md-12">
                                                                     <div class="form-group">
                                                                         <label class="control-label" for="name">Nombre</label>

@@ -75,7 +75,7 @@ $(document).ready(function(){
                 var rowNode = Table.row.add([
                     ''+array.numero_factura+'',
                     ''+fecha_emision_factura+'',
-                    ''+array.proveedor+'',
+                    ''+array.proveedor_rut+'-'+array.proveedor_dv+ ' - ' +array.proveedor+'',
                     ''+array.estado+'',
                     ''+array.centro_costo+'',
                     ''+'<i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
@@ -99,7 +99,7 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('.proveedor_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                $('.proveedor_id').append('<option value="'+array.id+'" data-content="'+array.rut+'-'+array.dv+ ' - '+ array.nombre+'"></option>');
             });
 
             $('.selectpicker').selectpicker('render');
@@ -428,7 +428,7 @@ $(document).ready(function(){
                     timer : 3000
                 });
 
-                $('.proveedor_id').append('<option value="'+response.array.id+'" data-content="'+response.array.nombre+'"></option>');
+                $('.proveedor_id').append('<option value="'+response.array.id+'" data-content="'+response.array.rut+ ' - '+ response.array.nombre+'"></option>');
                 $('.proveedor_id').val(response.array.id);
                 
                 $('.selectpicker').selectpicker('render');
