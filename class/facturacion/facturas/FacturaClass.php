@@ -167,7 +167,8 @@
                         LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                         INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
-                        WHERE facturas.TipoFactura = '2'";
+                        WHERE facturas_detalle.Valor > 0
+                        AND facturas.TipoFactura = '2'";
 
             $facturas = $run->select($query);
 
@@ -246,7 +247,7 @@
                         FROM servicios 
                         LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                         LEFT JOIN mantenedor_tipo_factura ON mantenedor_tipo_factura.codigo = servicios.TipoFactura 
-                        WHERE servicios.Rut = '$Rut' AND servicios.Grupo = '$Grupo' AND servicios.Estatus = 1";
+                        WHERE servicios.Rut = '$Rut' AND servicios.Grupo = '$Grupo' AND (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1)";
 
             $servicios = $run->select($query);
             $data = array();
@@ -499,10 +500,14 @@
                                 $Valor = floatval($Servicio['Valor']);
                             }
 
-                            $Nombre = $Servicio["Servicio"];
+                            if($Tipo == 2){
+                                $Nombre = $Servicio["Servicio"];
 
-                            if($Servicio["Descripcion"]){
-                                $Nombre = $Nombre . ' - ' . $Servicio['Descripcion'];
+                                if($Servicio["Descripcion"]){
+                                    $Nombre = $Nombre . ' - ' . $Servicio['Descripcion'];
+                                }
+                            }else{
+                                $Nombre = 'Costo de instalación / Habilitación';
                             }
 
                             $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Nombre, "discount" => floatval($Servicio["Descuento"]));

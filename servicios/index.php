@@ -43,7 +43,7 @@
 												<div class="col-md-12 form-group">
 													<label class="campo-cliente" >Cliente</label>
 													<div class="input-group campo-cliente">
-														<select id="Rut" name="Rut" class="form-control" data-live-search="true">
+														<select id="Rut" name="Rut" class="form-control" data-live-search="true" validation="not_null" data-nombre="Cliente">
 															<option value="">Seleccione...</option>
 														</select>
 														<span class="input-group-btn">
@@ -53,7 +53,7 @@
 													<br>
 													<label class="compo-grupo">Grupo</label>
 													<div class="input-group compo-grupo">
-														<select name="Grupo" class="form-control selectpicker" data-live-search="true">
+														<select name="Grupo" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Grupo"> 
 															<option value="">Seleccione...</option>
 															<option value="1">Grupo 1</option>
 															<option value="2">Grupo 2</option>
@@ -66,7 +66,7 @@
 													<br>
 													<label class="campo-cobreServicio">Tipo de Cobro de servicio mensual</label>
 													<div class="input-group campo-cobreServicio">
-														<select name="TipoFactura" class="form-control" data-live-search="true">
+														<select name="TipoFactura" class="form-control" data-live-search="true" validation="not_null" data-nombre="Tipo de Cobro">
 															<option value="">Seleccione...</option>
 														</select>
 														<span class="input-group-btn">
@@ -75,7 +75,7 @@
 													</div>
 													<br>
 													<label class="compo-tipoFactura">Tiempo de Facturación</label>
-													<select name="TiepoFacturacion compo-tipoFactura" class="form-control selectpicker" data-live-search="tue">
+													<select name="TiepoFacturacion compo-tipoFactura" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Tiempo de Facturación">
 														<option value="">Seleccione...</option>
 														<option >Mensual</option>
 														<option >Semestral</option>
@@ -84,14 +84,14 @@
 													<br><br>
 													<div class="campo-servicio">
 														<label >Servicio</label>
-														<select name="TipoServicio" id="TipoServicio" class="form-control" data-live-search="true">
+														<select name="TipoServicio" id="TipoServicio" class="form-control" data-live-search="true" validation="not_null" data-nombre="Servicio">
 															<option value="">Seleccione...</option>
 														</select>
 													</div>
 													<br>
 													<label>Valor</label>
 													<div class="input-group">
-														<input type="text"  name="Valor" class="form-control">
+														<input type="text"  name="Valor" class="form-control" validation="not_null" data-nombre="Valor">
 														<span class="input-group-addon" style="padding: 0px; border: 0px solid">
 															<select name="tipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
 																<option value="UF">UF</option>
@@ -102,7 +102,7 @@
 													<br>
 													<label>Descuento</label>
 													<div class="input-group">
-														<input type="text" name="Descuento" class="form-control">
+														<input type="text" name="Descuento" class="form-control" min="0" max="100" step="1">
 														<span class="input-group-addon">%</span>
 													</div>
 													<br >
@@ -111,14 +111,10 @@
 													<textarea name="Descripcion" class="form-control" rows="5"></textarea>
 													<br>
 
-
-
 													<label class="campo-apellidoServicio">Apellido del Servicio</label>
 													<div class="form-group">
 														<input type="text" name="Alias" class="form-control campo-apellidoServicio">
 													</div>
-
-
 
 													<label class="campo-direccion">Dirección</label>
 													<textarea name="Direccion" class="form-control campo-direccion" rows="5"></textarea>
@@ -189,7 +185,7 @@
 														<div id="divCostoInstalacion">
 															<label class="campo-señalTeorica">Costo de instalación / Habilitación</label>
 															<div class="form-group campo-señalTeorica">
-																<input type="text"  name="CostoInstalacion" class="form-control">
+																<input type="text"  name="CostoInstalacion" class="form-control" validation ="not_null" data-nombre="Costo de Instalación">
 															</div>
 															<br class="campo-señalTeorica">
 														</div>
@@ -251,7 +247,7 @@
 		<script src="../plugins/bootbox/bootbox.min.js"></script>
 		<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 		<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
-		<script src="../js/methods_global/methods.js"></script>
+		<script src="../js/global/validations.js"></script>
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
@@ -297,7 +293,7 @@
 							<div class="row">
 								<div class="col-md-5 form-group">
 									<label>Tipo de Cliente</label>
-									<select name="TipoCliente" class="form-control selectpicker" data-live-search="true" validate="not_null">
+									<select name="TipoCliente" class="form-control selectpicker" data-live-search="true" validation="not_null">
 										<option value="">Seleccione...</option>
 										<option value="Boleta">Boleta</option>
 										<option value="Factura">Factura</option>
@@ -306,7 +302,7 @@
 								</div>
 								<div class="col-md-5 form-group">
 									<label>Rut</label>
-									<input name="Rut" class="form-control" validate="not_null">
+									<input name="Rut" class="form-control" validation="not_null">
 								</div>
 								<div class="col-md-1 form-group">
 									<div class="text-center" style="padding-top: 5px">
@@ -315,7 +311,7 @@
 								</div>
 								<div class="col-md-1 form-group">
 									<label>Dv</label>
-									<select name="Dv" class="form-control selectpicker" data-live-search="true" validate="not_null">
+									<select name="Dv" class="form-control selectpicker" data-live-search="true" validation="not_null">
 										<option value="">Seleccione...</option>
 										<option>1</option>
 										<option>2</option>
@@ -333,17 +329,17 @@
 							<div class="row">
 								<div class="col-md-6 form-group">
 									<label> Razón social / Cliente</label>
-									<input name="Nombre" class="form-control" validate="not_null">
+									<input name="Nombre" class="form-control" validation="not_null">
 								</div>
 								<div class="col-md-6 form-group">
 									<label>Alias</label>
-									<input name="Alias" class="form-control" validate="not_null">
+									<input name="Alias" class="form-control" validation="not_null">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12 form-group">
 									<label>Dirección  Comercial</label>
-									<textarea name="DireccionComercial" class="form-control" validate="not_null"></textarea>
+									<textarea name="DireccionComercial" class="form-control" validation="not_null"></textarea>
 								</div>
 							</div>
 							<div class="row">
@@ -363,21 +359,21 @@
 							<div class="row">
 								<div class="col-md-4 form-group">
 									<label>Contacto</label>
-									<input name="Contacto" class="form-control" validate="not_null">
+									<input name="Contacto" class="form-control" validation="not_null">
 								</div>
 								<div class="col-md-4 form-group">
 									<label>Teléfono</label>
-									<input name="Telefono" class="form-control" validate="not_null">
+									<input name="Telefono" class="form-control" validation="not_null">
 								</div>
 								<div class="col-md-4 form-group">
 									<label>Correo</label>
-									<input name="Correo" class="form-control" validate="email">
+									<input name="Correo" class="form-control" validation="email">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12 form-group">
 									<label>Comentarios</label>
-									<textarea name="Comentario" class="form-control" validate="not_null"></textarea>
+									<textarea name="Comentario" class="form-control" validation="not_null"></textarea>
 								</div>
 							</div>
 						</div>

@@ -85,6 +85,7 @@ $(document).ready(function() {
 	});
 
 	$('[name="Valor"]').number(true, 2, ',', '.');
+	$('[name="Descuento"]').number(true, 0, '.', '');
 	$('[name="CostoInstalacion"]').number(true, 2, ',', '.');
 	$('.selectpicker').selectpicker();
 
@@ -97,30 +98,37 @@ $(document).ready(function() {
 			case '1':
 				url = "arriendoEquipos.php";
 				$('#divBooleanCostoInstalacion').show();
+				$('input[name="CostoInstalacion"]').attr('validate','not_null')
 				break;
 			case '2':
 				url = "servicioInternet.php";
 				$('#divBooleanCostoInstalacion').show();
+				$('input[name="CostoInstalacion"]').attr('validate','not_null')
 				break;
 			case '3':
 				url = "mensualidadPuertoPublicos.php";
 				$('#divBooleanCostoInstalacion').hide();
+				$('input[name="CostoInstalacion"]').attr('validate','')
 				break;
 			case '4':
 				url = "mensualidadIPFija.php";
 				$('#divBooleanCostoInstalacion').hide();
+				$('input[name="CostoInstalacion"]').attr('validate','')
 				break;
 			case '5':
 				url = "mantencionRed.php";
 				$('#divBooleanCostoInstalacion').hide();
+				$('input[name="CostoInstalacion"]').attr('validate','')
 				break;
 			case '6':
 				url = "traficoGenerado.php";
 				$('#divBooleanCostoInstalacion').hide();
+				$('input[name="CostoInstalacion"]').attr('validate','')
 				break;
 			default:
 				url = "404.html";
 				$('#divBooleanCostoInstalacion').hide();
+				$('input[name="CostoInstalacion"]').attr('validate','')
 		}
 
 		$('.containerTipoServicioFormualario').load('../clientesServicios/viewTipoServicio/' + url, function() {
@@ -146,8 +154,10 @@ $(document).ready(function() {
 	$('#BooleanCostoInstalacion').change(function(event) {
 		if($(this).val() == 1){
 			$('#divCostoInstalacion').show();
+			$('input[name="CostoInstalacion"]').attr('validate','not_null')
 		}else{
 			$('#divCostoInstalacion').hide();
+			$('input[name="CostoInstalacion"]').attr('validate','')
 		}
 	});
 
@@ -167,7 +177,6 @@ $(document).ready(function() {
 		Rut = $('#Rut').val()
 		BooleanCostoInstalacion = $('#BooleanCostoInstalacion').val();
 		TipoServicio = $('#TipoServicio').val();
-		console.log(BooleanCostoInstalacion)
 
 		$.postFormValues('../ajax/servicios/insertServicio.php', '.container-form', function(data) {
 			if (Number(data) > 0) {
