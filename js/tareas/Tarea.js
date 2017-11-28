@@ -163,7 +163,6 @@ $(document).ready(function() {
         type: "POST",
         url: "../includes/tareas/showServicios.php",
         success: function(response){
-            console.log(response);
 
             $.each(response.array, function( index, array ) {
 
@@ -184,9 +183,6 @@ $(document).ready(function() {
                         ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Compare"></i>'+'',
                     ]).draw(false).node();
 
-                    $( rowNode )
-                        .attr('id',array.Id)
-                        .addClass('text-center')
                 }else{
 
                     if(array.IdUsuarioAsignado != 0){
@@ -200,9 +196,6 @@ $(document).ready(function() {
                             ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
                         ]).draw(false).node();
 
-                        $( rowNode )
-                            .attr('id',array.Id)
-                            .addClass('text-center')
                     }else{
                         var rowNode = PendientesTable.row.add([
                             ''+'<input name="select_check" id="select_check_"'+array.Id+' type="checkbox" />'+'',
@@ -213,26 +206,18 @@ $(document).ready(function() {
                             ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>'+''
                         ]).draw(false).node();
 
-                        $( rowNode )
-                            .attr('id',array.Id)
-                            .addClass('text-center')
                     }
 
                 }
+
+                $( rowNode )
+                    .attr('id',array.Id)
+                    .addClass('text-center')
             });
 
             $('body').addClass('loaded');
         }
     });
-
-    $(document).on('click', '.dataClienteTable', function(event) {
-        $('.container-dataCliente').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
-        $('#InfoClienteTable').modal('show');
-        $.post('../ajax/tarea/dataCliente.php', {id: $(this).attr('attrId')}, function(data) {
-             $('.container-dataCliente').html(data);
-        });
-    });
-
 
     $('#AsignarModal').click(function () {
 
@@ -244,7 +229,7 @@ $(document).ready(function() {
 
     });
 
-    $('body').on('click', '#Asignar', function () {
+    $(document).on('click', '#Asignar', function () {
 
         $.postFormValues('../includes/tareas/asignarTareas.php', '#asignarTareas', function(response){
 
@@ -265,11 +250,11 @@ $(document).ready(function() {
                     Row = $('#'+Id)
                     Cliente = $(Row).find("td").eq(1).html();
                     Codigo = $(Row).find("td").eq(2).html();
-                    TiepoFacturacion = $(Row).find("td").eq(3).html();
-                    Descripcion = $(Row).find("td").eq(4).html();
-                    Comentario = $(Row).find("td").eq(5).html();
+                    Descripcion = $(Row).find("td").eq(3).html();
+                    Direccion = $(Row).find("td").eq(4).html();
+                    Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>';
 
-                    PendientesTable.row($('#'+Id))
+                    PendientesTable.row(Row)
                         .remove()
                         .draw();
 
@@ -277,15 +262,15 @@ $(document).ready(function() {
                         ''+Usuario+'',
                         ''+Cliente+'',
                         ''+Codigo+'',
-                        ''+TiepoFacturacion+'',
                         ''+Descripcion+'',
-                        ''+Comentario+'',
-                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
+                        ''+Direccion+'',
+                        ''+Operacion+'',
                     ]).draw(false).node();
 
                     $(rowNode)
                         .attr('id',Id)
                         .addClass('text-center')
+
                 });
 
 
@@ -332,7 +317,7 @@ $(document).ready(function() {
         });
     });
 
-    $('body').on('click', '#Reasignar', function () {
+    $(document).on('click', '#Reasignar', function () {
 
         $.postFormValues('../includes/tareas/reasignarTarea.php', '#reasignarTarea', function(response){
 
@@ -390,6 +375,8 @@ $(document).ready(function() {
 
     $('body').on( 'click', 'i.fa-pencil', function () {
 
+        $('body').removeClass('loaded');
+
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         ObjectTR.addClass("Selected");
@@ -398,11 +385,33 @@ $(document).ready(function() {
         $('#storeTarea').find('input[name="Id"]').val(ObjectId);
         $('#Codigo').text(ObjectCode);
 
-        $('#modalTarea').modal('show');
+        $.ajax({
+            type: "POST",
+            url: "../includes/tareas/showTarea.php",
+            data: "id="+ObjectId,
+            success: function(response){
 
+                if(response){
+
+                    $('#modalTarea').find('input[name="UsuarioPppoeTeorico"]').val(response.array.UsuarioPppoe)
+                    $('#modalTarea').find('input[name="SenalTeorica"]').val(response.array.SenalTeorica)
+                    $('#modalTarea').find('input[name="PosibleEstacion"]').val(response.array.PosibleEstacion)
+                }
+
+                $('body').addClass('loaded');
+                $('#modalTarea').modal('show');
+
+            },
+            error: function(xhr, status, error){
+                setTimeout(function(){
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada',err.Message,'error');
+                }, 1000);
+            }
+        });
     });
 
-    $('body').on('click', '#guardarTarea', function () {
+    $(document).on('click', '#guardarTarea', function () {
 
         $.postFormValues('../includes/tareas/storeTarea.php', '#storeTarea', function(response){
 
@@ -422,11 +431,11 @@ $(document).ready(function() {
                     Usuario = $(Row).find("td").eq(0).html();
                     Cliente = $(Row).find("td").eq(1).html();
                     Codigo = $(Row).find("td").eq(2).html();
-                    TiepoFacturacion = $(Row).find("td").eq(3).html();
-                    Descripcion = $(Row).find("td").eq(4).html();
-                    Comentario = $(Row).find("td").eq(5).html();
+                    Descripcion = $(Row).find("td").eq(3).html();
+                    Direccion = $(Row).find("td").eq(4).html();
+                    Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Compare"></i>'
 
-                    AsignadasTable.row($('#'+response.Id))
+                    AsignadasTable.row(Row)
                         .remove()
                         .draw();
 
@@ -434,18 +443,18 @@ $(document).ready(function() {
                         ''+Usuario+'',
                         ''+Cliente+'',
                         ''+Codigo+'',
-                        ''+TiepoFacturacion+'',
                         ''+Descripcion+'',
-                        ''+Comentario+'',
-                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Compare"></i>'+'',
+                        ''+Direccion+'',
+                        ''+Operacion+'',
                     ]).draw(false).node();
 
                     $(rowNode)
                         .attr('id',response.Id)
                         .addClass('text-center')
 
-                }
+                    $(rowNode).find("td").eq(6).html(Operacion);
 
+                }
 
                 $('#storeTarea')[0].reset();
                 $('.modal').modal('hide');
@@ -530,7 +539,7 @@ $(document).ready(function() {
         }else{
             $("#AsignarModal").attr("disabled","disabled");
             $("#AsignarModal").css({
-            "opacity": ("0.2")
+                "opacity": ("0.2")
             });
         }
     });
@@ -542,7 +551,7 @@ $(document).ready(function() {
 
             $("#AsignarModal").removeAttr("disabled");
             $("#AsignarModal").css({
-            "opacity": ("1")
+                "opacity": ("1")
             });
 
         }else{
@@ -553,7 +562,7 @@ $(document).ready(function() {
         }
     });
 
-    $('body').on('click', '.Compare', function () {
+    $(document).on('click', '.Compare', function () {
 
         $('body').removeClass('loaded');
 
@@ -570,14 +579,14 @@ $(document).ready(function() {
             success: function(response){
 
                 if(response){
-                    $('#UsuarioPppoeTeorico_update').val(response.array.UsuarioPppoe)
-                    $('#UsuarioPppoeFinal_update').val(response.array.UsuarioPppoe)
+                    $('#modalComparacion').find('#UsuarioPppoeTeorico_update').val(response.array.UsuarioPppoe)
+                    $('#modalComparacion').find('#UsuarioPppoeFinal_update').val(response.array.UsuarioPppoe)
 
-                    $('#SenalTeorica_update').val(response.array.SenalTeorica)
-                    $('#SenalFinal_update').val(response.array.SenalFinal)
+                    $('#modalComparacion').find('#SenalTeorica_update').val(response.array.SenalTeorica)
+                    $('#modalComparacion').find('#SenalFinal_update').val(response.array.SenalFinal)
 
-                    $('#PosibleEstacion_update').val(response.array.PosibleEstacion)
-                    $('#EstacionFinal_update').val(response.array.EstacionFinal)
+                    $('#modalComparacion').find('#PosibleEstacion_update').val(response.array.PosibleEstacion)
+                    $('#modalComparacion').find('#EstacionFinal_update').val(response.array.EstacionFinal)
                 }
 
                 $('body').addClass('loaded');
@@ -594,7 +603,7 @@ $(document).ready(function() {
 
     });
 
-    $('body').on('click', '.Search', function () {
+    $(document).on('click', '.Search', function () {
 
         $('body').removeClass('loaded');
 
@@ -619,7 +628,6 @@ $(document).ready(function() {
                     }else{
                         $('#showServicio').find('#'+name).val(value);
                     }
-                    // console.log(name +': ' + value)
                 }
 
                 $('select').selectpicker('refresh')
@@ -649,5 +657,13 @@ $(document).ready(function() {
             }
         });
 
+    });
+
+    $(document).on('click', '.dataClienteTable', function(event) {
+        $('.container-dataCliente').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
+        $('#InfoClienteTable').modal('show');
+        $.post('../ajax/tarea/dataCliente.php', {id: $(this).attr('attrId')}, function(data) {
+             $('.container-dataCliente').html(data);
+        });
     });
 });

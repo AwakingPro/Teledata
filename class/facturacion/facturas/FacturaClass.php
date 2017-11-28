@@ -167,7 +167,8 @@
                         LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                         INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
-                        WHERE facturas.TipoFactura = '2'";
+                        WHERE facturas_detalle.Valor > 0
+                        AND facturas.TipoFactura = '2'";
 
             $facturas = $run->select($query);
 

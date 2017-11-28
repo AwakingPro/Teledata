@@ -242,7 +242,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label" for="name">Fecha de Instalación</label>
-                                <input id="FechaInstalacion" name="FechaInstalacion" validation="not_null"  type="text" placeholder="Seleccione la Fechade Instalacion" class="form-control date" data-nombre="FechaInstalacion">
+                                <input id="FechaInstalacion" name="FechaInstalacion" validation="not_null"  type="text" placeholder="Seleccione la Fecha de Instalacion" class="form-control date" data-nombre="Fecha de Instalacion">
                             </div>
                         </div>
                         <div class="clearfix m-b-10"></div>
@@ -252,27 +252,48 @@
                                 <input id="nombre" name="InstaladoPor" type="text" placeholder="Ingrese el campo Instalado Por" class="form-control input-sm" validation="not_null" data-nombre="Instalado Por">
                             </div>
                         </div>
+
                         <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
+
+                        <div class="col-md-6">
                             <div class="form-group">
-                                <label class="control-label" for="name">Usuario PPPoE</label>
+                                <label class="control-label" for="name">Posible Usuario PPPoE</label>
+                                <input id="UsuarioPppoeTeorico" name="UsuarioPppoeTeorico" type="text" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Usuario PPPoE Final</label>
                                 <input id="UsuarioPppoe" name="UsuarioPppoe" type="text" placeholder="Ingrese el Usuario PPPoE" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE">
                             </div>
                         </div>
                         <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Señal Teorica</label>
+                                <input id="SenalTeorica" name="SenalTeorica" type="text" class="form-control input-sm" validation="not_null" data-nombre="Señal Teorica" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label" for="name">Señal Final</label>
                                 <input id="SenalFinal" name="SenalFinal" type="text" placeholder="Ingrese la Señal Final" class="form-control input-sm" validation="not_null" data-nombre="Señal Final">
                             </div>
                         </div>
                         <div class="clearfix m-b-10"></div>
-                        <div class="col-md-12">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label class="control-label" for="name">Estaciones de Referencia</label>
+                                <input id="PosibleEstacion" name="PosibleEstacion" type="text" class="form-control input-sm" validation="not_null" data-nombre="Estaciones de Referencia" disabled>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label" for="name">Estación Final</label>
                                 <input id="EstacionFinal" name="EstacionFinal" type="text" placeholder="Ingrese la Estación Final" class="form-control input-sm" validation="not_null" data-nombre="Estación Final">
                             </div>
                         </div>
+ 
                         <div class="clearfix m-b-10"></div>
                         <div class="col-md-12">
                             <div class="form-group">
@@ -315,39 +336,39 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label" for="name">Posible Usuario PPPoE</label>
-                            <input id="UsuarioPppoeTeorico_update" name="UsuarioPppoeTeorico" type="text" placeholder="Ingrese el Usuario PPPoE" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE" disabled>
+                            <input id="UsuarioPppoeTeorico_update" name="UsuarioPppoeTeorico" type="text" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE" disabled>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label" for="name">Usuario PPPoE Final</label>
-                            <input id="UsuarioPppoeFinal_update" name="UsuarioPppoeTeorico" type="text" placeholder="Ingrese el Usuario PPPoE" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE" disabled>
+                            <input id="UsuarioPppoeFinal_update" name="UsuarioPppoeTeorico" type="text" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE" disabled>
                         </div>
                     </div>
                     <div class="clearfix m-b-10"></div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label" for="name">Señal Teorica</label>
-                            <input id="SenalTeorica_update" name="SenalTeorica" type="text" placeholder="Ingrese la Señal Teorica" class="form-control input-sm" validation="not_null" data-nombre="Señal Teorica" disabled>
+                            <input id="SenalTeorica_update" name="SenalTeorica" type="text" class="form-control input-sm" validation="not_null" data-nombre="Señal Teorica" disabled>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label" for="name">Señal Final</label>
-                            <input id="SenalFinal_update" name="SenalFinal" type="text" placeholder="Ingrese la Señal Final" class="form-control input-sm" validation="not_null" data-nombre="Señal Final" disabled>
+                            <input id="SenalFinal_update" name="SenalFinal" type="text" class="form-control input-sm" validation="not_null" data-nombre="Señal Final" disabled>
                         </div>
                     </div>
                     <div class="clearfix m-b-10"></div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label" for="name">Estaciones de Referencia</label>
-                            <input id="PosibleEstacion_update" name="PosibleEstacion" type="text" placeholder="Ingrese las Estaciones de Referencia" class="form-control input-sm" validation="not_null" data-nombre="Estaciones de Referencia" disabled>
+                            <input id="PosibleEstacion_update" name="PosibleEstacion" type="text" class="form-control input-sm" validation="not_null" data-nombre="Estaciones de Referencia" disabled>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label" for="name">Estación Final</label>
-                            <input id="EstacionFinal_update" name="EstacionFinal" type="text" placeholder="Ingrese la Estación Final" class="form-control input-sm" validation="not_null" data-nombre="Estación Final" disabled>
+                            <input id="EstacionFinal_update" name="EstacionFinal" type="text" class="form-control input-sm" validation="not_null" data-nombre="Estación Final" disabled>
                         </div>
                     </div>
                 </div>

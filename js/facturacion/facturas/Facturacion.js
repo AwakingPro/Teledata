@@ -216,6 +216,8 @@ $(document).ready(function(){
             });
 
             $('[data-toggle="popover"]').popover();
+
+            $('body').addClass('loaded');
         }
     });
 
