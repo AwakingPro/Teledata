@@ -500,10 +500,14 @@
                                 $Valor = floatval($Servicio['Valor']);
                             }
 
-                            $Nombre = $Servicio["Servicio"];
+                            if($Tipo == 2){
+                                $Nombre = $Servicio["Servicio"];
 
-                            if($Servicio["Descripcion"]){
-                                $Nombre = $Nombre . ' - ' . $Servicio['Descripcion'];
+                                if($Servicio["Descripcion"]){
+                                    $Nombre = $Nombre . ' - ' . $Servicio['Descripcion'];
+                                }
+                            }else{
+                                $Nombre = 'Costo de instalación / Habilitación';
                             }
 
                             $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Nombre, "discount" => floatval($Servicio["Descuento"]));

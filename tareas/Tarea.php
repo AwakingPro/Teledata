@@ -258,7 +258,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label" for="name">Posible Usuario PPPoE</label>
-                                <input id="UsuarioPppoeTeorico" name="UsuarioPppoeTeorico" type="text" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE" disabled>
+                                <input id="UsuarioPppoeTeorico" name="UsuarioPppoeTeorico" type="text" class="form-control input-sm" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -271,7 +271,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label" for="name">Señal Teorica</label>
-                                <input id="SenalTeorica" name="SenalTeorica" type="text" class="form-control input-sm" validation="not_null" data-nombre="Señal Teorica" disabled>
+                                <input id="SenalTeorica" name="SenalTeorica" type="text" class="form-control input-sm" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -284,7 +284,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label" for="name">Estaciones de Referencia</label>
-                                <input id="PosibleEstacion" name="PosibleEstacion" type="text" class="form-control input-sm" validation="not_null" data-nombre="Estaciones de Referencia" disabled>
+                                <input id="PosibleEstacion" name="PosibleEstacion" type="text" class="form-control input-sm" disabled>
                             </div>
                         </div>
                         <div class="col-md-6">
