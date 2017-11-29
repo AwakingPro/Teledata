@@ -507,7 +507,11 @@
                                     $Nombre = $Nombre . ' - ' . $Servicio['Descripcion'];
                                 }
                             }else{
-                                $Nombre = 'Costo de instalación / Habilitación';
+                                if($Valor > 0){
+                                    $Nombre = 'Costo de instalación / Habilitación';
+                                }else{
+                                    continue;
+                                }
                             }
 
                             $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Nombre, "discount" => floatval($Servicio["Descuento"]));
@@ -515,16 +519,39 @@
                             array_push($details,$detail);
                         }
 
-                        //documentTypeId de Factura para Demo
+                        //FACTURA
+
+                        //Demo
                         // "documentTypeId"    => 82
 
-                        //documentTypeId de Factura para Producción
+                        //Producción
                         // "documentTypeId"    => 5
 
+                        //BOLETA
+
+                        //Demo
+                        // "documentTypeId"    => 26
+
+                        //Producción
+                        // "documentTypeId"    => 22
+
+                        if($cliente['tipo_cliente'] == "Factura"){
+                            if($access_token == "b6ae44d94c240baa08b9fb48aa4333aa712cf3c2"){
+                                $documentTypeId = 82;
+                            }else{
+                                $documentTypeId = 5;
+                            }
+                        }else{
+                            if($access_token == "b6ae44d94c240baa08b9fb48aa4333aa712cf3c2"){
+                                $documentTypeId = 26;
+                            }else{
+                                $documentTypeId = 22;
+                            }
+                        }
+
                         $array = array(
-                            // "documentTypeId"     => 5,
-                            "documentTypeId"    => 82,
-                            "priceListId"        => 18,
+                            "documentTypeId"    => $documentTypeId,
+                            // "priceListId"       => 18,
                             "emissionDate"      => time(),
                             "expirationDate"    => time(),
                             "declareSii"        => 1,
