@@ -93,6 +93,13 @@ $(document).ready(function() {
 		$('select[name="Rut"]').selectpicker();
 	});
 
+	$('body').on('focus',".date", function(){
+		$('.date').datetimepicker({
+	        locale: 'es',
+	        format: 'DD-MM-YYYY'
+	    });
+	});
+
 	$('select[name="TipoServicio"]').change(function(event) {
 		switch ($(this).val()) {
 			case '1':
@@ -119,7 +126,7 @@ $(document).ready(function() {
 
 		$('.containerTipoServicioFormualario').load('../clientesServicios/viewTipoServicio/' + url, function() {
 			$('select').selectpicker();
-			if (url.trim() == 'arriendoEquipos.php') {
+			if (url.trim() == 'arriendoEquipos.php' || url.trim() == 'servicioInternet.php') {
 				$.ajax({
 					type: "POST",
 					url: "../includes/inventario/egresos/getBodega.php",
@@ -140,10 +147,10 @@ $(document).ready(function() {
 	$('#BooleanCostoInstalacion').change(function(event) {
 		if($(this).val() == 1){
 			$('#divCostoInstalacion').show();
-			$('input[name="CostoInstalacion"]').attr('validate','not_null')
+			$('input[name="CostoInstalacion"]').attr('validation','not_null')
 		}else{
 			$('#divCostoInstalacion').hide();
-			$('input[name="CostoInstalacion"]').attr('validate','')
+			$('input[name="CostoInstalacion"]').removeAttr('validation')
 		}
 	});
 

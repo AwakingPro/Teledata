@@ -1,7 +1,16 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	$query = "INSERT INTO servicio_internet (IdServivio, EstacionNodo, MacRouter, MacAntena, IPRouter, IPAntena, FechaInstalacion, TecnicoInstalador, Velocidad, Plan, EstadoServicio, SeñalInstalacion, SeñalActual, DireccionIPAP, CoordenadasLatitud, CoordenadasLongitud) VALUES ('".$_POST['idServicio']."', '".$_POST['nodo']."', '".$_POST['macRouter']."', '".$_POST['macAntena']."', '".$_POST['ipRouter']."', '".$_POST['ipAntena']."', '".$_POST['fechaInstalacion']."', '".$_POST['tecnicoInstalador']."', '".$_POST['velocidad']."', '".$_POST['plan']."', '".$_POST['estadoServicio']."', '".$_POST['señalInstalacion']."', '".$_POST['señalActual']."', '".$_POST['ipAn']."', '".$_POST['latitud']."', '".$_POST['longitud']."')";
-	$run = new Method;
+
+	$fechaInstalacion = $_POST['fechaInstalacion'];
+	if($fechaInstalacion){
+    	$fechaInstalacion = DateTime::createFromFormat('d-m-Y', $fechaInstalacion)->format('Y-m-d');
+    }else{
+    	$fechaInstalacion = '1969-01-31';
+    }
+
+	$query = "INSERT INTO servicio_internet (IdServivio, FechaInstalacion, Velocidad, Plan, IdOrigen, IdProducto, TipoDestino) VALUES ('".$_POST['idServicio']."', '".$fechaInstalacion."', '".$_POST['velocidad']."', '".$_POST['plan']."', '".$_POST['origen_id']."', '".$_POST['producto_id']."', '".$_POST['destino_tipo']."')";
 	$data = $run->insert($query);
+	$Egreso = new Egreso();
+	$Egreso->storeMovimiento($_POST['producto_id'],$_POST['destino_tipo'],$id);
 	echo $data;
  ?>

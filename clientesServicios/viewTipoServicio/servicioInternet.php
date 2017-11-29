@@ -3,6 +3,26 @@
 		<h3>Servicio de Internet</h3>
 	</div>
 
+	<div class="col-md-12">
+		<div class="form-group">
+			<label class="control-label">Seleccione <span id="span_origen">Bodega</span></label>
+			<select class="form-control" id="origen_id" name="origen_id"   data-live-search="true" data-nombre="Origen" data-container="body">
+				<option value="">Seleccione Opción</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="col-md-12">
+		<div class="form-group">
+			<label class="control-label">Activo a Transferir</label>
+			<select class="form-control" id="producto_id" name="producto_id"   data-live-search="true" data-nombre="Activo a Transferir" data-container="body">
+				<option value="">Seleccione Opción</option>
+			</select>
+		</div>
+	</div>
+
+	<input type="hidden" id="destino_tipo" value="2" name="destino_tipo">
+
 	<div class="col-md-4 form-group" rows="5">
 		<label>Fecha Instalación</label>
 		<input name="fechaInstalacion" class="form-control date">
@@ -17,17 +37,5 @@
 		<input name="plan" class="form-control">
 	</div>
 
-	<input name="nodo" type="hidden">
 	<input name="idServicio" type="hidden">
-	<input name="macRouter" type="hidden">
-	<input name="macAntena" type="hidden">
-	<input name="ipRouter" type="hidden">
-	<input name="ipAntena" type="hidden">
-	<input name="tecnicoInstalador" type="hidden">
-	<input name="estadoServicio" type="hidden">
-	<input name="señalInstalacion" type="hidden">
-	<input name="señalActual" type="hidden">
-	<input name="ipAn" type="hidden">
-	<input name="latitud" type="hidden">
-	<input name="longitud" type="hidden">
 </div>

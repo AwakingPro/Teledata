@@ -75,7 +75,7 @@
 													</div>
 													<br>
 													<label class="compo-tipoFactura">Tiempo de Facturación</label>
-													<select name="TiepoFacturacion compo-tipoFactura" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Tiempo de Facturación">
+													<select name="TiepoFacturacion" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Tiempo de Facturación">
 														<option value="">Seleccione...</option>
 														<option >Mensual</option>
 														<option >Semestral</option>
@@ -250,6 +250,8 @@
 		<script src="../js/global/validations.js"></script>
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>
+		<script src="../plugins/moment/moment.js"></script>
+    	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
 		<script src="../plugins/sweetalert/sweetalert.min.js"></script>
 		<script src="../js/servicios/controller.js"></script>

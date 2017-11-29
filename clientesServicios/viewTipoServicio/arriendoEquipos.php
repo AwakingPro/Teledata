@@ -23,4 +23,18 @@
 
 	<input type="hidden" id="destino_tipo" value="2" name="destino_tipo">
 
+	<div class="col-md-4 form-group" rows="5">
+		<label>Fecha Instalación</label>
+		<input name="fechaInstalacion" class="form-control date">
+	</div>
+
+	<div class="col-md-4 form-group" rows="5">
+		<label>Velocidad</label>
+		<input name="velocidad" class="form-control">
+	</div>
+	<div class="col-md-4 form-group" rows="5">
+		<label>Plan</label>
+		<input name="plan" class="form-control">
+	</div>
+
 </div>

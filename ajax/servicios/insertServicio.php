@@ -51,29 +51,46 @@
 	$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, FacturarSinInstalacion) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '".$Valor."', '".$Descuento."', '".$TipoServicio."', '".$TiepoFacturacion."', '".$Codigo."', '".$Descripcion."', '".$tipoMoneda."', '".$idUsuario."', '".$Alias."', '0', '".$FechaInstalacion."', '', '', '".$UsuarioPppoe."', '".$Direccion."', '".$Latitud."', '".$Longitud."', '".$Referencia."', '".$Contacto."', '".$Fono."', '".$PosibleEstacion."', '".$Equipamiento."', '".$SenalTeorica."', '0', '', '', '0', '".$CostoInstalacion."', '0')";
 	$id = $run->insert($query);
 
-
 	switch ($TipoServicio) {
 		case 1:
 			include("../../class/inventario/egresos/EgresoClass.php");
-			$query = "INSERT INTO arriendo_equipos_datos (IdOrigen, IdProducto, TipoDestino, IdServivio) VALUES ('".$_POST['origen_id']."', '".$_POST['producto_id']."', '".$_POST['destino_tipo']."', '".$id."')";
+			$fechaInstalacion = $_POST['fechaInstalacion'];
+			if($fechaInstalacion){
+            	$fechaInstalacion = DateTime::createFromFormat('d-m-Y', $fechaInstalacion)->format('Y-m-d');
+            }else{
+            	$fechaInstalacion = '1969-01-31';
+            }
+
+			$query = "INSERT INTO arriendo_equipos_datos (IdServivio, FechaInstalacion, Velocidad, Plan, IdOrigen, IdProducto, TipoDestino) VALUES ('".$id."', '".$fechaInstalacion."', '".$_POST['velocidad']."', '".$_POST['plan']."', '".$_POST['origen_id']."', '".$_POST['producto_id']."', '".$_POST['destino_tipo']."')";
 			$data = $run->insert($query);
 			$Egreso = new Egreso();
 			$Egreso->storeMovimiento($_POST['producto_id'],$_POST['destino_tipo'],$id);
 			break;
 		case 2:
-			$query = "INSERT INTO mantencion_red (Descripcion, ComentarioDatosAdicionales,IdServivio) VALUES ('".$_POST['descripcion']."', '".$_POST['comentario']."', '".$id."')";
+			include("../../class/inventario/egresos/EgresoClass.php");
+
+			$fechaInstalacion = $_POST['fechaInstalacion'];
+			if($fechaInstalacion){
+            	$fechaInstalacion = DateTime::createFromFormat('d-m-Y', $fechaInstalacion)->format('Y-m-d');
+            }else{
+            	$fechaInstalacion = '1969-01-31';
+            }
+
+			$query = "INSERT INTO servicio_internet (IdServivio, FechaInstalacion, Velocidad, Plan, IdOrigen, IdProducto, TipoDestino) VALUES ('".$id."', '".$fechaInstalacion."', '".$_POST['velocidad']."', '".$_POST['plan']."', '".$_POST['origen_id']."', '".$_POST['producto_id']."', '".$_POST['destino_tipo']."')";
 			$data = $run->insert($query);
+			$Egreso = new Egreso();
+			$Egreso->storeMovimiento($_POST['producto_id'],$_POST['destino_tipo'],$id);
 			break;
 		case 3:
-			$query = "INSERT INTO mensualidad_direccion_ip_fija (DireccionIPFija, Descripcion,IdServivio) VALUES ('".$_POST['ip']."', '".$_POST['descripcion']."', '".$id."')";
-			$data = $run->insert($query);
-			break;
-		case 4:
 			$query = "INSERT INTO mensualidad_puerdo_publicos (PuertoTCPUDP, Descripcion,IdServivio) VALUES ('".$_POST['puerto']."', '".$_POST['descripcion']."', '".$id."')";
 			$data = $run->insert($query);
 			break;
+		case 4:
+			$query = "INSERT INTO mensualidad_direccion_ip_fija (DireccionIPFija, Descripcion,IdServivio) VALUES ('".$_POST['ip']."', '".$_POST['descripcion']."', '".$id."')";
+			$data = $run->insert($query);
+			break;
 		case 5:
-			$query = "INSERT INTO servicio_internet (IdServivio, EstacionNodo, MacRouter, MacAntena, IPRouter, IPAntena, FechaInstalacion, TecnicoInstalador, Velocidad, Plan, EstadoServicio, SeñalInstalacion, SeñalActual, DireccionIPAP, CoordenadasLatitud, CoordenadasLongitud) VALUES ('".$id."', '".$_POST['nodo']."', '".$_POST['macRouter']."', '".$_POST['macAntena']."', '".$_POST['ipRouter']."', '".$_POST['ipAntena']."', '".$_POST['fechaInstalacion']."', '".$_POST['tecnicoInstalador']."', '".$_POST['velocidad']."', '".$_POST['plan']."', '".$_POST['estadoServicio']."', '".$_POST['señalInstalacion']."', '".$_POST['señalActual']."', '".$_POST['ipAn']."', '".$_POST['latitud']."', '".$_POST['longitud']."')";
+			$query = "INSERT INTO mantencion_red (Descripcion, ComentarioDatosAdicionales,IdServivio) VALUES ('".$_POST['descripcion']."', '".$_POST['comentario']."', '".$id."')";
 			$data = $run->insert($query);
 			break;
 		case 6:
