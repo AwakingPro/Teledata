@@ -9,8 +9,17 @@
 
             $response_array = array();
 
-            $Rut = substr($RutDv, 0, strpos($RutDv, '-'));
-            $Dv = substr($RutDv, - 1);
+            $RutDv = explode("-", $RutDv);
+            if(isset($RutDv[0])){
+                $Rut = $RutDv[0];
+            }else{
+                $Rut = '';
+            }
+            if(isset($RutDv[1])){
+                $Dv = $RutDv[1];
+            }else{
+                $Dv = '';
+            }
             $Nombre = isset($Nombre) ? trim($Nombre) : "";
             $Direccion = isset($Direccion) ? trim($Direccion) : "";
             $Telefono = isset($Telefono) ? trim($Telefono) : "";
@@ -53,8 +62,17 @@
 
             $response_array = array();
 
-            $Rut = substr($RutDv, 0, strpos($RutDv, '-'));
-            $Dv = substr($RutDv, - 1);
+            $RutDv = explode("-", $RutDv);
+            if(isset($RutDv[0])){
+                $Rut = $RutDv[0];
+            }else{
+                $Rut = '';
+            }
+            if(isset($RutDv[1])){
+                $Dv = $RutDv[1];
+            }else{
+                $Dv = '';
+            }
             $Nombre = isset($Nombre) ? trim($Nombre) : "";
             $Direccion = isset($Direccion) ? trim($Direccion) : "";
             $Telefono = isset($Telefono) ? trim($Telefono) : "";

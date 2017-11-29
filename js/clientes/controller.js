@@ -31,10 +31,15 @@ $(document).ready(function() {
 				});
 				bootbox.alert('<h3 class="text-center">El cliente #'+data+' se registro con éxito.</h3>');
 				$('#insertCliente')[0].reset();
-				$('.selectpicker').seletpicker('refresh')
+				$('.selectpicker').selectpicker('refresh')
 			}else{
 				console.log(data);
-				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
+
+				if(data != "Dv"){
+					bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
+				}else{
+					bootbox.alert('<h3 class="text-center">Disculpe el campo Dv es obligatorio.</h3>');
+				}
 			}
 		});
 	});

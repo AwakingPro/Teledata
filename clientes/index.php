@@ -82,15 +82,15 @@
 													<div class="row">
 														<div class="col-md-4 form-group">
 															<label>Giro</label>
-															<input name="Giro" class="form-control">
+															<input name="Giro" class="form-control" validate="not_null">
 														</div>
 														<div class="col-md-4 form-group">
 															<label>Ciudad</label>
-															<input name="Ciudad" class="form-control">
+															<input name="Ciudad" class="form-control" validate="not_null">
 														</div>
 														<div class="col-md-4 form-group">
 															<label>Comuna</label>
-															<input name="Comuna" class="form-control">
+															<input name="Comuna" class="form-control" validate="not_null">
 														</div>
 													</div>
 													<div class="row">
