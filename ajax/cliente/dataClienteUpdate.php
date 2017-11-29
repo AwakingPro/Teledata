@@ -14,5 +14,21 @@
 	$query = 'SELECT * FROM telefono_extra WHERE telefono_extra.IdUsuario ='.$_POST['id'];
 	$data4 = $run->select($query);
 
+	if(!is_array($data1)){
+		$data1 = array();
+	}
+
+	if(!is_array($data2)){
+		$data2 = array();
+	}
+
+	if(!is_array($data3)){
+		$data3 = array();
+	}
+
+	if(!is_array($data4)){
+		$data4 = array();
+	}
+
 	echo json_encode(array_merge($data1, $data2, $data3, $data4));
 ?>
