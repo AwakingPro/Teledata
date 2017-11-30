@@ -430,7 +430,7 @@ $(document).ready(function(){
             text: "Confirmar eliminación!",   
             type: "warning",   
             showCancelButton: true,   
-            confirmButtonColor: "#DD6B55",   
+            confirmButtonColor: "#28a745",   
             confirmButtonText: "Eliminar!",  
             cancelButtonText: "Cancelar",         
             showLoaderOnConfirm: true

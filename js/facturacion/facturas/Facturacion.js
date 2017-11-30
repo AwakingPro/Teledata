@@ -234,7 +234,7 @@ $(document).ready(function(){
             text: "Confirmar facturación!",   
             type: "warning",   
             showCancelButton: true,   
-            confirmButtonColor: "#DD6B55",   
+            confirmButtonColor: "#28a745",   
             confirmButtonText: "Facturar!",  
             cancelButtonText: "Cancelar", 
             showLoaderOnConfirm: true,        
