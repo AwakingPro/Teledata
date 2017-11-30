@@ -249,7 +249,10 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label" for="name">Instalado Por</label>
-                                <input id="nombre" name="InstaladoPor" type="text" placeholder="Ingrese el campo Instalado Por" class="form-control input-sm" validation="not_null" data-nombre="Instalado Por">
+                                <div class="select">
+                                    <select class="selectpicker form-control IdUsuarioAsignado" name="InstaladoPor" id="InstaladoPor"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Instalado Por">
+                                    </select>
+                                </div>
                             </div>
                         </div>
 

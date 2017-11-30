@@ -371,7 +371,7 @@
                                 WHERE facturas.Id = '$RutId'";
                     $expirationDate = time() + 1728000;
                 }else{
-                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionTipoMoneda as TipoMoneda, mantenedor_servicios.servicio as Servicio 
+                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionTipoMoneda as TipoMoneda, servicios.CostoInstalacionDescuento as Descuento, mantenedor_servicios.servicio as Servicio 
                                 FROM servicios 
                                 LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                                 WHERE servicios.Rut = '$RutId' AND servicios.Grupo = '$Grupo'";

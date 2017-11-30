@@ -24,7 +24,7 @@
 	<input type="hidden" id="destino_tipo" value="2" name="destino_tipo">
 
 	<div class="col-md-4 form-group" rows="5">
-		<label>Fecha Instalación</label>
+		<label>Fecha Comprometida de Instalación</label>
 		<input name="fechaInstalacion" class="form-control date">
 	</div>
 

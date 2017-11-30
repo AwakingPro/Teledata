@@ -158,3 +158,11 @@ div.bg-img{
 .dataClienteTable:hover{
 	color: rgba(0,0,0,0.5);
 }
+
+.sweet-alert button.cancel{
+	background-color: #DD6B55;
+}
+
+.sweet-alert button.cancel:hover{
+	background-color: #DD6B55;
+}
