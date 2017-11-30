@@ -2,7 +2,6 @@
 	require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
 		servicio_internet.IdServInternet,
-		servicio_internet.FechaInstalacion,
 		servicio_internet.Velocidad,
 		servicio_internet.Plan
 		FROM
