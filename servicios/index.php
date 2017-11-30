@@ -15,6 +15,7 @@
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 		<link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
+		<link href="../css/swalExtend.css" rel="stylesheet">
 	</head>
 	<body>
 		<div id="container" class="effect aside-float aside-bright mainnav-sm">
@@ -40,6 +41,7 @@
 									<div class="panel-body container-form">
 										<div class="row" >
 											<form id="formServicio">
+												<input type="hidden" id="FacturarSinInstalacion" name="FacturarSinInstalacion">
 												<div class="col-md-12 form-group">
 													<label class="campo-cliente" >Cliente</label>
 													<div class="input-group campo-cliente">
@@ -266,6 +268,7 @@
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
 		<script src="../plugins/sweetalert/sweetalert.min.js"></script>
 		<script src="../js/servicios/controller.js"></script>
+		<script src="../js/swalExtend.js"></script>
 	</body>
 </html>
 <div class="modal fade" tabindex="-1" role="dialog" id="verServicios" aria-labelledby="verServicios">

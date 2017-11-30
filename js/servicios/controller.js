@@ -165,6 +165,42 @@ $(document).ready(function() {
 		$('select[name="Grupo"]').selectpicker('refresh');
 	});
 
+	var swalFunction = function(){ 
+        swal({
+            title: "Desea cobrar de inmediato el costo de instalacion?",
+            text: "Confirmar facturación!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: true,
+            allowOutsideClick: false
+        },function(isConfirm){
+            if (isConfirm) {
+                $.ajax({
+                    url: "../ajax/servicios/updateCostoInstalacion.php",
+                    type: 'POST',
+                    data:"&id="+servicio_id,
+                    success:function(response){
+                        setTimeout(function() {
+                            if(response == 1){
+                                bootbox.alert('<h3 class="text-center">El servicio #' + servicio_id + ' se registro con éxito.</h3>');
+                            }else{
+                                swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                            }
+                        }, 1000);
+                    },
+                    error:function(){
+                        swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                    }
+                });
+            }else{
+            	bootbox.alert('<h3 class="text-center">El servicio #' + servicio_id + ' se registro con éxito.</h3>');
+            }
+        });
+	};
+
 	$(document).on('click', '.guardarServ', function() {
 
 		Rut = $('#Rut').val()
@@ -176,39 +212,18 @@ $(document).ready(function() {
 				servicio_id = data
 
 				if(BooleanCostoInstalacion == 1){
-			        swal({
-			            title: "Desea facturar de inmediato el costo de instalacion?",
-			            text: "Confirmar facturación!",
-			            type: "warning",
-			            showCancelButton: true,
-			            confirmButtonColor: "#DD6B55",
-			            confirmButtonText: "Aceptar!",
-			            cancelButtonText: "Cancelar",
-			            closeOnConfirm: true,
-			            allowOutsideClick: false
-			        },function(isConfirm){
-			            if (isConfirm) {
-			                $.ajax({
-			                    url: "../ajax/servicios/updateCostoInstalacion.php",
-			                    type: 'POST',
-			                    data:"&id="+servicio_id,
-			                    success:function(response){
-			                        setTimeout(function() {
-			                            if(response == 1){
-			                                bootbox.alert('<h3 class="text-center">El servicio #' + servicio_id + ' se registro con éxito.</h3>');
-			                            }else{
-			                                swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
-			                            }
-			                        }, 1000);
-			                    },
-			                    error:function(){
-			                        swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
-			                    }
-			                });
-			            }else{
-			            	bootbox.alert('<h3 class="text-center">El servicio #' + servicio_id + ' se registro con éxito.</h3>');
-			            }
-			        });
+					swalExtend({
+				        swalFunction: swalFunction,
+				        hasCancelButton: true,
+				        buttonNum: 1,
+				        buttonColor: ["gray"],
+				        buttonNames: ["Cancelar"],
+				        clickFunctionList: [
+				            function() {
+				                swal.close()
+				            }
+				        ]
+				    });
 				}else{
 					bootbox.alert('<h3 class="text-center">El servicio #' + servicio_id + ' se registro con éxito.</h3>');
 				}
