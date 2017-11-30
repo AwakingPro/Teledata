@@ -30,5 +30,5 @@
 		$data4 = array();
 	}
 
-	echo json_encode(array_merge($data1, $data2, $data3, $data4));
+	echo json_encode(array('DataCliente' => $data1, 'DataContactosExtras' => $data2, 'DataCorreoExtra' =>$data3, 'DataTelefonoExtra' => $data4));
 ?>
