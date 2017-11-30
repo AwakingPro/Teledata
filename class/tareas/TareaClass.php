@@ -199,7 +199,10 @@
 
 	            if($data){
 
-	            	$query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where `Id` = '$this->Id'";
+	            	$query = "	SELECT servicios.*, mantenedor_servicios.servicio as Servicio 
+	            				FROM servicios 
+	            				LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
+	            				WHERE `Id` = '$this->Id'";
                     $Servicio = $run->select($query);
 
                     if($Servicio){
@@ -216,21 +219,80 @@
 
 	                    if($FacturaId){
 
-		                    $IdServicio = $Servicio['Id'];
-		                    $Valor = $Servicio['Valor'];
+	                    	$Concepto = $Servicio['Servicio'];
+	                    	$Valor = $Servicio['Valor'];
 		                    $Descuento = $Servicio['Descuento'];
 		                    $TipoMoneda = $Servicio['TipoMoneda'];
 
-		                    $dt = new DateTime();
-							$Mes =  $dt->format('m');
+						    if($this->FechaInstalacion){
+						    	$dt = DateTime::createFromFormat('Y-m-d', $this->FechaInstalacion);
+						    }else{
+						    	$dt = new DateTime();
+						    }
+
+						   	$Mes =  $dt->format('m');
 						    $Ano =  $dt->format('Y');
 						    $Dia =  $dt->format('d');
-						    $Diasdelmes = cal_days_in_month (CAL_GREGORIAN, $Mes,$Ano);
+
+	                        switch ($Mes) {
+	                            case 1:
+	                                $MesFacturacion = "Enero";
+	                                break;
+	                            case 2:
+	                                $MesFacturacion = "Febrero";
+	                                break;
+	                            case 3:
+	                                $MesFacturacion = "Marzo";
+	                                break;
+	                            case 4:
+	                                $MesFacturacion = "Abril";
+	                                break;
+	                            case 5:
+	                                $MesFacturacion = "Mayo";
+	                                break;
+	                            case 6:
+	                                $MesFacturacion = "Junio";
+	                                break;
+	                            case 7:
+	                                $MesFacturacion = "Julio";
+	                                break;
+	                            case 8:
+	                                $MesFacturacion = "Agosto";
+	                                break;
+	                            case 9:
+	                                $MesFacturacion = "Septiembre";
+	                                break;
+	                            case 10:
+	                                $MesFacturacion = "Octubre";
+	                                break;
+	                            case 11:
+	                                $MesFacturacion = "Noviembre";
+	                                break;
+	                            case 12:
+	                                $MesFacturacion = "Diciembre";
+	                                break;
+	                        }
+	
+					    	$Diasdelmes = cal_days_in_month (CAL_GREGORIAN, $Mes,$Ano);
+
+		                   	if($Dia != $Diasdelmes){
+
+				    			$Diasporfacturar = $Diasdelmes - $Dia;
+				    			
+				    			if($Dia == 1){
+									$Concepto .= ' - Mes ' . $MesFacturacion;
+				    			}else{
+				    				$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dia)';
+				    			}
+				    		}else{
+				    			$Diasporfacturar = 1;
+				    			$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dia)';
+				    		}	
+
 						    $Montodiario = $Valor / $Diasdelmes;
-						    $Diasporfacturar = $Diasdelmes - $Dia;
 						    $Montoporfacturar = $Diasporfacturar * $Montodiario;
 
-		                    $query = "INSERT INTO facturas_detalle(FacturaId, IdServicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$IdServicio', '$Montoporfacturar', '$Descuento', '$TipoMoneda')";
+		                    $query = "INSERT INTO facturas_detalle(FacturaId, Servicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$Concepto', '$Montoporfacturar', '$Descuento', '$TipoMoneda')";
 		                    $FacturaDetalle = $run->insert($query);
 	                    }
                     }
