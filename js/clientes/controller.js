@@ -214,6 +214,11 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.update-personaempresa', function(event) {
+
+		$('.extraTipoCont').val('');
+		$('.extraCont').val('');
+		$('.contenedorContactosExtras').html('');
+
 		$('#editarCliente').modal('show');
 		$.post('../ajax/cliente/dataClienteUpdate.php', {id: $(this).attr('attr')}, function(data) {
 			value = $.parseJSON(data);
