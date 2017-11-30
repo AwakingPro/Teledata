@@ -225,7 +225,6 @@ $(document).ready(function() {
 		$('#editarCliente').modal('show');
 		$.post('../ajax/cliente/dataClienteUpdate.php', {id: $(this).attr('attr')}, function(data) {
 			value = $.parseJSON(data);
-			console.log(value);
 			$('[name="Nombre_update"]').val(value['DataCliente'][0]['nombre']);
 			$('[name="Rut_update"]').val(value['DataCliente'][0][3]);
 			$('[name="DireccionComercial_update"]').val(value['DataCliente'][0]['direccion']);
