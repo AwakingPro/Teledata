@@ -24,7 +24,12 @@
 
             $data = array();
 
-    		$query = 'SELECT servicios.Rut, servicios.Grupo, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionTipoMoneda as TipoMoneda, servicios.EstatusFacturacion, personaempresa.nombre as Cliente FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut WHERE servicios.EstatusFacturacion = 0 AND servicios.CostoInstalacion > 0 AND (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1) AND (servicios.IdServicio = 1 OR servicios.IdServicio = 2)';
+            $query = '  SELECT servicios.Rut, servicios.Grupo, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionTipoMoneda as TipoMoneda, servicios.EstatusFacturacion, personaempresa.nombre as Cliente 
+                        FROM servicios 
+                        INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut 
+                        WHERE servicios.EstatusFacturacion = 0 
+                        AND servicios.CostoInstalacion > 0 
+                        AND (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1)';
 
             $servicios = $run->select($query);
 
@@ -80,12 +85,10 @@
                 }
             }
 
-            $query = "  SELECT    facturas_detalle.*, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, personaempresa.nombre as Cliente, mantenedor_servicios.servicio as Servicio 
+            $query = "  SELECT    facturas_detalle.*, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, personaempresa.nombre as Cliente 
                         FROM facturas_detalle 
-                        LEFT JOIN servicios ON servicios.Id = facturas_detalle.IdServicio 
-                        LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
-                        INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
+                        INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
                         WHERE facturas.TipoFactura = '3'";
 
             $facturas = $run->select($query);
@@ -161,12 +164,10 @@
                 $UF = 1;
             }
 
-            $query = "  SELECT    facturas_detalle.*, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, facturas.EstatusFacturacion, personaempresa.nombre as Cliente, mantenedor_servicios.servicio as Servicio 
+            $query = "  SELECT    facturas_detalle.*, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, facturas.EstatusFacturacion, personaempresa.nombre as Cliente 
                         FROM facturas_detalle 
-                        LEFT JOIN servicios ON servicios.Id = facturas_detalle.IdServicio 
-                        LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
-                        INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
+                        INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
                         WHERE facturas_detalle.Valor > 0
                         AND facturas.TipoFactura = '2'";
 
@@ -307,13 +308,10 @@
                 $UF = 1;
             }
 
-            $query = "  SELECT    facturas_detalle.*, servicios.Codigo, mantenedor_servicios.servicio as Nombre, mantenedor_tipo_factura.descripcion as Descripcion
+            $query = "  SELECT    facturas_detalle.*, servicios.Codigo, mantenedor_servicios.servicio as Nombre
                         FROM facturas_detalle 
-                        LEFT JOIN servicios ON servicios.Id = facturas_detalle.IdServicio 
-                        LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                         INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
-                        LEFT JOIN mantenedor_tipo_factura ON mantenedor_tipo_factura.codigo = servicios.TipoFactura 
                         WHERE facturas.Id = '$Id'";
 
             $servicios = $run->select($query);
@@ -367,9 +365,17 @@
                 // $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
 
                 if($Tipo == 2){
-                    $query = "SELECT facturas_detalle.*, mantenedor_servicios.servicio as Servicio, servicios.Rut, servicios.Descripcion FROM facturas_detalle LEFT JOIN servicios ON servicios.Id = facturas_detalle.IdServicio LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio WHERE facturas_detalle.FacturaId = '$RutId'";
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut 
+                                FROM facturas_detalle 
+                                INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
+                                WHERE facturas.Id = '$RutId'";
+                    $expirationDate = time() + 1728000;
                 }else{
-                    $query = "SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionTipoMoneda as TipoMoneda, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio WHERE servicios.Rut = '$RutId' AND servicios.Grupo = '$Grupo'";
+                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionTipoMoneda as TipoMoneda, mantenedor_servicios.servicio as Servicio 
+                                FROM servicios 
+                                LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
+                                WHERE servicios.Rut = '$RutId' AND servicios.Grupo = '$Grupo'";
+                    $expirationDate = time() + 604800;
                 }
 
                 $run = new Method;
@@ -501,11 +507,9 @@
                             }
 
                             if($Tipo == 2){
+
                                 $Nombre = $Servicio["Servicio"];
 
-                                if($Servicio["Descripcion"]){
-                                    $Nombre = $Nombre . ' - ' . $Servicio['Descripcion'];
-                                }
                             }else{
                                 if($Valor > 0){
                                     $Nombre = 'Costo de instalación / Habilitación';
@@ -553,7 +557,7 @@
                             "documentTypeId"    => $documentTypeId,
                             // "priceListId"       => 18,
                             "emissionDate"      => time(),
-                            "expirationDate"    => time(),
+                            "expirationDate"    => $expirationDate,
                             "declareSii"        => 1,
                             "details"           => $details
                         );
@@ -647,13 +651,55 @@
 
                 $Variables = $Variables[0];
                 $FechaComprobacion = $Variables['fecha_comprobacion'];
-                $Hoy = new DateTime(); 
-                $Hoy = $Hoy->format('Y-m-d');
+                $dt = new DateTime(); 
+                $Mes = $dt->format('m');
+                $Hoy = $dt->format('Y-m-d');
                 $Facturas = array();
 
                 if($Hoy > $FechaComprobacion){
 
-                    $query = "SELECT servicios.*, mantenedor_servicios.servicio as Servicio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio";
+                    switch ($Mes) {
+                        case 1:
+                            $MesFacturacion = "Enero";
+                            break;
+                        case 2:
+                            $MesFacturacion = "Febrero";
+                            break;
+                        case 3:
+                            $MesFacturacion = "Marzo";
+                            break;
+                        case 4:
+                            $MesFacturacion = "Abril";
+                            break;
+                        case 5:
+                            $MesFacturacion = "Mayo";
+                            break;
+                        case 6:
+                            $MesFacturacion = "Junio";
+                            break;
+                        case 7:
+                            $MesFacturacion = "Julio";
+                            break;
+                        case 8:
+                            $MesFacturacion = "Agosto";
+                            break;
+                        case 9:
+                            $MesFacturacion = "Septiembre";
+                            break;
+                        case 10:
+                            $MesFacturacion = "Octubre";
+                            break;
+                        case 11:
+                            $MesFacturacion = "Noviembre";
+                            break;
+                        case 12:
+                            $MesFacturacion = "Diciembre";
+                            break;
+                    }
+
+                    $query = "  SELECT servicios.*, mantenedor_servicios.servicio as Servicio 
+                                FROM servicios 
+                                LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio";
                     $Servicios = $run->select($query);
 
                     foreach($Servicios as $Servicio){
@@ -668,14 +714,15 @@
                             $FacturaId = $run->insert($query);
                         }
 
-                        $IdServicio = $Servicio['Id'];
+                        $Concepto = $Servicio['Servicio'];
+                        $Concepto .= ' - Mes ' . $MesFacturacion;
                         $Valor = $Servicio['Valor'];
                         $Descuento = $Servicio['Descuento'];
                         $TipoMoneda = $Servicio['TipoMoneda'];
                         $Hoy = new DateTime(); 
                         $Hoy = $Hoy->format('Y-m-d H:i:s');
 
-                        $query = "INSERT INTO facturas_detalle(FacturaId, IdServicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$IdServicio', '$Valor', '$Descuento', '$TipoMoneda')";
+                        $query = "INSERT INTO facturas_detalle(FacturaId, Servicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$Concepto', '$Valor', '$Descuento', '$TipoMoneda')";
                         $data = $run->insert($query);
                         $Facturas[$Rut.'-'.$Grupo] = $FacturaId;
                     }

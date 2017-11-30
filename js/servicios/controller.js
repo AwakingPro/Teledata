@@ -205,6 +205,8 @@ $(document).ready(function() {
 			                        swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
 			                    }
 			                });
+			            }else{
+			            	bootbox.alert('<h3 class="text-center">El servicio #' + servicio_id + ' se registro con éxito.</h3>');
 			            }
 			        });
 				}else{
