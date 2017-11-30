@@ -236,12 +236,20 @@ $(document).ready(function() {
                         ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
                     ]).draw(false).node();
                 }else{
+                    
+                    if(array.FechaInstalacion){
+                        FechaInstalacion = moment(array.fecha_compra).format('DD-MM-YYYY');
+                    }else{
+                        FechaInstalacion = ''
+                    }
+                    
                     var rowNode = PorHacerTable.row.add([
                         ''+'<input name="select_check" id="select_check_"'+array.Id+' type="checkbox" />'+'',
                         ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
                         ''+array.Codigo+'',
                         ''+array.Descripcion+'',
                         ''+array.Direccion+'',
+                        ''+FechaInstalacion+'',
                         ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>'+''
                     ]).draw(false).node();
 

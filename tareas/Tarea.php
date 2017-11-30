@@ -63,6 +63,7 @@
                                                     <th class="text-center">Código</th>
                                                     <th class="text-center">Por Hacer</th>
                                                     <th class="text-center">Direccion</th>
+                                                    <th class="text-center">Fecha Comprometida de Instalación</th>
                                                     <th class="text-center">Acción</th>
                                                 </tr>
                                             </thead>
