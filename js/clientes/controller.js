@@ -214,10 +214,11 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.update-personaempresa', function(event) {
-
 		$('.extraTipoCont').val('');
 		$('.extraCont').val('');
 		$('.contenedorContactosExtras').html('');
+		$('.extraCorreo').val('');
+		$('.contenedorExtraCorreo').html('')
 
 		$('#editarCliente').modal('show');
 		$.post('../ajax/cliente/dataClienteUpdate.php', {id: $(this).attr('attr')}, function(data) {
@@ -259,6 +260,24 @@ $(document).ready(function() {
 					}
 				}
 			}
+
+			if (value['DataCorreoExtra'].length > 0) {
+				$('.extraCorreo').val(value['DataCorreoExtra'][0]['Correo']);
+				if (value['DataCorreoExtra'].length > 1) {
+					for (var i = 1; i < value['DataCorreoExtra'].length; i++) {
+						$('.contenedorExtraCorreo').append('<div class="row">'+
+							'<div class="col-md-9 form-group">'+
+							'<label>Correo</label>'+
+								'<input name="extra_correo[]" class="form-control" value="'+value['DataCorreoExtra'][i]['Correo']+'">'+
+							'</div>'+
+							'<div class="col-md-3">'+
+								'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampCorreo"><i class="glyphicon glyphicon-remove"></i></button>'+
+							'</div>'+
+						'</div>');
+					}
+				}
+			}
+
 		});
 	});
 

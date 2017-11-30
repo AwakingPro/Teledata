@@ -231,7 +231,7 @@
 				<div class="row">
 					<div class="col-md-9 form-group">
 					<label>Correo</label>
-						<input name="extra_correo[]" class="form-control">
+						<input name="extra_correo[]" class="form-control extraCorreo">
 					</div>
 					<div class="col-md-3">
 						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampCorreo"><i class="glyphicon glyphicon-plus"></i></button>
