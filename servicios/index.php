@@ -66,7 +66,7 @@
 													<br>
 													<label class="campo-cobreServicio">Tipo de Cobro de servicio mensual</label>
 													<div class="input-group campo-cobreServicio">
-														<select name="TipoFactura" class="form-control" data-live-search="true" validation="not_null" data-nombre="Tipo de Cobro">
+														<select id ="TipoFactura" name="TipoFactura" class="form-control" data-live-search="true" validation="not_null" data-nombre="Tipo de Cobro">
 															<option value="">Seleccione...</option>
 														</select>
 														<span class="input-group-btn">
@@ -74,7 +74,7 @@
 														</span>
 													</div>
 													<br>
-													<label class="compo-tipoFactura">Tiempo de Facturación</label>
+													<label class="compo-tipoFactura">Periodo de Cobro</label>
 													<select name="TiepoFacturacion" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Tiempo de Facturación">
 														<option value="">Seleccione...</option>
 														<option >Mensual</option>

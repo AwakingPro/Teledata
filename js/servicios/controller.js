@@ -342,6 +342,20 @@ $(document).ready(function() {
 						}
 					}
 				});
+
+				text = $('#Rut option:selected').text()
+				split = text.split('-');
+				tipo_cliente = split[2].trim()
+
+				if(tipo_cliente == "Boleta"){
+					$("#TipoFactura option[value='BSMI']").remove();
+				}else{
+					if($("#TipoFactura option[value='BSMI']").length == 0){
+						$("#TipoFactura").append('<option value="BSMI">BSMI - Boleta Servicio Mensual Individual</option>');
+					}
+				}
+
+				$('#TipoFactura').selectpicker('refresh');
 			});
 		}
 	});
