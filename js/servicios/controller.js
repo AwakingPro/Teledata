@@ -124,7 +124,7 @@ $(document).ready(function() {
 				url = "404.html";
 		}
 
-		$('.containerTipoServicioFormualario').load('../clientesServicios/viewTipoServicio/' + url, function() {
+		$('.containerTipoServicioFormulario').load('../clientesServicios/viewTipoServicio/' + url, function() {
 			$('select').selectpicker();
 			if (url.trim() == 'arriendoEquipos.php' || url.trim() == 'servicioInternet.php') {
 				$.ajax({

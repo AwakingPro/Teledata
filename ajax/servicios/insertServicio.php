@@ -39,16 +39,17 @@
 	$Codigo = $Rut."-".$dv.$TipoFactura.$ContarFinal;
 	$FechaInstalacion = date("Y-m-d");
 	$idUsuario = $_SESSION['idUsuario'];
-	$Hoy = new DateTime();
-	$Hoy = $Hoy->format('Y-m-d H:i:s');
 	$BooleanCostoInstalacion = isset($_POST['BooleanCostoInstalacion']) ? trim($_POST['BooleanCostoInstalacion']) : "";
 	$CostoInstalacion = isset($_POST['CostoInstalacion']) ? trim($_POST['CostoInstalacion']) : "";
+	$CostoInstalacionTipoMoneda = isset($_POST['CostoInstalacionTipoMoneda']) ? trim($_POST['CostoInstalacionTipoMoneda']) : "";
+	$CostoInstalacionDescuento = isset($_POST['CostoInstalacionDescuento']) ? trim($_POST['CostoInstalacionDescuento']) : "";
 
 	if(!$BooleanCostoInstalacion){
 		$CostoInstalacion = 0;
+		$CostoInstalacionDescuento = 0;
 	}
 
-	$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, FacturarSinInstalacion) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '".$Valor."', '".$Descuento."', '".$TipoServicio."', '".$TiepoFacturacion."', '".$Codigo."', '".$Descripcion."', '".$tipoMoneda."', '".$idUsuario."', '".$Alias."', '0', '".$FechaInstalacion."', '', '', '".$UsuarioPppoe."', '".$Direccion."', '".$Latitud."', '".$Longitud."', '".$Referencia."', '".$Contacto."', '".$Fono."', '".$PosibleEstacion."', '".$Equipamiento."', '".$SenalTeorica."', '0', '', '', '0', '".$CostoInstalacion."', '0')";
+	$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionTipoMoneda, CostoInstalacionDescuento, FacturarSinInstalacion) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '".$Valor."', '".$Descuento."', '".$TipoServicio."', '".$TiepoFacturacion."', '".$Codigo."', '".$Descripcion."', '".$tipoMoneda."', '".$idUsuario."', '".$Alias."', '0', '".$FechaInstalacion."', '', '', '".$UsuarioPppoe."', '".$Direccion."', '".$Latitud."', '".$Longitud."', '".$Referencia."', '".$Contacto."', '".$Fono."', '".$PosibleEstacion."', '".$Equipamiento."', '".$SenalTeorica."', '0', '', '', '0', '".$CostoInstalacion."', '".$CostoInstalacionTipoMoneda."', '".$CostoInstalacionDescuento."', '0')";
 	$id = $run->insert($query);
 
 	switch ($TipoServicio) {

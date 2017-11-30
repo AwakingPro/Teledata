@@ -180,19 +180,30 @@
 															</select>
 														</div>
 
-														<br class="campo-señalTeorica">
+														<br>
 
 														<div id="divCostoInstalacion">
-															<label class="campo-señalTeorica">Costo de instalación / Habilitación</label>
-															<div class="form-group campo-señalTeorica">
-																<input type="text"  name="CostoInstalacion" class="form-control" validation ="not_null" data-nombre="Costo de Instalación">
+															<label>Costo de instalación / Habilitación</label>
+															<div class="input-group">
+																<input type="text" name="CostoInstalacion" class="form-control" validation="not_null" data-nombre="Costo de Instalacion">
+																<span class="input-group-addon" style="padding: 0px; border: 0px solid">
+																	<select name="CostoInstalacionTipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
+																		<option value="UF">UF</option>
+																		<option value="Pesos">Pesos</option>
+																	</select>
+																</span>
 															</div>
-															<br class="campo-señalTeorica">
+															<br>
+															<label>Descuento Instalación</label>
+															<div class="input-group">
+																<input type="text" name="CostoInstalacionDescuento" class="form-control" min="0" max="100" step="1">
+																<span class="input-group-addon">%</span>
+															</div>
+															<br>
 														</div>
 													</div>
-			
 
-													<div class="containerTipoServicioFormualario"></div>
+													<div class="containerTipoServicioFormulario"></div>
 
 													<button type="button" class="btn btn-primary guardarServ">Guardar</button>
 												</div>
