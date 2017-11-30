@@ -43,7 +43,7 @@ $(document).ready(function() {
         format: 'DD-MM-YYYY'
     });
 
-    PendientesTable = $('#PendientesTable').DataTable({
+    PorHacerTable = $('#PorHacerTable').DataTable({
         "columnDefs": [ {
             "targets": [ 0 ],
             "orderable": false
@@ -80,6 +80,38 @@ $(document).ready(function() {
     });
 
     AsignadasTable = $('#AsignadasTable').DataTable({
+        paging: false,
+        iDisplayLength: 100,
+        processing: true,
+        serverSide: false,
+        bInfo:false,
+        // bFilter:false,
+        order: [[1, 'asc']],
+        language: {
+            processing:     "Procesando ...",
+            search:         'Buscar',
+            lengthMenu:     "Mostrar _MENU_ Registros",
+            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+            infoFiltered:   "(filtrada de _MAX_ registros en total)",
+            infoPostFix:    "",
+            loadingRecords: "...",
+            zeroRecords:    "No se encontraron registros coincidentes",
+            emptyTable:     "No hay datos disponibles en la tabla",
+            paginate: {
+                first:      "Primero",
+                previous:   "Anterior",
+                next:       "Siguiente",
+                last:       "Ultimo"
+            },
+            aria: {
+                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                sortDescending: ": habilitado para ordenar la columna en orden descendente"
+            }
+        }
+    });
+
+    PendientesTable = $('#PendientesTable').DataTable({
         paging: false,
         iDisplayLength: 100,
         processing: true,
@@ -183,30 +215,35 @@ $(document).ready(function() {
                         ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Compare"></i>'+'',
                     ]).draw(false).node();
 
+                }else if(array.Estatus == 2){
+
+                    var rowNode = PendientesTable.row.add([
+                        ''+Usuario+'',
+                        ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
+                        ''+array.Codigo+'',
+                        ''+array.Descripcion+'',
+                        ''+array.Direccion+'',
+                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
+                    ]).draw(false).node();
+                }else if(array.Estatus == 3){
+
+                    var rowNode = AsignadasTable.row.add([
+                        ''+Usuario+'',
+                        ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
+                        ''+array.Codigo+'',
+                        ''+array.Descripcion+'',
+                        ''+array.Direccion+'',
+                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
+                    ]).draw(false).node();
                 }else{
-
-                    if(array.IdUsuarioAsignado != 0){
-
-                        var rowNode = AsignadasTable.row.add([
-                            ''+Usuario+'',
-                            ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
-                            ''+array.Codigo+'',
-                            ''+array.Descripcion+'',
-                            ''+array.Direccion+'',
-                            ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
-                        ]).draw(false).node();
-
-                    }else{
-                        var rowNode = PendientesTable.row.add([
-                            ''+'<input name="select_check" id="select_check_"'+array.Id+' type="checkbox" />'+'',
-                            ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
-                            ''+array.Codigo+'',
-                            ''+array.Descripcion+'',
-                            ''+array.Direccion+'',
-                            ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>'+''
-                        ]).draw(false).node();
-
-                    }
+                    var rowNode = PorHacerTable.row.add([
+                        ''+'<input name="select_check" id="select_check_"'+array.Id+' type="checkbox" />'+'',
+                        ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
+                        ''+array.Codigo+'',
+                        ''+array.Descripcion+'',
+                        ''+array.Direccion+'',
+                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>'+''
+                    ]).draw(false).node();
 
                 }
 
@@ -254,7 +291,7 @@ $(document).ready(function() {
                     Direccion = $(Row).find("td").eq(4).html();
                     Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>';
 
-                    PendientesTable.row(Row)
+                    PorHacerTable.row(Row)
                         .remove()
                         .draw();
 
@@ -425,20 +462,29 @@ $(document).ready(function() {
                     timer : 3000
                 });
 
-                if(response.Estatus == 1){
-                    
-                    Row = $('#'+response.Id)
-                    Usuario = $(Row).find("td").eq(0).html();
-                    Cliente = $(Row).find("td").eq(1).html();
-                    Codigo = $(Row).find("td").eq(2).html();
-                    Descripcion = $(Row).find("td").eq(3).html();
-                    Direccion = $(Row).find("td").eq(4).html();
-                    Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Compare"></i>'
+                Row = $('#'+response.Id)
+                Usuario = $(Row).find("td").eq(0).html();
+                Cliente = $(Row).find("td").eq(1).html();
+                Codigo = $(Row).find("td").eq(2).html();
+                Descripcion = $(Row).find("td").eq(3).html();
+                Direccion = $(Row).find("td").eq(4).html();
 
+                var nodes = AsignadasTable.rows().nodes()
+
+                if( $(nodes).filter('tr#' + response.Id).length == 1 ) {
                     AsignadasTable.row(Row)
                         .remove()
                         .draw();
+                }else{
+                    PendientesTable.row(Row)
+                        .remove()
+                        .draw();
+                }
 
+                if(response.Estatus == 1){
+
+                    Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Compare"></i>'
+                    
                     var rowNode = FinalizadasTable.row.add([
                         ''+Usuario+'',
                         ''+Cliente+'',
@@ -452,8 +498,22 @@ $(document).ready(function() {
                         .attr('id',response.Id)
                         .addClass('text-center')
 
-                    $(rowNode).find("td").eq(6).html(Operacion);
+                }else{
 
+                    Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'
+
+                    var rowNode = PendientesTable.row.add([
+                        ''+Usuario+'',
+                        ''+Cliente+'',
+                        ''+Codigo+'',
+                        ''+Descripcion+'',
+                        ''+Direccion+'',
+                        ''+Operacion+'',
+                    ]).draw(false).node();
+
+                    $(rowNode)
+                        .attr('id',response.Id)
+                        .addClass('text-center')
                 }
 
                 $('#storeTarea')[0].reset();
@@ -511,7 +571,7 @@ $(document).ready(function() {
 
         var checked = [];
 
-        $('#PendientesTable tr').each(function (i, row) {
+        $('#PorHacerTable tr').each(function (i, row) {
             var actualrow = $(row);
             checkbox = actualrow.find('input:checked').val();
             if(checkbox == 'on'){
@@ -524,7 +584,7 @@ $(document).ready(function() {
     }
 
     $('#select_all').on('click', function(){
-        var rows = PendientesTable.rows({ 'search': 'applied' }).nodes();
+        var rows = PorHacerTable.rows({ 'search': 'applied' }).nodes();
         $('input[type="checkbox"]', rows).prop('checked', this.checked);
 
         values = getChecked();
@@ -544,7 +604,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#PendientesTable tbody').on( 'click', 'input[type="checkbox"]', function () {
+    $('#PorHacerTable tbody').on( 'click', 'input[type="checkbox"]', function () {
         values = getChecked();
 
         if(values.length > 0){
