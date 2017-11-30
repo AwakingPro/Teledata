@@ -260,11 +260,11 @@
 				<div class="row">
 					<div class="col-md-5 form-group">
 						<label>Tipo de contacto</label>
-						<input name="extra_TipoContacto[]" class="form-control">
+						<input name="extra_TipoContacto[]" class="form-control extraTipoCont">
 					</div>
 					<div class="col-md-5 form-group">
 						<label>Contacto</label>
-						<input name="extra_Contacto[]" class="form-control">
+						<input name="extra_Contacto[]" class="form-control extraCont">
 					</div>
 					<div class="col-md-2">
 						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampContacto"><i class="glyphicon glyphicon-plus"></i></button>
