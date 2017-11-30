@@ -153,6 +153,12 @@
 														<input type="text" name="Fono" class="form-control">
 													</div>
 													<br class="campo-telefonoContacto">
+
+													<label>Fecha Comprometida de Instalación</label>
+													<div class="form-group campo-FechaComprometidaInstalacion">
+														<input name="FechaComprometidaInstalacion" class="form-control date">
+													</div>
+													<br class="campo-FechaComprometidaInstalacion">
 													<label class="campo-estacionReferencia">Estaciones de Referencia</label>
 													<div class="form-group campo-estacionReferencia">
 														<input type="text" name="PosibleEstacion" class="form-control">
