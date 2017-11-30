@@ -232,6 +232,28 @@ $(document).ready(function() {
 			$('[name="Ciudad_update"]').val(value['DataCliente'][0]['ciudad']);
 			$('[name="IdCliente"]').val(value['DataCliente'][0]['id']);
 			$('.selectpicker').selectpicker('refresh');
+
+			if (value['DataContactosExtras'].length > 0) {
+				$('.extraTipoCont').val(value['DataContactosExtras'][0]['TipoContacto']);
+				$('.extraCont').val(value['DataContactosExtras'][0]['Contacto']);
+				if (value['DataContactosExtras'].length > 1) {
+					for (var i = 1; i < value['DataContactosExtras'].length; i++) {
+						$('.contenedorContactosExtras').append('<div class="row">'+
+							'<div class="col-md-5 form-group">'+
+								'<label>Tipo de contacto</label>'+
+								'<input name="extra_TipoContacto[]" class="form-control" value="'+value['DataContactosExtras'][i]['TipoContacto']+'">'+
+							'</div>'+
+							'<div class="col-md-5 form-group">'+
+								'<label>Contacto</label>'+
+								'<input name="extra_Contacto[]" class="form-control" value="'+value['DataContactosExtras'][i]['Contacto']+'">'+
+							'</div>'+
+							'<div class="col-md-2">'+
+								'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampContacto"><i class="glyphicon glyphicon-remove"></i></button>'+
+							'</div>'+
+						'</div>');
+					}
+				}
+			}
 		});
 	});
 
