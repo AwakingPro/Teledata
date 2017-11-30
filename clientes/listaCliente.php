@@ -192,34 +192,6 @@
 	</div>
 </div>
 
-<div class="modal fade" role="dialog" id="extraTelefono">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Telefono Extra</h4>
-			</div>
-			<div class="modal-body container-form-extraTelefono">
-				<div class="row">
-					<div class="col-md-9 form-group">
-					<label>Telefono</label>
-						<input name="extra_telefono[]" class="form-control">
-					</div>
-					<div class="col-md-3">
-						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampTele"><i class="glyphicon glyphicon-plus"></i></button>
-					</div>
-				</div>
-				<div class="contenedorExtraTelefono">
-
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
-		</div>
-	</div>
-</div>
-
 <div class="modal fade" role="dialog" id="extraTelefonoUpdate">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -243,35 +215,6 @@
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" role="dialog" id="extraCorreo">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Correo Extra</h4>
-			</div>
-			<div class="modal-body container-form-extraCorreo">
-				<div class="row">
-					<div class="col-md-9 form-group">
-					<label>Correo</label>
-						<input name="extra_correo[]" class="form-control">
-					</div>
-					<div class="col-md-3">
-						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampCorreo"><i class="glyphicon glyphicon-plus"></i></button>
-					</div>
-				</div>
-				<div class="contenedorExtraCorreo">
-
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
 			</div>
 		</div>
 	</div>
@@ -306,38 +249,6 @@
 	</div>
 </div>
 
-<div class="modal fade" role="dialog" id="extraContactos">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Contacto extra</h4>
-			</div>
-			<div class="modal-body container-form-extraCorreo">
-				<div class="row">
-					<div class="col-md-5 form-group">
-						<label>Tipo de contacto</label>
-						<input name="extra_TipoContacto[]" class="form-control">
-					</div>
-					<div class="col-md-5 form-group">
-						<label>Contacto</label>
-						<input name="extra_Contacto[]" class="form-control">
-					</div>
-					<div class="col-md-2">
-						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampContacto"><i class="glyphicon glyphicon-plus"></i></button>
-					</div>
-				</div>
-				<div class="contenedorContactosExtras">
-
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
-			</div>
-		</div>
-	</div>
-
 <div class="modal fade" role="dialog" id="extraContactosUpdate">
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
@@ -349,23 +260,22 @@
 				<div class="row">
 					<div class="col-md-5 form-group">
 						<label>Tipo de contacto</label>
-						<input name="extra_TipoContacto[]" class="form-control">
+						<input name="extra_TipoContacto[]" class="form-control extraTipoCont">
 					</div>
 					<div class="col-md-5 form-group">
 						<label>Contacto</label>
-						<input name="extra_Contacto[]" class="form-control">
+						<input name="extra_Contacto[]" class="form-control extraCont">
 					</div>
 					<div class="col-md-2">
 						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampContacto"><i class="glyphicon glyphicon-plus"></i></button>
 					</div>
 				</div>
 				<div class="contenedorContactosExtras">
-
 				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
 			</div>
-			</div>
 		</div>
 	</div>
+</div>
