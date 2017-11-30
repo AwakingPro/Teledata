@@ -166,3 +166,7 @@ div.bg-img{
 .sweet-alert button.cancel:hover{
 	background-color: #DD6B55;
 }
+
+.bootstrap-datetimepicker-widget table td.today {
+  	color: red;
+}
