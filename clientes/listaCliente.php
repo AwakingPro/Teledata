@@ -203,7 +203,7 @@
 				<div class="row">
 					<div class="col-md-9 form-group">
 					<label>Telefono</label>
-						<input name="extra_telefono[]" class="form-control">
+						<input name="extra_telefono[]" class="form-control extraTelefono">
 					</div>
 					<div class="col-md-3">
 						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampTele"><i class="glyphicon glyphicon-plus"></i></button>

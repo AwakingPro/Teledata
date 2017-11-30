@@ -218,7 +218,9 @@ $(document).ready(function() {
 		$('.extraCont').val('');
 		$('.contenedorContactosExtras').html('');
 		$('.extraCorreo').val('');
-		$('.contenedorExtraCorreo').html('')
+		$('.contenedorExtraCorreo').html('');
+		$('.extraTelefono').val('');
+		$('.contenedorExtraTelefono').html('');
 
 		$('#editarCliente').modal('show');
 		$.post('../ajax/cliente/dataClienteUpdate.php', {id: $(this).attr('attr')}, function(data) {
@@ -272,6 +274,23 @@ $(document).ready(function() {
 							'</div>'+
 							'<div class="col-md-3">'+
 								'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampCorreo"><i class="glyphicon glyphicon-remove"></i></button>'+
+							'</div>'+
+						'</div>');
+					}
+				}
+			}
+
+			if (value['DataTelefonoExtra'].length > 0) {
+				$('.extraTelefono').val(value['DataTelefonoExtra'][0]['Telefono']);
+				if (value['DataTelefonoExtra'].length > 1) {
+					for (var i = 1; i < value['DataTelefonoExtra'].length; i++) {
+						$('.contenedorExtraTelefono').append('<div class="row">'+
+							'<div class="col-md-9 form-group">'+
+							'<label>Telefono</label>'+
+								'<input name="extra_telefono[]" class="form-control" value="'+value['DataTelefonoExtra'][0]['Telefono']+'">'+
+							'</div>'+
+							'<div class="col-md-3">'+
+								'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampTele"><i class="glyphicon glyphicon-remove"></i></button>'+
 							'</div>'+
 						'</div>');
 					}
