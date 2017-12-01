@@ -11,11 +11,13 @@
 
     	public function showServicios(){
 
-    		$query = 'SELECT servicios.*,
-    			personaempresa.nombre as Cliente,
-    			personaempresa.id as IdPersonaEmpresa,
-    			usuarios.nombre as Usuario
-    		FROM servicios INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut LEFT JOIN usuarios ON servicios.IdUsuarioAsignado = usuarios.id';
+    		$query = '	SELECT servicios.*,
+    					personaempresa.nombre as Cliente,
+    					personaempresa.id as IdPersonaEmpresa,
+    					usuarios.nombre as Usuario
+    					FROM servicios 
+    					INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut 
+    					LEFT JOIN usuarios ON servicios.IdUsuarioAsignado = usuarios.id';
 
             $run = new Method;
             $data = $run->select($query);
@@ -178,7 +180,22 @@
 
 	        if(!empty($FechaInstalacion) && !empty($InstaladoPor)  && !empty($Comentario)  && !empty($UsuarioPppoe) && !empty($EstacionFinal) && !empty($SenalFinal) && !empty($Estatus)){
 
-	        	$FechaInstalacion = DateTime::createFromFormat('d-m-Y', $FechaInstalacion)->format('Y-m-d');
+	        	if($FechaInstalacion){
+	        		$FechaInstalacion = DateTime::createFromFormat('d-m-Y', $FechaInstalacion)->format('Y-m-d');
+	        	}else{
+	        		$FechaInstalacion = '';
+	        	}
+
+	        	$Hoy = new DateTime(); 
+		        $Hoy = $Hoy->format('Y-m-d H:i:s');
+
+	        	if($Estatus == 1){
+	        		if($FechaInstalacion > $Hoy){
+	        			$response_array['status'] = 3;
+	        			echo json_encode($response_array);
+	        			exit;
+	        		}
+	        	}
 
 	            $this->Id=$Id;
 	            $this->FechaInstalacion=$FechaInstalacion;
@@ -209,8 +226,6 @@
 
 			            	$Rut = $Servicio['Rut'];
 		                    $Grupo = $Servicio['Grupo'];
-	                    	$Hoy = new DateTime(); 
-		                    $Hoy = $Hoy->format('Y-m-d H:i:s');
 
 		                    $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('$Rut', '$Grupo', '2', '0', '0', '', '0', '', '$Hoy', '$Hoy')";
 		                    $FacturaId = $run->insert($query);

@@ -215,6 +215,10 @@ $(document).ready(function() {
                         ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Compare"></i>'+'',
                     ]).draw(false).node();
 
+                    $( rowNode )
+                        .attr('id',array.Id)
+                        .addClass('text-center')
+
                 }else if(array.Estatus == 2){
 
                     var rowNode = PendientesTable.row.add([
@@ -225,6 +229,24 @@ $(document).ready(function() {
                         ''+array.Direccion+'',
                         ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
                     ]).draw(false).node();
+
+                    $( rowNode )
+                        .attr('id',array.Id)
+                        .addClass('text-center')
+
+                    var rowNode = AsignadasTable.row.add([
+                        ''+Usuario+'',
+                        ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
+                        ''+array.Codigo+'',
+                        ''+array.Descripcion+'',
+                        ''+array.Direccion+'',
+                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
+                    ]).draw(false).node();
+
+                    $( rowNode )
+                        .attr('id',array.Id)
+                        .addClass('text-center')
+
                 }else if(array.Estatus == 3){
 
                     var rowNode = AsignadasTable.row.add([
@@ -235,6 +257,11 @@ $(document).ready(function() {
                         ''+array.Direccion+'',
                         ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
                     ]).draw(false).node();
+
+                    $( rowNode )
+                        .attr('id',array.Id)
+                        .addClass('text-center')
+
                 }else{
                     
                     if(array.FechaComprometidaInstalacion){
@@ -253,11 +280,12 @@ $(document).ready(function() {
                         ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>'+''
                     ]).draw(false).node();
 
+                    $( rowNode )
+                        .attr('id',array.Id)
+                        .addClass('text-center')
                 }
 
-                $( rowNode )
-                    .attr('id',array.Id)
-                    .addClass('text-center')
+                
             });
 
             $('body').addClass('loaded');
@@ -484,26 +512,29 @@ $(document).ready(function() {
                     timer : 3000
                 });
 
-                Row = $('#'+response.Id)
+                Row = $('#'+response.Id)[0]
                 Usuario = $(Row).find("td").eq(0).html();
                 Cliente = $(Row).find("td").eq(1).html();
                 Codigo = $(Row).find("td").eq(2).html();
                 Descripcion = $(Row).find("td").eq(3).html();
                 Direccion = $(Row).find("td").eq(4).html();
 
-                var nodes = AsignadasTable.rows().nodes()
-
-                if( $(nodes).filter('tr#' + response.Id).length == 1 ) {
-                    AsignadasTable.row(Row)
-                        .remove()
-                        .draw();
-                }else{
-                    PendientesTable.row(Row)
-                        .remove()
-                        .draw();
-                }
-
                 if(response.Estatus == 1){
+
+                    var nodes = AsignadasTable.rows().nodes()
+                    if( $(nodes).filter('tr#' + response.Id).length == 1 ) {
+                        AsignadasTable.row(Row)
+                            .remove()
+                            .draw();
+                    }
+
+                    var nodes = PendientesTable.rows().nodes()
+
+                    if( $(nodes).filter('tr#' + response.Id).length == 1 ) {
+                        PendientesTable.row(Row)
+                            .remove()
+                            .draw();
+                    }
 
                     Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Compare"></i>'
                     
@@ -522,20 +553,25 @@ $(document).ready(function() {
 
                 }else{
 
-                    Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'
+                    var nodes = PendientesTable.rows().nodes()
 
-                    var rowNode = PendientesTable.row.add([
-                        ''+Usuario+'',
-                        ''+Cliente+'',
-                        ''+Codigo+'',
-                        ''+Descripcion+'',
-                        ''+Direccion+'',
-                        ''+Operacion+'',
-                    ]).draw(false).node();
+                    if( $(nodes).filter('tr#' + response.Id).length == 0) {
 
-                    $(rowNode)
-                        .attr('id',response.Id)
-                        .addClass('text-center')
+                        Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'
+
+                        var rowNode = PendientesTable.row.add([
+                            ''+Usuario+'',
+                            ''+Cliente+'',
+                            ''+Codigo+'',
+                            ''+Descripcion+'',
+                            ''+Direccion+'',
+                            ''+Operacion+'',
+                        ]).draw(false).node();
+
+                        $(rowNode)
+                            .attr('id',response.Id)
+                            .addClass('text-center')
+                    }
                 }
 
                 $('#storeTarea')[0].reset();
@@ -547,6 +583,16 @@ $(document).ready(function() {
                     type: 'danger',
                     icon : 'fa fa-check',
                     message : 'Debe llenar todos los campos',
+                    container : 'floating',
+                    timer : 3000
+                });
+
+            }else if(response.status == 3){
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon : 'fa fa-check',
+                    message : 'La fecha de instalación no puede ser mayor a hoy',
                     container : 'floating',
                     timer : 3000
                 });
