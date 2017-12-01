@@ -604,27 +604,41 @@
                                 $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('$Rut', '$Grupo', '3', '1', '$DocumentoId', '$UrlPdf', '$informedSii', '$responseMsgSii', '$Hoy', '$Hoy')";
                                 $FacturaId = $run->insert($query);
 
-                                foreach($Servicios as $Servicio){
+                                if($FacturaId){
 
-                                    $IdServicio = $Servicio['Id'];
-                                    $Concepto = $Servicio['Servicio'];
-                                    $Valor = $Servicio['Valor'];
-                                    $Descuento = $Servicio['Descuento'];
-                                    $TipoMoneda = $Servicio['TipoMoneda'];
+                                    foreach($Servicios as $Servicio){
 
-                                    $query = "INSERT INTO facturas_detalle(FacturaId, Servicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$Concepto', '$Valor', '$Descuento', '$TipoMoneda')";
-                                    $data = $run->insert($query);
+                                        $IdServicio = $Servicio['Id'];
+                                        $Concepto = $Servicio['Servicio'];
+                                        $Valor = $Servicio['Valor'];
+                                        $Descuento = $Servicio['Descuento'];
+                                        $TipoMoneda = $Servicio['TipoMoneda'];
 
-                                    if($data){
-                                        $query = "UPDATE `servicios` set `EstatusFacturacion` = '1' where `Id` = '$IdServicio'";
-                                        $data = $run->update($query);
+                                        $query = "INSERT INTO facturas_detalle(FacturaId, Servicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$Concepto', '$Valor', '$Descuento', '$TipoMoneda')";
+                                        $FacturaDetalleId = $run->insert($query);
+
+                                        if($FacturaDetalleId){
+                                            $query = "UPDATE `servicios` set `EstatusFacturacion` = '1' where `Id` = '$IdServicio'";
+                                            $update = $run->update($query);
+                                        }else{
+                                            $query = "DELETE FROM facturas WHERE Id = '$FacturaId'";
+                                            $delete = $run->delete($query);
+                                            $query = "DELETE FROM facturas_detalle WHERE FacturaId = '$FacturaId'";
+                                            $delete = $run->delete($query);
+                                            $response_array['Message'] = 'Error Detalle';
+                                            $response_array['status'] = 0;
+                                            break;
+                                        }
                                     }
+
+                                    $response_array['UrlPdf'] = $UrlPdf;
+                                    $response_array['status'] = 1; 
+
+                                }else{
+                                    $response_array['Message'] = 'Error Factura';
+                                    $response_array['status'] = 0;
                                 }
                             }
-
-                            $response_array['UrlPdf'] = $UrlPdf;
-                            $response_array['status'] = 1; 
-
                         }else{
                             $response_array['Message'] = $FacturaBsale['error'];
                             $response_array['status'] = 0;
