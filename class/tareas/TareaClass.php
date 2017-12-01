@@ -274,12 +274,12 @@
 						    	$Diasdelmes = cal_days_in_month (CAL_GREGORIAN, $Mes,$Ano);
 
 			                   	if($Dia != $Diasdelmes){
-
-					    			$Diasporfacturar = $Diasdelmes - $Dia;
 					    			
 					    			if($Dia == 1){
+					    				$Diasporfacturar = $Diasdelmes;
 										$Concepto .= ' - Mes ' . $MesFacturacion;
 					    			}else{
+					    				$Diasporfacturar = $Diasdelmes - $Dia;
 					    				$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dia)';
 					    			}
 					    		}else{
