@@ -308,7 +308,7 @@
                 $UF = 1;
             }
 
-            $query = "  SELECT    facturas_detalle.*, servicios.Codigo, mantenedor_servicios.servicio as Nombre
+            $query = "  SELECT    facturas_detalle.*
                         FROM facturas_detalle 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                         INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
@@ -615,7 +615,7 @@
                                         }else{
                                             $Concepto = 'Costo de instalación / Habilitación';
                                         }
-                                        
+
                                         $Valor = $Servicio['Valor'];
                                         $Descuento = $Servicio['Descuento'];
                                         $TipoMoneda = $Servicio['TipoMoneda'];

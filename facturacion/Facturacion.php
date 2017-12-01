@@ -32,7 +32,6 @@
                                     <table id="ModalTable" class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">Código</th>
                                                 <th class="text-center">Nombre</th>
                                                 <th class="text-center">Descripción</th>
                                                 <th class="text-center">Monto UF</th>
