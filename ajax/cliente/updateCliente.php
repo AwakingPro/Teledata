@@ -20,5 +20,36 @@
 	$query = "UPDATE personaempresa SET alias='$Alias', CodigoCliente = '$CodigoCliente',  rut = '$Rut', dv = '$Dv', nombre = '$Nombre', giro = '$Giro', direccion = '$DireccionComercial', correo = '$Correo', contacto = '$Contacto', comentario = '$Comentario', telefono = '$Telefono', tipo_cliente = '$TipoCliente', comuna = '$Comuna', ciudad = '$Ciudad' WHERE id = '$IdCliente'";
 	$run = new Method;
 	$data = $run->update($query);
+
+	if (count($_POST['extra_telefono']) > 0) {
+				for ($i=0; $i < count($_POST['extra_telefono']); $i++) {
+					if ($_POST['extra_telefono'][$i] != "") {
+						 $query = "INSERT INTO telefono_extra (IdUsuario, Telefono) VALUES ('".$id."', '".$_POST['extra_telefono'][$i]."')";
+						$data = $run->insert($query);
+					}
+
+				}
+			}
+
+			if (count($_POST['extra_correo']) > 0) {
+				for ($i=0; $i < count($_POST['extra_correo']); $i++) {
+					if ($_POST['extra_correo'][$i] != "") {
+						 $query = "INSERT INTO correo_extra (IdUsuario, Correo) VALUES ('".$id."', '".$_POST['extra_correo'][$i]."')";
+						$data = $run->insert($query);
+					}
+
+				}
+			}
+
+			if (count($_POST['extra_TipoContacto']) > 0) {
+				for ($i=0; $i < count($_POST['extra_TipoContacto']); $i++) {
+					if ($_POST['extra_TipoContacto'][$i] != "") {
+						$query = "INSERT INTO contactos_extras (IdCliente, TipoContacto, Contacto) VALUES ('".$id."', '".$_POST['extra_TipoContacto'][$i]."', '".$_POST['extra_Contacto'][$i]."');";
+						$data = $run->insert($query);
+					}
+
+				}
+			}
+
 	echo $data;
  ?>
