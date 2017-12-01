@@ -19,7 +19,6 @@ $(document).ready(function() {
 
 	$(document).on('click', '.guardarCliente', function() {
 		$.postFormValues('../ajax/cliente/insertCliente.php','.form-cont1, .container-form-extraTelefono, .container-form-extraCorreo',function(data){
-			console.log(data);
 			if (Number(data) > 0){
 				$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
 					var count = $('.listaCliente > .tabeData tr th').length -1;
@@ -35,7 +34,6 @@ $(document).ready(function() {
 				$('.selectpicker').selectpicker('refresh')
 			}else{
 				console.log(data);
-
 				if(data != "Dv"){
 					bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
 				}else{

@@ -26,7 +26,6 @@ $(document).ready(function() {
 
 	$.post('../ajax/bienvenida/porcentajesTickes.php', function(data) {
 		value = $.parseJSON(data);
-		console.log(value);
 		$('.porcAbiertos').css('width', value[0]+'%');
 		$('.porcAbiertosTxt').html(value[0]+'%');
 
