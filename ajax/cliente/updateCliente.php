@@ -21,6 +21,8 @@
 	$run = new Method;
 	$data = $run->update($query);
 
+	echo $data;
+
 	if (count($_POST['extra_telefono']) > 0) {
 		$run->delete("DELETE FROM telefono_extra WHERE IdUsuario = '$IdCliente'");
 		for ($i=0; $i < count($_POST['extra_telefono']); $i++) {
@@ -54,5 +56,5 @@
 		}
 	}
 
-	echo $data;
+
  ?>
