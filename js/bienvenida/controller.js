@@ -26,7 +26,6 @@ $(document).ready(function() {
 
 	$.post('../ajax/bienvenida/porcentajesTickes.php', function(data) {
 		value = $.parseJSON(data);
-		console.log(value);
 		$('.porcAbiertos').css('width', value[0]+'%');
 		$('.porcAbiertosTxt').html(value[0]+'%');
 
@@ -41,10 +40,12 @@ $(document).ready(function() {
 	$('.nameUser').html($('.username ').html());
 	$('.imgUser').html('<img class="panel-media-img img-circle img-border-light" src="'+$('.img-user').attr('src')+'" alt="Profile Picture">');
 
+	$('.listaCliente').html('<div class="spinner loading"></div>');
 	$('.listaCliente').load('../ajax/bienvenida/listaCliente.php',function(){
 		$('.listaCliente > .tabeData').dataTable();
 	});
 
+	$('.listaServicio').html('<div class="spinner loading"></div>');
 	$('.listaServicio').load('../ajax/bienvenida/listaServicio.php',function(){
 		$('.listaServicio > .tabeData').dataTable();
 	});

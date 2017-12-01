@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+	$('.listGrupo').html('<div class="spinner loading"></div>');
 	$('.listGrupo').load('../ajax/grupo/listaGrupo.php',function(){
 		var count = $('.listGrupo > .tabeData tr th').length -1;
 		$('.listGrupo > .tabeData').dataTable({

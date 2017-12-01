@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+	$('.listTipoCobro').html('<div class="spinner loading"></div>');
 	$('.listTipoCobro').load('../ajax/TipoCobroServicio/listaCobroServicio.php',function(){
 		var count = $('.listTipoCobro > .tabeData tr th').length -1;
 		$('.listTipoCobro > .tabeData').dataTable({
@@ -43,7 +45,6 @@ $(document).ready(function() {
 
 	$(document).on('click', '.agregarTipoFacturacion', function() {
 		$.postFormValues('../ajax/servicios/insertTipoFacturacion.php','.containerTipoFactura',function(data){
-			console.log(data);
 			if (Number(data) > 0){
 				$('.listTipoCobro').load('../ajax/TipoCobroServicio/listaCobroServicio.php',function(){
 					var count = $('.listTipoCobro > .tabeData tr th').length -1;

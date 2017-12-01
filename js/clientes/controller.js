@@ -6,6 +6,7 @@ $(document).ready(function() {
 		$('select[name="rutCliente"]').selectpicker();
 	});
 
+	$('.listaCliente').html('<div class="spinner loading"></div>');
 	$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
 		var count = $('.listaCliente > .tabeData tr th').length -1;
 		$('.listaCliente > .tabeData').dataTable({
@@ -18,7 +19,6 @@ $(document).ready(function() {
 
 	$(document).on('click', '.guardarCliente', function() {
 		$.postFormValues('../ajax/cliente/insertCliente.php','.form-cont1, .container-form-extraTelefono, .container-form-extraCorreo',function(data){
-			console.log(data);
 			if (Number(data) > 0){
 				$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
 					var count = $('.listaCliente > .tabeData tr th').length -1;
@@ -34,7 +34,6 @@ $(document).ready(function() {
 				$('.selectpicker').selectpicker('refresh')
 			}else{
 				console.log(data);
-
 				if(data != "Dv"){
 					bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
 				}else{
@@ -133,10 +132,8 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.guardarDatosTecnicos', function() {
-		console.log('entre');
 		var url = $('.container-form-datosTecnicos').attr('attr');
 		$.postFormValues('../ajax/cliente/'+url,'.container-form-datosTecnicos',function(data){
-			console.log(data);
 			if (Number(data) > 0){
 				$('.modal').modal('hide')
 				bootbox.alert('<h3 class="text-center">Los datos se registraron con éxito.</h3>');
@@ -518,8 +515,6 @@ $(document).ready(function() {
 		origen_tipo = 1
 		origen_id = $(this).val();
 
-		console.log(origen_tipo + '  ' +origen_id);
-
 		if(origen_id){
 
 			$.ajax({
@@ -527,7 +522,6 @@ $(document).ready(function() {
 					url: "../includes/inventario/egresos/getProducto.php",
 					data:"&origen_tipo="+origen_tipo+"&origen_id="+origen_id,
 					success: function(response){
-							console.log(response);
 							$.each(response.array, function( index, array ) {
 									$('#producto_id').append('<option value="'+array.id+'" data-content="'+array.tipo + ' ' + array.marca + ' ' + array.modelo+ ' - ' + array.numero_serie+'"></option>');
 							});

@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+	$('.listaUsuarios').html('<div class="spinner loading"></div>');
 	$('.listaUsuarios').load('../ajax/registroUsuario/listaUSuarios.php',function(){
 		var count = $('.listaUsuarios > .tabeData tr th').length -1;
 		$('.listaUsuarios > .tabeData').dataTable({

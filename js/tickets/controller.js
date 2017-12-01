@@ -23,14 +23,13 @@ $.post('../ajax/privilegios.php', function(data) {
 		});
 
 		$(document).on('change', '[name="Cliente"], [name="ClienteUpdate"]', function() {
-			console.log($(this).selectpicker('val'));
 			$.post('../ajax/tickets/listServicios.php',{id:$(this).selectpicker('val')},function(data){
-				console.log(data);
 				$('[name="Servicio"], [name="ServicioUpdate"]').html(data);
 				$('[name="Servicio"], [name="ServicioUpdate"]').selectpicker('refresh');
 			});
 		});
 
+		$('.listaPrioridad').html('<div class="spinner loading"></div>');
 		$('.listaPrioridad').load('../ajax/tickets/listPrioridad.php',function(){
 			var count = $('.listaPrioridad > .tabeData tr th').length -1;
 			$('.listaPrioridad > .tabeData').dataTable({
@@ -40,6 +39,8 @@ $.post('../ajax/privilegios.php', function(data) {
 				}, ]
 			});
 		});
+
+		$('.listaAbiertos').html('<div class="spinner loading"></div>');
 		$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
 			var count = $('.listaAbiertos > .tabeData tr th').length -1;
 			$('.listaAbiertos > .tabeData').dataTable({
@@ -50,6 +51,7 @@ $.post('../ajax/privilegios.php', function(data) {
 			});
 		});
 
+		$('.listaFinalizados').html('<div class="spinner loading"></div>');
 		$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
 			var count = $('.listaFinalizados > .tabeData tr th').length -1;
 			$('.listaFinalizados > .tabeData').dataTable({
@@ -60,6 +62,7 @@ $.post('../ajax/privilegios.php', function(data) {
 			});
 		});
 
+		$('.listaIncumplidos').html('<div class="spinner loading"></div>');
 		$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
 			var count = $('.listaIncumplidos > .tabeData tr th').length -1;
 			$('.listaIncumplidos > .tabeData').dataTable({
@@ -69,6 +72,8 @@ $.post('../ajax/privilegios.php', function(data) {
 				}, ]
 			});
 		});
+
+		$('.listaAsignados').html('<div class="spinner loading"></div>');
 		$('.listaAsignados').load('../ajax/tickets/listAsignados.php',function(){
 			var count = $('.listaAsignados > .tabeData tr th').length -1;
 			$('.listaAsignados > .tabeData').dataTable({
@@ -79,6 +84,7 @@ $.post('../ajax/privilegios.php', function(data) {
 			});
 		});
 
+		$('.listaTipoTicket').html('<div class="spinner loading"></div>');
 		$('.listaTipoTicket').load('../ajax/tickets/listTipoTicket.php',function(){
 			var count = $('.listaTipoTicket > .tabeData tr th').length -1;
 			$('.listaTipoTicket > .tabeData').dataTable({
@@ -89,6 +95,7 @@ $.post('../ajax/privilegios.php', function(data) {
 			});
 		});
 
+		$('.listaSubTipoTicket').html('<div class="spinner loading"></div>');
 		$('.listaSubTipoTicket').load('../ajax/tickets/listSubTipoTicket.php',function(){
 			var count = $('.listaSubTipoTicket > .tabeData tr th').length -1;
 			$('.listaSubTipoTicket > .tabeData').dataTable({
@@ -459,7 +466,6 @@ $.post('../ajax/privilegios.php', function(data) {
 			var id = $(this).attr('attr');
 			$('#actualizarTikect').modal('show');
 			$.post('../ajax/tickets/dataUpdateTickets.php', {id:id}, function(data) {
-				console.log(data);
 				value = $.parseJSON(data);
 				$('[name="idUpdateTicket"]').val(value[0][0])
 				$('[name="ClienteUpdate"]').selectpicker('val',value[0][1]);
