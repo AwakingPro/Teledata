@@ -237,10 +237,10 @@ $(document).ready(function() {
                     ]).draw(false).node();
                 }else{
                     
-                    if(array.FechaInstalacion){
-                        FechaInstalacion = moment(array.fecha_compra).format('DD-MM-YYYY');
+                    if(array.FechaComprometidaInstalacion){
+                        FechaComprometidaInstalacion = moment(array.FechaComprometidaInstalacion).format('DD-MM-YYYY');
                     }else{
-                        FechaInstalacion = ''
+                        FechaComprometidaInstalacion = ''
                     }
                     
                     var rowNode = PorHacerTable.row.add([
@@ -249,7 +249,7 @@ $(document).ready(function() {
                         ''+array.Codigo+'',
                         ''+array.Descripcion+'',
                         ''+array.Direccion+'',
-                        ''+FechaInstalacion+'',
+                        ''+FechaComprometidaInstalacion+'',
                         ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>'+''
                     ]).draw(false).node();
 
@@ -438,11 +438,25 @@ $(document).ready(function() {
 
                 if(response){
 
+                    if(response.array.FechaInstalacion){
+                        FechaInstalacion = moment(response.array.FechaInstalacion).format('DD-MM-YYYY');
+                    }else{
+                        FechaInstalacion = ''
+                    }
+
+                    $('#modalTarea').find('input[name="FechaInstalacion"]').val(FechaInstalacion)
+                    $('#modalTarea').find('select[name="InstaladoPor"]').val(response.array.InstaladoPor)
+                    $('#modalTarea').find('input[name="UsuarioPppoe"]').val(response.array.UsuarioPppoe)
                     $('#modalTarea').find('input[name="UsuarioPppoeTeorico"]').val(response.array.UsuarioPppoe)
                     $('#modalTarea').find('input[name="SenalTeorica"]').val(response.array.SenalTeorica)
+                    $('#modalTarea').find('input[name="SenalFinal"]').val(response.array.SenalFinal)
                     $('#modalTarea').find('input[name="PosibleEstacion"]').val(response.array.PosibleEstacion)
+                    $('#modalTarea').find('input[name="EstacionFinal"]').val(response.array.EstacionFinal)
+                    $('#modalTarea').find('textarea[name="Comentario"]').text(response.array.Comentario)
+
                 }
 
+                $('.selectpicker').selectpicker('refresh')
                 $('body').addClass('loaded');
                 $('#modalTarea').modal('show');
 

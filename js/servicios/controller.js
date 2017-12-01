@@ -197,6 +197,12 @@ $(document).ready(function() {
             }else{
             	bootbox.alert('<h3 class="text-center">El servicio #' + servicio_id + ' se registro con éxito.</h3>');
             }
+
+            $('#formServicio')[0].reset();
+			$('.selectpicker').selectpicker('refresh')
+			$('#divCostoInstalacion').show()
+			$('.selectpicker').selectpicker('refresh')
+
         });
 	};
 
@@ -259,20 +265,21 @@ $(document).ready(function() {
 											}
 										});
 									});
+
 									swal.close()
+
 								});
 				            }
 				        ]
 				    });
 				}else{
 					bootbox.alert('<h3 class="text-center">El servicio #' + servicio_id + ' se registro con éxito.</h3>');
+					$('#formServicio')[0].reset();
+					$('.selectpicker').selectpicker('refresh')
+					$('#divCostoInstalacion').show()
+					$('#Rut').val(Rut)
+					$('.selectpicker').selectpicker('refresh')
 				}
-
-				$('#formServicio')[0].reset();
-				$('.selectpicker').selectpicker('refresh')
-				$('#divCostoInstalacion').show()
-				$('#Rut').val(Rut)
-				$('.selectpicker').selectpicker('refresh')
 
 			} else {
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');

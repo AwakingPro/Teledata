@@ -507,11 +507,11 @@
 
                             if($Tipo == 2){
 
-                                $Concepto = $Servicio["Servicio"];
+                                $Concepto = $Servicio["Servicio"] . ' - ' . $Servicio["Descuento"].'% Descuento';
 
                             }else{
                                 if($Valor > 0){
-                                    $Concepto = 'Costo de instalación / Habilitación';
+                                    $Concepto = 'Costo de instalación / Habilitación'. ' - ' . $Servicio["Descuento"].'% Descuento';
                                 }else{
                                     continue;
                                 }

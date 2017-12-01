@@ -250,8 +250,7 @@ $(document).ready(function(){
 
                         if(response.status == 1){
 
-                            $(ObjectMe).after('<a href="'+response.UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>');
-                            $(ObjectMe).remove();
+                            $(ObjectMe).closest('td').html('<a href="'+response.UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>')
 
                             $('[data-toggle="popover"]').popover();
 
