@@ -87,17 +87,9 @@ $(document).ready(function() {
 	$('[name="Valor"]').number(true, 2, ',', '.');
 	$('[name="Descuento"]').number(true, 0, '.', '');
 	$('[name="CostoInstalacion"]').number(true, 2, ',', '.');
-	$('.selectpicker').selectpicker();
 
 	$('select[name="Rut"]').load('../ajax/servicios/selectClientes.php', function() {
-		$('select[name="Rut"]').selectpicker();
-	});
-
-	$('body').on('focus',".date", function(){
-		$('.date').datetimepicker({
-	        locale: 'es',
-	        format: 'DD-MM-YYYY'
-	    });
+		$('select[name="Rut"]').selectpicker('refresh');
 	});
 
 	$('select[name="TipoServicio"]').change(function(event) {
@@ -155,14 +147,21 @@ $(document).ready(function() {
 	});
 
 	$('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
-		$('select[name="TipoFactura"]').selectpicker();
+		$('select[name="TipoFactura"]').selectpicker('refresh');
 	});
 	$('select[name="TipoServicio"]').load('../ajax/servicios/selectTipoServicio.php', function() {
-		$('select[name="TipoServicio"]').selectpicker();
+		$('select[name="TipoServicio"]').selectpicker('refresh');
 	});
 
 	$('select[name="Grupo"]').load('../ajax/servicios/listGrupo.php', function() {
 		$('select[name="Grupo"]').selectpicker('refresh');
+	});
+
+	$('body').on('focus',".date", function(){
+		$('.date').datetimepicker({
+	        locale: 'es',
+	        format: 'DD-MM-YYYY'
+	    });
 	});
 
 	var swalFunction = function(){ 
@@ -220,7 +219,48 @@ $(document).ready(function() {
 				        buttonNames: ["Cancelar"],
 				        clickFunctionList: [
 				            function() {
-				                swal.close()
+				            	$.post('../ajax/cliente/eliminarServicio.php', {
+									id: servicio_id
+								}, function(data) {	
+									$.post('../ajax/cliente/dataCliente.php', {
+										rut: Rut
+									}, function(data) {
+										values = $.parseJSON(data);
+										$('.dataServicios').html(values[1]);
+										var count = $('.dataServicios > .tabeData tr th').length - 1;
+										$('.dataServicios > .tabeData').dataTable({
+											"scrollX": true,
+											"columnDefs": [{
+												'orderable': false,
+												'targets': [count]
+											}, ],
+											language: {
+												processing: "Procesando ...",
+												search: '<div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>',
+												searchPlaceholder: "BUSCAR",
+												lengthMenu: "Mostrar _MENU_ Registros",
+												info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+												infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+												infoFiltered: "(filtrada de _MAX_ registros en total)",
+												infoPostFix: "",
+												loadingRecords: "...",
+												zeroRecords: "No se encontraron registros coincidentes",
+												emptyTable: "No hay servicios",
+												paginate: {
+													first: "Primero",
+													previous: "Anterior",
+													next: "Siguiente",
+													last: "Ultimo"
+												},
+												aria: {
+													sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+													sortDescending: ": habilitado para ordenar la columna en orden descendente"
+												}
+											}
+										});
+									});
+									swal.close()
+								});
 				            }
 				        ]
 				    });
@@ -230,7 +270,9 @@ $(document).ready(function() {
 
 				$('#formServicio')[0].reset();
 				$('.selectpicker').selectpicker('refresh')
+				$('#divCostoInstalacion').show()
 				$('#Rut').val(Rut)
+				$('.selectpicker').selectpicker('refresh')
 
 			} else {
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
@@ -273,7 +315,6 @@ $(document).ready(function() {
 					}
 				});
 			});
-
 		});
 	});
 
@@ -408,7 +449,7 @@ $(document).ready(function() {
 			$('.containerTipoServicio').load('../clientesServicios/viewTipoServicio/' + data, function() {
 				$('[name="idServicio"]').val(id);
 				$('#destino_id').val(id)
-				$('select').selectpicker();
+				$('.selectpicker').selectpicker();
 				if (data.trim() == 'arriendoEquipos.php') {
 
 					$.ajax({
@@ -510,8 +551,6 @@ $(document).ready(function() {
 
 		origen_tipo = 1
 		origen_id = $(this).val();
-
-		console.log(origen_tipo + '  ' + origen_id);
 
 		if (origen_id) {
 
