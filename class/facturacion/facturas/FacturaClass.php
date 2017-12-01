@@ -508,17 +508,17 @@
 
                             if($Tipo == 2){
 
-                                $Nombre = $Servicio["Servicio"];
+                                $Concepto = $Servicio["Servicio"];
 
                             }else{
                                 if($Valor > 0){
-                                    $Nombre = 'Costo de instalación / Habilitación';
+                                    $Concepto = 'Costo de instalación / Habilitación';
                                 }else{
                                     continue;
                                 }
                             }
 
-                            $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Nombre, "discount" => floatval($Servicio["Descuento"]));
+                            $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Concepto, "discount" => floatval($Servicio["Descuento"]));
 
                             array_push($details,$detail);
                         }
@@ -609,7 +609,13 @@
                                     foreach($Servicios as $Servicio){
 
                                         $IdServicio = $Servicio['Id'];
-                                        $Concepto = $Servicio['Servicio'];
+
+                                        if($Tipo == 2){
+                                            $Concepto = $Servicio['Servicio'];
+                                        }else{
+                                            $Concepto = 'Costo de instalación / Habilitación';
+                                        }
+                                        
                                         $Valor = $Servicio['Valor'];
                                         $Descuento = $Servicio['Descuento'];
                                         $TipoMoneda = $Servicio['TipoMoneda'];
