@@ -7,7 +7,9 @@
 	TipoOperacion,
 	log_query.Query
 	FROM
-	log_query";
+	log_query
+	ORDER BY Fecha DESC
+	LIMIT 5000";
 	$run = new Method;
 	$lista = $run->listViewSingle($query);
 	echo $lista;
