@@ -44,9 +44,10 @@
 	}
 
 	if (count($_POST['extra_TipoContacto']) > 0) {
+		$run->delete("DELETE FROM contactos_extras WHERE IdCliente = '$IdCliente'");
 		for ($i=0; $i < count($_POST['extra_TipoContacto']); $i++) {
 			if ($_POST['extra_TipoContacto'][$i] != "") {
-				$query = "INSERT INTO contactos_extras (IdCliente, TipoContacto, Contacto) VALUES ('".$id."', '".$_POST['extra_TipoContacto'][$i]."', '".$_POST['extra_Contacto'][$i]."');";
+				$query = "INSERT INTO contactos_extras (IdCliente, TipoContacto, Contacto) VALUES ('".$IdCliente."', '".$_POST['extra_TipoContacto'][$i]."', '".$_POST['extra_Contacto'][$i]."');";
 				$data = $run->insert($query);
 			}
 
