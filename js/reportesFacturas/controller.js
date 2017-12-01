@@ -14,6 +14,7 @@ $(document).ready(function() {
 
 	});
 
+	$('.listaFActurasClientes').html('<div class="spinner loading"></div>');
 	$('.listaFActurasClientes').load('../ajax/reportesFacturas/reporteFacturasClientes.php', function(){
 		$('.listaFActurasClientes > .tabeData').dataTable({
 			"columnDefs": [{
