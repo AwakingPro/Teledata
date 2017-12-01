@@ -41,11 +41,10 @@
 									<div class="panel-body container-form">
 										<div class="row" >
 											<form id="formServicio">
-												<input type="hidden" id="FacturarSinInstalacion" name="FacturarSinInstalacion">
 												<div class="col-md-12 form-group">
 													<label class="campo-cliente" >Cliente</label>
 													<div class="input-group campo-cliente">
-														<select id="Rut" name="Rut" class="form-control" data-live-search="true" validation="not_null" data-nombre="Cliente">
+														<select id="Rut" name="Rut" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Cliente">
 															<option value="">Seleccione...</option>
 														</select>
 														<span class="input-group-btn">
@@ -68,7 +67,7 @@
 													<br>
 													<label class="campo-cobreServicio">Tipo de Cobro de servicio mensual</label>
 													<div class="input-group campo-cobreServicio">
-														<select id ="TipoFactura" name="TipoFactura" class="form-control" data-live-search="true" validation="not_null" data-nombre="Tipo de Cobro">
+														<select id ="TipoFactura" name="TipoFactura" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Tipo de Cobro">
 															<option value="">Seleccione...</option>
 														</select>
 														<span class="input-group-btn">
@@ -86,7 +85,7 @@
 													<br><br>
 													<div class="campo-servicio">
 														<label >Servicio</label>
-														<select name="TipoServicio" id="TipoServicio" class="form-control" data-live-search="true" validation="not_null" data-nombre="Servicio">
+														<select name="TipoServicio" id="TipoServicio" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Servicio">
 															<option value="">Seleccione...</option>
 														</select>
 													</div>
@@ -179,37 +178,37 @@
 														<input type="text" name="SenalTeorica" class="form-control">
 													</div>
 													<br class="campo-equipamiento">
-													<div id="divBooleanCostoInstalacion">
-														<label class="campo-señalTeorica">Facturación Costo de instalación / Habilitación</label>
-														<div class="form-group campo-señalTeorica">
-															<select id="BooleanCostoInstalacion" name="BooleanCostoInstalacion" class="form-control selectpicker">
-																<option value="1">Si</option>
-																<option value="0">No</option>
-															</select>
-														</div>
 
-														<br>
-
-														<div id="divCostoInstalacion">
-															<label>Costo de instalación / Habilitación</label>
-															<div class="input-group">
-																<input type="text" name="CostoInstalacion" class="form-control" validation="not_null" data-nombre="Costo de Instalacion">
-																<span class="input-group-addon" style="padding: 0px; border: 0px solid">
-																	<select name="CostoInstalacionTipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
-																		<option value="UF">UF</option>
-																		<option value="Pesos">Pesos</option>
-																	</select>
-																</span>
-															</div>
-															<br>
-															<label>Descuento Instalación</label>
-															<div class="input-group">
-																<input type="text" name="CostoInstalacionDescuento" class="form-control" min="0" max="100" step="1">
-																<span class="input-group-addon">%</span>
-															</div>
-															<br>
-														</div>
+													<label class="campo-señalTeorica">Facturación Costo de instalación / Habilitación</label>
+													<div class="form-group campo-señalTeorica">
+														<select id="BooleanCostoInstalacion" name="BooleanCostoInstalacion" class="form-control selectpicker">
+															<option value="1">Si</option>
+															<option value="0">No</option>
+														</select>
 													</div>
+
+													<br>
+
+													<div id="divCostoInstalacion">
+														<label>Costo de instalación / Habilitación</label>
+														<div class="input-group">
+															<input type="text" name="CostoInstalacion" class="form-control" validation="not_null" data-nombre="Costo de Instalacion">
+															<span class="input-group-addon" style="padding: 0px; border: 0px solid">
+																<select name="CostoInstalacionTipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
+																	<option value="UF">UF</option>
+																	<option value="Pesos">Pesos</option>
+																</select>
+															</span>
+														</div>
+														<br>
+														<label>Descuento Instalación</label>
+														<div class="input-group">
+															<input type="text" name="CostoInstalacionDescuento" class="form-control" min="0" max="100" step="1">
+															<span class="input-group-addon">%</span>
+														</div>
+														<br>
+													</div>
+								
 
 													<div class="containerTipoServicioFormulario"></div>
 

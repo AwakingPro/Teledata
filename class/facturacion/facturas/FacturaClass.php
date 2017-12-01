@@ -308,7 +308,7 @@
                 $UF = 1;
             }
 
-            $query = "  SELECT    facturas_detalle.*
+            $query = "  SELECT  *
                         FROM facturas_detalle 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                         INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
@@ -346,7 +346,6 @@
                         $data[$Index]['ValorUF'] = $ValorTotal;
 
                     }
-
                 }
 
                 $response_array['array'] = $data;
