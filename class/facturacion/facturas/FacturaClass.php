@@ -607,11 +607,12 @@
                                 foreach($Servicios as $Servicio){
 
                                     $IdServicio = $Servicio['Id'];
+                                    $Concepto = $Servicio['Servicio'];
                                     $Valor = $Servicio['Valor'];
                                     $Descuento = $Servicio['Descuento'];
                                     $TipoMoneda = $Servicio['TipoMoneda'];
 
-                                    $query = "INSERT INTO facturas_detalle(FacturaId, IdServicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$IdServicio', '$Valor', '$Descuento', '$TipoMoneda')";
+                                    $query = "INSERT INTO facturas_detalle(FacturaId, Servicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$Concepto', '$Valor', '$Descuento', '$TipoMoneda')";
                                     $data = $run->insert($query);
 
                                     if($data){
