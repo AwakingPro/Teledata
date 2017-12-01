@@ -164,7 +164,7 @@ $(document).ready(function() {
 	    });
 	});
 
-	var swalFunction = function(){ 
+	var swalFunction = function(){
         swal({
             title: "Desea cobrar de inmediato el costo de instalacion?",
             text: "Confirmar facturación!",
@@ -227,7 +227,7 @@ $(document).ready(function() {
 				            function() {
 				            	$.post('../ajax/cliente/eliminarServicio.php', {
 									id: servicio_id
-								}, function(data) {	
+								}, function(data) {
 									$.post('../ajax/cliente/dataCliente.php', {
 										rut: Rut
 									}, function(data) {
