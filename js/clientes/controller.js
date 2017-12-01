@@ -6,6 +6,7 @@ $(document).ready(function() {
 		$('select[name="rutCliente"]').selectpicker();
 	});
 
+	$('.listaCliente').html('<div class="spinner loading"></div>');
 	$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
 		var count = $('.listaCliente > .tabeData tr th').length -1;
 		$('.listaCliente > .tabeData').dataTable({
