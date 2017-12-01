@@ -23,9 +23,7 @@ $.post('../ajax/privilegios.php', function(data) {
 		});
 
 		$(document).on('change', '[name="Cliente"], [name="ClienteUpdate"]', function() {
-			console.log($(this).selectpicker('val'));
 			$.post('../ajax/tickets/listServicios.php',{id:$(this).selectpicker('val')},function(data){
-				console.log(data);
 				$('[name="Servicio"], [name="ServicioUpdate"]').html(data);
 				$('[name="Servicio"], [name="ServicioUpdate"]').selectpicker('refresh');
 			});
@@ -468,7 +466,6 @@ $.post('../ajax/privilegios.php', function(data) {
 			var id = $(this).attr('attr');
 			$('#actualizarTikect').modal('show');
 			$.post('../ajax/tickets/dataUpdateTickets.php', {id:id}, function(data) {
-				console.log(data);
 				value = $.parseJSON(data);
 				$('[name="idUpdateTicket"]').val(value[0][0])
 				$('[name="ClienteUpdate"]').selectpicker('val',value[0][1]);

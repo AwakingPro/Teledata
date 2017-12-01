@@ -2,7 +2,6 @@ $(document).ready(function() {
 
 	$.post('../ajax/perfil/dataUser.php',  function(data) {
 		value = $.parseJSON(data);
-		console.log(value);
 		$('[name="Usuario"]').val(value[0][1])
 		$('[name="Nombre"]').val(value[0][2])
 		$('[name="Correo"]').val(value[0][3])
@@ -121,7 +120,6 @@ $(document).ready(function() {
 				processData: false,
 				contentType: false,
 				success: function(e) {
-					console.log(e);
 					if (Number(e) == 1) {
 						bootbox.alert('<h3 class="text-center">La Contraseña fue cambiada con exito.</h3>');
 					}else{
