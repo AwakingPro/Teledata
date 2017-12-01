@@ -300,7 +300,7 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.actualizarCliente', function() {
-		$.postFormValues('../ajax/cliente/updateCliente.php','.container-form-update',function(data){
+		$.postFormValues('../ajax/cliente/updateCliente.php','.container-form-update,container-form-extraTelefono,container-form-extraCorreo,container-form-extraContactos',function(data){
 			$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
 				var count = $('.listaCliente > .tabeData tr th').length -1;
 				$('.listaCliente > .tabeData').dataTable({

@@ -14,7 +14,7 @@
 	}else{
 		$Dv = '';
 	}
-	
+
 	$Nombre = isset($_POST['Nombre']) ? trim($_POST['Nombre']) : "";
 	$Giro = isset($_POST['Giro']) ? trim($_POST['Giro']) : "";
 	$DireccionComercial = isset($_POST['DireccionComercial']) ? trim($_POST['DireccionComercial']) : "";
@@ -26,7 +26,7 @@
 	$TipoCliente = isset($_POST['TipoCliente']) ? trim($_POST['TipoCliente']) : "";
 	$Comuna = isset($_POST['Comuna']) ? trim($_POST['Comuna']) : "";
 	$Ciudad = isset($_POST['Ciudad']) ? trim($_POST['Ciudad']) : "";
-	
+
 	if($Dv){
 
 		$query = "INSERT INTO personaempresa

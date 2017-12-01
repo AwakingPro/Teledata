@@ -256,7 +256,7 @@
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				<h4 class="modal-title">Contacto extra</h4>
 			</div>
-			<div class="modal-body container-form-extraCorreo">
+			<div class="modal-body container-form-extraContactos">
 				<div class="row">
 					<div class="col-md-5 form-group">
 						<label>Tipo de contacto</label>
