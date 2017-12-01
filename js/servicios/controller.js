@@ -10,10 +10,10 @@ $(document).ready(function() {
 
 	function initialize() {
 
-		center = new google.maps.LatLng(0, 0);
+		center = new google.maps.LatLng(-41.3214705, -73.0138898);
 
 		mapOptions = {
-			zoom: 20,
+			zoom: 13,
 			center: center,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
@@ -411,8 +411,18 @@ $(document).ready(function() {
 				tipo_cliente = split[2].trim()
 
 				if(tipo_cliente == "Boleta"){
+
 					$("#TipoFactura option[value='BSMI']").remove();
+
+					if($("#TipoFactura option[value='FSMI']").length == 0){
+						$("#TipoFactura").append('<option value="FSMI">FSMI - Factura servicio mensual</option>');
+						$("#TipoFactura").append('<option value="FSMIOC">FSMIOC - Factura servicio Mensual Orden de Compra</option>');
+					}
 				}else{
+
+					$("#TipoFactura option[value='FSMI']").remove();
+					$("#TipoFactura option[value='FSMIOC']").remove();
+
 					if($("#TipoFactura option[value='BSMI']").length == 0){
 						$("#TipoFactura").append('<option value="BSMI">BSMI - Boleta Servicio Mensual Individual</option>');
 					}
