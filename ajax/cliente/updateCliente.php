@@ -33,9 +33,10 @@
 	}
 
 	if (count($_POST['extra_correo']) > 0) {
+		$run->delete("DELETE FROM correo_extra WHERE IdUsuario = '$IdCliente'");
 		for ($i=0; $i < count($_POST['extra_correo']); $i++) {
 			if ($_POST['extra_correo'][$i] != "") {
-				 $query = "INSERT INTO correo_extra (IdUsuario, Correo) VALUES ('".$id."', '".$_POST['extra_correo'][$i]."')";
+				 $query = "INSERT INTO correo_extra (IdUsuario, Correo) VALUES ('".$IdCliente."', '".$_POST['extra_correo'][$i]."')";
 				$data = $run->insert($query);
 			}
 
