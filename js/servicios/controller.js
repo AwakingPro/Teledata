@@ -412,19 +412,19 @@ $(document).ready(function() {
 
 				if(tipo_cliente == "Boleta"){
 
-					$("#TipoFactura option[value='BSMI']").remove();
-
-					if($("#TipoFactura option[value='FSMI']").length == 0){
-						$("#TipoFactura").append('<option value="FSMI">FSMI - Factura servicio mensual</option>');
-						$("#TipoFactura").append('<option value="FSMIOC">FSMIOC - Factura servicio Mensual Orden de Compra</option>');
-					}
-				}else{
-
 					$("#TipoFactura option[value='FSMI']").remove();
 					$("#TipoFactura option[value='FSMIOC']").remove();
 
 					if($("#TipoFactura option[value='BSMI']").length == 0){
 						$("#TipoFactura").append('<option value="BSMI">BSMI - Boleta Servicio Mensual Individual</option>');
+					}
+				}else{
+
+					$("#TipoFactura option[value='BSMI']").remove();
+
+					if($("#TipoFactura option[value='FSMI']").length == 0){
+						$("#TipoFactura").append('<option value="FSMI">FSMI - Factura servicio mensual</option>');
+						$("#TipoFactura").append('<option value="FSMIOC">FSMIOC - Factura servicio Mensual Orden de Compra</option>');
 					}
 				}
 
