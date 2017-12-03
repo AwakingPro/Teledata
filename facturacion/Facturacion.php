@@ -82,23 +82,28 @@
                         <div class="panel-body">
                             <div class="tab-content">
                                 <div id="lotes" class="tab-pane fade active in">
-                                    <div class="row" style="margin-top: 10px">
-                                        <div class="table-responsive">
-                                            <div class="col-md-12">
-                                                <table id="LoteTable" class="table table-striped table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th class="text-center">Cliente</th>
-                                                            <th class="text-center">Rut</th>
-                                                            <th class="text-center">Grupo Factura</th>
-                                                            <th class="text-center">Monto</th>
-                                                            <th class="text-center">Acción</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    </tbody>
-                                                </table>
-                                            </div>
+                                    <div class="col-md-12" style="margin-bottom:10px">
+                                        <button id="Facturar" class="btn btn-success pull-right" style="opacity: 0.2;" disabled>Facturar</button>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                    <div class="table-responsive">
+                                        <div class="col-md-12">
+                                            <table id="LoteTable" class="table table-striped table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th class="text-center"><input class="select-checkbox" name="select_all" id="select_all" type="checkbox"></th>
+                                                        <th class="text-center">Estatus</th>
+                                                        <th class="text-center">Cliente</th>
+                                                        <th class="text-center">Rut</th>
+                                                        <th class="text-center">Grupo Factura</th>
+                                                        <th class="text-center">Monto UF</th>
+                                                        <th class="text-center">Monto Pesos</th>
+                                                        <th class="text-center">Acción</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                 </div>

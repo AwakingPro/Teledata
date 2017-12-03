@@ -1,13 +1,17 @@
 $(document).ready(function(){
 
     LoteTable = $('#LoteTable').DataTable({
+        "columnDefs": [ {
+            "targets": [ 0 ],
+            "orderable": false
+        } ],
         paging: false,
         iDisplayLength: 100,
         processing: true,
         serverSide: false,
         bInfo:false,
         // bFilter:false,
-        order: [[0, 'asc']],
+        order: [[1, 'asc']],
         language: {
             processing:     "Procesando ...",
             search:         'Buscar',
@@ -190,14 +194,33 @@ $(document).ready(function(){
             $.each(response.array, function( index, array ) {
 
                 if(array.EstatusFacturacion == 1){
+                    Check = ''
                     Estatus = 'Pagada'
                     Icono = '<a href="'+array.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
                 }else{
+                    Check = '<input name="select_check" id="select_check_"'+array.Id+' type="checkbox" />'
                     Estatus = 'Por pagar'
                     Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-files-o Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                 }
 
                 var rowNode = IndividualTable.row.add([
+                    ''+Estatus+'',
+                    ''+array.Cliente+'',
+                    ''+array.Rut+'',
+                    ''+array.Grupo+'',
+                    ''+array.ValorUF+'',
+                    ''+array.ValorPesos+'',
+                    ''+Icono+''
+                ]).draw(false).node();
+
+                $( rowNode )
+                    .attr('rutid',array.Id)
+                    .attr('grupo',array.Grupo)
+                    .attr('tipo',2)
+                    .addClass('text-center')
+
+                var rowNode = LoteTable.row.add([
+                    ''+Check+'',
                     ''+Estatus+'',
                     ''+array.Cliente+'',
                     ''+array.Rut+'',
@@ -357,5 +380,131 @@ $(document).ready(function(){
             }
         });
 
+    });
+
+    function getChecked(){
+
+        var checked = [];
+
+        $('#LoteTable tr').each(function (i, row) {
+            var actualrow = $(row);
+            checkbox = actualrow.find('input:checked').val();
+            if(checkbox == 'on'){
+                var id = $(actualrow).attr('rutid');
+                checked[i] = id;
+            }
+        });
+
+        return checked;
+    }
+
+    $('#select_all').on('click', function(){
+        var rows = LoteTable.rows({ 'search': 'applied' }).nodes();
+        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+
+        values = getChecked();
+
+        if(values.length > 0){
+
+            $("#Facturar").removeAttr("disabled");
+            $("#Facturar").css({
+                "opacity": ("1")
+            });
+
+        }else{
+            $("#Facturar").attr("disabled","disabled");
+            $("#Facturar").css({
+                "opacity": ("0.2")
+            });
+        }
+    });
+
+    $('#LoteTable tbody').on( 'click', 'input[type="checkbox"]', function () {
+        values = getChecked();
+
+        if(values.length > 0){
+
+            $("#Facturar").removeAttr("disabled");
+            $("#Facturar").css({
+                "opacity": ("1")
+            });
+
+        }else{
+            $("#Facturar").attr("disabled","disabled");
+            $("#Facturar").css({
+                "opacity": ("0.2")
+            });
+        }
+    });
+
+    $('body').on('click', '#Facturar', function () {
+
+        Facturas = getChecked();
+
+        swal({   
+            title: "Deseas facturar este registro?",   
+            text: "Confirmar facturación!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#28a745",   
+            confirmButtonText: "Facturar!",  
+            cancelButtonText: "Cancelar", 
+            showLoaderOnConfirm: true,        
+            closeOnConfirm: false 
+        },function(isConfirm){   
+            if (isConfirm) {
+
+                $.ajax({
+                    type: "POST",
+                    url: "../includes/facturacion/facturas/storeFacturaPorLote.php",
+                    data: "facturas="+Facturas,
+                    success: function(response){
+
+                        if(response.status == 1){
+
+                            facturas = response.Facturas
+
+                            $.each(facturas, function( index, factura ) {
+
+                                Id = factura.Id
+                                UrlPdf = factura.UrlPdf
+
+                                Row = $('#LoteTable tbody').find('tr[rutid="'+Id+'"]');
+                                Row.find("td").eq(0).html('');
+                                Row.find("td").eq(1).text('Pagada');
+                                Row.find("td").eq(7).html('<a href="'+UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>')
+
+                                Row = $('#IndividualTable tbody').find('tr[rutid="'+Id+'"]');
+                                Row.find("td").eq(0).html('');
+                                Row.find("td").eq(1).text('Pagada');
+                                Row.find("td").eq(6).html('<a href="'+UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>')
+
+                            });
+
+                            $('[data-toggle="popover"]').popover();
+
+                            swal("Éxito!","La factura ha sido generada!","success");
+
+                        }else if(response.status == 2){
+                            swal('Solicitud no procesada','Debes ingresar el valor UF del mes en curso','error');
+                        }else if(response.status == 3){
+                            swal('Solicitud no procesada','El servicio no existe, por favor actualizar la pagina','error');
+                        }else if(response.status == 4){
+                            swal('Solicitud no procesada','El cliente no existe, por favor actualizar la pagina','error');
+                        }else if(response.status == 99){
+                            swal('Solicitud no procesada','El servicio cUrl no esta disponible en el servidor, por favor contactar al administrador','error');
+                        }else{
+                            swal('Solicitud no procesada',response.Message,'error');
+                        }
+                    },
+                    error: function(xhr, status, error){
+                        setTimeout(function(){ 
+                            var err = JSON.parse(xhr.responseText);
+                            swal('Solicitud no procesada',err.Message,'error');
+                        }, 1000);
+                    }
+                });
+            }
+        });
     });
 });
