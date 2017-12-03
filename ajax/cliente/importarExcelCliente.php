@@ -54,6 +54,9 @@
 
 				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionTipoMoneda, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion) VALUES ('".$Rut."', '1', 'Boleta', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$tipoMoneda."', '".$idUsuario."', '".$Codigo."', '0', '0000-00-00', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '".$tipoMoneda."', '0', '0', '0000-00-00')";
 				$id = $run->insert($query);
+				if(!$id){
+					echo 'Error 1';
+				}
 			}
 		}else if($index == 2){
 			for ($row = 2; $row <= $highestRow; ++ $row) {
@@ -96,6 +99,10 @@
 					VALUES
 					('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Comuna."', '".$Ciudad."', '".$Direccion."', '".$Correo."', '".$Contacto."', '', '".$Telefono."', '', 'Factura', '".$idUsuario."','".$CodigoCliente."')";
 				$id = $run->insert($query);
+
+				if(!$id){
+					echo 'Error cliente';
+				}
 			}
 			// echo '</tr>';
 		}else if($index == 3){
@@ -138,6 +145,11 @@
 
 				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionTipoMoneda, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion) VALUES ('".$Rut."', '1', 'Factura', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$tipoMoneda."', '".$idUsuario."', '".$Codigo."', '0', '".time()."', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '".$tipoMoneda."', '0', '0', '".time()."')";
 				$id = $run->insert($query);
+
+				if(!$id){
+					echo 'Error 3';
+				}
+
 			}
 		}else if($index == 4){
 			for ($row = 2; $row <= $highestRow; ++ $row) {
@@ -165,6 +177,10 @@
 
 				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionTipoMoneda, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion) VALUES ('".$Rut."', '1', 'Factura', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$tipoMoneda."', '".$idUsuario."', '".$Codigo."', '0', '".time()."', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '".$tipoMoneda."', '0', '0', '".time()."')";
 				$id = $run->insert($query);
+
+				if(!$id){
+					echo 'Error 4';
+				}
 			}
 		}
 		// echo '</table>';
