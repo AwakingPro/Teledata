@@ -528,7 +528,7 @@
                                 <br class="campo-estacionReferencia">
                                 <label class="campo-usuarioPPPoE">Usuario PPPoE</label>
                                 <div class="form-group campo-usuarioPPPoE">
-                                    <input id="UsuarioPppoe" type="text" name="UsuarioPppoe" class="form-control" disabled>
+                                    <input id="UsuarioPppoeTeorico" type="text" name="UsuarioPppoeTeorico" class="form-control" disabled>
                                 </div>
                                 <br class="campo-usuarioPPPoE">
                                 <label class="campo-equipamiento">Equipamiento Sugerido</label>
