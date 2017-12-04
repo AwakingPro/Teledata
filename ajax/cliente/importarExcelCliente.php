@@ -66,12 +66,16 @@
 					$val = $cell->getValue();
 					if($col == 0){
 						$CodigoCliente = $val;
-						$RutDv = explode("-", $val);
-						$Rut = $RutDv[0];
-						if(isset($RutDv[1])){
-							$Dv = $RutDv[1];
+						if($CodigoCliente){
+							$RutDv = explode("-", $val);
+							$Rut = $RutDv[0];
+							if(isset($RutDv[1])){
+								$Dv = $RutDv[1];
+							}else{
+								$Dv = 0;
+							}
 						}else{
-							$Dv = 0;
+							continue;
 						}
 					}else if($col == 1){
 						$Nombre = $val;
@@ -101,7 +105,8 @@
 				$id = $run->insert($query);
 
 				if(!$id){
-					echo 'Error cliente';
+					// $array = array('Rut' => $Rut, 'Dv' => $Dv, 'Nombre' => $Nombre, 'Giro' => $Giro, 'Comuna' => $Comuna, 'Ciudad' => $Ciudad, 'Direccion' => $Direccion, 'Correo' => $Correo, 'Contacto' => $Contacto, 'Telefono' => $Telefono, 'TipoCliente' => 'Factura');
+					// echo '<pre>'; print_r($array); echo '</pre><br><br>';
 				}
 			}
 			// echo '</tr>';
@@ -182,6 +187,50 @@
 					echo 'Error 4';
 				}
 			}
+		}else if($index == 5){
+			for ($row = 2; $row <= $highestRow; ++ $row) {
+				// echo '<tr>';
+				for ($col = 0; $col < $highestColumnIndex; ++ $col) {
+					$cell = $worksheet->getCellByColumnAndRow($col, $row);
+					$val = $cell->getValue();
+					if($col == 0){
+						$CodigoCliente = $val;
+						if($CodigoCliente){
+							$RutDv = explode("-", $val);
+							$Rut = $RutDv[0];
+							if(isset($RutDv[1])){
+								$Dv = $RutDv[1];
+							}else{
+								$Dv = 0;
+							}
+						}else{
+							continue;
+						}
+					}else if($col == 1){
+						$Nombre = $val;
+					}else if($col == 2){
+						$Direccion = $val;
+					}else if($col == 3){
+						$Ciudad = $val;
+					}else if($col == 4){
+						$Telefono = $val;
+					}
+					// $dataType = PHPExcel_Cell_DataType::dataTypeForValue($val);
+					// echo '<td>' . $val . '<br>(Typ ' . $dataType . ')</td>';
+				}
+
+				$query = "INSERT INTO personaempresa
+					(rut, dv, nombre, giro, comuna, ciudad, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession, CodigoCliente)
+					VALUES
+					('".$Rut."', '".$Dv."', '".$Nombre."', '', '".$Ciudad."', '".$Ciudad."', '".$Direccion."', '', '".$Telefono."', '', '".$Telefono."', '', 'Boleta', '".$idUsuario."','".$CodigoCliente."')";
+				$id = $run->insert($query);
+
+				if(!$id){
+					// $array = array('Rut' => $Rut, 'Dv' => $Dv, 'Nombre' => $Nombre, 'Giro' => $Giro, 'Comuna' => $Comuna, 'Ciudad' => $Ciudad, 'Direccion' => $Direccion, 'Correo' => $Correo, 'Contacto' => $Contacto, 'Telefono' => $Telefono, 'TipoCliente' => 'Factura');
+					// echo '<pre>'; print_r($array); echo '</pre><br><br>';
+				}
+			}
+			// echo '</tr>';
 		}
 		// echo '</table>';
 	}

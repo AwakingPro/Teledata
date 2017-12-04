@@ -15,24 +15,24 @@
 		$Dv = '';
 	}
 
-	$Nombre = isset($_POST['Nombre']) ? trim($_POST['Nombre']) : "";
-	$Giro = isset($_POST['Giro']) ? trim($_POST['Giro']) : "";
-	$DireccionComercial = isset($_POST['DireccionComercial']) ? trim($_POST['DireccionComercial']) : "";
-	$Correo = isset($_POST['Correo']) ? trim($_POST['Correo']) : "";
-	$Contacto = isset($_POST['Contacto']) ? trim($_POST['Contacto']) : "";
-	$Comentario = isset($_POST['Comentario']) ? trim($_POST['Comentario']) : "";
-	$Telefono = isset($_POST['Telefono']) ? trim($_POST['Telefono']) : "";
-	$Alias = isset($_POST['Alias']) ? trim($_POST['Alias']) : "";
 	$TipoCliente = isset($_POST['TipoCliente']) ? trim($_POST['TipoCliente']) : "";
-	$Comuna = isset($_POST['Comuna']) ? trim($_POST['Comuna']) : "";
+	$Nombre = isset($_POST['Nombre']) ? trim($_POST['Nombre']) : "";
+	$Alias = isset($_POST['Alias']) ? trim($_POST['Alias']) : "";
+	$DireccionComercial = isset($_POST['DireccionComercial']) ? trim($_POST['DireccionComercial']) : "";
+	$Giro = isset($_POST['Giro']) ? trim($_POST['Giro']) : "";
 	$Ciudad = isset($_POST['Ciudad']) ? trim($_POST['Ciudad']) : "";
+	$Comuna = isset($_POST['Comuna']) ? trim($_POST['Comuna']) : "";
+	$Contacto = isset($_POST['Contacto']) ? trim($_POST['Contacto']) : "";
+	$Telefono = isset($_POST['Telefono']) ? trim($_POST['Telefono']) : "";
+	$Correo = isset($_POST['Correo']) ? trim($_POST['Correo']) : "";
+	$Comentario = isset($_POST['Comentario']) ? trim($_POST['Comentario']) : "";
 
 	if($Dv){
 
 		$query = "INSERT INTO personaempresa
 				(rut, dv, nombre, giro, comuna, ciudad, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession, CodigoCliente)
 				VALUES
-				('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Comuna."', '".$Ciudad."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$_SESSION['idUsuario']."','".$CodigoCliente."')";
+				('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Comuna."', '".$Ciudad."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$_SESSION['idUsuario']."', '".$CodigoCliente."')";
 		$run = new Method;
 		$id = $run->insert($query);
 
