@@ -194,6 +194,7 @@ $(document).ready(function() {
 	});
 
 	var swalFunction = function(){
+		Rut = $('#Rut').val()
         swal({
             title: "Desea cobrar de inmediato el costo de instalacion?",
             text: "Confirmar facturación!",
@@ -213,7 +214,13 @@ $(document).ready(function() {
                     success:function(response){
                         setTimeout(function() {
                             if(response == 1){
+                            	setTimeout(function() {
+									$('html,body').animate({
+							          scrollTop: $(".panel-heading").offset().top-90,
+							        }, 1500);
+								}, 1000);
                                 bootbox.alert('<h3 class="text-center">El servicio #' + servicio_id + ' se registro con éxito.</h3>');
+                                $('#otrosServicios').hide()
                             }else{
                                 swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
                             }
@@ -229,6 +236,7 @@ $(document).ready(function() {
 
             $('#formServicio')[0].reset();
 			$('.selectpicker').selectpicker('refresh')
+			$('#Rut').val(Rut)
 			$('#divCostoInstalacion').show()
 			$('.selectpicker').selectpicker('refresh')
 
@@ -308,6 +316,12 @@ $(document).ready(function() {
 					$('#divCostoInstalacion').show()
 					$('#Rut').val(Rut)
 					$('.selectpicker').selectpicker('refresh')
+					$('#otrosServicios').hide()
+					setTimeout(function() {
+						$('html,body').animate({
+				          scrollTop: $(".panel-heading").offset().top-90,
+				        }, 1500);
+					}, 1000);
 				}
 
 			} else {

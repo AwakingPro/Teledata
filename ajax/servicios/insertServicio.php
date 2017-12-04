@@ -2,14 +2,17 @@
 	require_once('../../class/methods_global/methods.php');
 	session_start();
 	$run = new Method;
-	$dv = $run->select("SELECT dv FROM personaempresa WHERE rut = '".$_POST['Rut']."'");
-	$dv = $dv[0][0];
-	$Contar = count($run->select("SELECT Rut FROM servicios WHERE Rut = '". $_POST['Rut']."'");
-	$Contar = $Contar+1;
-	if($Contar<10){
-		$ContarFinal = "0".$Contar;
+	$UltimoCodigo = $run->select("SELECT Codigo FROM servicios WHERE Rut = '". $_POST['Rut']."'");
+	if($UltimoCodigo){
+		$UltimoCodigo = $UltimoCodigo[0]['Codigo'];
+		$Correlativo = substr($UltimoCodigo, -2);
+		$Correlativo = intval($Correlativo);
+		if($Correlativo < 9){
+			$Correlativo++;
+			$Correlativo = "0".$Correlativo; 
+		}
 	}else{
-		$ContarFinal = $Contar;
+		$Correlativo = "01";
 	}
 
 	$Descuento = $_POST['Descuento'];
@@ -18,6 +21,8 @@
 	}
 
 	$Rut = isset($_POST['Rut']) ? trim($_POST['Rut']) : "";
+	$Dv = $run->select("SELECT dv FROM personaempresa WHERE rut = '".$_POST['Rut']."'");
+	$Dv = $Dv[0][0];
 	$Grupo = isset($_POST['Grupo']) ? trim($_POST['Grupo']) : "";
 	$TipoFactura = isset($_POST['TipoFactura']) ? trim($_POST['TipoFactura']) : "";
 	$Valor = isset($_POST['Valor']) ? trim($_POST['Valor']) : "";
@@ -36,7 +41,7 @@
 	$Equipamiento = isset($_POST['Equipamiento']) ? trim($_POST['Equipamiento']) : "";
 	$UsuarioPppoeTeorico = isset($_POST['UsuarioPppoeTeorico']) ? trim($_POST['UsuarioPppoeTeorico']) : "";
 	$SenalTeorica = isset($_POST['SenalTeorica']) ? trim($_POST['SenalTeorica']) : "";
-	$Codigo = $Rut."-".$dv.$TipoFactura.$ContarFinal;
+	$Codigo = $Rut."-".$Dv.$TipoFactura.$Correlativo;
 	$FechaInstalacion = date("Y-m-d");
 	$idUsuario = $_SESSION['idUsuario'];
 	$BooleanCostoInstalacion = isset($_POST['BooleanCostoInstalacion']) ? trim($_POST['BooleanCostoInstalacion']) : "";
