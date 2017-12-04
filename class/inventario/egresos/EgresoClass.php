@@ -169,7 +169,13 @@
 
 			$array = array();
 
-			$query = "SELECT inventario_egresos.*, inventario_ingresos.numero_serie, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, usuarios.nombre as responsable FROM inventario_egresos INNER JOIN inventario_ingresos ON inventario_egresos.producto_id = inventario_ingresos.id INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id INNER JOIN usuarios ON inventario_egresos.usuario_id = usuarios.id";
+			$query = "	SELECT inventario_egresos.*, inventario_ingresos.numero_serie, mantenedor_modelo_producto.nombre as modelo, mantenedor_marca_producto.nombre as marca, mantenedor_tipo_producto.nombre as tipo, usuarios.nombre as responsable 
+						FROM inventario_egresos 
+						INNER JOIN inventario_ingresos ON inventario_egresos.producto_id = inventario_ingresos.id
+						INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id 
+						INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id 
+						INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id 
+						INNER JOIN usuarios ON inventario_egresos.usuario_id = usuarios.id";
 
 			$run = new Method;
 			$data = $run->select($query);
@@ -192,7 +198,7 @@
 				if($destino){
 					$destino_nombre = $destino[0]['nombre'];
 				}else{
-					$destino_nombre = '';
+					$destino_nombre = 'Bodega de Paso';
 				}
 
 				$array[$row['id']] = array('id' => $row['id'], 'numero_serie' => $row['numero_serie'], 'modelo' => $row['modelo'], 'marca' => $row['marca'], 'tipo' => $row['tipo'], 'destino' => $destino_nombre,'fecha_movimiento' => $row['fecha_movimiento'],'hora_movimiento' => $row['hora_movimiento'],'responsable' => $row['responsable']);
