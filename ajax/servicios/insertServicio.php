@@ -2,9 +2,9 @@
 	require_once('../../class/methods_global/methods.php');
 	session_start();
 	$run = new Method;
-	$dv = $run->select("SELECT dv FROM personaempresa WHERE rut = ".$_POST['Rut']);
+	$dv = $run->select("SELECT dv FROM personaempresa WHERE rut = '".$_POST['Rut']."'");
 	$dv = $dv[0][0];
-	$Contar = count($run->select("SELECT Rut FROM servicios WHERE Rut = ". $_POST['Rut'] ."  AND IdServicio = ".$_POST['TipoServicio']));
+	$Contar = count($run->select("SELECT Rut FROM servicios WHERE Rut = '". $_POST['Rut']."'");
 	$Contar = $Contar+1;
 	if($Contar<10){
 		$ContarFinal = "0".$Contar;
