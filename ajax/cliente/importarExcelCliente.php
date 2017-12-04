@@ -31,8 +31,17 @@
 					$val = $cell->getValue();
 					if($col == 0){
 						$CodigoCliente = $val;
-						$RutDv = explode("-", $val);
-						$Rut = $RutDv[0];
+						if($CodigoCliente){
+							$RutDv = explode("-", $val);
+							$Rut = $RutDv[0];
+							if(isset($RutDv[1])){
+								$Dv = $RutDv[1];
+							}else{
+								$Dv = 0;
+							}
+						}else{
+							continue;
+						}
 					}else if($col == 2){
 						$Codigo = $val;
 					}else if($col == 3){
@@ -117,8 +126,18 @@
 					$cell = $worksheet->getCellByColumnAndRow($col, $row);
 					$val = $cell->getValue();
 					if($col == 0){
-						$RutDv = explode("-", $val);
-						$Rut = $RutDv[0];
+						$CodigoCliente = $val;
+						if($CodigoCliente){
+							$RutDv = explode("-", $val);
+							$Rut = $RutDv[0];
+							if(isset($RutDv[1])){
+								$Dv = $RutDv[1];
+							}else{
+								$Dv = 0;
+							}
+						}else{
+							continue;
+						}
 					}else if($col == 2){
 						$Codigo = $val;
 					}else if($col == 3){
@@ -163,8 +182,18 @@
 					$cell = $worksheet->getCellByColumnAndRow($col, $row);
 					$val = $cell->getValue();
 					if($col == 0){
-						$RutDv = explode("-", $val);
-						$Rut = $RutDv[0];
+						$CodigoCliente = $val;
+						if($CodigoCliente){
+							$RutDv = explode("-", $val);
+							$Rut = $RutDv[0];
+							if(isset($RutDv[1])){
+								$Dv = $RutDv[1];
+							}else{
+								$Dv = 0;
+							}
+						}else{
+							continue;
+						}
 					}else if($col == 2){
 						$Codigo = $val;
 					}else if($col == 3){
@@ -175,6 +204,10 @@
 						$tipoMoneda = $val;
 					}else if($col == 6){
 						$Valor = $val;
+
+						if(!$Valor){
+							continue;
+						}
 					}
 					// $dataType = PHPExcel_Cell_DataType::dataTypeForValue($val);
 					// echo '<td>' . $val . '<br>(Typ ' . $dataType . ')</td>';
