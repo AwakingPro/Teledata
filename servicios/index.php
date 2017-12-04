@@ -163,9 +163,9 @@
 														<input type="text" name="PosibleEstacion" class="form-control">
 													</div>
 													<br class="campo-estacionReferencia">
-													<label class="campo-usuarioPPPoE">Usuario PPPoE</label>
+													<label class="campo-usuarioPPPoE">Posible Usuario PPPoE</label>
 													<div class="form-group campo-usuarioPPPoE">
-														<input type="text" name="UsuarioPppoe" class="form-control">
+														<input type="text" name="UsuarioPppoeTeorico" class="form-control">
 													</div>
 													<br class="campo-usuarioPPPoE">
 													<label class="campo-equipamiento">Equipamiento Sugerido</label>

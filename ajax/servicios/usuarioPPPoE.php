@@ -1,11 +1,11 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
 	$query = 'SELECT
-		UsuarioPppoe
+		UsuarioPppoeTeorico
 		FROM
 		servicios
 		WHERE
-		UsuarioPppoe ="'.$_POST['user'].'"';
+		UsuarioPppoeTeorico ="'.$_POST['user'].'"';
 	$run = new Method;
 	$data = $run->select($query);
 	if (count($data) > 0) {

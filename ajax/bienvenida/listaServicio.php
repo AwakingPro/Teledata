@@ -9,7 +9,7 @@
 		servicios.Grupo
 		FROM
 		servicios
-		INNER JOIN mantenedor_tipo_factura ON servicios.TipoFactura = mantenedor_tipo_factura.codigo
+		LEFT JOIN mantenedor_tipo_factura ON servicios.TipoFactura = mantenedor_tipo_factura.codigo
 	WHERE
 		servicios.IdUsuarioSession ='.$_SESSION['idUsuario'];
 	$run = new Method;

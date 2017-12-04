@@ -72,9 +72,9 @@ $(document).ready(function() {
 		}
 	})
 
-	$('[name="UsuarioPppoe"]').on('blur', function(event) {
+	$('[name="UsuarioPppoeTeorico"]').on('blur', function(event) {
 		var camo = this;
-		$.post('../ajax/servicios/usuarioPPPoE.php', {user: $(this).val()}, function(data) {
+		$.post('../ajax/servicios/UsuarioPppoeTeorico.php', {user: $(this).val()}, function(data) {
 			if (data == "true") {
 				$(camo).parent('.form-group').addClass('has-error');
 				$(camo).val('');

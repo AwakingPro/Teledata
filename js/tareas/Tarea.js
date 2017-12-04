@@ -475,7 +475,7 @@ $(document).ready(function() {
                     $('#modalTarea').find('input[name="FechaInstalacion"]').val(FechaInstalacion)
                     $('#modalTarea').find('select[name="InstaladoPor"]').val(response.array.InstaladoPor)
                     $('#modalTarea').find('input[name="UsuarioPppoe"]').val(response.array.UsuarioPppoe)
-                    $('#modalTarea').find('input[name="UsuarioPppoeTeorico"]').val(response.array.UsuarioPppoe)
+                    $('#modalTarea').find('input[name="UsuarioPppoeTeorico"]').val(response.array.UsuarioPppoeTeorico)
                     $('#modalTarea').find('input[name="SenalTeorica"]').val(response.array.SenalTeorica)
                     $('#modalTarea').find('input[name="SenalFinal"]').val(response.array.SenalFinal)
                     $('#modalTarea').find('input[name="PosibleEstacion"]').val(response.array.PosibleEstacion)
@@ -707,7 +707,7 @@ $(document).ready(function() {
             success: function(response){
 
                 if(response){
-                    $('#modalComparacion').find('#UsuarioPppoeTeorico_update').val(response.array.UsuarioPppoe)
+                    $('#modalComparacion').find('#UsuarioPppoeTeorico_update').val(response.array.UsuarioPppoeTeorico)
                     $('#modalComparacion').find('#UsuarioPppoeFinal_update').val(response.array.UsuarioPppoe)
 
                     $('#modalComparacion').find('#SenalTeorica_update').val(response.array.SenalTeorica)
