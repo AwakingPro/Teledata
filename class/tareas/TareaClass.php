@@ -293,11 +293,11 @@
 					    			
 					    			if($Dia == 1){
 					    				$Diasporfacturar = $Diasdelmes;
-										$Concepto .= ' - Mes ' . $MesFacturacion;
+										// $Concepto .= ' - Mes ' . $MesFacturacion;
 					    			}else{
 					    				$Diasporfacturar = $Diasdelmes - $Dia;
-					    				$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dia)';
 					    			}
+					    			$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dias)';
 					    		}else{
 					    			$Diasporfacturar = 1;
 					    			$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dia)';
