@@ -22,6 +22,7 @@
 	</div>
 
 	<input type="hidden" id="destino_tipo" value="2" name="destino_tipo">
+	<input name="idServicio" type="hidden">
 
 	<div class="col-md-4 form-group" rows="5">
 		<label>Velocidad</label>

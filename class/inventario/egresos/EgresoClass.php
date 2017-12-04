@@ -5,12 +5,10 @@
 
 	if(!isset($run)){
 
-		if($where != 'insertArriendoEquipos.php'){
-			include('../../../class/methods_global/methods.php');
+		if($where == 'insertArriendoEquipos.php' || $where == 'insertServicioInetrnet.php'){
+			include('../../class/methods_global/methods.php');
 		}else{
-			if ($where != 'insertServicio.php') {
-				include('../../class/methods_global/methods.php');
-			}
+			include('../../../class/methods_global/methods.php');
 		}
 
 		$GLOBALS['return'] = true;
@@ -123,11 +121,11 @@
 
 										$array = array('id' => $id, 'numero_serie' => $NumeroSerie, 'producto' => $Producto, 'destino' => $Destino, 'fecha_movimiento' => $FechaMovimiento, 'hora_movimiento' => $HoraMovimiento, 'responsable' => $Responsable);
 
-										if($where != 'insertArriendoEquipos.php'){
+										if($where == 'insertArriendoEquipos.php' || $where == 'insertServicioInetrnet.php'){
+											$response_array = $id;
+										}else{
 											$response_array['array'] = $array;
 											$response_array['status'] = 1;
-										}else{
-											$response_array = $id;
 										}
 
 									}else{

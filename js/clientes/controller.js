@@ -87,7 +87,7 @@ $(document).ready(function() {
 					locale: 'es',
 					format: 'yyyy-mm-dd'
 				});
-				if(data.trim() == 'arriendoEquipos.php'){
+				if(data.trim() == 'arriendoEquipos.php' || data.trim() == 'servicioInternet.php'){
 
 					$.ajax({
 						type: "POST",
