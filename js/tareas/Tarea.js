@@ -263,8 +263,8 @@ $(document).ready(function() {
                         .addClass('text-center')
 
                 }else{
-                    
-                    if(array.FechaComprometidaInstalacion){
+
+                    if(array.FechaComprometidaInstalacion && array.FechaComprometidaInstalacion != '0000-00-00' && array.FechaComprometidaInstalacion != '1969-01-31'){
                         FechaComprometidaInstalacion = moment(array.FechaComprometidaInstalacion).format('DD-MM-YYYY');
                     }else{
                         FechaComprometidaInstalacion = ''

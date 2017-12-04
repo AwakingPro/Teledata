@@ -475,8 +475,7 @@ $(document).ready(function(){
                                 Row.find("td").eq(7).html('<a href="'+UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>')
 
                                 Row = $('#IndividualTable tbody').find('tr[rutid="'+Id+'"]');
-                                Row.find("td").eq(0).html('');
-                                Row.find("td").eq(1).text('Pagada');
+                                Row.find("td").eq(0).text('Pagada');
                                 Row.find("td").eq(6).html('<a href="'+UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>')
 
                             });

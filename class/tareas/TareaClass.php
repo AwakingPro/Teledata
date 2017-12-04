@@ -14,6 +14,7 @@
     		$query = '	SELECT servicios.*,
     					personaempresa.nombre as Cliente,
     					personaempresa.id as IdPersonaEmpresa,
+    					personaempresa.direccion as Direccion,
     					usuarios.nombre as Usuario
     					FROM servicios 
     					INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut 
