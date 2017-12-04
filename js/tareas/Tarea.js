@@ -212,7 +212,7 @@ $(document).ready(function() {
                         ''+array.Codigo+'',
                         ''+array.Descripcion+'',
                         ''+array.Direccion+'',
-                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Compare"></i>'+'',
+                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>'+'',
                     ]).draw(false).node();
 
                     $( rowNode )
@@ -536,7 +536,7 @@ $(document).ready(function() {
                             .draw();
                     }
 
-                    Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Compare"></i>'
+                    Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>'
                     
                     var rowNode = FinalizadasTable.row.add([
                         ''+Usuario+'',
