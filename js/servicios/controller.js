@@ -93,27 +93,57 @@ $(document).ready(function() {
 	});
 
 	$('select[name="TipoServicio"]').change(function(event) {
+
+		Latitud = $('#Latitud').val()
+		Longitud = $('#Longitud').val()
+
 		switch ($(this).val()) {
 			case '1':
 				url = "arriendoEquipos.php";
+				$('#otrosServicios').show()
 				break;
 			case '2':
 				url = "servicioInternet.php";
+				$('#otrosServicios').show()
 				break;
 			case '3':
 				url = "mensualidadPuertoPublicos.php";
+				$('#otrosServicios').hide()
+  				$('#otrosServicios').find('input').val('');  
 				break;
 			case '4':
 				url = "mensualidadIPFija.php";
+				$('#otrosServicios').hide()
+  				$('#otrosServicios').find('input').val('');  
 				break;
 			case '5':
 				url = "mantencionRed.php";
+				$('#otrosServicios').hide()
+  				$('#otrosServicios').find('input').val('');  
 				break;
 			case '6':
 				url = "traficoGenerado.php";
+				$('#otrosServicios').hide()
+  				$('#otrosServicios').find('input').val('');  
 				break;
 			default:
 				url = "404.html";
+				$('#otrosServicios').hide()
+  				$('#otrosServicios').find('input').val('');    
+		}
+
+		$('#Latitud').val(Latitud)
+ 		$('#Longitud').val(Longitud)
+
+ 		if (Longitud && Longitud) {
+
+			mapCenter = new google.maps.LatLng(Longitud, Longitud);
+
+			setTimeout(function() {
+				google.maps.event.trigger(Map, "resize");
+				Map.setCenter(mapCenter);
+				Map.setZoom(Map.getZoom());
+			}, 1000)
 		}
 
 		$('.containerTipoServicioFormulario').load('../clientesServicios/viewTipoServicio/' + url, function() {
@@ -129,8 +159,7 @@ $(document).ready(function() {
 					}
 				});
 				setTimeout(function() {
-					$('#origen_id').selectpicker('render');
-					$('#origen_id').selectpicker('refresh');
+					$('.selectpicker').selectpicker('refresh');
 				}, 1000);
 			}
 		});

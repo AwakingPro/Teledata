@@ -110,72 +110,75 @@
 													<br>
 													<label > Descripción</label>
 													<textarea name="Descripcion" class="form-control" rows="5"></textarea>
-													<br>
 
-													<label class="campo-apellidoServicio">Apellido del Servicio</label>
-													<div class="form-group">
-														<input type="text" name="Alias" class="form-control campo-apellidoServicio">
-													</div>
+													<div id="otrosServicios" style="display:none">
+														<br>
 
-													<label class="campo-direccion">Dirección</label>
-													<textarea name="Direccion" class="form-control campo-direccion" rows="5"></textarea>
-													<br class="campo-direccion">
-
-													<div class="col-md-6 campo-cordenadas">
+														<label class="campo-apellidoServicio">Apellido del Servicio</label>
 														<div class="form-group">
-															<label class="control-label" for="Latitud">Coordenadas</label>
-															<input id="Latitud" name="Latitud" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas" value="-41.3214705">
+															<input type="text" name="Alias" class="form-control campo-apellidoServicio">
 														</div>
-													</div>
-													<div class="col-md-6 campo-cordenadas">
-														<div class="form-group">
-															<label class="control-label" for="name">&nbsp;</label>
-															<input id="Longitud" name="Longitud" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas" value="-73.0138898">
+
+														<label class="campo-direccion">Dirección</label>
+														<textarea name="Direccion" class="form-control campo-direccion" rows="5"></textarea>
+														<br class="campo-direccion">
+
+														<div class="col-md-6 campo-cordenadas">
+															<div class="form-group">
+																<label class="control-label" for="Latitud">Coordenadas</label>
+																<input id="Latitud" name="Latitud" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas" value="-41.3214705">
+															</div>
 														</div>
-													</div>
-													<br class="campo-cordenadas">
+														<div class="col-md-6 campo-cordenadas">
+															<div class="form-group">
+																<label class="control-label" for="name">&nbsp;</label>
+																<input id="Longitud" name="Longitud" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas" value="-73.0138898">
+															</div>
+														</div>
+														<br class="campo-cordenadas">
 
-													<div id="Map" style="height:350px; width:100%;" class="campo-cordenadas"></div>
-													<br class="campo-cordenadas">
-													<label class="campo-referencia">Referencia</label>
-													<div class="form-group campo-referencia">
-														<input type="text" name="Referencia" class="form-control">
-													</div>
-													<br class="campo-referencia">
-													<label class="campo-contacto">Contacto</label>
-													<div class="form-group campo-contacto">
-														<input type="text" name="Contacto" class="form-control">
-													</div>
-													<br  class="campo-contacto">
-													<label class="campo-telefonoContacto">Fono Contacto</label>
-													<div class="form-group campo-telefonoContacto">
-														<input type="text" name="Fono" class="form-control">
-													</div>
-													<br class="campo-telefonoContacto">
+														<div id="Map" style="height:350px; width:100%;" class="campo-cordenadas"></div>
+														<br class="campo-cordenadas">
+														<label class="campo-referencia">Referencia</label>
+														<div class="form-group campo-referencia">
+															<input type="text" name="Referencia" class="form-control">
+														</div>
+														<br class="campo-referencia">
+														<label class="campo-contacto">Contacto</label>
+														<div class="form-group campo-contacto">
+															<input type="text" name="Contacto" class="form-control">
+														</div>
+														<br  class="campo-contacto">
+														<label class="campo-telefonoContacto">Fono Contacto</label>
+														<div class="form-group campo-telefonoContacto">
+															<input type="text" name="Fono" class="form-control">
+														</div>
+														<br class="campo-telefonoContacto">
 
-													<label>Fecha Comprometida de Instalación</label>
-													<div class="form-group campo-FechaComprometidaInstalacion">
-														<input name="FechaComprometidaInstalacion" class="form-control date">
-													</div>
-													<br class="campo-FechaComprometidaInstalacion">
-													<label class="campo-estacionReferencia">Estaciones de Referencia</label>
-													<div class="form-group campo-estacionReferencia">
-														<input type="text" name="PosibleEstacion" class="form-control">
-													</div>
-													<br class="campo-estacionReferencia">
-													<label class="campo-usuarioPPPoE">Posible Usuario PPPoE</label>
-													<div class="form-group campo-usuarioPPPoE">
-														<input type="text" name="UsuarioPppoeTeorico" class="form-control">
-													</div>
-													<br class="campo-usuarioPPPoE">
-													<label class="campo-equipamiento">Equipamiento Sugerido</label>
-													<div class="form-group campo-equipamiento">
-														<input type="text" name="Equipamiento" class="form-control">
-													</div>
-													<br class="campo-equipamiento">
-													<label class="campo-señalTeorica">Señal Teorica</label>
-													<div class="form-group campo-señalTeorica">
-														<input type="text" name="SenalTeorica" class="form-control">
+														<label>Fecha Comprometida de Instalación</label>
+														<div class="form-group campo-FechaComprometidaInstalacion">
+															<input name="FechaComprometidaInstalacion" class="form-control date">
+														</div>
+														<br class="campo-FechaComprometidaInstalacion">
+														<label class="campo-estacionReferencia">Estaciones de Referencia</label>
+														<div class="form-group campo-estacionReferencia">
+															<input type="text" name="PosibleEstacion" class="form-control">
+														</div>
+														<br class="campo-estacionReferencia">
+														<label class="campo-usuarioPPPoE">Posible Usuario PPPoE</label>
+														<div class="form-group campo-usuarioPPPoE">
+															<input type="text" name="UsuarioPppoeTeorico" class="form-control">
+														</div>
+														<br class="campo-usuarioPPPoE">
+														<label class="campo-equipamiento">Equipamiento Sugerido</label>
+														<div class="form-group campo-equipamiento">
+															<input type="text" name="Equipamiento" class="form-control">
+														</div>
+														<br class="campo-equipamiento">
+														<label class="campo-señalTeorica">Señal Teorica</label>
+														<div class="form-group campo-señalTeorica">
+															<input type="text" name="SenalTeorica" class="form-control">
+														</div>
 													</div>
 													<br class="campo-equipamiento">
 
