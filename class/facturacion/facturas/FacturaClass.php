@@ -358,6 +358,8 @@
 
             if(in_array  ('curl', get_loaded_extensions())) {
 
+                $response_array = array();
+
                 //Demo
                 $access_token='b6ae44d94c240baa08b9fb48aa4333aa712cf3c2';
                 //Producción
@@ -598,6 +600,12 @@
                                 $query = "UPDATE `facturas` set `DocumentoIdBsale` = '$DocumentoId', `UrlPdfBsale` = '$UrlPdf', `informedSiiBsale` = '$informedSii', `responseMsgSiiBsale` = '$responseMsgSii', `EstatusFacturacion` = '1', `FechaFacturacion` = '$Hoy', `HoraFacturacion` = '$Hoy' where `Id` = '$RutId'";
                                 $data = $run->update($query);
 
+                                if($data){
+                                    $response_array['Id'] = $RutId;
+                                    $response_array['UrlPdf'] = $UrlPdf;
+                                    $response_array['status'] = 1; 
+                                }
+
                             }else{
 
                                 $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('$Rut', '$Grupo', '3', '1', '$DocumentoId', '$UrlPdf', '$informedSii', '$responseMsgSii', '$Hoy', '$Hoy')";
@@ -636,6 +644,7 @@
                                         }
                                     }
 
+                                    $response_array['Id'] = $RutId;
                                     $response_array['UrlPdf'] = $UrlPdf;
                                     $response_array['status'] = 1; 
 
