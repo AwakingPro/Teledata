@@ -15,17 +15,13 @@
 		$Correlativo = "01";
 	}
 
-	$Descuento = $_POST['Descuento'];
-	if(!$Descuento){
-		$Descuento = 0;
-	}
-
 	$Rut = isset($_POST['Rut']) ? trim($_POST['Rut']) : "";
 	$Dv = $run->select("SELECT dv FROM personaempresa WHERE rut = '".$_POST['Rut']."'");
 	$Dv = $Dv[0][0];
 	$Grupo = isset($_POST['Grupo']) ? trim($_POST['Grupo']) : "";
 	$TipoFactura = isset($_POST['TipoFactura']) ? trim($_POST['TipoFactura']) : "";
 	$Valor = isset($_POST['Valor']) ? trim($_POST['Valor']) : "";
+	$Descuento = isset($_POST['Descuento']) ? trim($_POST['Descuento']) : "";
 	$TipoServicio = isset($_POST['TipoServicio']) ? trim($_POST['TipoServicio']) : "";
 	$TiepoFacturacion = isset($_POST['TiepoFacturacion']) ? trim($_POST['TiepoFacturacion']) : "";
 	$Descripcion = isset($_POST['Descripcion']) ? trim($_POST['Descripcion']) : "";
@@ -49,9 +45,19 @@
 	$CostoInstalacionTipoMoneda = isset($_POST['CostoInstalacionTipoMoneda']) ? trim($_POST['CostoInstalacionTipoMoneda']) : "";
 	$CostoInstalacionDescuento = isset($_POST['CostoInstalacionDescuento']) ? trim($_POST['CostoInstalacionDescuento']) : "";
 
+	if(!$Valor){
+		$Valor = 0;
+		$Descuento = 0;
+	}
+
 	if(!$BooleanCostoInstalacion){
 		$CostoInstalacion = 0;
 		$CostoInstalacionDescuento = 0;
+	}else{
+		if(!$CostoInstalacion){
+			$CostoInstalacion = 0;
+			$CostoInstalacionDescuento = 0;
+		}
 	}
 
 	$FechaComprometidaInstalacion = $_POST['FechaComprometidaInstalacion'];
