@@ -46,7 +46,10 @@
 	$CostoInstalacionDescuento = isset($_POST['CostoInstalacionDescuento']) ? trim($_POST['CostoInstalacionDescuento']) : "";
 
 	if(!$Valor){
-		$Valor = 0;
+		$Valor = 0;	
+	}
+
+	if(!$Descuento){
 		$Descuento = 0;
 	}
 
@@ -56,6 +59,9 @@
 	}else{
 		if(!$CostoInstalacion){
 			$CostoInstalacion = 0;
+		}
+
+		if(!$CostoInstalacionDescuento){
 			$CostoInstalacionDescuento = 0;
 		}
 	}
