@@ -1,6 +1,15 @@
 $(document).ready(function() {
 
 	//$('[name="Rut"]').number( true, 0,'','');
+	$('[name="Rut"]').rut({useThousandsSeparator : false});
+
+	$('.Giro').load('../ajax/cliente/selectGiros.php', function () {
+		$('.Giro').selectpicker('refresh');
+	});
+
+	$('.ClaseCliente').load('../ajax/cliente/selectClaseCliente.php', function () {
+		$('.ClaseCliente').selectpicker('refresh');
+	});
 
 	$('select[name="rutCliente"]').load('../ajax/cliente/selectNombreCliente.php',function(){
 		$('select[name="rutCliente"]').selectpicker();

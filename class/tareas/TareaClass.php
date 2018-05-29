@@ -15,7 +15,8 @@
     					personaempresa.nombre as Cliente,
     					personaempresa.id as IdPersonaEmpresa,
     					personaempresa.direccion as Direccion,
-    					usuarios.nombre as Usuario
+    					usuarios.nombre as Usuario,
+						servicios.FechaInstalacion
     					FROM servicios 
     					INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut 
     					LEFT JOIN usuarios ON servicios.IdUsuarioAsignado = usuarios.id
@@ -180,7 +181,7 @@
 	        $SenalFinal = isset($SenalFinal) ? trim($SenalFinal) : "";
 	        $Estatus = isset($Estatus) ? trim($Estatus) : "";
 
-	        if(!empty($FechaInstalacion) && !empty($InstaladoPor)  && !empty($Comentario)  && !empty($UsuarioPppoe) && !empty($EstacionFinal) && !empty($SenalFinal) && !empty($Estatus)){
+	        if(!empty($FechaInstalacion) && !empty($InstaladoPor) && !empty($UsuarioPppoe) && !empty($EstacionFinal) && !empty($SenalFinal) && !empty($Estatus)){
 
 	        	if($FechaInstalacion){
 	        		$FechaInstalacion = DateTime::createFromFormat('d-m-Y', $FechaInstalacion)->format('Y-m-d');

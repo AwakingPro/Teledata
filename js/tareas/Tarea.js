@@ -43,6 +43,17 @@ $(document).ready(function() {
         format: 'DD-MM-YYYY'
     });
 
+    $.ajax({
+        type: "POST",
+        url: "../includes/inventario/egresos/showEstaciones.php",
+        success: function (response) {
+            $.each(response.array, function (index, array) {
+                $('#EstacionFinal').append('<option value="' + array.nombre + '" data-content="' + array.nombre + '"></option>');
+            });
+            $('#EstacionFinal').selectpicker('refresh');
+        }
+    });
+
     PorHacerTable = $('#PorHacerTable').DataTable({
         "columnDefs": [ {
             "targets": [ 0 ],
@@ -211,7 +222,7 @@ $(document).ready(function() {
                         ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
                         ''+array.Codigo+'',
                         ''+array.Descripcion+'',
-                        ''+array.Direccion+'',
+                        ''+array.FechaInstalacion+'',
                         ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>'+'',
                     ]).draw(false).node();
 
@@ -517,7 +528,7 @@ $(document).ready(function() {
                 Cliente = $(Row).find("td").eq(1).html();
                 Codigo = $(Row).find("td").eq(2).html();
                 Descripcion = $(Row).find("td").eq(3).html();
-                Direccion = $(Row).find("td").eq(4).html();
+                FechaInstalacion = $(Row).find("td").eq(4).html();
 
                 if(response.Estatus == 1){
 
@@ -543,7 +554,7 @@ $(document).ready(function() {
                         ''+Cliente+'',
                         ''+Codigo+'',
                         ''+Descripcion+'',
-                        ''+Direccion+'',
+                        ''+FechaInstalacion+'',
                         ''+Operacion+'',
                     ]).draw(false).node();
 
@@ -793,5 +804,13 @@ $(document).ready(function() {
         $.post('../ajax/tarea/dataCliente.php', {id: $(this).attr('attrId')}, function(data) {
              $('.container-dataCliente').html(data);
         });
+    });
+
+    $('#Estatus').change(function (event) {
+        if ($(this).val() == 1) {
+            $('#Comentario').removeAttr('validation')
+        } else {
+            $('#Comentario').attr('validation', 'not_null')
+        }
     });
 });

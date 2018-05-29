@@ -70,7 +70,8 @@
 		servicios.Id as Id,
 		servicios.Codigo as "Codigo de Servicios",
 		servicios.TiepoFacturacion as "Tiempo de facturacion",
-		mantenedor_tipo_factura.descripcion as Descripcion,
+		mantenedor_tipo_factura.descripcion as "Tipo de Servicio",
+		servicios.Valor,
 		servicios.Grupo
 		FROM
 		servicios

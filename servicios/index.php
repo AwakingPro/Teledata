@@ -84,7 +84,7 @@
 													</select>
 													<br><br>
 													<div class="campo-servicio">
-														<label >Servicio</label>
+														<label >Tipo de Servicio</label>
 														<select name="TipoServicio" id="TipoServicio" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Servicio">
 															<option value="">Seleccione...</option>
 														</select>
@@ -275,6 +275,7 @@
     	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
 		<script src="../plugins/sweetalert/sweetalert.min.js"></script>
+		<script src="../js/jquery.rut.min.js"></script>
 		<script src="../js/servicios/controller.js"></script>
 		<script src="../js/swalExtend.js"></script>
 	</body>
@@ -315,89 +316,74 @@
 						</div>
 						<div class="modal-body container-form2">
 							<div class="row">
-								<div class="col-md-5 form-group">
+								<div class="col-md-6 form-group">
 									<label>Tipo de Cliente</label>
-									<select name="TipoCliente" class="form-control selectpicker" data-live-search="true" validation="not_null">
+									<select name="TipoCliente" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Tipo de Cliente">
 										<option value="">Seleccione...</option>
 										<option value="Boleta">Boleta</option>
 										<option value="Factura">Factura</option>
 										<option value="Canje">Canje</option>
 									</select>
 								</div>
-								<div class="col-md-5 form-group">
+								<div class="col-md-6 form-group">
 									<label>Rut</label>
-									<input name="Rut" class="form-control" validation="not_null">
-								</div>
-								<div class="col-md-1 form-group">
-									<div class="text-center" style="padding-top: 5px">
-										<h3>-</h3>
-									</div>
-								</div>
-								<div class="col-md-1 form-group">
-									<label>Dv</label>
-									<select name="Dv" class="form-control selectpicker" data-live-search="true" validation="not_null">
-										<option value="">Seleccione...</option>
-										<option>1</option>
-										<option>2</option>
-										<option>3</option>
-										<option>4</option>
-										<option>5</option>
-										<option>6</option>
-										<option>7</option>
-										<option>8</option>
-										<option>9</option>
-										<option>K</option>
-									</select>
+									<input name="Rut" class="form-control" validation="not_null" data-nombre="Rut">
 								</div>
 							</div>
 							<div class="row">
-								<div class="col-md-6 form-group">
-									<label> Razón social / Cliente</label>
-									<input name="Nombre" class="form-control" validation="not_null">
+								<div class="col-md-4 form-group">
+									<label>Clase Cliente</label>
+									<select name="ClaseCliente" class="form-control selectpicker ClaseCliente" data-live-search="true" validate="not_null" data-nombre="Clase Cliente">
+									</select>
 								</div>
-								<div class="col-md-6 form-group">
+								<div class="col-md-4 form-group">
+									<label> Razón social / Cliente</label>
+									<input name="Nombre" class="form-control" validation="not_null" data-nombre="Razón social">
+								</div>
+								<div class="col-md-4 form-group">
 									<label>Alias</label>
-									<input name="Alias" class="form-control" validation="not_null">
+									<input name="Alias" class="form-control" data-nombre="Alias">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12 form-group">
 									<label>Dirección  Comercial</label>
-									<textarea name="DireccionComercial" class="form-control" validation="not_null"></textarea>
+									<textarea name="DireccionComercial" class="form-control" validation="not_null" data-nombre="Dirección"></textarea>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-4 form-group">
 									<label>Ciudad</label>
-									<input name="Ciudad" class="form-control">
+									<input name="Ciudad" class="form-control" data-nombre="Ciudad">
 								</div>
 								<div class="col-md-4 form-group">
 									<label>Comuna</label>
-									<input name="Comuna" class="form-control">
+									<input name="Comuna" class="form-control" data-nombre="Comuna">
 								</div>
 								<div class="col-md-4 form-group">
 									<label>Giro</label>
-									<input name="Giro" class="form-control">
+									<select name="Giro" class="form-control selectpicker Giro" data-live-search="true" validate="not_null" data-nombre="Giro">
+									</select>
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-4 form-group">
 									<label>Contacto</label>
-									<input name="Contacto" class="form-control" validation="not_null">
+									<input name="Contacto" class="form-control" validation="not_null" data-nombre="Contacto">
 								</div>
 								<div class="col-md-4 form-group">
 									<label>Teléfono</label>
-									<input name="Telefono" class="form-control" validation="not_null">
+									<input name="Telefono" class="form-control" validation="not_null" data-nombre="Teléfono">
 								</div>
 								<div class="col-md-4 form-group">
 									<label>Correo</label>
-									<input name="Correo" class="form-control" validation="email">
+									<input name="Correo" class="form-control" validation="email" data-nombre="Correo">
 								</div>
 							</div>
 							<div class="row">
 								<div class="col-md-12 form-group">
-									<label>Comentarios</label>
-									<textarea name="Comentario" class="form-control" validation="not_null"></textarea>
+									<label>Notas</label>
+									<textarea name="Comentario" class="form-control" validation="not_null" data-nombre="Notas"></textarea>
 								</div>
 							</div>
 						</div>

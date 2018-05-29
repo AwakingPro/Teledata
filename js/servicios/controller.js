@@ -5,6 +5,16 @@ var map
 var mapCenter
 
 $(document).ready(function() {
+	
+	$('[name="Rut"]').rut({ useThousandsSeparator: false });
+
+	$('.Giro').load('../ajax/cliente/selectGiros.php', function () {
+		$('.Giro').selectpicker('refresh');
+	});
+
+	$('.ClaseCliente').load('../ajax/cliente/selectClaseCliente.php', function () {
+		$('.ClaseCliente').selectpicker('refresh');
+	});
 
 	google.maps.event.addDomListener(window, 'load', initialize);
 

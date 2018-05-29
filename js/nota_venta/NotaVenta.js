@@ -106,6 +106,21 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
+        url: "../includes/inventario/ingresos/showBodega.php",
+        success: function (response) {
+
+            $.each(response.array, function (index, array) {
+                $('#retiro').append('<option value="' + array.nombre + '" data-content="' + array.nombre + '"></option>');
+            });
+
+            $('.selectpicker').selectpicker('render');
+            $('.selectpicker').selectpicker('refresh');
+
+        }
+    });
+
+    $.ajax({
+        type: "POST",
         url: "../includes/nota_venta/showNotaVenta.php",
         success: function(response){
 

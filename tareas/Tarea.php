@@ -61,7 +61,7 @@
                                                     <th class="text-center"><input class="select-checkbox" name="select_all" id="select_all" type="checkbox"></th>
                                                     <th class="text-center">Cliente</th>
                                                     <th class="text-center">Código</th>
-                                                    <th class="text-center">Por Hacer</th>
+                                                    <th class="text-center">Detalle de Trabajo</th>
                                                     <th class="text-center">Direccion</th>
                                                     <th class="text-center">Fecha Comprometida de Instalación</th>
                                                     <th class="text-center">Acción</th>
@@ -81,7 +81,7 @@
                                                                 <th class="text-center">Usuario Asignado</th>
                                                                 <th class="text-center">Cliente</th>
                                                                 <th class="text-center">Código</th>
-                                                                <th class="text-center">Por Hacer</th>
+                                                                <th class="text-center">Detalle de Trabajo</th>
                                                                 <th class="text-center">Direccion</th>
                                                                 <th class="text-center">Acción</th>
                                                             </tr>
@@ -103,7 +103,7 @@
                                                                 <th class="text-center">Usuario Asignado</th>
                                                                 <th class="text-center">Cliente</th>
                                                                 <th class="text-center">Código</th>
-                                                                <th class="text-center">Por Hacer</th>
+                                                                <th class="text-center">Detalle de Trabajo</th>
                                                                 <th class="text-center">Direccion</th>
                                                                 <th class="text-center">Acción</th>
                                                             </tr>
@@ -122,11 +122,11 @@
                                                     <table id="FinalizadasTable" class="table table-striped table-bordered">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-center">Usuario Asignado</th>
+                                                                <th class="text-center">Usuario Instalación</th>
                                                                 <th class="text-center">Cliente</th>
                                                                 <th class="text-center">Código</th>
-                                                                <th class="text-center">Por Hacer</th>
-                                                                <th class="text-center">Direccion</th>
+                                                                <th class="text-center">Detalle de Trabajo</th>
+                                                                <th class="text-center">Fecha de Instalación</th>
                                                                 <th class="text-center">Acción</th>
                                                             </tr>
                                                         </thead>
@@ -317,7 +317,9 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label" for="name">Estación Final</label>
-                                <input id="EstacionFinal" name="EstacionFinal" type="text" placeholder="Ingrese la Estación Final" class="form-control input-sm" validation="not_null" data-nombre="Estación Final">
+                                <select name="EstacionFinal" id="EstacionFinal" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Estación Final">
+                                    <option value="">Seleccione...</option>
+                                </select>
                             </div>
                         </div>
  
@@ -337,7 +339,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label" for="name">Comentario</label>
-                                <textarea id="Comentario" name="Comentario" rows="4" class="form-control" placeholder="Ingrese el Comentario" validation="not_null" data-nombre="Comentario"></textarea>
+                                <textarea id="Comentario" name="Comentario" rows="4" class="form-control" placeholder="Ingrese el Comentario" data-nombre="Comentario"></textarea>
                             </div>
                         </div>
                     </form>

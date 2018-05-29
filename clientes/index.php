@@ -14,7 +14,6 @@
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 		<link href="../plugins/pace/pace.min.css" rel="stylesheet">
-   		 <script src="../plugins/pace/pace.min.js"></script>
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
@@ -64,25 +63,31 @@
 														</div>
 													</div>
 													<div class="row">
-														<div class="col-md-6 form-group">
+														<div class="col-md-4 form-group">
+															<label>Clase Cliente</label>
+															<select name="ClaseCliente" class="form-control selectpicker ClaseCliente" data-live-search="true" validate="not_null">
+															</select>
+														</div>
+														<div class="col-md-4 form-group">
 															<label> Razón social / Cliente</label>
 															<input name="Nombre" class="form-control" validate="not_null">
 														</div>
-														<div class="col-md-6 form-group">
+														<div class="col-md-4 form-group">
 															<label>Alias</label>
-															<input name="Alias" class="form-control" validate="not_null">
+															<input name="Alias" class="form-control">
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-md-12 form-group">
-															<label>Dirección  Comercial</label>
+															<label>Dirección Comercial</label>
 															<textarea name="DireccionComercial" class="form-control" validate="not_null"></textarea>
 														</div>
 													</div>
 													<div class="row">
 														<div class="col-md-4 form-group">
 															<label>Giro</label>
-															<input name="Giro" class="form-control" validate="not_null">
+															<select name="Giro" class="form-control selectpicker Giro" data-live-search="true" validate="not_null">
+															</select>
 														</div>
 														<div class="col-md-4 form-group">
 															<label>Ciudad</label>
@@ -125,8 +130,8 @@
 													</div>
 													<div class="row">
 														<div class="col-md-12 form-group">
-															<label>Comentarios</label>
-															<textarea name="Comentario" class="form-control" validate="not_null"></textarea>
+															<label>Notas</label>
+															<textarea name="Comentario" class="form-control"></textarea>
 														</div>
 													</div>
 												</form>
@@ -175,6 +180,8 @@
 	<script src="../js/methods_global/methods.js"></script>
 	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 	<script src="../plugins/numbers/jquery.number.js"></script>
+	<script src="../plugins/pace/pace.min.js"></script>
+	<script src="../js/jquery.rut.min.js"></script>
 	<script src="../js/clientes/controller.js"></script>
 </body>
 </html>
@@ -229,11 +236,17 @@
 					</div>
 				</div>
 				<div class="row">
-					<div class="col-md-6 form-group">
+					<div class="col-md-4 form-group">
+						<label>Clase Cliente</label>
+						<select name="ClaseCliente_update" class="form-control selectpicker ClaseCliente" data-live-search="true" validate="not_null">
+						</select>
+					</div>
+					<div class="col-md-4 form-group">
 						<label> Razón social / Cliente</label>
 						<input name="Nombre_update" class="form-control">
 					</div>
-					<div class="col-md-6 form-group">
+					
+					<div class="col-md-4 form-group">
 						<label>Alias</label>
 						<input name="Alias_update" class="form-control">
 					</div>
@@ -247,7 +260,8 @@
 				<div class="row">
 					<div class="col-md-4 form-group">
 						<label>Giro</label>
-						<input name="Giro_update" class="form-control">
+						<select name="Giro_update" class="form-control selectpicker Giro" data-live-search="true" validate="not_null">
+						</select>
 					</div>
 					<div class="col-md-4 form-group">
 						<label>Ciudad</label>

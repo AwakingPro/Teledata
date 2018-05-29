@@ -98,7 +98,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Numero de OC</label>
-                                                        <input id="numero_oc" name="numero_oc" class="form-control input-sm" validation="not_null" data-nombre="Numero de OC">
+                                                        <input id="numero_oc" name="numero_oc" class="form-control input-sm" data-nombre="Numero de OC">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -110,7 +110,9 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Lugar de Retiro</label>
-                                                        <input id="retiro" name="retiro" class="form-control input-sm" validation="not_null" data-nombre="Lugar de Retiro">
+                                                        <select class="selectpicker form-control" name="retiro" id="retiro"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Cliente">
+                                                            <option value="">Seleccione Bodega</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
