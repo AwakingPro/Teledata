@@ -461,15 +461,9 @@
                                     </select>
                                 </div>
                                 <br>
-                                <label>Valor</label>
-                                <div class="input-group">
+                                <label class="campo-Valor">Valor</label>
+                                <div class="form-group">
                                     <input id="Valor" type="text"  name="Valor" class="form-control" disabled>
-                                    <span class="input-group-addon" style="padding: 0px; border: 0px solid">
-                                        <select id="tipoMoneda" name="tipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;" disabled>
-                                            <option value="UF">UF</option>
-                                            <option value="Pesos">Pesos</option>
-                                        </select>
-                                    </span>
                                 </div>
                                 <br>
                                 <label>Descuento</label>

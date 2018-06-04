@@ -30,6 +30,5 @@ CREATE TABLE `servicios` (
   `TiepoFacturacion` varchar(150) DEFAULT NULL,
   `Codigo` varchar(150) CHARACTER SET latin1 NOT NULL,
   `Descripcion` varchar(500) NOT NULL,
-  `TipoMoneda` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`Id`)
 ) ENGINE=MyISAM AUTO_INCREMENT=41 DEFAULT CHARSET=utf8;

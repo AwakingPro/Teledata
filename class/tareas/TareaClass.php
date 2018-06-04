@@ -235,10 +235,13 @@
 
 		                    if($FacturaId){
 
+								$UfClass = new Uf(); 
+								$Fecha = date('d-m-Y');
+								$UF = $UfClass->getValue($Fecha);
+
 		                    	$Concepto = $Servicio['Servicio'];
 		                    	$Valor = $Servicio['Valor'];
 			                    $Descuento = $Servicio['Descuento'];
-			                    $TipoMoneda = $Servicio['TipoMoneda'];
 
 							    if($this->FechaInstalacion){
 							    	$dt = DateTime::createFromFormat('Y-m-d', $this->FechaInstalacion);
@@ -304,11 +307,11 @@
 					    			$Diasporfacturar = 1;
 					    			$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dia)';
 					    		}	
-
+								$Valor = $Valor * $UF;
 							    $Montodiario = $Valor / $Diasdelmes;
-							    $Montoporfacturar = $Diasporfacturar * $Montodiario;
+								$Montoporfacturar = $Diasporfacturar * $Montodiario;
 
-			                    $query = "INSERT INTO facturas_detalle(FacturaId, Servicio, Valor, Descuento, TipoMoneda) VALUES ('$FacturaId', '$Concepto', '$Montoporfacturar', '$Descuento', '$TipoMoneda')";
+			                    $query = "INSERT INTO facturas_detalle(FacturaId, Servicio, Valor, Descuento) VALUES ('$FacturaId', '$Concepto', '$Montoporfacturar', '$Descuento')";
 			                    $FacturaDetalle = $run->insert($query);
 		                    }
 	                    }

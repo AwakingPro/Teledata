@@ -36,8 +36,7 @@
                                             <tr>
                                                 <th class="text-center">Nombre</th>
                                                 <th class="text-center">Descripción</th>
-                                                <th class="text-center">Monto UF</th>
-                                                <th class="text-center">Monto Pesos</th>
+                                                <th class="text-center">Valor</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -102,7 +101,7 @@
                                                         <th class="text-center">Cliente</th>
                                                         <th class="text-center">Rut</th>
                                                         <th class="text-center">Grupo Factura</th>
-                                                        <th class="text-center">Monto Pesos</th>
+                                                        <th class="text-center">Monto</th>
                                                         <th class="text-center">Acción</th>
                                                     </tr>
                                                 </thead>
@@ -128,7 +127,7 @@
                                                             <th class="text-center">Cliente</th>
                                                             <th class="text-center">Rut</th>
                                                             <th class="text-center">Grupo Factura</th>
-                                                            <th class="text-center">Monto Pesos</th>
+                                                            <th class="text-center">Monto</th>
                                                             <th class="text-center">Acción</th>
                                                         </tr>
                                                     </thead>
@@ -155,7 +154,7 @@
                                                             <th class="text-center">Cliente</th>
                                                             <th class="text-center">Rut</th>
                                                             <th class="text-center">Grupo Factura</th>
-                                                            <th class="text-center">Monto Pesos</th>
+                                                            <th class="text-center">Monto</th>
                                                             <th class="text-center">Acción</th>
                                                         </tr>
                                                     </thead>

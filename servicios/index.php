@@ -90,15 +90,9 @@
 														</select>
 													</div>
 													<br>
-													<label>Valor</label>
-													<div class="input-group">
+													<label class="campo-Valor">Valor</label>
+													<div class="form-group">
 														<input type="text"  name="Valor" class="form-control" validation="not_null" data-nombre="Valor">
-														<span class="input-group-addon" style="padding: 0px; border: 0px solid">
-															<select name="tipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
-																<option value="UF">UF</option>
-																<option value="Pesos">Pesos</option>
-															</select>
-														</span>
 													</div>
 													<br>
 													<label>Descuento</label>
@@ -193,15 +187,9 @@
 													<br>
 
 													<div id="divCostoInstalacion">
-														<label>Costo de instalación / Habilitación</label>
-														<div class="input-group">
+														<label class="campo-CostoInstalacion">Costo de instalación / Habilitación</label>
+														<div class="form-group">
 															<input type="text" name="CostoInstalacion" class="form-control" validation="not_null" data-nombre="Costo de Instalacion">
-															<span class="input-group-addon" style="padding: 0px; border: 0px solid">
-																<select name="CostoInstalacionTipoMoneda" class="form-control" style="height: 31px;width: 85px;border-left: 0px solid;">
-																	<option value="UF">UF</option>
-																	<option value="Pesos">Pesos</option>
-																</select>
-															</span>
 														</div>
 														<br>
 														<label>Descuento Instalación</label>

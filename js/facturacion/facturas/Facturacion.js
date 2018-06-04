@@ -170,7 +170,7 @@ $(document).ready(function(){
                     { data: 'Cliente' },
                     { data: 'Rut' },
                     { data: 'Grupo' },
-                    { data: 'ValorPesos' },
+                    { data: 'Valor' },
                     { data: 'Tipo' },
                 ],
                 destroy: true,
@@ -247,7 +247,7 @@ $(document).ready(function(){
                     { data: 'Cliente' },
                     { data: 'Rut' },
                     { data: 'Grupo' },
-                    { data: 'ValorPesos' },
+                    { data: 'Valor' },
                     { data: 'EstatusFacturacion' },
                 ],
                 destroy: true,
@@ -320,7 +320,7 @@ $(document).ready(function(){
                     { data: 'Cliente' },
                     { data: 'Rut' },
                     { data: 'Grupo' },
-                    { data: 'ValorPesos' },
+                    { data: 'Valor' },
                     { data: 'EstatusFacturacion' }
                 ],
                 destroy: true,
@@ -487,10 +487,8 @@ $(document).ready(function(){
                 $.each(response.array, function( index, array ) {
                     var rowNode = ModalTable.row.add([
                         ''+array.Codigo+'',
-                        ''+array.Nombre+'',
                         ''+array.Descripcion+'',
-                        ''+array.ValorUF+'',
-                        ''+array.ValorPesos+'',
+                        ''+array.Valor+'',
                     ]).draw(false).node();
 
                     $( rowNode )
@@ -514,6 +512,10 @@ $(document).ready(function(){
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectRutId = ObjectTR.attr("rutid");
+        var ObjectGroup = ObjectTR.attr("grupo");
+        if(ObjectGroup > 0){
+            ObjectRutId = ObjectRutId + "-" + ObjectGroup
+        }
 
         $.ajax({
             type: "POST",
@@ -527,8 +529,7 @@ $(document).ready(function(){
                     var rowNode = ModalTable.row.add([
                         ''+array.Nombre+'',
                         ''+array.Descripcion+'',
-                        ''+array.ValorUF+'',
-                        ''+array.ValorPesos+'',
+                        ''+array.Valor+'',
                     ]).draw(false).node();
 
                     $( rowNode )

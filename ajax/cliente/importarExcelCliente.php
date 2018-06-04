@@ -51,17 +51,15 @@
 							$IdServicio = 1;
 						}
 					}else if($col == 4){
-						$tipoMoneda = $val;
-					}else if($col == 5){
 						$Valor = $val;
-					}else if($col == 6){
+					}else if($col == 5){
 						$Descripcion = $val;
 					}
 					// $dataType = PHPExcel_Cell_DataType::dataTypeForValue($val);
 					// echo '<td>' . $val . '<br>(Typ ' . $dataType . ')</td>';
 				}
 
-				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionTipoMoneda, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion) VALUES ('".$Rut."', '1', 'BSMI', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$tipoMoneda."', '".$idUsuario."', '".$Codigo."', '0', '1970-01-01', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '".$tipoMoneda."', '0', '0', '1970-01-01', NOW())";
+				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion) VALUES ('".$Rut."', '1', 'BSMI', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Codigo."', '0', '1970-01-01', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '0', '0', '1970-01-01', NOW())";
 				$id = $run->insert($query);
 				if(!$id){
 					echo 'Error 1';
@@ -159,15 +157,13 @@
 					}else if($col == 4){
 						$Descripcion = $val;
 					}else if($col == 5){
-						$tipoMoneda = $val;
-					}else if($col == 6){
 						$Valor = $val;
 					}
 					// $dataType = PHPExcel_Cell_DataType::dataTypeForValue($val);
 					// echo '<td>' . $val . '<br>(Typ ' . $dataType . ')</td>';
 				}
 
-				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionTipoMoneda, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion) VALUES ('".$Rut."', '1', 'FSMI', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$tipoMoneda."', '".$idUsuario."', '".$Codigo."', '0', NOW(), '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '".$tipoMoneda."', '0', '0', NOW(),NOW())";
+				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion) VALUES ('".$Rut."', '1', 'FSMI', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Codigo."', '0', NOW(), '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '0', '0', NOW(),NOW())";
 				$id = $run->insert($query);
 
 				if(!$id){
@@ -201,8 +197,6 @@
 					}else if($col == 4){
 						$Descripcion = $val;
 					}else if($col == 5){
-						$tipoMoneda = $val;
-					}else if($col == 6){
 						$Valor = $val;
 
 						if(!$Valor){
@@ -213,7 +207,7 @@
 					// echo '<td>' . $val . '<br>(Typ ' . $dataType . ')</td>';
 				}
 
-				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, TipoMoneda, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionTipoMoneda, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion) VALUES ('".$Rut."', '1', 'FSMI', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$tipoMoneda."', '".$idUsuario."', '".$Codigo."', '0', NOW(), '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '".$tipoMoneda."', '0', '0', NOW(), NOW())";
+				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion) VALUES ('".$Rut."', '1', 'FSMI', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Codigo."', '0', NOW(), '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '0', '0', NOW(), NOW())";
 				$id = $run->insert($query);
 
 				if(!$id){
