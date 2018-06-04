@@ -61,8 +61,7 @@ $(document).ready(function(){
                 $('.tipo_producto_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.tipo_producto_id').selectpicker('refresh');
         
         }
     });
@@ -146,8 +145,7 @@ $(document).ready(function(){
         $('#updateMarcaProducto').find('input[name="nombre"]').val(ObjectName);
         $('#updateMarcaProducto').find('textarea[name="descripcion"]').text(ObjectDescription);
 
-        $('.selectpicker').selectpicker('render');
-        $('.selectpicker').selectpicker('refresh');
+        $('.tipo_producto_id').selectpicker('refresh');
 
         $('#MarcaProductoFormUpdate').modal('show');
   

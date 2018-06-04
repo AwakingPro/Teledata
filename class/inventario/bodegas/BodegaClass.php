@@ -127,7 +127,7 @@
 
         function showBodegas(){
 
-            $query = "SELECT mantenedor_bodegas.*, usuarios.nombre as personal FROM mantenedor_bodegas INNER JOIN usuarios ON mantenedor_bodegas.personal_id = usuarios.id where mantenedor_bodegas.id != '999'";
+            $query = "SELECT mantenedor_bodegas.*, usuarios.nombre as personal FROM mantenedor_bodegas LEFT JOIN usuarios ON mantenedor_bodegas.personal_id = usuarios.id where mantenedor_bodegas.id != '999'";
             $run = new Method;
             $data = $run->select($query);
 

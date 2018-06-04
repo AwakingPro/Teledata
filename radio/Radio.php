@@ -66,7 +66,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Responsable Teledata</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
+                                            <select class="form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
                                             </select>
                                         </div>
                                     </div>
@@ -175,7 +175,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Responsable Teledata</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
+                                            <select class="form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
                                             </select>
                                         </div>
                                     </div>
@@ -319,7 +319,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Mac Address</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
+                                            <select class="form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -420,7 +420,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Mac Address</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
+                                            <select class="form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>

@@ -126,11 +126,10 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('.modelo_producto_id').append('<option value="'+array.id+'" data-content="'+array.tipo + ' ' + array.marca + ' ' + array.nombre+'"></option>');
+                $('.modelo_producto_id').append('<option value="'+array.id+'">'+array.tipo + ' ' + array.marca + ' ' + array.nombre+'</option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.modelo_producto_id').selectpicker('refresh');
         
         }
     });
@@ -141,11 +140,10 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('.proveedor_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                $('.proveedor_id').append('<option value="'+array.id+'">'+array.nombre+'</option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.proveedor_id').selectpicker('refresh');
         
         }
     });
@@ -156,11 +154,10 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('.bodega_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                $('.bodega_id').append('<option value="'+array.id+'">'+array.nombre+'</option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.bodega_id').selectpicker('refresh');
         }
     });
 
@@ -170,11 +167,10 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('.personal_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                $('.personal_id').append('<option value="'+array.id+'">'+array.nombre+'</option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.personal_id').selectpicker('refresh');
         
         }
     });
@@ -185,11 +181,10 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('.marca_producto_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                $('.marca_producto_id').append('<option value="'+array.id+'">'+array.nombre+'</option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.marca_producto_id').selectpicker('refresh');
         
         }
     });
@@ -316,6 +311,9 @@ $(document).ready(function(){
         $('#updateIngreso').find('input[name="mac_address"]').val(ObjectMacAddress);
         $('#updateIngreso').find('input[name="valor"]').val(ObjectValue);
         $('#updateIngreso').find('input[name="cantidad"]').val(ObjectQuantity);
+        
+        $('#updateIngreso').find('select[name="modelo_producto_id"]').selectpicker('refresh');
+        $('#updateIngreso').find('select[name="proveedor_id"]').selectpicker('refresh');
 
         if(ObjectState == 1){
             $('.label_estado').removeClass('active')

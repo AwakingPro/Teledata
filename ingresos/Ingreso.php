@@ -65,7 +65,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="selectpicker form-control proveedor_id proveedor" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
+                                            <select class="form-control proveedor_id proveedor" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -83,7 +83,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Modelo - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalModelo">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="selectpicker form-control modelo_producto_id modelo" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
+                                            <select class="form-control modelo_producto_id modelo" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -131,7 +131,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Bodega - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalBodega">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="selectpicker form-control bodega_id bodega" id="bodega_id" name="bodega_id" validation="not_null" data-live-search="true" data-nombre="Bodega" data-container="body">
+                                            <select class="form-control bodega_id bodega" id="bodega_id" name="bodega_id" validation="not_null" data-live-search="true" data-nombre="Bodega" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -187,7 +187,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Proveedor</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control proveedor_id proveedor" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
+                                            <select class="form-control proveedor_id proveedor" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -205,7 +205,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Modelo</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control modelo_producto_id modelo" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
+                                            <select class="form-control modelo_producto_id modelo" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -378,7 +378,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Responsable</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
+                                            <select class="form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
                                             </select>
                                         </div>
                                     </div>
@@ -407,7 +407,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Marca</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control marca_producto_id" name="marca_producto_id" id="marca_producto_id"  data-live-search="true" data-container="body">
+                                            <select class="form-control marca_producto_id" name="marca_producto_id" id="marca_producto_id"  data-live-search="true" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>

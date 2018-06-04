@@ -102,8 +102,7 @@ $(document).ready(function(){
                 $('.proveedor_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.proveedor_id').selectpicker('refresh');
         
         }
     });
@@ -117,8 +116,7 @@ $(document).ready(function(){
                 $('.estado_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.estado_id').selectpicker('refresh');
         
         }
     });
@@ -132,8 +130,7 @@ $(document).ready(function(){
                 $('.centro_costo_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.centro_costo_id').selectpicker('refresh');
         }
     });
 
@@ -146,8 +143,7 @@ $(document).ready(function(){
                 $('.personal_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.personal_id').selectpicker('refresh');
         
         }
     });
@@ -269,7 +265,7 @@ $(document).ready(function(){
         var ObjectDetailNumber = ObjectTR.data("numero_detalle");
         var ObjectDetailDate = ObjectTR.data("fecha_detalle");
 
-        if(ObjectDetailDate && ObjectDetailDate != '0000-00-00'){
+        if(ObjectDetailDate && ObjectDetailDate != '0000-00-00' && ObjectDetailDate != '1969-01-31'){
             ObjectDetailDate = moment(ObjectDetailDate).format('DD-MM-YYYY');
         }else{
             ObjectDetailDate = ''
@@ -295,9 +291,9 @@ $(document).ready(function(){
             $('#actualizarIngreso').show()
             $('#IngresoFormUpdate').modal('show');
         }
-
-        $('.selectpicker').selectpicker('render');
-        $('.selectpicker').selectpicker('refresh');
+        $('#updateIngreso').find('select[name="proveedor_id"]').selectpicker('refresh');
+        $('#updateIngreso').find('select[name="estado_id"]').selectpicker('refresh');
+        $('#updateIngreso').find('select[name="centro_costo_id"]').selectpicker('refresh');
 
         if($('#updateIngreso').find('input[name="estado_id"]').find('option:selected').data('content') != "Otros"){
             $('.detalle').show()

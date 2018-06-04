@@ -205,7 +205,7 @@
                             <div class="form-group">
                                 <label class="control-label" for="name">Usuario</label>
                                 <div class="select">
-                                    <select class="selectpicker form-control IdUsuarioAsignado" name="IdUsuarioAsignado" id="IdUsuarioAsignado"  data-live-search="true" data-container="body">
+                                    <select class="form-control IdUsuarioAsignado" name="IdUsuarioAsignado" id="IdUsuarioAsignado"  data-live-search="true" data-container="body">
                                     </select>
                                 </div>
                             </div>
@@ -236,7 +236,7 @@
                             <div class="form-group">
                                 <label class="control-label" for="name">Usuario</label>
                                 <div class="select">
-                                    <select class="selectpicker form-control IdUsuarioAsignado" name="IdUsuarioAsignado" id="IdUsuarioAsignado"  data-live-search="true" data-container="body">
+                                    <select class="form-control IdUsuarioAsignado" name="IdUsuarioAsignado" id="IdUsuarioAsignado"  data-live-search="true" data-container="body">
                                     </select>
                                 </div>
                             </div>
@@ -274,7 +274,7 @@
                             <div class="form-group">
                                 <label class="control-label" for="name">Instalado Por</label>
                                 <div class="select">
-                                    <select class="selectpicker form-control IdUsuarioAsignado" name="InstaladoPor" id="InstaladoPor"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Instalado Por">
+                                    <select class="form-control IdUsuarioAsignado" name="InstaladoPor" id="InstaladoPor"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Instalado Por">
                                     </select>
                                 </div>
                             </div>

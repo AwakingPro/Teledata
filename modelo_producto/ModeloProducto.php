@@ -39,7 +39,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Marca</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control marca_producto_id" name="marca_producto_id" id="marca_producto_id"  data-live-search="true" data-container="body">
+                                            <select class="form-control marca_producto_id" name="marca_producto_id" id="marca_producto_id"  data-live-search="true" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -84,7 +84,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Marca</label>
                                                         <div class="select">
-                                                            <select class="selectpicker form-control marca_producto_id" name="marca_producto_id" id="marca_producto_id"  data-live-search="true" data-container="body">
+                                                            <select class="form-control marca_producto_id" name="marca_producto_id" id="marca_producto_id"  data-live-search="true" data-container="body">
                                                             </select>
                                                         </div>
                                                     </div>

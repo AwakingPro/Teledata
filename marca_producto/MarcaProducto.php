@@ -39,7 +39,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Tipo</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control tipo_producto_id" name="tipo_producto_id" id="tipo_producto_id"  data-live-search="true" data-container="body">
+                                            <select class="form-control tipo_producto_id" name="tipo_producto_id" id="tipo_producto_id"  data-live-search="true" data-container="body">
                                             </select>
                                         </div>
                                     </div>
@@ -83,7 +83,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Tipo</label>
                                                         <div class="select">
-                                                            <select class="selectpicker form-control tipo_producto_id" name="tipo_producto_id" id="tipo_producto_id"  data-live-search="true" data-container="body">
+                                                            <select class="form-control tipo_producto_id" name="tipo_producto_id" id="tipo_producto_id"  data-live-search="true" data-container="body">
                                                                 <option value="">Seleccione Opción</option>
                                                             </select>
                                                         </div>

@@ -324,8 +324,7 @@ $(document).ready(function(){
                 $('.producto_id').append('<option value="'+array.id+'" data-content="'+array.mac_address+'"></option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.producto_id').selectpicker('refresh');
         
         }
     });
@@ -339,8 +338,7 @@ $(document).ready(function(){
                 $('.personal_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.personal_id').selectpicker('refresh');
         
         }
     });
@@ -385,6 +383,7 @@ $(document).ready(function(){
 
                 $('.estacion_id').append('<option value="'+response.array.id+'" data-content="'+response.array.nombre+'"></option>');
                 $('.estacion_id').val(response.array.id);
+                $('.estacion_id').selectpicker('refresh')
                 
                 $('.modal').modal('hide');
 
@@ -485,8 +484,7 @@ $(document).ready(function(){
         showMap(ObjectLatitude, ObjectLongitude);
         showMapSite(ObjectLatitudeSite, ObjectLongitudeSite);
 
-        $('.selectpicker').selectpicker('render');
-        $('.selectpicker').selectpicker('refresh');
+        $('#updateEstacion').find('select[name="personal_id"]').selectpicker('refresh');
   
     });
 
@@ -579,6 +577,7 @@ $(document).ready(function(){
                                     .remove()
                                     .draw();
                                 $(".estacion_id option[value='"+ObjectId+"']").remove();
+                                $('.estacion_id').selectpicker('refresh')
                             }else if(response.status == 3){
                                 swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee otros registros asociados','error');
                             }else{
@@ -695,7 +694,6 @@ $(document).ready(function(){
 
                 $('#producto_id option[value="'+response.array.producto_id+'"]').remove();
 
-                $('.selectpicker').selectpicker('render');
                 $('.selectpicker').selectpicker('refresh');
                 $('.modal').modal('hide');
 

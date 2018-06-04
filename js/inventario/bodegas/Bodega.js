@@ -43,13 +43,18 @@ $(document).ready(function(){
                 }else{
                     principal = 'No'
                 }
+                if(array.personal){
+                    personal = array.personal
+                }else{
+                    personal = ''
+                }
 
                 var rowNode = Table.row.add([
                   ''+array.nombre+'',
                   ''+principal+'',
                   ''+array.direccion+'',
                   ''+array.telefono+'',
-                  ''+array.personal+'',
+                  ''+personal+'',
                   ''+array.correo+'',
                   ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();

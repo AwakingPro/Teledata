@@ -190,7 +190,6 @@ $(document).ready(function() {
         type: "POST",
         url: "../includes/inventario/bodegas/showPersonal.php",
         success: function(response){
-
             $.each(response.array, function( index, array ) {
                 $('.IdUsuarioAsignado').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });

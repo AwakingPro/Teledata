@@ -39,7 +39,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Razón Social / Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="selectpicker form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
+                                            <select class="form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -64,7 +64,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Estado de Pago</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control estado_id" id="estado_id" name="estado_id" validation="not_null" data-live-search="true" data-nombre="Estado de Pago" data-container="body">
+                                            <select class="form-control estado_id" id="estado_id" name="estado_id" validation="not_null" data-live-search="true" data-nombre="Estado de Pago" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -74,14 +74,14 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label label_numero_detalle" for="name">Detalle</label>
-                                        <input id="numero_detalle" name="numero_detalle" validation="not_null" placeholder="Ingrese el detalle" class="form-control input-sm number numero_detalle" data-nombre="Detalle">
+                                        <input id="numero_detalle" name="numero_detalle" placeholder="Ingrese el detalle" class="form-control input-sm number numero_detalle" data-nombre="Detalle">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12 detalle" style="display:none">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha de Pago</label>
-                                        <input id="fecha_detalle" name="fecha_detalle" validation="not_null"  type="text" placeholder="Seleccione la fecha de pago" class="form-control date fecha_detalle" data-nombre="Fecha de Pago">
+                                        <input id="fecha_detalle" name="fecha_detalle" type="text" placeholder="Seleccione la fecha de pago" class="form-control date fecha_detalle" data-nombre="Fecha de Pago">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -89,7 +89,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Centro de Costos - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalCosto">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="selectpicker form-control centro_costo_id" id="centro_costo_id" name="centro_costo_id" validation="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
+                                            <select class="form-control centro_costo_id" id="centro_costo_id" name="centro_costo_id" validation="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -134,7 +134,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Razón Social / Proveedor</label>
                                                         <div class="select">
-                                                            <select class="selectpicker form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
+                                                            <select class="form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
                                                                 <option value="">Seleccione Opción</option>
                                                             </select>
                                                         </div>
@@ -145,7 +145,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Estado de Pago</label>
                                                         <div class="select">
-                                                            <select class="selectpicker form-control estado_id" id="estado_id" name="estado_id" validation="not_null" data-live-search="true" data-nombre="Estado de Pago" data-container="body">
+                                                            <select class="form-control estado_id" id="estado_id" name="estado_id" validation="not_null" data-live-search="true" data-nombre="Estado de Pago" data-container="body">
                                                                 <option value="">Seleccione Opción</option>
                                                             </select>
                                                         </div>
@@ -155,14 +155,14 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <label class="control-label label_numero_detalle" for="name">Numero de Cuenta</label>
-                                                        <input id="numero_detalle" name="numero_detalle" validation="not_null" placeholder="Ingrese el numero de cuenta" class="form-control input-sm number numero_detalle" data-nombre="Numero de Cuenta">
+                                                        <input id="numero_detalle" name="numero_detalle" placeholder="Ingrese el numero de cuenta" class="form-control input-sm number numero_detalle" data-nombre="Numero de Cuenta">
                                                     </div>
                                                 </div>
                                                 <div class="clearfix m-b-10"></div>
                                                 <div class="col-md-12 detalle">
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Fecha de Pago</label>
-                                                        <input id="fecha_detalle" name="fecha_detalle" validation="not_null"  type="text" placeholder="Seleccione la fecha de pago" class="form-control date fecha_detalle" data-nombre="Fecha de Pago">
+                                                        <input id="fecha_detalle" name="fecha_detalle" type="text" placeholder="Seleccione la fecha de pago" class="form-control date fecha_detalle" data-nombre="Fecha de Pago">
                                                     </div>
                                                 </div>
                                                 <div class="clearfix m-b-10"></div>
@@ -170,7 +170,7 @@
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Centro de Costos</label>
                                                         <div class="select">
-                                                            <select class="selectpicker form-control centro_costo_id" id="centro_costo_id" name="centro_costo_id" validation="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
+                                                            <select class="form-control centro_costo_id" id="centro_costo_id" name="centro_costo_id" validation="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
                                                                 <option value="">Seleccione Opción</option>
                                                             </select>
                                                         </div>
@@ -282,7 +282,7 @@
                                                                                     <div class="form-group">
                                                                                         <label class="control-label" for="name">Responsable</label>
                                                                                         <div class="select">
-                                                                                            <select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
+                                                                                            <select class="form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
                                                                                             </select>
                                                                                         </div>
                                                                                     </div>

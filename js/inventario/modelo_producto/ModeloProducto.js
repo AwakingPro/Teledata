@@ -58,11 +58,10 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('.marca_producto_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+                $('.marca_producto_id').append('<option value="'+array.id+'">'+array.nombre+'</option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.marca_producto_id').selectpicker('refresh');
         
         }
     });
@@ -147,8 +146,7 @@ $(document).ready(function(){
         $('#updateModeloProducto').find('input[name="nombre"]').val(ObjectName);
         $('#updateModeloProducto').find('textarea[name="descripcion"]').text(ObjectDescription);
 
-        $('.selectpicker').selectpicker('render');
-        $('.selectpicker').selectpicker('refresh');
+        $('.marca_producto_id').selectpicker('refresh');
 
         $('#ModeloProductoFormUpdate').modal('show');
   
