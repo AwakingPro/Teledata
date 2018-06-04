@@ -275,7 +275,6 @@
     	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
 		<script src="../plugins/sweetalert/sweetalert.min.js"></script>
-		<script src="../js/jquery.rut.min.js"></script>
 		<script src="../js/servicios/controller.js"></script>
 		<script src="../js/swalExtend.js"></script>
 	</body>

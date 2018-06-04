@@ -181,7 +181,6 @@
 	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 	<script src="../plugins/numbers/jquery.number.js"></script>
 	<script src="../plugins/pace/pace.min.js"></script>
-	<script src="../js/jquery.rut.min.js"></script>
 	<script src="../js/clientes/controller.js"></script>
 </body>
 </html>

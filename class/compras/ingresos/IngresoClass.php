@@ -134,7 +134,7 @@
 
         function showIngreso(){
 
-            $query = 'SELECT compras_ingresos.*, mantenedor_estado_pago.nombre as estado, mantenedor_proveedores.rut as proveedor_rut, mantenedor_proveedores.dv as proveedor_dv, mantenedor_proveedores.nombre as proveedor, mantenedor_costos.nombre as centro_costo FROM compras_ingresos INNER JOIN mantenedor_estado_pago ON compras_ingresos.estado_id = mantenedor_estado_pago.id INNER JOIN mantenedor_costos ON compras_ingresos.centro_costo_id = mantenedor_costos.id INNER JOIN mantenedor_proveedores ON compras_ingresos.proveedor_id = mantenedor_proveedores.id';
+            $query = 'SELECT compras_ingresos.*, mantenedor_estado_pago.nombre as estado, mantenedor_proveedores.nombre as proveedor, mantenedor_costos.nombre as centro_costo FROM compras_ingresos INNER JOIN mantenedor_estado_pago ON compras_ingresos.estado_id = mantenedor_estado_pago.id INNER JOIN mantenedor_costos ON compras_ingresos.centro_costo_id = mantenedor_costos.id INNER JOIN mantenedor_proveedores ON compras_ingresos.proveedor_id = mantenedor_proveedores.id';
 
             $run = new Method;
             $data = $run->select($query);

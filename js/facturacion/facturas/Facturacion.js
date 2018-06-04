@@ -1,104 +1,104 @@
 $(document).ready(function(){
 
-    LoteTable = $('#LoteTable').DataTable({
-        "columnDefs": [ {
-            "targets": [ 0 ],
-            "orderable": false
-        } ],
-        paging: false,
-        iDisplayLength: 100,
-        processing: true,
-        serverSide: false,
-        bInfo:false,
-        // bFilter:false,
-        order: [[1, 'asc']],
-        language: {
-            processing:     "Procesando ...",
-            search:         'Buscar',
-            lengthMenu:     "Mostrar _MENU_ Registros",
-            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-            infoFiltered:   "(filtrada de _MAX_ registros en total)",
-            infoPostFix:    "",
-            loadingRecords: "...",
-            zeroRecords:    "No se encontraron registros coincidentes",
-            emptyTable:     "No hay datos disponibles en la tabla",
-            paginate: {
-                first:      "Primero",
-                previous:   "Anterior",
-                next:       "Siguiente",
-                last:       "Ultimo"
-            },
-            aria: {
-                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
-                sortDescending: ": habilitado para ordenar la columna en orden descendente"
-            }
-        }
-    });
+    // LoteTable = $('#LoteTable').DataTable({
+    //     "columnDefs": [ {
+    //         "targets": [ 0 ],
+    //         "orderable": false
+    //     } ],
+    //     paging: false,
+    //     iDisplayLength: 100,
+    //     processing: true,
+    //     serverSide: false,
+    //     bInfo:false,
+    //     // bFilter:false,
+    //     order: [[1, 'asc']],
+    //     language: {
+    //         processing:     "Procesando ...",
+    //         search:         'Buscar',
+    //         lengthMenu:     "Mostrar _MENU_ Registros",
+    //         info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+    //         infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+    //         infoFiltered:   "(filtrada de _MAX_ registros en total)",
+    //         infoPostFix:    "",
+    //         loadingRecords: "...",
+    //         zeroRecords:    "No se encontraron registros coincidentes",
+    //         emptyTable:     "No hay datos disponibles en la tabla",
+    //         paginate: {
+    //             first:      "Primero",
+    //             previous:   "Anterior",
+    //             next:       "Siguiente",
+    //             last:       "Ultimo"
+    //         },
+    //         aria: {
+    //             sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+    //             sortDescending: ": habilitado para ordenar la columna en orden descendente"
+    //         }
+    //     }
+    // });
 
-    IndividualTable = $('#IndividualTable').DataTable({
-        paging: false,
-        iDisplayLength: 100,
-        processing: true,
-        serverSide: false,
-        bInfo:false,
-        // bFilter:false,
-        order: [[0, 'asc']],
-        language: {
-            processing:     "Procesando ...",
-            search:         'Buscar',
-            lengthMenu:     "Mostrar _MENU_ Registros",
-            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-            infoFiltered:   "(filtrada de _MAX_ registros en total)",
-            infoPostFix:    "",
-            loadingRecords: "...",
-            zeroRecords:    "No se encontraron registros coincidentes",
-            emptyTable:     "No hay datos disponibles en la tabla",
-            paginate: {
-                first:      "Primero",
-                previous:   "Anterior",
-                next:       "Siguiente",
-                last:       "Ultimo"
-            },
-            aria: {
-                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
-                sortDescending: ": habilitado para ordenar la columna en orden descendente"
-            }
-        }
-    });
+    // IndividualTable = $('#IndividualTable').DataTable({
+    //     paging: false,
+    //     iDisplayLength: 100,
+    //     processing: true,
+    //     serverSide: false,
+    //     bInfo:false,
+    //     // bFilter:false,
+    //     order: [[0, 'asc']],
+    //     language: {
+    //         processing:     "Procesando ...",
+    //         search:         'Buscar',
+    //         lengthMenu:     "Mostrar _MENU_ Registros",
+    //         info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+    //         infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+    //         infoFiltered:   "(filtrada de _MAX_ registros en total)",
+    //         infoPostFix:    "",
+    //         loadingRecords: "...",
+    //         zeroRecords:    "No se encontraron registros coincidentes",
+    //         emptyTable:     "No hay datos disponibles en la tabla",
+    //         paginate: {
+    //             first:      "Primero",
+    //             previous:   "Anterior",
+    //             next:       "Siguiente",
+    //             last:       "Ultimo"
+    //         },
+    //         aria: {
+    //             sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+    //             sortDescending: ": habilitado para ordenar la columna en orden descendente"
+    //         }
+    //     }
+    // });
 
-    InstalacionTable = $('#InstalacionTable').DataTable({
-        paging: false,
-        iDisplayLength: 100,
-        processing: true,
-        serverSide: false,
-        bInfo:false,
-        // bFilter:false,
-        order: [[0, 'asc']],
-        language: {
-            processing:     "Procesando ...",
-            search:         'Buscar',
-            lengthMenu:     "Mostrar _MENU_ Registros",
-            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-            infoFiltered:   "(filtrada de _MAX_ registros en total)",
-            infoPostFix:    "",
-            loadingRecords: "...",
-            zeroRecords:    "No se encontraron registros coincidentes",
-            emptyTable:     "No hay datos disponibles en la tabla",
-            paginate: {
-                first:      "Primero",
-                previous:   "Anterior",
-                next:       "Siguiente",
-                last:       "Ultimo"
-            },
-            aria: {
-                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
-                sortDescending: ": habilitado para ordenar la columna en orden descendente"
-            }
-        }
-    });
+    // InstalacionTable = $('#InstalacionTable').DataTable({
+    //     paging: false,
+    //     iDisplayLength: 100,
+    //     processing: true,
+    //     serverSide: false,
+    //     bInfo:false,
+    //     // bFilter:false,
+    //     order: [[0, 'asc']],
+    //     language: {
+    //         processing:     "Procesando ...",
+    //         search:         'Buscar',
+    //         lengthMenu:     "Mostrar _MENU_ Registros",
+    //         info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+    //         infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+    //         infoFiltered:   "(filtrada de _MAX_ registros en total)",
+    //         infoPostFix:    "",
+    //         loadingRecords: "...",
+    //         zeroRecords:    "No se encontraron registros coincidentes",
+    //         emptyTable:     "No hay datos disponibles en la tabla",
+    //         paginate: {
+    //             first:      "Primero",
+    //             previous:   "Anterior",
+    //             next:       "Siguiente",
+    //             last:       "Ultimo"
+    //         },
+    //         aria: {
+    //             sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+    //             sortDescending: ": habilitado para ordenar la columna en orden descendente"
+    //         }
+    //     }
+    // });
 
     ModalTable = $('#ModalTable').DataTable({
         paging: false,
@@ -148,38 +148,85 @@ $(document).ready(function(){
     function formatcurrency(n) {
         return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
     }
+    $.ajax({
+        type: "POST",
+        url: "../includes/facturacion/uf/getValue.php",
+        success: function(response){
+            $('.ValorUF').text(response)
+        }
+    });
 
     $.ajax({
         type: "POST",
         url: "../includes/facturacion/facturas/showServicios.php",
         success: function(response){
 
-            $.each(response.array, function( index, array ) {
-
-                if(array.Tipo == 2){
-                    Estatus = 'Pagada'
-                    Icono = '<a href="'+array.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
-                }else{
-                    Estatus = 'Por pagar'
-                    Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarServicio" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+            InstalacionTable = $('#InstalacionTable').DataTable({
+                order: [[1, 'desc']],
+                data: response.array,
+                columns: [
+                    { data: 'Tipo' },
+                    { data: 'FechaFacturacion' },
+                    { data: 'Cliente' },
+                    { data: 'Rut' },
+                    { data: 'Grupo' },
+                    { data: 'ValorPesos' },
+                    { data: 'Tipo' },
+                ],
+                destroy: true,
+                'createdRow': function( row, data, dataIndex ) {
+                    $(row)
+                        .attr('rutid',data.Rut)
+                        .attr('grupo',data.Grupo)
+                        .attr('tipo',3)
+                        .addClass('text-center')
+                },
+                "columnDefs": [
+                    {
+                        "targets": 0,
+                        "render": function (data, type, row) {
+                            if(data == 2){
+                                Estatus = "<div style='text-align: center'>Pagada</div>"
+                            }else{
+                                Estatus = "<div style='text-align: center'>Por Pagar</div>"
+                            }
+                            return Estatus
+                        }
+                    },
+                    {
+                        "targets": 6,
+                        "render": function (data, type, row) {
+                            if(data == 2){
+                                Icono = '<a href="'+row.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
+                            }else{
+                                Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarServicio" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                            }
+                            return "<div style='text-align: center'>"+ Icono +"</div>";
+                        }
+                    },
+                ],
+                language: {
+                    processing:     "Procesando ...",
+                    search:         'Buscar',
+                    lengthMenu:     "Mostrar _MENU_ Registros",
+                    info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                    infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+                    infoFiltered:   "(filtrada de _MAX_ registros en total)",
+                    infoPostFix:    "",
+                    loadingRecords: "...",
+                    zeroRecords:    "No se encontraron registros coincidentes",
+                    emptyTable:     "No hay datos disponibles en la tabla",
+                    paginate: {
+                        first:      "Primero",
+                        previous:   "Anterior",
+                        next:       "Siguiente",
+                        last:       "Ultimo"
+                    },
+                    aria: {
+                        sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                    }
                 }
-
-                var rowNode = InstalacionTable.row.add([
-                    ''+Estatus+'',
-                    ''+array.Cliente+'',
-                    ''+array.Rut+'',
-                    ''+array.Grupo+'',
-                    ''+array.ValorUF+'',
-                    ''+array.ValorPesos+'',
-                    ''+Icono+''
-                ]).draw(false).node();
-
-                $( rowNode )
-                    .attr('rutid',array.Rut)
-                    .attr('grupo',array.Grupo)
-                    .attr('tipo',3)
-                    .addClass('text-center')
-               
             });
 
             $('[data-toggle="popover"]').popover();
@@ -191,56 +238,162 @@ $(document).ready(function(){
         url: "../includes/facturacion/facturas/showFacturas.php",
         success: function(response){
 
-            $.each(response.array, function( index, array ) {
-
-                if(array.EstatusFacturacion == 1){
-                    Check = ''
-                    Estatus = 'Pagada'
-                    Icono = '<a href="'+array.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
-                }else{
-                    Check = '<input name="select_check" id="select_check_"'+array.Id+' type="checkbox" />'
-                    Estatus = 'Por pagar'
-                    Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+            IndividualTable = $('#IndividualTable').DataTable({
+                order: [[1, 'desc']],
+                data: response.array,
+                columns: [
+                    { data: 'EstatusFacturacion' },
+                    { data: 'FechaFacturacion' },
+                    { data: 'Cliente' },
+                    { data: 'Rut' },
+                    { data: 'Grupo' },
+                    { data: 'ValorPesos' },
+                    { data: 'EstatusFacturacion' },
+                ],
+                destroy: true,
+                'createdRow': function( row, data, dataIndex ) {
+                    $(row)
+                        .attr('rutid',data.Id)
+                        .attr('grupo',data.Grupo)
+                        .attr('tipo',2)
+                        .addClass('text-center')
+                },
+                "columnDefs": [
+                    {
+                        "targets": 0,
+                        "render": function (data, type, row) {
+                            if(data == 1){
+                                Estatus = 'Pagada'
+                            }else{
+                                Estatus = 'Por Pagar'
+                            }
+                            return "<div style='text-align: center'>"+ Estatus +"</div>";
+                        }
+                    },
+                    {
+                        "targets": 6,
+                        "render": function (data, type, row) {
+                            if(data == 1){
+                                Icono = '<a href="'+row.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
+                            }else{
+                                Icono  = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                            }
+                            return "<div style='text-align: center'>"+ Icono +"</div>";
+                        }
+                    },
+                ],
+                language: {
+                    processing:     "Procesando ...",
+                    search:         'Buscar',
+                    lengthMenu:     "Mostrar _MENU_ Registros",
+                    info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                    infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+                    infoFiltered:   "(filtrada de _MAX_ registros en total)",
+                    infoPostFix:    "",
+                    loadingRecords: "...",
+                    zeroRecords:    "No se encontraron registros coincidentes",
+                    emptyTable:     "No hay datos disponibles en la tabla",
+                    paginate: {
+                        first:      "Primero",
+                        previous:   "Anterior",
+                        next:       "Siguiente",
+                        last:       "Ultimo"
+                    },
+                    aria: {
+                        sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                    }
                 }
+            });
 
-                var rowNode = IndividualTable.row.add([
-                    ''+Estatus+'',
-                    ''+array.Cliente+'',
-                    ''+array.Rut+'',
-                    ''+array.Grupo+'',
-                    ''+array.ValorUF+'',
-                    ''+array.ValorPesos+'',
-                    ''+Icono+''
-                ]).draw(false).node();
-
-                $( rowNode )
-                    .attr('rutid',array.Id)
-                    .attr('grupo',array.Grupo)
-                    .attr('tipo',2)
-                    .addClass('text-center')
-
-                var rowNode = LoteTable.row.add([
-                    ''+Check+'',
-                    ''+Estatus+'',
-                    ''+array.Cliente+'',
-                    ''+array.Rut+'',
-                    ''+array.Grupo+'',
-                    ''+array.ValorUF+'',
-                    ''+array.ValorPesos+'',
-                    ''+Icono+''
-                ]).draw(false).node();
-
-                $( rowNode )
-                    .attr('rutid',array.Id)
-                    .attr('grupo',array.Grupo)
-                    .attr('tipo',2)
-                    .addClass('text-center')
-               
+            LoteTable = $('#LoteTable').DataTable({
+                order: [[2, 'desc']],
+                "columnDefs": [ {
+                    "targets": [ 0 ],
+                    "orderable": false
+                } ],
+                data: response.array,
+                columns: [
+                    { data: 'EstatusFacturacion' },
+                    { data: 'EstatusFacturacion' },
+                    { data: 'FechaFacturacion' },
+                    { data: 'Cliente' },
+                    { data: 'Rut' },
+                    { data: 'Grupo' },
+                    { data: 'ValorPesos' },
+                    { data: 'EstatusFacturacion' }
+                ],
+                destroy: true,
+                'createdRow': function( row, data, dataIndex ) {
+                    $(row)
+                        .attr('rutid',data.Id)
+                        .attr('grupo',data.Grupo)
+                        .attr('tipo',2)
+                        .addClass('text-center')
+                },
+                "columnDefs": [
+                    {
+                        "targets": 0,
+                        "render": function (data, type, row) {
+                            if(data == 1){
+                                Check = ''
+                            }else{
+                                Check = '<input name="select_check" id="select_check_"'+row.Id+' type="checkbox" />'
+                            }
+                            return "<div style='text-align: center'>"+ Check +"</div>";
+                        }
+                    },
+                    {
+                        "targets": 1,
+                        "render": function (data, type, row) {
+                            if(data == 1){
+                                Estatus = 'Pagada'
+                            }else{
+                                Estatus = 'Por Pagar'
+                            }
+                            return "<div style='text-align: center'>"+ Estatus +"</div>";
+                        }
+                    },
+                    {
+                        "targets": 7,
+                        "render": function (data, type, row) {
+                            if(data == 2){
+                                Icono = '<a href="'+row.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
+                            }else{
+                                Icono = Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                            }
+                            return "<div style='text-align: center'>"+ Icono +"</div>";
+                        }
+                    },
+                ],
+                language: {
+                    processing:     "Procesando ...",
+                    search:         'Buscar',
+                    lengthMenu:     "Mostrar _MENU_ Registros",
+                    info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                    infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+                    infoFiltered:   "(filtrada de _MAX_ registros en total)",
+                    infoPostFix:    "",
+                    loadingRecords: "...",
+                    zeroRecords:    "No se encontraron registros coincidentes",
+                    emptyTable:     "No hay datos disponibles en la tabla",
+                    paginate: {
+                        first:      "Primero",
+                        previous:   "Anterior",
+                        next:       "Siguiente",
+                        last:       "Ultimo"
+                    },
+                    aria: {
+                        sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                    }
+                }
             });
 
             $('[data-toggle="popover"]').popover();
 
             $('body').addClass('loaded');
+            $('table').css('width', '100%');
         }
     });
 

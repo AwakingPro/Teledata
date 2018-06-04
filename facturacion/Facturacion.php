@@ -8,11 +8,13 @@
         <!--STYLESHEET-->
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/nifty.min.css" rel="stylesheet">
+        <link href="../css/demo/nifty-demo.min.css" rel="stylesheet">
         <link href="../css/demo/nifty-demo-icons.min.css" rel="stylesheet">
         <link href="../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
         <link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
         <link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
+        <link href="../plugins/bootstrap-dataTables/jquery.dataTables.css" rel="stylesheet"  media="screen">
         <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
         <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
         <link href="../css/teledata.css" rel="stylesheet">
@@ -82,7 +84,10 @@
                         <div class="panel-body">
                             <div class="tab-content">
                                 <div id="lotes" class="tab-pane fade active in">
-                                    <div class="col-md-12" style="margin-bottom:10px">
+                                    <div class="col-md-6" style="margin-bottom:10px">
+                                        <b><span style="font-size:16px">Valor UF: <span class="ValorUF">0</span></span></b>
+                                    </div>
+                                    <div class="col-md-6" style="margin-bottom:10px">
                                         <button id="Facturar" class="btn btn-success pull-right" style="opacity: 0.2;" disabled>Facturar</button>
                                     </div>
                                     <div class="clearfix"></div>
@@ -93,10 +98,10 @@
                                                     <tr>
                                                         <th class="text-center"><input class="select-checkbox" name="select_all" id="select_all" type="checkbox"></th>
                                                         <th class="text-center">Estatus</th>
+                                                        <th class="text-center">Fecha</th>
                                                         <th class="text-center">Cliente</th>
                                                         <th class="text-center">Rut</th>
                                                         <th class="text-center">Grupo Factura</th>
-                                                        <th class="text-center">Monto UF</th>
                                                         <th class="text-center">Monto Pesos</th>
                                                         <th class="text-center">Acción</th>
                                                     </tr>
@@ -109,16 +114,20 @@
                                 </div>
                                 <div id="individual" class="tab-pane fade">
                                     <div class="row" style="margin-top: 10px">
+                                        <div class="col-md-12" style="margin-bottom:10px">
+                                            <b><span style="font-size:16px">Valor UF: <span class="ValorUF">0</span></span></b>
+                                        </div>
+                                        <div class="clearfix"></div>
                                         <div class="table-responsive">
                                             <div class="col-md-12">
                                                 <table id="IndividualTable" class="table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center">Estatus</th>
+                                                            <th class="text-center">Fecha</th>
                                                             <th class="text-center">Cliente</th>
                                                             <th class="text-center">Rut</th>
                                                             <th class="text-center">Grupo Factura</th>
-                                                            <th class="text-center">Monto UF</th>
                                                             <th class="text-center">Monto Pesos</th>
                                                             <th class="text-center">Acción</th>
                                                         </tr>
@@ -132,16 +141,20 @@
                                 </div>
                                 <div id="instalacion" class="tab-pane fade">
                                     <div class="row" style="margin-top: 10px">
+                                        <div class="col-md-12" style="margin-bottom:10px">
+                                            <b><span style="font-size:16px">Valor UF: <span class="ValorUF">0</span></span></b>
+                                        </div>
+                                        <div class="clearfix"></div>
                                         <div class="table-responsive">
                                             <div class="col-md-12">
                                                 <table id="InstalacionTable" class="table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
                                                             <th class="text-center">Estatus</th>
+                                                            <th class="text-center">Fecha</th>
                                                             <th class="text-center">Cliente</th>
                                                             <th class="text-center">Rut</th>
                                                             <th class="text-center">Grupo Factura</th>
-                                                            <th class="text-center">Monto UF</th>
                                                             <th class="text-center">Monto Pesos</th>
                                                             <th class="text-center">Acción</th>
                                                         </tr>

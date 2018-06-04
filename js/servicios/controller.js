@@ -6,7 +6,7 @@ var mapCenter
 
 $(document).ready(function() {
 	
-	$('[name="Rut"]').rut({ useThousandsSeparator: false });
+	$('[name="Rut"]').number( true, 0,'','');
 
 	$('.Giro').load('../ajax/cliente/selectGiros.php', function () {
 		$('.Giro').selectpicker('refresh');
@@ -410,7 +410,9 @@ $(document).ready(function() {
 		$.postFormValues('../ajax/servicios/insertCliente.php', '.container-form2', function(data) {
 			if (Number(data) > 0) {
 				$('.modal').modal('hide');
-				bootbox.alert('<h3 class="text-center">El cliente #' + data + ' se registro con éxito.</h3>');
+				bootbox.alert('<h3 class="text-center">El cliente con Rut #' + data + ' se registro con éxito.</h3>');
+				$('#Rut').val(data)
+				$('#Rut').selectpicker('refresh')
 			} else {
 				console.log(data);
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar el cliente.</h3>');

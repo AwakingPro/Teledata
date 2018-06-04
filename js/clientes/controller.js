@@ -1,7 +1,6 @@
 $(document).ready(function() {
 
-	//$('[name="Rut"]').number( true, 0,'','');
-	$('[name="Rut"]').rut({useThousandsSeparator : false});
+	$('[name="Rut"]').number( true, 0,'','');
 
 	$('.Giro').load('../ajax/cliente/selectGiros.php', function () {
 		$('.Giro').selectpicker('refresh');

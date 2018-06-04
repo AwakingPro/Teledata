@@ -4,7 +4,7 @@
 	$query = 'SELECT
 		servicios.Id,
 		servicios.Codigo,
-		servicios.TiepoFacturacion as Tiempo_Facturacion,
+		servicios.TiepoFacturacion as "Tiempo de Facturacion",
 		mantenedor_tipo_factura.descripcion as Descripcion,
 		servicios.Grupo
 		FROM
