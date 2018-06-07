@@ -31,7 +31,7 @@
 					</ol>
 					<div id="page-content">
 						<div class="row">
-							<div class="col-md-6">
+							<div class="col-md-5">
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
@@ -210,7 +210,7 @@
 									</div>
 								</div>
 							</div>
-							<div class="col-md-6">
+							<div class="col-md-7">
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
@@ -267,6 +267,200 @@
 		<script src="../js/swalExtend.js"></script>
 	</body>
 </html>
+<div id="modalEditar" class="modal fade" tabindex="-1" role="dialog" id="load">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+				<h4 class="modal-title c-negro">Código: <span class="Codigo"></span> <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+			</div>
+			<div class="modal-body">
+				<form id = "showServicio">
+					<input type="hidden" class="Id" name="Id" id="Id">
+					<div class="row" style="padding:20px">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="compo-grupo">Grupo</label>
+								<div class="compo-grupo">
+									<select id="Grupo" name="Grupo" class="form-control selectpicker" data-live-search="true">
+										<option value="">Seleccione...</option>
+										<option value="1">Grupo 1</option>
+										<option value="2">Grupo 2</option>
+										<option value="3">Grupo 3</option>
+									</select>
+								</div>
+								<br>
+								<label class="campo-cobreServicio">Tipo de Cobro de servicio mensual</label>
+								<div class="campo-cobreServicio">
+									<select id="TipoFactura" name="TipoFactura" class="selectpicker form-control" data-live-search="true">
+										<option value="">Seleccione...</option>
+									</select>
+								</div>
+								<br>
+								<label class="compo-tipoFactura">Tiempo de Facturación</label>
+								<select id="TiepoFacturacion" name="TiepoFacturacion" class="form-control selectpicker" data-live-search="true">
+									<option value="">Seleccione...</option>
+									<option >Mensual</option>
+									<option >Semestral</option>
+									<option >Anual</option>
+								</select>
+								<br><br>
+								<label class="campo-Valor">Valor</label>
+								<div class="form-group">
+									<input id="Valor" type="text"  name="Valor" class="form-control">
+								</div>
+								<br>
+								<label>Descuento</label>
+								<div class="input-group">
+									<input type="text" id="Descuento" name="Descuento" class="form-control">
+									<span class="input-group-addon">%</span>
+								</div>
+								<br >
+								<br>
+								<div id="otrosServiciosEditar" style="display:none">
+									<label > Descripción</label>
+									<textarea id="Descripcion" name="Descripcion" class="form-control" rows="5"></textarea>
+									<br>
+
+									<label class="campo-apellidoServicio">Apellido del Servicio</label>
+									<div class="form-group">
+										<input id="Alias" type="text" name="Alias" class="form-control campo-apellidoServicio">
+									</div>
+
+									<label class="campo-direccion">Dirección</label>
+									<textarea id="Direccion" name="Direccion" class="form-control campo-direccion" rows="5"></textarea>
+									<br class="campo-direccion">
+
+									<div class="col-md-6 campo-cordenadas">
+										<div class="form-group">
+											<label class="control-label" for="Latitud">Coordenadas</label>
+											<input id="Latitud" name="Latitud" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas">
+										</div>
+									</div>
+									<div class="col-md-6 campo-cordenadas">
+										<div class="form-group">
+											<label class="control-label" for="name">&nbsp;</label>
+											<input id="Longitud" name="Longitud" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas">
+										</div>
+									</div>
+									<br class="campo-cordenadas">
+
+									<div id="MapEdit" style="height:350px; width:100%;" class="campo-cordenadas"></div>
+
+									<br class="campo-cordenadas">
+									<label class="campo-referencia">Referencia</label>
+									<div class="form-group campo-referencia">
+										<input id="Referencia" type="text" name="Referencia" class="form-control">
+									</div>
+									<br class="campo-referencia">
+									<label class="campo-contacto">Contacto</label>
+									<div class="form-group campo-contacto">
+										<input id="Contacto" type="text" name="Contacto" class="form-control">
+									</div>
+									<br  class="campo-contacto">
+									<label class="campo-telefonoContacto">Fono Contacto</label>
+									<div class="form-group campo-telefonoContacto">
+										<input id="Fono" type="text" name="Fono" class="form-control">
+									</div>
+									<label>Fecha Comprometida de Instalación</label>
+									<div class="form-group campo-FechaComprometidaInstalacion">
+										<input name="FechaComprometidaInstalacion" class="form-control date">
+									</div>
+									<br class="campo-telefonoContacto">
+									<label class="campo-estacionReferencia">Estaciones de Referencia</label>
+									<div class="form-group campo-estacionReferencia">
+										<input id="PosibleEstacion" type="text" name="PosibleEstacion" class="form-control">
+									</div>
+									<br class="campo-estacionReferencia">
+									<label class="campo-usuarioPPPoE">Usuario PPPoE</label>
+									<div class="form-group campo-usuarioPPPoE">
+										<input id="UsuarioPppoeTeorico" type="text" name="UsuarioPppoeTeorico" class="form-control">
+									</div>
+									<br class="campo-usuarioPPPoE">
+									<label class="campo-equipamiento">Equipamiento Sugerido</label>
+									<div class="form-group campo-equipamiento">
+										<input id="Equipamiento" type="text" name="Equipamiento" class="form-control">
+									</div>
+									<br class="campo-equipamiento">
+									<label class="campo-señalTeorica">Señal Teorica</label>
+									<div class="form-group campo-señalTeorica">
+										<input id="SenalTeorica" type="text" name="SenalTeorica" class="form-control">
+									</div>
+								</div>
+								<br class="campo-equipamiento">
+								<label class="campo-señalTeorica">Facturación Costo de instalación / Habilitación</label>
+								<div class="form-group campo-señalTeorica">
+									<select id="BooleanCostoInstalacion" name="BooleanCostoInstalacion" class="form-control selectpicker">
+										<option value="1">Si</option>
+										<option value="0">No</option>
+									</select>
+								</div>
+								<br>
+								<div id="divCostoInstalacionEditar">
+									<label class="campo-CostoInstalacion">Costo de instalación / Habilitación</label>
+									<div class="form-group">
+										<input type="text" id="CostoInstalacion" name="CostoInstalacion" class="form-control" validation="not_null" data-nombre="Costo de Instalacion">
+									</div>
+									<br>
+									<label>Descuento Instalación</label>
+									<div class="input-group">
+										<input type="text" id="CostoInstalacionDescuento" name="CostoInstalacionDescuento" class="form-control" min="0" max="100" step="1">
+										<span class="input-group-addon">%</span>
+									</div>
+									<br>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div><!-- /.modal-body -->
+			<div class="modal-footer p-b-20 m-b-20">
+				<div class="col-sm-12">
+					<button type="button" class="btn btn-purple" id="updateServ" name="updateServ">Guardar</button>
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div id="modalEstatus" class="modal fade" tabindex="-1" role="dialog" id="load">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+				<h4 class="modal-title c-negro">Código: <span class="Codigo"></span> <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+			</div>
+			<div class="modal-body">
+				<form id = "formEstatus">
+					<input type="hidden" class="Id" name="Id" id="Id">
+					<div class="row" style="padding:20px">
+						<div class="col-md-12">
+							<div class="form-group">
+								<label class="compo-grupo">Estado del Servicio</label>
+								<div class="compo-grupo">
+									<select id="Activo" name="Activo" class="form-control selectpicker" data-live-search="true">
+										<option value="">Seleccione...</option>
+										<option value="1">Activo</option>
+										<option value="0">Inactivo</option>
+									</select>
+								</div>
+								<br>
+								<div id="divFechaActivacion" style="display:none">
+									<label>Fecha de Activación</label>
+									<div class="form-group campo-FechaComprometidaInstalacion">
+										<input id="FechaActivacion" name="FechaActivacion" class="form-control date">
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</form>
+			</div><!-- /.modal-body -->
+			<div class="modal-footer p-b-20 m-b-20">
+				<div class="col-sm-12">
+					<button type="button" class="btn btn-purple" id="updateEstatus" name="updateEstatus">Guardar</button>
+				</div>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 <div class="modal fade" tabindex="-1" role="dialog" id="verServicios" aria-labelledby="verServicios">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">

@@ -70,12 +70,13 @@
 		servicios.Id as Id,
 		servicios.Codigo as "Codigo de Servicios",
 		servicios.TiepoFacturacion as "Tiempo de facturacion",
-		mantenedor_tipo_factura.descripcion as "Tipo de Servicio",
+		mantenedor_servicios.servicio as "Tipo de Servicio",
 		servicios.Valor,
-		servicios.Grupo
+		servicios.Grupo,
+		IF(FechaActivacion IS NULL, "Activo", "Inactivo") as Estatus
 		FROM
 		servicios
-		LEFT JOIN mantenedor_tipo_factura ON servicios.TipoFactura = mantenedor_tipo_factura.codigo
+		LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
 	WHERE
 		servicios.Rut ='.$_POST['rut'];
 	$run = new Method;

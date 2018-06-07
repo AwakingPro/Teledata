@@ -156,7 +156,7 @@
 			}
 		}
 
-		function listViewDelete($post) {
+		function listViewDelete($post,$id = '') {
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				if ($resultado = $mysqli->query($post)) {
@@ -164,7 +164,8 @@
 						$fields[] = $field->name;
 						$table[] = $field->table;
 					}
-					$tabla = "<table class='table table-striped table-hover tabeData'><thead><tr>";
+					$tabla = '<button class="btn btn-success agregarDatosTecnicos" attr="'.$id.'"  data-toggle="modal" data-target="#agregarDatosTecnicos" aria-hidden="true" title="Agregar" style="margin-bottom:20px">Agregar</button>';
+					$tabla .= "<table class='table table-striped table-hover tabeData'><thead><tr>";
 					for ($i=0; $i < count($fields) ; $i++) {
 						$tabla.="<th>".$fields[$i]."</th>";
 					}
@@ -315,10 +316,10 @@
 						$table[] = $field->table;
 					}
 					$tabla = "<table class='table table-striped table-hover tabeData'><thead><tr>";
-					for ($i=0; $i < count($fields) ; $i++) {
+					for ($i=1; $i < count($fields) ; $i++) {
 						$tabla.="<th>".$fields[$i]."</th>";
 					}
-					$tabla.="<th></th></tr></thead><tbody>";
+					$tabla.="<th>Acciones</th></tr></thead><tbody>";
 					while ($fila = $resultado->fetch_array(MYSQLI_NUM)) {
 						$rows[] = $fila;
 					}
@@ -326,11 +327,13 @@
 						for ($i=0; $i < count($rows) ; $i++) {
 							$tabla.= '<tr>';
 							foreach ($rows[$i] as $clave => $valor) {
-								$tabla.="<td>".$valor."</td>";
+								if($clave != 0)
+									$tabla.="<td>".$valor."</td>";
 							}
 							$tabla.='<td class="optionTable">
-								<i class="fa fa-list listDatosTecnicos" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#verServicios" aria-hidden="true" title="Ver"></i>
-								<i class="fa fa-plus agregarDatosTecnicos" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#agregarDatosTecnicos" aria-hidden="true" title="Agregar"></i>
+								<i class="fa fa-power-off estatusServicio" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#modalEstatus" aria-hidden="true" title="Ver"></i>
+								<i class="fa fa-plus listDatosTecnicos" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#verServicios" aria-hidden="true" title="Ver"></i>
+								<i class="fa fa-pencil-square-o mostrarDatosTecnicos" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#modalEditar" aria-hidden="true" title="Ver"></i>
 								<i class="fa fa-times eliminarServicio" attr="'.$rows[$i][0].'" aria-hidden="true" title="eliminar"></i>
 								</td>';
 							$tabla.= '</tr>';

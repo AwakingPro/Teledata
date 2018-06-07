@@ -97,6 +97,7 @@ $(document).ready(function() {
 	$('[name="Valor"]').number(true, 2, ',', '.');
 	$('[name="Descuento"]').number(true, 0, '.', '');
 	$('[name="CostoInstalacion"]').number(true, 2, ',', '.');
+	$('[name="CostoInstalacionDescuento"]').number(true, 0, '.', '');
 
 	$('select[name="Rut"]').load('../ajax/servicios/selectClientes.php', function() {
 		$('select[name="Rut"]').selectpicker('refresh');
@@ -378,6 +379,68 @@ $(document).ready(function() {
 		});
 	});
 
+	$('#showServicio #BooleanCostoInstalacion').change(function(event) {
+		if($(this).val() == 1){
+			$('#divCostoInstalacionEditar').show();
+			$('#showServicio').find('input[name="CostoInstalacion"]').attr('validation','not_null')
+		}else{
+			$('#divCostoInstalacionEditar').hide();
+			$('#showServicio').find('input[name="CostoInstalacion"]').removeAttr('validation')
+		}
+	});
+
+	$(document).on('click', '#updateServ', function() {
+
+		Rut = $('#Rut').val()
+
+		$.postFormValues('../ajax/servicios/updateServicio.php', '#showServicio', function(data) {
+			if (data) {
+				servicio_id = data
+				bootbox.alert('<h3 class="text-center">El servicio se actualizo con éxito.</h3>');
+				$.post('../ajax/cliente/dataCliente.php', {
+					rut: Rut
+				}, function(data) {
+					values = $.parseJSON(data);
+					$('.dataServicios').html(values[1]);
+					var count = $('.dataServicios > .tabeData tr th').length - 1;
+					$('.dataServicios > .tabeData').dataTable({
+						"scrollX": true,
+						"columnDefs": [{
+							'orderable': false,
+							'targets': [count]
+						}, ],
+						language: {
+							processing: "Procesando ...",
+							search: '<div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>',
+							searchPlaceholder: "BUSCAR",
+							lengthMenu: "Mostrar _MENU_ Registros",
+							info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+							infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+							infoFiltered: "(filtrada de _MAX_ registros en total)",
+							infoPostFix: "",
+							loadingRecords: "...",
+							zeroRecords: "No se encontraron registros coincidentes",
+							emptyTable: "No hay servicios",
+							paginate: {
+								first: "Primero",
+								previous: "Anterior",
+								next: "Siguiente",
+								last: "Ultimo"
+							},
+							aria: {
+								sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+								sortDescending: ": habilitado para ordenar la columna en orden descendente"
+							}
+						}
+					});
+				});
+			}else {
+				console.log(data);
+				bootbox.alert('<h3 class="text-center">Se produjo un error al actualizar</h3>');
+			}
+		});
+	});
+
 	$(document).on('click', '.agregarTipoFacturacion', function() {
 		$.postFormValues('../ajax/servicios/insertTipoFacturacion.php', '.containerTipoFactura', function(data) {
 			if (Number(data) > 0) {
@@ -489,8 +552,11 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.listDatosTecnicos', function() {
-		$('.containerListDatosTecnicos').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
 		var id = $(this).attr('attr');
+		ListDatosTecnicos(id)
+	});
+	function ListDatosTecnicos(id){
+		$('.containerListDatosTecnicos').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
 		$.post('../ajax/cliente/tipolistModal.php', {
 			id: id
 		}, function(data) {
@@ -508,7 +574,7 @@ $(document).ready(function() {
 				$('.containerListDatosTecnicos').attr('idTipoLista', id);
 			});
 		});
-	});
+	}
 
 	$(document).on('click', '.agregarDatosTecnicos', function() {
 		$('.containerTipoServicio').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
@@ -542,6 +608,100 @@ $(document).ready(function() {
 			});
 
 		});
+	});
+
+	$(document).on('click', '.mostrarDatosTecnicos', function () {
+
+        $('body').removeClass('loaded');
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = $(this).attr('attr');
+        var ObjectCode = ObjectTR.find("td").eq(0).text();
+		$('.Codigo').text(ObjectCode);
+		$('.Id').val(ObjectId);
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/tareas/showTarea.php",
+            data: "id="+ObjectId,
+            success: function(response){
+
+				array = response.array
+				var IdServicio
+
+                for(var name in array) {
+                    var value = array[name];
+                    if(name == "Descripcion" || name == "Direccion"){
+                        $('#showServicio').find('#'+name).text(value);
+                    }else{
+                        $('#showServicio').find('#'+name).val(value);
+					}
+					if(name == 'IdServicio'){
+						IdServicio = value
+					}
+					if(name == 'CostoInstalacion'){
+						if(value > 0){
+							$('#showServicio #BooleanCostoInstalacion').val(1);
+							$('#divCostoInstalacionEditar').show();
+							$('#showServicio').find('input[name="CostoInstalacion"]').attr('validation','not_null')
+						}else{
+							$('#showServicio #BooleanCostoInstalacion').val(0);
+							$('#divCostoInstalacionEditar').hide();
+							$('#showServicio').find('input[name="CostoInstalacion"]').removeAttr('validation')
+						}
+					}
+                }
+
+                $('.selectpicker').selectpicker('refresh')
+
+                latitud = $('#showServicio').find('input[name="Latitud"]').val();
+				longitud = $('#showServicio').find('input[name="Longitud"]').val();
+				
+				switch (IdServicio) {
+					case '1':
+						$('#otrosServiciosEditar').show()
+						break;
+					case '2':
+						$('#otrosServiciosEditar').show()
+						break;
+					case '3':
+						$('#otrosServiciosEditar').hide()
+						break;
+					case '4':
+						$('#otrosServiciosEditar').hide()
+						break;
+					case '5':
+						$('#otrosServiciosEditar').hide()
+						break;
+					case '6':
+						$('#otrosServiciosEditar').hide()
+						break;
+					default:
+						$('#otrosServiciosEditar').hide()
+				}
+				
+                if (latitud && longitud) {
+					MapEdit = new google.maps.Map(document.getElementById("MapEdit"), mapOptions);
+                    mapCenter = new google.maps.LatLng(latitud, longitud);
+
+                    setTimeout(function() {
+                        google.maps.event.trigger(MapEdit, "resize");
+                        MapEdit.setCenter(mapCenter);
+                        MapEdit.setZoom(MapEdit.getZoom());
+                    }, 1000)
+                }
+
+                $('body').addClass('loaded');
+            },
+            error: function(xhr, status, error){
+                setTimeout(function(){
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada',err.Message,'error');
+                }, 1000);
+            }
+        });
+
 	});
 
 	$(document).on('click', '.eliminarServicio', function() {
@@ -608,8 +768,19 @@ $(document).ready(function() {
 		var url = $('.container-form-datosTecnicos').attr('attr');
 		$.postFormValues('../ajax/cliente/' + url, '.container-form-datosTecnicos', function(data) {
 			if (Number(data) > 0) {
+				var id = $('.containerListDatosTecnicos').attr('idTipoLista');
 				$('.modal').modal('hide')
-				bootbox.alert('<h3 class="text-center">Los datos se registraron con éxito.</h3>');
+				$.niftyNoty({
+					type: 'success',
+					icon : 'fa fa-check',
+					message : 'Registro Guardado Exitosamente',
+					container : 'floating',
+					timer : 3000
+				});
+				setTimeout(function() {
+					$('#verServicios').modal('show')
+					ListDatosTecnicos(id)
+				},500)
 			} else {
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
 			}
@@ -664,12 +835,258 @@ $(document).ready(function() {
 		}
 	});
 
+	$(document).on('click', '.estatusServicio', function () {
+
+        $('body').removeClass('loaded');
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = $(this).attr('attr');
+        var ObjectCode = ObjectTR.find("td").eq(0).text();
+		$('.Codigo').text(ObjectCode);
+		$('.Id').val(ObjectId);
+
+        $.ajax({
+            type: "POST",
+            url: "../ajax/servicios/showEstatus.php",
+            data: "id="+ObjectId,
+            success: function(response){
+				if(response){
+					$('#Activo').val(0)
+					$('#divFechaActivacion').show()
+				}else{
+					$('#Activo').val(1)
+					$('#divFechaActivacion').hide()
+				}
+
+                $('#Activo').selectpicker('refresh')
+
+                $('#FechaActivacion').val(response)
+
+                $('body').addClass('loaded');
+            },
+            error: function(xhr, status, error){
+                setTimeout(function(){
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada',err.Message,'error');
+                }, 1000);
+            }
+        });
+	});
+	
+	$('#Activo').on('change', function() {
+		if ($(this).val() == "1") {
+			$('#divFechaActivacion').hide()
+			$('input[name="FechaActivacion"]').removeAttr('validate')
+		} else {
+			$('#divFechaActivacion').show()
+			$('input[name="FechaActivacion"]').attr('validate', 'not_null')
+		}
+	});
+
+	$(document).on('click', '#updateEstatus', function() {
+		$.postFormValues('../ajax/servicios/updateEstatus.php', '#formEstatus', function(data) {
+			if (data == 1) {
+				var id = $('.Id').val();
+				$('.modal').modal('hide')
+				$.niftyNoty({
+					type: 'success',
+					icon : 'fa fa-check',
+					message : 'Registro Guardado Exitosamente',
+					container : 'floating',
+					timer : 3000
+				});
+				$.post('../ajax/cliente/dataCliente.php', {rut: $('select[name="Rut"]').selectpicker('val')}, function(data) {
+					values = $.parseJSON(data);
+					$('.dataServicios').html(values[1]);
+					var count = $('.dataServicios > .tabeData tr th').length - 1;
+					$('.dataServicios > .tabeData').dataTable({
+						"scrollX": true,
+						"columnDefs": [{
+							'orderable': false,
+							'targets': [count]
+						}, ],
+						language: {
+							processing: "Procesando ...",
+							search: '<div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>',
+							searchPlaceholder: "BUSCAR",
+							lengthMenu: "Mostrar _MENU_ Registros",
+							info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+							infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+							infoFiltered: "(filtrada de _MAX_ registros en total)",
+							infoPostFix: "",
+							loadingRecords: "...",
+							zeroRecords: "No se encontraron registros coincidentes",
+							emptyTable: "No hay servicios",
+							paginate: {
+								first: "Primero",
+								previous: "Anterior",
+								next: "Siguiente",
+								last: "Ultimo"
+							},
+							aria: {
+								sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+								sortDescending: ": habilitado para ordenar la columna en orden descendente"
+							}
+						}
+					});
+				});
+			} else if(data == 2) {
+				bootbox.alert('<h3 class="text-center">La fecha de activación debe ser mayor al dia de hoy.</h3>');
+			}else if(data == 3) {
+				bootbox.alert('<h3 class="text-center">La fecha de activación es requerida.</h3>');
+			}else{
+				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+			}
+		});
+	});
+
 	$('select[name="TipoCliente"]').on('change', function() {
 		if ($(this).val() == "Boleta") {
 			$('input[name="Giro"]').removeAttr('validate')
 		} else {
 			$('input[name="Giro"]').attr('validate', 'not_null')
 		}
+	});
+
+	$(document).on('click', '.delete-arriendo_equipos_datos', function() {
+		var id = $(this).attr('attr');
+		bootbox.confirm({
+			message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+			buttons: {
+				confirm: {
+					label: 'Si borrar',
+					className: 'btn-success'
+				},
+				cancel: {
+					label: 'No borrar',
+					className: 'btn-danger'
+				}
+			},
+			callback: function (result) {
+				if (result == true) {
+					$.post('../ajax/cliente/eliminarArriendoEquipo.php', {id: id}, function(data) {
+						$.post('../ajax/cliente/tipolistModal.php', {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+							$.post('../ajax/cliente/'+data, {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+								$('.containerListDatosTecnicos').html(data);
+								var count = $('.containerListDatosTecnicos > .tabeData tr th').length -1;
+								$('.containerListDatosTecnicos > .tabeData').dataTable({
+										"columnDefs": [{
+										'orderable': false,
+										'targets': [count]
+									}, ]
+								});
+							});
+						});
+					});
+				}
+			}
+		});
+	});
+
+	$(document).on('click', '.delete-mantencion_red', function() {
+		var id = $(this).attr('attr');
+		bootbox.confirm({
+			message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+			buttons: {
+				confirm: {
+					label: 'Si borrar',
+					className: 'btn-success'
+				},
+				cancel: {
+					label: 'No borrar',
+					className: 'btn-danger'
+				}
+			},
+			callback: function (result) {
+				if (result == true) {
+					$.post('../ajax/cliente/eliminarMatencionRed.php', {id: id}, function(data) {
+						$.post('../ajax/cliente/tipolistModal.php', {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+							$.post('../ajax/cliente/'+data, {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+								$('.containerListDatosTecnicos').html(data);
+								var count = $('.containerListDatosTecnicos > .tabeData tr th').length -1;
+								$('.containerListDatosTecnicos > .tabeData').dataTable({
+										"columnDefs": [{
+										'orderable': false,
+										'targets': [count]
+									}, ]
+								});
+							});
+						});
+					});
+				}
+			}
+		});
+	});
+
+	$(document).on('click', '.delete-mensualidad_puerdo_publicos', function() {
+		var id = $(this).attr('attr');
+		bootbox.confirm({
+			message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+			buttons: {
+				confirm: {
+					label: 'Si borrar',
+					className: 'btn-success'
+				},
+				cancel: {
+					label: 'No borrar',
+					className: 'btn-danger'
+				}
+			},
+			callback: function (result) {
+				if (result == true) {
+					$.post('../ajax/cliente/eliminarMensualidadPuertoPublico.php', {id: id}, function(data) {
+						$.post('../ajax/cliente/tipolistModal.php', {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+							$.post('../ajax/cliente/'+data, {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+								$('.containerListDatosTecnicos').html(data);
+								var count = $('.containerListDatosTecnicos > .tabeData tr th').length -1;
+								$('.containerListDatosTecnicos > .tabeData').dataTable({
+										"columnDefs": [{
+										'orderable': false,
+										'targets': [count]
+									}, ]
+								});
+							});
+						});
+					});
+				}
+			}
+		});
+	});
+
+	$(document).on('click', '.delete-trafico_generado', function() {
+		var id = $(this).attr('attr');
+		bootbox.confirm({
+			message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+			buttons: {
+				confirm: {
+					label: 'Si borrar',
+					className: 'btn-success'
+				},
+				cancel: {
+					label: 'No borrar',
+					className: 'btn-danger'
+				}
+			},
+			callback: function (result) {
+				if (result == true) {
+					$.post('../ajax/cliente/eliminarArriendoEquipo.php', {id: id}, function(data) {
+						$.post('../ajax/cliente/tipolistModal.php', {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+							$.post('../ajax/cliente/'+data, {id: $('.containerListDatosTecnicos').attr('idTipoLista')}, function(data) {
+								$('.containerListDatosTecnicos').html(data);
+								var count = $('.containerListDatosTecnicos > .tabeData tr th').length -1;
+								$('.containerListDatosTecnicos > .tabeData').dataTable({
+										"columnDefs": [{
+										'orderable': false,
+										'targets': [count]
+									}, ]
+								});
+							});
+						});
+					});
+				}
+			}
+		});
 	});
 
 });

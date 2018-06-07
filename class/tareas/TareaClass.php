@@ -332,17 +332,17 @@
 	    }
 
 	    public function showTarea($Id){
-
+			$ToReturn = array();
     		$query = "SELECT * FROM servicios WHERE Id = '$Id'";
 
             $run = new Method;
             $data = $run->select($query);
 
             if($data){
-            	$data = $data[0];
+            	$ToReturn = $data[0];
             }
 
-            $response_array['array'] = $data;
+            $response_array['array'] = $ToReturn;
 
             echo json_encode($response_array);
     	}

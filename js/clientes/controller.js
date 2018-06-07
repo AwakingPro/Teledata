@@ -1,4 +1,74 @@
+var maxLat = Math.atan(Math.sinh(Math.PI)) * 180 / Math.PI;
+var center
+var mapOptions
+var map
+var mapCenter
+
 $(document).ready(function() {
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+
+	function initialize() {
+
+		center = new google.maps.LatLng(-41.3214705, -73.0138898);
+
+		mapOptions = {
+			zoom: 13,
+			center: center,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		};
+	}
+
+	function isNumber(n) {
+		return !isNaN(parseFloat(n)) && isFinite(n);
+	}
+
+	function latRange(n) {
+		return Math.min(Math.max(parseInt(n), -maxLat), maxLat);
+	}
+
+	function lngRange(n) {
+		return Math.min(Math.max(parseInt(n), -180), 180);
+	}
+
+	function validLatitude(lat) {
+		return isFinite(lat) && Math.abs(lat) <= 90;
+	}
+
+	function validLongitude(lng) {
+		return isFinite(lng) && Math.abs(lng) <= 180;
+	}
+
+	$(".coordenadas").on('blur', function() {
+
+		latitud = $('#Latitud').val();
+		longitud = $('#Longitud').val();
+
+		if ($(this).attr('id') == 'Latitud' && latitud) {
+			if (latitud) {
+				if (!validLatitude(latitud)) {
+					bootbox.alert("Ups! Debe ingresar una latitud valida");
+					$(this).val('')
+				}
+			}
+		} else if ($(this).attr('id') == 'Longitud' && longitud) {
+			if (!validLongitude(longitud)) {
+				bootbox.alert("Ups! Debe ingresar una longitud valida");
+				$(this).val('')
+			}
+		}
+
+		if (latitud && longitud) {
+
+			mapCenter = new google.maps.LatLng(latitud, longitud);
+
+			setTimeout(function() {
+				google.maps.event.trigger(Map, "resize");
+				Map.setCenter(mapCenter);
+				Map.setZoom(Map.getZoom());
+			}, 1000)
+		}
+	})
 
 	$('[name="Rut"]').number( true, 0,'','');
 
@@ -13,6 +83,22 @@ $(document).ready(function() {
 	$('select[name="rutCliente"]').load('../ajax/cliente/selectNombreCliente.php',function(){
 		$('select[name="rutCliente"]').selectpicker();
 	});
+
+	$('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
+		$('select[name="TipoFactura"]').selectpicker('refresh');
+	});
+
+	$('body').on('focus',".date", function(){
+		$('.date').datetimepicker({
+	        locale: 'es',
+	        format: 'DD-MM-YYYY'
+	    });
+	});
+
+	$('[name="Valor"]').number(true, 2, ',', '.');
+	$('[name="Descuento"]').number(true, 0, '.', '');
+	$('[name="CostoInstalacion"]').number(true, 2, ',', '.');
+	$('[name="CostoInstalacionDescuento"]').number(true, 0, '.', '');
 
 	$('.listaCliente').html('<div class="spinner loading"></div>');
 	$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
@@ -101,10 +187,9 @@ $(document).ready(function() {
 						type: "POST",
 						url: "../includes/inventario/egresos/getBodega.php",
 						success: function(response){
-
-								$.each(response.array, function( index, array ) {
-										$('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
-								});
+							$.each(response.array, function( index, array ) {
+								$('#origen_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+							});
 						}
 					});
 
@@ -113,39 +198,49 @@ $(document).ready(function() {
 						$('#origen_id').selectpicker('refresh');
 					}, 1000);
 				}
-
-
 			});
-
-
 		});
 	});
 
 	$(document).on('click', '.listDatosTecnicos', function() {
-		$('.containerListDatosTecnicos').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
 		var id = $(this).attr('attr');
-		$.post('../ajax/cliente/tipolistModal.php', {id: id}, function(data) {
-			$.post('../ajax/cliente/'+data, {id: id}, function(data) {
+		ListDatosTecnicos(id)
+	});
+	function ListDatosTecnicos(id){
+		$('.containerListDatosTecnicos').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
+		$.post('../ajax/cliente/tipolistModal.php', {
+			id: id
+		}, function(data) {
+			$.post('../ajax/cliente/' + data, {
+				id: id
+			}, function(data) {
 				$('.containerListDatosTecnicos').html(data);
-				var count = $('.containerListDatosTecnicos > .tabeData tr th').length -1;
+				var count = $('.containerListDatosTecnicos > .tabeData tr th').length - 1;
 				$('.containerListDatosTecnicos > .tabeData').dataTable({
-						"columnDefs": [{
+					"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
 					}, ]
 				});
-				$('.containerListDatosTecnicos').attr('idTipoLista',id);
+				$('.containerListDatosTecnicos').attr('idTipoLista', id);
 			});
 		});
-	});
+	}
 
 	$(document).on('click', '.guardarDatosTecnicos', function() {
 		var url = $('.container-form-datosTecnicos').attr('attr');
-		$.postFormValues('../ajax/cliente/'+url,'.container-form-datosTecnicos',function(data){
-			if (Number(data) > 0){
+		$.postFormValues('../ajax/cliente/' + url, '.container-form-datosTecnicos', function(data) {
+			if (Number(data) > 0) {
+				var id = $('.containerListDatosTecnicos').attr('idTipoLista');
 				$('.modal').modal('hide')
-				bootbox.alert('<h3 class="text-center">Los datos se registraron con éxito.</h3>');
-			}else{
+				setTimeout(function(){
+					bootbox.alert('<h3 class="text-center">Registro Guardado Exitosamente.</h3>');
+				},500)
+				setTimeout(function() {
+					$('#verServicios').modal('show')
+					ListDatosTecnicos(id)
+				},500)
+			} else {
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
 			}
 		});
@@ -567,4 +662,265 @@ $(document).ready(function() {
 			$('input[name="Giro"]').attr('validate','not_null')
 		}
 	});
+
+	$(document).on('click', '.mostrarDatosTecnicos', function () {
+
+        $('body').removeClass('loaded');
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = $(this).attr('attr');
+        var ObjectCode = ObjectTR.find("td").eq(0).text();
+		$('.Codigo').text(ObjectCode);
+		$('.Id').val(ObjectId);
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/tareas/showTarea.php",
+            data: "id="+ObjectId,
+            success: function(response){
+
+				array = response.array
+				var IdServicio
+
+                for(var name in array) {
+                    var value = array[name];
+                    if(name == "Descripcion" || name == "Direccion"){
+                        $('#showServicio').find('#'+name).text(value);
+                    }else{
+                        $('#showServicio').find('#'+name).val(value);
+					}
+					if(name == 'IdServicio'){
+						IdServicio = value
+					}
+					if(name == 'CostoInstalacion'){
+						if(value > 0){
+							$('#showServicio #BooleanCostoInstalacion').val(1);
+							$('#divCostoInstalacionEditar').show();
+							$('#showServicio').find('input[name="CostoInstalacion"]').attr('validation','not_null')
+						}else{
+							$('#showServicio #BooleanCostoInstalacion').val(0);
+							$('#divCostoInstalacionEditar').hide();
+							$('#showServicio').find('input[name="CostoInstalacion"]').removeAttr('validation')
+						}
+					}
+                }
+
+                $('.selectpicker').selectpicker('refresh')
+
+                latitud = $('#showServicio').find('input[name="Latitud"]').val();
+				longitud = $('#showServicio').find('input[name="Longitud"]').val();
+				
+				switch (IdServicio) {
+					case '1':
+						$('#otrosServiciosEditar').show()
+						break;
+					case '2':
+						$('#otrosServiciosEditar').show()
+						break;
+					case '3':
+						$('#otrosServiciosEditar').hide()
+						break;
+					case '4':
+						$('#otrosServiciosEditar').hide()
+						break;
+					case '5':
+						$('#otrosServiciosEditar').hide()
+						break;
+					case '6':
+						$('#otrosServiciosEditar').hide()
+						break;
+					default:
+						$('#otrosServiciosEditar').hide()
+				}
+				
+                if (latitud && longitud) {
+					MapEdit = new google.maps.Map(document.getElementById("MapEdit"), mapOptions);
+                    mapCenter = new google.maps.LatLng(latitud, longitud);
+
+                    setTimeout(function() {
+                        google.maps.event.trigger(MapEdit, "resize");
+                        MapEdit.setCenter(mapCenter);
+                        MapEdit.setZoom(MapEdit.getZoom());
+                    }, 1000)
+                }
+
+                $('body').addClass('loaded');
+            },
+            error: function(xhr, status, error){
+                setTimeout(function(){
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada',err.Message,'error');
+                }, 1000);
+            }
+        });
+
+	});
+
+	$('#showServicio #BooleanCostoInstalacion').change(function(event) {
+		if($(this).val() == 1){
+			$('#divCostoInstalacionEditar').show();
+			$('#showServicio').find('input[name="CostoInstalacion"]').attr('validation','not_null')
+		}else{
+			$('#divCostoInstalacionEditar').hide();
+			$('#showServicio').find('input[name="CostoInstalacion"]').removeAttr('validation')
+		}
+	});
+
+	$(document).on('click', '#updateServ', function() {
+
+		Rut = $('select[name="rutCliente"]').selectpicker('val')
+
+		$.postFormValues('../ajax/servicios/updateServicio.php', '#showServicio', function(data) {
+			if (data) {
+				servicio_id = data
+				$('.modal').modal('hide')
+				setTimeout(function(){
+					bootbox.alert('<h3 class="text-center">El servicio se actualizo con éxito.</h3>');
+				},500)
+				$.post('../ajax/cliente/dataCliente.php', {
+					rut: Rut
+				}, function(data) {
+					values = $.parseJSON(data);
+					$('.dataServicios').html(values[1]);
+					var count = $('.dataServicios > .tabeData tr th').length - 1;
+					$('.dataServicios > .tabeData').dataTable({
+						"scrollX": true,
+						"columnDefs": [{
+							'orderable': false,
+							'targets': [count]
+						}, ],
+						language: {
+							processing: "Procesando ...",
+							search: '<div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>',
+							searchPlaceholder: "BUSCAR",
+							lengthMenu: "Mostrar _MENU_ Registros",
+							info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+							infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+							infoFiltered: "(filtrada de _MAX_ registros en total)",
+							infoPostFix: "",
+							loadingRecords: "...",
+							zeroRecords: "No se encontraron registros coincidentes",
+							emptyTable: "No hay servicios",
+							paginate: {
+								first: "Primero",
+								previous: "Anterior",
+								next: "Siguiente",
+								last: "Ultimo"
+							},
+							aria: {
+								sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+								sortDescending: ": habilitado para ordenar la columna en orden descendente"
+							}
+						}
+					});
+				});
+			}else {
+				console.log(data);
+				bootbox.alert('<h3 class="text-center">Se produjo un error al actualizar</h3>');
+			}
+		});
+	});
+
+	$(document).on('click', '.estatusServicio', function () {
+
+        $('body').removeClass('loaded');
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = $(this).attr('attr');
+        var ObjectCode = ObjectTR.find("td").eq(0).text();
+		$('.Codigo').text(ObjectCode);
+		$('.Id').val(ObjectId);
+
+        $.ajax({
+            type: "POST",
+            url: "../ajax/servicios/showEstatus.php",
+            data: "id="+ObjectId,
+            success: function(response){
+				if(response){
+					$('#Activo').val(0)
+					$('#divFechaActivacion').show()
+				}else{
+					$('#Activo').val(1)
+					$('#divFechaActivacion').hide()
+				}
+
+                $('#Activo').selectpicker('refresh')
+
+                $('#FechaActivacion').val(response)
+
+                $('body').addClass('loaded');
+            },
+            error: function(xhr, status, error){
+                setTimeout(function(){
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada',err.Message,'error');
+                }, 1000);
+            }
+        });
+	});
+	
+	$('#Activo').on('change', function() {
+		if ($(this).val() == "1") {
+			$('#divFechaActivacion').hide()
+			$('input[name="FechaActivacion"]').removeAttr('validate')
+		} else {
+			$('#divFechaActivacion').show()
+			$('input[name="FechaActivacion"]').attr('validate', 'not_null')
+		}
+	});
+
+	$(document).on('click', '#updateEstatus', function() {
+		$.postFormValues('../ajax/servicios/updateEstatus.php', '#formEstatus', function(data) {
+			if (data == 1) {
+				$('.modal').modal('hide')
+				setTimeout(function(){
+					bootbox.alert('<h3 class="text-center">Registro Guardado Exitosamente.</h3>');
+				},500)
+				$.post('../ajax/cliente/dataCliente.php', {rut: $('select[name="rutCliente"]').selectpicker('val')}, function(data) {
+					values = $.parseJSON(data);
+					$('.dataServicios').html(values[1]);
+					var count = $('.dataServicios > .tabeData tr th').length - 1;
+					$('.dataServicios > .tabeData').dataTable({
+						"scrollX": true,
+						"columnDefs": [{
+							'orderable': false,
+							'targets': [count]
+						}, ],
+						language: {
+							processing: "Procesando ...",
+							search: '<div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>',
+							searchPlaceholder: "BUSCAR",
+							lengthMenu: "Mostrar _MENU_ Registros",
+							info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+							infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+							infoFiltered: "(filtrada de _MAX_ registros en total)",
+							infoPostFix: "",
+							loadingRecords: "...",
+							zeroRecords: "No se encontraron registros coincidentes",
+							emptyTable: "No hay servicios",
+							paginate: {
+								first: "Primero",
+								previous: "Anterior",
+								next: "Siguiente",
+								last: "Ultimo"
+							},
+							aria: {
+								sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+								sortDescending: ": habilitado para ordenar la columna en orden descendente"
+							}
+						}
+					});
+				});
+			} else if(data == 2) {
+				bootbox.alert('<h3 class="text-center">La fecha de activación debe ser mayor al dia de hoy.</h3>');
+			}else if(data == 3) {
+				bootbox.alert('<h3 class="text-center">La fecha de activación es requerida.</h3>');
+			}else{
+				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+			}
+		});
+	});
+
 });
