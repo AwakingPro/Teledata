@@ -80,7 +80,7 @@ $(document).ready(function() {
 		$('.ClaseCliente').selectpicker('refresh');
 	});
 
-	$('select[name="rutCliente"]').load('../ajax/cliente/selectNombreCliente.php',function(){
+	$('select[name="rutCliente"]').load('../ajax/servicios/selectClientes.php',function(){
 		$('select[name="rutCliente"]').selectpicker();
 	});
 
@@ -149,8 +149,8 @@ $(document).ready(function() {
 		}
 	});
 
-	$(document).on('click', '.buscarDatosClientes', function() {
-		if ($('select[name="rutCliente"]').selectpicker('val') != '') {
+	$(document).on('change', 'select[name="rutCliente"]', function() {
+		if ($(this).selectpicker('val') != '') {
 			$.post('../ajax/cliente/dataCliente.php', {rut: $('select[name="rutCliente"]').selectpicker('val')}, function(data) {
 				values = $.parseJSON(data);
 				$('.dataFacturacion').html(values[0]);

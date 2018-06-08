@@ -41,21 +41,11 @@
 										<!--Tabs content-->
 										<div class="tab-content">
 											<h3>Lista de Clientes</h3><br>
-											<h4>Buscar por:</h4><br>
 												<div class="row">
-													<div class="col-md-2">
-														<select name="" class="form-control selectpicker tipoBusqueda" data-live-search="true">
-															<option value="2">Nombre</option>
-															<option value="1">Rut</option>
-														</select>
-													</div>
 													<div class="col-md-4">
 														<select name="rutCliente" class="form-control" data-live-search="true">
 															<option value="">Seleccione...</option>
 														</select>
-													</div>
-													<div class="col-md-2">
-														<button type="button" class="btn btn-primary btn-block buscarDatosClientes">Buscar</button>
 													</div>
 												</div>
 												<br><br>
