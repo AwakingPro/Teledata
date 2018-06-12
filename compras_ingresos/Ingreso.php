@@ -62,6 +62,20 @@
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label class="control-label" for="name">Descripción</label>
+                                        <input id="detalle_factura" name="detalle_factura" placeholder="Ingrese la descripción" class="form-control input-sm detalle_factura" data-nombre="Descripción">
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Monto</label>
+                                        <input id="monto" name="monto" validation="not_null" placeholder="Ingrese el monto" class="form-control input-sm number monto" data-nombre="Monto">
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label class="control-label" for="name">Estado de Pago</label>
                                         <div class="select">
                                             <select class="form-control estado_id" id="estado_id" name="estado_id" validation="not_null" data-live-search="true" data-nombre="Estado de Pago" data-container="body">
@@ -74,7 +88,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label label_numero_detalle" for="name">Detalle</label>
-                                        <input id="numero_detalle" name="numero_detalle" placeholder="Ingrese el detalle" class="form-control input-sm number numero_detalle" data-nombre="Detalle">
+                                        <input id="numero_detalle" name="numero_detalle" placeholder="Ingrese el detalle" class="form-control input-sm numero_detalle" data-nombre="Detalle">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -127,6 +141,20 @@
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Fecha Emisión Factura</label>
                                                         <input id="fecha_emision_factura" name="fecha_emision_factura" validation="not_null"  type="text" placeholder="Seleccione la fecha de emisión de la factura" class="form-control date fecha_emision_factura" data-nombre="Fecha Emisión Factura">
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix m-b-10"></div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="name">Descripción</label>
+                                                        <input id="detalle_factura" name="detalle_factura" placeholder="Ingrese la descripción" class="form-control input-sm detalle_factura" data-nombre="Descripción">
+                                                    </div>
+                                                </div>
+                                                <div class="clearfix m-b-10"></div>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="name">Monto</label>
+                                                        <input id="monto" name="monto" validation="not_null" placeholder="Ingrese el monto" class="form-control input-sm number monto" data-nombre="Monto">
                                                     </div>
                                                 </div>
                                                 <div class="clearfix m-b-10"></div>
@@ -322,8 +350,17 @@
                                                                                                 <div class="tab-base ">
                                                                                                     <div class="tab-content">
                                                                                                         <div class="table-responsive">
-                                                                                                            <div class="col-md-12">
-                                                                                                                <button data-toggle="modal" href="#IngresoForm" class="btn btn-success">Agregar</button>
+                                                                                                            <div class="col-md-6">
+                                                                                                                <button data-toggle="modal" href="#IngresoForm" class="btn btn-success">Agregar</button><br><br>
+                                                                                                            </div>
+                                                                                                            <div class="col-md-6">
+                                                                                                                <div class="pull-right">
+                                                                                                                    <b><span style="font-size:16px">Pagado: <span id="pagado">0</span></span><br>
+                                                                                                                    <b><span style="font-size:16px">Por pagar: <span id="por_pagar">0</span></span></b>
+                                                                                                                    <br><br>
+                                                                                                                </div>
+                                                                                                            </div>
+                                                                                                             <div class="col-md-12">
                                                                                                                 <table id="IngresoTable" class="table table-striped table-bordered">
                                                                                                                     <thead>
                                                                                                                         <tr>

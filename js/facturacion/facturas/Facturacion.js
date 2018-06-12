@@ -176,8 +176,9 @@ $(document).ready(function(){
                 destroy: true,
                 'createdRow': function( row, data, dataIndex ) {
                     $(row)
-                        .attr('rutid',data.Rut)
+                        .attr('rutid',data.Id)
                         .attr('grupo',data.Grupo)
+                        .attr('EstatusFacturacion',data.EstatusFacturacion)
                         .attr('tipo',3)
                         .addClass('text-center')
                 },
@@ -197,7 +198,11 @@ $(document).ready(function(){
                         "targets": 6,
                         "render": function (data, type, row) {
                             if(data == 2){
-                                Icono = '<a href="'+row.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
+                                if(row.UrlPdfBsale != 0 && row.UrlPdfBsale != ''){
+                                    Icono = '<a href="'+row.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
+                                }else{
+                                    Icono  = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
+                                }
                             }else{
                                 Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarServicio" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                             }
@@ -255,6 +260,7 @@ $(document).ready(function(){
                     $(row)
                         .attr('rutid',data.Id)
                         .attr('grupo',data.Grupo)
+                        .attr('EstatusFacturacion',data.EstatusFacturacion)
                         .attr('tipo',2)
                         .addClass('text-center')
                 },
@@ -274,7 +280,11 @@ $(document).ready(function(){
                         "targets": 6,
                         "render": function (data, type, row) {
                             if(data == 1){
-                                Icono = '<a href="'+row.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
+                                if(row.UrlPdfBsale != 0 && row.UrlPdfBsale != ''){
+                                    Icono = '<a href="'+row.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
+                                }else{
+                                    Icono  = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
+                                }
                             }else{
                                 Icono  = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                             }
@@ -328,6 +338,7 @@ $(document).ready(function(){
                     $(row)
                         .attr('rutid',data.Id)
                         .attr('grupo',data.Grupo)
+                        .attr('EstatusFacturacion',data.EstatusFacturacion)
                         .attr('tipo',2)
                         .addClass('text-center')
                 },
@@ -338,7 +349,7 @@ $(document).ready(function(){
                             if(data == 1){
                                 Check = ''
                             }else{
-                                Check = '<input name="select_check" id="select_check_"'+row.Id+' type="checkbox" />'
+                                Check = '<input name="select_check" id="select_check_'+row.Id+'" type="checkbox" />'
                             }
                             return "<div style='text-align: center'>"+ Check +"</div>";
                         }
@@ -357,10 +368,14 @@ $(document).ready(function(){
                     {
                         "targets": 7,
                         "render": function (data, type, row) {
-                            if(data == 2){
-                                Icono = '<a href="'+row.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
+                            if(data == 1){
+                                if(row.UrlPdfBsale != 0 && row.UrlPdfBsale != ''){
+                                    Icono = '<a href="'+row.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
+                                }else{
+                                    Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
+                                }
                             }else{
-                                Icono = Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                                Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                             }
                             return "<div style='text-align: center'>"+ Icono +"</div>";
                         }
@@ -428,18 +443,23 @@ $(document).ready(function(){
 
                             Id = response.Id
                             UrlPdf = response.UrlPdf
+                            if(UrlPdf != 0 && UrlPdf != ''){
+                                Icono = '<a href="'+UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
+                            }else{
+                                Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
+                            }
 
                             if(ObjectType == 2){
                                 Row = $('#LoteTable tbody').find('tr[rutid="'+Id+'"]');
                                 Row.find("td").eq(0).html('');
                                 Row.find("td").eq(1).text('Pagada');
-                                Row.find("td").eq(7).html('<a href="'+UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>')
+                                Row.find("td").eq(7).html(Icono)
 
                                 Row = $('#IndividualTable tbody').find('tr[rutid="'+Id+'"]');
                                 Row.find("td").eq(0).text('Pagada');
-                                Row.find("td").eq(6).html('<a href="'+UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>')
+                                Row.find("td").eq(6).html(Icono)
                             }else{
-                                $(ObjectMe).closest('td').html('<a href="'+response.UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>')
+                                $(ObjectMe).closest('td').html(Icono)
                                 ObjectTR.find("td").eq(0).text('Pagada');
                             }
                             
@@ -475,11 +495,12 @@ $(document).ready(function(){
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectRutId = ObjectTR.attr("rutid");
         var ObjectGroup = ObjectTR.attr("grupo");
+        var ObjectType = ObjectTR.attr("tipo");
 
         $.ajax({
             type: "POST",
             url: "../includes/facturacion/facturas/showServicio.php",
-            data: "rut="+ObjectRutId+"&grupo="+ObjectGroup,
+            data: "rut="+ObjectRutId+"&grupo="+ObjectGroup+"&tipo="+ObjectType,
             success: function(response){
 
                 ModalTable.clear().draw()
@@ -513,14 +534,16 @@ $(document).ready(function(){
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectRutId = ObjectTR.attr("rutid");
         var ObjectGroup = ObjectTR.attr("grupo");
-        if(ObjectGroup > 0){
+        var ObjectStatus = ObjectTR.attr("EstatusFacturacion");
+        var ObjectType = ObjectTR.attr("tipo");
+        if(ObjectStatus == 0){
             ObjectRutId = ObjectRutId + "-" + ObjectGroup
         }
 
         $.ajax({
             type: "POST",
             url: "../includes/facturacion/facturas/showFactura.php",
-            data: "id="+ObjectRutId,
+            data: "id="+ObjectRutId+"&tipo="+ObjectType,
             success: function(response){
 
                 ModalTable.clear().draw()
@@ -557,7 +580,8 @@ $(document).ready(function(){
             checkbox = actualrow.find('input:checked').val();
             if(checkbox == 'on'){
                 var id = $(actualrow).attr('rutid');
-                checked[i] = id;
+                var grupo = $(actualrow).attr('grupo');
+                checked[i] = id+"-"+grupo;
             }
         });
 
@@ -632,17 +656,23 @@ $(document).ready(function(){
 
                             $.each(facturas, function( index, factura ) {
 
-                                Id = factura.Id
+                                Rut = factura.Rut
+                                Grupo = factura.Grupo
                                 UrlPdf = factura.UrlPdf
+                                if(UrlPdf != 0 && UrlPdf != ''){
+                                    Icono = '<a href="'+UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
+                                }else{
+                                    Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
+                                }
 
-                                Row = $('#LoteTable tbody').find('tr[rutid="'+Id+'"]');
+                                Row = $('#LoteTable tbody').find('tr[rutid="'+Rut+'"][grupo="'+Grupo+'"]');
                                 Row.find("td").eq(0).html('');
                                 Row.find("td").eq(1).text('Pagada');
-                                Row.find("td").eq(7).html('<a href="'+UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>')
+                                Row.find("td").eq(7).html(Icono)
 
-                                Row = $('#IndividualTable tbody').find('tr[rutid="'+Id+'"]');
+                                Row = $('#IndividualTable tbody').find('tr[rutid="'+Rut+'"][grupo="'+Grupo+'"]');
                                 Row.find("td").eq(0).text('Pagada');
-                                Row.find("td").eq(6).html('<a href="'+UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>')
+                                Row.find("td").eq(6).html(Icono)
 
                             });
 

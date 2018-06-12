@@ -230,7 +230,7 @@
 			            	$Rut = $Servicio['Rut'];
 		                    $Grupo = $Servicio['Grupo'];
 
-		                    $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('$Rut', '$Grupo', '2', '0', '0', '', '0', '', '$Hoy', '$Hoy')";
+		                    $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('$Rut', '$Grupo', '2', '0', '0', '', '0', '', NOW(), NOW())";
 		                    $FacturaId = $run->insert($query);
 
 		                    if($FacturaId){

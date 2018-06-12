@@ -32,64 +32,89 @@ $(document).ready(function(){
 
     $(".number").mask("0000000000");
 
-    Table = $('#IngresoTable').DataTable({
-        paging: false,
-        iDisplayLength: 100,
-        processing: true,
-        serverSide: false,  
-        bInfo:false,
-        order: [[0, 'asc']],
-        language: {
-            processing:     "Procesando ...",
-            search:         'Buscar',
-            lengthMenu:     "Mostrar _MENU_ Registros",
-            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-            infoFiltered:   "(filtrada de _MAX_ registros en total)",
-            infoPostFix:    "",
-            loadingRecords: "...",
-            zeroRecords:    "No se encontraron registros coincidentes",
-            emptyTable:     "No hay datos disponibles en la tabla",
-            paginate: {
-                first:      "Primero",
-                previous:   "Anterior",
-                next:       "Siguiente",
-                last:       "Ultimo"
-            },
-            aria: {
-                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
-                sortDescending: ": habilitado para ordenar la columna en orden descendente"
-            }
-        }
-    });
+    Table = $('#IngresoTable').DataTable()
+    var pagado = 0;
+    var por_pagar = 0;
 
     $.ajax({
         type: "POST",
         url: "../includes/compras/ingresos/showIngreso.php",
         success: function(response){
-
-            $.each(response.array, function( index, array ) {
-
-                fecha_emision_factura = moment(array.fecha_emision_factura).format('DD-MM-YYYY');
-               
-                var rowNode = Table.row.add([
-                    ''+array.numero_factura+'',
-                    ''+fecha_emision_factura+'',
-                    '' +array.proveedor+'',
-                    ''+array.estado+'',
-                    ''+array.centro_costo+'',
-                    ''+'<i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
-                ]).draw(false).node();
-
-                $( rowNode )
-                    .attr('id',array.id)
-                    .data('proveedor_id',array.proveedor_id)
-                    .data('centro_costo_id',array.centro_costo_id)
-                    .data('estado_id',array.estado_id)
-                    .data('numero_detalle',array.numero_detalle)
-                    .data('fecha_detalle',array.fecha_detalle)
-                    .addClass('text-center')
+            Table = $('#IngresoTable').DataTable({
+                order: [[0, 'desc']],
+                data: response.array,
+                columns: [
+                    { data: 'numero_factura' },
+                    { data: 'fecha_emision_factura' },
+                    { data: 'proveedor' },
+                    { data: 'estado' },
+                    { data: 'centro_costo' },
+                    { data: 'id' }
+                ],
+                destroy: true,
+                'createdRow': function( row, data, dataIndex ) {
+                    if(data.monto > 0){
+                        monto = data.monto
+                    }else{
+                        monto = 0
+                    }
+                    if(data.estado != 2){
+                        pagado += parseFloat(monto)
+                    }else{
+                        por_pagar += parseFloat(monto)
+                    }
+                    $(row)
+                        .attr('id',data.id)
+                        .data('proveedor_id',data.proveedor_id)
+                        .data('centro_costo_id',data.centro_costo_id)
+                        .data('estado_id',data.estado_id)
+                        .data('numero_detalle',data.numero_detalle)
+                        .data('fecha_detalle',data.fecha_detalle)
+                        .data('detalle_factura',data.detalle_factura)
+                        .data('monto',monto)
+                        .addClass('text-center')
+                },
+                "columnDefs": [
+                    {
+                        "targets": 1,
+                        "render": function (data, type, row) {
+                            fecha_emision_factura = moment(data).format('DD-MM-YYYY');
+                            return fecha_emision_factura
+                        }
+                    },
+                    {
+                        "targets": 5,
+                        "render": function (data, type, row) {
+                            Icono = '<i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-times Remove"></i>'
+                            return Icono;
+                        }
+                    },
+                ],
+                language: {
+                    processing:     "Procesando ...",
+                    search:         'Buscar',
+                    lengthMenu:     "Mostrar _MENU_ Registros",
+                    info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                    infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+                    infoFiltered:   "(filtrada de _MAX_ registros en total)",
+                    infoPostFix:    "",
+                    loadingRecords: "...",
+                    zeroRecords:    "No se encontraron registros coincidentes",
+                    emptyTable:     "No hay datos disponibles en la tabla",
+                    paginate: {
+                        first:      "Primero",
+                        previous:   "Anterior",
+                        next:       "Siguiente",
+                        last:       "Ultimo"
+                    },
+                    aria: {
+                        sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                    }
+                }
             });
+            $('#pagado').text(pagado)
+            $('#por_pagar').text(por_pagar)
         }
     });
 
@@ -209,6 +234,8 @@ $(document).ready(function(){
                     .data('estado_id',response.array.estado_id)
                     .data('numero_detalle',response.array.numero_detalle)
                     .data('fecha_detalle',response.array.fecha_detalle)
+                    .data('detalle_factura',response.data.detalle_factura)
+                    .data('monto',response.data.monto)
                     .addClass('text-center')
 
                 $('#storeIngreso')[0].reset();
@@ -264,6 +291,8 @@ $(document).ready(function(){
         var ObjectCost = ObjectTR.data("centro_costo_id");
         var ObjectDetailNumber = ObjectTR.data("numero_detalle");
         var ObjectDetailDate = ObjectTR.data("fecha_detalle");
+        var ObjectDetail = ObjectTR.data("detalle_factura");
+        var ObjectValue = ObjectTR.data("monto");
 
         if(ObjectDetailDate && ObjectDetailDate != '0000-00-00' && ObjectDetailDate != '1969-01-31'){
             ObjectDetailDate = moment(ObjectDetailDate).format('DD-MM-YYYY');
@@ -279,6 +308,8 @@ $(document).ready(function(){
         $('#updateIngreso').find('select[name="centro_costo_id"]').val(ObjectCost);
         $('#updateIngreso').find('input[name="numero_detalle"]').val(ObjectDetailNumber);
         $('#updateIngreso').find('input[name="fecha_detalle"]').val(ObjectDetailDate);
+        $('#updateIngreso').find('input[name="detalle_factura"]').val(ObjectDetail);
+        $('#updateIngreso').find('input[name="monto"]').val(ObjectValue);
 
         if($(this).hasClass('fa-search')){
             $("#IngresoFormUpdate :input").attr("readonly", true);
@@ -337,6 +368,8 @@ $(document).ready(function(){
                 ObjectTR.data('estado_id', response.array.estado_id)
                 ObjectTR.data('numero_detalle', response.array.numero_detalle)
                 ObjectTR.data('fecha_detalle', response.array.fecha_detalle)
+                ObjectTR.data('detalle_factura', response.array.detalle_factura)
+                ObjectTR.data('monto', response.array.monto)
                 ObjectTR.find("td").eq(0).html(response.array.numero_factura);
                 ObjectTR.find("td").eq(1).html(response.array.fecha_emision_factura);
                 ObjectTR.find("td").eq(2).html(Proveedor);

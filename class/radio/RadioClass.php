@@ -22,7 +22,7 @@
             $LongitudCoordenadaSite = isset($LongitudCoordenadaSite) ? trim($LongitudCoordenadaSite) : "";
             $DatosProveedorElectrico = isset($Correo) ? trim($DatosProveedorElectrico) : "";
 
-            if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Personal) && !empty($Correo) && !empty($Contacto) && !empty($DuenoCerro)  && !empty($LatitudCoordenada)  && !empty($LongitudCoordenada) && !empty($LatitudCoordenadaSite) && !empty($LongitudCoordenadaSite) && !empty($DatosProveedorElectrico)){
+            if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Personal) && !empty($Correo) && !empty($Contacto)){
 
                 $this->Nombre=$Nombre;
                 $this->Direccion=$Direccion;
@@ -77,7 +77,7 @@
             $DatosProveedorElectrico = isset($DatosProveedorElectrico) ? trim($DatosProveedorElectrico) : "";
 
 
-            if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Personal) && !empty($Correo) && !empty($Contacto) && !empty($DuenoCerro)  && !empty($LatitudCoordenada)  && !empty($LongitudCoordenada) && !empty($LatitudCoordenadaSite) && !empty($LongitudCoordenadaSite) && !empty($DatosProveedorElectrico)){
+            if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Personal) && !empty($Correo) && !empty($Contacto)){
 
                 $this->Id=$Id;
                 $this->Nombre=$Nombre;

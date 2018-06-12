@@ -5,7 +5,7 @@
 
     class Ingreso{
 
-        public function storeIngreso($NumeroFactura,$FechaEmisionFactura,$Proveedor,$Estado,$CentroCosto,$NumeroDetalle,$FechaDetalle){
+        public function storeIngreso($NumeroFactura,$FechaEmisionFactura,$Proveedor,$Estado,$CentroCosto,$NumeroDetalle,$FechaDetalle,$DetalleFactura,$Monto){
 
             $response_array = array();
 
@@ -16,8 +16,10 @@
             $CentroCosto = isset($CentroCosto) ? trim($CentroCosto) : "";
             $NumeroDetalle = isset($NumeroDetalle) ? trim($NumeroDetalle) : "";
             $FechaDetalle = isset($FechaDetalle) ? trim($FechaDetalle) : "";
+            $DetalleFactura = isset($DetalleFactura) ? trim($DetalleFactura) : "";
+            $Monto = isset($Monto) ? trim($Monto) : "";
 
-            if(!empty($NumeroFactura) && !empty($FechaEmisionFactura) && !empty($Proveedor) && !empty($Estado) && !empty($CentroCosto)){
+            if(!empty($NumeroFactura) && !empty($FechaEmisionFactura) && !empty($Proveedor) && !empty($Estado) && !empty($CentroCosto) && !empty($DetalleFactura) && !empty($Monto)){
 
                 $this->NumeroFactura=$NumeroFactura;
                 $this->FechaEmisionFactura=$FechaEmisionFactura;
@@ -26,6 +28,8 @@
                 $this->CentroCosto=$CentroCosto;
                 $this->NumeroDetalle=$NumeroDetalle;
                 $this->FechaDetalle=$FechaDetalle;
+                $this->DetalleFactura=$DetalleFactura;
+                $this->Monto=$Monto;
 
                 $FechaEmisionFactura = DateTime::createFromFormat('d-m-Y', $FechaEmisionFactura)->format('Y-m-d');
                 if($FechaDetalle){
@@ -35,13 +39,13 @@
                 }
                 $array = array();
 
-                $query = "INSERT INTO compras_ingresos(numero_factura, fecha_emision_factura, proveedor_id, estado_id, centro_costo_id, numero_detalle, fecha_detalle) VALUES ('$this->NumeroFactura','$FechaEmisionFactura','$this->Proveedor','$this->Estado','$this->CentroCosto','$this->NumeroDetalle','$FechaDetalle')";
+                $query = "INSERT INTO compras_ingresos(numero_factura, fecha_emision_factura, proveedor_id, estado_id, centro_costo_id, numero_detalle, fecha_detalle, detalle_factura, monto) VALUES ('$this->NumeroFactura','$FechaEmisionFactura','$this->Proveedor','$this->Estado','$this->CentroCosto','$this->NumeroDetalle','$FechaDetalle','$this->DetalleFactura','$this->Monto')";
                 $run = new Method;
                 $id = $run->insert($query);
 
                 if($id){
 
-                    $array = array('id' => $id, 'numero_factura' => $this->NumeroFactura,'fecha_emision_factura' => $this->FechaEmisionFactura, 'proveedor_id' => $this->Proveedor, 'estado_id' => $this->Estado, 'centro_costo_id' => $this->CentroCosto, 'numero_detalle' => $this->NumeroDetalle, 'fecha_detalle' => $FechaDetalle);
+                    $array = array('id' => $id, 'numero_factura' => $this->NumeroFactura,'fecha_emision_factura' => $this->FechaEmisionFactura, 'proveedor_id' => $this->Proveedor, 'estado_id' => $this->Estado, 'centro_costo_id' => $this->CentroCosto, 'numero_detalle' => $this->NumeroDetalle, 'fecha_detalle' => $FechaDetalle, 'detalle_factura' => $this->DetalleFactura, 'monto' => $this->Monto);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -57,7 +61,7 @@
 
         } 
 
-        public function updateIngreso($NumeroFactura,$FechaEmisionFactura,$Proveedor,$Estado,$CentroCosto,$NumeroDetalle,$FechaDetalle,$Id){
+        public function updateIngreso($NumeroFactura,$FechaEmisionFactura,$Proveedor,$Estado,$CentroCosto,$NumeroDetalle,$FechaDetalle,$DetalleFactura,$Monto,$Id){
 
             $response_array = array();
 
@@ -68,8 +72,10 @@
             $CentroCosto = isset($CentroCosto) ? trim($CentroCosto) : "";
             $NumeroDetalle = isset($NumeroDetalle) ? trim($NumeroDetalle) : "";
             $FechaDetalle = isset($FechaDetalle) ? trim($FechaDetalle) : "";
+            $DetalleFactura = isset($DetalleFactura) ? trim($DetalleFactura) : "";
+            $Monto = isset($Monto) ? trim($Monto) : "";
 
-            if(!empty($NumeroFactura) && !empty($FechaEmisionFactura) && !empty($Proveedor) && !empty($Estado) && !empty($CentroCosto)){
+            if(!empty($NumeroFactura) && !empty($FechaEmisionFactura) && !empty($Proveedor) && !empty($Estado) && !empty($CentroCosto) && !empty($DetalleFactura) && !empty($Monto)){
                 
                 $this->Id=$Id;
                 $this->NumeroFactura=$NumeroFactura;
@@ -79,6 +85,8 @@
                 $this->CentroCosto=$CentroCosto;
                 $this->NumeroDetalle=$NumeroDetalle;
                 $this->FechaDetalle=$FechaDetalle;
+                $this->DetalleFactura=$DetalleFactura;
+                $this->Monto=$Monto;
 
                 $FechaEmisionFactura = DateTime::createFromFormat('d-m-Y', $FechaEmisionFactura)->format('Y-m-d');
                 if($FechaDetalle){
@@ -88,13 +96,13 @@
                 }
                 $array = array();
 
-                $query = "UPDATE `compras_ingresos` set  `numero_factura` = '$this->NumeroFactura', `fecha_emision_factura` = '$FechaEmisionFactura', `proveedor_id` = '$this->Proveedor', `estado_id` = '$this->Estado', `centro_costo_id` = '$this->CentroCosto', `numero_detalle` = '$this->NumeroDetalle', `fecha_detalle` = '$FechaDetalle' where `id` = '$this->Id'";
+                $query = "UPDATE `compras_ingresos` set  `numero_factura` = '$this->NumeroFactura', `fecha_emision_factura` = '$FechaEmisionFactura', `proveedor_id` = '$this->Proveedor', `estado_id` = '$this->Estado', `centro_costo_id` = '$this->CentroCosto', `numero_detalle` = '$this->NumeroDetalle', `fecha_detalle` = '$FechaDetalle', `detalle_factura` = '$this->DetalleFactura', `monto` = '$this->Monto' where `id` = '$this->Id'";
                 $run = new Method;
                 $data = $run->update($query);
 
                 if($data){
 
-                    $array = array('id' => $Id, 'numero_factura' => $this->NumeroFactura,'fecha_emision_factura' => $this->FechaEmisionFactura, 'proveedor_id' => $this->Proveedor, 'estado_id' => $this->Estado, 'centro_costo_id' => $this->CentroCosto, 'numero_detalle' => $this->NumeroDetalle, 'fecha_detalle' => $FechaDetalle);
+                    $array = array('id' => $Id, 'numero_factura' => $this->NumeroFactura,'fecha_emision_factura' => $this->FechaEmisionFactura, 'proveedor_id' => $this->Proveedor, 'estado_id' => $this->Estado, 'centro_costo_id' => $this->CentroCosto, 'numero_detalle' => $this->NumeroDetalle, 'fecha_detalle' => $FechaDetalle, 'detalle_factura' => $this->DetalleFactura, 'monto' => $this->Monto);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
