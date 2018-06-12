@@ -113,7 +113,7 @@
 					</div>
 					<div class="col-md-6 form-group">
 						<label>Rut</label>
-						<input name="Rut_update" class="form-control">
+						<input name="Rut_update" class="form-control" disabled>
 					</div>
 				</div>
 				<div class="row">

@@ -217,20 +217,21 @@
 
 	            	if($Estatus == 1){
 
-		            	$query = "	SELECT servicios.*, mantenedor_servicios.servicio as Servicio 
+		            	$query = "	SELECT servicios.*, mantenedor_servicios.servicio as Servicio, personaempresa.tipo_cliente
 		            				FROM servicios 
-		            				LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
-		            				WHERE `Id` = '$this->Id'";
+		            				INNER JOIN personaempresa ON servicios.Rut = personaempresa.rut 
+									LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
+		            				WHERE servicios.Id = '".$this->Id."'";
 	                    $Servicio = $run->select($query);
 
 	                    if($Servicio){
 
 	                    	$Servicio = $Servicio[0];
-
 			            	$Rut = $Servicio['Rut'];
-		                    $Grupo = $Servicio['Grupo'];
+							$Grupo = $Servicio['Grupo'];
+							$TipoDocumento = $Servicio['tipo_cliente'];
 
-		                    $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('$Rut', '$Grupo', '2', '0', '0', '', '0', '', NOW(), NOW())";
+		                    $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(), '".$TipoDocumento."')";
 		                    $FacturaId = $run->insert($query);
 
 		                    if($FacturaId){

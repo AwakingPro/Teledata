@@ -84,7 +84,7 @@
                             <div class="tab-content">
                                 <div id="lotes" class="tab-pane fade active in">
                                     <div class="col-md-6" style="margin-bottom:10px">
-                                        <b><span style="font-size:16px">Valor UF: <span class="ValorUF">0</span></span></b>
+                                        <b><span style="font-size:16px">Valor UF: <span class="ValorUF">0</span></span></b><br><br>
                                     </div>
                                     <div class="col-md-6" style="margin-bottom:10px">
                                         <button id="Facturar" class="btn btn-success pull-right" style="opacity: 0.2;" disabled>Facturar</button>
@@ -108,6 +108,14 @@
                                                 <tbody>
                                                 </tbody>
                                             </table>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" style="margin-top:20px">
+                                        <div class="pull-right">
+                                            <b><span style="font-size:14px">Total Facturas: <span class="totalFacturas">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Cantidad Facturas: <span class="cantidadFacturas">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Total Boletas: <span class="totalBoletas">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Cantidad Boletas: <span class="cantidadBoletas">0</span></span></b><br>
                                         </div>
                                     </div>
                                 </div>
@@ -137,6 +145,14 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="col-md-12" style="margin-top:20px">
+                                        <div class="pull-right">
+                                            <b><span style="font-size:14px">Total Facturas: <span class="totalFacturas">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Cantidad Facturas: <span class="cantidadFacturas">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Total Boletas: <span class="totalBoletas">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Cantidad Boletas: <span class="cantidadBoletas">0</span></span></b><br>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div id="instalacion" class="tab-pane fade">
                                     <div class="row" style="margin-top: 10px">
@@ -162,6 +178,14 @@
                                                     </tbody>
                                                 </table>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12" style="margin-top:20px">
+                                        <div class="pull-right">
+                                            <b><span style="font-size:14px">Total Facturas: <span class="totalFacturas">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Cantidad Facturas: <span class="cantidadFacturas">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Total Boletas: <span class="totalBoletas">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Cantidad Boletas: <span class="cantidadBoletas">0</span></span></b><br>
                                         </div>
                                     </div>
                                 </div>

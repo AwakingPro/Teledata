@@ -16,7 +16,7 @@
 
             $ToReturn = array();
 
-            $query = '  SELECT servicios.Rut, servicios.Grupo, SUM(servicios.CostoInstalacion) as Valor, servicios.EstatusFacturacion, servicios.FechaFacturacion, personaempresa.nombre as Cliente 
+            $query = '  SELECT servicios.Rut, servicios.Grupo, SUM(servicios.CostoInstalacion) as Valor, servicios.EstatusFacturacion, servicios.FechaFacturacion, personaempresa.nombre as Cliente, personaempresa.tipo_cliente as TipoDocumento
                         FROM servicios 
                         INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut 
                         WHERE servicios.EstatusFacturacion = 0 
@@ -45,12 +45,13 @@
                     $Valor = $Valor * $UF;
                     $data['Valor'] = number_format($Valor, 2);  
                     $data['EstatusFacturacion'] = 0;
+                    $data['TipoDocumento'] = $servicio['TipoDocumento']; 
 
                     array_push($ToReturn,$data);
                 }
             }
 
-            $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, facturas.FechaFacturacion, personaempresa.nombre as Cliente 
+            $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, facturas.FechaFacturacion, facturas.TipoDocumento, personaempresa.nombre as Cliente 
                         FROM facturas_detalle 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
@@ -76,6 +77,7 @@
                     $data['Tipo'] = 2;
                     $data['Valor'] = number_format($factura['Valor'], 2);
                     $data['EstatusFacturacion'] = 1; 
+                    $data['TipoDocumento'] = $factura['TipoDocumento']; 
                    
                     array_push($ToReturn,$data);
                 }
@@ -95,7 +97,7 @@
             $UF = $UfClass->getValue($Fecha);
             $ToReturn = array();
 
-            $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, facturas.EstatusFacturacion, facturas.FechaFacturacion, personaempresa.nombre as Cliente 
+            $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, facturas.EstatusFacturacion, facturas.FechaFacturacion, facturas.TipoDocumento, personaempresa.nombre as Cliente 
                         FROM facturas_detalle 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
@@ -122,12 +124,13 @@
                     $data['FechaFacturacion'] = $factura['FechaFacturacion'];    
                     $data['Valor'] = number_format($factura['Valor'], 2);
                     $data['EstatusFacturacion'] = 1; 
+                    $data['TipoDocumento'] = $factura['TipoDocumento'];
 
                     array_push($ToReturn,$data);
                 }
             }
 
-            $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Rut, facturas.Grupo, facturas.EstatusFacturacion, personaempresa.nombre as Cliente 
+            $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Rut, facturas.Grupo, facturas.EstatusFacturacion, facturas.TipoDocumento, personaempresa.nombre as Cliente 
                         FROM facturas_detalle 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
@@ -136,7 +139,8 @@
                         AND facturas.EstatusFacturacion = '0'
                         GROUP BY
                             facturas.Rut,
-                            facturas.Grupo";
+                            facturas.Grupo,
+                            facturas.TipoDocumento";
 
             $facturas = $run->select($query);
 
@@ -155,6 +159,7 @@
                     $data['FechaFacturacion'] = '';    
                     $data['Valor'] = number_format($factura['Valor'], 2);
                     $data['EstatusFacturacion'] = 0;
+                    $data['TipoDocumento'] = $factura['TipoDocumento'];
 
                     array_push($ToReturn,$data);
                 }
@@ -287,6 +292,7 @@
                     if($cliente){
 
                         $cliente = $cliente[0];
+                        $TipoDocumento = $cliente['tipo_cliente'];
 
                         if(isset($access_token)){
                             //CONSULTA AL CLIENTE
@@ -469,7 +475,7 @@
 
                         //Para actualizar los datos del servicios con los datos de Bsale
 
-                        $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('".$Rut."', '".$Grupo."', '".$Tipo."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW())";
+                        $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento) VALUES ('".$Rut."', '".$Grupo."', '".$Tipo."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."')";
                         $FacturaId = $run->insert($query);
 
                         if($FacturaId){
@@ -584,6 +590,7 @@
                             if($cliente){
 
                                 $cliente = $cliente[0];
+                                $TipoDocumento = $cliente['tipo_cliente'];
 
                                 if(isset($access_token)){
                                     //CONSULTA AL CLIENTE
@@ -761,7 +768,7 @@
 
                                 //Para actualizar los datos del servicios con los datos de Bsale
 
-                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('".$Rut."', '".$Grupo."', '2', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW())";
+                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento) VALUES ('".$Rut."', '".$Grupo."', '2', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."')";
                                 $FacturaId = $run->insert($query);
 
                                 if($FacturaId){
@@ -865,8 +872,9 @@
                             break;
                     }
 
-                    $query = "  SELECT servicios.*, mantenedor_servicios.servicio as Servicio 
+                    $query = "  SELECT servicios.*, mantenedor_servicios.servicio as Servicio, personaempresa.tipo_cliente
                                 FROM servicios 
+                                INNER JOIN personaempresa ON servicios.Rut = personaempresa.rut
                                 LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio";
                     $Servicios = $run->select($query);
 
@@ -883,7 +891,8 @@
                             if(isset($Facturas[$Rut.'-'.$Grupo])){
                                 $FacturaId = $Facturas[$Rut.'-'.$Grupo];
                             }else{
-                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW())";
+                                $TipoDocumento = $Servicio['tipo_cliente'];
+                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(), '".$TipoDocumento."')";
                                 $FacturaId = $run->insert($query);
                             }
 
@@ -911,6 +920,67 @@
 
             echo json_encode($response_array);
 
+        }
+        public function getTotales(){
+            $run = new Method;
+            $UfClass = new Uf(); 
+            $Fecha = date('d-m-Y');
+            $UF = $UfClass->getValue($Fecha);
+            $totalBoletas = 0;
+            $totalFacturas = 0;
+            $cantidadBoletas = 0;
+            $cantidadFacturas = 0;
+
+            $query = "  SELECT    
+                            facturas.TipoDocumento, SUM(facturas_detalle.Valor) as Valor, COUNT(facturas.Id) as Cantidad
+                        FROM 
+                            facturas_detalle 
+                        INNER JOIN 
+                            facturas 
+                        ON 
+                            facturas_detalle.FacturaId = facturas.Id 
+                        GROUP BY
+                            facturas.TipoDocumento";
+            $facturas = $run->select($query);
+            foreach($facturas as $factura){
+                if($factura['TipoDocumento'] == 'Factura'){
+                    $totalFacturas += $factura['Valor'];
+                    $cantidadFacturas += $factura['Cantidad'];
+                }else{
+                    $totalBoletas += $factura['Valor'];
+                    $cantidadBoletas += $factura['Cantidad'];
+                }
+            }
+
+            $query = "  SELECT 
+                            personaempresa.tipo_cliente as TipoDocumento, SUM(servicios.CostoInstalacion) * '".$UF."' as Valor, COUNT(servicios.Id) as Cantidad
+                        FROM 
+                            servicios 
+                        INNER JOIN 
+                            personaempresa 
+                        ON 
+                            personaempresa.rut = servicios.Rut 
+                        WHERE 
+                            servicios.EstatusFacturacion = 0 
+                        AND 
+                            servicios.CostoInstalacion > 0 
+                        AND 
+                            (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1)
+                        GROUP BY
+                            personaempresa.tipo_cliente";
+            $servicios = $run->select($query);
+            foreach($servicios as $servicio){
+                if($servicio['TipoDocumento'] == 'Factura'){
+                    $totalFacturas += $servicio['Valor'];
+                    $cantidadFacturas += $servicio['Cantidad'];
+                }else{
+                    $totalBoletas += $servicio['Valor'];
+                    $cantidadBoletas += $servicio['Cantidad'];
+                }
+            }
+
+            $array = array('totalFacturas' => number_format($totalFacturas, 2), 'totalBoletas' => number_format($totalBoletas, 2), 'cantidadFacturas' => $cantidadFacturas, 'cantidadBoletas' => $cantidadBoletas);
+            return $array;
         }
     }
 ?>

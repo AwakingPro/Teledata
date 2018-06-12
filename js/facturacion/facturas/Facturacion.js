@@ -1,105 +1,5 @@
 $(document).ready(function(){
 
-    // LoteTable = $('#LoteTable').DataTable({
-    //     "columnDefs": [ {
-    //         "targets": [ 0 ],
-    //         "orderable": false
-    //     } ],
-    //     paging: false,
-    //     iDisplayLength: 100,
-    //     processing: true,
-    //     serverSide: false,
-    //     bInfo:false,
-    //     // bFilter:false,
-    //     order: [[1, 'asc']],
-    //     language: {
-    //         processing:     "Procesando ...",
-    //         search:         'Buscar',
-    //         lengthMenu:     "Mostrar _MENU_ Registros",
-    //         info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-    //         infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-    //         infoFiltered:   "(filtrada de _MAX_ registros en total)",
-    //         infoPostFix:    "",
-    //         loadingRecords: "...",
-    //         zeroRecords:    "No se encontraron registros coincidentes",
-    //         emptyTable:     "No hay datos disponibles en la tabla",
-    //         paginate: {
-    //             first:      "Primero",
-    //             previous:   "Anterior",
-    //             next:       "Siguiente",
-    //             last:       "Ultimo"
-    //         },
-    //         aria: {
-    //             sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
-    //             sortDescending: ": habilitado para ordenar la columna en orden descendente"
-    //         }
-    //     }
-    // });
-
-    // IndividualTable = $('#IndividualTable').DataTable({
-    //     paging: false,
-    //     iDisplayLength: 100,
-    //     processing: true,
-    //     serverSide: false,
-    //     bInfo:false,
-    //     // bFilter:false,
-    //     order: [[0, 'asc']],
-    //     language: {
-    //         processing:     "Procesando ...",
-    //         search:         'Buscar',
-    //         lengthMenu:     "Mostrar _MENU_ Registros",
-    //         info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-    //         infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-    //         infoFiltered:   "(filtrada de _MAX_ registros en total)",
-    //         infoPostFix:    "",
-    //         loadingRecords: "...",
-    //         zeroRecords:    "No se encontraron registros coincidentes",
-    //         emptyTable:     "No hay datos disponibles en la tabla",
-    //         paginate: {
-    //             first:      "Primero",
-    //             previous:   "Anterior",
-    //             next:       "Siguiente",
-    //             last:       "Ultimo"
-    //         },
-    //         aria: {
-    //             sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
-    //             sortDescending: ": habilitado para ordenar la columna en orden descendente"
-    //         }
-    //     }
-    // });
-
-    // InstalacionTable = $('#InstalacionTable').DataTable({
-    //     paging: false,
-    //     iDisplayLength: 100,
-    //     processing: true,
-    //     serverSide: false,
-    //     bInfo:false,
-    //     // bFilter:false,
-    //     order: [[0, 'asc']],
-    //     language: {
-    //         processing:     "Procesando ...",
-    //         search:         'Buscar',
-    //         lengthMenu:     "Mostrar _MENU_ Registros",
-    //         info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-    //         infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-    //         infoFiltered:   "(filtrada de _MAX_ registros en total)",
-    //         infoPostFix:    "",
-    //         loadingRecords: "...",
-    //         zeroRecords:    "No se encontraron registros coincidentes",
-    //         emptyTable:     "No hay datos disponibles en la tabla",
-    //         paginate: {
-    //             first:      "Primero",
-    //             previous:   "Anterior",
-    //             next:       "Siguiente",
-    //             last:       "Ultimo"
-    //         },
-    //         aria: {
-    //             sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
-    //             sortDescending: ": habilitado para ordenar la columna en orden descendente"
-    //         }
-    //     }
-    // });
-
     ModalTable = $('#ModalTable').DataTable({
         paging: false,
         iDisplayLength: 100,
@@ -144,6 +44,11 @@ $(document).ready(function(){
     $(".number").mask("000.000.000.000",{reverse: true});
     $("#cantidad").mask("000000");
     $("#impuesto").mask("00");
+    
+    var totalFacturas;
+    var cantidadFacturas;
+    var totalBoletas;
+    var cantidadBoletas;
 
     function formatcurrency(n) {
         return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
@@ -153,6 +58,21 @@ $(document).ready(function(){
         url: "../includes/facturacion/uf/getValue.php",
         success: function(response){
             $('.ValorUF').text(response)
+        }
+    });
+
+    $.ajax({
+        type: "POST",
+        url: "../includes/facturacion/facturas/getTotales.php",
+        success: function(response){
+            totalFacturas = response.totalFacturas
+            cantidadFacturas = response.cantidadFacturas
+            totalBoletas = response.totalBoletas
+            cantidadBoletas = response.cantidadBoletas
+            $('.totalFacturas').text(totalFacturas)
+            $('.cantidadFacturas').text(cantidadFacturas)
+            $('.totalBoletas').text(totalBoletas)
+            $('.cantidadBoletas').text(cantidadBoletas)
         }
     });
 

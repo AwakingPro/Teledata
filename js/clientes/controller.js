@@ -5,18 +5,19 @@ var map
 var mapCenter
 
 $(document).ready(function() {
+	if(typeof google !== "undefined"){
+		google.maps.event.addDomListener(window, 'load', initialize);
 
-	google.maps.event.addDomListener(window, 'load', initialize);
+		function initialize() {
 
-	function initialize() {
+			center = new google.maps.LatLng(-41.3214705, -73.0138898);
 
-		center = new google.maps.LatLng(-41.3214705, -73.0138898);
-
-		mapOptions = {
-			zoom: 13,
-			center: center,
-			mapTypeId: google.maps.MapTypeId.ROADMAP
-		};
+			mapOptions = {
+				zoom: 13,
+				center: center,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+		}
 	}
 
 	function isNumber(n) {
@@ -326,7 +327,7 @@ $(document).ready(function() {
 		$.post('../ajax/cliente/dataClienteUpdate.php', {id: $(this).attr('attr')}, function(data) {
 			value = $.parseJSON(data);
 			$('[name="Nombre_update"]').val(value['DataCliente'][0]['nombre']);
-			$('[name="Rut_update"]').val(value['DataCliente'][0][3]);
+			$('[name="Rut_update"]').val(value['DataCliente'][0]['rut']);
 			$('[name="DireccionComercial_update"]').val(value['DataCliente'][0]['direccion']);
 			$('[name="Contacto_update"]').val(value['DataCliente'][0]['contacto']);
 			$('[name="Telefono_update"]').val(value['DataCliente'][0]['telefono']);
