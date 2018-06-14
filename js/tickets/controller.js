@@ -9,8 +9,8 @@ $.post('../ajax/privilegios.php', function(data) {
 		$('[name="Prioridad"], [name="PrioridadUpdate"]').load('../ajax/tickets/selectPrioridad.php',function(){
 			$('[name="Prioridad"], [name="PrioridadUpdate"]').selectpicker();
 		});
-		$('[name="Tipo"], [name="TipoUpdate"], [name="nombreTipo"]').load('../ajax/tickets/selectTipoTicket.php',function(){
-			$('[name="Tipo"], [name="TipoUpdate"], [name="nombreTipo"]').selectpicker();
+		$('[name="Tipo"], [name="TipoUpdate"], [name="IdTipoTicket"]').load('../ajax/tickets/selectTipoTicket.php',function(){
+			$('[name="Tipo"], [name="TipoUpdate"], [name="IdTipoTicket"]').selectpicker();
 		});
 
 		$('select[name="NumeroTicket"]').load('../ajax/tickets/listNroTickets.php',function(){
@@ -157,8 +157,8 @@ $.post('../ajax/privilegios.php', function(data) {
 
 					$('input, select, textarea').val('');
 					bootbox.alert('<h3 class="text-center">El ticket #'+data+' se registro con éxito.</h3>');
-					$('.cont-form1 input, .cont-form1 select, .cont-form1 textarea').value('')
-					$('.cont-form1 select').selectpicker('val', '');
+					$('#cont-form1')[0].reset()
+					$('.cont-form1 select').selectpicker('refresh');
 
 				}else{
 					console.log(data);
@@ -247,7 +247,9 @@ $.post('../ajax/privilegios.php', function(data) {
 								}, ]
 							});
 						});
-						$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php');
+						$('[name="Prioridad"], [name="PrioridadUpdate"]').load('../ajax/tickets/selectPrioridad.php',function(){
+							$('[name="Prioridad"], [name="PrioridadUpdate"]').selectpicker('refresh');
+						});
 						$('[name="nombre"]').val("");
 						$('[name="tiempo"]').val("");
 						$('[name="idUpdatePrioridad"]').val("");
@@ -269,7 +271,9 @@ $.post('../ajax/privilegios.php', function(data) {
 								}, ]
 							});
 						});
-						$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php');
+						$('[name="Prioridad"], [name="PrioridadUpdate"]').load('../ajax/tickets/selectPrioridad.php',function(){
+							$('[name="Prioridad"], [name="PrioridadUpdate"]').selectpicker('refresh');
+						});
 						bootbox.alert('<h3 class="text-center">la prioridad se registro con éxito.</h3>');
 					}else{
 						console.log(data);
@@ -293,7 +297,7 @@ $.post('../ajax/privilegios.php', function(data) {
 		});
 
 		$('[name="TipoUpdate"]').change(function() {
-			$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
+			$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="TipoUpdate"]').val()}, function(data) {
 				$('[name="SubtipoUpdate"]').html(data);
 				$('[name="SubtipoUpdate"]').selectpicker('refresh');
 			});
@@ -314,7 +318,7 @@ $.post('../ajax/privilegios.php', function(data) {
 				},
 				callback: function (result) {
 					if (result == true) {
-						$.post('../ajax/tickets/deleteTickets.php', {id: id}, function(data) {
+						$.post('../ajax/tickets/deleteTicket.php', {id: id}, function(data) {
 							$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
 								var count = $('.listaAbiertos > .tabeData tr th').length -1;
 								$('.listaAbiertos > .tabeData').dataTable({
@@ -388,8 +392,8 @@ $.post('../ajax/privilegios.php', function(data) {
 									}, ]
 								});
 							});
-							$('[name="Prioridad"]').load('../ajax/tickets/selectPrioridad.php',function(){
-								$('[name="Prioridad"]').selectpicker();
+							$('[name="Prioridad"], [name="PrioridadUpdate"]').load('../ajax/tickets/selectPrioridad.php',function(){
+								$('[name="Prioridad"], [name="PrioridadUpdate"]').selectpicker('refresh');
 							});
 						});
 					}
@@ -476,11 +480,18 @@ $.post('../ajax/privilegios.php', function(data) {
 				$('[name="PrioridadUpdate"]').selectpicker('val',value[0][6]);
 				$('[name="AsignarAUpdate"]').selectpicker('val',value[0][7]);
 				$('[name="EstadoUpdate"]').selectpicker('val',value[0][8]);
-				$('[name="ServicioUpdate"]').selectpicker('val',value[0][10]);
 				$('[name="ObservacionesUpdate"]').val(value[0][11]);
 				$.post('../ajax/tickets/selectSubTipoTicket.php', {id:value[0][4]}, function(data) {
 					$('[name="SubtipoUpdate"]').html(data);
-					$('[name="SubtipoUpdate"]').val(value[0][5]);
+					$('[name="SubtipoUpdate"]').selectpicker('refresh');
+					$('[name="SubtipoUpdate"]').selectpicker('val',value[0][5]);
+					$('[name="SubtipoUpdate"]').selectpicker('refresh');
+				});
+				$.post('../ajax/tickets/listServicios.php',{id:value[0][1]},function(data){
+					$('[name="ServicioUpdate"]').html(data);
+					$('[name="ServicioUpdate"]').selectpicker('refresh');
+					$('[name="ServicioUpdate"]').selectpicker('val',value[0][10]);
+					$('[name="ServicioUpdate"]').selectpicker('refresh');
 				});
 			});
 		});
@@ -528,6 +539,7 @@ $.post('../ajax/privilegios.php', function(data) {
 				$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
 				$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
 				$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
+				$('.modal').modal('hide')
 				bootbox.alert('<h3 class="text-center">El ticket se actualizo con éxito.</h3>');
 			});
 		});
@@ -543,51 +555,210 @@ $.post('../ajax/privilegios.php', function(data) {
 		});
 
 		$(document).on('click', '.guardarTipoTicket', function() {
-			$.postFormValues('../ajax/tickets/insertTipoTicket.php','.cont-form5',function(data){
-				if (Number(data) > 0) {
-					$('.listaTipoTicket').load('../ajax/tickets/listTipoTicket.php',function(){
-						var count = $('.listaTipoTicket > .tabeData tr th').length -1;
-						$('.listaTipoTicket > .tabeData').dataTable({
-							"columnDefs": [{
-								'orderable': false,
-								'targets': [count]
-							}, ]
+			if ($('[name="idUpdateTipoTicket"]').val() != "") {
+				$.postFormValues('../ajax/tickets/updateTipoTicket.php','.cont-form5',function(data){
+					if (Number(data) > 0) {
+						$('.listaTipoTicket').load('../ajax/tickets/listTipoTicket.php',function(){
+							var count = $('.listaPrioridad > .tabeData tr th').length -1;
+							$('.listaTipoTicket > .tabeData').dataTable({
+								"columnDefs": [{
+									'orderable': false,
+									'targets': [count]
+								}, ]
+							});
 						});
-					});
-					$('[name="Tipo"], [name="TipoUpdate"], [name="nombreTipo"]').load('../ajax/tickets/selectTipoTicket.php');
-					bootbox.alert('<h3 class="text-center">El tipo de ticket se registro con éxito.</h3>');
-					$('.cont-form5 input, .cont-form5 select, .cont-form5 textarea').value('')
-					$('.cont-form5 select').selectpicker('val', '');
-				}else{
-					console.log(data);
-					bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+						$('[name="Tipo"], [name="TipoUpdate"], [name="IdTipoTicket"]').load('../ajax/tickets/selectTipoTicket.php',function(){
+							$('[name="Tipo"], [name="TipoUpdate"], [name="IdTipoTicket"]').selectpicker('refresh');
+						});
+						$('[name="nombreTipo"]').val("");
+						$('[name="idUpdateTipoTicket"]').val("");
+						bootbox.alert('<h3 class="text-center">El tipo de ticket se actualizo con éxito.</h3>');
+					}else{
+						console.log(data);
+						bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+					}
+				});
+			}else{
+				$.postFormValues('../ajax/tickets/insertTipoTicket.php','.cont-form5',function(data){
+					if (Number(data) > 0) {
+						$('.listaTipoTicket').load('../ajax/tickets/listTipoTicket.php',function(){
+							var count = $('.listaTipoTicket > .tabeData tr th').length -1;
+							$('.listaTipoTicket > .tabeData').dataTable({
+								"columnDefs": [{
+									'orderable': false,
+									'targets': [count]
+								}, ]
+							});
+						});
+						$('[name="Tipo"], [name="TipoUpdate"], [name="IdTipoTicket"]').load('../ajax/tickets/selectTipoTicket.php',function(){
+							$('[name="Tipo"], [name="TipoUpdate"], [name="IdTipoTicket"]').selectpicker('refresh');
+						});
+						bootbox.alert('<h3 class="text-center">El tipo de ticket se registro con éxito.</h3>');
+						$('.cont-form5 input, .cont-form5 select, .cont-form5 textarea').value('')
+						$('.cont-form5 select').selectpicker('val', '');
+					}else{
+						console.log(data);
+						bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+					}
+				})
+			}
+		});
+
+		$(document).on('click', '.update-tipo_ticket', function() {
+			id = $(this).attr('attr');
+			$.post('../ajax/tickets/dataUpdateTipoTicket.php', {id: id}, function(data) {
+				value = $.parseJSON(data);
+				$('[name="nombreTipo"]').val(value[0][1]);
+				$('[name="idUpdateTipoTicket"]').val(value[0][0]);
+			});
+		});
+
+		$(document).on('click', '.cancelarTipoTicket', function() {
+			$('[name="nombreTipo"]').val("");
+			$('[name="idUpdateTipoTicket"]').val("");
+		});
+
+		$(document).on('click', '.delete-tipo_ticket', function() {
+			var id = $(this).attr('attr');
+			bootbox.confirm({
+				message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+				buttons: {
+					confirm: {
+						label: 'Si borrar',
+						className: 'btn-success'
+					},
+					cancel: {
+						label: 'No borrar',
+						className: 'btn-danger'
+					}
+				},
+				callback: function (result) {
+					if (result == true) {
+						$.post('../ajax/tickets/deleteTipoTicket.php', {id: id}, function(data) {
+							$('.listaTipoTicket').load('../ajax/tickets/listTipoTicket.php',function(){
+								var count = $('.listaTipoTicket > .tabeData tr th').length -1;
+								$('.listaTipoTicket > .tabeData').dataTable({
+									"columnDefs": [{
+										'orderable': false,
+										'targets': [count]
+									}, ]
+								});
+							});
+							$('[name="Tipo"], [name="TipoUpdate"], [name="IdTipoTicket"]').load('../ajax/tickets/selectTipoTicket.php',function(){
+								$('[name="Tipo"], [name="TipoUpdate"], [name="IdTipoTicket"]').selectpicker('refresh');
+							});
+						});
+					}
 				}
-			})
+			});
 		});
 
 		$(document).on('click', '.guardarSubTipoTicket', function() {
-			$.postFormValues('../ajax/tickets/insertSubtipoticket.php','.cont-form6',function(data){
-				if (Number(data) > 0) {
-					$('.listaSubTipoTicket').load('../ajax/tickets/listSubTipoTicket.php',function(){
-						var count = $('.listaSubTipoTicket > .tabeData tr th').length -1;
-						$('.listaSubTipoTicket > .tabeData').dataTable({
-							"columnDefs": [{
-								'orderable': false,
-								'targets': [count]
-							}, ]
+			if ($('[name="idUpdateSubtipoTicket"]').val() != "") {
+				$.postFormValues('../ajax/tickets/updateSubtipoTicket.php','.cont-form6',function(data){
+					if (Number(data) > 0) {
+						$('.listaSubTipoTicket').load('../ajax/tickets/listSubTipoTicket.php',function(){
+							var count = $('.listaSubTipoTicket > .tabeData tr th').length -1;
+							$('.listaSubTipoTicket > .tabeData').dataTable({
+								"columnDefs": [{
+									'orderable': false,
+									'targets': [count]
+								}, ]
+							});
 						});
-					});
-					$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
-						$('[name="Subtipo"]').html(data);
-					});
-					$('.cont-form6 input, .cont-form6 select, .cont-form6 textarea').value('')
-					$('.cont-form6 select').selectpicker('val', '');
-					bootbox.alert('<h3 class="text-center">El Subtipo de ticket se registro con éxito.</h3>');
-				}else{
-					console.log(data);
-					bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+						$('[name="IdTipoTicket"]').val("");
+						$('[name="IdTipoTicket"]').selectpicker("refresh");
+						$('[name="nombreSubTipo"]').val("");
+						$('[name="idUpdateSubtipoTicket"]').val("");
+						$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
+							$('[name="Subtipo"]').html(data);
+							$('[name="Subtipo"]').selectpicker('refresh');
+						});
+						bootbox.alert('<h3 class="text-center">El Subtipo de ticket se actualizo con éxito.</h3>');
+					}else{
+						console.log(data);
+						bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+					}
+				});
+			}else{
+				$.postFormValues('../ajax/tickets/insertSubtipoticket.php','.cont-form6',function(data){
+					if (Number(data) > 0) {
+						$('.listaSubTipoTicket').load('../ajax/tickets/listSubTipoTicket.php',function(){
+							var count = $('.listaSubTipoTicket > .tabeData tr th').length -1;
+							$('.listaSubTipoTicket > .tabeData').dataTable({
+								"columnDefs": [{
+									'orderable': false,
+									'targets': [count]
+								}, ]
+							});
+						});
+						$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
+							$('[name="Subtipo"]').html(data);
+							$('[name="Subtipo"]').selectpicker('refresh');
+						});
+						$('[name="IdTipoTicket"]').val("");
+						$('[name="IdTipoTicket"]').selectpicker("refresh");
+						$('[name="nombreSubTipo"]').val("");
+						$('[name="idUpdateSubtipoTicket"]').val("");
+						bootbox.alert('<h3 class="text-center">El Subtipo de ticket se registro con éxito.</h3>');
+					}else{
+						console.log(data);
+						bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+					}
+				})
+			}
+		});
+
+		$(document).on('click', '.update-subtipo_ticket', function() {
+			id = $(this).attr('attr');
+			$.post('../ajax/tickets/dataUpdateSubtipoTicket.php', {id: id}, function(data) {
+				value = $.parseJSON(data);
+				$('[name="IdTipoTicket"]').val(value[0][1]).selectpicker('refresh');
+				$('[name="nombreSubTipo"]').val(value[0][2]);
+				$('[name="idUpdateSubtipoTicket"]').val(value[0][0]);
+			});
+		});
+
+		$(document).on('click', '.cancelarSubtipoTicket', function() {
+			$('[name="IdTipoTicket"]').val("");
+			$('[name="nombreSubTipo"]').val("");
+			$('[name="idUpdateSubtipoTicket"]').val("");
+		});
+
+		$(document).on('click', '.delete-subtipo_ticket', function() {
+			var id = $(this).attr('attr');
+			bootbox.confirm({
+				message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+				buttons: {
+					confirm: {
+						label: 'Si borrar',
+						className: 'btn-success'
+					},
+					cancel: {
+						label: 'No borrar',
+						className: 'btn-danger'
+					}
+				},
+				callback: function (result) {
+					if (result == true) {
+						$.post('../ajax/tickets/deleteSubtipoTicket.php', {id: id}, function(data) {
+							$('.listaSubTipoTicket').load('../ajax/tickets/listSubTipoTicket.php',function(){
+								var count = $('.listaSubTipoTicket > .tabeData tr th').length -1;
+								$('.listaSubTipoTicket > .tabeData').dataTable({
+									"columnDefs": [{
+										'orderable': false,
+										'targets': [count]
+									}, ]
+								});
+							});
+							$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
+								$('[name="Subtipo"]').html(data);
+								$('[name="Subtipo"]').selectpicker('refresh');
+							});
+						});
+					}
 				}
-			})
+			});
 		});
 
 		$(document).on('click', '.comentarios', function() {

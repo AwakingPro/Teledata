@@ -78,103 +78,105 @@
 							<!--Tabs Content-->
 							<div class="tab-content" style="box-shadow: 0px 0px;">
 								<div id="tab-cliente" class="tab-pane fade active in cont-form1">
-									<div class="row">
-										<div class="col-md-12 form-group">
-											<label>Cliente</label>
-											<select name="Cliente" class="form-control" id="cliente" data-live-search="true">
-												<option value="">Seleccione...</option>
-											</select>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 form-group">
-											<label>Servicio</label>
-											<select name="Servicio" class="selectpicker form-control" data-live-search="true">
-												<option value="">Seleccione...</option>
-											</select>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 form-group">
-											<label >Origen</label>
-											<select name="Origen" class="selectpicker form-control"  data-live-search="true">
-												<option value="">Seleccione...</option>
-												<option>Llamado Telefónico</option>
-												<option>Correo Electrónico</option>
-												<option>Presencial</option>
-												<option>Pagina Web</option>
-												<option>Interno</option>
-												<option>Carta</option>
-												<option>Otros</option>
-											</select>
-										</div>
-										<div class="col-md-6 form-group">
-											<label >Departamento</label>
-											<select name="Departamento" class="selectpicker form-control" data-live-search="true">
-												<option value="">Seleccione...</option>
-												<option>Soporte Tecnico</option>
-											</select>
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 form-group">
-											<label >Tipo</label>
-											<div class="input-group">
-												<select name="Tipo" class="form-control" data-live-search="true">
+									<form id="cont-form1">
+										<div class="row">
+											<div class="col-md-12 form-group">
+												<label>Cliente</label>
+												<select name="Cliente" class="form-control" id="cliente" data-live-search="true">
 													<option value="">Seleccione...</option>
 												</select>
-												<span class="input-group-btn">
-													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
-												</span>
 											</div>
 										</div>
-										<div class="col-md-6 form-group">
-											<label >Subtipo</label>
-											<div class="input-group">
-												<select name="Subtipo" class="selectpicker form-control subTipo" data-live-search="true">
+										<div class="row">
+											<div class="col-md-12 form-group">
+												<label>Servicio</label>
+												<select name="Servicio" class="selectpicker form-control" data-live-search="true">
 													<option value="">Seleccione...</option>
 												</select>
-												<span class="input-group-btn">
-													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSubTipo"><i class="fa fa-plus" aria-hidden="true"></i></button>
-												</span>
 											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 form-group">
-											<label >Prioridad</label>
-											<div class="input-group">
-												<select name="Prioridad" class="form-control" data-live-search="true">
+										<div class="row">
+											<div class="col-md-6 form-group">
+												<label >Origen</label>
+												<select name="Origen" class="selectpicker form-control"  data-live-search="true">
+													<option value="">Seleccione...</option>
+													<option>Llamado Telefónico</option>
+													<option>Correo Electrónico</option>
+													<option>Presencial</option>
+													<option>Pagina Web</option>
+													<option>Interno</option>
+													<option>Carta</option>
+													<option>Otros</option>
 												</select>
-												<span class="input-group-btn">
-													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiempoPrioridad"><i class="fa fa-plus" aria-hidden="true"></i></button>
-												</span>
+											</div>
+											<div class="col-md-6 form-group">
+												<label >Departamento</label>
+												<select name="Departamento" class="selectpicker form-control" data-live-search="true">
+													<option value="">Seleccione...</option>
+													<option>Soporte Tecnico</option>
+												</select>
 											</div>
 										</div>
-										<div class="col-md-6 form-group">
-											<label >Asignar a</label>
-											<select name="AsignarA" class="form-control" id="personal" data-live-search="true">
-												<option value="">Seleccione...</option>
-											</select>
+										<div class="row">
+											<div class="col-md-6 form-group">
+												<label >Tipo</label>
+												<div class="input-group">
+													<select name="Tipo" class="form-control" data-live-search="true">
+														<option value="">Seleccione...</option>
+													</select>
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
+													</span>
+												</div>
+											</div>
+											<div class="col-md-6 form-group">
+												<label >Subtipo</label>
+												<div class="input-group">
+													<select name="Subtipo" class="selectpicker form-control subTipo" data-live-search="true">
+														<option value="">Seleccione...</option>
+													</select>
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSubTipo"><i class="fa fa-plus" aria-hidden="true"></i></button>
+													</span>
+												</div>
+											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 form-group">
-											<label >Estado</label>
-											<select name="Estado" class="selectpicker form-control" data-live-search="true">
-												<option value="">Seleccione...</option>
-												<option>Abierto</option>
-												<option>Cerrado</option>
-												<option>Finalizado</option>
-											</select>
+										<div class="row">
+											<div class="col-md-6 form-group">
+												<label >Prioridad</label>
+												<div class="input-group">
+													<select name="Prioridad" class="form-control" data-live-search="true">
+													</select>
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#tiempoPrioridad"><i class="fa fa-plus" aria-hidden="true"></i></button>
+													</span>
+												</div>
+											</div>
+											<div class="col-md-6 form-group">
+												<label >Asignar a</label>
+												<select name="AsignarA" class="form-control" id="personal" data-live-search="true">
+													<option value="">Seleccione...</option>
+												</select>
+											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 form-group">
-											<label >Observaciones</label>
-											<textarea name="Observaciones" class="form-control" rows="5"></textarea>
+										<div class="row">
+											<div class="col-md-12 form-group">
+												<label >Estado</label>
+												<select name="Estado" class="selectpicker form-control" data-live-search="true">
+													<option value="">Seleccione...</option>
+													<option>Abierto</option>
+													<option>Cerrado</option>
+													<option>Finalizado</option>
+												</select>
+											</div>
 										</div>
-									</div>
+										<div class="row">
+											<div class="col-md-12 form-group">
+												<label >Observaciones</label>
+												<textarea name="Observaciones" class="form-control" rows="5"></textarea>
+											</div>
+										</div>
+									</form>
 									<div class="row">
 										<div class="col-md-12">
 											<button type="button" class="btn btn-primary guardarTicket">Guardar</button>

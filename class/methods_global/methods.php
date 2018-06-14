@@ -253,9 +253,9 @@
 								$tabla.="<td>".$valor."</td>";
 							}
 							$tabla.='<td class="optionTable">
-								<i class="fa fa-trash-o delete-'.$table[0].'"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>
 								<i class="fa fa-pencil-square-o update-'.$table[0].'" attr="'.$rows[$i][0].'"  aria-hidden="true" title="Editar"></i>
 								<i class="fa fa-commenting comentarios" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#comentarios" aria-hidden="true" title="Editar"></i>
+								<i class="fa fa-trash-o delete-'.$table[0].'"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>
 								</td>';
 							$tabla.= '</tr>';
 						}
@@ -415,8 +415,8 @@
 								$tabla.="<td style='line-height: 50px;'>".$valor."</td>";
 							}
 							$tabla.='<td class="optionTable" >
-								<i style="line-height: 50px;" class="fa fa-trash-o delete-'.$table[0].'"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>
 								<i style="line-height: 50px;" class="fa fa-pencil-square-o update-'.$table[0].'" attr="'.$rows[$i][0].'"  aria-hidden="true" title="Editar"></i>
+								<i style="line-height: 50px;" class="fa fa-trash-o delete-'.$table[0].'"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>
 								</td>';
 							$tabla.= '</tr>';
 						}

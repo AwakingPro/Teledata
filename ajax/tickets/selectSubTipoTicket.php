@@ -1,20 +1,19 @@
 <?php
 
 	require_once('../../class/methods_global/methods.php');
-	$query = 'SELECT
+	$query = "SELECT
 		subtipo_ticket.IdSubTipoTicket,
 		subtipo_ticket.Nombre
 	FROM
 		subtipo_ticket
 	WHERE
-		IdTipoTicket ='.$_POST['id'];
+		IdTipoTicket ='".$_POST['id']."'";
 	$run = new Method;
-	echo $query;
 	$data = $run->select($query);
 	if (count($data) > 0) {
 		$list ='<option value="">Seleccione...</option>';
-		for ($i=0; $i < count($data); $i++) {
-			$list.= '<option value="'.$data[$i][0].'">'.$data[$i][1].'</option>';
+		foreach($data as $subtipo_ticket){
+			$list.= '<option value="'.$subtipo_ticket['IdSubTipoTicket'].'">'.$subtipo_ticket['Nombre'].'</option>';
 		}
 		echo $list;
 	}else{

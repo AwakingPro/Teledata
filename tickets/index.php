@@ -205,13 +205,13 @@
 						<label>Nombre del tipo de ticket</label>
 						<input type="text" name="nombreTipo" class="form-control">
 					</div>
-					<input type="hidden" name="idTipoTicket" value="">
+					<input type="hidden" name="idUpdateTipoTicket" value="">
 				</div>
 				<div class="listaTipoTicket">
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default cancelarPrioridad">Limpiar</button>
+				<button type="button" class="btn btn-default cancelarTipoTicket">Limpiar</button>
 				<button type="button" class="btn btn-primary guardarTipoTicket">Guardar</button>
 			</div>
 		</div><!-- /.modal-content -->
@@ -229,7 +229,7 @@
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label>Tipo ticket</label>
-						<select class="form-control" name="nombreTipo">
+						<select class="form-control" name="IdTipoTicket">
 							<option value="">Seleccione...</option>
 						</select>
 					</div>
@@ -237,13 +237,13 @@
 						<label>Nombre del subtipo</label>
 						<input type="text" name="nombreSubTipo" class="form-control">
 					</div>
-					<input type="hidden" name="idSubTipo" value="">
+					<input type="hidden" name="idUpdateSubtipoTicket" value="">
 				</div>
 				<div class="listaSubTipoTicket">
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-default cancelarPrioridad">Limpiar</button>
+				<button type="button" class="btn btn-default cancelarSubTipoTicket">Limpiar</button>
 				<button type="button" class="btn btn-primary guardarSubTipoTicket">Guardar</button>
 			</div>
 		</div><!-- /.modal-content -->
