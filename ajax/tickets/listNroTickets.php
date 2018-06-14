@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	$query = 'SELECT IdTickets, Origen FROM tickets';
+	$query = "SELECT IdTickets, Origen FROM tickets WHERE IdCliente = '".$_POST['Rut']."'";
 	$run = new Method;
 	$data = $run->select($query);
 	if (count($data) > 0) {

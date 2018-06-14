@@ -13,13 +13,16 @@ $.post('../ajax/privilegios.php', function(data) {
 			$('[name="Tipo"], [name="TipoUpdate"], [name="IdTipoTicket"]').selectpicker();
 		});
 
-		$('select[name="NumeroTicket"]').load('../ajax/tickets/listNroTickets.php',function(){
-			$('select[name="NumeroTicket"]').selectpicker();
-		});
-
-
 		$('select[name="NombreCliente"], [name="Cliente"], [name="ClienteUpdate"]').load('../ajax/tickets/selectClientes.php',function(){
 			$('select[name="NombreCliente"], [name="Cliente"], [name="ClienteUpdate"]').selectpicker();
+		});
+
+		$('select[name="NumeroTicket"]').selectpicker();
+
+		$(document).on('change', '[name="NombreCliente"]', function() {
+			$('select[name="NumeroTicket"]').load('../ajax/tickets/listNroTickets.php',{Rut:$(this).selectpicker('val')},function(data){
+				$('select[name="NumeroTicket"]').selectpicker('refresh');
+			});
 		});
 
 		$(document).on('change', '[name="Cliente"], [name="ClienteUpdate"]', function() {
