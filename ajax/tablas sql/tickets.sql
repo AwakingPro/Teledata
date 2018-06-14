@@ -29,7 +29,7 @@ CREATE TABLE `tickets` (
   `Prioridad` varchar(100) DEFAULT NULL,
   `AsignarA` varchar(100) DEFAULT NULL,
   `Estado` varchar(100) DEFAULT NULL,
-  `FechaCreasion` date DEFAULT NULL,
+  `FechaCreacion` date DEFAULT NULL,
   `IdServicios` int(11) DEFAULT NULL,
   `Observaciones` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`IdTickets`)

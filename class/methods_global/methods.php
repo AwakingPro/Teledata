@@ -230,7 +230,7 @@
 			}
 		}
 
-		function listViewTicktes($post) {
+		function listViewTickets($post) {
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				if ($resultado = $mysqli->query($post)) {

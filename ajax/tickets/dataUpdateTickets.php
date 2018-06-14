@@ -10,7 +10,7 @@
 		tickets.Prioridad,
 		tickets.AsignarA,
 		tickets.Estado,
-		tickets.FechaCreasion,
+		tickets.FechaCreacion,
 		tickets.IdServicios,
 		tickets.Observaciones
 	FROM
