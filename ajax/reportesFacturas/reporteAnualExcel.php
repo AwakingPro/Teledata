@@ -33,7 +33,7 @@ $objPHPExcel->setActiveSheetIndex(0)
 ->setCellValue('N1', 'Email Automatico')
 ->setCellValue('O1', 'Rut Cliente')
 ->setCellValue('P1', 'Tipo Cliente')
-->setCellValue('Q1', 'Clinete Extranjero')
+->setCellValue('Q1', 'Cliente Extranjero')
 ->setCellValue('R1', 'Razon Social')
 ->setCellValue('S1', 'Giro')
 ->setCellValue('T1', 'Nombre')
@@ -68,7 +68,6 @@ servicios.IdServicio,
 servicios.TiepoFacturacion,
 servicios.Codigo,
 servicios.Descripcion,
-servicios.TipoMoneda,
 personaempresa.id,
 personaempresa.rut,
 personaempresa.dv,
@@ -88,7 +87,7 @@ FROM
 $run = new Method;
 $data = $run->select($query);
 if (count($data) > 0) {
-
+	
 	$index = 2;
 	for ($i=0; $i < count($data) ; $i++) {
 
