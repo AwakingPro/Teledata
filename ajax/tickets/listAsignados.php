@@ -4,6 +4,7 @@
 	$query = "SELECT
 	tickets.IdTickets as '#',
 	tickets.FechaCreacion as Fecha,
+	clase_tickets.Nombre as Clase,
 	CONCAT(personaempresa.rut, ' - ', personaempresa.nombre) AS Cliente,
 	origen_tickets.Nombre as Origen,
 	departamentos_tickets.Nombre as Departamento,
@@ -20,6 +21,7 @@
 	LEFT JOIN tiempo_prioridad ON tickets.Prioridad = tiempo_prioridad.IdTiempoPrioridad
 	LEFT JOIN departamentos_tickets ON tickets.Departamento = departamentos_tickets.IdDepartamento
 	LEFT JOIN origen_tickets ON tickets.Origen = origen_tickets.IdOrigen
+	LEFT JOIN clase_tickets ON tickets.Clase = clase_tickets.IdClase
 	WHERE 
 		tickets.AsignarA != ''
 	AND 

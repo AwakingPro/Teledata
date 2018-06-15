@@ -3,8 +3,9 @@
 	$query = "SELECT
 	tickets.IdTickets as '#',
 	tickets.FechaCreacion as Fecha,
+	clase_tickets.Nombre as Clase,
 	CONCAT(personaempresa.rut, ' - ', personaempresa.nombre) AS Cliente,
-	tickets.Origen,
+	origen_tickets.Nombre as Origen,
 	departamentos_tickets.Nombre as Departamento,
 	usuarios.usuario as Usuario,
 	tipo_ticket.Nombre as Tipo,
@@ -21,6 +22,7 @@
 		LEFT JOIN departamentos_tickets ON tickets.Departamento = departamentos_tickets.IdDepartamento
 		LEFT JOIN origen_tickets ON tickets.Origen = origen_tickets.IdOrigen
 		LEFT JOIN estado_tickets ON tickets.Estado = estado_tickets.IdEstado
+		LEFT JOIN clase_tickets ON tickets.Clase = clase_tickets.IdClase
 	WHERE  
 		(NOW() > DATE_ADD(tickets.FechaCreacion,INTERVAL tiempo_prioridad.TiempoHora HOUR) OR tiempo_prioridad.IdTiempoPrioridad IS NULL)
 	AND

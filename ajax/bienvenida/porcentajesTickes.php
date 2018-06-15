@@ -6,17 +6,17 @@
 	$result = $run->select($query);
 	$total = $result[0][0];
 
-	$query = "SELECT COUNT(tickets.IdTickets) FROM tickets WHERE IdUsuarioSession = ".$_SESSION['idUsuario']." AND tickets.Estado = 'Abierto' ";
+	$query = "SELECT COUNT(tickets.IdTickets) FROM tickets WHERE IdUsuarioSession = ".$_SESSION['idUsuario']." AND tickets.Estado = '1' ";
 	$run = new Method;
 	$result = $run->select($query);
 	$totalAbierto = $result[0][0];
 
-	$query = "SELECT COUNT(tickets.IdTickets) FROM tickets WHERE IdUsuarioSession = ".$_SESSION['idUsuario']." AND tickets.Estado = 'Cerrado' ";
+	$query = "SELECT COUNT(tickets.IdTickets) FROM tickets WHERE IdUsuarioSession = ".$_SESSION['idUsuario']." AND tickets.Estado = '2' ";
 	$run = new Method;
 	$result = $run->select($query);
 	$totalCerrado = $result[0][0];
 
-	$query = "SELECT COUNT(tickets.IdTickets) FROM tickets WHERE IdUsuarioSession = ".$_SESSION['idUsuario']." AND tickets.Estado = 'Finalizado' ";
+	$query = "SELECT COUNT(tickets.IdTickets) FROM tickets WHERE IdUsuarioSession = ".$_SESSION['idUsuario']." AND tickets.Estado = '3' ";
 	$run = new Method;
 	$result = $run->select($query);
 	$totalFinalizados = $result[0][0];

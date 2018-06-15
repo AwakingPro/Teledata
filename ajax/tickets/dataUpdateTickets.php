@@ -1,18 +1,7 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
 	$query = 'SELECT
-		tickets.IdTickets,
-		tickets.IdCliente,
-		tickets.Origen,
-		tickets.Departamento,
-		tickets.Tipo,
-		tickets.Subtipo,
-		tickets.Prioridad,
-		tickets.AsignarA,
-		tickets.Estado,
-		tickets.FechaCreacion,
-		tickets.IdServicios,
-		tickets.Observaciones
+		*
 	FROM
 		tickets
 	WHERE IdTickets ='.$_POST['id'];

@@ -324,7 +324,7 @@ $.post('../ajax/privilegios.php', function(data) {
 
 		$(document).on('click', '.update-tickets', function(event) {
 			var id = $(this).attr('attr');
-			$('#actualizarTikect').modal('show');
+			$('#actualizarTicket').modal('show');
 			$.post('../ajax/tickets/dataUpdateTickets.php', {id:id}, function(data) {
 				value = $.parseJSON(data);
 				$('[name="idUpdateTicket"]').val(value[0][0])
@@ -343,12 +343,29 @@ $.post('../ajax/privilegios.php', function(data) {
 					$('[name="SubtipoUpdate"]').selectpicker('val',value[0][5]);
 					$('[name="SubtipoUpdate"]').selectpicker('refresh');
 				});
-				$.post('../ajax/tickets/listServicios.php',{id:value[0][1]},function(data){
-					$('[name="ServicioUpdate"]').html(data);
-					$('[name="ServicioUpdate"]').selectpicker('refresh');
-					$('[name="ServicioUpdate"]').selectpicker('val',value[0][10]);
-					$('[name="ServicioUpdate"]').selectpicker('refresh');
-				});
+				$('.ServicioUpdate').empty()
+				if(value[0]['Clase'] == 1){
+					$('.OrigenDepartamento').show()
+					$('.Prioridad').show()
+					$('.Estado').removeClass('col-md-6 form-group');
+					$('.Estado').addClass('col-md-12 form-group');
+					$('.ServicioUpdate').append('<label>Servicio</label>');
+					$('.ServicioUpdate').append('<select name="ServicioUpdate" class="selectpicker form-control" data-live-search="true"></select>');
+					$.post('../ajax/tickets/listServicios.php',{id:value[0][1]},function(data){
+						$('[name="ServicioUpdate"]').html(data);
+						$('[name="ServicioUpdate"]').selectpicker('refresh');
+						$('[name="ServicioUpdate"]').selectpicker('val',value[0][10]);
+						$('[name="ServicioUpdate"]').selectpicker('refresh');
+					});
+				}else{
+					$('.OrigenDepartamento').hide()
+					$('.Prioridad').hide()
+					$('.Estado').addClass('col-md-6 form-group');
+					$('.Estado').removeClass('col-md-12 form-group');
+					$('.ServicioUpdate').append('<label>Asunto</label>');
+					$('.ServicioUpdate').append('<input type="text" name="ServicioUpdate" class="form-control">');
+					$('[name="ServicioUpdate"]').val(value[0][10]);
+				}
 			});
 		});
 

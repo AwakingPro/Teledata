@@ -133,8 +133,6 @@
 							<div class="col-md-12 form-group">
 								<label >Estado</label>
 								<select name="Estado" class="selectpicker form-control" data-live-search="true" validation="not_null" data-nombre="Estado">
-									<option>Abierto</option>
-									<option>Finalizado</option>
 								</select>
 							</div>
 						</div>
@@ -162,7 +160,7 @@
 					<div id="tab-4" class="tab-pane fade">
 						<div class="row">
 							<div class="col-md-12">
-								<h3>Tickets Incunplidos</h3><br>
+								<h3>Tickets Incumplidos</h3><br>
 							</div>
 						</div>
 						<div class="listaIncumplidos">

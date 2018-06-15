@@ -79,6 +79,7 @@
 							<div class="tab-content" style="box-shadow: 0px 0px;">
 								<div id="tab-cliente" class="tab-pane fade active in cont-form1">
 									<form id="cont-form1">
+									<input type="hidden" name="Clase" value="1">
 										<div class="row">
 											<div class="col-md-12 form-group">
 												<label>Cliente</label>
@@ -173,13 +174,13 @@
 								</div>
 								<div id="tab-interno" class="tab-pane fade cont-form3">
 									<form id="cont-form3">
+										<input type="hidden" name="Clase" value="2">
 										<div class="row">
 											<div class="col-md-12 form-group">
 												<label>Cliente</label>
 												<div class="input-group">
 													<select name="Cliente" class="form-control" id="cliente" data-live-search="true" validation="not_null" data-nombre="Cliente">
 														<option value="">Seleccione...</option>
-														<option value="1">Cliente de prueba</option>
 													</select>
 													<span class="input-group-btn">
 														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalClienteExtra"><i class="fa fa-plus" aria-hidden="true"></i></button>
@@ -231,9 +232,6 @@
 												<label >Estado</label>
 												<select name="Estado" class="selectpicker form-control" data-live-search="true">
 													<option value="">Seleccione...</option>
-													<option>Abierto</option>
-													<option>Cerrado</option>
-													<option>Finalizado</option>
 												</select>
 											</div>
 										</div>
@@ -265,7 +263,7 @@
 					<div id="tab-4" class="tab-pane fade">
 						<div class="row">
 							<div class="col-md-12">
-								<h3>Tickets Incunplidos</h3><br>
+								<h3>Tickets Incumplidos</h3><br>
 							</div>
 						</div>
 						<div class="listaIncumplidos">

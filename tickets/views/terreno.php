@@ -66,7 +66,7 @@
 					<div id="tab-4" class="tab-pane fade">
 						<div class="row">
 							<div class="col-md-12">
-								<h3>Tickets Incunplidos</h3><br>
+								<h3>Tickets Incumplidos</h3><br>
 							</div>
 						</div>
 						<div class="listaIncumplidos">

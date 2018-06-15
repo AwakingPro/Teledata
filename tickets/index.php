@@ -64,132 +64,127 @@
 </body>
 </html>
 <div class="modal fade" id="tiempoPrioridad">
-<div class="modal-dialog" role="document">
-	<div class="modal-content">
-		<div class="modal-header">
-			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			<h4 class="modal-title">Tiempos por prioridad</h4>
-		</div>
-		<div class="modal-body cont-form3">
-			<div class="row">
-				<div class="col-md-6 form-group">
-					<label>Nombre</label>
-					<input type="text" name="nombre" class="form-control">
-				</div>
-				<div class="col-md-6 form-group">
-					<label>Tiempo en horas</label>
-					<input type="text" name="tiempo" class="form-control">
-				</div>
-				<input type="hidden" name="idUpdatePrioridad" value="">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Tiempos por prioridad</h4>
 			</div>
-			<div class="listaPrioridad">
+			<div class="modal-body cont-form3">
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<label>Nombre</label>
+						<input type="text" name="nombre" class="form-control">
+					</div>
+					<div class="col-md-6 form-group">
+						<label>Tiempo en horas</label>
+						<input type="text" name="tiempo" class="form-control">
+					</div>
+					<input type="hidden" name="idUpdatePrioridad" value="">
+				</div>
+				<div class="listaPrioridad">
+				</div>
 			</div>
-		</div>
-		<div class="modal-footer">
-			<button type="button" class="btn btn-default cancelarPrioridad">Limpiar</button>
-			<button type="button" class="btn btn-primary guardarPrioridad">Guardar</button>
-		</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default cancelarPrioridad">Limpiar</button>
+				<button type="button" class="btn btn-primary guardarPrioridad">Guardar</button>
+			</div>
 		</div><!-- /.modal-content -->
-		</div><!-- /.modal-dialog -->
-		</div><!-- /.modal -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
-		<div class="modal fade" id="actualizarTikect">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">Editar Ticket</h4>
+<div class="modal fade" id="actualizarTicket">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Editar Ticket</h4>
+			</div>
+			<div class="modal-body cont-form4">
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Cliente</label>
+						<select name="ClienteUpdate" class="form-control" id="cliente" data-live-search="true">
+							<option value="">Seleccione...</option>
+						</select>
 					</div>
-					<div class="modal-body cont-form4">
-						<div class="row">
-							<div class="col-md-12 form-group">
-								<label>Cliente</label>
-								<select name="ClienteUpdate" class="form-control" id="cliente" data-live-search="true">
-									<option value="">Seleccione...</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 form-group">
-								<label>Servicio</label>
-								<select name="ServicioUpdate" class="selectpicker form-control" data-live-search="true">
-									<option value="">Seleccione...</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 form-group">
-								<label >Origen</label>
-								<select name="OrigenUpdate" class="form-control selectpicker" id="cliente" data-live-search="true">
-									<option value="">Seleccione...</option>
-									<option>Llamado Telefónico</option>
-									<option>Correo Electrónico</option>
-									<option>Presencial</option>
-									<option>Pagina Web</option>
-									<option>Interno</option>
-									<option>Carta</option>
-									<option>Otros</option>
-								</select>
-							</div>
-							<div class="col-md-6 form-group">
-								<label >Departamento</label>
-								<select name="DepartamentoUpdate" class="form-control selectpicker" id="cliente" data-live-search="true">
-									<option value="">Seleccione...</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 form-group">
-								<label >Tipo</label>
-								<select name="TipoUpdate" class="form-control" data-live-search="true">
-									<option value="">Seleccione...</option>
-								</select>
-							</div>
-							<div class="col-md-6 form-group">
-								<label >Subtipo</label>
-								<select name="SubtipoUpdate" class="form-control subTipo" data-live-search="true">
-									<option value="">Seleccione...</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 form-group">
-								<label >Prioridad</label>
-								<select name="PrioridadUpdate" class="form-control" data-live-search="true">
-								</select>
-							</div>
-							<div class="col-md-6 form-group">
-								<label >Asignar a</label>
-								<select name="AsignarAUpdate" class="form-control" id="personal" data-live-search="true">
-									<option value="">Seleccione...</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-6 form-group">
-								<label >Estado</label>
-								<select name="EstadoUpdate" class="form-control selectpicker" data-live-search="true">
-									<option value="">Seleccione...</option>
-									<option>Abierto</option>
-									<option>Cerrado</option>
-									<option>Finalizado</option>
-								</select>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-md-12 form-group">
-								<label >Observaciones</label>
-								<textarea name="ObservacionesUpdate" class="form-control"></textarea>
-							</div>
-						</div>
-						<input type="hidden" name="idUpdateTicket">
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group ServicioUpdate">
+						<label>Servicio</label>
+						<select name="ServicioUpdate" class="selectpicker form-control" data-live-search="true">
+							<option value="">Seleccione...</option>
+						</select>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-primary updateTicket">Actualizar</button>
+				</div>
+				<div class="row OrigenDepartamento">
+					<div class="col-md-6 form-group">
+						<label >Origen</label>
+						<select name="OrigenUpdate" class="form-control selectpicker" id="cliente" data-live-search="true">
+							<option value="">Seleccione...</option>
+							<option>Llamado Telefónico</option>
+							<option>Correo Electrónico</option>
+							<option>Presencial</option>
+							<option>Pagina Web</option>
+							<option>Interno</option>
+							<option>Carta</option>
+							<option>Otros</option>
+						</select>
 					</div>
-					</div><!-- /.modal-content -->
-					</div><!-- /.modal-dialog -->
-					</div><!-- /.modal -->
+					<div class="col-md-6 form-group">
+						<label >Departamento</label>
+						<select name="DepartamentoUpdate" class="form-control selectpicker" id="cliente" data-live-search="true">
+							<option value="">Seleccione...</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 form-group">
+						<label >Tipo</label>
+						<select name="TipoUpdate" class="form-control" data-live-search="true">
+							<option value="">Seleccione...</option>
+						</select>
+					</div>
+					<div class="col-md-6 form-group">
+						<label >Subtipo</label>
+						<select name="SubtipoUpdate" class="form-control subTipo" data-live-search="true">
+							<option value="">Seleccione...</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-6 form-group Prioridad">
+						<label >Prioridad</label>
+						<select name="PrioridadUpdate" class="form-control" data-live-search="true">
+						</select>
+					</div>
+					<div class="col-md-6 form-group">
+						<label >Asignar a</label>
+						<select name="AsignarAUpdate" class="form-control" id="personal" data-live-search="true">
+							<option value="">Seleccione...</option>
+						</select>
+					</div>
+					<div class="col-md-6 form-group Estado">
+						<label >Estado</label>
+						<select name="EstadoUpdate" class="form-control selectpicker" data-live-search="true">
+							<option value="">Seleccione...</option>
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label >Observaciones</label>
+						<textarea name="ObservacionesUpdate" class="form-control"></textarea>
+					</div>
+				</div>
+				<input type="hidden" name="idUpdateTicket">
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary updateTicket">Actualizar</button>
+			</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
 
 <div class="modal fade" id="modalTipos">
 	<div class="modal-dialog" role="document">
