@@ -19,7 +19,7 @@ $(document).ready(function() {
 		$('.cerrados').html(value[0][0]);
 	});
 
-	$.post('../ajax/bienvenida/coutTicketsFinalizado.php', function(data) {
+	$.post('../ajax/bienvenida/countTicketsFinalizado.php', function(data) {
 		value = $.parseJSON(data);
 		$('.finalizados').html(value[0][0]);
 	});
@@ -32,8 +32,8 @@ $(document).ready(function() {
 		$('.porcCerrados').css('width', value[1]+'%');
 		$('.porcCerradosTxt').html(value[1]+'%');
 
-		$('.porcFinalizado').css('width', value[1]+'%');
-		$('.porcFinalizadoTxt').html(value[1]+'%');
+		$('.porcFinalizado').css('width', value[2]+'%');
+		$('.porcFinalizadoTxt').html(value[2]+'%');
 	});
 
 

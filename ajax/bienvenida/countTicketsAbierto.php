@@ -7,7 +7,7 @@
 	tickets
 	WHERE
 	IdUsuarioSession = ".$_SESSION['idUsuario']." AND
-	tickets.Estado = 'Abierto' ";
+	tickets.Estado = '1'";
 	$run = new Method;
 	$result = $run->select($query);
 	echo json_encode($result);

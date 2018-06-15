@@ -98,10 +98,10 @@ $.post('../ajax/privilegios.php', function(data) {
 				});
 			});
 
-			$('.coutAbiertos').load('../ajax/tickets/countAbiertos.php');
-			$('.coutnAsigados').load('../ajax/tickets/countAsignados.php');
-			$('.coutnIncumplidos').load('../ajax/tickets/countIncumplidos.php');
-			$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
+			$('.countAbiertos').load('../ajax/tickets/countAbiertos.php');
+			$('.countAsigados').load('../ajax/tickets/countAsignados.php');
+			$('.countnIncumplidos').load('../ajax/tickets/countIncumplidos.php');
+			$('.countnFinalizado').load('../ajax/tickets/countFinalizados.php');
 		}
 
 		$('.listaTipoTicket').html('<div class="spinner loading"></div>');

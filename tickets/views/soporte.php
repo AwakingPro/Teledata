@@ -11,13 +11,13 @@
 							<a data-toggle="tab" href="#tab-2">Nuevo</a>
 						</li>
 						<li>
-							<a data-toggle="tab" href="#tab-3">Abiertos <span class="badge coutAbiertos label-warning">0</span></a>
+							<a data-toggle="tab" href="#tab-3">Abiertos <span class="badge countAbiertos label-warning">0</span></a>
 						</li>
 						<li>
-							<a data-toggle="tab" href="#tab-4">Incumplidos <span class="badge coutnIncumplidos label-warning">0</span></a>
+							<a data-toggle="tab" href="#tab-4">Incumplidos <span class="badge countIncumplidos label-warning">0</span></a>
 						</li>
 						<li>
-							<a data-toggle="tab" href="#tab-5">Asignados <span class="badge coutnAsigados label-warning">0</span></a>
+							<a data-toggle="tab" href="#tab-5">Asignados <span class="badge countAsigados label-warning">0</span></a>
 						</li>
 					</ul>
 				</div>
