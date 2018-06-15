@@ -184,76 +184,78 @@
 									</div>
 								</div>
 								<div id="tab-interno" class="tab-pane fade cont-form3">
-									<div class="row">
-										<div class="col-md-12 form-group">
-											<label>Cliente</label>
-											<div class="input-group">
-												<select name="Cliente" class="form-control" id="cliente" data-live-search="true">
-													<option value="">Seleccione...</option>
-													<option value="1">Cliente de prueba</option>
-												</select>
-												<span class="input-group-btn">
-													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalClienteExtra"><i class="fa fa-plus" aria-hidden="true"></i></button>
-												</span>
-											</div>
-											<input type="hidden"  name="Origen">
-											<input type="hidden" name="Departamento">
-											<input type="hidden" name="Prioridad">
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 form-group">
-											<label>Asunto</label>
-											<input type="text" name="Servicio" class="form-control">
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 form-group">
-											<label >Tipo</label>
-											<div class="input-group">
-												<select name="Tipo" class="form-control" data-live-search="true">
-													<option value="">Seleccione...</option>
-												</select>
-												<span class="input-group-btn">
-													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
-												</span>
+									<form id="cont-form3">
+										<div class="row">
+											<div class="col-md-12 form-group">
+												<label>Cliente</label>
+												<div class="input-group">
+													<select name="Cliente" class="form-control" id="cliente" data-live-search="true">
+														<option value="">Seleccione...</option>
+														<option value="1">Cliente de prueba</option>
+													</select>
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalClienteExtra"><i class="fa fa-plus" aria-hidden="true"></i></button>
+													</span>
+												</div>
+												<input type="hidden"  name="Origen">
+												<input type="hidden" name="Departamento">
+												<input type="hidden" name="Prioridad">
 											</div>
 										</div>
-										<div class="col-md-6 form-group">
-											<label >Subtipo</label>
-											<div class="input-group">
-												<select name="Subtipo" class="selectpicker form-control" data-live-search="true">
-													<option value="">Seleccione...</option>
-												</select>
-												<span class="input-group-btn">
-													<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSubTipo"><i class="fa fa-plus" aria-hidden="true"></i></button>
-												</span>
+										<div class="row">
+											<div class="col-md-12 form-group">
+												<label>Asunto</label>
+												<input type="text" name="Servicio" class="form-control">
 											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-6 form-group">
-											<label >Asignar a</label>
-											<select name="AsignarA" class="form-control" id="personal" data-live-search="true">
-												<option value="">Seleccione...</option>
-											</select>
+										<div class="row">
+											<div class="col-md-6 form-group">
+												<label >Tipo</label>
+												<div class="input-group">
+													<select name="Tipo" class="form-control" data-live-search="true">
+														<option value="">Seleccione...</option>
+													</select>
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalTipos"><i class="fa fa-plus" aria-hidden="true"></i></button>
+													</span>
+												</div>
+											</div>
+											<div class="col-md-6 form-group">
+												<label >Subtipo</label>
+												<div class="input-group">
+													<select name="Subtipo" class="selectpicker form-control" data-live-search="true">
+														<option value="">Seleccione...</option>
+													</select>
+													<span class="input-group-btn">
+														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalSubTipo"><i class="fa fa-plus" aria-hidden="true"></i></button>
+													</span>
+												</div>
+											</div>
 										</div>
-										<div class="col-md-6 form-group">
-											<label >Estado</label>
-											<select name="Estado" class="selectpicker form-control" data-live-search="true">
-												<option value="">Seleccione...</option>
-												<option>Abierto</option>
-												<option>Cerrado</option>
-												<option>Finalizado</option>
-											</select>
+										<div class="row">
+											<div class="col-md-6 form-group">
+												<label >Asignar a</label>
+												<select name="AsignarA" class="form-control" id="personal" data-live-search="true">
+													<option value="">Seleccione...</option>
+												</select>
+											</div>
+											<div class="col-md-6 form-group">
+												<label >Estado</label>
+												<select name="Estado" class="selectpicker form-control" data-live-search="true">
+													<option value="">Seleccione...</option>
+													<option>Abierto</option>
+													<option>Cerrado</option>
+													<option>Finalizado</option>
+												</select>
+											</div>
 										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12 form-group">
-											<label >Observaciones</label>
-											<textarea name="Observaciones" class="form-control" rows="5"></textarea>
+										<div class="row">
+											<div class="col-md-12 form-group">
+												<label >Observaciones</label>
+												<textarea name="Observaciones" class="form-control" rows="5"></textarea>
+											</div>
 										</div>
-									</div>
+									</form>
 									<div class="row">
 										<div class="col-md-12">
 											<button type="button" class="btn btn-primary guardarTicketInterno">Guardar</button>

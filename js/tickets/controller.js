@@ -214,10 +214,9 @@ $.post('../ajax/privilegios.php', function(data) {
 					$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
 					$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
 
-					$('input, select, textarea').val('');
 					bootbox.alert('<h3 class="text-center">El ticket #'+data+' se registro con éxito.</h3>');
-					$('.cont-form3 input, .cont-form3 select, .cont-form3 textarea').value('')
-					$('.cont-form3 select').selectpicker('render');
+					$('#cont-form3')[0].reset()
+					$('.cont-form3 select').selectpicker('refresh');
 				}else{
 					console.log(data);
 					bootbox.alert('<h3 class="text-center">Se produjo un error al guardar el ticket.</h3>');
