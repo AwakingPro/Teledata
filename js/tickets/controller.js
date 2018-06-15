@@ -17,6 +17,15 @@ $.post('../ajax/privilegios.php', function(data) {
 		$('select[name="NombreCliente"], [name="Cliente"], [name="ClienteUpdate"]').load('../ajax/tickets/selectClientes.php',function(){
 			$('select[name="NombreCliente"], [name="Cliente"], [name="ClienteUpdate"]').selectpicker();
 		});
+		$('[name="Departamento"], [name="DepartamentoUpdate"]').load('../ajax/tickets/selectDepartamento.php',function(){
+			$('[name="Departamento"], [name="DepartamentoUpdate"]').selectpicker('refresh');
+		});
+		$('[name="Origen"], [name="OrigenUpdate"]').load('../ajax/tickets/selectOrigen.php',function(){
+			$('[name="Origen"], [name="OrigenUpdate"]').selectpicker('refresh');
+		});
+		$('[name="Estado"], [name="EstadoUpdate"]').load('../ajax/tickets/selectEstado.php',function(){
+			$('[name="Estado"], [name="EstadoUpdate"]').selectpicker('refresh');
+		});
 
 		$('select[name="NumeroTicket"]').selectpicker();
 

@@ -3,13 +3,13 @@
 	$query = "SELECT
 	tickets.IdTickets as '#',
 	CONCAT(personaempresa.rut, ' - ', personaempresa.nombre) AS Cliente,
-	tickets.Origen,
-	tickets.Departamento,
+	origen_tickets.Nombre as Origen,
+	departamentos_tickets.Nombre as Departamento,
 	usuarios.usuario as Usuario,
 	tipo_ticket.Nombre as Tipo,
 	subtipo_ticket.Nombre as Subtipo,
 	tiempo_prioridad.Nombre as Prioridad,
-	tickets.Estado
+	estado_tickets.Nombre as Estado
 	FROM
 	tickets
 	INNER JOIN personaempresa ON tickets.IdCliente = personaempresa.rut
@@ -17,6 +17,9 @@
 	LEFT JOIN subtipo_ticket ON tickets.Subtipo = subtipo_ticket.IdSubTipoTicket
 	LEFT JOIN usuarios ON tickets.AsignarA = usuarios.id
 	LEFT JOIN tiempo_prioridad ON tickets.Prioridad = tiempo_prioridad.IdTiempoPrioridad
+	LEFT JOIN departamentos_tickets ON tickets.Departamento = departamentos_tickets.IdDepartamento
+	LEFT JOIN origen_tickets ON tickets.Origen = origen_tickets.IdOrigen
+	LEFT JOIN estado_tickets ON tickets.Estado = estado_tickets.IdEstado
 	WHERE
 		tickets.IdTickets LIKE '%".$_POST['NumeroTicket']."%' AND tickets.IdCliente LIKE '%".$_POST['NombreCliente']."%'";
 	$run = new Method;

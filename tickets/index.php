@@ -135,7 +135,6 @@
 								<label >Departamento</label>
 								<select name="DepartamentoUpdate" class="form-control selectpicker" id="cliente" data-live-search="true">
 									<option value="">Seleccione...</option>
-									<option>Soporte Técnico</option>
 								</select>
 							</div>
 						</div>

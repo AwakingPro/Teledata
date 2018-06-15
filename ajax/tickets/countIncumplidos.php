@@ -23,7 +23,7 @@
 	WHERE  
 		(NOW() > DATE_ADD(tickets.FechaCreacion,INTERVAL tiempo_prioridad.TiempoHora HOUR) OR tiempo_prioridad.IdTiempoPrioridad IS NULL)
 	AND
-		tickets.Estado = 'Abierto'";
+		tickets.Estado = '1'";
 	$run = new Method;
 	$data = $run->select($query);
 	echo count($data);

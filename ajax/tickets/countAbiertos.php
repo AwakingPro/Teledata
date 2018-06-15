@@ -19,7 +19,7 @@
 	LEFT JOIN usuarios ON tickets.AsignarA = usuarios.id
 	LEFT JOIN tiempo_prioridad ON tickets.Prioridad = tiempo_prioridad.IdTiempoPrioridad
 	WHERE 
-		tickets.Estado = 'Abierto'
+		tickets.Estado = '1'
 	AND
 		(NOW() <= DATE_ADD(tickets.FechaCreacion,INTERVAL tiempo_prioridad.TiempoHora HOUR) OR tiempo_prioridad.IdTiempoPrioridad IS NULL)
 	AND

@@ -18,7 +18,7 @@
 	LEFT JOIN subtipo_ticket ON tickets.Subtipo = subtipo_ticket.IdSubTipoTicket
 	LEFT JOIN usuarios ON tickets.AsignarA = usuarios.id
 	LEFT JOIN tiempo_prioridad ON tickets.Prioridad = tiempo_prioridad.IdTiempoPrioridad
-	WHERE tickets.Estado = 'Finalizado' OR tickets.Estado = 'Cerrado'";
+	WHERE tickets.Estado = '2' OR tickets.Estado = '3'";
 	$run = new Method;
 	$data = $run->select($query);
 	echo count($data);

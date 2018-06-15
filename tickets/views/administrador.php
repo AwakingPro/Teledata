@@ -99,21 +99,12 @@
 											<div class="col-md-6 form-group">
 												<label >Origen</label>
 												<select name="Origen" class="form-control selectpicker" id="cliente" data-live-search="true" validation="not_null" data-nombre="Origen">
-													<option value="">Seleccione...</option>
-													<option>Llamado Telefónico</option>
-													<option>Correo Electrónico</option>
-													<option>Presencial</option>
-													<option>Pagina Web</option>
-													<option>Interno</option>
-													<option>Carta</option>
-													<option>Otros</option>
 												</select>
 											</div>
 											<div class="col-md-6 form-group">
 												<label >Departamento</label>
 												<select name="Departamento" class="selectpicker form-control" data-live-search="true" validation="not_null" data-nombre="Departamento">
 													<option value="">Seleccione...</option>
-													<option>Soporte Tecnico</option>
 												</select>
 											</div>
 										</div>
@@ -164,9 +155,6 @@
 												<label >Estado</label>
 												<select name="Estado" class="selectpicker form-control" data-live-search="true" validation="not_null" data-nombre="Estado">
 													<option value="">Seleccione...</option>
-													<option>Abierto</option>
-													<option>Cerrado</option>
-													<option>Finalizado</option>
 												</select>
 											</div>
 										</div>
