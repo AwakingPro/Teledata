@@ -2,14 +2,13 @@
 	require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
 	tickets.IdTickets AS `#`,
-	personaempresa.nombre AS Cliente,
+	tickets.FechaCreacion as Fecha,
+	CONCAT(personaempresa.rut, ' - ', personaempresa.nombre) AS Cliente,
 	tickets.Origen,
 	tickets.Departamento,
-	usuarios.usuario AS Usuario,
 	tipo_ticket.Nombre AS Tipo,
 	subtipo_ticket.Nombre AS SubTipo,
-	tiempo_prioridad.Nombre AS Prioridad,
-	tickets.Estado
+	tiempo_prioridad.Nombre AS Prioridad
 	FROM
 		tickets
 		INNER JOIN personaempresa ON tickets.IdCliente = personaempresa.rut
@@ -22,7 +21,7 @@
 	AND
 		(NOW() <= DATE_ADD(tickets.FechaCreacion,INTERVAL tiempo_prioridad.TiempoHora HOUR) OR tiempo_prioridad.IdTiempoPrioridad IS NULL)
 	AND
-		tickets.AsignarA = ''";
+		(tickets.AsignarA = '' OR usuarios.id IS NULL)";
 	$run = new Method;
 	session_start();
 	if ($_SESSION['idNivel'] != 1) {

@@ -2,7 +2,8 @@
 	require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
 	tickets.IdTickets as '#',
-	personaempresa.nombre as Cliente,
+	tickets.FechaCreacion as Fecha,
+	CONCAT(personaempresa.rut, ' - ', personaempresa.nombre) AS Cliente,
 	tickets.Origen,
 	tickets.Departamento,
 	usuarios.usuario as Usuario,

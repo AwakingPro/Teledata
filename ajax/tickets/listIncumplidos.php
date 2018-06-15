@@ -2,15 +2,15 @@
 	require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
 	tickets.IdTickets as '#',
-	personaempresa.nombre as Cliente,
+	tickets.FechaCreacion as Fecha,
+	CONCAT(personaempresa.rut, ' - ', personaempresa.nombre) AS Cliente,
 	tickets.Origen,
 	tickets.Departamento,
 	usuarios.usuario as Usuario,
 	tipo_ticket.Nombre as Tipo,
 	subtipo_ticket.Nombre as SubTipo,
 	tiempo_prioridad.Nombre as Prioridad,
-	tickets.Estado,
-	tickets.FechaCreacion as Fecha
+	tickets.Estado
 	FROM
 		tickets
 		INNER JOIN personaempresa ON tickets.IdCliente = personaempresa.rut

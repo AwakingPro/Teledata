@@ -89,9 +89,9 @@ $.post('../ajax/privilegios.php', function(data) {
 				});
 			});
 
-			$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
-			$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
-			$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
+			$('.coutAbiertos').load('../ajax/tickets/countAbiertos.php');
+			$('.coutnAsigados').load('../ajax/tickets/countAsignados.php');
+			$('.coutnIncumplidos').load('../ajax/tickets/countIncumplidos.php');
 			$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
 		}
 
