@@ -22,7 +22,9 @@
 	WHERE 
 		tickets.AsignarA != ''
 	AND 
-		tickets.Estado = 'Abierto'";
+		tickets.Estado = 'Abierto'
+	AND
+		(NOW() <= DATE_ADD(tickets.FechaCreacion,INTERVAL tiempo_prioridad.TiempoHora HOUR) OR tiempo_prioridad.IdTiempoPrioridad IS NULL)";
 	if ($_SESSION['idNivel'] != 1) {
 		$query .= " AND tickets.AsignarA = '".$_SESSION['idUsuario']."'";
 	}
