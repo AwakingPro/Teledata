@@ -2,6 +2,7 @@ $.post('../ajax/privilegios.php', function(data) {
 	$('#page-content').load('views/'+data+'.php', function(){
 
 		$('.selectpicker').selectpicker();
+		reloadData()
 
 		$('[name="AsignarA"], [name="AsignarAUpdate"]').load('../ajax/tickets/listUsuario.php',function(){
 			$('[name="AsignarA"], [name="AsignarAUpdate"]').selectpicker();
@@ -43,49 +44,56 @@ $.post('../ajax/privilegios.php', function(data) {
 			});
 		});
 
-		$('.listaAbiertos').html('<div class="spinner loading"></div>');
-		$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
-			var count = $('.listaAbiertos > .tabeData tr th').length -1;
-			$('.listaAbiertos > .tabeData').dataTable({
-				"columnDefs": [{
-					'orderable': false,
-					'targets': [count]
-				}, ]
+		function reloadData(){
+			$('.listaAbiertos').html('<div class="spinner loading"></div>');
+			$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
+				var count = $('.listaAbiertos > .tabeData tr th').length -1;
+				$('.listaAbiertos > .tabeData').dataTable({
+					"columnDefs": [{
+						'orderable': false,
+						'targets': [count]
+					}, ]
+				});
 			});
-		});
 
-		$('.listaFinalizados').html('<div class="spinner loading"></div>');
-		$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
-			var count = $('.listaFinalizados > .tabeData tr th').length -1;
-			$('.listaFinalizados > .tabeData').dataTable({
-				"columnDefs": [{
-					'orderable': false,
-					'targets': [count]
-				}, ]
+			$('.listaFinalizados').html('<div class="spinner loading"></div>');
+			$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
+				var count = $('.listaFinalizados > .tabeData tr th').length -1;
+				$('.listaFinalizados > .tabeData').dataTable({
+					"columnDefs": [{
+						'orderable': false,
+						'targets': [count]
+					}, ]
+				});
 			});
-		});
 
-		$('.listaIncumplidos').html('<div class="spinner loading"></div>');
-		$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
-			var count = $('.listaIncumplidos > .tabeData tr th').length -1;
-			$('.listaIncumplidos > .tabeData').dataTable({
-				"columnDefs": [{
-					'orderable': false,
-					'targets': [count]
-				}, ]
+			$('.listaIncumplidos').html('<div class="spinner loading"></div>');
+			$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
+				var count = $('.listaIncumplidos > .tabeData tr th').length -1;
+				$('.listaIncumplidos > .tabeData').dataTable({
+					"columnDefs": [{
+						'orderable': false,
+						'targets': [count]
+					}, ]
+				});
 			});
-		});
 
-		$('.listaAsignados').html('<div class="spinner loading"></div>');
-		$('.listaAsignados').load('../ajax/tickets/listAsignados.php',function(){
-			var count = $('.listaAsignados > .tabeData tr th').length -1;
-			$('.listaAsignados > .tabeData').dataTable({
-				"columnDefs": [{
-					'orderable': false,
-					'targets': [count]
-				}, ]
+			$('.listaAsignados').html('<div class="spinner loading"></div>');
+			$('.listaAsignados').load('../ajax/tickets/listAsignados.php',function(){
+				var count = $('.listaAsignados > .tabeData tr th').length -1;
+				$('.listaAsignados > .tabeData').dataTable({
+					"columnDefs": [{
+						'orderable': false,
+						'targets': [count]
+					}, ]
+				});
 			});
-		});
+
+			$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
+			$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
+			$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
+			$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
+		}
 
 		$('.listaTipoTicket').html('<div class="spinner loading"></div>');
 		$('.listaTipoTicket').load('../ajax/tickets/listTipoTicket.php',function(){
@@ -109,54 +117,10 @@ $.post('../ajax/privilegios.php', function(data) {
 			});
 		});
 
-		$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
-		$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
-		$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
-		$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
-
 		$('.guardarTicket').click(function() {
 			$.postFormValues('../ajax/tickets/insertData.php','.cont-form1',function(data){
 				if (Number(data) > 0){
-					$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
-						var count = $('.listaAbiertos > .tabeData tr th').length -1;
-						$('.listaAbiertos > .tabeData').dataTable({
-							"columnDefs": [{
-								'orderable': false,
-								'targets': [count]
-							}, ]
-						});
-					});
-					$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
-						var count = $('.listaFinalizados > .tabeData tr th').length -1;
-						$('.listaFinalizados > .tabeData').dataTable({
-							"columnDefs": [{
-								'orderable': false,
-								'targets': [count]
-							}, ]
-						});
-					});
-					$('.listaAsignados').load('../ajax/tickets/listAsignados.php',function(){
-						var count = $('.listaAsignados > .tabeData tr th').length -1;
-						$('.listaAsignados  > .tabeData').dataTable({
-							"columnDefs": [{
-								'orderable': false,
-								'targets': [count]
-							}, ]
-						});
-					});
-					$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
-						var count = $('.listaIncumplidos > .tabeData tr th').length -1;
-						$('.listaIncumplidos > .tabeData').dataTable({
-							"columnDefs": [{
-								'orderable': false,
-								'targets': [count]
-							}, ]
-						});
-					});
-					$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
-					$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
-					$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
-					$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
+					reloadData()
 
 					$('input, select, textarea').val('');
 					bootbox.alert('<h3 class="text-center">El ticket #'+data+' se registro con éxito.</h3>');
@@ -173,46 +137,7 @@ $.post('../ajax/privilegios.php', function(data) {
 		$('.guardarTicketInterno').click(function() {
 			$.postFormValues('../ajax/tickets/insertData.php','.cont-form3',function(data){
 				if (Number(data) > 0){
-					$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
-						var count = $('.listaAbiertos > .tabeData tr th').length -1;
-						$('.listaAbiertos > .tabeData').dataTable({
-							"columnDefs": [{
-								'orderable': false,
-								'targets': [count]
-							}, ]
-						});
-					});
-					$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
-						var count = $('.listaFinalizados > .tabeData tr th').length -1;
-						$('.listaFinalizados > .tabeData').dataTable({
-							"columnDefs": [{
-								'orderable': false,
-								'targets': [count]
-							}, ]
-						});
-					});
-					$('.listaAsignados').load('../ajax/tickets/listAsignados.php',function(){
-						var count = $('.listaAsignados > .tabeData tr th').length -1;
-						$('.listaAsignados  > .tabeData').dataTable({
-							"columnDefs": [{
-								'orderable': false,
-								'targets': [count]
-							}, ]
-						});
-					});
-					$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
-						var count = $('.listaIncumplidos > .tabeData tr th').length -1;
-						$('.listaIncumplidos > .tabeData').dataTable({
-							"columnDefs": [{
-								'orderable': false,
-								'targets': [count]
-							}, ]
-						});
-					});
-					$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
-					$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
-					$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
-					$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
+					reloadData()
 
 					bootbox.alert('<h3 class="text-center">El ticket #'+data+' se registro con éxito.</h3>');
 					$('#cont-form3')[0].reset()
@@ -321,47 +246,7 @@ $.post('../ajax/privilegios.php', function(data) {
 				callback: function (result) {
 					if (result == true) {
 						$.post('../ajax/tickets/deleteTicket.php', {id: id}, function(data) {
-							$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
-								var count = $('.listaAbiertos > .tabeData tr th').length -1;
-								$('.listaAbiertos > .tabeData').dataTable({
-									"columnDefs": [{
-										'orderable': false,
-										'targets': [count]
-									}, ]
-								});
-							});
-							$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
-								var count = $('.listaFinalizados > .tabeData tr th').length -1;
-								$('.listaFinalizados > .tabeData').dataTable({
-									"columnDefs": [{
-										'orderable': false,
-										'targets': [count]
-									}, ]
-								});
-							});
-							$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
-								var count = $('.listaIncumplidos > .tabeData tr th').length -1;
-								$('.listaIncumplidos > .tabeData').dataTable({
-									"columnDefs": [{
-										'orderable': false,
-										'targets': [count]
-									}, ]
-								});
-							});
-							$('.listaAsignados').load('../ajax/tickets/listAsignados.php',function(){
-								var count = $('.listaAsignados > .tabeData tr th').length -1;
-								$('.listaAsignados > .tabeData').dataTable({
-									"columnDefs": [{
-										'orderable': false,
-										'targets': [count]
-									}, ]
-								});
-							});
-
-							$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
-							$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
-							$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
-							$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
+							reloadData()
 						});
 					}
 				}
@@ -420,47 +305,7 @@ $.post('../ajax/privilegios.php', function(data) {
 				callback: function (result) {
 					if (result == true) {
 						$.post('../ajax/tickets/finalizarTicket.php', {id: id}, function(data) {
-							$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
-								var count = $('.listaAbiertos > .tabeData tr th').length -1;
-								$('.listaAbiertos > .tabeData').dataTable({
-									"columnDefs": [{
-										'orderable': false,
-										'targets': [count]
-									}, ]
-								});
-							});
-							$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
-								var count = $('.listaFinalizados > .tabeData tr th').length -1;
-								$('.listaFinalizados > .tabeData').dataTable({
-									"columnDefs": [{
-										'orderable': false,
-										'targets': [count]
-									}, ]
-								});
-							});
-							$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
-								var count = $('.listaIncumplidos > .tabeData tr th').length -1;
-								$('.listaIncumplidos > .tabeData').dataTable({
-									"columnDefs": [{
-										'orderable': false,
-										'targets': [count]
-									}, ]
-								});
-							});
-							$('.listaAsignados').load('../ajax/tickets/listAsignados.php',function(){
-								var count = $('.listaAsignados > .tabeData tr th').length -1;
-								$('.listaAsignados > .tabeData').dataTable({
-									"columnDefs": [{
-										'orderable': false,
-										'targets': [count]
-									}, ]
-								});
-							});
-
-							$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
-							$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
-							$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
-							$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
+							reloadData()
 						});
 					}
 				}
@@ -500,47 +345,7 @@ $.post('../ajax/privilegios.php', function(data) {
 
 		$(document).on('click', '.updateTicket', function(){
 			$.postFormValues('../ajax/tickets/updateTickets.php','.cont-form4',function(data){
-				$('.listaAbiertos').load('../ajax/tickets/listAbiertos.php',function(){
-					var count = $('.listaAbiertos > .tabeData tr th').length -1;
-					$('.listaAbiertos > .tabeData').dataTable({
-						"columnDefs": [{
-							'orderable': false,
-							'targets': [count]
-						}, ]
-					});
-				});
-				$('.listaFinalizados').load('../ajax/tickets/listFinalizados.php',function(){
-					var count = $('.listaFinalizados > .tabeData tr th').length -1;
-					$('.listaFinalizados > .tabeData').dataTable({
-						"columnDefs": [{
-							'orderable': false,
-							'targets': [count]
-						}, ]
-					});
-				});
-				$('.listaIncumplidos').load('../ajax/tickets/listIncumplidos.php',function(){
-					var count = $('.listaAbiertos > .tabeData tr th').length -1;
-					$('.listaIncumplidos > .tabeData').dataTable({
-						"columnDefs": [{
-							'orderable': false,
-							'targets': [count]
-						}, ]
-					});
-				});
-				$('.listaAsignados').load('../ajax/tickets/listAsignados.php',function(){
-					var count = $('.listaAsignados > .tabeData tr th').length -1;
-					$('.listaAsignados > .tabeData').dataTable({
-						"columnDefs": [{
-							'orderable': false,
-							'targets': [count]
-						}, ]
-					});
-				});
-
-				$('.coutAbiertos').load('../ajax/tickets/coutAbiertos.php');
-				$('.coutnAsigados').load('../ajax/tickets/coutnAsigados.php');
-				$('.coutnIncumplidos').load('../ajax/tickets/coutnIncumplido.php');
-				$('.coutnFinalizado').load('../ajax/tickets/countFinalizados.php');
+				reloadData();
 				$('.modal').modal('hide')
 				bootbox.alert('<h3 class="text-center">El ticket se actualizo con éxito.</h3>');
 			});

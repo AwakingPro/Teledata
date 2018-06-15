@@ -14,7 +14,7 @@
 							<a data-toggle="tab" href="#tab-3">Abiertos <span class="badge coutAbiertos label-warning">0</span></a>
 						</li>
 						<li>
-							<a data-toggle="tab" href="#tab-4">Inclumplidos <span class="badge coutnIncumplidos label-warning">0</span></a>
+							<a data-toggle="tab" href="#tab-4">Incumplidos <span class="badge coutnIncumplidos label-warning">0</span></a>
 						</li>
 						<li>
 							<a data-toggle="tab" href="#tab-5">Asignados <span class="badge coutnAsigados label-warning">0</span></a>
@@ -67,7 +67,7 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label>Cliente</label>
-								<select name="Cliente" class="form-control" id="cliente" data-live-search="true">
+								<select name="Cliente" class="form-control" id="cliente" data-live-search="true" validation="not_null" data-nombre="Cliente">
 									<option value="">Seleccione...</option>
 								</select>
 							</div>
@@ -75,7 +75,7 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label>Servicio</label>
-								<select name="Servicio" class="selectpicker form-control" data-live-search="true">
+								<select name="Servicio" class="selectpicker form-control" data-live-search="true" validation="not_null" data-nombre="Servicio">
 									<option value="">Seleccione...</option>
 								</select>
 							</div>
@@ -83,7 +83,7 @@
 						<div class="row">
 							<div class="col-md-6 form-group">
 								<label >Origen</label>
-								<select name="Origen" class="form-control selectpicker" id="cliente" data-live-search="true">
+								<select name="Origen" class="form-control selectpicker" id="cliente" data-live-search="true" validation="not_null" data-nombre="Origen">
 									<option value="">Seleccione...</option>
 									<option>Llamado Telefónico</option>
 									<option>Correo Electrónico</option>
@@ -96,7 +96,7 @@
 							</div>
 							<div class="col-md-6 form-group">
 								<label >Departamento</label>
-								<select name="Departamento" class="selectpicker form-control" data-live-search="true">
+								<select name="Departamento" class="selectpicker form-control" data-live-search="true" validation="not_null" data-nombre="Departamento">
 									<option value="">Seleccione...</option>
 									<option>Soporte Tecnico</option>
 								</select>
@@ -105,13 +105,13 @@
 						<div class="row">
 							<div class="col-md-6 form-group">
 								<label >Tipo</label>
-								<select name="Tipo" class="form-control" data-live-search="true">
+								<select name="Tipo" class="form-control" data-live-search="true" validation="not_null" data-nombre="Tipo">
 									<option value="">Seleccione...</option>
 								</select>
 							</div>
 							<div class="col-md-6 form-group">
 								<label >Subtipo</label>
-								<select name="Subtipo" class="selectpicker form-control subTipo" data-live-search="true">
+								<select name="Subtipo" class="selectpicker form-control subTipo" data-live-search="true" validation="not_null" data-nombre="Subtipo">
 									<option value="">Seleccione...</option>
 								</select>
 							</div>
@@ -119,7 +119,7 @@
 						<div class="row">
 							<div class="col-md-6 form-group">
 								<label >Prioridad</label>
-								<select name="Prioridad" class="form-control" data-live-search="true">
+								<select name="Prioridad" class="form-control" data-live-search="true" validation="not_null" data-nombre="Prioridad"> 
 								</select>
 							</div>
 							<div class="col-md-6 form-group">
@@ -132,7 +132,7 @@
 						<div class="row">
 							<div class="col-md-12 form-group">
 								<label >Estado</label>
-								<select name="Estado" class="selectpicker form-control" data-live-search="true">
+								<select name="Estado" class="selectpicker form-control" data-live-search="true" validation="not_null" data-nombre="Estado">
 									<option>Abierto</option>
 									<option>Finalizado</option>
 								</select>
