@@ -16,9 +16,11 @@
 
             $ToReturn = array();
 
-            $query = '  SELECT servicios.Rut, servicios.Grupo, SUM(servicios.CostoInstalacion) as Valor, servicios.EstatusFacturacion, servicios.FechaFacturacion, personaempresa.nombre as Cliente, personaempresa.tipo_cliente as TipoDocumento
+            $query = '  SELECT 
+                            servicios.Rut, servicios.Grupo, SUM(servicios.CostoInstalacion) as Valor, servicios.EstatusFacturacion, servicios.FechaFacturacion, personaempresa.nombre as Cliente, personaempresa.tipo_cliente as TipoDocumento, COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS NombreGrupo
                         FROM servicios 
                         INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut 
+                        LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo 
                         WHERE servicios.EstatusFacturacion = 0 
                         AND servicios.CostoInstalacion > 0 
                         AND (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1)
@@ -46,15 +48,17 @@
                     $data['Valor'] = number_format($Valor, 2);  
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $servicio['TipoDocumento']; 
+                    $data['NombreGrupo'] = $servicio['NombreGrupo'];
 
                     array_push($ToReturn,$data);
                 }
             }
 
-            $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, facturas.FechaFacturacion, facturas.TipoDocumento, personaempresa.nombre as Cliente 
+            $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, facturas.FechaFacturacion, facturas.TipoDocumento, personaempresa.nombre as Cliente, COALESCE ( grupo_servicio.Nombre, facturas.Grupo ) AS NombreGrupo
                         FROM facturas_detalle 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
+                        LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = facturas.Grupo 
                         WHERE facturas.TipoFactura = '3'
                         AND facturas_detalle.Valor > 0
                         GROUP BY
@@ -78,6 +82,7 @@
                     $data['Valor'] = number_format($factura['Valor'], 2);
                     $data['EstatusFacturacion'] = 1; 
                     $data['TipoDocumento'] = $factura['TipoDocumento']; 
+                    $data['NombreGrupo'] = $factura['NombreGrupo'];
                    
                     array_push($ToReturn,$data);
                 }
@@ -97,10 +102,11 @@
             $UF = $UfClass->getValue($Fecha);
             $ToReturn = array();
 
-            $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, facturas.EstatusFacturacion, facturas.FechaFacturacion, facturas.TipoDocumento, personaempresa.nombre as Cliente 
+            $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, facturas.EstatusFacturacion, facturas.FechaFacturacion, facturas.TipoDocumento, personaempresa.nombre as Cliente, COALESCE ( grupo_servicio.Nombre, facturas.Grupo ) AS NombreGrupo 
                         FROM facturas_detalle 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
+                        LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = facturas.Grupo 
                         WHERE facturas_detalle.Valor > 0
                         AND facturas.TipoFactura = '2'
                         AND facturas.EstatusFacturacion = '1'
@@ -125,15 +131,17 @@
                     $data['Valor'] = number_format($factura['Valor'], 2);
                     $data['EstatusFacturacion'] = 1; 
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
+                    $data['NombreGrupo'] = $factura['NombreGrupo'];
 
                     array_push($ToReturn,$data);
                 }
             }
 
-            $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Rut, facturas.Grupo, facturas.EstatusFacturacion, facturas.TipoDocumento, personaempresa.nombre as Cliente 
+            $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Rut, facturas.Grupo, facturas.EstatusFacturacion, facturas.TipoDocumento, personaempresa.nombre as Cliente, COALESCE ( grupo_servicio.Nombre, facturas.Grupo ) AS NombreGrupo
                         FROM facturas_detalle 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
+                        LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = facturas.Grupo 
                         WHERE facturas_detalle.Valor > 0
                         AND facturas.TipoFactura = '2'
                         AND facturas.EstatusFacturacion = '0'
@@ -160,6 +168,7 @@
                     $data['Valor'] = number_format($factura['Valor'], 2);
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
+                    $data['NombreGrupo'] = $factura['NombreGrupo'];
 
                     array_push($ToReturn,$data);
                 }

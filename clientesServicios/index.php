@@ -146,7 +146,7 @@
 				<div class="modal-body">
 					<form id = "showServicio">
 						<input type="hidden" class="Id" name="Id" id="Id">
-						<div class="row" style="padding:20px">
+						<div class="row">
 							<div class="col-md-12">
 								<div class="form-group">
 									<label class="compo-grupo">Grupo</label>

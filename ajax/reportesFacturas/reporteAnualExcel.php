@@ -60,7 +60,7 @@ require_once('../../class/methods_global/methods.php');
 $query = 'SELECT
 servicios.Id,
 servicios.Rut,
-servicios.Grupo,
+COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS Grupo,
 servicios.TipoFactura,
 servicios.Valor,
 servicios.Descuento,
@@ -83,7 +83,8 @@ mantenedor_servicios.servicio
 FROM
 	servicios
 	INNER JOIN personaempresa ON servicios.Rut = personaempresa.rut
-	INNER JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio';
+	INNER JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
+	LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo ';
 $run = new Method;
 $data = $run->select($query);
 if (count($data) > 0) {

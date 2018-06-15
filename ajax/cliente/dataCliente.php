@@ -72,11 +72,12 @@
 		servicios.TiepoFacturacion as "Tiempo de facturacion",
 		mantenedor_servicios.servicio as "Tipo de Servicio",
 		servicios.Valor,
-		servicios.Grupo,
+		COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS Grupo,
 		IF(FechaActivacion IS NULL, "Activo", "Inactivo") as Estatus
 		FROM
 		servicios
 		LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
+		LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo 
 	WHERE
 		servicios.Rut ='.$_POST['rut'];
 	$run = new Method;
