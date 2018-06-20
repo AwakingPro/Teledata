@@ -11,7 +11,7 @@
 	$Nombre = isset($_POST['Nombre']) ? strtoupper(trim($_POST['Nombre'])) : "";
 	$Alias = isset($_POST['Alias']) ? strtoupper(trim($_POST['Alias'])) : "";
 	$DireccionComercial = isset($_POST['DireccionComercial']) ? strtoupper(trim($_POST['DireccionComercial'])) : "";
-	$Giro = isset($_POST['Giro']) ? strtoupper(trim($_POST['Giro'])) : "";
+	$Giro = isset($_POST['Giro']) ? trim($_POST['Giro']) : "";
 	$Ciudad = isset($_POST['Ciudad']) ? strtoupper(trim($_POST['Ciudad'])) : "";
 	$Comuna = isset($_POST['Comuna']) ? strtoupper(trim($_POST['Comuna'])) : "";
 	$Contacto = isset($_POST['Contacto']) ? strtoupper(trim($_POST['Contacto'])) : "";

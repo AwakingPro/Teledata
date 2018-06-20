@@ -924,4 +924,25 @@ $(document).ready(function() {
 		});
 	});
 
+	$('body').on('click', '#guardarGiro', function () {
+
+        $.postFormValues('../ajax/cliente/insertGiro.php', '#insertGiro', function(response){
+
+			response = JSON.parse(response);
+
+            if(response.status == '1'){
+				$('#agregarGiro').modal('hide')
+                bootbox.alert('Registro Guardado Exitosamente')
+
+                $("#Giro").append('<option value="'+response.nombre+'" selected="">'+response.nombre+'</option>');
+				$("#Giro").selectpicker("refresh");
+
+            }else if(response.status == '2'){
+				bootbox.alert('Debe llenar todos los campos')
+            }else{
+				bootbox.alert('Ocurrió un error en el Proceso')
+            }
+        });     
+    });
+
 });

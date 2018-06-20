@@ -49,21 +49,21 @@ INSERT INTO `clase_tickets` VALUES (1, 'Cliente');
 INSERT INTO `clase_tickets` VALUES (2, 'Interno');
 
 -- ----------------------------
--- Table structure for clases_cliente
+-- Table structure for clase_clientes
 -- ----------------------------
-DROP TABLE IF EXISTS `clases_cliente`;
-CREATE TABLE `clases_cliente`  (
+DROP TABLE IF EXISTS `clase_clientes`;
+CREATE TABLE `clase_clientes`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of clases_cliente
+-- Records of clase_clientes
 -- ----------------------------
-INSERT INTO `clases_cliente` VALUES (1, 'Normal');
-INSERT INTO `clases_cliente` VALUES (2, 'Preferente');
-INSERT INTO `clases_cliente` VALUES (3, 'Premium');
+INSERT INTO `clase_clientes` VALUES (1, 'Normal');
+INSERT INTO `clase_clientes` VALUES (2, 'Preferente');
+INSERT INTO `clase_clientes` VALUES (3, 'Premium');
 
 -- ----------------------------
 -- Table structure for comentarios_tickets

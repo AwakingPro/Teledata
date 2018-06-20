@@ -85,8 +85,6 @@ $(document).ready(function(){
                 order: [[1, 'desc']],
                 data: response.array,
                 columns: [
-                    { data: 'Tipo' },
-                    { data: 'FechaFacturacion' },
                     { data: 'Cliente' },
                     { data: 'Rut' },
                     { data: 'NombreGrupo' },
@@ -104,18 +102,7 @@ $(document).ready(function(){
                 },
                 "columnDefs": [
                     {
-                        "targets": 0,
-                        "render": function (data, type, row) {
-                            if(data == 2){
-                                Estatus = "<div style='text-align: center'>Pagada</div>"
-                            }else{
-                                Estatus = "<div style='text-align: center'>Por Pagar</div>"
-                            }
-                            return Estatus
-                        }
-                    },
-                    {
-                        "targets": 6,
+                        "targets": 4,
                         "render": function (data, type, row) {
                             if(data == 2){
                                 if(row.UrlPdfBsale != 0 && row.UrlPdfBsale != ''){
@@ -165,16 +152,16 @@ $(document).ready(function(){
 
             IndividualTable = $('#IndividualTable').DataTable({
                 order: [[1, 'desc']],
-                data: response.array,
-                columns: [
-                    { data: 'EstatusFacturacion' },
-                    { data: 'FechaFacturacion' },
-                    { data: 'Cliente' },
-                    { data: 'Rut' },
-                    { data: 'NombreGrupo' },
-                    { data: 'Valor' },
-                    { data: 'EstatusFacturacion' },
-                ],
+                // data: response.array,
+                // columns: [
+                //     { data: 'EstatusFacturacion' },
+                //     { data: 'FechaFacturacion' },
+                //     { data: 'Cliente' },
+                //     { data: 'Rut' },
+                //     { data: 'NombreGrupo' },
+                //     { data: 'Valor' },
+                //     { data: 'EstatusFacturacion' },
+                // ],
                 destroy: true,
                 'createdRow': function( row, data, dataIndex ) {
                     $(row)
@@ -186,18 +173,7 @@ $(document).ready(function(){
                 },
                 "columnDefs": [
                     {
-                        "targets": 0,
-                        "render": function (data, type, row) {
-                            if(data == 1){
-                                Estatus = 'Pagada'
-                            }else{
-                                Estatus = 'Por Pagar'
-                            }
-                            return "<div style='text-align: center'>"+ Estatus +"</div>";
-                        }
-                    },
-                    {
-                        "targets": 6,
+                        "targets": 4,
                         "render": function (data, type, row) {
                             if(data == 1){
                                 if(row.UrlPdfBsale != 0 && row.UrlPdfBsale != ''){
@@ -245,8 +221,6 @@ $(document).ready(function(){
                 data: response.array,
                 columns: [
                     { data: 'EstatusFacturacion' },
-                    { data: 'EstatusFacturacion' },
-                    { data: 'FechaFacturacion' },
                     { data: 'Cliente' },
                     { data: 'Rut' },
                     { data: 'NombreGrupo' },
@@ -275,18 +249,7 @@ $(document).ready(function(){
                         }
                     },
                     {
-                        "targets": 1,
-                        "render": function (data, type, row) {
-                            if(data == 1){
-                                Estatus = 'Pagada'
-                            }else{
-                                Estatus = 'Por Pagar'
-                            }
-                            return "<div style='text-align: center'>"+ Estatus +"</div>";
-                        }
-                    },
-                    {
-                        "targets": 7,
+                        "targets": 5,
                         "render": function (data, type, row) {
                             if(data == 1){
                                 if(row.UrlPdfBsale != 0 && row.UrlPdfBsale != ''){

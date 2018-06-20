@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    Table = $('#UfTable').DataTable({
+    Table = $('#ClaseTable').DataTable({
         paging: false,
         iDisplayLength: 100,
         processing: true,
@@ -31,50 +31,22 @@ $(document).ready(function(){
         }
     });
 
-    $(".number").mask("000.000.000.000",{reverse: true});
+    $(".number").mask("0000000000");
 
     $.ajax({
         type: "POST",
-        url: "../includes/facturacion/uf/showUf.php",
+        url: "../includes/clase_cliente/showClase.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-
-                if(array.mes == 1){
-                    mes = 'Enero'
-                }else if(array.mes == 2){
-                    mes = 'Febrero'
-                }else if(array.mes == 3){
-                    mes = 'Marzo'
-                }else if(array.mes == 4){
-                    mes = 'Abril'
-                }else if(array.mes == 5){
-                    mes = 'Mayo'
-                }else if(array.mes == 6){
-                    mes = 'Junio'
-                }else if(array.mes == 7){
-                    mes = 'Julio'
-                }else if(array.mes == 8){
-                    mes = 'Agosto'
-                }else if(array.mes == 9){
-                    mes = 'Septiembre'
-                }else if(array.mes == 10){
-                    mes = 'Octubre'
-                }else if(array.mes == 11){
-                    mes = 'Noviembre'
-                }else if(array.mes == 12){
-                    mes = 'Diciembre'
-                }
-
                 var rowNode = Table.row.add([
-                  ''+mes+'',
-                  ''+array.valor+'',
+                  ''+array.nombre+'',
+                  ''+array.limite_facturas+'',
                   ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
                 $( rowNode )
                     .attr('id',array.id)
-                    .data('mes',array.mes)
                     .addClass('text-center');
             });
         
@@ -82,9 +54,9 @@ $(document).ready(function(){
         }
     });
 
-    $('body').on('click', '#guardarUf', function () {
+    $('body').on('click', '#guardarClase', function () {
 
-        $.postFormValues('../includes/facturacion/uf/storeUf.php', '#storeUf', function(response){
+        $.postFormValues('../includes/clase_cliente/storeClase.php', '#storeClase', function(response){
 
             if(response.status == 1){
 
@@ -96,48 +68,17 @@ $(document).ready(function(){
                     timer : 3000
                 });
 
-                Personal = $('#personal_id option[value="'+response.array.personal_id+'"]').first().data('content');
-
-                if(response.array.mes == 1){
-                    mes = 'Enero'
-                }else if(response.array.mes == 2){
-                    mes = 'Febrero'
-                }else if(response.array.mes == 3){
-                    mes = 'Marzo'
-                }else if(response.array.mes == 4){
-                    mes = 'Abril'
-                }else if(response.array.mes == 5){
-                    mes = 'Mayo'
-                }else if(response.array.mes == 6){
-                    mes = 'Junio'
-                }else if(response.array.mes == 7){
-                    mes = 'Julio'
-                }else if(response.array.mes == 8){
-                    mes = 'Agosto'
-                }else if(response.array.mes == 9){
-                    mes = 'Septiembre'
-                }else if(response.array.mes == 10){
-                    mes = 'Octubre'
-                }else if(response.array.mes == 11){
-                    mes = 'Noviembre'
-                }else if(response.array.mes == 12){
-                    mes = 'Diciembre'
-                }
-
                 var rowNode = Table.row.add([
-                  ''+mes+'',
-                  ''+response.array.valor+'',
+                  ''+response.array.nombre+'',
+                  ''+response.array.limite_facturas+'',
                   ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                 ]).draw(false).node();
 
                 $( rowNode )
                     .attr('id',response.array.id)
-                    .data('mes',response.array.mes)
                     .addClass('text-center');
 
-                $('#storeUf')[0].reset();
-                $('.selectpicker').selectpicker('render');
-                $('.selectpicker').selectpicker('refresh');
+                $('#storeClase')[0].reset();
                 $('.modal').modal('hide');
 
             }else if(response.status == 2){
@@ -170,22 +111,20 @@ $(document).ready(function(){
         var ObjectTR = ObjectMe.closest("tr");
         ObjectTR.addClass("Selected");
         var ObjectId = ObjectTR.attr("id");
-        var ObjectMonth = ObjectTR.data("mes");
-        var ObjectValue = ObjectTR.find("td").eq(1).text();
-        $('#updateUf').find('input[name="id"]').val(ObjectId);
-        $('#updateUf').find('select[name="mes"]').val(ObjectMonth);
-        $('#updateUf').find('input[name="valor"]').val(ObjectValue);
+        var ObjectName = ObjectTR.find("td").eq(0).text();
+        var ObjectLimit = ObjectTR.find("td").eq(1).text();
+        $('#updateClase').find('input[name="id"]').val(ObjectId);
+        $('#updateClase').find('input[name="nombre"]').val(ObjectName);
+        $('#updateClase').find('input[name="limite_facturas"]').val(ObjectLimit);
 
-        $('.selectpicker').selectpicker('refresh');
-
-        $('#UfFormUpdate').modal('show');
+        $('#ClaseFormUpdate').modal('show');
   
     });
 
 
-    $('body').on('click', '#actualizarUf', function () {
+    $('body').on('click', '#actualizarClase', function () {
 
-        $.postFormValues('../includes/facturacion/uf/updateUf.php', '#updateUf', function(response){
+        $.postFormValues('../includes/clase_cliente/updateClase.php', '#updateClase', function(response){
        
             if(response.status == 1){
 
@@ -197,36 +136,9 @@ $(document).ready(function(){
                     timer : 3000
                 });
 
-                if(response.array.mes == 1){
-                    mes = 'Enero'
-                }else if(response.array.mes == 2){
-                    mes = 'Febrero'
-                }else if(response.array.mes == 3){
-                    mes = 'Marzo'
-                }else if(response.array.mes == 4){
-                    mes = 'Abril'
-                }else if(response.array.mes == 5){
-                    mes = 'Mayo'
-                }else if(response.array.mes == 6){
-                    mes = 'Junio'
-                }else if(response.array.mes == 7){
-                    mes = 'Julio'
-                }else if(response.array.mes == 8){
-                    mes = 'Agosto'
-                }else if(response.array.mes == 9){
-                    mes = 'Septiembre'
-                }else if(response.array.mes == 10){
-                    mes = 'Octubre'
-                }else if(response.array.mes == 11){
-                    mes = 'Noviembre'
-                }else if(response.array.mes == 12){
-                    mes = 'Diciembre'
-                }
-
                 ObjectTR = $("#"+response.array.id);
-                ObjectTR.data('mes', response.array.mes)
-                ObjectTR.find("td").eq(0).html(mes);
-                ObjectTR.find("td").eq(1).html(response.array.valor);
+                ObjectTR.find("td").eq(0).html(response.array.nombre);
+                ObjectTR.find("td").eq(1).html(response.array.limite_facturas);
                 
                 $('.modal').modal('hide');
 
@@ -271,7 +183,7 @@ $(document).ready(function(){
             if (isConfirm) {
     
                 $.ajax({
-                    url: "../includes/facturacion/uf/deleteUf.php",
+                    url: "../includes/clase_cliente/deleteClase.php",
                     type: 'POST',
                     data:"&id="+ObjectId,
                     success:function(response){

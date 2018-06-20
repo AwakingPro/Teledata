@@ -136,7 +136,8 @@
 				<div class="row">
 					<div class="col-md-4 form-group">
 						<label>Giro</label>
-						<input name="Giro_update" class="form-control">
+						<select name="Giro" class="form-control selectpicker Giro" data-live-search="true" validate="not_null">
+						</select>
 					</div>
 					<div class="col-md-4 form-group">
 						<label>Ciudad</label>

@@ -86,8 +86,13 @@
 													<div class="row">
 														<div class="col-md-4 form-group">
 															<label>Giro</label>
-															<select name="Giro" class="form-control selectpicker Giro" data-live-search="true" validate="not_null">
-															</select>
+															<div class="input-group">
+																<select id="Giro" name="Giro" class="form-control selectpicker Giro" data-live-search="true" validate="not_null">
+																</select>
+																<span class="input-group-btn">
+																	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#agregarGiro"><i class="fa fa-plus" aria-hidden="true"></i></button>
+																</span>
+															</div>
 														</div>
 														<div class="col-md-4 form-group">
 															<label>Ciudad</label>
@@ -464,34 +469,58 @@
 		</div>
 	</div>
 
-<div class="modal fade" role="dialog" id="extraContactosUpdate">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Contacto extra</h4>
-			</div>
-			<div class="modal-body container-form-extraCorreo">
-				<div class="row">
-					<div class="col-md-5 form-group">
-						<label>Tipo de contacto</label>
-						<input name="extra_TipoContacto[]" class="form-control">
-					</div>
-					<div class="col-md-5 form-group">
-						<label>Contacto</label>
-						<input name="extra_Contacto[]" class="form-control">
-					</div>
-					<div class="col-md-2">
-						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampContacto"><i class="glyphicon glyphicon-plus"></i></button>
-					</div>
+	<div class="modal fade" role="dialog" id="extraContactosUpdate">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">Contacto extra</h4>
 				</div>
-				<div class="contenedorContactosExtras">
+				<div class="modal-body container-form-extraCorreo">
+					<div class="row">
+						<div class="col-md-5 form-group">
+							<label>Tipo de contacto</label>
+							<input name="extra_TipoContacto[]" class="form-control">
+						</div>
+						<div class="col-md-5 form-group">
+							<label>Contacto</label>
+							<input name="extra_Contacto[]" class="form-control">
+						</div>
+						<div class="col-md-2">
+							<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampContacto"><i class="glyphicon glyphicon-plus"></i></button>
+						</div>
+					</div>
+					<div class="contenedorContactosExtras">
 
+					</div>
 				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				</div>
+				</div>
 			</div>
 		</div>
-	</div>
+
+		<div class="modal fade" role="dialog" id="agregarGiro">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Agregar Giro</h4>
+					</div>
+					<div class="modal-body">
+						<form id="insertGiro">
+							<div class="row">
+								<div class="col-md-12 form-group">
+								<label>Giro</label>
+									<input name="nombreGiro" class="form-control" validation="not_null">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-purple" id="guardarGiro">Guardar</button>
+					</div>
+				</div>
+			</div>
+		</div>

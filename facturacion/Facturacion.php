@@ -96,8 +96,6 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center"><input class="select-checkbox" name="select_all" id="select_all" type="checkbox"></th>
-                                                        <th class="text-center">Estatus</th>
-                                                        <th class="text-center">Fecha</th>
                                                         <th class="text-center">Cliente</th>
                                                         <th class="text-center">Rut</th>
                                                         <th class="text-center">Grupo Factura</th>
@@ -130,8 +128,6 @@
                                                 <table id="IndividualTable" class="table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center">Estatus</th>
-                                                            <th class="text-center">Fecha</th>
                                                             <th class="text-center">Cliente</th>
                                                             <th class="text-center">Rut</th>
                                                             <th class="text-center">Grupo Factura</th>
@@ -165,8 +161,6 @@
                                                 <table id="InstalacionTable" class="table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
-                                                            <th class="text-center">Estatus</th>
-                                                            <th class="text-center">Fecha</th>
                                                             <th class="text-center">Cliente</th>
                                                             <th class="text-center">Rut</th>
                                                             <th class="text-center">Grupo Factura</th>

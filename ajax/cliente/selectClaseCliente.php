@@ -3,7 +3,7 @@
 	$query = 'SELECT
 	nombre
 	FROM
-	clases_cliente';
+	clase_clientes';
 	$run = new Method;
 	$data = $run->select($query);
 	if (count($data) > 0) {

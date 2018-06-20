@@ -26,41 +26,26 @@
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
-		<div id="UfForm" class="modal fade" tabindex="-1" role="dialog" id="load">
+		<div id="ClaseForm" class="modal fade" tabindex="-1" role="dialog" id="load">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
-						<h4 class="modal-title c-negro">Agregar Uf <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+						<h4 class="modal-title c-negro">Agregar Clase <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
 					</div>
 					<div class="modal-body">
 						<div class="row" style="padding:20px">
-							<form class="form-horizontal" id = "storeUf">
+							<form class="form-horizontal" id = "storeClase">
 								<div class="col-md-12">
 									<div class="form-group">
-										<label class="control-label" for="name">Mes</label>
-										<div class="select">
-											<select class="selectpicker form-control" name="mes" id="mes"  data-live-search="true" data-container="body">
-												<option value="1">Enero</option>
-												<option value="2">Febrero</option>
-												<option value="3">Marzo</option>
-												<option value="4">Abril</option>
-												<option value="5">Mayo</option>
-												<option value="6">Junio</option>
-												<option value="7">Julio</option>
-												<option value="8">Agosto</option>
-												<option value="9">Septiembre</option>
-												<option value="10">Octubre</option>
-												<option value="11">Noviembre</option>
-												<option value="12">Diciembre</option>
-											</select>
-										</div>
+										<label class="control-label" for="name">Nombre</label>
+										<input id="nombre" name="nombre" type="text" placeholder="Ingrese el nombre" class="form-control input-sm">
 									</div>
 								</div>
 								<div class="clearfix m-b-10"></div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label class="control-label" for="name">Valor</label>
-										<input id="valor" name="valor" type="text" placeholder="Ingrese el valor" class="form-control input-sm number">
+										<label class="control-label" for="name">Cantidad</label>
+										<input id="limite_facturas" name="limite_facturas" type="text" placeholder="Ingrese la cantidad" class="form-control input-sm number">
 									</div>
 								</div>
 							</form>
@@ -68,49 +53,34 @@
 					</div><!-- /.modal-body -->
 					<div class="modal-footer p-b-20 m-b-20">
 						<div class="col-sm-12">
-							<button type="button" class="btn btn-purple" id="guardarUf">Guardar</button>
+							<button type="button" class="btn btn-purple" id="guardarClase">Guardar</button>
 						</div>
 					</div>
 				</div><!-- /.modal-content -->
 			</div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->
 
-		<div id="UfFormUpdate" class="modal fade" tabindex="-1" role="dialog" id="load">
+		<div id="ClaseFormUpdate" class="modal fade" tabindex="-1" role="dialog" id="load">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
 					<div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
-						<h4 class="modal-title c-negro">Actualizar Uf <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+						<h4 class="modal-title c-negro">Actualizar Clase <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
 					</div>
 					<div class="modal-body">
 						<div class="row" style="padding:20px">
-							<form class="form-horizontal" id = "updateUf">
+							<form class="form-horizontal" id = "updateClase">
 								<input id="id" name="id" type="hidden">
 								<div class="col-md-12">
 									<div class="form-group">
-										<label class="control-label" for="name">Mes</label>
-										<div class="select">
-											<select class="selectpicker form-control" name="mes" id="mes"  data-live-search="true" data-container="body">
-												<option value="1">Enero</option>
-												<option value="2">Febrero</option>
-												<option value="3">Marzo</option>
-												<option value="4">Abril</option>
-												<option value="5">Mayo</option>
-												<option value="6">Junio</option>
-												<option value="7">Julio</option>
-												<option value="8">Agosto</option>
-												<option value="9">Septiembre</option>
-												<option value="10">Octubre</option>
-												<option value="11">Noviembre</option>
-												<option value="12">Diciembre</option>
-											</select>
-										</div>
+										<label class="control-label" for="name">Nombre</label>
+										<input id="nombre" name="nombre" type="text" placeholder="Ingrese el nombre" class="form-control input-sm">
 									</div>
 								</div>
 								<div class="clearfix m-b-10"></div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label class="control-label" for="name">Valor</label>
-										<input id="valor" name="valor" type="text" placeholder="Ingrese el valor" class="form-control input-sm number">
+										<label class="control-label" for="name">Cantidad</label>
+										<input id="limite_facturas" name="limite_facturas" type="text" placeholder="Ingrese la cantidad" class="form-control input-sm number">
 									</div>
 								</div>
 							</form>
@@ -118,7 +88,7 @@
 					</div><!-- /.modal-body -->
 					<div class="modal-footer p-b-20 m-b-20">
 						<div class="col-sm-12">
-							<button type="button" class="btn btn-purple" id="actualizarUf">Actualizar</button>
+							<button type="button" class="btn btn-purple" id="actualizarClase">Actualizar</button>
 						</div>
 					</div>
 				</div><!-- /.modal-content -->
@@ -133,8 +103,9 @@
 					</div>
 					<br>
 					<ol class="breadcrumb">
-						<li><a href="#">Módulo Facturación</a></li>
-						<li class="active">Uf</li>
+						<li><a href="#">Inicio</a></li>
+						<li><a href="#">Configuración</a></li>
+						<li class="active">Clase Cliente</li>
 					</ol>
 					<div id="page-content">
 						<div class="row">
@@ -143,12 +114,12 @@
 									<div class="tab-content">
 										<div class="table-responsive">
 											<div class="col-md-12">
-												<button data-toggle="modal" href="#UfForm" class="btn btn-success">Agregar</button>
-												<table id="UfTable" class="table table-striped table-bordered">
+												<button data-toggle="modal" href="#ClaseForm" class="btn btn-success">Agregar</button>
+												<table id="ClaseTable" class="table table-striped table-bordered">
 													<thead>
 														<tr>
-															<th class="text-center">Mes</th>
-															<th class="text-center">Valor</th>
+															<th class="text-center">Nombre</th>
+															<th class="text-center">Cantidad</th>
 															<th class="text-center">Acción</th>
 														</tr>
 													</thead>
@@ -196,6 +167,6 @@
 		<script src="../js/global/validations.js"></script>
 		<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.min.js"></script>
-		<script src="../js/facturacion/uf/Uf.js"></script>
+		<script src="../js/clase_cliente/ClaseCliente.js"></script>
 	</body>
 </html>
