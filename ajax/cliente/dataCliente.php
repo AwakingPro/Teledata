@@ -69,13 +69,14 @@
 	$query = 'SELECT
 		servicios.Id as Id,
 		servicios.Codigo as "Codigo de Servicios",
-		servicios.TiepoFacturacion as "Tiempo de facturacion",
+		mantenedor_tipo_facturacion.nombre as "Tiempo de Facturacion",
 		mantenedor_servicios.servicio as "Tipo de Servicio",
 		servicios.Valor,
 		COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS Grupo,
 		IF(FechaActivacion IS NULL, "Activo", "Inactivo") as Estatus
 		FROM
 		servicios
+		INNER JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_facturacion.id = servicios.TipoFacturacion 
 		LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
 		LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo 
 	WHERE

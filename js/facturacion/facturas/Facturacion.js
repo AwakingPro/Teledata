@@ -370,12 +370,12 @@ $(document).ready(function(){
                             }
 
                             if(ObjectType == 2){
-                                Row = $('#LoteTable tbody').find('tr[rutid="'+Id+'"]');
+                                Row = $('#LoteTable tbody').find('tr[rutid="'+Id+'"][grupo="'+ObjectGroup+'"]');
                                 Row.find("td").eq(0).html('');
                                 Row.find("td").eq(1).text('Pagada');
                                 Row.find("td").eq(7).html(Icono)
 
-                                Row = $('#IndividualTable tbody').find('tr[rutid="'+Id+'"]');
+                                Row = $('#IndividualTable tbody').find('tr[rutid="'+Id+'"][grupo="'+ObjectGroup+'"]');
                                 Row.find("td").eq(0).text('Pagada');
                                 Row.find("td").eq(6).html(Icono)
                             }else{
@@ -471,7 +471,7 @@ $(document).ready(function(){
                 $.each(response.array, function( index, array ) {
                     var rowNode = ModalTable.row.add([
                         ''+array.Nombre+'',
-                        ''+array.Descripcion+'',
+                        ''+array.Concepto+'',
                         ''+array.Valor+'',
                     ]).draw(false).node();
 

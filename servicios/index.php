@@ -76,11 +76,11 @@
 													</div>
 													<br>
 													<label class="compo-tipoFactura">Periodo de Cobro</label>
-													<select name="TiepoFacturacion" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Tiempo de Facturación">
+													<select name="TipoFacturacion" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Tiempo de Facturación">
 														<option value="">Seleccione...</option>
-														<option >Mensual</option>
-														<option >Semestral</option>
-														<option >Anual</option>
+														<option value="1">Mensual</option>
+														<option value="2">Semestral</option>
+														<option value="3">Anual</option>
 													</select>
 													<br><br>
 													<div class="campo-servicio">
@@ -297,11 +297,11 @@
 								</div>
 								<br>
 								<label class="compo-tipoFactura">Tiempo de Facturación</label>
-								<select id="TiepoFacturacion" name="TiepoFacturacion" class="form-control selectpicker" data-live-search="true">
+								<select id="TipoFacturacion" name="TipoFacturacion" class="form-control selectpicker" data-live-search="true">
 									<option value="">Seleccione...</option>
-									<option >Mensual</option>
-									<option >Semestral</option>
-									<option >Anual</option>
+									<option value="1">Mensual</option>
+									<option value="2">Semestral</option>
+									<option value="3">Anual</option>
 								</select>
 								<br><br>
 								<label class="campo-Valor">Valor</label>
@@ -501,9 +501,9 @@
 									<label>Tipo de Cliente</label>
 									<select name="TipoCliente" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Tipo de Cliente">
 										<option value="">Seleccione...</option>
-										<option value="Boleta">Boleta</option>
-										<option value="Factura">Factura</option>
-										<option value="Canje">Canje</option>
+										<option value="1">Boleta</option>
+										<option value="2">Factura</option>
+										<option value="3">Canje</option>
 									</select>
 								</div>
 								<div class="col-md-6 form-group">

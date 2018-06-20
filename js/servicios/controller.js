@@ -942,7 +942,7 @@ $(document).ready(function() {
 	});
 
 	$('select[name="TipoCliente"]').on('change', function() {
-		if ($(this).val() == "Boleta") {
+		if ($(this).val() == "1") {
 			$('input[name="Giro"]').removeAttr('validate')
 		} else {
 			$('input[name="Giro"]').attr('validate', 'not_null')

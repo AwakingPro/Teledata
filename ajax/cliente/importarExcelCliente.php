@@ -59,7 +59,7 @@
 					// echo '<td>' . $val . '<br>(Typ ' . $dataType . ')</td>';
 				}
 
-				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion) VALUES ('".$Rut."', '1', 'BSMI', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Codigo."', '0', '1970-01-01', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '0', '0', '1970-01-01', NOW())";
+				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TipoFacturacion, Codigo, Descripcion, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion, FechaUltimoCobro) VALUES ('".$Rut."', '1', 'BSMI', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Codigo."', '0', '1970-01-01', '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '0', '0', '1970-01-01', NOW(), NOW())";
 				$id = $run->insert($query);
 				if(!$id){
 					echo 'Error 1';
@@ -108,7 +108,7 @@
 				$query = "INSERT INTO personaempresa
 					(rut, dv, nombre, giro, comuna, ciudad, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession, CodigoCliente)
 					VALUES
-					('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Comuna."', '".$Ciudad."', '".$Direccion."', '".$Correo."', '".$Contacto."', '', '".$Telefono."', '', 'Factura', '".$idUsuario."','".$CodigoCliente."')";
+					('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Comuna."', '".$Ciudad."', '".$Direccion."', '".$Correo."', '".$Contacto."', '', '".$Telefono."', '', '2', '".$idUsuario."','".$CodigoCliente."')";
 				$id = $run->insert($query);
 
 				if(!$id){
@@ -163,7 +163,7 @@
 					// echo '<td>' . $val . '<br>(Typ ' . $dataType . ')</td>';
 				}
 
-				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion) VALUES ('".$Rut."', '1', 'FSMI', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Codigo."', '0', NOW(), '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '0', '0', NOW(),NOW())";
+				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TipoFacturacion, Codigo, Descripcion, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion, FechaUltimoCobro) VALUES ('".$Rut."', '1', 'FSMI', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Codigo."', '0', NOW(), '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '0', '0', NOW(),NOW(),NOW())";
 				$id = $run->insert($query);
 
 				if(!$id){
@@ -207,7 +207,7 @@
 					// echo '<td>' . $val . '<br>(Typ ' . $dataType . ')</td>';
 				}
 
-				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TiepoFacturacion, Codigo, Descripcion, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion) VALUES ('".$Rut."', '1', 'FSMI', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Codigo."', '0', NOW(), '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '0', '0', NOW(), NOW())";
+				$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, TipoFacturacion, Codigo, Descripcion, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion, FechaUltimoCobro) VALUES ('".$Rut."', '1', 'FSMI', '".$Valor."', '0', '".$IdServicio."', 'Mensual', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Codigo."', '0', NOW(), '', '', '', '', '', '', '', '', '', '', '', '', '0', '', '', '0', '', '0', '0', NOW(), NOW(),NOW())";
 				$id = $run->insert($query);
 
 				if(!$id){
@@ -249,7 +249,7 @@
 				$query = "INSERT INTO personaempresa
 					(rut, dv, nombre, giro, comuna, ciudad, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession, CodigoCliente)
 					VALUES
-					('".$Rut."', '".$Dv."', '".$Nombre."', '', '".$Ciudad."', '".$Ciudad."', '".$Direccion."', '', '".$Telefono."', '', '".$Telefono."', '', 'Boleta', '".$idUsuario."','".$CodigoCliente."')";
+					('".$Rut."', '".$Dv."', '".$Nombre."', '', '".$Ciudad."', '".$Ciudad."', '".$Direccion."', '', '".$Telefono."', '', '".$Telefono."', '', '1', '".$idUsuario."','".$CodigoCliente."')";
 				$id = $run->insert($query);
 
 				if(!$id){

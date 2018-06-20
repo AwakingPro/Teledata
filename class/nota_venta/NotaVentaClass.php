@@ -56,7 +56,7 @@
                         $data = $run->select($query);
 
                         if(!$data){
-                            $query = "INSERT INTO servicios(Rut, Valor, Codigo, Grupo, TipoFactura, Descuento, IdServicio, TiepoFacturacion, Descripcion) VALUES ('$Cliente', '$this->Precio','$this->Codigo','','','','','','')";
+                            $query = "INSERT INTO servicios(Rut, Valor, Codigo, Grupo, TipoFactura, Descuento, IdServicio, TipoFacturacion, Descripcion) VALUES ('$Cliente', '$this->Precio','$this->Codigo','','','','','','')";
                             $run = new Method;
                             $servicio = $run->insert($query);
                         }

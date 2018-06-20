@@ -1,11 +1,15 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	$query = 'SELECT
-		rut,
-		nombre,
-		tipo_cliente
+	$query = "SELECT
+		p.rut,
+		p.nombre,
+		mt.nombre as tipo_cliente
 	FROM
-		personaempresa';
+		personaempresa p
+	INNER JOIN 
+		mantenedor_tipo_cliente mt 
+	ON 
+		p.tipo_cliente = mt.id";
 	$run = new Method;
 	$clientes = $run->select($query);
 	if (count($clientes) > 0) {

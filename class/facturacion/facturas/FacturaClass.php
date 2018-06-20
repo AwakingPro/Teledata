@@ -17,10 +17,11 @@
             $ToReturn = array();
 
             $query = '  SELECT 
-                            servicios.Rut, servicios.Grupo, SUM(servicios.CostoInstalacion) as Valor, servicios.EstatusFacturacion, servicios.FechaFacturacion, personaempresa.nombre as Cliente, personaempresa.tipo_cliente as TipoDocumento, COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS NombreGrupo
+                            servicios.Rut, servicios.Grupo, SUM(servicios.CostoInstalacion) as Valor, servicios.EstatusFacturacion, servicios.FechaFacturacion, personaempresa.nombre as Cliente, mantenedor_tipo_cliente.nombre as TipoDocumento, COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS NombreGrupo
                         FROM servicios 
                         INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut 
                         LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo 
+                        INNER JOIN mantenedor_tipo_cliente ON personaempresa.tipo_cliente = mantenedor_tipo_cliente.id
                         WHERE servicios.EstatusFacturacion = 0 
                         AND servicios.CostoInstalacion > 0 
                         AND (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1)
@@ -222,7 +223,7 @@
             $UF = $UfClass->getValue($Fecha);
             $Explode = explode('-',$Id);
 
-            $query = "  SELECT  facturas_detalle.Valor, personaempresa.nombre as Nombre, facturas_detalle.Servicio as Descripcion
+            $query = "  SELECT  facturas_detalle.Valor, personaempresa.nombre as Nombre, facturas_detalle.Concepto as Concepto
                         FROM facturas_detalle 
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
@@ -396,7 +397,7 @@
                             foreach($Servicios as $Servicio){
 
                                 if($Tipo == 2){
-                                    $Concepto = $Servicio["Servicio"] . ' - ' . $Servicio["Descuento"].'% Descuento';
+                                    $Concepto = $Servicio["Concepto"] . ' - ' . $Servicio["Descuento"].'% Descuento';
                                 }else{
                                     $Concepto = 'Costo de instalación / Habilitación'. ' - ' . $Servicio["Descuento"].'% Descuento';
                                     $Valor = floatval($Servicio['Valor']) * $UF;
@@ -423,7 +424,7 @@
                             //Producción
                             // "documentTypeId"    => 22
 
-                            if($cliente['tipo_cliente'] == "Factura"){
+                            if($cliente['tipo_cliente'] == "2"){
                                 if($access_token == "b6ae44d94c240baa08b9fb48aa4333aa712cf3c2"){
                                     $documentTypeId = 82;
                                 }else{
@@ -494,14 +495,14 @@
                                 $Valor = floatval($Servicio['Valor']);
 
                                 if($Tipo == 2){
-                                    $Concepto = $Servicio["Servicio"] . ' - ' . $Servicio["Descuento"].'% Descuento';
+                                    $Concepto = $Servicio["Concepto"] . ' - ' . $Servicio["Descuento"].'% Descuento';
                                 }else{
                                     $Concepto = 'Costo de instalación / Habilitación'. ' - ' . $Servicio["Descuento"].'% Descuento';
                                     $Valor = $Valor * $UF;
                                 }
                                 $Descuento = $Servicio['Descuento'];
 
-                                $query = "INSERT INTO facturas_detalle(FacturaId, Servicio, Valor, Descuento) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Descuento."')";
+                                $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Descuento."', '".$IdServicio."')";
                                 $FacturaDetalleId = $run->insert($query);
                                 if($Tipo == 3){
                                     if($FacturaDetalleId){
@@ -693,7 +694,7 @@
         
                                     foreach($Servicios as $Servicio){
         
-                                            $Concepto = $Servicio["Servicio"] . ' - ' . $Servicio["Descuento"].'% Descuento';
+                                            $Concepto = $Servicio["Concepto"] . ' - ' . $Servicio["Descuento"].'% Descuento';
         
                                         $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Concepto, "discount" => floatval($Servicio["Descuento"]));
         
@@ -716,7 +717,7 @@
                                     //Producción
                                     // "documentTypeId"    => 22
         
-                                    if($cliente['tipo_cliente'] == "Factura"){
+                                    if($cliente['tipo_cliente'] == "2"){
                                         if($access_token == "b6ae44d94c240baa08b9fb48aa4333aa712cf3c2"){
                                             $documentTypeId = 82;
                                         }else{
@@ -785,10 +786,10 @@
 
                                         $IdServicio = $Servicio['Id'];
                                         $Valor = floatval($Servicio['Valor']);
-                                        $Concepto = $Servicio["Servicio"] . ' - ' . $Servicio["Descuento"].'% Descuento';
+                                        $Concepto = $Servicio["Concepto"] . ' - ' . $Servicio["Descuento"].'% Descuento';
                                         $Descuento = $Servicio['Descuento'];
 
-                                        $query = "INSERT INTO facturas_detalle(FacturaId, Servicio, Valor, Descuento) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Descuento."')";
+                                        $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Descuento."')";
                                         $FacturaDetalleId = $run->insert($query);
                                     }
 
@@ -825,75 +826,63 @@
             echo json_encode($response_array);
         }
 
-        public function generarFacturasMensuales(){
+        public function generarFacturas(){
 
             $run = new Method;
-            $query = "SELECT * FROM variables_globales";
-            $Variables = $run->select($query);
+            $dt = new DateTime(); 
+            $Anio = $dt->format('Y');
+            $MesFacturacion = $this->generarMes($dt);
+            $Facturas = array();
 
-            if($Variables){
+            $query = "  SELECT 
+                            s.*, ms.servicio as Servicio, p.tipo_cliente, 
+                            CASE
+								WHEN 
+                                    (SELECT COUNT(fd.Id) FROM facturas_detalle fd INNER JOIN facturas f ON f.Id = fd.FacturaId WHERE s.Id = fd.IdServicio AND f.TipoFactura = 2 AND f.EstatusFacturacion = 0) >= (SELECT limite_facturas FROM clases_cliente WHERE id = p.ClaseCliente)
+                                THEN
+                                    '0'
+                                ELSE
+                                    '1'
+                                END
+                            as PermitirFactura
+                        FROM 
+                            servicios s
+                        INNER JOIN 
+                            personaempresa p
+                        ON 
+                            s.Rut = p.rut
+                        LEFT JOIN 
+                            mantenedor_servicios ms
+                        ON 
+                            s.IdServicio = ms.IdServicio";
+            $Servicios = $run->select($query);
 
-                $Variables = $Variables[0];
-                $FechaComprobacion = $Variables['fecha_comprobacion'];
-                $dt = new DateTime(); 
-                $Mes = $dt->format('m');
-                $Hoy = $dt->format('Y-m-d');
-                $Facturas = array();
-
-                if($Hoy > $FechaComprobacion){
-
-                    switch ($Mes) {
-                        case 1:
-                            $MesFacturacion = "Enero";
-                            break;
-                        case 2:
-                            $MesFacturacion = "Febrero";
-                            break;
-                        case 3:
-                            $MesFacturacion = "Marzo";
-                            break;
-                        case 4:
-                            $MesFacturacion = "Abril";
-                            break;
-                        case 5:
-                            $MesFacturacion = "Mayo";
-                            break;
-                        case 6:
-                            $MesFacturacion = "Junio";
-                            break;
-                        case 7:
-                            $MesFacturacion = "Julio";
-                            break;
-                        case 8:
-                            $MesFacturacion = "Agosto";
-                            break;
-                        case 9:
-                            $MesFacturacion = "Septiembre";
-                            break;
-                        case 10:
-                            $MesFacturacion = "Octubre";
-                            break;
-                        case 11:
-                            $MesFacturacion = "Noviembre";
-                            break;
-                        case 12:
-                            $MesFacturacion = "Diciembre";
-                            break;
-                    }
-
-                    $query = "  SELECT servicios.*, mantenedor_servicios.servicio as Servicio, personaempresa.tipo_cliente
-                                FROM servicios 
-                                INNER JOIN personaempresa ON servicios.Rut = personaempresa.rut
-                                LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio";
-                    $Servicios = $run->select($query);
-
-                    if($Servicios){
-                        $UfClass = new Uf(); 
-                        $Fecha = date('d-m-Y');
-                        $UF = $UfClass->getValue($Fecha);
-                        
-                        foreach($Servicios as $Servicio){
-
+            if($Servicios){
+                $UfClass = new Uf(); 
+                $Fecha = date('d-m-Y');
+                $UF = $UfClass->getValue($Fecha);
+                
+                foreach($Servicios as $Servicio){
+                    $Id = $Servicio['Id'];
+                    $FechaActivacion = $Servicio['FechaActivacion'];
+                    $PermitirFactura = $Servicio['PermitirFactura'];
+                    if(!$FechaActivacion && $PermitirFactura){
+                        $FechaUltimoCobro = $Servicio['FechaUltimoCobro'];
+                        $FechaUltimoCobro = new DateTime($FechaUltimoCobro);                     
+                        $TipoFacturacion = $Servicio['TipoFacturacion'];
+                        $Concepto = $Servicio['Servicio'];
+                        if($TipoFacturacion == '1'){
+                            $Concepto .= ' - Mes ' . $MesFacturacion;
+                            $FechaUltimoCobro->add(new DateInterval("P1M"));
+                        }elseif($TipoFacturacion == '2'){
+                            $MesUltimoCobro = $this->generarMes($FechaUltimoCobro);
+                            $Concepto .= ' - Semestre '. $MesUltimoCobro . ' / ' . $MesFacturacion;
+                            $FechaUltimoCobro->add(new DateInterval("P6M"));
+                        }else{
+                            $Concepto .= ' - Año ' . $Anio;
+                            $FechaUltimoCobro->add(new DateInterval("P1Y"));
+                        }
+                        if($FechaUltimoCobro <= $dt){
                             $Rut = $Servicio['Rut'];
                             $Grupo = $Servicio['Grupo'];
 
@@ -905,23 +894,17 @@
                                 $FacturaId = $run->insert($query);
                             }
 
-                            $Concepto = $Servicio['Servicio'];
-                            $Concepto .= ' - Mes ' . $MesFacturacion;
                             $Valor = $Servicio['Valor'];
                             $Valor = $Valor * $UF;
                             $Descuento = $Servicio['Descuento'];
-                            $Hoy = new DateTime(); 
-                            $Hoy = $Hoy->format('Y-m-d H:i:s');
 
-                            $query = "INSERT INTO facturas_detalle(FacturaId, Servicio, Valor, Descuento) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Descuento."')";
+                            $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Descuento."', '".$Id."')";
                             $data = $run->insert($query);
                             $Facturas[$Rut.'-'.$Grupo] = $FacturaId;
                         }
                     }
-
-                    $FechaComprobacion = date('Y-m-d', strtotime('first day of next month'));
-                    $query = "UPDATE `variables_globales` set `fecha_comprobacion` = '".$FechaComprobacion."'";
-                    $update = $run->update($query);
+                    $query = "UPDATE servicios SET FechaUltimoCobro = NOW() WHERE Id = '".$Id."'";
+                    $data = $run->update($query);
                 }
             }
 
@@ -952,7 +935,7 @@
                             facturas.TipoDocumento";
             $facturas = $run->select($query);
             foreach($facturas as $factura){
-                if($factura['TipoDocumento'] == 'Factura'){
+                if($factura['TipoDocumento'] == '2'){
                     $totalFacturas += $factura['Valor'];
                     $cantidadFacturas += $factura['Cantidad'];
                 }else{
@@ -979,7 +962,7 @@
                             personaempresa.tipo_cliente";
             $servicios = $run->select($query);
             foreach($servicios as $servicio){
-                if($servicio['TipoDocumento'] == 'Factura'){
+                if($servicio['TipoDocumento'] == '2'){
                     $totalFacturas += $servicio['Valor'];
                     $cantidadFacturas += $servicio['Cantidad'];
                 }else{
@@ -990,6 +973,50 @@
 
             $array = array('totalFacturas' => number_format($totalFacturas, 2), 'totalBoletas' => number_format($totalBoletas, 2), 'cantidadFacturas' => $cantidadFacturas, 'cantidadBoletas' => $cantidadBoletas);
             return $array;
+        }
+
+        function generarMes($dt){
+            $Mes = $dt->format('m');
+
+            switch ($Mes) {
+                case 1:
+                    $MesFacturacion = "Enero";
+                    break;
+                case 2:
+                    $MesFacturacion = "Febrero";
+                    break;
+                case 3:
+                    $MesFacturacion = "Marzo";
+                    break;
+                case 4:
+                    $MesFacturacion = "Abril";
+                    break;
+                case 5:
+                    $MesFacturacion = "Mayo";
+                    break;
+                case 6:
+                    $MesFacturacion = "Junio";
+                    break;
+                case 7:
+                    $MesFacturacion = "Julio";
+                    break;
+                case 8:
+                    $MesFacturacion = "Agosto";
+                    break;
+                case 9:
+                    $MesFacturacion = "Septiembre";
+                    break;
+                case 10:
+                    $MesFacturacion = "Octubre";
+                    break;
+                case 11:
+                    $MesFacturacion = "Noviembre";
+                    break;
+                case 12:
+                    $MesFacturacion = "Diciembre";
+                    break;
+            }
+            return $MesFacturacion;
         }
     }
 ?>

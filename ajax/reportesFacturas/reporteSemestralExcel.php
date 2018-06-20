@@ -65,7 +65,7 @@ servicios.TipoFactura,
 servicios.Valor,
 servicios.Descuento,
 servicios.IdServicio,
-servicios.TiepoFacturacion,
+mantenedor_tipo_facturacion.nombre as "Tiempo de Facturacion",
 servicios.Codigo,
 servicios.Descripcion,
 servicios.TipoMoneda,
@@ -84,6 +84,7 @@ mantenedor_servicios.servicio
 FROM
 	servicios
 	INNER JOIN personaempresa ON servicios.Rut = personaempresa.rut
+	INNER JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_facturacion.id = servicios.TipoFacturacion 
 	INNER JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
 	LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo';
 $run = new Method;

@@ -4,7 +4,6 @@
 	tickets.IdTickets as '#',
 	tickets.FechaCreacion as Fecha,
 	clase_tickets.Nombre as Clase,
-	CONCAT(personaempresa.rut, ' - ', personaempresa.nombre) AS Cliente,
 	origen_tickets.Nombre as Origen,
 	departamentos_tickets.Nombre as Departamento,
 	usuarios.usuario as Usuario,

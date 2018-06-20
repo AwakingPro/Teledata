@@ -52,9 +52,9 @@
 															<label>Tipo de Cliente</label>
 															<select name="TipoCliente" class="form-control selectpicker" data-live-search="true" validate="not_null">
 																<option value="">Seleccione...</option>
-																<option value="Boleta">Boleta</option>
-																<option value="Factura">Factura</option>
-																<option value="Canje">Canje</option>
+																<option value="1">Boleta</option>
+																<option value="2">Factura</option>
+																<option value="3">Canje</option>
 															</select>
 														</div>
 														<div class="col-md-6 form-group">
@@ -204,8 +204,9 @@
 						<label>Tipo de Cliente</label>
 						<select name="TipoCliente_update" class="form-control selectpicker" data-live-search="true">
 							<option value="">Seleccione...</option>
-							<option value="Boleta">Boleta</option>
-							<option value="Factura">Factura</option>
+							<option value="1">Boleta</option>
+							<option value="2">Factura</option>
+							<option value="3">Canje</option>
 						</select>
 					</div>
 					<div class="col-md-5 form-group">

@@ -312,7 +312,7 @@
 							    $Montodiario = $Valor / $Diasdelmes;
 								$Montoporfacturar = $Diasporfacturar * $Montodiario;
 
-			                    $query = "INSERT INTO facturas_detalle(FacturaId, Servicio, Valor, Descuento) VALUES ('$FacturaId', '$Concepto', '$Montoporfacturar', '$Descuento')";
+			                    $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio) VALUES ('$FacturaId', '$Concepto', '$Montoporfacturar', '$Descuento', '$this->Id')";
 			                    $FacturaDetalle = $run->insert($query);
 		                    }
 	                    }

@@ -46,7 +46,7 @@ if(isset($_GET['startDate']) && isset($_GET['endDate'])){
 
 $query = "  SELECT
                 facturas_detalle.Valor,
-                facturas_detalle.Servicio,
+                facturas_detalle.Concepto,
                 facturas.Id,
                 facturas.Rut,
                 facturas.FechaFacturacion,
@@ -84,7 +84,7 @@ if (count($documentos) > 0) {
 		->setCellValue('D'.$index, $documento['Rut'])
 		->setCellValue('E'.$index, $documento['Grupo'])
 		->setCellValue('F'.$index, $documento['Cliente'])
-		->setCellValue('G'.$index, $documento['Servicio'])
+		->setCellValue('G'.$index, $documento['Concepto'])
         ->setCellValue('H'.$index, $documento['Valor']);
         
         $Total += $documento['Valor'];

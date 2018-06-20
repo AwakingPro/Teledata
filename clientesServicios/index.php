@@ -167,11 +167,11 @@
 									</div>
 									<br>
 									<label class="compo-tipoFactura">Tiempo de Facturación</label>
-									<select id="TiepoFacturacion" name="TiepoFacturacion" class="form-control selectpicker" data-live-search="true">
+									<select id="TipoFacturacion" name="TipoFacturacion" class="form-control selectpicker" data-live-search="true">
 										<option value="">Seleccione...</option>
-										<option >Mensual</option>
-										<option >Semestral</option>
-										<option >Anual</option>
+										<option value="1">Mensual</option>
+										<option value="2">Semestral</option>
+										<option value="3">Anual</option>
 									</select>
 									<br><br>
 									<label class="campo-Valor">Valor</label>
