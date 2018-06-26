@@ -1023,5 +1023,222 @@
             }
             return $MesFacturacion;
         }
+
+        public function generarFacturacionAutomatica(){
+
+            if(in_array  ('curl', get_loaded_extensions())) {
+
+                $response_array = array();
+
+                //NECESITO NUEVAS TOKENS
+
+                //Demo
+                // $access_token='b6ae44d94c240baa08b9fb48aa4333aa712cf3c2';
+                //Producción
+                $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
+
+                $query = "  SELECT Id, Rut
+                            FROM facturas
+                            WHERE EstatusFacturacion = 0";
+                $expirationDate = time() + 1728000;
+                $run = new Method;
+                $Facturas = $run->select($query);
+
+                if($Facturas){
+                    foreach($Facturas as $Factura){
+                        $Id = $Factura['Id'];
+                        $Rut = $Factura['Rut'];
+
+                        $query = "SELECT * FROM personaempresa WHERE rut = '".$Rut."'";
+                        $cliente = $run->select($query);
+
+                        if($cliente){
+
+                            $cliente = $cliente[0];
+                            $TipoDocumento = $cliente['tipo_cliente'];
+
+                            //CONSULTA AL CLIENTE
+
+                            $url='https://api.bsale.cl/v1/clients.json?code='.$cliente['rut'].'-'.$cliente['dv'];
+
+                            // Inicia cURL
+                            $session = curl_init($url);
+
+                            // Indica a cURL que retorne data
+                            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+                            // Activa SSL
+                            // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
+
+                            // Configura cabeceras
+                            $headers = array(
+                                'access_token: ' . $access_token,
+                                'Accept: application/json',
+                                'Content-Type: application/json'
+                            );
+                            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+                            // Ejecuta cURL
+                            $response = curl_exec($session);
+
+                            // Cierra la sesión cURL
+                            curl_close($session);
+
+                            //Esto es sólo para poder visualizar lo que se está retornando
+                            $client = json_decode($response, true);
+
+                            //SI EL CLIENTE NO EXISTE EN LA API, SE CREA CON LA DATA DE TELEDATA
+
+                            if($client['count']){
+                                $clientId = $client['items'][0]['id'];
+                            }else{
+
+                                if($cliente['ciudad']){
+                                    $ciudad = $cliente['ciudad'];
+                                }else{
+                                    $ciudad = 'Puerto Varas';
+                                }
+
+                                if($cliente['comuna']){
+                                    $comuna = $cliente['comuna'];
+                                }else{
+                                    $comuna = 'Puerto Varas';
+                                }
+
+                                $clientId = null;
+                                $client = array(
+                                    "code"          => $cliente['rut'].'-'.$cliente['dv'],
+                                    "firstName"     => $cliente['contacto'],
+                                    "lastName"      => "",
+                                    "email"         => $cliente['correo'],
+                                    "phone"         => $cliente['telefono'],
+                                    "address"       => $cliente['direccion'],
+                                    "company"       => $cliente['nombre'],
+                                    "city"          => $ciudad,
+                                    "municipality"  => $comuna,
+                                    "activity"      => $cliente['giro']
+                                );
+                            }
+
+                            //CREACION DE LA FACTURA
+
+                            $url='https://api.bsale.cl/v1/documents.json';
+
+                            // Inicia cURL
+                            $session = curl_init($url);
+
+                            // Indica a cURL que retorne data
+                            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+                            // Activa SSL
+                            // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
+
+                            // Configura cabeceras
+                            $headers = array(
+                                'access_token: ' . $access_token,
+                                'Accept: application/json',
+                                'Content-Type: application/json'
+                            );
+                            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+                            // Indica que se va ser una petición POST
+                            curl_setopt($session, CURLOPT_POST, true);
+
+                            //CONSTRUCCION DEL ARRAY DE DETALLE
+
+                            $query = "SELECT * FROM facturas_detalle WHERE FacturaId = '".$Id."'";
+                            $Detalles = $run->select($query);
+                            $details = array();
+
+                            foreach($Detalles as $Detalle){
+                                $Valor = floatval($Detalle['Valor']);
+                                $Concepto = $Detalle["Concepto"];
+                                $Descuento = $Detalle["Descuento"];
+                                $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Concepto, "discount" => floatval($Descuento));
+                                array_push($details,$detail);
+                            }
+
+                            //FACTURA
+
+                            //Demo
+                            // "documentTypeId"    => 82
+
+                            //Producción
+                            // "documentTypeId"    => 5
+
+                            //BOLETA
+
+                            //Demo
+                            // "documentTypeId"    => 26
+
+                            //Producción
+                            // "documentTypeId"    => 22
+
+                            if($cliente['tipo_cliente'] == "2"){
+                                if($access_token == "b6ae44d94c240baa08b9fb48aa4333aa712cf3c2"){
+                                    $documentTypeId = 82;
+                                }else{
+                                    $documentTypeId = 5;
+                                }
+                            }else{
+                                if($access_token == "b6ae44d94c240baa08b9fb48aa4333aa712cf3c2"){
+                                    $documentTypeId = 26;
+                                }else{
+                                    $documentTypeId = 22;
+                                }
+                            }
+
+                            $array = array(
+                                "documentTypeId"    => $documentTypeId,
+                                // "priceListId"       => 18,
+                                "emissionDate"      => time(),
+                                "expirationDate"    => $expirationDate,
+                                "declareSii"        => 1,
+                                "details"           => $details
+                            );
+
+                            if($clientId){
+                                $array['clientId'] = $clientId;
+                            }else{
+                                $array['client'] = $client;
+                            }
+
+                            // Parsea a JSON
+                            $data = json_encode($array);
+
+                            // Agrega parámetros
+                            curl_setopt($session, CURLOPT_POSTFIELDS, $data);
+
+                            // Ejecuta cURL
+                            $response = curl_exec($session);
+
+                            // // Cierra la sesión cURL
+                            curl_close($session);
+
+                            //Esto es sólo para poder visualizar lo que se está retornando
+                            $FacturaBsale = json_decode($response, true);
+                            $UrlPdf = isset($FacturaBsale['urlPublicViewOriginal']) ? trim($FacturaBsale['urlPublicViewOriginal']) : "";
+                            if($UrlPdf){
+                                $DocumentoId = $FacturaBsale['id'];
+                                $informedSii = $FacturaBsale['informedSii'];
+                                $responseMsgSii = $FacturaBsale['responseMsgSii'];
+                                $query = "UPDATE facturas SET EstatusFacturacion = '1', DocumentoIdBsale = '".$DocumentoId."', UrlPdfBsale = '".$UrlPdf."', informedSiiBsale = '".$informedSii."', responseMsgSiiBsale = '".$responseMsgSii."', FechaFacturacion = NOW(), HoraFacturacion = NOW() WHERE Id = '".$Id."'";
+                                $update = $run->update($query);
+                                $response_array['status'] = 1;
+                            }else{
+                                $response_array['Message'] = $FacturaBsale['error'];
+                                $response_array['status'] = 0;
+                            }
+                        }else{
+                            $response_array['status'] = 4;
+                        }
+                    }
+                }else{
+                    $response_array['status'] = 3;
+                }
+            }else{
+                $response_array['status'] = 99;
+            }
+
+            echo json_encode($response_array);
+        }
     }
 ?>

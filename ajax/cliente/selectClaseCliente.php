@@ -9,7 +9,7 @@
 	if (count($data) > 0) {
 		$list ='<option value="">Seleccione...</option>';
 		for ($i=0; $i < count($data); $i++) {
-			$list.= '<option value="'.$data[$i][0].'">'.$data[$i][0].'</option>';
+			$list.= '<option value="'.$data[$i][0].'">'.$data[$i][1].'</option>';
 		}
 		echo $list;
 	}else{
