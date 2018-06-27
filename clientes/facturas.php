@@ -14,6 +14,7 @@
 		<link href="../plugins/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+		<link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
@@ -217,6 +218,7 @@
 	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 	<script src="../js/clientes/facturas.js"></script>
 	<script src="../plugins/numbers/jquery.number.js"></script>
+	<script src="../plugins/sweetalert/sweetalert.min.js"></script>
 	<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 </body>
 </html>

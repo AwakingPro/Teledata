@@ -2,6 +2,8 @@
 
 $(document).ready(function() {
 
+	var ModalTable
+
 	$('select[name="rutCliente"]').load('../ajax/servicios/selectClientes.php',function(){
 		$('select[name="rutCliente"]').selectpicker();
 	});
@@ -294,5 +296,50 @@ $(document).ready(function() {
             }
         });
 
+	});
+	
+	$(document).on('click', '.EliminarPago', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = ObjectTR.attr("id");
+
+        swal({   
+            title: "Desea eliminar este registro?",   
+            text: "Confirmar eliminación!",   
+            type: "warning",   
+            showCancelButton: true,   
+            confirmButtonColor: "#28a745",   
+            confirmButtonText: "Eliminar!",  
+            cancelButtonText: "Cancelar",         
+            showLoaderOnConfirm: true
+        },function(isConfirm){   
+            if (isConfirm) {
+    
+                $.ajax({
+                    url: "../ajax/cliente/deletePago.php",
+                    type: 'POST',
+                    data:"&id="+ObjectId,
+                    success:function(response){
+                        setTimeout(function() {
+                            if(response == 1){
+                                swal("Éxito!","El registro ha sido eliminado!","success");
+                                ModalTable.row($(ObjectTR))
+                                    .remove()
+									.draw();
+									getFacturas();
+                            }else if(response == 3){
+                                swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee otros registros asociados','error');
+                            }else{
+                                swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                            }
+                        }, 1000);  
+                    },
+                    error:function(){
+                        swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                    }
+                });
+            }
+        });
     });
 });
