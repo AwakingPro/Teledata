@@ -85,7 +85,7 @@ $(document).ready(function(){
         defaultDate: new Date()
     });
 
-    $(".number").mask("000.000.000.000",{reverse: true});
+    $('.number').number(true, 2, ',', '.');
     $("#cantidad").mask("000000");
     $("#impuesto").mask("00");
 

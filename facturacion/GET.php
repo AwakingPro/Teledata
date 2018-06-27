@@ -1,6 +1,6 @@
 <?php
-    $url='https://api.bsale.cl/v1/documents.json';
-    $access_token='e0b1793372fd0a5477794e167dd72a1824a95d2c';
+    $url='https://api.bsale.cl/v1/document_types.json';
+    $access_token='55c32f657ce5aa159a6fc039b64aabceead8f061';
 
     // Inicia cURL
     $session = curl_init($url);

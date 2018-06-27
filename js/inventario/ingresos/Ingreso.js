@@ -31,7 +31,7 @@ $(document).ready(function(){
     });
 
     $(".number").mask("0000000000");
-    $(".valor").mask("000.000.000.000",{reverse: true});
+    $('.valor').number(true, 2, ',', '.');
 
     $('#tipo_busqueda_ingreso').val('')
     $('#tipo_busqueda_ingreso').selectpicker('refresh')

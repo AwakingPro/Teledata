@@ -333,7 +333,7 @@
 									$tabla.="<td>".$valor."</td>";
 							}
 							$tabla.='<td class="optionTable">
-								<i class="fa fa-power-off estatusServicio" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#modalEstatus" aria-hidden="true" title="Ver"></i>
+								<i class="fa fa-power-off estatusServicio" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#modalEstatus" aria-hidden="true" title="Activar/Desactivar"></i>
 								<i class="fa fa-plus listDatosTecnicos" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#verServicios" aria-hidden="true" title="Ver"></i>
 								<i class="fa fa-pencil-square-o mostrarDatosTecnicos" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#modalEditar" aria-hidden="true" title="Ver"></i>
 								<i class="fa fa-times eliminarServicio" attr="'.$rows[$i][0].'" aria-hidden="true" title="eliminar"></i>

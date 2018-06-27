@@ -257,10 +257,8 @@
 
                 $response_array = array();
 
-                //NECESITO NUEVAS TOKENS
-
                 //Demo
-                // $access_token='b6ae44d94c240baa08b9fb48aa4333aa712cf3c2';
+                $access_token='55c32f657ce5aa159a6fc039b64aabceead8f061';
                 //Producción
                 // $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
 
@@ -273,6 +271,7 @@
                                 AND facturas.EstatusFacturacion = 0
                                 AND facturas_detalle.Valor > 0";
                     $expirationDate = time() + 1728000;
+                    $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else{
                     $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, mantenedor_servicios.servicio as Servicio 
                                 FROM servicios 
@@ -281,6 +280,7 @@
                                 AND servicios.EstatusFacturacion = 0
                                 AND servicios.Valor > 0";
                     $expirationDate = time() + 604800;
+                    $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }
 
                 $run = new Method;
@@ -396,6 +396,7 @@
 
                                 if($Tipo == 2){
                                     $Concepto = $Servicio["Concepto"] . ' - ' . $Servicio["Descuento"].'% Descuento';
+                                    $Valor = floatval($Servicio['Valor']);
                                 }else{
                                     $Concepto = 'Costo de instalación / Habilitación'. ' - ' . $Servicio["Descuento"].'% Descuento';
                                     $Valor = floatval($Servicio['Valor']) * $UF;
@@ -409,7 +410,7 @@
                             //FACTURA
 
                             //Demo
-                            // "documentTypeId"    => 82
+                            // "documentTypeId"    => 5
 
                             //Producción
                             // "documentTypeId"    => 5
@@ -417,23 +418,15 @@
                             //BOLETA
 
                             //Demo
-                            // "documentTypeId"    => 26
+                            // "documentTypeId"    => 22
 
                             //Producción
                             // "documentTypeId"    => 22
 
                             if($cliente['tipo_cliente'] == "2"){
-                                if($access_token == "b6ae44d94c240baa08b9fb48aa4333aa712cf3c2"){
-                                    $documentTypeId = 82;
-                                }else{
-                                    $documentTypeId = 5;
-                                }
+                                $documentTypeId = 5;
                             }else{
-                                if($access_token == "b6ae44d94c240baa08b9fb48aa4333aa712cf3c2"){
-                                    $documentTypeId = 26;
-                                }else{
-                                    $documentTypeId = 22;
-                                }
+                                $documentTypeId = 22;
                             }
 
                             $array = array(
@@ -466,13 +459,15 @@
                             //Esto es sólo para poder visualizar lo que se está retornando
                             $FacturaBsale = json_decode($response, true);
                             $UrlPdf = isset($FacturaBsale['urlPublicViewOriginal']) ? trim($FacturaBsale['urlPublicViewOriginal']) : "";
-                            if(!$UrlPdf){
+                            if($UrlPdf){
                                 $DocumentoId = $FacturaBsale['id'];
                                 $informedSii = $FacturaBsale['informedSii'];
                                 $responseMsgSii = $FacturaBsale['responseMsgSii'];
                             }else{
                                 $response_array['Message'] = $FacturaBsale['error'];
                                 $response_array['status'] = 0;
+                                echo json_encode($response_array);
+                                return;
                             }
                         }else{
                             $UrlPdf = '0';
@@ -483,7 +478,7 @@
 
                         //Para actualizar los datos del servicios con los datos de Bsale
 
-                        $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento) VALUES ('".$Rut."', '".$Grupo."', '".$Tipo."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."')";
+                        $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '".$Tipo."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19)";
                         $FacturaId = $run->insert($query);
 
                         if($FacturaId){
@@ -558,7 +553,7 @@
                 $response_array = array();
 
                 //Demo
-                // $access_token='b6ae44d94c240baa08b9fb48aa4333aa712cf3c2';
+                $access_token='55c32f657ce5aa159a6fc039b64aabceead8f061';
                 //Producción
                 // $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
 
@@ -567,6 +562,7 @@
                 $UfClass = new Uf(); 
                 $UF = $UfClass->getValue($Fecha);
                 $expirationDate = time() + 1728000;
+                $FechaVencimiento = date('Y-m-d', $expirationDate);
 
                 foreach($Facturas as $Factura){
 
@@ -591,6 +587,7 @@
                         if($Servicios){
                             $Servicio = $Servicios[0];
                             $Rut = $Servicio['Rut'];
+                            $Valor = $Servicio['Valor'];
 
                             $query = "SELECT * FROM personaempresa WHERE rut = '".$Rut."'";
                             $cliente = $run->select($query);
@@ -691,9 +688,8 @@
                                     $details = array();
         
                                     foreach($Servicios as $Servicio){
-        
-                                            $Concepto = $Servicio["Concepto"] . ' - ' . $Servicio["Descuento"].'% Descuento';
-        
+                                        
+                                        $Concepto = $Servicio["Concepto"] . ' - ' . $Servicio["Descuento"].'% Descuento';
                                         $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Concepto, "discount" => floatval($Servicio["Descuento"]));
         
                                         array_push($details,$detail);
@@ -702,7 +698,7 @@
                                     //FACTURA
         
                                     //Demo
-                                    // "documentTypeId"    => 82
+                                    // "documentTypeId"    => 5
         
                                     //Producción
                                     // "documentTypeId"    => 5
@@ -716,17 +712,9 @@
                                     // "documentTypeId"    => 22
         
                                     if($cliente['tipo_cliente'] == "2"){
-                                        if($access_token == "b6ae44d94c240baa08b9fb48aa4333aa712cf3c2"){
-                                            $documentTypeId = 82;
-                                        }else{
-                                            $documentTypeId = 5;
-                                        }
+                                        $documentTypeId = 5;
                                     }else{
-                                        if($access_token == "b6ae44d94c240baa08b9fb48aa4333aa712cf3c2"){
-                                            $documentTypeId = 26;
-                                        }else{
-                                            $documentTypeId = 22;
-                                        }
+                                        $documentTypeId = 22;
                                     }
         
                                     $array = array(
@@ -759,13 +747,15 @@
                                     //Esto es sólo para poder visualizar lo que se está retornando
                                     $FacturaBsale = json_decode($response, true);
                                     $UrlPdf = isset($FacturaBsale['urlPublicViewOriginal']) ? trim($FacturaBsale['urlPublicViewOriginal']) : "";
-                                    if(!$UrlPdf){
+                                    if($UrlPdf){
                                         $DocumentoId = $FacturaBsale['id'];
                                         $informedSii = $FacturaBsale['informedSii'];
                                         $responseMsgSii = $FacturaBsale['responseMsgSii'];
                                     }else{
                                         $response_array['Message'] = $FacturaBsale['error'];
                                         $response_array['status'] = 0;
+                                        echo json_encode($response_array);
+                                        return;
                                     }
                                 }else{
                                     $UrlPdf = '0';
@@ -776,7 +766,7 @@
 
                                 //Para actualizar los datos del servicios con los datos de Bsale
 
-                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento) VALUES ('".$Rut."', '".$Grupo."', '2', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."')";
+                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '2', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19)";
                                 $FacturaId = $run->insert($query);
 
                                 if($FacturaId){
@@ -893,7 +883,7 @@
                                 $FacturaId = $Facturas[$Rut.'-'.$Grupo];
                             }else{
                                 $TipoDocumento = $Servicio['tipo_cliente'];
-                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(), '".$TipoDocumento."')";
+                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19)";
                                 $FacturaId = $run->insert($query);
                             }
 
@@ -950,7 +940,7 @@
             }
 
             $query = "  SELECT 
-                            personaempresa.tipo_cliente as TipoDocumento, SUM(servicios.CostoInstalacion) * '".$UF."' as Valor, COUNT(servicios.Id) as Cantidad
+                            personaempresa.tipo_cliente as TipoDocumento, SUM(servicios.CostoInstalacion) * '".$UF."' as Valor
                         FROM 
                             servicios 
                         INNER JOIN 
@@ -964,15 +954,16 @@
                         AND 
                             (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1)
                         GROUP BY
-                            personaempresa.tipo_cliente";
+                            servicios.Rut,
+                            servicios.Grupo";
             $servicios = $run->select($query);
             foreach($servicios as $servicio){
                 if($servicio['TipoDocumento'] == '2'){
                     $totalFacturas += $servicio['Valor'];
-                    $cantidadFacturas += $servicio['Cantidad'];
+                    $cantidadFacturas++;
                 }else{
                     $totalBoletas += $servicio['Valor'];
-                    $cantidadBoletas += $servicio['Cantidad'];
+                    $cantidadBoletas++;
                 }
             }
 
@@ -1030,17 +1021,16 @@
 
                 $response_array = array();
 
-                //NECESITO NUEVAS TOKENS
-
                 //Demo
-                // $access_token='b6ae44d94c240baa08b9fb48aa4333aa712cf3c2';
+                $access_token='55c32f657ce5aa159a6fc039b64aabceead8f061';
                 //Producción
-                $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
+                // $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
 
                 $query = "  SELECT Id, Rut
                             FROM facturas
                             WHERE EstatusFacturacion = 0";
                 $expirationDate = time() + 1728000;
+                $FechaVencimiento = date('Y-m-d', $expirationDate);
                 $run = new Method;
                 $Facturas = $run->select($query);
 
@@ -1159,7 +1149,7 @@
                             //FACTURA
 
                             //Demo
-                            // "documentTypeId"    => 82
+                            // "documentTypeId"    => 5
 
                             //Producción
                             // "documentTypeId"    => 5
@@ -1173,17 +1163,9 @@
                             // "documentTypeId"    => 22
 
                             if($cliente['tipo_cliente'] == "2"){
-                                if($access_token == "b6ae44d94c240baa08b9fb48aa4333aa712cf3c2"){
-                                    $documentTypeId = 82;
-                                }else{
-                                    $documentTypeId = 5;
-                                }
+                                $documentTypeId = 5;
                             }else{
-                                if($access_token == "b6ae44d94c240baa08b9fb48aa4333aa712cf3c2"){
-                                    $documentTypeId = 26;
-                                }else{
-                                    $documentTypeId = 22;
-                                }
+                                $documentTypeId = 22;
                             }
 
                             $array = array(
@@ -1220,7 +1202,7 @@
                                 $DocumentoId = $FacturaBsale['id'];
                                 $informedSii = $FacturaBsale['informedSii'];
                                 $responseMsgSii = $FacturaBsale['responseMsgSii'];
-                                $query = "UPDATE facturas SET EstatusFacturacion = '1', DocumentoIdBsale = '".$DocumentoId."', UrlPdfBsale = '".$UrlPdf."', informedSiiBsale = '".$informedSii."', responseMsgSiiBsale = '".$responseMsgSii."', FechaFacturacion = NOW(), HoraFacturacion = NOW() WHERE Id = '".$Id."'";
+                                $query = "UPDATE facturas SET EstatusFacturacion = '1', DocumentoIdBsale = '".$DocumentoId."', UrlPdfBsale = '".$UrlPdf."', informedSiiBsale = '".$informedSii."', responseMsgSiiBsale = '".$responseMsgSii."', FechaFacturacion = NOW(), HoraFacturacion = NOW(), FechaVencimiento = '".$FechaVencimiento."' WHERE Id = '".$Id."'";
                                 $update = $run->update($query);
                                 $response_array['status'] = 1;
                             }else{

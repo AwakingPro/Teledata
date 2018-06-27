@@ -41,7 +41,7 @@ $(document).ready(function(){
         defaultDate: new Date()
     });
 
-    $(".number").mask("000.000.000.000",{reverse: true});
+    $('.number').number(true, 2, ',', '.');
     $("#cantidad").mask("000000");
     $("#impuesto").mask("00");
     
@@ -49,6 +49,7 @@ $(document).ready(function(){
     var cantidadFacturas;
     var totalBoletas;
     var cantidadBoletas;
+    getTotales()
 
     function formatcurrency(n) {
         return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
@@ -60,21 +61,22 @@ $(document).ready(function(){
             $('.ValorUF').text(response)
         }
     });
-
-    $.ajax({
-        type: "POST",
-        url: "../includes/facturacion/facturas/getTotales.php",
-        success: function(response){
-            totalFacturas = response.totalFacturas
-            cantidadFacturas = response.cantidadFacturas
-            totalBoletas = response.totalBoletas
-            cantidadBoletas = response.cantidadBoletas
-            $('.totalFacturas').text(totalFacturas)
-            $('.cantidadFacturas').text(cantidadFacturas)
-            $('.totalBoletas').text(totalBoletas)
-            $('.cantidadBoletas').text(cantidadBoletas)
-        }
-    });
+    function getTotales(){
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/getTotales.php",
+            success: function(response){
+                totalFacturas = response.totalFacturas
+                cantidadFacturas = response.cantidadFacturas
+                totalBoletas = response.totalBoletas
+                cantidadBoletas = response.cantidadBoletas
+                $('.totalFacturas').text(totalFacturas)
+                $('.cantidadFacturas').text(cantidadFacturas)
+                $('.totalBoletas').text(totalBoletas)
+                $('.cantidadBoletas').text(cantidadBoletas)
+            }
+        });
+    }
 
     $.ajax({
         type: "POST",
@@ -323,29 +325,20 @@ $(document).ready(function(){
                     success: function(response){
 
                         if(response.status == 1){
-
-                            Id = response.Id
-                            UrlPdf = response.UrlPdf
-                            if(UrlPdf != 0 && UrlPdf != ''){
-                                Icono = '<a href="'+UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
+                            if(ObjectType == 1){
+                                IndividualTable.row($(ObjectTR))
+                                    .remove()
+                                    .draw();
+                            }else if(ObjectType == 2){
+                                LoteTable.row($(ObjectTR))
+                                    .remove()
+                                    .draw();
                             }else{
-                                Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
+                                InstalacionTable.row($(ObjectTR))
+                                    .remove()
+                                    .draw();
                             }
-
-                            if(ObjectType == 2){
-                                Row = $('#LoteTable tbody').find('tr[rutid="'+Id+'"][grupo="'+ObjectGroup+'"]');
-                                Row.find("td").eq(0).html('');
-                                Row.find("td").eq(1).text('Pagada');
-                                Row.find("td").eq(7).html(Icono)
-
-                                Row = $('#IndividualTable tbody').find('tr[rutid="'+Id+'"][grupo="'+ObjectGroup+'"]');
-                                Row.find("td").eq(0).text('Pagada');
-                                Row.find("td").eq(6).html(Icono)
-                            }else{
-                                $(ObjectMe).closest('td').html(Icono)
-                                ObjectTR.find("td").eq(0).text('Pagada');
-                            }
-                            
+                            getTotales();
                             $('[data-toggle="popover"]').popover();
                             swal("Éxito!","La factura ha sido generada!","success");
 
@@ -542,25 +535,16 @@ $(document).ready(function(){
                                 Rut = factura.Rut
                                 Grupo = factura.Grupo
                                 UrlPdf = factura.UrlPdf
-                                if(UrlPdf != 0 && UrlPdf != ''){
-                                    Icono = '<a href="'+UrlPdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
-                                }else{
-                                    Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
-                                }
 
                                 Row = $('#LoteTable tbody').find('tr[rutid="'+Rut+'"][grupo="'+Grupo+'"]');
-                                Row.find("td").eq(0).html('');
-                                Row.find("td").eq(1).text('Pagada');
-                                Row.find("td").eq(7).html(Icono)
-
-                                Row = $('#IndividualTable tbody').find('tr[rutid="'+Rut+'"][grupo="'+Grupo+'"]');
-                                Row.find("td").eq(0).text('Pagada');
-                                Row.find("td").eq(6).html(Icono)
+                                LoteTable.row($(Row))
+                                    .remove()
+                                    .draw();
 
                             });
 
                             $('[data-toggle="popover"]').popover();
-
+                            getTotales();
                             swal("Éxito!","La factura ha sido generada!","success");
 
                         }else if(response.status == 2){

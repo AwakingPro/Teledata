@@ -222,6 +222,7 @@ CREATE TABLE `facturas`  (
   `FechaFacturacion` date NOT NULL,
   `HoraFacturacion` time(0) NOT NULL,
   `TipoDocumento` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `FechaVencimiento` date NOT NULL,
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 2669 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
@@ -239,6 +240,18 @@ CREATE TABLE `facturas_detalle`  (
   PRIMARY KEY (`Id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 3365 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
+DROP TABLE IF EXISTS `facturas_pagos`;
+CREATE TABLE `facturas_pagos`  (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `FacturaId` int(11) NOT NULL,
+  `FechaPago` date NOT NULL,
+  `TipoPago` int(11) NOT NULL,
+  `Detalle` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
+  `Monto` double(11, 2) NULL DEFAULT NULL,
+  `FechaEmisionCheque` date NULL DEFAULT NULL,
+  `FechaVencimientoCheque` date NULL DEFAULT NULL,
+  PRIMARY KEY (`Id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 -- ----------------------------
 -- Table structure for giros
 -- ----------------------------
