@@ -48,7 +48,7 @@ $(document).ready(function() {
         url: "../includes/inventario/egresos/showEstaciones.php",
         success: function (response) {
             $.each(response.array, function (index, array) {
-                $('#EstacionFinal').append('<option value="' + array.nombre + '" data-content="' + array.nombre + '"></option>');
+                $('#EstacionFinal').append('<option value="' + array.id + '" data-content="' + array.nombre + '"></option>');
             });
             $('#EstacionFinal').selectpicker('refresh');
         }

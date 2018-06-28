@@ -16,25 +16,36 @@
 
             $ToReturn = array();
 
-            $query = '  SELECT 
-                            servicios.Rut, servicios.Grupo, SUM(servicios.CostoInstalacion) as Valor, servicios.EstatusFacturacion, servicios.FechaFacturacion, personaempresa.nombre as Cliente, mantenedor_tipo_cliente.nombre as TipoDocumento, COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS NombreGrupo
-                        FROM servicios 
-                        INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut 
-                        LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo 
-                        INNER JOIN mantenedor_tipo_cliente ON personaempresa.tipo_cliente = mantenedor_tipo_cliente.id
-                        WHERE servicios.EstatusFacturacion = 0 
-                        AND servicios.CostoInstalacion > 0 
-                        AND (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1)
-                        GROUP BY 
+            $query = "  SELECT
                             servicios.Rut,
                             servicios.Grupo,
-				            servicios.FechaFacturacion';
+                            SUM( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ) AS Valor,
+                            servicios.EstatusFacturacion,
+                            servicios.FechaFacturacion,
+                            personaempresa.nombre AS Cliente,
+                            mantenedor_tipo_cliente.nombre AS TipoDocumento,
+                            COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS NombreGrupo 
+                        FROM
+                            servicios
+                            INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
+                            LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo
+                            INNER JOIN mantenedor_tipo_cliente ON personaempresa.tipo_cliente = mantenedor_tipo_cliente.id 
+                        WHERE
+                            servicios.EstatusFacturacion = 0 
+                            AND servicios.CostoInstalacion > 0 
+                            AND ( servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1 ) 
+                        GROUP BY
+                            servicios.Rut,
+                            servicios.Grupo,
+                            servicios.FechaFacturacion";
 
             $servicios = $run->select($query);
 
             if($servicios){
                 foreach($servicios as $servicio){
-
+                    $Valor = $servicio['Valor'];
+                    $IVA = $servicio['Valor'] * 0.19;
+                    $Valor += $IVA;
                     $data = array();
                     $data['Id'] = $servicio['Rut']; 
                     $data['Rut'] = $servicio['Rut'];          
@@ -43,8 +54,6 @@
                     $data['Cliente'] = $servicio['Cliente'];        
                     $data['UrlPdfBsale'] = ''; 
                     $data['Tipo'] = 1;
-                    $Valor = $servicio['Valor'];
-                    $Valor = $Valor * $UF;
                     $data['Valor'] = number_format($Valor, 2);  
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $servicio['TipoDocumento']; 
@@ -137,25 +146,40 @@
             //     }
             // }
 
-            $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Rut, facturas.Grupo, facturas.EstatusFacturacion, facturas.TipoDocumento, personaempresa.nombre as Cliente, COALESCE ( grupo_servicio.Nombre, facturas.Grupo ) AS NombreGrupo
-                        FROM facturas_detalle 
-                        INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
-                        INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
-                        LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = facturas.Grupo 
-                        WHERE facturas_detalle.Valor > 0
-                        AND facturas.TipoFactura = '2'
-                        AND facturas.EstatusFacturacion = '0'
+            $query = "  SELECT
+                            SUM(
+                                facturas_detalle.Valor - ( facturas_detalle.Valor * ( facturas_detalle.Descuento / 100 ) ) 
+                            ) AS Valor,
+                            facturas.Rut,
+                            facturas.Grupo,
+                            facturas.EstatusFacturacion,
+                            facturas.TipoDocumento,
+                            facturas.IVA,
+                            personaempresa.nombre AS Cliente,
+                            COALESCE ( grupo_servicio.Nombre, facturas.Grupo ) AS NombreGrupo 
+                        FROM
+                            facturas_detalle
+                            INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id
+                            INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
+                            LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = facturas.Grupo 
+                        WHERE
+                            facturas_detalle.Valor > 0 
+                            AND facturas.TipoFactura = '2' 
+                            AND facturas.EstatusFacturacion = '0' 
                         GROUP BY
                             facturas.Rut,
                             facturas.Grupo,
-                            facturas.TipoDocumento";
+                            facturas.TipoDocumento,
+                            facturas.IVA";
 
             $facturas = $run->select($query);
 
             if($facturas){
 
                 foreach($facturas as $factura){
-
+                    $Valor = $factura['Valor'];
+                    $IVA = $factura['Valor'] * $factura['IVA'];
+                    $Valor += $IVA;
                     $data = array();
                     $data['Id'] = $factura['Rut'];
                     $data['Rut'] = $factura['Rut'];          
@@ -164,7 +188,7 @@
                     $data['Cliente'] = $factura['Cliente'];   
                     $data['UrlPdfBsale'] = '';
                     $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
-                    $data['Valor'] = number_format($factura['Valor'], 2);
+                    $data['Valor'] = number_format($Valor, 2);
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['NombreGrupo'] = $factura['NombreGrupo'];
@@ -257,11 +281,6 @@
 
                 $response_array = array();
 
-                //Demo
-                $access_token='55c32f657ce5aa159a6fc039b64aabceead8f061';
-                //Producción
-                // $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
-
                 if($Tipo == 2){
                     $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut 
                                 FROM facturas_detalle 
@@ -301,181 +320,20 @@
 
                         $cliente = $cliente[0];
                         $TipoDocumento = $cliente['tipo_cliente'];
+                        $FacturaBsale = $this->sendBsale($cliente,$Servicios,$UF,$Tipo,$expirationDate);
 
-                        if(isset($access_token)){
-                            //CONSULTA AL CLIENTE
-
-                            $url='https://api.bsale.cl/v1/clients.json?code='.$cliente['rut'].'-'.$cliente['dv'];
-
-                            // Inicia cURL
-                            $session = curl_init($url);
-
-                            // Indica a cURL que retorne data
-                            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-                            // Activa SSL
-                            // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
-
-                            // Configura cabeceras
-                            $headers = array(
-                                'access_token: ' . $access_token,
-                                'Accept: application/json',
-                                'Content-Type: application/json'
-                            );
-                            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-
-                            // Ejecuta cURL
-                            $response = curl_exec($session);
-
-                            // Cierra la sesión cURL
-                            curl_close($session);
-
-                            //Esto es sólo para poder visualizar lo que se está retornando
-                            $client = json_decode($response, true);
-
-                            //SI EL CLIENTE NO EXISTE EN LA API, SE CREA CON LA DATA DE TELEDATA
-
-                            if($client['count']){
-                                $clientId = $client['items'][0]['id'];
-                            }else{
-
-                                if($cliente['ciudad']){
-                                    $ciudad = $cliente['ciudad'];
-                                }else{
-                                    $ciudad = 'Santiago';
-                                }
-
-                                if($cliente['comuna']){
-                                    $comuna = $cliente['comuna'];
-                                }else{
-                                    $comuna = 'Las Condes';
-                                }
-
-                                $clientId = null;
-                                $client = array(
-                                    "code"          => $cliente['rut'].'-'.$cliente['dv'],
-                                    "firstName"     => $cliente['contacto'],
-                                    "lastName"      => "",
-                                    "email"         => $cliente['correo'],
-                                    "phone"         => $cliente['telefono'],
-                                    "address"       => $cliente['direccion'],
-                                    "company"       => $cliente['nombre'],
-                                    "city"          => $ciudad,
-                                    "municipality"  => $comuna,
-                                    "activity"      => $cliente['giro']
-                                );
-                            }
-
-                            //CREACION DE LA FACTURA
-
-                            $url='https://api.bsale.cl/v1/documents.json';
-
-                            // Inicia cURL
-                            $session = curl_init($url);
-
-                            // Indica a cURL que retorne data
-                            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-                            // Activa SSL
-                            // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
-
-                            // Configura cabeceras
-                            $headers = array(
-                                'access_token: ' . $access_token,
-                                'Accept: application/json',
-                                'Content-Type: application/json'
-                            );
-                            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-
-                            // Indica que se va ser una petición POST
-                            curl_setopt($session, CURLOPT_POST, true);
-
-                            //CONSTRUCCION DEL ARRAY DE DETALLE
-
-                            $details = array();
-
-                            foreach($Servicios as $Servicio){
-
-                                if($Tipo == 2){
-                                    $Concepto = $Servicio["Concepto"] . ' - ' . $Servicio["Descuento"].'% Descuento';
-                                    $Valor = floatval($Servicio['Valor']);
-                                }else{
-                                    $Concepto = 'Costo de instalación / Habilitación'. ' - ' . $Servicio["Descuento"].'% Descuento';
-                                    $Valor = floatval($Servicio['Valor']) * $UF;
-                                }
-
-                                $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Concepto, "discount" => floatval($Servicio["Descuento"]));
-
-                                array_push($details,$detail);
-                            }
-
-                            //FACTURA
-
-                            //Demo
-                            // "documentTypeId"    => 5
-
-                            //Producción
-                            // "documentTypeId"    => 5
-
-                            //BOLETA
-
-                            //Demo
-                            // "documentTypeId"    => 22
-
-                            //Producción
-                            // "documentTypeId"    => 22
-
-                            if($cliente['tipo_cliente'] == "2"){
-                                $documentTypeId = 5;
-                            }else{
-                                $documentTypeId = 22;
-                            }
-
-                            $array = array(
-                                "documentTypeId"    => $documentTypeId,
-                                // "priceListId"       => 18,
-                                "emissionDate"      => time(),
-                                "expirationDate"    => $expirationDate,
-                                "declareSii"        => 1,
-                                "details"           => $details
-                            );
-
-                            if($clientId){
-                                $array['clientId'] = $clientId;
-                            }else{
-                                $array['client'] = $client;
-                            }
-
-                            // Parsea a JSON
-                            $data = json_encode($array);
-
-                            // Agrega parámetros
-                            curl_setopt($session, CURLOPT_POSTFIELDS, $data);
-
-                            // Ejecuta cURL
-                            $response = curl_exec($session);
-
-                            // // Cierra la sesión cURL
-                            curl_close($session);
-
-                            //Esto es sólo para poder visualizar lo que se está retornando
-                            $FacturaBsale = json_decode($response, true);
-                            $UrlPdf = isset($FacturaBsale['urlPublicViewOriginal']) ? trim($FacturaBsale['urlPublicViewOriginal']) : "";
-                            if($UrlPdf){
-                                $DocumentoId = $FacturaBsale['id'];
-                                $informedSii = $FacturaBsale['informedSii'];
-                                $responseMsgSii = $FacturaBsale['responseMsgSii'];
-                            }else{
-                                $response_array['Message'] = $FacturaBsale['error'];
-                                $response_array['status'] = 0;
-                                echo json_encode($response_array);
-                                return;
-                            }
+                        if($FacturaBsale['status'] == 1){
+                            $UrlPdf = $FacturaBsale['urlPublicViewOriginal'];
+                            $DocumentoId = $FacturaBsale['id'];
+                            $informedSii = $FacturaBsale['informedSii'];
+                            $responseMsgSii = $FacturaBsale['responseMsgSii'];
                         }else{
                             $UrlPdf = '0';
                             $DocumentoId = '0';
                             $informedSii = '0';
                             $responseMsgSii = '0';
                         }
-
+                        
                         //Para actualizar los datos del servicios con los datos de Bsale
 
                         $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '".$Tipo."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19)";
@@ -596,167 +454,13 @@
 
                                 $cliente = $cliente[0];
                                 $TipoDocumento = $cliente['tipo_cliente'];
+                                $FacturaBsale = $this->sendBsale($cliente,$Servicios,$UF,2,$expirationDate);
 
-                                if(isset($access_token)){
-                                    //CONSULTA AL CLIENTE
-        
-                                    $url='https://api.bsale.cl/v1/clients.json?code='.$cliente['rut'].'-'.$cliente['dv'];
-        
-                                    // Inicia cURL
-                                    $session = curl_init($url);
-        
-                                    // Indica a cURL que retorne data
-                                    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-                                    // Activa SSL
-                                    // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
-        
-                                    // Configura cabeceras
-                                    $headers = array(
-                                        'access_token: ' . $access_token,
-                                        'Accept: application/json',
-                                        'Content-Type: application/json'
-                                    );
-                                    curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-        
-                                    // Ejecuta cURL
-                                    $response = curl_exec($session);
-        
-                                    // Cierra la sesión cURL
-                                    curl_close($session);
-        
-                                    //Esto es sólo para poder visualizar lo que se está retornando
-                                    $client = json_decode($response, true);
-        
-                                    //SI EL CLIENTE NO EXISTE EN LA API, SE CREA CON LA DATA DE TELEDATA
-        
-                                    if($client['count']){
-                                        $clientId = $client['items'][0]['id'];
-                                    }else{
-        
-                                        if($cliente['ciudad']){
-                                            $ciudad = $cliente['ciudad'];
-                                        }else{
-                                            $ciudad = 'Santiago';
-                                        }
-        
-                                        if($cliente['comuna']){
-                                            $comuna = $cliente['comuna'];
-                                        }else{
-                                            $comuna = 'Las Condes';
-                                        }
-        
-                                        $clientId = null;
-                                        $client = array(
-                                            "code"          => $cliente['rut'].'-'.$cliente['dv'],
-                                            "firstName"     => $cliente['contacto'],
-                                            "lastName"      => "",
-                                            "email"         => $cliente['correo'],
-                                            "phone"         => $cliente['telefono'],
-                                            "address"       => $cliente['direccion'],
-                                            "company"       => $cliente['nombre'],
-                                            "city"          => $ciudad,
-                                            "municipality"  => $comuna,
-                                            "activity"      => $cliente['giro']
-                                        );
-                                    }
-        
-                                    //CREACION DE LA FACTURA
-        
-                                    $url='https://api.bsale.cl/v1/documents.json';
-        
-                                    // Inicia cURL
-                                    $session = curl_init($url);
-        
-                                    // Indica a cURL que retorne data
-                                    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-                                    // Activa SSL
-                                    // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
-        
-                                    // Configura cabeceras
-                                    $headers = array(
-                                        'access_token: ' . $access_token,
-                                        'Accept: application/json',
-                                        'Content-Type: application/json'
-                                    );
-                                    curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-        
-                                    // Indica que se va ser una petición POST
-                                    curl_setopt($session, CURLOPT_POST, true);
-        
-                                    //CONSTRUCCION DEL ARRAY DE DETALLE
-        
-                                    $details = array();
-        
-                                    foreach($Servicios as $Servicio){
-                                        
-                                        $Concepto = $Servicio["Concepto"] . ' - ' . $Servicio["Descuento"].'% Descuento';
-                                        $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Concepto, "discount" => floatval($Servicio["Descuento"]));
-        
-                                        array_push($details,$detail);
-                                    }
-        
-                                    //FACTURA
-        
-                                    //Demo
-                                    // "documentTypeId"    => 5
-        
-                                    //Producción
-                                    // "documentTypeId"    => 5
-        
-                                    //BOLETA
-        
-                                    //Demo
-                                    // "documentTypeId"    => 26
-        
-                                    //Producción
-                                    // "documentTypeId"    => 22
-        
-                                    if($cliente['tipo_cliente'] == "2"){
-                                        $documentTypeId = 5;
-                                    }else{
-                                        $documentTypeId = 22;
-                                    }
-        
-                                    $array = array(
-                                        "documentTypeId"    => $documentTypeId,
-                                        // "priceListId"       => 18,
-                                        "emissionDate"      => time(),
-                                        "expirationDate"    => $expirationDate,
-                                        "declareSii"        => 1,
-                                        "details"           => $details
-                                    );
-        
-                                    if($clientId){
-                                        $array['clientId'] = $clientId;
-                                    }else{
-                                        $array['client'] = $client;
-                                    }
-        
-                                    // Parsea a JSON
-                                    $data = json_encode($array);
-        
-                                    // Agrega parámetros
-                                    curl_setopt($session, CURLOPT_POSTFIELDS, $data);
-        
-                                    // Ejecuta cURL
-                                    $response = curl_exec($session);
-        
-                                    // // Cierra la sesión cURL
-                                    curl_close($session);
-        
-                                    //Esto es sólo para poder visualizar lo que se está retornando
-                                    $FacturaBsale = json_decode($response, true);
-                                    $UrlPdf = isset($FacturaBsale['urlPublicViewOriginal']) ? trim($FacturaBsale['urlPublicViewOriginal']) : "";
-                                    if($UrlPdf){
-                                        $DocumentoId = $FacturaBsale['id'];
-                                        $informedSii = $FacturaBsale['informedSii'];
-                                        $responseMsgSii = $FacturaBsale['responseMsgSii'];
-                                    }else{
-                                        $response_array['Message'] = $FacturaBsale['error'];
-                                        $response_array['status'] = 0;
-                                        echo json_encode($response_array);
-                                        return;
-                                    }
+                                if($FacturaBsale['status'] == 1){
+                                    $UrlPdf = $FacturaBsale['urlPublicViewOriginal'];
+                                    $DocumentoId = $FacturaBsale['id'];
+                                    $informedSii = $FacturaBsale['informedSii'];
+                                    $responseMsgSii = $FacturaBsale['responseMsgSii'];
                                 }else{
                                     $UrlPdf = '0';
                                     $DocumentoId = '0';
@@ -917,7 +621,11 @@
             $cantidadFacturas = 0;
 
             $query = "  SELECT    
-                            facturas.TipoDocumento, SUM(facturas_detalle.Valor) as Valor, (SELECT COUNT(*) FROM facturas WHERE Id = facturas_detalle.FacturaId) as Cantidad
+                            facturas.TipoDocumento, 
+                            SUM(
+                                facturas_detalle.Valor - ( facturas_detalle.Valor * ( facturas_detalle.Descuento / 100 ) ) 
+                            ) AS Valor,
+                            facturas.IVA
                         FROM 
                             facturas_detalle 
                         INNER JOIN 
@@ -927,20 +635,27 @@
                         WHERE 
                             facturas.EstatusFacturacion = 0 
                         GROUP BY
-                            facturas.Id";
+                            facturas.Rut,
+                            facturas.Grupo,
+                            facturas.TipoDocumento,
+                            facturas.IVA";
             $facturas = $run->select($query);
             foreach($facturas as $factura){
+                $Valor = $factura['Valor'];
+                $IVA = $factura['Valor'] * $factura['IVA'];
+                $Valor += $IVA;
                 if($factura['TipoDocumento'] == '2'){
-                    $totalFacturas += $factura['Valor'];
-                    $cantidadFacturas += $factura['Cantidad'];
+                    $totalFacturas += $Valor;
+                    $cantidadFacturas++;
                 }else{
-                    $totalBoletas += $factura['Valor'];
-                    $cantidadBoletas += $factura['Cantidad'];
+                    $totalBoletas += $Valor;
+                    $cantidadBoletas++;
                 }
             }
 
             $query = "  SELECT 
-                            personaempresa.tipo_cliente as TipoDocumento, SUM(servicios.CostoInstalacion) * '".$UF."' as Valor
+                            personaempresa.tipo_cliente as TipoDocumento, 
+                            SUM( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ) AS Valor
                         FROM 
                             servicios 
                         INNER JOIN 
@@ -958,11 +673,14 @@
                             servicios.Grupo";
             $servicios = $run->select($query);
             foreach($servicios as $servicio){
+                $Valor = $servicio['Valor'];
+                $IVA = $servicio['Valor'] * 0.19;
+                $Valor += $IVA;
                 if($servicio['TipoDocumento'] == '2'){
-                    $totalFacturas += $servicio['Valor'];
+                    $totalFacturas += $Valor;
                     $cantidadFacturas++;
                 }else{
-                    $totalBoletas += $servicio['Valor'];
+                    $totalBoletas += $Valor;
                     $cantidadBoletas++;
                 }
             }
@@ -1021,11 +739,6 @@
 
                 $response_array = array();
 
-                //Demo
-                $access_token='55c32f657ce5aa159a6fc039b64aabceead8f061';
-                //Producción
-                // $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
-
                 $query = "  SELECT Id, Rut
                             FROM facturas
                             WHERE EstatusFacturacion = 0";
@@ -1047,163 +760,30 @@
                             $cliente = $cliente[0];
                             $TipoDocumento = $cliente['tipo_cliente'];
 
-                            //CONSULTA AL CLIENTE
-
-                            $url='https://api.bsale.cl/v1/clients.json?code='.$cliente['rut'].'-'.$cliente['dv'];
-
-                            // Inicia cURL
-                            $session = curl_init($url);
-
-                            // Indica a cURL que retorne data
-                            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-                            // Activa SSL
-                            // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
-
-                            // Configura cabeceras
-                            $headers = array(
-                                'access_token: ' . $access_token,
-                                'Accept: application/json',
-                                'Content-Type: application/json'
-                            );
-                            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-
-                            // Ejecuta cURL
-                            $response = curl_exec($session);
-
-                            // Cierra la sesión cURL
-                            curl_close($session);
-
-                            //Esto es sólo para poder visualizar lo que se está retornando
-                            $client = json_decode($response, true);
-
-                            //SI EL CLIENTE NO EXISTE EN LA API, SE CREA CON LA DATA DE TELEDATA
-
-                            if($client['count']){
-                                $clientId = $client['items'][0]['id'];
-                            }else{
-
-                                if($cliente['ciudad']){
-                                    $ciudad = $cliente['ciudad'];
-                                }else{
-                                    $ciudad = 'Puerto Varas';
-                                }
-
-                                if($cliente['comuna']){
-                                    $comuna = $cliente['comuna'];
-                                }else{
-                                    $comuna = 'Puerto Varas';
-                                }
-
-                                $clientId = null;
-                                $client = array(
-                                    "code"          => $cliente['rut'].'-'.$cliente['dv'],
-                                    "firstName"     => $cliente['contacto'],
-                                    "lastName"      => "",
-                                    "email"         => $cliente['correo'],
-                                    "phone"         => $cliente['telefono'],
-                                    "address"       => $cliente['direccion'],
-                                    "company"       => $cliente['nombre'],
-                                    "city"          => $ciudad,
-                                    "municipality"  => $comuna,
-                                    "activity"      => $cliente['giro']
-                                );
-                            }
-
-                            //CREACION DE LA FACTURA
-
-                            $url='https://api.bsale.cl/v1/documents.json';
-
-                            // Inicia cURL
-                            $session = curl_init($url);
-
-                            // Indica a cURL que retorne data
-                            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-                            // Activa SSL
-                            // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
-
-                            // Configura cabeceras
-                            $headers = array(
-                                'access_token: ' . $access_token,
-                                'Accept: application/json',
-                                'Content-Type: application/json'
-                            );
-                            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-
-                            // Indica que se va ser una petición POST
-                            curl_setopt($session, CURLOPT_POST, true);
-
-                            //CONSTRUCCION DEL ARRAY DE DETALLE
-
                             $query = "SELECT * FROM facturas_detalle WHERE FacturaId = '".$Id."'";
                             $Detalles = $run->select($query);
-                            $details = array();
 
-                            foreach($Detalles as $Detalle){
-                                $Valor = floatval($Detalle['Valor']);
-                                $Concepto = $Detalle["Concepto"];
-                                $Descuento = $Detalle["Descuento"];
-                                $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Concepto, "discount" => floatval($Descuento));
-                                array_push($details,$detail);
-                            }
-
-                            //FACTURA
-
-                            //Demo
-                            // "documentTypeId"    => 5
-
-                            //Producción
-                            // "documentTypeId"    => 5
-
-                            //BOLETA
-
-                            //Demo
-                            // "documentTypeId"    => 26
-
-                            //Producción
-                            // "documentTypeId"    => 22
-
-                            if($cliente['tipo_cliente'] == "2"){
-                                $documentTypeId = 5;
+                            $FacturaBsale = $this->sendBsale($cliente,$Detalles,0,2,$expirationDate);
+                            if($FacturaBsale['status'] == 1){
+                                $UrlPdf = $FacturaBsale['urlPublicViewOriginal'];
+                                $DocumentoId = $FacturaBsale['id'];
+                                $informedSii = $FacturaBsale['informedSii'];
+                                $responseMsgSii = $FacturaBsale['responseMsgSii'];
                             }else{
-                                $documentTypeId = 22;
+                                $UrlPdf = '0';
+                                $DocumentoId = '0';
+                                $informedSii = '0';
+                                $responseMsgSii = '0';
                             }
-
-                            $array = array(
-                                "documentTypeId"    => $documentTypeId,
-                                // "priceListId"       => 18,
-                                "emissionDate"      => time(),
-                                "expirationDate"    => $expirationDate,
-                                "declareSii"        => 1,
-                                "details"           => $details
-                            );
-
-                            if($clientId){
-                                $array['clientId'] = $clientId;
-                            }else{
-                                $array['client'] = $client;
-                            }
-
-                            // Parsea a JSON
-                            $data = json_encode($array);
-
-                            // Agrega parámetros
-                            curl_setopt($session, CURLOPT_POSTFIELDS, $data);
-
-                            // Ejecuta cURL
-                            $response = curl_exec($session);
-
-                            // // Cierra la sesión cURL
-                            curl_close($session);
-
-                            //Esto es sólo para poder visualizar lo que se está retornando
-                            $FacturaBsale = json_decode($response, true);
-                            $UrlPdf = isset($FacturaBsale['urlPublicViewOriginal']) ? trim($FacturaBsale['urlPublicViewOriginal']) : "";
                             if($UrlPdf){
                                 $DocumentoId = $FacturaBsale['id'];
                                 $informedSii = $FacturaBsale['informedSii'];
                                 $responseMsgSii = $FacturaBsale['responseMsgSii'];
                                 $query = "UPDATE facturas SET EstatusFacturacion = '1', DocumentoIdBsale = '".$DocumentoId."', UrlPdfBsale = '".$UrlPdf."', informedSiiBsale = '".$informedSii."', responseMsgSiiBsale = '".$responseMsgSii."', FechaFacturacion = NOW(), HoraFacturacion = NOW(), FechaVencimiento = '".$FechaVencimiento."' WHERE Id = '".$Id."'";
                                 $update = $run->update($query);
+                                foreach($Detalles as $Detalle){
+                                    $this->aplicarDescuento($Detalle);
+                                }
                                 $response_array['status'] = 1;
                             }else{
                                 $response_array['Message'] = $FacturaBsale['error'];
@@ -1221,6 +801,231 @@
             }
 
             echo json_encode($response_array);
+        }
+
+        public function sendBsale($cliente,$Servicios,$UF,$Tipo,$expirationDate){
+
+            //Demo
+            $access_token='55c32f657ce5aa159a6fc039b64aabceead8f061';
+            //Producción
+            // $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
+            
+            //CONSULTA AL CLIENTE
+
+            $url='https://api.bsale.cl/v1/clients.json?code='.$cliente['rut'].'-'.$cliente['dv'];
+
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+            // Activa SSL
+            // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+
+            // Cierra la sesión cURL
+            curl_close($session);
+
+            //Esto es sólo para poder visualizar lo que se está retornando
+            $client = json_decode($response, true);
+
+            //SI EL CLIENTE NO EXISTE EN LA API, SE CREA CON LA DATA DE TELEDATA
+
+            if($client['count']){
+                $clientId = $client['items'][0]['id'];
+            }else{
+
+                if($cliente['ciudad']){
+                    $ciudad = $cliente['ciudad'];
+                }else{
+                    $ciudad = 'Santiago';
+                }
+
+                if($cliente['comuna']){
+                    $comuna = $cliente['comuna'];
+                }else{
+                    $comuna = 'Las Condes';
+                }
+
+                $clientId = null;
+                $client = array(
+                    "code"          => $cliente['rut'].'-'.$cliente['dv'],
+                    "firstName"     => $cliente['contacto'],
+                    "lastName"      => "",
+                    "email"         => $cliente['correo'],
+                    "phone"         => $cliente['telefono'],
+                    "address"       => $cliente['direccion'],
+                    "company"       => $cliente['nombre'],
+                    "city"          => $ciudad,
+                    "municipality"  => $comuna,
+                    "activity"      => $cliente['giro']
+                );
+            }
+
+            //CREACION DE LA FACTURA
+
+            $url='https://api.bsale.cl/v1/documents.json';
+
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+            // Activa SSL
+            // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Indica que se va ser una petición POST
+            curl_setopt($session, CURLOPT_POST, true);
+
+            //CONSTRUCCION DEL ARRAY DE DETALLE
+
+            $details = array();
+
+            foreach($Servicios as $Servicio){
+
+                if($Tipo == 2){
+                    $Descuentos = $this->aplicarDescuento($Servicio);
+                    $Descuento = $Descuentos['DescuentoAplicado'];
+                    $CantidadAplicada = $Descuentos['CantidadAplicada'];
+                    if($CantidadAplicada == 0){
+                        $Extra = '';
+                    }else if($CantidadAplicada == 1){
+                        $Extra = '('.$CantidadAplicada.' Descuento Aplicado)';
+                    }else{
+                        $Extra = '('.$CantidadAplicada.' Descuentos Aplicados) ' . $Extra;
+                    }
+                    $Concepto = $Servicio["Concepto"] . ' - ' . $Descuento.'% Descuento';
+                    $Valor = floatval($Servicio['Valor']);
+                }else{
+                    $Descuento = floatval($Servicio["Descuento"]);
+                    $Concepto = 'Costo de instalación / Habilitación'. ' - ' . $Descuento.'% Descuento';
+                    $Valor = floatval($Servicio['Valor']) * $UF;
+                }
+
+                $detail = array("netUnitValue" => $Valor, "quantity" => 1, "taxId" => "[1]", "comment" => $Concepto, "discount" => $Descuento);
+
+                array_push($details,$detail);
+            }
+
+            //FACTURA
+
+            //Demo
+            // "documentTypeId"    => 5
+
+            //Producción
+            // "documentTypeId"    => 5
+
+            //BOLETA
+
+            //Demo
+            // "documentTypeId"    => 22
+
+            //Producción
+            // "documentTypeId"    => 22
+
+            if($cliente['tipo_cliente'] == "2"){
+                $documentTypeId = 5;
+            }else{
+                $documentTypeId = 22;
+            }
+
+            $array = array(
+                "documentTypeId"    => $documentTypeId,
+                // "priceListId"       => 18,
+                "emissionDate"      => time(),
+                "expirationDate"    => $expirationDate,
+                "declareSii"        => 1,
+                "details"           => $details
+            );
+
+            if($clientId){
+                $array['clientId'] = $clientId;
+            }else{
+                $array['client'] = $client;
+            }
+
+            // Parsea a JSON
+            $data = json_encode($array);
+
+            // Agrega parámetros
+            curl_setopt($session, CURLOPT_POSTFIELDS, $data);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+
+            // // Cierra la sesión cURL
+            curl_close($session);
+
+            //Esto es sólo para poder visualizar lo que se está retornando
+            $FacturaBsale = json_decode($response, true);
+            $UrlPdf = isset($FacturaBsale['urlPublicViewOriginal']) ? trim($FacturaBsale['urlPublicViewOriginal']) : "";
+            if($UrlPdf){
+                $FacturaBsale['status'] = 1;
+            }else{
+                $Message = $FacturaBsale['error'];
+                $FacturaBsale = array();
+                $FacturaBsale['Message'] = $Message;
+                $FacturaBsale['status'] = 0;
+            }
+            return $FacturaBsale;
+        }
+
+        public function aplicarDescuento($Detalle){
+            $IdServicio = $Detalle['IdServicio'];
+            $IdDetalle = $Detalle['Id'];
+            $DescuentoAplicado = $Detalle['Descuento'];
+            $CantidadAplicada = 0;
+            if($DescuentoAplicado < 100 && isset($Detalle['IdServicio'])){
+                $run = new Method;
+                $query = "SELECT * FROM descuentos WHERE IdServicio = '".$IdServicio."' AND CantidadUtilizada < Cantidad AND FechaAprobacion IS NOT NULL";
+                $Descuentos = $run->select($query);
+                if($Descuentos){
+                    foreach($Descuentos as $Descuento){
+                        if($DescuentoAplicado < 100){
+                            $Id = $Descuento['Id'];
+                            $IdTicket = $Descuento['IdTicket'];
+                            $Porcentaje = $Descuento['Porcentaje'];
+                            $PorcentajeTmp = $DescuentoAplicado + $Porcentaje;
+                            if($PorcentajeTmp <= 100){
+                                $Tipo = 1;
+                            }else{
+                                $Tipo = 2;
+                                $Porcentaje = $PorcentajeTmp - 100;
+                            }
+                            $query = "INSERT INTO descuentos_aplicados (IdDescuento,IdServicio,IdDetalle,IdTicket,Porcentaje,Tipo) VALUES ('".$Id."','".$IdServicio."','".$IdDetalle."','".$IdTicket."','".$Porcentaje."','".$Tipo."')";
+                            $insert = $run->insert($query);
+                            if($insert){
+                                $CantidadUtilizada = intval($Descuento['CantidadUtilizada']);
+                                $CantidadUtilizada++;
+                                $query = "UPDATE descuentos SET CantidadUtilizada = '".$CantidadUtilizada."' WHERE Id = '".$Id."'";
+                                $update = $run->update($query);
+                                $DescuentoAplicado += $Porcentaje;
+                                $CantidadAplicada++;
+                            }
+                        }
+                    }
+                }
+            }
+            $array = array('DescuentoAplicado' => $DescuentoAplicado, 'CantidadAplicada' => $CantidadAplicada);
+            return $array; 
         }
     }
 ?>

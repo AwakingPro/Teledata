@@ -39,7 +39,7 @@ $(document).ready(function() {
 			$.post('../ajax/cliente/getFacturas.php', {Rut: $('select[name="rutCliente"]').selectpicker('val')}, function(data) {
 				data = JSON.parse(data);
 				FacturasTable = $('#FacturasTable').DataTable({
-					order: [[2, 'desc']],
+					order: [[0, 'desc']],
 					"columnDefs": [ {
 						"targets": [ 0 ],
 						"orderable": false
@@ -69,7 +69,7 @@ $(document).ready(function() {
 								}else{
 									Abonar = ''
 								}
-								if(parseFloat(row.TotalFactura) != parseFloat(row.TotalAbono)){
+								if(row.TotalFactura != row.TotalAbono){
 									Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
 								}else{
 									Pagos = ''
