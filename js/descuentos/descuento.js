@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    $(".number").mask("0000000000");
+    $(".number").mask("00");
 
     $('select[name="Rut"]').load('../ajax/servicios/selectClientes.php',function(){
 		$('select[name="Rut"]').selectpicker();

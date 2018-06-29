@@ -5,49 +5,35 @@
 
     class Ingreso{
 
-        public function storeIngreso($NumeroFactura,$FechaEmisionFactura,$Proveedor,$Estado,$CentroCosto,$NumeroDetalle,$FechaDetalle,$DetalleFactura,$Monto){
+        public function storeIngreso($TipoDocumento,$NumeroDocumento,$FechaEmision,$FechaVencimiento,$Proveedor,$CentroCosto,$Detalle,$TotalDocumento){
 
             $response_array = array();
 
-            $NumeroFactura = isset($NumeroFactura) ? trim($NumeroFactura) : "";
-            $FechaEmisionFactura = isset($FechaEmisionFactura) ? trim($FechaEmisionFactura) : "";
+            $TipoDocumento = isset($TipoDocumento) ? trim($TipoDocumento) : "";
+            $NumeroDocumento = isset($NumeroDocumento) ? trim($NumeroDocumento) : "";
+            $FechaEmision = isset($FechaEmision) ? trim($FechaEmision) : "";
+            $FechaVencimiento = isset($FechaVencimiento) ? trim($FechaVencimiento) : "";
             $Proveedor = isset($Proveedor) ? trim($Proveedor) : "";
-            $Estado = isset($Estado) ? trim($Estado) : "";
             $CentroCosto = isset($CentroCosto) ? trim($CentroCosto) : "";
-            $NumeroDetalle = isset($NumeroDetalle) ? trim($NumeroDetalle) : "";
-            $FechaDetalle = isset($FechaDetalle) ? trim($FechaDetalle) : "";
-            $DetalleFactura = isset($DetalleFactura) ? trim($DetalleFactura) : "";
-            $Monto = isset($Monto) ? trim($Monto) : "";
+            $Detalle = isset($Detalle) ? trim($Detalle) : "";
+            $TotalDocumento = isset($TotalDocumento) ? trim($TotalDocumento) : "";
 
-            if(!empty($NumeroFactura) && !empty($FechaEmisionFactura) && !empty($Proveedor) && !empty($Estado) && !empty($CentroCosto) && !empty($DetalleFactura) && !empty($Monto)){
+            if(!empty($TipoDocumento) && !empty($NumeroDocumento) && !empty($FechaEmision) && !empty($FechaVencimiento) && !empty($Proveedor) && !empty($CentroCosto) && !empty($Detalle) && !empty($TotalDocumento)){
 
-                $this->NumeroFactura=$NumeroFactura;
-                $this->FechaEmisionFactura=$FechaEmisionFactura;
-                $this->Proveedor=$Proveedor;
-                $this->Estado=$Estado;
-                $this->CentroCosto=$CentroCosto;
-                $this->NumeroDetalle=$NumeroDetalle;
-                $this->FechaDetalle=$FechaDetalle;
-                $this->DetalleFactura=$DetalleFactura;
-                $this->Monto=$Monto;
-
-                $FechaEmisionFactura = DateTime::createFromFormat('d-m-Y', $FechaEmisionFactura)->format('Y-m-d');
-                if($FechaDetalle){
-                    $FechaDetalle = DateTime::createFromFormat('d-m-Y', $FechaDetalle)->format('Y-m-d');
-                }else{
-                    $FechaDetalle = '1969-01-31';
+                $FechaEmision = DateTime::createFromFormat('d-m-Y', $FechaEmision)->format('Y-m-d');
+                $FechaVencimiento = DateTime::createFromFormat('d-m-Y', $FechaVencimiento)->format('Y-m-d');
+                if($FechaEmision > $FechaVencimiento){
+                    $response_array['status'] = 3;
+                    echo json_encode($response_array);
+                    return;
                 }
-                $array = array();
 
-                $query = "INSERT INTO compras_ingresos(numero_factura, fecha_emision_factura, proveedor_id, estado_id, centro_costo_id, numero_detalle, fecha_detalle, detalle_factura, monto) VALUES ('$this->NumeroFactura','$FechaEmisionFactura','$this->Proveedor','$this->Estado','$this->CentroCosto','$this->NumeroDetalle','$FechaDetalle','$this->DetalleFactura','$this->Monto')";
+                $query = "INSERT INTO compras_ingresos(tipo_documento_id, numero_documento, fecha_emision, fecha_vencimiento, proveedor_id, centro_costo_id, detalle, total_documento) VALUES ('".$TipoDocumento."','".$NumeroDocumento."','".$FechaEmision."','".$FechaVencimiento."','".$Proveedor."','".$CentroCosto."','".$Detalle."','".$TotalDocumento."')";
                 $run = new Method;
                 $id = $run->insert($query);
 
                 if($id){
 
-                    $array = array('id' => $id, 'numero_factura' => $this->NumeroFactura,'fecha_emision_factura' => $this->FechaEmisionFactura, 'proveedor_id' => $this->Proveedor, 'estado_id' => $this->Estado, 'centro_costo_id' => $this->CentroCosto, 'numero_detalle' => $this->NumeroDetalle, 'fecha_detalle' => $FechaDetalle, 'detalle_factura' => $this->DetalleFactura, 'monto' => $this->Monto);
-
-                    $response_array['array'] = $array;
                     $response_array['status'] = 1; 
                 }else{
                     $response_array['status'] = 0; 
@@ -61,50 +47,32 @@
 
         } 
 
-        public function updateIngreso($NumeroFactura,$FechaEmisionFactura,$Proveedor,$Estado,$CentroCosto,$NumeroDetalle,$FechaDetalle,$DetalleFactura,$Monto,$Id){
+        public function updateIngreso($TipoDocumento,$NumeroDocumento,$FechaEmision,$FechaVencimiento,$Proveedor,$CentroCosto,$Detalle,$TotalDocumento,$Id){
 
             $response_array = array();
 
-            $NumeroFactura = isset($NumeroFactura) ? trim($NumeroFactura) : "";
-            $FechaEmisionFactura = isset($FechaEmisionFactura) ? trim($FechaEmisionFactura) : "";
+            $TipoDocumento = isset($TipoDocumento) ? trim($TipoDocumento) : "";
+            $NumeroDocumento = isset($NumeroDocumento) ? trim($NumeroDocumento) : "";
+            $FechaEmision = isset($FechaEmision) ? trim($FechaEmision) : "";
+            $FechaVencimiento = isset($FechaVencimiento) ? trim($FechaVencimiento) : "";
             $Proveedor = isset($Proveedor) ? trim($Proveedor) : "";
-            $Estado = isset($Estado) ? trim($Estado) : "";
             $CentroCosto = isset($CentroCosto) ? trim($CentroCosto) : "";
-            $NumeroDetalle = isset($NumeroDetalle) ? trim($NumeroDetalle) : "";
-            $FechaDetalle = isset($FechaDetalle) ? trim($FechaDetalle) : "";
-            $DetalleFactura = isset($DetalleFactura) ? trim($DetalleFactura) : "";
-            $Monto = isset($Monto) ? trim($Monto) : "";
+            $Detalle = isset($Detalle) ? trim($Detalle) : "";
+            $TotalDocumento = isset($TotalDocumento) ? trim($TotalDocumento) : "";
 
-            if(!empty($NumeroFactura) && !empty($FechaEmisionFactura) && !empty($Proveedor) && !empty($Estado) && !empty($CentroCosto) && !empty($DetalleFactura) && !empty($Monto)){
+            if(!empty($TipoDocumento) && !empty($NumeroDocumento) && !empty($FechaEmision) && !empty($FechaVencimiento) && !empty($Proveedor) && !empty($CentroCosto) && !empty($Detalle) && !empty($TotalDocumento)){
                 
-                $this->Id=$Id;
-                $this->NumeroFactura=$NumeroFactura;
-                $this->FechaEmisionFactura=$FechaEmisionFactura;
-                $this->Proveedor=$Proveedor;
-                $this->Estado=$Estado;
-                $this->CentroCosto=$CentroCosto;
-                $this->NumeroDetalle=$NumeroDetalle;
-                $this->FechaDetalle=$FechaDetalle;
-                $this->DetalleFactura=$DetalleFactura;
-                $this->Monto=$Monto;
-
-                $FechaEmisionFactura = DateTime::createFromFormat('d-m-Y', $FechaEmisionFactura)->format('Y-m-d');
-                if($FechaDetalle){
-                    $FechaDetalle = DateTime::createFromFormat('d-m-Y', $FechaDetalle)->format('Y-m-d');
-                }else{
-                    $FechaDetalle = '1969-01-31';
+                $FechaEmision = DateTime::createFromFormat('d-m-Y', $FechaEmision)->format('Y-m-d');
+                $FechaVencimiento = DateTime::createFromFormat('d-m-Y', $FechaVencimiento)->format('Y-m-d');
+                if($FechaEmision > $FechaVencimiento){
+                    $response_array['status'] = 3;
+                    echo json_encode($response_array);
+                    return;
                 }
-                $array = array();
-
-                $query = "UPDATE `compras_ingresos` set  `numero_factura` = '$this->NumeroFactura', `fecha_emision_factura` = '$FechaEmisionFactura', `proveedor_id` = '$this->Proveedor', `estado_id` = '$this->Estado', `centro_costo_id` = '$this->CentroCosto', `numero_detalle` = '$this->NumeroDetalle', `fecha_detalle` = '$FechaDetalle', `detalle_factura` = '$this->DetalleFactura', `monto` = '$this->Monto' where `id` = '$this->Id'";
+                $query = "UPDATE compras_ingresos SET tipo_documento_id = '".$TipoDocumento."', numero_documento = '".$NumeroDocumento."', fecha_emision = '".$FechaEmision."', fecha_vencimiento = '".$FechaVencimiento."', proveedor_id = '".$Proveedor."', centro_costo_id = '".$CentroCosto."', detalle = '".$Detalle."', total_documento = '".$TotalDocumento."' WHERE id = '".$Id."'";
                 $run = new Method;
                 $data = $run->update($query);
-
                 if($data){
-
-                    $array = array('id' => $Id, 'numero_factura' => $this->NumeroFactura,'fecha_emision_factura' => $this->FechaEmisionFactura, 'proveedor_id' => $this->Proveedor, 'estado_id' => $this->Estado, 'centro_costo_id' => $this->CentroCosto, 'numero_detalle' => $this->NumeroDetalle, 'fecha_detalle' => $FechaDetalle, 'detalle_factura' => $this->DetalleFactura, 'monto' => $this->Monto);
-
-                    $response_array['array'] = $array;
                     $response_array['status'] = 1; 
                 }else{
                     $response_array['status'] = 0; 
@@ -125,9 +93,9 @@
 
             if(!empty($Id)){
 
-                $this->Id=$Id;
+                $Id=$Id;
 
-                $query = "DELETE from `compras_ingresos` where `id` = '$this->Id'";
+                $query = "DELETE from compras_ingresos where id = '$Id'";
                 $run = new Method;
                 $data = $run->delete($query);
                 $response_array['status'] = 1; 
@@ -142,7 +110,13 @@
 
         function showIngreso(){
 
-            $query = 'SELECT compras_ingresos.*, mantenedor_estado_pago.nombre as estado, mantenedor_proveedores.nombre as proveedor, mantenedor_costos.nombre as centro_costo FROM compras_ingresos INNER JOIN mantenedor_estado_pago ON compras_ingresos.estado_id = mantenedor_estado_pago.id INNER JOIN mantenedor_costos ON compras_ingresos.centro_costo_id = mantenedor_costos.id INNER JOIN mantenedor_proveedores ON compras_ingresos.proveedor_id = mantenedor_proveedores.id';
+            $query = "  SELECT
+                            compras_ingresos.*,
+                            mantenedor_tipo_cliente.nombre AS tipo_documento,
+                            IFNULL( ( SELECT SUM( Monto ) FROM compras_pagos WHERE CompraId = compras_ingresos.id ), 0 ) AS total_abono 
+                        FROM
+                            compras_ingresos
+                            LEFT JOIN mantenedor_tipo_cliente ON compras_ingresos.tipo_documento_id = mantenedor_tipo_cliente.Id";
 
             $run = new Method;
             $data = $run->select($query);
@@ -167,7 +141,7 @@
 
         function showEstado(){
 
-            $query = 'SELECT * FROM mantenedor_estado_pago';
+            $query = 'SELECT * FROM mantenedor_tipo_pago';
             $run = new Method;
             $data = $run->select($query);
 

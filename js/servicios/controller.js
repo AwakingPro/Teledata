@@ -8,6 +8,10 @@ $(document).ready(function() {
 	
 	$('[name="Rut"]').number( true, 0,'','');
 
+	$('.TipoCliente').load('../ajax/cliente/selectTipoCliente.php', function () {
+		$('.TipoCliente').selectpicker('refresh');
+	});
+
 	$('.Giro').load('../ajax/cliente/selectGiros.php', function () {
 		$('.Giro').selectpicker('refresh');
 	});

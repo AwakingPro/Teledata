@@ -105,11 +105,8 @@
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label>Tipo de Cliente</label>
-						<select name="TipoCliente_update" class="form-control selectpicker" data-live-search="true">
+						<select name="TipoCliente_update TipoCliente" class="form-control" data-live-search="true">
 							<option value="">Seleccione...</option>
-							<option value="1">Boleta</option>
-							<option value="2">Factura</option>
-							<option value="3">Canje</option>
 						</select>
 					</div>
 					<div class="col-md-6 form-group">

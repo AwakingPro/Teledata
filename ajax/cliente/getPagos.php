@@ -5,9 +5,9 @@
     $run = new Method;
     $ToReturn = array();
 
-    $query = "  SELECT   facturas_pagos.*, mantenedor_estado_pago.nombre as TipoPago
+    $query = "  SELECT   facturas_pagos.*, mantenedor_tipo_pago.nombre as TipoPago
                 FROM facturas_pagos 
-                INNER JOIN mantenedor_estado_pago ON facturas_pagos.TipoPago = mantenedor_estado_pago.id 
+                INNER JOIN mantenedor_tipo_pago ON facturas_pagos.TipoPago = mantenedor_tipo_pago.id 
                 WHERE facturas_pagos.FacturaId = '".$id."'";
 
     $pagos = $run->select($query);

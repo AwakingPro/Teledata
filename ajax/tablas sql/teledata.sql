@@ -434,24 +434,24 @@ CREATE TABLE `mantenedor_costos`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 9 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for mantenedor_estado_pago
+-- Table structure for mantenedor_tipo_pago
 -- ----------------------------
-DROP TABLE IF EXISTS `mantenedor_estado_pago`;
-CREATE TABLE `mantenedor_estado_pago`  (
+DROP TABLE IF EXISTS `mantenedor_tipo_pago`;
+CREATE TABLE `mantenedor_tipo_pago`  (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nombre` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 7 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of mantenedor_estado_pago
+-- Records of mantenedor_tipo_pago
 -- ----------------------------
-INSERT INTO `mantenedor_estado_pago` VALUES (1, 'Pagado Transferencia');
-INSERT INTO `mantenedor_estado_pago` VALUES (2, 'Pendiente Pago');
-INSERT INTO `mantenedor_estado_pago` VALUES (3, 'Cheque');
-INSERT INTO `mantenedor_estado_pago` VALUES (4, 'Efectivo');
-INSERT INTO `mantenedor_estado_pago` VALUES (5, 'Tarjeta de Credito');
-INSERT INTO `mantenedor_estado_pago` VALUES (6, 'Otros');
+INSERT INTO `mantenedor_tipo_pago` VALUES (1, 'Pagado Transferencia');
+INSERT INTO `mantenedor_tipo_pago` VALUES (2, 'Pendiente Pago');
+INSERT INTO `mantenedor_tipo_pago` VALUES (3, 'Cheque');
+INSERT INTO `mantenedor_tipo_pago` VALUES (4, 'Efectivo');
+INSERT INTO `mantenedor_tipo_pago` VALUES (5, 'Tarjeta de Credito');
+INSERT INTO `mantenedor_tipo_pago` VALUES (6, 'Otros');
 
 -- ----------------------------
 -- Table structure for mantenedor_marca_producto

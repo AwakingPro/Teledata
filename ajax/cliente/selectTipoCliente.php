@@ -4,7 +4,7 @@
 	id,
 	nombre
 	FROM
-	clase_clientes';
+	mantenedor_tipo_cliente';
 	$run = new Method;
 	$data = $run->select($query);
 	if (count($data) > 0) {

@@ -47,15 +47,15 @@ if(isset($_GET['startDate']) && isset($_GET['endDate'])){
 
 $query = "  SELECT 
                 compras_ingresos.*, 
-                mantenedor_estado_pago.nombre as estado, 
+                mantenedor_tipo_pago.nombre as estado, 
                 mantenedor_proveedores.nombre as proveedor,
                 mantenedor_costos.nombre as centro_costo 
             FROM 
                 compras_ingresos 
             INNER JOIN 
-                mantenedor_estado_pago 
+                mantenedor_tipo_pago 
             ON 
-                compras_ingresos.estado_id = mantenedor_estado_pago.id 
+                compras_ingresos.estado_id = mantenedor_tipo_pago.id 
             INNER JOIN 
                 mantenedor_costos 
             ON 
