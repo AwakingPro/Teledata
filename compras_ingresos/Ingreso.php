@@ -81,7 +81,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Detalle</label>
-                                        <input id="detalle" name="detalle" placeholder="Ingrese el de talle" class="form-control input-sm detalle" data-nombre="Detalle">
+                                        <input id="detalle" name="detalle" placeholder="Ingrese el detalle" class="form-control input-sm detalle" data-nombre="Detalle">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -169,7 +169,7 @@
                                     <div class="col-md-12">
                                         <div class="form-group">
                                             <label class="control-label" for="name">Detalle</label>
-                                            <input id="detalle" name="detalle" placeholder="Ingrese el de talle" class="form-control input-sm detalle" data-nombre="Detalle">
+                                            <input id="detalle" name="detalle" placeholder="Ingrese el detalle" class="form-control input-sm detalle" data-nombre="Detalle">
                                         </div>
                                     </div>
                                     <div class="clearfix m-b-10"></div>
