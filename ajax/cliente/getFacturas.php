@@ -29,7 +29,7 @@
             $IVA = $factura['IVA'];       
             $TotalAbono = $factura['TotalAbono'];
             $TotalFactura = 0;
-            $query = "SELECT Valor,Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
+            $query = "SELECT Valor, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
             $detalles = $run->select($query);
             foreach($detalles as $detalle){
                 $Valor = $detalle['Valor'];

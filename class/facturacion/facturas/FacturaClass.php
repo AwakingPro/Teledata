@@ -210,27 +210,35 @@
             $Fecha = date('d-m-Y');
             $UF = $UfClass->getValue($Fecha);
 
-            $query = "  SELECT servicios.Id, servicios.Codigo, servicios.CostoInstalacion as Valor, mantenedor_servicios.servicio as Nombre, mantenedor_tipo_factura.descripcion as Descripcion
-                        FROM servicios 
-                        LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
-                        LEFT JOIN mantenedor_tipo_factura ON mantenedor_tipo_factura.codigo = servicios.TipoFactura 
-                        WHERE servicios.Rut = '".$Rut."' AND servicios.Grupo = '".$Grupo."' AND (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1)";
+            $query = "  SELECT
+                            servicios.Id,
+                            servicios.Codigo,
+                            ( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ) AS Valor,
+                            mantenedor_servicios.servicio AS Nombre,
+                            mantenedor_tipo_factura.descripcion AS Descripcion 
+                        FROM
+                            servicios
+                            LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
+                            LEFT JOIN mantenedor_tipo_factura ON mantenedor_tipo_factura.codigo = servicios.TipoFactura 
+                        WHERE
+                            servicios.Rut = '".$Rut."' 
+                            AND servicios.Grupo = '".$Grupo."' 
+                            AND ( servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1 )";
 
             $servicios = $run->select($query);
-            $data = array();
+            $array = array();
 
             if($servicios){
                 foreach($servicios as $servicio){
-
-                    $Index = $servicio['Id'];
-                    $data[$Index] = $servicio;
-
+                    $data = $servicio;
                     $Valor = $servicio['Valor'];
-                    $Valor = $Valor * $UF;
-                    $data[$Index]['Valor'] = number_format($Valor, 2);
+                    $IVA = $servicio['Valor'] * 0.19;
+                    $Valor += $IVA;
+                    $data['Valor'] = number_format($Valor, 2);
+                    array_push($array,$data);
                 }
 
-                $response_array['array'] = $data;
+                $response_array['array'] = $array;
 
                 echo json_encode($response_array);
             }
@@ -239,33 +247,38 @@
         public function showFactura($Id,$Tipo){            
 
             $run = new Method;
-
-            $UfClass = new Uf(); 
-            $Fecha = date('d-m-Y');
-            $UF = $UfClass->getValue($Fecha);
             $Explode = explode('-',$Id);
 
-            $query = "  SELECT  facturas_detalle.Valor, personaempresa.nombre as Nombre, facturas_detalle.Concepto as Concepto
-                        FROM facturas_detalle 
-                        INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
-                        INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
-                        WHERE facturas.TipoFactura = '".$Tipo."'";
+            $query = "  SELECT
+                            (
+                                facturas_detalle.Valor - ( facturas_detalle.Valor * ( facturas_detalle.Descuento / 100 ) )
+                            ) AS Valor,
+                            personaempresa.nombre AS Nombre,
+                            facturas_detalle.Concepto AS Concepto,
+                            facturas.IVA
+                        FROM
+                            facturas_detalle
+                            INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id
+                            INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut 
+                        WHERE
+                            facturas.TipoFactura = '".$Tipo."'";
             if(isset($Explode[1])){
                 $Rut = $Explode[0];
                 $Grupo = $Explode[1];
                 $query .= " AND facturas.Rut = '".$Rut."' AND facturas.Grupo = '".$Grupo."'";
             }else{
                 $query .= " AND facturas.Id = '".$Id."'";
-            }
-                        
-            $servicios = $run->select($query);
+            }  
+            $facturas = $run->select($query);
             $array = array();
 
-            if($servicios){
-                foreach($servicios as $servicio){
-                    $data = array();
-                    $data = $servicio;
-                    $data['Valor'] = number_format($servicio['Valor'], 2);
+            if($facturas){
+                foreach($facturas as $factura){
+                    $data = $factura;
+                    $Valor = $factura['Valor'];
+                    $IVA = $factura['Valor'] * $factura['IVA'];
+                    $Valor += $IVA;
+                    $data['Valor'] = number_format($Valor, 2);
                     array_push($array,$data);
                 }
 
@@ -908,11 +921,11 @@
                     if($CantidadAplicada == 0){
                         $Extra = '';
                     }else if($CantidadAplicada == 1){
-                        $Extra = '('.$CantidadAplicada.' Descuento Aplicado)';
+                        $Extra = ' ('.$CantidadAplicada.' Descuento Aplicado)';
                     }else{
-                        $Extra = '('.$CantidadAplicada.' Descuentos Aplicados) ' . $Extra;
+                        $Extra = ' ('.$CantidadAplicada.' Descuentos Aplicados)';
                     }
-                    $Concepto = $Servicio["Concepto"] . ' - ' . $Descuento.'% Descuento';
+                    $Concepto = $Servicio["Concepto"] . ' - ' . $Descuento.'% Descuento' . $Extra;
                     $Valor = floatval($Servicio['Valor']);
                 }else{
                     $Descuento = floatval($Servicio["Descuento"]);
