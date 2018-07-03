@@ -1,7 +1,7 @@
 var json = []
 
 $(document).ready(function(){
-
+    showIngresos()
     $('.input-daterange').datepicker({
         format: "dd-mm-yyyy",
         weekStart: 1,
