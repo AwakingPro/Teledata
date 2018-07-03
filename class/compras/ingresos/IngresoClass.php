@@ -116,7 +116,7 @@
                         FROM
                             compras_ingresos
                             LEFT JOIN mantenedor_tipo_cliente ON compras_ingresos.tipo_documento_id = mantenedor_tipo_cliente.Id";
-            if(isset($startDate) && isset($endDate)){
+            if($startDate && $endDate){
                 $startDate = $startDate;
                 $dt = \DateTime::createFromFormat('d-m-Y',$startDate);
                 $startDate = $dt->format('Y-m-d');
@@ -260,7 +260,7 @@
                             IFNULL( ( SELECT SUM( Monto ) FROM compras_pagos ), 0 ) AS total_abono 
                         FROM
                             compras_ingresos";
-            if(isset($startDate) && isset($endDate)){
+            if($startDate && $endDate){
                 $startDate = $startDate;
                 $dt = \DateTime::createFromFormat('d-m-Y',$startDate);
                 $startDate = $dt->format('Y-m-d');

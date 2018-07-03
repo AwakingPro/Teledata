@@ -136,6 +136,17 @@
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label class="control-label" for="name">Tipo de documento</label>
+                                        <div class="select">
+                                            <select class="form-control tipo_documento_id" id="tipo_documento_id" name="tipo_documento_id" validation="not_null" data-live-search="true" data-nombre="Estado de Pago" data-container="body">
+                                                <option value="">Seleccione Opción</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label class="control-label" for="name">N* de Documento</label>
                                         <input id="numero_documento" name="numero_documento" validation="not_null" placeholder="Ingrese el numero de documento" class="form-control input-sm number numero_documento" data-nombre="N* de Documento">
                                     </div>
