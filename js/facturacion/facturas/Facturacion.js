@@ -64,16 +64,31 @@ $(document).ready(function(){
     function getTotales(){
         $.ajax({
             type: "POST",
-            url: "../includes/facturacion/facturas/getTotales.php",
+            url: "../includes/facturacion/facturas/getTotalesInstalacion.php",
             success: function(response){
                 totalFacturas = response.totalFacturas
                 cantidadFacturas = response.cantidadFacturas
                 totalBoletas = response.totalBoletas
                 cantidadBoletas = response.cantidadBoletas
-                $('.totalFacturas').text(totalFacturas)
-                $('.cantidadFacturas').text(cantidadFacturas)
-                $('.totalBoletas').text(totalBoletas)
-                $('.cantidadBoletas').text(cantidadBoletas)
+                $('#totalFacturasInstalacion').text(totalFacturas)
+                $('#cantidadFacturasInstalacion').text(cantidadFacturas)
+                $('#totalBoletasInstalacion').text(totalBoletas)
+                $('#cantidadBoletasInstalacion').text(cantidadBoletas)
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/getTotalesLote.php",
+            success: function (response) {
+                totalFacturas = response.totalFacturas
+                cantidadFacturas = response.cantidadFacturas
+                totalBoletas = response.totalBoletas
+                cantidadBoletas = response.cantidadBoletas
+                $('#totalFacturasLote').text(totalFacturas)
+                $('#cantidadFacturasLote').text(cantidadFacturas)
+                $('#totalBoletasLote').text(totalBoletas)
+                $('#cantidadBoletasLote').text(cantidadBoletas)
             }
         });
     }

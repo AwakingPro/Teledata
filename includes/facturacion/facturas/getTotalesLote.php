@@ -3,6 +3,6 @@
 	include("../../../class/facturacion/facturas/FacturaClass.php");
 
 	$Factura = new Factura();
-	echo json_encode($Factura->getTotales());
+	echo json_encode($Factura->getTotalesLote());
 	
 ?>   

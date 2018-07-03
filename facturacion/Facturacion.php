@@ -110,10 +110,10 @@
                                     </div>
                                     <div class="col-md-12" style="margin-top:20px">
                                         <div class="pull-right">
-                                            <b><span style="font-size:14px">Total Facturas: <span class="totalFacturas">0</span></span></b><br>
-                                            <b><span style="font-size:14px">Cantidad Facturas: <span class="cantidadFacturas">0</span></span></b><br>
-                                            <b><span style="font-size:14px">Total Boletas: <span class="totalBoletas">0</span></span></b><br>
-                                            <b><span style="font-size:14px">Cantidad Boletas: <span class="cantidadBoletas">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Total Facturas: <span id="totalFacturasLote">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Cantidad Facturas: <span id="cantidadFacturasLote">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Total Boletas: <span id="totalBoletasLote">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Cantidad Boletas: <span id="cantidadBoletasLote">0</span></span></b><br>
                                         </div>
                                     </div>
                                 </div>
@@ -143,10 +143,10 @@
                                     </div>
                                     <div class="col-md-12" style="margin-top:20px">
                                         <div class="pull-right">
-                                            <b><span style="font-size:14px">Total Facturas: <span class="totalFacturas">0</span></span></b><br>
-                                            <b><span style="font-size:14px">Cantidad Facturas: <span class="cantidadFacturas">0</span></span></b><br>
-                                            <b><span style="font-size:14px">Total Boletas: <span class="totalBoletas">0</span></span></b><br>
-                                            <b><span style="font-size:14px">Cantidad Boletas: <span class="cantidadBoletas">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Total Facturas: <span id="totalFacturasIndividual">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Cantidad Facturas: <span id="cantidadFacturasIndividual">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Total Boletas: <span id="totalBoletasIndividual">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Cantidad Boletas: <span id="cantidadBoletasIndividual">0</span></span></b><br>
                                         </div>
                                     </div>
                                 </div>
@@ -176,10 +176,10 @@
                                     </div>
                                     <div class="col-md-12" style="margin-top:20px">
                                         <div class="pull-right">
-                                            <b><span style="font-size:14px">Total Facturas: <span class="totalFacturas">0</span></span></b><br>
-                                            <b><span style="font-size:14px">Cantidad Facturas: <span class="cantidadFacturas">0</span></span></b><br>
-                                            <b><span style="font-size:14px">Total Boletas: <span class="totalBoletas">0</span></span></b><br>
-                                            <b><span style="font-size:14px">Cantidad Boletas: <span class="cantidadBoletas">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Total Facturas: <span id="totalFacturasInstalacion">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Cantidad Facturas: <span id="cantidadFacturasInstalacion">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Total Boletas: <span id="totalBoletasInstalacion">0</span></span></b><br>
+                                            <b><span style="font-size:14px">Cantidad Boletas: <span id="cantidadBoletasInstalacion">0</span></span></b><br>
                                         </div>
                                     </div>
                                 </div>

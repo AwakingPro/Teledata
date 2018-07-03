@@ -49,8 +49,7 @@
                     $data = array();
                     $data['Id'] = $servicio['Rut']; 
                     $data['Rut'] = $servicio['Rut'];          
-                    $data['Grupo'] = $servicio['Grupo'];   
-                    $data['Valor'] = $servicio['Valor'];      
+                    $data['Grupo'] = $servicio['Grupo'];       
                     $data['Cliente'] = $servicio['Cliente'];        
                     $data['UrlPdfBsale'] = ''; 
                     $data['Tipo'] = 1;
@@ -106,9 +105,6 @@
 
             $run = new Method;
 
-            $UfClass = new Uf(); 
-            $Fecha = date('d-m-Y');
-            $UF = $UfClass->getValue($Fecha);
             $ToReturn = array();
 
             // $query = "  SELECT    SUM(facturas_detalle.Valor) as Valor, facturas.Id, facturas.Rut, facturas.Grupo, facturas.UrlPdfBsale, facturas.EstatusFacturacion, facturas.FechaFacturacion, facturas.TipoDocumento, personaempresa.nombre as Cliente, COALESCE ( grupo_servicio.Nombre, facturas.Grupo ) AS NombreGrupo 
@@ -184,7 +180,6 @@
                     $data['Id'] = $factura['Rut'];
                     $data['Rut'] = $factura['Rut'];          
                     $data['Grupo'] = $factura['Grupo'];   
-                    $data['Valor'] = $factura['Valor'];    
                     $data['Cliente'] = $factura['Cliente'];   
                     $data['UrlPdfBsale'] = '';
                     $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
@@ -223,7 +218,8 @@
                         WHERE
                             servicios.Rut = '".$Rut."' 
                             AND servicios.Grupo = '".$Grupo."' 
-                            AND ( servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1 )";
+                            AND ( servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1 )
+                            AND servicios.EstatusFacturacion = 0";
 
             $servicios = $run->select($query);
             $array = array();
@@ -265,7 +261,7 @@
             if(isset($Explode[1])){
                 $Rut = $Explode[0];
                 $Grupo = $Explode[1];
-                $query .= " AND facturas.Rut = '".$Rut."' AND facturas.Grupo = '".$Grupo."'";
+                $query .= " AND facturas.Rut = '".$Rut."' AND facturas.Grupo = '".$Grupo."' AND facturas.EstatusFacturacion = 0";
             }else{
                 $query .= " AND facturas.Id = '".$Id."'";
             }  
@@ -623,11 +619,53 @@
             echo json_encode($response_array);
 
         }
-        public function getTotales(){
+        public function getTotalesInstalacion(){
             $run = new Method;
             $UfClass = new Uf(); 
             $Fecha = date('d-m-Y');
             $UF = $UfClass->getValue($Fecha);
+            $totalBoletas = 0;
+            $totalFacturas = 0;
+            $cantidadBoletas = 0;
+            $cantidadFacturas = 0;
+
+            $query = "  SELECT 
+                            personaempresa.tipo_cliente as TipoDocumento, 
+                            SUM( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ) AS Valor
+                        FROM 
+                            servicios 
+                        INNER JOIN 
+                            personaempresa 
+                        ON 
+                            personaempresa.rut = servicios.Rut 
+                        WHERE 
+                            servicios.EstatusFacturacion = 0 
+                        AND 
+                            servicios.CostoInstalacion > 0 
+                        AND 
+                            (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1)
+                        GROUP BY
+                            servicios.Rut,
+                            servicios.Grupo";
+            $servicios = $run->select($query);
+            foreach($servicios as $servicio){
+                $Valor = $servicio['Valor'];
+                $IVA = $servicio['Valor'] * 0.19;
+                $Valor += $IVA;
+                if($servicio['TipoDocumento'] == '2'){
+                    $totalFacturas += $Valor;
+                    $cantidadFacturas++;
+                }else{
+                    $totalBoletas += $Valor;
+                    $cantidadBoletas++;
+                }
+            }
+
+            $array = array('totalFacturas' => number_format($totalFacturas, 2), 'totalBoletas' => number_format($totalBoletas, 2), 'cantidadFacturas' => $cantidadFacturas, 'cantidadBoletas' => $cantidadBoletas);
+            return $array;
+        }
+        public function getTotalesLote(){
+            $run = new Method;
             $totalBoletas = 0;
             $totalFacturas = 0;
             $cantidadBoletas = 0;
@@ -665,39 +703,7 @@
                     $cantidadBoletas++;
                 }
             }
-
-            $query = "  SELECT 
-                            personaempresa.tipo_cliente as TipoDocumento, 
-                            SUM( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ) AS Valor
-                        FROM 
-                            servicios 
-                        INNER JOIN 
-                            personaempresa 
-                        ON 
-                            personaempresa.rut = servicios.Rut 
-                        WHERE 
-                            servicios.EstatusFacturacion = 0 
-                        AND 
-                            servicios.CostoInstalacion > 0 
-                        AND 
-                            (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1)
-                        GROUP BY
-                            servicios.Rut,
-                            servicios.Grupo";
-            $servicios = $run->select($query);
-            foreach($servicios as $servicio){
-                $Valor = $servicio['Valor'];
-                $IVA = $servicio['Valor'] * 0.19;
-                $Valor += $IVA;
-                if($servicio['TipoDocumento'] == '2'){
-                    $totalFacturas += $Valor;
-                    $cantidadFacturas++;
-                }else{
-                    $totalBoletas += $Valor;
-                    $cantidadBoletas++;
-                }
-            }
-
+            
             $array = array('totalFacturas' => number_format($totalFacturas, 2), 'totalBoletas' => number_format($totalBoletas, 2), 'cantidadFacturas' => $cantidadFacturas, 'cantidadBoletas' => $cantidadBoletas);
             return $array;
         }

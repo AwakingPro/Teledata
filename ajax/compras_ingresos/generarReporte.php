@@ -19,14 +19,13 @@ $objPHPExcel->getProperties()
 // Agregar Informacion
 $objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('A1', 'Proveedor')
-	->setCellValue('B1', 'Numero de Factura')
-	->setCellValue('C1', 'Fecha Emisión Factura')
-	->setCellValue('D1', 'Descripción')
-	->setCellValue('E1', 'Monto')
-	->setCellValue('F1', 'Estado de Pago')
+	->setCellValue('B1', 'Numero de Documento')
+    ->setCellValue('C1', 'Fecha Emisión')
+    ->setCellValue('D1', 'Fecha Vencimiento')
+	->setCellValue('E1', 'Descripción')
+	->setCellValue('F1', 'Monto')
 	->setCellValue('G1', 'Detalle')
-	->setCellValue('H1', 'Fecha de Pago')
-	->setCellValue('I1', 'Centro de Costos');
+	->setCellValue('H1', 'Centro de Costos');
 
 
 foreach (range(0, 8) as $col) {
@@ -47,15 +46,10 @@ if(isset($_GET['startDate']) && isset($_GET['endDate'])){
 
 $query = "  SELECT 
                 compras_ingresos.*, 
-                mantenedor_tipo_pago.nombre as estado, 
                 mantenedor_proveedores.nombre as proveedor,
                 mantenedor_costos.nombre as centro_costo 
             FROM 
                 compras_ingresos 
-            INNER JOIN 
-                mantenedor_tipo_pago 
-            ON 
-                compras_ingresos.estado_id = mantenedor_tipo_pago.id 
             INNER JOIN 
                 mantenedor_costos 
             ON 
@@ -65,7 +59,7 @@ $query = "  SELECT
             ON 
                 compras_ingresos.proveedor_id = mantenedor_proveedores.id
             WHERE
-                compras_ingresos.fecha_emision_factura BETWEEN '".$startDate."' AND '".$endDate."'";
+                compras_ingresos.fecha_emision BETWEEN '".$startDate."' AND '".$endDate."'";
 
 $run = new Method;
 $ingresos = $run->select($query);
@@ -79,24 +73,18 @@ if (count($ingresos) > 0) {
 
 	foreach($ingresos as $ingreso){
 
-		if($ingreso['fecha_detalle'] && $ingreso['fecha_detalle'] != '0000-00-00'){
-            $fecha_detalle = \DateTime::createFromFormat('Y-m-d',$ingreso['fecha_detalle'])->format('d-m-Y');
-        }else{
-            $fecha_detalle = '';
-        }
-        
-        $fecha_emision_factura = \DateTime::createFromFormat('Y-m-d',$ingreso['fecha_emision_factura'])->format('d-m-Y');
+        $fecha_emision = \DateTime::createFromFormat('Y-m-d',$ingreso['fecha_emision'])->format('d-m-Y');
+        $fecha_vencimiento = \DateTime::createFromFormat('Y-m-d',$ingreso['fecha_emision'])->format('d-m-Y');
 
 		$objPHPExcel->setActiveSheetIndex(0)
 		->setCellValue('A'.$index, $ingreso['proveedor'])
 		->setCellValue('B'.$index, $ingreso['numero_factura'])
-		->setCellValue('C'.$index, $fecha_emision_factura)
-		->setCellValue('D'.$index, $ingreso['detalle_factura'])
-		->setCellValue('E'.$index, $ingreso['monto'])
-		->setCellValue('F'.$index, $ingreso['estado'])
+        ->setCellValue('C'.$index, $fecha_emision)
+        ->setCellValue('D'.$index, $fecha_vencimiento)
+		->setCellValue('E'.$index, $ingreso['detalle_factura'])
+		->setCellValue('F'.$index, $ingreso['monto'])
 		->setCellValue('G'.$index, $ingreso['numero_detalle'])
-		->setCellValue('H'.$index, $fecha_detalle)
-		->setCellValue('I'.$index, $ingreso['centro_costo']);
+		->setCellValue('H'.$index, $ingreso['centro_costo']);
 
 		$index++;
 	}

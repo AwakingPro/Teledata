@@ -3,6 +3,6 @@
 	include("../../../class/compras/ingresos/IngresoClass.php");
 
 	$Ingreso = new Ingreso();
-	$Ingreso->showIngreso($_POST['startDate'],$_POST['endDate']);
+	$Ingreso->getTotales($_POST['startDate'],$_POST['endDate']);
 	
 ?>    
