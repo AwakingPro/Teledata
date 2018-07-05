@@ -336,16 +336,18 @@
                             $DocumentoId = $FacturaBsale['id'];
                             $informedSii = $FacturaBsale['informedSii'];
                             $responseMsgSii = $FacturaBsale['responseMsgSii'];
+                            $NumeroDocumento = $FacturaBsale['number'];
                         }else{
                             $UrlPdf = '0';
                             $DocumentoId = '0';
                             $informedSii = '0';
                             $responseMsgSii = '0';
+                            $NumeroDocumento = '0';
                         }
                         
                         //Para actualizar los datos del servicios con los datos de Bsale
 
-                        $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '".$Tipo."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19)";
+                        $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento) VALUES ('".$Rut."', '".$Grupo."', '".$Tipo."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."')";
                         $FacturaId = $run->insert($query);
 
                         if($FacturaId){
@@ -470,16 +472,18 @@
                                     $DocumentoId = $FacturaBsale['id'];
                                     $informedSii = $FacturaBsale['informedSii'];
                                     $responseMsgSii = $FacturaBsale['responseMsgSii'];
+                                    $NumeroDocumento = $FacturaBsale['NumeroDocumento'];
                                 }else{
                                     $UrlPdf = '0';
                                     $DocumentoId = '0';
                                     $informedSii = '0';
                                     $responseMsgSii = '0';
+                                    $NumeroDocumento = '0';
                                 }
 
                                 //Para actualizar los datos del servicios con los datos de Bsale
 
-                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '2', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19)";
+                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento) VALUES ('".$Rut."', '".$Grupo."', '2', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."')";
                                 $FacturaId = $run->insert($query);
 
                                 if($FacturaId){
@@ -596,7 +600,7 @@
                                 $FacturaId = $Facturas[$Rut.'-'.$Grupo];
                             }else{
                                 $TipoDocumento = $Servicio['tipo_cliente'];
-                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19)";
+                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, 0)";
                                 $FacturaId = $run->insert($query);
                             }
 
@@ -1059,7 +1063,7 @@
             $query = "  SELECT
                             personaempresa.nombre as Cliente,
                             facturas.Id,
-                            facturas.DocumentoIdBsale,
+                            facturas.NumeroDocumento,
                             facturas.FechaFacturacion,
                             facturas.FechaVencimiento,
                             facturas.UrlPdfBsale,
@@ -1072,9 +1076,7 @@
                             INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
                         WHERE
                             facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'
-                            AND facturas.EstatusFacturacion = '1' 
-                        GROUP BY
-                            facturas.Id";
+                            AND facturas.EstatusFacturacion = '1'";
             $facturas = $run->select($query);
 
             if($facturas){
@@ -1103,7 +1105,7 @@
                     $data = array();
                     $data['Id'] = $factura['Id'];
                     $data['Cliente'] = $factura['Cliente'];
-                    $data['DocumentoIdBsale'] = $factura['DocumentoIdBsale'];
+                    $data['NumeroDocumento'] = $factura['NumeroDocumento'];
                     $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
                     $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
                     $data['TotalFactura'] = number_format($TotalFactura, 2);

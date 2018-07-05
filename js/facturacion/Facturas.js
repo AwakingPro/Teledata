@@ -58,7 +58,7 @@ $(document).ready(function () {
                 data: data,
                 columns: [
                     { data: 'Cliente' },
-                    { data: 'DocumentoIdBsale' },
+                    { data: 'NumeroDocumento' },
                     { data: 'TipoDocumento' },
                     { data: 'FechaFacturacion' },
                     { data: 'FechaVencimiento' },
