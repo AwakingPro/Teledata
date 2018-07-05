@@ -117,10 +117,8 @@
                             compras_ingresos
                             LEFT JOIN mantenedor_tipo_cliente ON compras_ingresos.tipo_documento_id = mantenedor_tipo_cliente.Id";
             if($startDate && $endDate){
-                $startDate = $startDate;
                 $dt = \DateTime::createFromFormat('d-m-Y',$startDate);
                 $startDate = $dt->format('Y-m-d');
-                $endDate = $endDate;
                 $dt = \DateTime::createFromFormat('d-m-Y',$endDate);
                 $endDate = $dt->format('Y-m-d');
                 $query .= " WHERE fecha_emision BETWEEN '".$startDate."' AND '".$endDate."'";

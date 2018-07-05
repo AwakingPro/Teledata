@@ -7,6 +7,7 @@
 
     $query = "  SELECT
                     facturas.Id,
+                    facturas.DocumentoIdBsale,
                     facturas.FechaFacturacion,
                     facturas.FechaVencimiento,
                     facturas.UrlPdfBsale,
@@ -48,6 +49,7 @@
 
             $data = array();
             $data['Id'] = $factura['Id'];
+            $data['DocumentoIdBsale'] = $factura['DocumentoIdBsale'];
             $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
             $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
             $data['TotalFactura'] = number_format($TotalFactura, 2);

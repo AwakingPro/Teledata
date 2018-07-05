@@ -46,7 +46,7 @@ $(document).ready(function() {
 					} ],
 					data: data,
 					columns: [
-						{ data: 'Id' },
+						{ data: 'DocumentoIdBsale' },
 						{ data: 'TipoDocumento' },
 						{ data: 'FechaFacturacion' },
 						{ data: 'FechaVencimiento' },
