@@ -22,7 +22,7 @@
 	$Codigo = $Rut."-".$Dv.$TipoFactura.$Correlativo;
 	$Grupo = isset($_POST['Grupo']) ? trim($_POST['Grupo']) : "";
 	$Valor = isset($_POST['Valor']) ? trim($_POST['Valor']) : "0";
-	$Descuento = isset($_POST['Descuento']) ? trim($_POST['Descuento']) : "0";
+	$Descuento = isset($_POST['Descuento']) ? trim($_POST['Descuento']) : "";
 	$TipoServicio = isset($_POST['TipoServicio']) ? trim($_POST['TipoServicio']) : "";
 	$TipoFacturacion = isset($_POST['TipoFacturacion']) ? trim($_POST['TipoFacturacion']) : "";
 	$Descripcion = isset($_POST['Descripcion']) ? trim($_POST['Descripcion']) : "";
@@ -43,6 +43,10 @@
 	$CostoInstalacion = isset($_POST['CostoInstalacion']) ? trim($_POST['CostoInstalacion']) : "";
 	$CostoInstalacionDescuento = isset($_POST['CostoInstalacionDescuento']) ? trim($_POST['CostoInstalacionDescuento']) : "";
 	$FechaComprometidaInstalacion = isset($_POST['FechaComprometidaInstalacion']) ? trim($_POST['FechaComprometidaInstalacion']) : "";
+
+	if(!$Descuento){
+		$Descuento = 0;
+	}
 
 	if(!$BooleanCostoInstalacion){
 		$CostoInstalacion = 0;
