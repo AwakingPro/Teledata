@@ -89,7 +89,7 @@
 					}else if($col == 3){
 						$Giro = $val;
 					}else if($col == 6){
-						$Ciudad = $val;
+						$Provincia = $val;
 					}else if($col == 7){
 						$Comuna = $val;
 					}else if($col == 8){
@@ -106,13 +106,13 @@
 				}
 
 				$query = "INSERT INTO personaempresa
-					(rut, dv, nombre, giro, comuna, ciudad, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession, CodigoCliente)
+					(rut, dv, nombre, giro, comuna, provincia, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession, CodigoCliente)
 					VALUES
-					('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Comuna."', '".$Ciudad."', '".$Direccion."', '".$Correo."', '".$Contacto."', '', '".$Telefono."', '', '2', '".$idUsuario."','".$CodigoCliente."')";
+					('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Comuna."', '".$Provincia."', '".$Direccion."', '".$Correo."', '".$Contacto."', '', '".$Telefono."', '', '2', '".$idUsuario."','".$CodigoCliente."')";
 				$id = $run->insert($query);
 
 				if(!$id){
-					// $array = array('Rut' => $Rut, 'Dv' => $Dv, 'Nombre' => $Nombre, 'Giro' => $Giro, 'Comuna' => $Comuna, 'Ciudad' => $Ciudad, 'Direccion' => $Direccion, 'Correo' => $Correo, 'Contacto' => $Contacto, 'Telefono' => $Telefono, 'TipoCliente' => 'Factura');
+					// $array = array('Rut' => $Rut, 'Dv' => $Dv, 'Nombre' => $Nombre, 'Giro' => $Giro, 'Comuna' => $Comuna, 'Provincia' => $Provincia, 'Direccion' => $Direccion, 'Correo' => $Correo, 'Contacto' => $Contacto, 'Telefono' => $Telefono, 'TipoCliente' => 'Factura');
 					// echo '<pre>'; print_r($array); echo '</pre><br><br>';
 				}
 			}
@@ -238,7 +238,7 @@
 					}else if($col == 2){
 						$Direccion = $val;
 					}else if($col == 3){
-						$Ciudad = $val;
+						$Provincia = $val;
 					}else if($col == 4){
 						$Telefono = $val;
 					}
@@ -247,13 +247,13 @@
 				}
 
 				$query = "INSERT INTO personaempresa
-					(rut, dv, nombre, giro, comuna, ciudad, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession, CodigoCliente)
+					(rut, dv, nombre, giro, comuna, provincia, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession, CodigoCliente)
 					VALUES
-					('".$Rut."', '".$Dv."', '".$Nombre."', '', '".$Ciudad."', '".$Ciudad."', '".$Direccion."', '', '".$Telefono."', '', '".$Telefono."', '', '1', '".$idUsuario."','".$CodigoCliente."')";
+					('".$Rut."', '".$Dv."', '".$Nombre."', '', '".$Provincia."', '".$Provincia."', '".$Direccion."', '', '".$Telefono."', '', '".$Telefono."', '', '1', '".$idUsuario."','".$CodigoCliente."')";
 				$id = $run->insert($query);
 
 				if(!$id){
-					// $array = array('Rut' => $Rut, 'Dv' => $Dv, 'Nombre' => $Nombre, 'Giro' => $Giro, 'Comuna' => $Comuna, 'Ciudad' => $Ciudad, 'Direccion' => $Direccion, 'Correo' => $Correo, 'Contacto' => $Contacto, 'Telefono' => $Telefono, 'TipoCliente' => 'Factura');
+					// $array = array('Rut' => $Rut, 'Dv' => $Dv, 'Nombre' => $Nombre, 'Giro' => $Giro, 'Comuna' => $Comuna, 'Provincia' => $Provincia, 'Direccion' => $Direccion, 'Correo' => $Correo, 'Contacto' => $Contacto, 'Telefono' => $Telefono, 'TipoCliente' => 'Factura');
 					// echo '<pre>'; print_r($array); echo '</pre><br><br>';
 				}
 			}

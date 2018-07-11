@@ -14,7 +14,6 @@
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 		<link href="../plugins/pace/pace.min.css" rel="stylesheet">
-   		 <script src="../plugins/pace/pace.min.js"></script>
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
@@ -83,7 +82,9 @@
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 	<script src="../js/methods_global/methods.js"></script>
 	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
+	<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 	<script src="../plugins/numbers/jquery.number.js"></script>
+	<script src="../plugins/pace/pace.min.js"></script>
 	<script src="../js/clientes/controller.js"></script>
 </body>
 </html>
@@ -105,7 +106,7 @@
 				<div class="row">
 					<div class="col-md-6 form-group">
 						<label>Tipo de Cliente</label>
-						<select name="TipoCliente_update TipoCliente" class="form-control" data-live-search="true">
+						<select name="TipoCliente_update" class="form-control TipoCliente" data-live-search="true">
 							<option value="">Seleccione...</option>
 						</select>
 					</div>
@@ -133,16 +134,17 @@
 				<div class="row">
 					<div class="col-md-4 form-group">
 						<label>Giro</label>
-						<select name="Giro" class="form-control selectpicker Giro" data-live-search="true" validate="not_null">
+						<input name="Giro_update" class="form-control" validate="not_null">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Provincia</label>
+						<select id="Provincia_update" name="Provincia_update" class="form-control Provincia_update" data-live-search="true" validate="not_null">
 						</select>
 					</div>
 					<div class="col-md-4 form-group">
-						<label>Ciudad</label>
-						<input name="Ciudad_update" class="form-control">
-					</div>
-					<div class="col-md-4 form-group">
 						<label>Comuna</label>
-						<input name="Comuna_update" class="form-control">
+						<select id="Comuna_update" name="Comuna_update" class="form-control Comuna_update" data-live-search="true" validate="not_null">
+						</select>
 					</div>
 				</div>
 				<div class="row">

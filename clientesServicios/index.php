@@ -344,6 +344,7 @@
 		<script src="../plugins/moment/moment.js"></script>
 		<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 		<script src="../js/clientes/controller.js"></script>
+		<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>
 	</body>
 </html>

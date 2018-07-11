@@ -5,8 +5,32 @@ var map
 var mapCenter
 
 $(document).ready(function() {
+
+	$('select[name="Rut"]').load('../ajax/servicios/selectClientes.php', function () {
+		$('select[name="Rut"]').selectpicker('refresh');
+		var Parametros = window.location.search.substr(1);
+		if (Parametros != "") {
+			var ParametrosArray = Parametros.split("&");
+			for (var i = 0; i < ParametrosArray.length; i++) {
+				var Parametro = ParametrosArray[i];
+				var ParametroArray = Parametro.split("=");
+				switch (ParametroArray[0]) {
+					case "Rut":
+						getCliente(ParametroArray[1])
+						break;
+				}
+			}
+		}
+	});
+
+	$('select[name="Provincia"]').load('../ajax/cliente/getProvincias.php', function (data) {
+		$('select[name="Provincia"]').selectpicker('refresh');
+	});
+	$('.Provincia_update').load('../ajax/cliente/getProvincias.php', function (data) {
+		$('.Provincia_update').selectpicker('refresh');
+	});
 	
-	$('[name="Rut"]').number( true, 0,'','');
+	$('[name="Rut"]').mask("00000000");
 
 	$('.TipoCliente').load('../ajax/cliente/selectTipoCliente.php', function () {
 		$('.TipoCliente').selectpicker('refresh');
@@ -102,11 +126,6 @@ $(document).ready(function() {
 	$('[name="Descuento"]').number(true, 0, '.', '');
 	$('[name="CostoInstalacion"]').number(true, 2, ',', '.');
 	$('[name="CostoInstalacionDescuento"]').number(true, 0, '.', '');
-
-	$('select[name="Rut"]').load('../ajax/servicios/selectClientes.php', function() {
-		$('select[name="Rut"]').selectpicker('refresh');
-	});
-
 	$('select[name="TipoServicio"]').change(function(event) {
 
 		Latitud = $('#Latitud').val()
@@ -487,13 +506,11 @@ $(document).ready(function() {
 		});
 	});
 
-
-	$(document).on('change', 'select[name="Rut"]', function() {
-
-		if ($('select[name="Rut"]').selectpicker('val') != '') {
+	function getCliente(Rut){
+		if (Rut != '') {
 			$.post('../ajax/cliente/dataCliente.php', {
-				rut: $('select[name="Rut"]').selectpicker('val')
-			}, function(data) {
+				rut: Rut
+			}, function (data) {
 				values = $.parseJSON(data);
 				$('.dataServicios').html(values[1]);
 				var count = $('.dataServicios > .tabeData tr th').length - 1;
@@ -502,7 +519,7 @@ $(document).ready(function() {
 					"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
-					}, ],
+					},],
 					language: {
 						processing: "Procesando ...",
 						search: '<div class="input-group"><span class="input-group-addon"><span class="glyphicon glyphicon-search"></span></span>',
@@ -530,29 +547,38 @@ $(document).ready(function() {
 
 				text = $('#Rut option:selected').text()
 				split = text.split('-');
-				tipo_cliente = split[2].trim()
+				if(split[2]){
+					tipo_cliente = split[2].trim()
 
-				if(tipo_cliente == "Boleta"){
+					if (tipo_cliente == "Boleta") {
 
-					$("#TipoFactura option[value='FSMI']").remove();
-					$("#TipoFactura option[value='FSMIOC']").remove();
+						$("#TipoFactura option[value='FSMI']").remove();
+						$("#TipoFactura option[value='FSMIOC']").remove();
 
-					if($("#TipoFactura option[value='BSMI']").length == 0){
-						$("#TipoFactura").append('<option value="BSMI">BSMI - Boleta Servicio Mensual Individual</option>');
+						if ($("#TipoFactura option[value='BSMI']").length == 0) {
+							$("#TipoFactura").append('<option value="BSMI">BSMI - Boleta Servicio Mensual Individual</option>');
+						}
+					} else {
+
+						$("#TipoFactura option[value='BSMI']").remove();
+
+						if ($("#TipoFactura option[value='FSMI']").length == 0) {
+							$("#TipoFactura").append('<option value="FSMI">FSMI - Factura servicio mensual</option>');
+							$("#TipoFactura").append('<option value="FSMIOC">FSMIOC - Factura servicio Mensual Orden de Compra</option>');
+						}
 					}
-				}else{
 
-					$("#TipoFactura option[value='BSMI']").remove();
-
-					if($("#TipoFactura option[value='FSMI']").length == 0){
-						$("#TipoFactura").append('<option value="FSMI">FSMI - Factura servicio mensual</option>');
-						$("#TipoFactura").append('<option value="FSMIOC">FSMIOC - Factura servicio Mensual Orden de Compra</option>');
-					}
+					$('#TipoFactura').selectpicker('refresh');
 				}
-
-				$('#TipoFactura').selectpicker('refresh');
 			});
 		}
+		$('#Rut').val(Rut);
+		setTimeout(() => {
+			$('#Rut').selectpicker('refresh')
+		}, 1000);
+	}
+	$(document).on('change', 'select[name="Rut"]', function() {
+		getCliente($(this).val())
 	});
 
 	$(document).on('click', '.listDatosTecnicos', function() {
@@ -573,7 +599,29 @@ $(document).ready(function() {
 					"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
-					}, ]
+					}, ],
+					language: {
+						processing: "Procesando ...",
+						search: 'Buscar',
+						lengthMenu: "Mostrar _MENU_ Registros",
+						info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+						infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+						infoFiltered: "(filtrada de _MAX_ registros en total)",
+						infoPostFix: "",
+						loadingRecords: "...",
+						zeroRecords: "No se encontraron registros coincidentes",
+						emptyTable: "No hay datos disponibles en la tabla",
+						paginate: {
+							first: "Primero",
+							previous: "Anterior",
+							next: "Siguiente",
+							last: "Ultimo"
+						},
+						aria: {
+							sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+							sortDescending: ": habilitado para ordenar la columna en orden descendente"
+						}
+					}
 				});
 				$('.containerListDatosTecnicos').attr('idTipoLista', id);
 			});
@@ -978,7 +1026,29 @@ $(document).ready(function() {
 										"columnDefs": [{
 										'orderable': false,
 										'targets': [count]
-									}, ]
+									}, ],
+									language: {
+										processing: "Procesando ...",
+										search: 'Buscar',
+										lengthMenu: "Mostrar _MENU_ Registros",
+										info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+										infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+										infoFiltered: "(filtrada de _MAX_ registros en total)",
+										infoPostFix: "",
+										loadingRecords: "...",
+										zeroRecords: "No se encontraron registros coincidentes",
+										emptyTable: "No hay datos disponibles en la tabla",
+										paginate: {
+											first: "Primero",
+											previous: "Anterior",
+											next: "Siguiente",
+											last: "Ultimo"
+										},
+										aria: {
+											sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+											sortDescending: ": habilitado para ordenar la columna en orden descendente"
+										}
+									}
 								});
 							});
 						});
@@ -1013,7 +1083,29 @@ $(document).ready(function() {
 										"columnDefs": [{
 										'orderable': false,
 										'targets': [count]
-									}, ]
+									}, ],
+									language: {
+										processing: "Procesando ...",
+										search: 'Buscar',
+										lengthMenu: "Mostrar _MENU_ Registros",
+										info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+										infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+										infoFiltered: "(filtrada de _MAX_ registros en total)",
+										infoPostFix: "",
+										loadingRecords: "...",
+										zeroRecords: "No se encontraron registros coincidentes",
+										emptyTable: "No hay datos disponibles en la tabla",
+										paginate: {
+											first: "Primero",
+											previous: "Anterior",
+											next: "Siguiente",
+											last: "Ultimo"
+										},
+										aria: {
+											sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+											sortDescending: ": habilitado para ordenar la columna en orden descendente"
+										}
+									}
 								});
 							});
 						});
@@ -1048,7 +1140,29 @@ $(document).ready(function() {
 										"columnDefs": [{
 										'orderable': false,
 										'targets': [count]
-									}, ]
+									}, ],
+									language: {
+										processing: "Procesando ...",
+										search: 'Buscar',
+										lengthMenu: "Mostrar _MENU_ Registros",
+										info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+										infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+										infoFiltered: "(filtrada de _MAX_ registros en total)",
+										infoPostFix: "",
+										loadingRecords: "...",
+										zeroRecords: "No se encontraron registros coincidentes",
+										emptyTable: "No hay datos disponibles en la tabla",
+										paginate: {
+											first: "Primero",
+											previous: "Anterior",
+											next: "Siguiente",
+											last: "Ultimo"
+										},
+										aria: {
+											sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+											sortDescending: ": habilitado para ordenar la columna en orden descendente"
+										}
+									}
 								});
 							});
 						});
@@ -1083,7 +1197,29 @@ $(document).ready(function() {
 										"columnDefs": [{
 										'orderable': false,
 										'targets': [count]
-									}, ]
+									}, ],
+									language: {
+										processing: "Procesando ...",
+										search: 'Buscar',
+										lengthMenu: "Mostrar _MENU_ Registros",
+										info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+										infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+										infoFiltered: "(filtrada de _MAX_ registros en total)",
+										infoPostFix: "",
+										loadingRecords: "...",
+										zeroRecords: "No se encontraron registros coincidentes",
+										emptyTable: "No hay datos disponibles en la tabla",
+										paginate: {
+											first: "Primero",
+											previous: "Anterior",
+											next: "Siguiente",
+											last: "Ultimo"
+										},
+										aria: {
+											sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+											sortDescending: ": habilitado para ordenar la columna en orden descendente"
+										}
+									}
 								});
 							});
 						});
@@ -1093,4 +1229,11 @@ $(document).ready(function() {
 		});
 	});
 
+	$(document).on('change', 'select[name="Provincia"]', function () {
+		if ($(this).selectpicker('val') != '') {
+			$('select[name="Comuna"]').load('../ajax/cliente/getComunas.php', { Provincia: $(this).selectpicker('val') }, function (data) {
+				$('select[name="Comuna"]').selectpicker('refresh');
+			});
+		}
+	});
 });

@@ -868,10 +868,10 @@
                 $clientId = $client['items'][0]['id'];
             }else{
 
-                if($cliente['ciudad']){
-                    $ciudad = $cliente['ciudad'];
+                if($cliente['provincia']){
+                    $provincia = $cliente['provincia'];
                 }else{
-                    $ciudad = 'Santiago';
+                    $provincia = 'Santiago';
                 }
 
                 if($cliente['comuna']){
@@ -889,7 +889,7 @@
                     "phone"         => $cliente['telefono'],
                     "address"       => $cliente['direccion'],
                     "company"       => $cliente['nombre'],
-                    "city"          => $ciudad,
+                    "city"          => $provincia,
                     "municipality"  => $comuna,
                     "activity"      => $cliente['giro']
                 );

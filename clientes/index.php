@@ -14,6 +14,7 @@
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 		<link href="../plugins/pace/pace.min.css" rel="stylesheet">
+		<link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
@@ -92,12 +93,14 @@
 															</div>
 														</div>
 														<div class="col-md-4 form-group">
-															<label>Ciudad</label>
-															<input name="Ciudad" class="form-control" validate="not_null">
+															<label>Provincia</label>
+															<select id="Provincia" name="Provincia" class="form-control Provincia" data-live-search="true" validate="not_null">
+															</select>
 														</div>
 														<div class="col-md-4 form-group">
 															<label>Comuna</label>
-															<input name="Comuna" class="form-control" validate="not_null">
+															<select id="Comuna" name="Comuna" class="form-control Comuna" data-live-search="true" validate="not_null">
+															</select>
 														</div>
 													</div>
 													<div class="row">
@@ -140,7 +143,8 @@
 												<div class="row">
 													<div class="col-md-12">
 														<br>
-														<button type="button" class="btn btn-primary guardarCliente">Guardar</button>
+														<button id ="guardarCliente" type="button" class="btn btn-primary guardarCliente">Guardar</button>
+														<button id ="guardarClienteIrServicio" type="button" class="btn btn-primary guardarCliente">Guardar y Crear Servicio</button>
 													</div>
 												</div>
 											</div>
@@ -181,8 +185,10 @@
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 	<script src="../js/methods_global/methods.js"></script>
 	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
+	<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 	<script src="../plugins/numbers/jquery.number.js"></script>
 	<script src="../plugins/pace/pace.min.js"></script>
+	<script src="../plugins/sweetalert/sweetalert.min.js"></script>
 	<script src="../js/clientes/controller.js"></script>
 </body>
 </html>
@@ -262,16 +268,17 @@
 				<div class="row">
 					<div class="col-md-4 form-group">
 						<label>Giro</label>
-						<select name="Giro_update" class="form-control selectpicker Giro" data-live-search="true" validate="not_null">
+						<input name="Giro_update" class="form-control" validate="not_null">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Provincia</label>
+						<select id="Provincia_update" name="Provincia_update" class="form-control Provincia_update" data-live-search="true" validate="not_null">
 						</select>
 					</div>
 					<div class="col-md-4 form-group">
-						<label>Ciudad</label>
-						<input name="Ciudad_update" class="form-control">
-					</div>
-					<div class="col-md-4 form-group">
 						<label>Comuna</label>
-						<input name="Comuna_update" class="form-control">
+						<select id="Comuna_update" name="Comuna_update" class="form-control Comuna_update" data-live-search="true" validate="not_null">
+						</select>
 					</div>
 				</div>
 				<div class="row">

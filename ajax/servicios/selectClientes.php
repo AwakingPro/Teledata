@@ -9,7 +9,9 @@
 	INNER JOIN 
 		mantenedor_tipo_cliente mt 
 	ON 
-		p.tipo_cliente = mt.id";
+		p.tipo_cliente = mt.id
+	WHERE 
+		tipo_cliente != 3";
 	$run = new Method;
 	$clientes = $run->select($query);
 	if (count($clientes) > 0) {

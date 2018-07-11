@@ -284,34 +284,34 @@ function eliminarTrabajador(TableRow, ID){
 
 
   /*
-  * Lista las ciudades dependiendo de la region seleccionada
+  * Lista las provinciaes dependiendo de la region seleccionada
   */ 
   $('body').on( 'change', '#regionTrabajador', function ( event ) { 
       var idRegion = $('#regionTrabajador').val();
       if ((idRegion != 0) || (idRegion != ""))
       {
-        FiltrarCiudades(idRegion);
+        FiltrarProvinciaes(idRegion);
       }else {
         //resetearCombos();
       }
   });
 
   /*
-    * busca ciudades dependiendo de la region seleccionada
+    * busca provinciaes dependiendo de la region seleccionada
   */
-  function FiltrarCiudades(idRegion){
+  function FiltrarProvinciaes(idRegion){
       $.ajax({
           type: "POST",
-          url: "../includes/trabajador/GetListarCiudades.php",
+          url: "../includes/trabajador/GetListarProvinciaes.php",
           dataType: "html",
           data: {idRegion: idRegion},
           success: function(data){
               alert(data);
-              $("select[name='ciudadTrabajador']").html(data);
-              $("select[name='ciudadTrabajador']").selectpicker('refresh');
+              $("select[name='provinciaTrabajador']").html(data);
+              $("select[name='provinciaTrabajador']").selectpicker('refresh');
           },
           error: function(){
-              alert('errorfiltrarciudades');
+              alert('errorfiltrarprovinciaes');
           }
       });
   }
@@ -319,8 +319,8 @@ function eliminarTrabajador(TableRow, ID){
    /*
   * Lista las comunas dependiendo de la provincia seleccionada
   */ 
-  $('body').on( 'change', '#ciudadTrabajador', function ( event ) { 
-      var idProvincia = $('#ciudadTrabajador').val();
+  $('body').on( 'change', '#provinciaTrabajador', function ( event ) { 
+      var idProvincia = $('#provinciaTrabajador').val();
       if ((idProvincia != 0) || (idProvincia != ""))
       {
         FiltrarComunas(idProvincia);

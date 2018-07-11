@@ -759,7 +759,7 @@ CREATE TABLE `personaempresa`  (
   `comentario` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `telefono` varchar(11) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `comuna` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `ciudad` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `provincia` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `alias` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `tipo_cliente` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `IdUsuarioSession` int(11) NULL DEFAULT NULL,
@@ -796,7 +796,7 @@ INSERT INTO `personaempresa` VALUES (21, 96912840, '3', 'Aquagen Chile S.A.', 'C
 INSERT INTO `personaempresa` VALUES (22, 76198945, '6', 'Arcos y AXT Limitada', 'HHT hostal', 'Punion, sitio B19.  Contao', 'ivarcos@gmail.com', 'ivancos@gmail.com', '', '98730070', 'Hualaihué', 'Hualaihue', '', 'Factura', 105, '76198945-6', NULL);
 INSERT INTO `personaempresa` VALUES (23, 76145415, '3', 'Arquitectura y Construcción Dahomey Ltda.', 'C78 Obras de ingeniería', 'Los Laureles 315', 'rrhh@dahomey.cl', 'rrhh@dahomey.cl', '', '963670805', 'Puerto Montt', 'Puerto Montt', '', 'Factura', 105, '76145415-3', NULL);
 INSERT INTO `personaempresa` VALUES (24, 78735770, '9', 'Asesorías e Inversiones Riñihue Ltda.', 'A46 Asesorías', 'Sector Linea Nueva S.N', 'albertcherry@gmail.com', 'albertcherry@gmail.com', '', '92796398', 'Puerto Varas', 'Puerto Varas', '', 'Factura', 105, '78735770-9', NULL);
-INSERT INTO `personaempresa` VALUES (25, 76101160, 'k', 'Asesorías Proredes Data Ltda.', 'A46 Asesorías', 'Av. Del Cóndor 550.  Oficina 106, Ciudad Empresarial', 'cgause@proredes.net', 'cgause@proredes.net; acristi@proredes.net', '', '998737961', 'Huechuraba', 'Santiago', '', 'Factura', 105, '76101160-k', NULL);
+INSERT INTO `personaempresa` VALUES (25, 76101160, 'k', 'Asesorías Proredes Data Ltda.', 'A46 Asesorías', 'Av. Del Cóndor 550.  Oficina 106, Provincia Empresarial', 'cgause@proredes.net', 'cgause@proredes.net; acristi@proredes.net', '', '998737961', 'Huechuraba', 'Santiago', '', 'Factura', 105, '76101160-k', NULL);
 INSERT INTO `personaempresa` VALUES (26, 76702760, '5', 'AUDREY & MICKAEL TURISMO LTDA.', 'A12 Turismo', 'Sector el Taique S N', 'lodgeeltaique@hotmail.com', 'lodgeeltaique@hotmail.com', '', '642970980', 'Puyehue', 'Osorno', '', 'Factura', 105, '76702760-5', NULL);
 INSERT INTO `personaempresa` VALUES (27, 8326986, '3', 'Augusto Muller Contreras', 'A23 Contratista de Obras Menores', 's n', 'muller.augusto@gmail.com', 'muller.augusto@gmail.com', '', '998389841', 'Hualaihué', 'Contao', '', 'Factura', 105, '8326986-3', NULL);
 INSERT INTO `personaempresa` VALUES (28, 76273790, '6', 'Bar de la Esquina Ltda.', 'C96 Restaurant', 'Volcán Osorno Km 13', 'cristobal@teski.cl', 'cristobal@teski.cl', '', '652566622', 'Puerto Varas', 'Ensenada', '', 'Factura', 105, '76273790-6', NULL);

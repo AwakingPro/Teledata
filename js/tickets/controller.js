@@ -49,7 +49,29 @@ $.post('../ajax/privilegios.php', function(data) {
 				"columnDefs": [{
 					'orderable': false,
 					'targets': [count]
-				}, ]
+				}, ],
+				language: {
+					processing: "Procesando ...",
+					search: 'Buscar',
+					lengthMenu: "Mostrar _MENU_ Registros",
+					info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+					infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+					infoFiltered: "(filtrada de _MAX_ registros en total)",
+					infoPostFix: "",
+					loadingRecords: "...",
+					zeroRecords: "No se encontraron registros coincidentes",
+					emptyTable: "No hay datos disponibles en la tabla",
+					paginate: {
+						first: "Primero",
+						previous: "Anterior",
+						next: "Siguiente",
+						last: "Ultimo"
+					},
+					aria: {
+						sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+						sortDescending: ": habilitado para ordenar la columna en orden descendente"
+					}
+				}
 			});
 		});
 
@@ -61,7 +83,29 @@ $.post('../ajax/privilegios.php', function(data) {
 					"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
-					}, ]
+					}, ],
+					language: {
+						processing: "Procesando ...",
+						search: 'Buscar',
+						lengthMenu: "Mostrar _MENU_ Registros",
+						info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+						infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+						infoFiltered: "(filtrada de _MAX_ registros en total)",
+						infoPostFix: "",
+						loadingRecords: "...",
+						zeroRecords: "No se encontraron registros coincidentes",
+						emptyTable: "No hay datos disponibles en la tabla",
+						paginate: {
+							first: "Primero",
+							previous: "Anterior",
+							next: "Siguiente",
+							last: "Ultimo"
+						},
+						aria: {
+							sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+							sortDescending: ": habilitado para ordenar la columna en orden descendente"
+						}
+					}
 				});
 			});
 
@@ -72,7 +116,29 @@ $.post('../ajax/privilegios.php', function(data) {
 					"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
-					}, ]
+					}, ],
+					language: {
+						processing: "Procesando ...",
+						search: 'Buscar',
+						lengthMenu: "Mostrar _MENU_ Registros",
+						info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+						infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+						infoFiltered: "(filtrada de _MAX_ registros en total)",
+						infoPostFix: "",
+						loadingRecords: "...",
+						zeroRecords: "No se encontraron registros coincidentes",
+						emptyTable: "No hay datos disponibles en la tabla",
+						paginate: {
+							first: "Primero",
+							previous: "Anterior",
+							next: "Siguiente",
+							last: "Ultimo"
+						},
+						aria: {
+							sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+							sortDescending: ": habilitado para ordenar la columna en orden descendente"
+						}
+					}
 				});
 			});
 
@@ -83,7 +149,29 @@ $.post('../ajax/privilegios.php', function(data) {
 					"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
-					}, ]
+					}, ],
+					language: {
+						processing: "Procesando ...",
+						search: 'Buscar',
+						lengthMenu: "Mostrar _MENU_ Registros",
+						info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+						infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+						infoFiltered: "(filtrada de _MAX_ registros en total)",
+						infoPostFix: "",
+						loadingRecords: "...",
+						zeroRecords: "No se encontraron registros coincidentes",
+						emptyTable: "No hay datos disponibles en la tabla",
+						paginate: {
+							first: "Primero",
+							previous: "Anterior",
+							next: "Siguiente",
+							last: "Ultimo"
+						},
+						aria: {
+							sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+							sortDescending: ": habilitado para ordenar la columna en orden descendente"
+						}
+					}
 				});
 			});
 
@@ -94,7 +182,29 @@ $.post('../ajax/privilegios.php', function(data) {
 					"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
-					}, ]
+					}, ],
+					language: {
+						processing: "Procesando ...",
+						search: 'Buscar',
+						lengthMenu: "Mostrar _MENU_ Registros",
+						info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+						infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+						infoFiltered: "(filtrada de _MAX_ registros en total)",
+						infoPostFix: "",
+						loadingRecords: "...",
+						zeroRecords: "No se encontraron registros coincidentes",
+						emptyTable: "No hay datos disponibles en la tabla",
+						paginate: {
+							first: "Primero",
+							previous: "Anterior",
+							next: "Siguiente",
+							last: "Ultimo"
+						},
+						aria: {
+							sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+							sortDescending: ": habilitado para ordenar la columna en orden descendente"
+						}
+					}
 				});
 			});
 
@@ -111,7 +221,29 @@ $.post('../ajax/privilegios.php', function(data) {
 				"columnDefs": [{
 					'orderable': false,
 					'targets': [count]
-				}, ]
+				}, ],
+				language: {
+					processing: "Procesando ...",
+					search: 'Buscar',
+					lengthMenu: "Mostrar _MENU_ Registros",
+					info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+					infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+					infoFiltered: "(filtrada de _MAX_ registros en total)",
+					infoPostFix: "",
+					loadingRecords: "...",
+					zeroRecords: "No se encontraron registros coincidentes",
+					emptyTable: "No hay datos disponibles en la tabla",
+					paginate: {
+						first: "Primero",
+						previous: "Anterior",
+						next: "Siguiente",
+						last: "Ultimo"
+					},
+					aria: {
+						sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+						sortDescending: ": habilitado para ordenar la columna en orden descendente"
+					}
+				}
 			});
 		});
 
@@ -122,7 +254,29 @@ $.post('../ajax/privilegios.php', function(data) {
 				"columnDefs": [{
 					'orderable': false,
 					'targets': [count]
-				}, ]
+				}, ],
+				language: {
+					processing: "Procesando ...",
+					search: 'Buscar',
+					lengthMenu: "Mostrar _MENU_ Registros",
+					info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+					infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+					infoFiltered: "(filtrada de _MAX_ registros en total)",
+					infoPostFix: "",
+					loadingRecords: "...",
+					zeroRecords: "No se encontraron registros coincidentes",
+					emptyTable: "No hay datos disponibles en la tabla",
+					paginate: {
+						first: "Primero",
+						previous: "Anterior",
+						next: "Siguiente",
+						last: "Ultimo"
+					},
+					aria: {
+						sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+						sortDescending: ": habilitado para ordenar la columna en orden descendente"
+					}
+				}
 			});
 		});
 
@@ -166,7 +320,29 @@ $.post('../ajax/privilegios.php', function(data) {
 					"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
-					}, ]
+					}, ],
+					language: {
+						processing: "Procesando ...",
+						search: 'Buscar',
+						lengthMenu: "Mostrar _MENU_ Registros",
+						info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+						infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+						infoFiltered: "(filtrada de _MAX_ registros en total)",
+						infoPostFix: "",
+						loadingRecords: "...",
+						zeroRecords: "No se encontraron registros coincidentes",
+						emptyTable: "No hay datos disponibles en la tabla",
+						paginate: {
+							first: "Primero",
+							previous: "Anterior",
+							next: "Siguiente",
+							last: "Ultimo"
+						},
+						aria: {
+							sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+							sortDescending: ": habilitado para ordenar la columna en orden descendente"
+						}
+					}
 				});
 			});
 		});
@@ -180,7 +356,29 @@ $.post('../ajax/privilegios.php', function(data) {
 								"columnDefs": [{
 									'orderable': false,
 									'targets': [count]
-								}, ]
+								}, ],
+								language: {
+									processing: "Procesando ...",
+									search: 'Buscar',
+									lengthMenu: "Mostrar _MENU_ Registros",
+									info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+									infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+									infoFiltered: "(filtrada de _MAX_ registros en total)",
+									infoPostFix: "",
+									loadingRecords: "...",
+									zeroRecords: "No se encontraron registros coincidentes",
+									emptyTable: "No hay datos disponibles en la tabla",
+									paginate: {
+										first: "Primero",
+										previous: "Anterior",
+										next: "Siguiente",
+										last: "Ultimo"
+									},
+									aria: {
+										sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+										sortDescending: ": habilitado para ordenar la columna en orden descendente"
+									}
+								}
 							});
 						});
 						$('[name="Prioridad"], [name="PrioridadUpdate"]').load('../ajax/tickets/selectPrioridad.php',function(){
@@ -204,7 +402,29 @@ $.post('../ajax/privilegios.php', function(data) {
 								"columnDefs": [{
 									'orderable': false,
 									'targets': [count]
-								}, ]
+								}, ],
+								language: {
+									processing: "Procesando ...",
+									search: 'Buscar',
+									lengthMenu: "Mostrar _MENU_ Registros",
+									info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+									infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+									infoFiltered: "(filtrada de _MAX_ registros en total)",
+									infoPostFix: "",
+									loadingRecords: "...",
+									zeroRecords: "No se encontraron registros coincidentes",
+									emptyTable: "No hay datos disponibles en la tabla",
+									paginate: {
+										first: "Primero",
+										previous: "Anterior",
+										next: "Siguiente",
+										last: "Ultimo"
+									},
+									aria: {
+										sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+										sortDescending: ": habilitado para ordenar la columna en orden descendente"
+									}
+								}
 							});
 						});
 						$('[name="Prioridad"], [name="PrioridadUpdate"]').load('../ajax/tickets/selectPrioridad.php',function(){
@@ -285,7 +505,29 @@ $.post('../ajax/privilegios.php', function(data) {
 									"columnDefs": [{
 										'orderable': false,
 										'targets': [count]
-									}, ]
+									}, ],
+									language: {
+										processing: "Procesando ...",
+										search: 'Buscar',
+										lengthMenu: "Mostrar _MENU_ Registros",
+										info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+										infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+										infoFiltered: "(filtrada de _MAX_ registros en total)",
+										infoPostFix: "",
+										loadingRecords: "...",
+										zeroRecords: "No se encontraron registros coincidentes",
+										emptyTable: "No hay datos disponibles en la tabla",
+										paginate: {
+											first: "Primero",
+											previous: "Anterior",
+											next: "Siguiente",
+											last: "Ultimo"
+										},
+										aria: {
+											sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+											sortDescending: ": habilitado para ordenar la columna en orden descendente"
+										}
+									}
 								});
 							});
 							$('[name="Prioridad"], [name="PrioridadUpdate"]').load('../ajax/tickets/selectPrioridad.php',function(){
@@ -397,7 +639,29 @@ $.post('../ajax/privilegios.php', function(data) {
 								"columnDefs": [{
 									'orderable': false,
 									'targets': [count]
-								}, ]
+								}, ],
+								language: {
+									processing: "Procesando ...",
+									search: 'Buscar',
+									lengthMenu: "Mostrar _MENU_ Registros",
+									info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+									infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+									infoFiltered: "(filtrada de _MAX_ registros en total)",
+									infoPostFix: "",
+									loadingRecords: "...",
+									zeroRecords: "No se encontraron registros coincidentes",
+									emptyTable: "No hay datos disponibles en la tabla",
+									paginate: {
+										first: "Primero",
+										previous: "Anterior",
+										next: "Siguiente",
+										last: "Ultimo"
+									},
+									aria: {
+										sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+										sortDescending: ": habilitado para ordenar la columna en orden descendente"
+									}
+								}
 							});
 						});
 						$('[name="Tipo"], [name="TipoUpdate"], [name="IdTipoTicket"]').load('../ajax/tickets/selectTipoTicket.php',function(){
@@ -420,7 +684,29 @@ $.post('../ajax/privilegios.php', function(data) {
 								"columnDefs": [{
 									'orderable': false,
 									'targets': [count]
-								}, ]
+								}, ],
+								language: {
+									processing: "Procesando ...",
+									search: 'Buscar',
+									lengthMenu: "Mostrar _MENU_ Registros",
+									info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+									infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+									infoFiltered: "(filtrada de _MAX_ registros en total)",
+									infoPostFix: "",
+									loadingRecords: "...",
+									zeroRecords: "No se encontraron registros coincidentes",
+									emptyTable: "No hay datos disponibles en la tabla",
+									paginate: {
+										first: "Primero",
+										previous: "Anterior",
+										next: "Siguiente",
+										last: "Ultimo"
+									},
+									aria: {
+										sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+										sortDescending: ": habilitado para ordenar la columna en orden descendente"
+									}
+								}
 							});
 						});
 						$('[name="Tipo"], [name="TipoUpdate"], [name="IdTipoTicket"]').load('../ajax/tickets/selectTipoTicket.php',function(){
@@ -474,7 +760,29 @@ $.post('../ajax/privilegios.php', function(data) {
 									"columnDefs": [{
 										'orderable': false,
 										'targets': [count]
-									}, ]
+									}, ],
+									language: {
+										processing: "Procesando ...",
+										search: 'Buscar',
+										lengthMenu: "Mostrar _MENU_ Registros",
+										info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+										infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+										infoFiltered: "(filtrada de _MAX_ registros en total)",
+										infoPostFix: "",
+										loadingRecords: "...",
+										zeroRecords: "No se encontraron registros coincidentes",
+										emptyTable: "No hay datos disponibles en la tabla",
+										paginate: {
+											first: "Primero",
+											previous: "Anterior",
+											next: "Siguiente",
+											last: "Ultimo"
+										},
+										aria: {
+											sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+											sortDescending: ": habilitado para ordenar la columna en orden descendente"
+										}
+									}
 								});
 							});
 							$('[name="Tipo"], [name="TipoUpdate"], [name="IdTipoTicket"]').load('../ajax/tickets/selectTipoTicket.php',function(){
@@ -496,7 +804,29 @@ $.post('../ajax/privilegios.php', function(data) {
 								"columnDefs": [{
 									'orderable': false,
 									'targets': [count]
-								}, ]
+								}, ],
+								language: {
+									processing: "Procesando ...",
+									search: 'Buscar',
+									lengthMenu: "Mostrar _MENU_ Registros",
+									info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+									infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+									infoFiltered: "(filtrada de _MAX_ registros en total)",
+									infoPostFix: "",
+									loadingRecords: "...",
+									zeroRecords: "No se encontraron registros coincidentes",
+									emptyTable: "No hay datos disponibles en la tabla",
+									paginate: {
+										first: "Primero",
+										previous: "Anterior",
+										next: "Siguiente",
+										last: "Ultimo"
+									},
+									aria: {
+										sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+										sortDescending: ": habilitado para ordenar la columna en orden descendente"
+									}
+								}
 							});
 						});
 						$('[name="IdTipoTicket"]').val("");
@@ -522,7 +852,29 @@ $.post('../ajax/privilegios.php', function(data) {
 								"columnDefs": [{
 									'orderable': false,
 									'targets': [count]
-								}, ]
+								}, ],
+								language: {
+									processing: "Procesando ...",
+									search: 'Buscar',
+									lengthMenu: "Mostrar _MENU_ Registros",
+									info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+									infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+									infoFiltered: "(filtrada de _MAX_ registros en total)",
+									infoPostFix: "",
+									loadingRecords: "...",
+									zeroRecords: "No se encontraron registros coincidentes",
+									emptyTable: "No hay datos disponibles en la tabla",
+									paginate: {
+										first: "Primero",
+										previous: "Anterior",
+										next: "Siguiente",
+										last: "Ultimo"
+									},
+									aria: {
+										sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+										sortDescending: ": habilitado para ordenar la columna en orden descendente"
+									}
+								}
 							});
 						});
 						$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {
@@ -581,7 +933,29 @@ $.post('../ajax/privilegios.php', function(data) {
 									"columnDefs": [{
 										'orderable': false,
 										'targets': [count]
-									}, ]
+									}, ],
+									language: {
+										processing: "Procesando ...",
+										search: 'Buscar',
+										lengthMenu: "Mostrar _MENU_ Registros",
+										info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+										infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+										infoFiltered: "(filtrada de _MAX_ registros en total)",
+										infoPostFix: "",
+										loadingRecords: "...",
+										zeroRecords: "No se encontraron registros coincidentes",
+										emptyTable: "No hay datos disponibles en la tabla",
+										paginate: {
+											first: "Primero",
+											previous: "Anterior",
+											next: "Siguiente",
+											last: "Ultimo"
+										},
+										aria: {
+											sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+											sortDescending: ": habilitado para ordenar la columna en orden descendente"
+										}
+									}
 								});
 							});
 							$.post('../ajax/tickets/selectSubTipoTicket.php', {id:$('[name="Tipo"]').val()}, function(data) {

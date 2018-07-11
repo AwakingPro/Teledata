@@ -258,6 +258,7 @@
 		<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 		<script src="../js/global/validations.js"></script>
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
+		<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>
 		<script src="../plugins/moment/moment.js"></script>
     	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
@@ -531,16 +532,18 @@
 							</div>
 							<div class="row">
 								<div class="col-md-4 form-group">
-									<label>Ciudad</label>
-									<input name="Ciudad" class="form-control" data-nombre="Ciudad">
+									<label>Giro</label>
+									<select name="Giro" class="form-control selectpicker Giro" data-live-search="true" validate="not_null" data-nombre="Giro">
+									</select>
+								</div>
+								<div class="col-md-4 form-group">
+									<label>Provincia</label>
+									<select id="Provincia" name="Provincia" class="form-control selectpicker Provincia" data-live-search="true" validate="not_null">
+									</select>
 								</div>
 								<div class="col-md-4 form-group">
 									<label>Comuna</label>
-									<input name="Comuna" class="form-control" data-nombre="Comuna">
-								</div>
-								<div class="col-md-4 form-group">
-									<label>Giro</label>
-									<select name="Giro" class="form-control selectpicker Giro" data-live-search="true" validate="not_null" data-nombre="Giro">
+									<select id="Comuna" name="Comuna" class="form-control selectpicker Comuna" data-live-search="true" validate="not_null">
 									</select>
 								</div>
 							</div>

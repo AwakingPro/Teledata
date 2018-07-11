@@ -5,6 +5,41 @@ var map
 var mapCenter
 
 $(document).ready(function() {
+
+	$('select[name="Provincia"]').load('../ajax/cliente/getProvincias.php', function (data) {
+		$('select[name="Provincia"]').selectpicker('refresh');
+	});
+	$('.Provincia_update').load('../ajax/cliente/getProvincias.php', function (data) {
+		$('.Provincia_update').selectpicker('refresh');
+	});
+	
+	var Parametros = window.location.search.substr(1);
+	if (Parametros != "") {
+		var ParametrosArray = Parametros.split("&");
+		for (var i = 0; i < ParametrosArray.length; i++) {
+			var Parametro = ParametrosArray[i];
+			var ParametroArray = Parametro.split("=");
+			switch (ParametroArray[0]) {
+				case "Rut":
+					$.ajax({
+						type: "POST",
+						data: { Rut: ParametroArray[1] },
+						url: "../ajax/cliente/getClienteID.php",
+						async: false,
+						success: function (id) {
+							if (id){
+								getPersonaempresa(id)
+							}
+						},
+						error: function () {
+							alert('error');
+						}
+					});
+					break;
+			}
+		}
+	}
+
 	if(typeof google !== "undefined"){
 		google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -71,7 +106,7 @@ $(document).ready(function() {
 		}
 	})
 
-	$('[name="Rut"]').number( true, 0,'','');
+	$('[name="Rut"]').mask("00000000");
 
 	$('.TipoCliente').load('../ajax/cliente/selectTipoCliente.php', function () {
 		$('.TipoCliente').selectpicker('refresh');
@@ -112,25 +147,74 @@ $(document).ready(function() {
 			"columnDefs": [{
 				'orderable': false,
 				'targets': [count]
-			}, ]
+			}, ],
+			language: {
+				processing: "Procesando ...",
+				search: 'Buscar',
+				lengthMenu: "Mostrar _MENU_ Registros",
+				info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+				infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+				infoFiltered: "(filtrada de _MAX_ registros en total)",
+				infoPostFix: "",
+				loadingRecords: "...",
+				zeroRecords: "No se encontraron registros coincidentes",
+				emptyTable: "No hay datos disponibles en la tabla",
+				paginate: {
+					first: "Primero",
+					previous: "Anterior",
+					next: "Siguiente",
+					last: "Ultimo"
+				},
+				aria: {
+					sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+					sortDescending: ": habilitado para ordenar la columna en orden descendente"
+				}
+			}
 		});
 	});
 
 	$(document).on('click', '.guardarCliente', function() {
+		tipo = $(this).attr('id')
 		$.postFormValues('../ajax/cliente/insertCliente.php','.form-cont1, .container-form-extraTelefono, .container-form-extraCorreo',function(data){
 			if (Number(data) > 0){
-				$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
-					var count = $('.listaCliente > .tabeData tr th').length -1;
-					$('.listaCliente > .tabeData').dataTable({
-						"columnDefs": [{
-							'orderable': false,
-							'targets': [count]
-						}, ]
+				if(tipo == 'guardarCliente'){
+					$('.listaCliente').load('../ajax/cliente/listClientes.php',function(){
+						var count = $('.listaCliente > .tabeData tr th').length -1;
+						$('.listaCliente > .tabeData').dataTable({
+							"columnDefs": [{
+								'orderable': false,
+								'targets': [count]
+							}, ],
+							language: {
+								processing: "Procesando ...",
+								search: 'Buscar',
+								lengthMenu: "Mostrar _MENU_ Registros",
+								info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+								infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+								infoFiltered: "(filtrada de _MAX_ registros en total)",
+								infoPostFix: "",
+								loadingRecords: "...",
+								zeroRecords: "No se encontraron registros coincidentes",
+								emptyTable: "No hay datos disponibles en la tabla",
+								paginate: {
+									first: "Primero",
+									previous: "Anterior",
+									next: "Siguiente",
+									last: "Ultimo"
+								},
+								aria: {
+									sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+									sortDescending: ": habilitado para ordenar la columna en orden descendente"
+								}
+							}
+						});
 					});
-				});
-				bootbox.alert('<h3 class="text-center">El cliente #'+data+' se registro con éxito.</h3>');
-				$('#insertCliente')[0].reset();
-				$('.selectpicker').selectpicker('refresh')
+					bootbox.alert('<h3 class="text-center">El cliente #'+data+' se registro con éxito.</h3>');
+					$('#insertCliente')[0].reset();
+					$('.selectpicker').selectpicker('refresh')
+				}else{
+					window.location = "../servicios?Rut=" + rut;
+				}
 			}else{
 				console.log(data);
 				if(data != "Dv"){
@@ -165,7 +249,29 @@ $(document).ready(function() {
 						"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
-					}, ]
+					}, ],
+					language: {
+						processing: "Procesando ...",
+						search: 'Buscar',
+						lengthMenu: "Mostrar _MENU_ Registros",
+						info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+						infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+						infoFiltered: "(filtrada de _MAX_ registros en total)",
+						infoPostFix: "",
+						loadingRecords: "...",
+						zeroRecords: "No se encontraron registros coincidentes",
+						emptyTable: "No hay datos disponibles en la tabla",
+						paginate: {
+							first: "Primero",
+							previous: "Anterior",
+							next: "Siguiente",
+							last: "Ultimo"
+						},
+						aria: {
+							sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+							sortDescending: ": habilitado para ordenar la columna en orden descendente"
+						}
+					}
 				});
 			});
 		}
@@ -225,7 +331,29 @@ $(document).ready(function() {
 					"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
-					}, ]
+					}, ],
+					language: {
+						processing: "Procesando ...",
+						search: 'Buscar',
+						lengthMenu: "Mostrar _MENU_ Registros",
+						info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+						infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+						infoFiltered: "(filtrada de _MAX_ registros en total)",
+						infoPostFix: "",
+						loadingRecords: "...",
+						zeroRecords: "No se encontraron registros coincidentes",
+						emptyTable: "No hay datos disponibles en la tabla",
+						paginate: {
+							first: "Primero",
+							previous: "Anterior",
+							next: "Siguiente",
+							last: "Ultimo"
+						},
+						aria: {
+							sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+							sortDescending: ": habilitado para ordenar la columna en orden descendente"
+						}
+					}
 				});
 				$('.containerListDatosTecnicos').attr('idTipoLista', id);
 			});
@@ -277,7 +405,29 @@ $(document).ready(function() {
 									"columnDefs": [{
 									'orderable': false,
 									'targets': [count]
-								}, ]
+								}, ],
+								language: {
+									processing: "Procesando ...",
+									search: 'Buscar',
+									lengthMenu: "Mostrar _MENU_ Registros",
+									info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+									infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+									infoFiltered: "(filtrada de _MAX_ registros en total)",
+									infoPostFix: "",
+									loadingRecords: "...",
+									zeroRecords: "No se encontraron registros coincidentes",
+									emptyTable: "No hay datos disponibles en la tabla",
+									paginate: {
+										first: "Primero",
+										previous: "Anterior",
+										next: "Siguiente",
+										last: "Ultimo"
+									},
+									aria: {
+										sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+										sortDescending: ": habilitado para ordenar la columna en orden descendente"
+									}
+								}
 							});
 						});
 					});
@@ -309,7 +459,29 @@ $(document).ready(function() {
 								"columnDefs": [{
 									'orderable': false,
 									'targets': [count]
-								}, ]
+								}, ],
+								language: {
+									processing: "Procesando ...",
+									search: 'Buscar',
+									lengthMenu: "Mostrar _MENU_ Registros",
+									info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+									infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+									infoFiltered: "(filtrada de _MAX_ registros en total)",
+									infoPostFix: "",
+									loadingRecords: "...",
+									zeroRecords: "No se encontraron registros coincidentes",
+									emptyTable: "No hay datos disponibles en la tabla",
+									paginate: {
+										first: "Primero",
+										previous: "Anterior",
+										next: "Siguiente",
+										last: "Ultimo"
+									},
+									aria: {
+										sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+										sortDescending: ": habilitado para ordenar la columna en orden descendente"
+									}
+								}
 							});
 						});
 					});
@@ -319,6 +491,11 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.update-personaempresa', function(event) {
+		id = $(this).attr('attr')
+		getPersonaempresa(id)
+	});
+
+	function getPersonaempresa(id){
 		$('.extraTipoCont').val('');
 		$('.extraCont').val('');
 		$('.contenedorContactosExtras').html('');
@@ -327,8 +504,7 @@ $(document).ready(function() {
 		$('.extraTelefono').val('');
 		$('.contenedorExtraTelefono').html('');
 
-		$('#editarCliente').modal('show');
-		$.post('../ajax/cliente/dataClienteUpdate.php', {id: $(this).attr('attr')}, function(data) {
+		$.post('../ajax/cliente/dataClienteUpdate.php', { id: id }, function (data) {
 			value = $.parseJSON(data);
 			$('[name="Nombre_update"]').val(value['DataCliente'][0]['nombre']);
 			$('[name="Rut_update"]').val(value['DataCliente'][0]['rut']);
@@ -339,30 +515,38 @@ $(document).ready(function() {
 			$('[name="Giro_update"]').val(value['DataCliente'][0]['giro']);
 			$('[name="Comentario_update"]').val(value['DataCliente'][0]['comentario']);
 			$('[name="TipoCliente_update"]').val(value['DataCliente'][0]['tipo_cliente']);
-			$('[name="Alias_update"]').val(value['DataCliente'][0]['alias']);
+			$('[name="Alias_update"]').val(value['DataCliente'][0]['alias']);			
+			$('[name="Provincia_update"]').val(value['DataCliente'][0]['provincia']);
+			$('.Provincia_update').selectpicker('refresh');
+			setTimeout(() => {
+				loadComunas();
+			}, 500);
 			$('[name="Comuna_update"]').val(value['DataCliente'][0]['comuna']);
-			$('[name="Ciudad_update"]').val(value['DataCliente'][0]['ciudad']);
+			setTimeout(() => {
+				$('[name="Comuna_update"]').selectpicker('refresh');
+			}, 1000);
 			$('[name="IdCliente"]').val(value['DataCliente'][0]['id']);
-			$('.selectpicker').selectpicker('refresh');
+			$('[name="Giro_update"]').selectpicker('refresh');
+			$('[name="TipoCliente_update"]').selectpicker('refresh');
 
 			if (value['DataContactosExtras'].length > 0) {
 				$('.extraTipoCont').val(value['DataContactosExtras'][0]['TipoContacto']);
 				$('.extraCont').val(value['DataContactosExtras'][0]['Contacto']);
 				if (value['DataContactosExtras'].length > 1) {
 					for (var i = 1; i < value['DataContactosExtras'].length; i++) {
-						$('.contenedorContactosExtras').append('<div class="row">'+
-							'<div class="col-md-5 form-group">'+
-								'<label>Tipo de contacto</label>'+
-								'<input name="extra_TipoContacto[]" class="form-control" value="'+value['DataContactosExtras'][i]['TipoContacto']+'">'+
-							'</div>'+
-							'<div class="col-md-5 form-group">'+
-								'<label>Contacto</label>'+
-								'<input name="extra_Contacto[]" class="form-control" value="'+value['DataContactosExtras'][i]['Contacto']+'">'+
-							'</div>'+
-							'<div class="col-md-2">'+
-								'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampContacto"><i class="glyphicon glyphicon-remove"></i></button>'+
-							'</div>'+
-						'</div>');
+						$('.contenedorContactosExtras').append('<div class="row">' +
+							'<div class="col-md-5 form-group">' +
+							'<label>Tipo de contacto</label>' +
+							'<input name="extra_TipoContacto[]" class="form-control" value="' + value['DataContactosExtras'][i]['TipoContacto'] + '">' +
+							'</div>' +
+							'<div class="col-md-5 form-group">' +
+							'<label>Contacto</label>' +
+							'<input name="extra_Contacto[]" class="form-control" value="' + value['DataContactosExtras'][i]['Contacto'] + '">' +
+							'</div>' +
+							'<div class="col-md-2">' +
+							'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampContacto"><i class="glyphicon glyphicon-remove"></i></button>' +
+							'</div>' +
+							'</div>');
 					}
 				}
 			}
@@ -371,15 +555,15 @@ $(document).ready(function() {
 				$('.extraCorreo').val(value['DataCorreoExtra'][0]['Correo']);
 				if (value['DataCorreoExtra'].length > 1) {
 					for (var i = 1; i < value['DataCorreoExtra'].length; i++) {
-						$('.contenedorExtraCorreo').append('<div class="row">'+
-							'<div class="col-md-9 form-group">'+
-							'<label>Correo</label>'+
-								'<input name="extra_correo[]" class="form-control" value="'+value['DataCorreoExtra'][i]['Correo']+'">'+
-							'</div>'+
-							'<div class="col-md-3">'+
-								'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampCorreo"><i class="glyphicon glyphicon-remove"></i></button>'+
-							'</div>'+
-						'</div>');
+						$('.contenedorExtraCorreo').append('<div class="row">' +
+							'<div class="col-md-9 form-group">' +
+							'<label>Correo</label>' +
+							'<input name="extra_correo[]" class="form-control" value="' + value['DataCorreoExtra'][i]['Correo'] + '">' +
+							'</div>' +
+							'<div class="col-md-3">' +
+							'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampCorreo"><i class="glyphicon glyphicon-remove"></i></button>' +
+							'</div>' +
+							'</div>');
 					}
 				}
 			}
@@ -388,21 +572,21 @@ $(document).ready(function() {
 				$('.extraTelefono').val(value['DataTelefonoExtra'][0]['Telefono']);
 				if (value['DataTelefonoExtra'].length > 1) {
 					for (var i = 1; i < value['DataTelefonoExtra'].length; i++) {
-						$('.contenedorExtraTelefono').append('<div class="row">'+
-							'<div class="col-md-9 form-group">'+
-							'<label>Telefono</label>'+
-								'<input name="extra_telefono[]" class="form-control" value="'+value['DataTelefonoExtra'][0]['Telefono']+'">'+
-							'</div>'+
-							'<div class="col-md-3">'+
-								'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampTele"><i class="glyphicon glyphicon-remove"></i></button>'+
-							'</div>'+
-						'</div>');
+						$('.contenedorExtraTelefono').append('<div class="row">' +
+							'<div class="col-md-9 form-group">' +
+							'<label>Telefono</label>' +
+							'<input name="extra_telefono[]" class="form-control" value="' + value['DataTelefonoExtra'][0]['Telefono'] + '">' +
+							'</div>' +
+							'<div class="col-md-3">' +
+							'<button type="button" class="btn btn-danger btn-block mgExtraButton removeCampTele"><i class="glyphicon glyphicon-remove"></i></button>' +
+							'</div>' +
+							'</div>');
 					}
 				}
 			}
-
+			$('#editarCliente').modal('show');
 		});
-	});
+	}
 
 	$(document).on('click', '.actualizarCliente', function() {
 		$.postFormValues('../ajax/cliente/updateCliente.php','.container-form-update, .container-form-extraTelefono, .container-form-extraCorreo, .container-form-extraContactos',function(data){
@@ -412,7 +596,29 @@ $(document).ready(function() {
 					"columnDefs": [{
 						'orderable': false,
 						'targets': [count]
-					}, ]
+					}, ],
+					language: {
+						processing: "Procesando ...",
+						search: 'Buscar',
+						lengthMenu: "Mostrar _MENU_ Registros",
+						info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+						infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+						infoFiltered: "(filtrada de _MAX_ registros en total)",
+						infoPostFix: "",
+						loadingRecords: "...",
+						zeroRecords: "No se encontraron registros coincidentes",
+						emptyTable: "No hay datos disponibles en la tabla",
+						paginate: {
+							first: "Primero",
+							previous: "Anterior",
+							next: "Siguiente",
+							last: "Ultimo"
+						},
+						aria: {
+							sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+							sortDescending: ": habilitado para ordenar la columna en orden descendente"
+						}
+					}
 				});
 			});
 			$('#editarCliente').modal('hide');
@@ -445,7 +651,29 @@ $(document).ready(function() {
 										"columnDefs": [{
 										'orderable': false,
 										'targets': [count]
-									}, ]
+									}, ],
+									language: {
+										processing: "Procesando ...",
+										search: 'Buscar',
+										lengthMenu: "Mostrar _MENU_ Registros",
+										info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+										infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+										infoFiltered: "(filtrada de _MAX_ registros en total)",
+										infoPostFix: "",
+										loadingRecords: "...",
+										zeroRecords: "No se encontraron registros coincidentes",
+										emptyTable: "No hay datos disponibles en la tabla",
+										paginate: {
+											first: "Primero",
+											previous: "Anterior",
+											next: "Siguiente",
+											last: "Ultimo"
+										},
+										aria: {
+											sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+											sortDescending: ": habilitado para ordenar la columna en orden descendente"
+										}
+									}
 								});
 							});
 						});
@@ -480,7 +708,29 @@ $(document).ready(function() {
 										"columnDefs": [{
 										'orderable': false,
 										'targets': [count]
-									}, ]
+									}, ],
+									language: {
+										processing: "Procesando ...",
+										search: 'Buscar',
+										lengthMenu: "Mostrar _MENU_ Registros",
+										info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+										infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+										infoFiltered: "(filtrada de _MAX_ registros en total)",
+										infoPostFix: "",
+										loadingRecords: "...",
+										zeroRecords: "No se encontraron registros coincidentes",
+										emptyTable: "No hay datos disponibles en la tabla",
+										paginate: {
+											first: "Primero",
+											previous: "Anterior",
+											next: "Siguiente",
+											last: "Ultimo"
+										},
+										aria: {
+											sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+											sortDescending: ": habilitado para ordenar la columna en orden descendente"
+										}
+									}
 								});
 							});
 						});
@@ -515,7 +765,29 @@ $(document).ready(function() {
 										"columnDefs": [{
 										'orderable': false,
 										'targets': [count]
-									}, ]
+									}, ],
+									language: {
+										processing: "Procesando ...",
+										search: 'Buscar',
+										lengthMenu: "Mostrar _MENU_ Registros",
+										info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+										infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+										infoFiltered: "(filtrada de _MAX_ registros en total)",
+										infoPostFix: "",
+										loadingRecords: "...",
+										zeroRecords: "No se encontraron registros coincidentes",
+										emptyTable: "No hay datos disponibles en la tabla",
+										paginate: {
+											first: "Primero",
+											previous: "Anterior",
+											next: "Siguiente",
+											last: "Ultimo"
+										},
+										aria: {
+											sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+											sortDescending: ": habilitado para ordenar la columna en orden descendente"
+										}
+									}
 								});
 							});
 						});
@@ -550,7 +822,29 @@ $(document).ready(function() {
 										"columnDefs": [{
 										'orderable': false,
 										'targets': [count]
-									}, ]
+									}, ],
+									language: {
+										processing: "Procesando ...",
+										search: 'Buscar',
+										lengthMenu: "Mostrar _MENU_ Registros",
+										info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+										infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+										infoFiltered: "(filtrada de _MAX_ registros en total)",
+										infoPostFix: "",
+										loadingRecords: "...",
+										zeroRecords: "No se encontraron registros coincidentes",
+										emptyTable: "No hay datos disponibles en la tabla",
+										paginate: {
+											first: "Primero",
+											previous: "Anterior",
+											next: "Siguiente",
+											last: "Ultimo"
+										},
+										aria: {
+											sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+											sortDescending: ": habilitado para ordenar la columna en orden descendente"
+										}
+									}
 								});
 							});
 						});
@@ -653,8 +947,23 @@ $(document).ready(function() {
 			$.post('../ajax/cliente/listCliente.php', {rut: rut}, function(data) {
 				data = $.parseJSON(data);
 				if(data.length){
-					bootbox.alert('<h3 class="text-center">Este rut ya esta registrado.</h3>');
-					$(input).val('')
+					swal({
+						title: "Este rut ya esta registrado",
+						text: "Desea modificarlo?",
+						type: "warning",
+						showCancelButton: true,
+						confirmButtonColor: "#28a745",
+						confirmButtonText: "Si",
+						cancelButtonText: "No",
+						closeOnConfirm: true,
+						allowOutsideClick: false
+					}, function (isConfirm) {
+						if (isConfirm) {
+							window.location = "../clientes/listaCliente.php?Rut="+rut;
+						} else {
+							$(input).val('')
+						}
+					});
 				}
 			});
 		}
@@ -663,7 +972,13 @@ $(document).ready(function() {
 	$('select[name="TipoCliente"]').on('change', function() {
 		if($(this).val() == "1"){
 			$('input[name="Giro"]').removeAttr('validate')
+			$('#guardarClienteIrServicio').show();
 		}else{
+			if($(this).val() == 3){
+				$('#guardarClienteIrServicio').hide();
+			}else{
+				$('#guardarClienteIrServicio').show();
+			}
 			$('input[name="Giro"]').attr('validate','not_null')
 		}
 	});
@@ -947,6 +1262,27 @@ $(document).ready(function() {
 				bootbox.alert('Ocurrió un error en el Proceso')
             }
         });     
-    });
-
+	});
+	
+	$(document).on('change', 'select[name="Provincia"]', function () {
+		if ($(this).selectpicker('val') != '') {
+			$('select[name="Comuna"]').load('../ajax/cliente/getComunas.php', { Provincia: $(this).selectpicker('val') }, function (data) {
+				$('select[name="Comuna"]').selectpicker('refresh');
+			});
+		}
+	});
+	$(document).on('change', '.Provincia_update', function () {
+		loadComunas();
+	});
+	function loadComunas(){
+		Provincia = $('select[name="Provincia_update"]').val();
+		if (Number(Provincia) > 0) {
+			$('select[name="Comuna_update"]').load('../ajax/cliente/getComunas.php', { Provincia: Provincia }, function (data) {
+				$('select[name="Comuna_update"]').selectpicker('refresh');
+			});
+		} else {
+			$('select[name="Comuna_update"]').empty();
+			$('select[name="Comuna_update"]').selectpicker('refresh')
+		}
+	}
 });
