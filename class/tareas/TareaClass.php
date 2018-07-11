@@ -171,7 +171,8 @@
 
 	    function storeTarea($Id,$FechaInstalacion,$InstaladoPor,$Comentario,$UsuarioPppoe,$SenalFinal,$EstacionFinal,$Estatus){
 
-	        $response_array = array();
+			$response_array = array();
+			$run = new Method;
 
 	        $FechaInstalacion = isset($FechaInstalacion) ? trim($FechaInstalacion) : "";
 	        $InstaladoPor = isset($InstaladoPor) ? trim($InstaladoPor) : "";
@@ -209,122 +210,124 @@
 	            $this->SenalFinal=$SenalFinal;
 	            $this->Estatus=$Estatus;
 
-	            $query = "UPDATE `servicios` set `FechaInstalacion` = '$this->FechaInstalacion', `InstaladoPor` = '$this->InstaladoPor', `Comentario` = '$this->Comentario', `UsuarioPppoe` = '$this->UsuarioPppoe', `EstacionFinal` = '$this->EstacionFinal', `SenalFinal` = '$this->SenalFinal', `Estatus` = '$this->Estatus' where `Id` = '$this->Id'";
-	            $run = new Method;
-	            $data = $run->update($query);
+				if($Estatus == 1){
+					
+					$query = "	SELECT
+									servicios.*, mantenedor_servicios.servicio AS Servicio,
+									personaempresa.tipo_cliente
+								FROM
+									servicios
+								INNER JOIN personaempresa ON servicios.Rut = personaempresa.rut
+								LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
+								WHERE
+									servicios.Id = '".$this->Id."'";
+					$Servicio = $run->select($query);
 
-	            if($data){
-
-	            	if($Estatus == 1){
-
-		            	$query = "	SELECT servicios.*, mantenedor_servicios.servicio as Servicio, personaempresa.tipo_cliente
-		            				FROM servicios 
-		            				INNER JOIN personaempresa ON servicios.Rut = personaempresa.rut 
-									LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
-		            				WHERE servicios.Id = '".$this->Id."'";
-	                    $Servicio = $run->select($query);
-
-	                    if($Servicio){
-
-	                    	$Servicio = $Servicio[0];
-			            	$Rut = $Servicio['Rut'];
+					if($Servicio){
+						$Servicio = $Servicio[0];
+						$EstatusTarea = $Servicio['Estatus'];
+						
+						if($EstatusTarea != 1){
+							$Rut = $Servicio['Rut'];
 							$Grupo = $Servicio['Grupo'];
 							$TipoDocumento = $Servicio['tipo_cliente'];
 
-		                    $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(), '".$TipoDocumento."', NOW(), 0.19)";
-		                    $FacturaId = $run->insert($query);
+							$query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(), '".$TipoDocumento."', NOW(), 0.19)";
+							$FacturaId = $run->insert($query);
 
-		                    if($FacturaId){
+							if($FacturaId){
 
 								$UfClass = new Uf(); 
 								$Fecha = date('d-m-Y');
 								$UF = $UfClass->getValue($Fecha);
 
-		                    	$Concepto = $Servicio['Servicio'];
-		                    	$Valor = $Servicio['Valor'];
-			                    $Descuento = $Servicio['Descuento'];
+								$Concepto = $Servicio['Servicio'];
+								$Valor = $Servicio['Valor'];
+								$Descuento = $Servicio['Descuento'];
 
-							    if($this->FechaInstalacion){
-							    	$dt = DateTime::createFromFormat('Y-m-d', $this->FechaInstalacion);
-							    }else{
-							    	$dt = new DateTime();
-							    }
+								if($this->FechaInstalacion){
+									$dt = DateTime::createFromFormat('Y-m-d', $this->FechaInstalacion);
+								}else{
+									$dt = new DateTime();
+								}
 
-							   	$Mes =  $dt->format('m');
-							    $Ano =  $dt->format('Y');
-							    $Dia =  $dt->format('d');
+								$Mes =  $dt->format('m');
+								$Ano =  $dt->format('Y');
+								$Dia =  $dt->format('d');
 
-		                        switch ($Mes) {
-		                            case 1:
-		                                $MesFacturacion = "Enero";
-		                                break;
-		                            case 2:
-		                                $MesFacturacion = "Febrero";
-		                                break;
-		                            case 3:
-		                                $MesFacturacion = "Marzo";
-		                                break;
-		                            case 4:
-		                                $MesFacturacion = "Abril";
-		                                break;
-		                            case 5:
-		                                $MesFacturacion = "Mayo";
-		                                break;
-		                            case 6:
-		                                $MesFacturacion = "Junio";
-		                                break;
-		                            case 7:
-		                                $MesFacturacion = "Julio";
-		                                break;
-		                            case 8:
-		                                $MesFacturacion = "Agosto";
-		                                break;
-		                            case 9:
-		                                $MesFacturacion = "Septiembre";
-		                                break;
-		                            case 10:
-		                                $MesFacturacion = "Octubre";
-		                                break;
-		                            case 11:
-		                                $MesFacturacion = "Noviembre";
-		                                break;
-		                            case 12:
-		                                $MesFacturacion = "Diciembre";
-		                                break;
-		                        }
+								switch ($Mes) {
+									case 1:
+										$MesFacturacion = "Enero";
+										break;
+									case 2:
+										$MesFacturacion = "Febrero";
+										break;
+									case 3:
+										$MesFacturacion = "Marzo";
+										break;
+									case 4:
+										$MesFacturacion = "Abril";
+										break;
+									case 5:
+										$MesFacturacion = "Mayo";
+										break;
+									case 6:
+										$MesFacturacion = "Junio";
+										break;
+									case 7:
+										$MesFacturacion = "Julio";
+										break;
+									case 8:
+										$MesFacturacion = "Agosto";
+										break;
+									case 9:
+										$MesFacturacion = "Septiembre";
+										break;
+									case 10:
+										$MesFacturacion = "Octubre";
+										break;
+									case 11:
+										$MesFacturacion = "Noviembre";
+										break;
+									case 12:
+										$MesFacturacion = "Diciembre";
+										break;
+								}
 		
-						    	$Diasdelmes = cal_days_in_month (CAL_GREGORIAN, $Mes,$Ano);
+								$Diasdelmes = cal_days_in_month (CAL_GREGORIAN, $Mes,$Ano);
 
-			                   	if($Dia != $Diasdelmes){
-					    			
-					    			if($Dia == 1){
-					    				$Diasporfacturar = $Diasdelmes;
+								if($Dia != $Diasdelmes){
+									
+									if($Dia == 1){
+										$Diasporfacturar = $Diasdelmes;
 										// $Concepto .= ' - Mes ' . $MesFacturacion;
-					    			}else{
-					    				$Diasporfacturar = $Diasdelmes - $Dia;
-					    			}
-					    			$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dias)';
-					    		}else{
-					    			$Diasporfacturar = 1;
-					    			$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dia)';
-					    		}	
+									}else{
+										$Diasporfacturar = $Diasdelmes - $Dia;
+									}
+									$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dias)';
+								}else{
+									$Diasporfacturar = 1;
+									$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dia)';
+								}	
 								$Valor = $Valor * $UF;
-							    $Montodiario = $Valor / $Diasdelmes;
+								$Montodiario = $Valor / $Diasdelmes;
 								$Montoporfacturar = $Diasporfacturar * $Montodiario;
 
-			                    $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio) VALUES ('$FacturaId', '$Concepto', '$Montoporfacturar', '$Descuento', '$this->Id')";
-			                    $FacturaDetalle = $run->insert($query);
-		                    }
-	                    }
-                    }
+								$query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio) VALUES ('$FacturaId', '$Concepto', '$Montoporfacturar', '$Descuento', '$this->Id')";
+								$FacturaDetalle = $run->insert($query);
+							}
+						}
+					}
+				}
 
-	            	$response_array['Estatus'] = $this->Estatus;
-	            	$response_array['Id'] = $this->Id;
-	                $response_array['status'] = 1;
+				$query = "UPDATE `servicios` SET `FechaInstalacion` = '$this->FechaInstalacion', `InstaladoPor` = '$this->InstaladoPor', `Comentario` = '$this->Comentario', `UsuarioPppoe` = '$this->UsuarioPppoe', `EstacionFinal` = '$this->EstacionFinal', `SenalFinal` = '$this->SenalFinal', `Estatus` = '$this->Estatus' where `Id` = '$this->Id'";
+				$data = $run->update($query);
+				
+				$response_array['Estatus'] = $this->Estatus;
+				$response_array['Id'] = $this->Id;
+				$response_array['status'] = 1;
 
-	            }else{
-	                $response_array['status'] = 0;
-	            }
+	            
 	        }else{
 	            $response_array['status'] = 2;
 	        }

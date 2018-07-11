@@ -27,7 +27,6 @@ CREATE TABLE `servicios` (
   `Valor` double(11,2) DEFAULT NULL,
   `Descuento` double(11,2) DEFAULT NULL,
   `IdServicio` int(11) NOT NULL,
-  `TipoFacturacion` varchar(150) DEFAULT NULL,
   `Codigo` varchar(150) CHARACTER SET latin1 NOT NULL,
   `Descripcion` varchar(500) NOT NULL,
   PRIMARY KEY (`Id`)

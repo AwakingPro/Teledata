@@ -470,7 +470,8 @@ $(document).ready(function() {
 				$('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
 					$('select[name="TipoFactura"]').selectpicker('refresh');
 				});
-				bootbox.alert('<h3 class="text-center">Se registro con éxito.</h3>');
+				bootbox.alert('<h3 class="text-center">El registro se realizo con éxito.</h3>');
+				$('.modal').modal('hide')
 			} else {
 				console.log(data);
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');

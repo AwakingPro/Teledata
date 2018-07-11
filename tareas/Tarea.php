@@ -439,21 +439,13 @@
                                     </select>
                                 </div>
                                 <br>
-                                <label class="campo-cobreServicio">Tipo de Cobro de servicio mensual</label>
+                                <label class="campo-cobreServicio">Tipo de Cobro de servicio</label>
                                 <div class="campo-cobreServicio">
                                     <select id="TipoFactura" name="TipoFactura" class="form-control" data-live-search="true" disabled>
                                         <option value="">Seleccione...</option>
                                     </select>
                                 </div>
                                 <br>
-                                <label class="compo-tipoFactura">Tiempo de Facturación</label>
-                                <select id="TipoFacturacion" name="TipoFacturacion compo-tipoFactura" class="form-control selectpicker" data-live-search="true" disabled>
-                                    <option value="">Seleccione...</option>
-                                    <option value="1">Mensual</option>
-									<option value="2">Semestral</option>
-									<option value="3">Anual</option>
-                                </select>
-                                <br><br>
                                 <div class="campo-servicio">
                                     <label >Servicio</label>
                                     <select id="IdServicio" name="IdServicio" class="form-control" data-live-search="true" disabled>

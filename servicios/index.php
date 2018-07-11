@@ -65,7 +65,7 @@
 														</span>
 													</div>
 													<br>
-													<label class="campo-cobreServicio">Tipo de Cobro de servicio mensual</label>
+													<label class="campo-cobreServicio">Tipo de Cobro de servicio</label>
 													<div class="input-group campo-cobreServicio">
 														<select id ="TipoFactura" name="TipoFactura" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Tipo de Cobro">
 															<option value="">Seleccione...</option>
@@ -75,14 +75,6 @@
 														</span>
 													</div>
 													<br>
-													<label class="compo-tipoFactura">Periodo de Cobro</label>
-													<select name="TipoFacturacion" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Tiempo de Facturación">
-														<option value="">Seleccione...</option>
-														<option value="1">Mensual</option>
-														<option value="2">Semestral</option>
-														<option value="3">Anual</option>
-													</select>
-													<br><br>
 													<div class="campo-servicio">
 														<label >Tipo de Servicio</label>
 														<select name="TipoServicio" id="TipoServicio" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Servicio">
@@ -290,21 +282,13 @@
 									</select>
 								</div>
 								<br>
-								<label class="campo-cobreServicio">Tipo de Cobro de servicio mensual</label>
+								<label class="campo-cobreServicio">Tipo de Cobro de servicio</label>
 								<div class="campo-cobreServicio">
 									<select id="TipoFactura" name="TipoFactura" class="selectpicker form-control" data-live-search="true">
 										<option value="">Seleccione...</option>
 									</select>
 								</div>
 								<br>
-								<label class="compo-tipoFactura">Tiempo de Facturación</label>
-								<select id="TipoFacturacion" name="TipoFacturacion" class="form-control selectpicker" data-live-search="true">
-									<option value="">Seleccione...</option>
-									<option value="1">Mensual</option>
-									<option value="2">Semestral</option>
-									<option value="3">Anual</option>
-								</select>
-								<br><br>
 								<label class="campo-Valor">Valor</label>
 								<div class="form-group">
 									<input id="Valor" type="text"  name="Valor" class="form-control">
@@ -584,13 +568,21 @@
 						</div>
 						<div class="modal-body">
 							<div class="row">
-								<div class="col-md-6 form-group">
+								<div class="col-md-4 form-group">
 									<label>Código</label>
 									<input name="TipoFacCodigo" class="form-control">
 								</div>
-								<div class="col-md-6 form-group">
+								<div class="col-md-4 form-group">
 									<label>Descripción</label>
 									<input name="TipoFacDescripcion" class="form-control">
+								</div>
+								<div class="col-md-4 form-group">
+									<label>Tiempo de Facturación</label>
+									<select id="TipoFacturacion" name="TipoFacturacion" class="form-control selectpicker" data-live-search="true">
+										<option value="1">Mensual</option>
+										<option value="2">Semestral</option>
+										<option value="3">Anual</option>
+									</select>
 								</div>
 							</div>
 						</div>

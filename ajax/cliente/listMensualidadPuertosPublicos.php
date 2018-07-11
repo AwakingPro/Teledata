@@ -9,6 +9,6 @@
 		WHERE
 		IdServivio = ".$_POST['id'];
 	$run = new Method;
-	$lista = $run->listViewDelete($query);
+	$lista = $run->listViewDelete($query,$_POST['id'],1);
 	echo $lista;
  ?>

@@ -214,7 +214,7 @@
                         FROM
                             servicios
                             LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
-                            LEFT JOIN mantenedor_tipo_factura ON mantenedor_tipo_factura.codigo = servicios.TipoFactura 
+                            LEFT JOIN mantenedor_tipo_factura ON mantenedor_tipo_factura.id = servicios.TipoFactura 
                         WHERE
                             servicios.Rut = '".$Rut."' 
                             AND servicios.Grupo = '".$Grupo."' 
@@ -472,7 +472,7 @@
                                     $DocumentoId = $FacturaBsale['id'];
                                     $informedSii = $FacturaBsale['informedSii'];
                                     $responseMsgSii = $FacturaBsale['responseMsgSii'];
-                                    $NumeroDocumento = $FacturaBsale['NumeroDocumento'];
+                                    $NumeroDocumento = $FacturaBsale['number'];
                                 }else{
                                     $UrlPdf = '0';
                                     $DocumentoId = '0';
@@ -543,6 +543,7 @@
                             s.*,
                             ms.servicio AS Servicio,
                             p.tipo_cliente,
+                            mtf.tipo_facturacion as TipoFacturacion,
                         CASE
                                 
                                 WHEN (
@@ -564,7 +565,8 @@
                             FROM
                                 servicios s
                             INNER JOIN personaempresa p ON s.Rut = p.rut
-                            LEFT JOIN mantenedor_servicios ms ON s.IdServicio = ms.IdServicio";
+                            LEFT JOIN mantenedor_servicios ms ON s.IdServicio = ms.IdServicio
+                            INNER JOIN mantenedor_tipo_factura mtf ON s.TipoFactura = mtf.codigo";
             $Servicios = $run->select($query);
 
             if($Servicios){
@@ -576,10 +578,10 @@
                     $Id = $Servicio['Id'];
                     $FechaActivacion = $Servicio['FechaActivacion'];
                     $PermitirFactura = $Servicio['PermitirFactura'];
-                    if(!$FechaActivacion && $PermitirFactura){
+                    $TipoFacturacion = $Servicio['TipoFacturacion'];
+                    if(!$FechaActivacion && $PermitirFactura && $TipoFacturacion){
                         $FechaUltimoCobro = $Servicio['FechaUltimoCobro'];
                         $FechaUltimoCobro = new DateTime($FechaUltimoCobro);                     
-                        $TipoFacturacion = $Servicio['TipoFacturacion'];
                         $Concepto = $Servicio['Servicio'];
                         if($TipoFacturacion == '1'){
                             $Concepto .= ' - Mes ' . $MesFacturacion;

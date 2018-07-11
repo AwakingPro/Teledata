@@ -156,7 +156,7 @@
 			}
 		}
 
-		function listViewDelete($post,$id = '') {
+		function listViewDelete($post,$id = '',$tipo = '') {
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				if ($resultado = $mysqli->query($post)) {
@@ -164,7 +164,10 @@
 						$fields[] = $field->name;
 						$table[] = $field->table;
 					}
-					$tabla = '<button class="btn btn-success agregarDatosTecnicos" attr="'.$id.'"  data-toggle="modal" data-target="#agregarDatosTecnicos" aria-hidden="true" title="Agregar" style="margin-bottom:20px">Agregar</button>';
+					$tabla = '';
+					if($tipo){
+						$tabla .= '<button class="btn btn-success agregarDatosTecnicos" attr="'.$id.'"  data-toggle="modal" data-target="#agregarDatosTecnicos" aria-hidden="true" title="Agregar" style="margin-bottom:20px">Agregar</button>';
+					}
 					$tabla .= "<table class='table table-striped table-hover tabeData'><thead><tr>";
 					for ($i=0; $i < count($fields) ; $i++) {
 						$tabla.="<th>".$fields[$i]."</th>";

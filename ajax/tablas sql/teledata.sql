@@ -1132,7 +1132,6 @@ CREATE TABLE `servicios`  (
   `Valor` double(11, 2) NULL DEFAULT NULL,
   `Descuento` double(11, 2) NULL DEFAULT NULL,
   `IdServicio` int(11) NOT NULL,
-  `TipoFacturacion` varchar(150) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Codigo` varchar(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `Descripcion` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `Estatus` int(11) NOT NULL,

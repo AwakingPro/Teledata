@@ -6,6 +6,6 @@
 	FROM
 	grupo_servicio";
 	$run = new Method;
-	$lista = $run->listViewDelete($query);
+	$lista = $run->listViewDelete($query,'','');
 	echo $lista;
  ?>

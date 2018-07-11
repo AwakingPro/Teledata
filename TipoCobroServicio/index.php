@@ -44,10 +44,18 @@
 													<div class="col-md-4">
 														<input type="text" class="form-control" name="TipoFacCodigo">
 													</div>
-													<div class="col-md-5">
+													<div class="col-md-4">
 														<input type="text" class="form-control" name="TipoFacDescripcion">
 													</div>
-													<div class="col-md-3">
+													<div class="col-md-4">
+														<select id="TipoFacturacion" name="TipoFacturacion" class="form-control selectpicker" data-live-search="true">
+															<option value="1">Mensual</option>
+															<option value="2">Semestral</option>
+															<option value="3">Anual</option>
+														</select>
+													</div>
+													<div class="col-md-2">
+														<br>
 														<button type="button" class="btn btn-primary btn-block agregarTipoFacturacion">Agregar</button>
 													</div>
 												</div>

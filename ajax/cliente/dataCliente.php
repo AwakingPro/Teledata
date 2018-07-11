@@ -66,21 +66,30 @@
 		$DataFacturacion = 'false';
 	}
 
-	$query = 'SELECT
-		servicios.Id as Id,
-		servicios.Codigo as "Codigo de Servicios",
-		mantenedor_tipo_facturacion.nombre as "Tiempo de Facturacion",
-		mantenedor_servicios.servicio as "Tipo de Servicio",
-		servicios.Valor,
-		COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS Grupo,
-		IF(FechaActivacion IS NULL, "Activo", "Inactivo") as Estatus
-		FROM
-		servicios
-		INNER JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_facturacion.id = servicios.TipoFacturacion 
-		LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
-		LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo 
-	WHERE
-		servicios.Rut ='.$_POST['rut'];
+	$query = '	SELECT
+					servicios.Id AS Id,
+					servicios.Codigo AS "Codigo de Servicios",
+					mantenedor_tipo_facturacion.nombre AS "Tiempo de Facturacion",
+					mantenedor_servicios.servicio AS "Tipo de Servicio",
+					servicios.Valor,
+					COALESCE (
+						grupo_servicio.Nombre,
+						servicios.Grupo
+					) AS Grupo,
+
+				IF (
+					FechaActivacion IS NULL,
+					"Activo",
+					"Inactivo"
+				) AS Estatus
+				FROM
+					servicios
+				INNER JOIN mantenedor_tipo_factura ON mantenedor_tipo_factura.id = servicios.TipoFactura
+				INNER JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_facturacion.id = mantenedor_tipo_factura.tipo_facturacion
+				LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
+				LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo
+				WHERE
+					servicios.Rut = '.$_POST['rut'];
 	$run = new Method;
 	$lista = $run->listViewServicios($query);
 	$listaServicios =  $lista;
