@@ -16,7 +16,7 @@
 				LEFT JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_factura.tipo_facturacion = mantenedor_tipo_facturacion.id
 				LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo
 				WHERE
-					servicios.IdUsuarioSession = '.$_SESSION[' idUsuario '];
+					servicios.IdUsuarioSession = '.$_SESSION['idUsuario'];
 	$run = new Method;
 	$lista = $run->listViewSingle($query);
 	echo $lista;
