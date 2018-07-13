@@ -1045,6 +1045,7 @@
                 if($Tipo == 1){
                     $Concepto = $Detalle["Concepto"];
                     $Valor = floatval($Detalle['Valor']);
+                    $Descuento = $Detalle['Descuento'];
                 }else if($Tipo == 2){
                     $Descuentos = $this->aplicarDescuento($Detalle);
                     $Descuento = $Descuentos['DescuentoAplicado'];
