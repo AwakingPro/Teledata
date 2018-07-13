@@ -3,9 +3,9 @@ $(document).ready(function(){
     $('#servicio').prop('disabled', true)
     $('#precio').prop('disabled', true)
 
-    var neto = 0
-    var iva = 0
-    var total = 0
+    var neto_nota = 0
+    var iva_nota = 0
+    var total_nota = 0
 
     ServicioTable = $('#ServicioTable').DataTable({
         paging: false,
@@ -39,37 +39,7 @@ $(document).ready(function(){
         }
     });
 
-    NotaVentaTable = $('#NotaVentaTable').DataTable({
-        paging: false,
-        iDisplayLength: 100,
-        processing: true,
-        serverSide: false,
-        bInfo:false,
-        bFilter:false,
-        order: [[0, 'asc']],
-        language: {
-            processing:     "Procesando ...",
-            search:         'Buscar',
-            lengthMenu:     "Mostrar _MENU_ Registros",
-            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-            infoFiltered:   "(filtrada de _MAX_ registros en total)",
-            infoPostFix:    "",
-            loadingRecords: "...",
-            zeroRecords:    "No se encontraron registros coincidentes",
-            emptyTable:     "No hay datos disponibles en la tabla",
-            paginate: {
-                first:      "Primero",
-                previous:   "Anterior",
-                next:       "Siguiente",
-                last:       "Ultimo"
-            },
-            aria: {
-                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
-                sortDescending: ": habilitado para ordenar la columna en orden descendente"
-            }
-        }
-    });
+    showNotaVenta();
 
     $('#showCliente')[0].reset();
     $('#addServicio')[0].reset();
@@ -95,7 +65,7 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('#personaempresa_id').append('<option value="'+array.rut+'" data-content="'+array.rut+ ' ' +array.nombre+ ' - ' +array.tipo_cliente+'"></option>');
+                $('#personaempresa_id').append('<option value="' + array.rut + '">' + array.rut + ' - ' + array.nombre + ' - ' + array.tipo_cliente +'</option>');
             });
 
             $('.selectpicker').selectpicker('render');
@@ -103,45 +73,87 @@ $(document).ready(function(){
 
         }
     });
-
-    $.ajax({
-        type: "POST",
-        url: "../includes/inventario/ingresos/showBodega.php",
-        success: function (response) {
-
-            $.each(response.array, function (index, array) {
-                $('#retiro').append('<option value="' + array.nombre + '" data-content="' + array.nombre + '"></option>');
-            });
-
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
-
-        }
-    });
-
-    $.ajax({
-        type: "POST",
-        url: "../includes/nota_venta/showNotaVenta.php",
-        success: function(response){
-
-            $.each(response.array, function( index, array ) {
-
-                fecha = moment(array.fecha).format('DD-MM-YYYY');
-
-                var rowNode = NotaVentaTable.row.add([
-                    ''+fecha+'',
-                    ''+array.rut+'',
-                    ''+array.numero_oc+'',
-                    ''+array.solicitado_por+'',
-                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-excel-o Generate"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveNota"></i>'+'',
-                ]).draw(false).node();
-
-                $( rowNode )
-                    .attr('id',array.id)
-                    .addClass('text-center')
-            });
-        }
-    });
+    function showNotaVenta(){
+        $.ajax({
+            type: "POST",
+            url: "../includes/nota_venta/showNotaVenta.php",
+            success: function(response){
+                NotaVentaTable = $('#NotaVentaTable').DataTable({
+                    order: [[0, 'asc']],
+                    data: response,
+                    columns: [
+                        { data: 'rut' },
+                        { data: 'cliente' },
+                        { data: 'fecha' },
+                        { data: 'numero_oc' },
+                        { data: 'solicitado_por' },
+                        { data: 'total' },
+                        { data: 'id' }
+                    ],
+                    destroy: true,
+                    'createdRow': function (row, data, dataIndex) {
+                        $(row)
+                            .attr('id', data.id)
+                            .addClass('text-center')
+                    },
+                    "columnDefs": [
+                        {
+                            "targets": 2,
+                            "render": function (data, type, row) {
+                                fecha = moment(data).format('DD-MM-YYYY');
+                                return "<div style='text-align: center'>" + fecha + "</div>";
+                            }
+                        },
+                        {
+                            "targets": 5,
+                            "render": function (data, type, row) {
+                                total = formatcurrency(data)
+                                return "<div style='text-align: center'>" + total + "</div>";
+                            }
+                        },
+                        {
+                            "targets": 6,
+                            "render": function (data, type, row) {
+                                Ver = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye View"></i>';
+                                if(row.estatus_facturacion == 0){
+                                    Editar = ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' 
+                                    Generar = ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-excel-o Generate"></i>'  
+                                }else{
+                                    Editar = '';
+                                    Generar = ''  
+                                }
+                                Remove = ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveNota"></i>'
+                                return "<div style='text-align: center'>" + Ver + " " + Editar + " " + Generar + " " + Remove + "</div>";
+                            }
+                        },
+                    ],
+                    language: {
+                        processing: "Procesando ...",
+                        search: 'Buscar',
+                        lengthMenu: "Mostrar _MENU_ Registros",
+                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                        infoFiltered: "(filtrada de _MAX_ registros en total)",
+                        infoPostFix: "",
+                        loadingRecords: "...",
+                        zeroRecords: "No se encontraron registros coincidentes",
+                        emptyTable: "No hay datos disponibles en la tabla",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                            last: "Ultimo"
+                        },
+                        aria: {
+                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                        }
+                    }
+                });
+                $('table').css('width', '100%');
+            }
+        });
+    }
 
     $('input[name=switch_codigo]').on('change', function () {
         value = $("input[name='switch_codigo']:checked").val()
@@ -213,8 +225,8 @@ $(document).ready(function(){
                     $('#giro').val(response.array[0].giro);
                     $('#direccion').val(response.array[0].direccion);
                     $('#contacto').val(response.array[0].contacto);
-                    $('#rut').val(response.array[0].rut+'-'+response.array[0].dv);
-
+                    // $('#rut').val(response.array[0].rut+'-'+response.array[0].dv);
+                    $('#rut').val(response.array[0].rut);
                 }
             });
 
@@ -231,7 +243,6 @@ $(document).ready(function(){
                     });
                 }
             })
-
 
             setTimeout(function() {
                 $('.selectpicker').selectpicker('render');
@@ -276,11 +287,8 @@ $(document).ready(function(){
 
                 impuesto = precio * 0.19
                 precio = precio + impuesto
-                
 
                 $('#total').val(formatcurrency(precio));
-
-
             }
         });
     
@@ -323,11 +331,9 @@ $(document).ready(function(){
             precio = parseFloat(precio)
             total_nota = precio * cantidad
 
-
             impuesto = total_nota * 0.19
             total_nota = total_nota + impuesto
-            
-
+        
             if(!total_nota || isNaN(total_nota)){
                 total_nota = 0;
             }
@@ -344,11 +350,9 @@ $(document).ready(function(){
             precio = precio.replace('.', '')
             precio = parseFloat(precio)
             total_nota = precio * cantidad
-
             
             impuesto = total_nota * 0.19
             total_nota = total_nota + impuesto
-            
 
             if(!total_nota || isNaN(total_nota)){
                 total_nota = 0;
@@ -375,28 +379,25 @@ $(document).ready(function(){
                     timer : 3000
                 });
 
-                cantidad = parseInt(response.array.cantidad)
-                neto_tmp = parseFloat(response.array.precio)
-                neto_tmp = neto_tmp * cantidad
-                impuesto = neto_tmp * 0.19
-                neto = neto + neto_tmp
-                iva = iva + impuesto;
-                
-
                 precio = parseFloat(response.array.precio)
-                total_tmp = parseFloat(response.array.total)
-                total = total + total_tmp
+                cantidad = response.array.cantidad
+                neto = precio * cantidad
+                iva = neto * 0.19
+                neto_nota = neto_nota + neto
+                iva_nota = iva_nota + iva;
+                total = parseFloat(response.array.total)
+                total_nota = total_nota + total
 
-                $('#neto').text(formatcurrency(neto))
-                $('#iva').text(formatcurrency(iva))
-                $('#total_nota').text(formatcurrency(total))
+                $('#neto').text(formatcurrency(neto_nota))
+                $('#iva').text(formatcurrency(iva_nota))
+                $('#total_nota').text(formatcurrency(total_nota))
 
                 var rowNode = ServicioTable.row.add([
                     ''+response.array.codigo+'',
                     ''+response.array.servicio+'',
                     ''+formatcurrency(precio)+'',
                     ''+response.array.cantidad+'',
-                    ''+formatcurrency(total_tmp)+'',
+                    '' + formatcurrency(total)+'',
                     ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveServicio"></i>'+'',
                 ]).draw(false).node();
 
@@ -460,20 +461,19 @@ $(document).ready(function(){
                             if(response.status == 1){
 
                                 cantidad = parseInt(response.array[0].cantidad)
-                                neto_tmp = parseFloat(response.array[0].precio)
-                                neto_tmp = neto_tmp * cantidad
-                                impuesto = neto_tmp * 0.19
+                                precio = parseFloat(response.array[0].precio)
+                                neto = precio * cantidad
+                                iva = neto * 0.19
 
-                                neto = neto - neto_tmp
-                                iva = iva - impuesto;
+                                neto_nota = neto_nota - neto
+                                iva_nota = iva_nota - iva;
                                 
+                                total = parseFloat(response.array[0].total)
+                                total_nota = total_nota - total
 
-                                precio = parseFloat(response.array[0].total)
-                                total = total - precio
-
-                                $('#neto').text(formatcurrency(neto))
-                                $('#iva').text(formatcurrency(iva))
-                                $('#total_nota').text(formatcurrency(total))
+                                $('#neto').text(formatcurrency(neto_nota))
+                                $('#iva').text(formatcurrency(iva_nota))
+                                $('#total_nota').text(formatcurrency(total_nota))
 
                                 swal("Éxito!","El registro ha sido eliminado!","success");
 
@@ -509,19 +509,7 @@ $(document).ready(function(){
                     container : 'floating',
                     timer : 3000
                 });
-
-                var rowNode = NotaVentaTable.row.add([
-                    ''+response.array.fecha+'',
-                    ''+response.array.rut+'',
-                    ''+response.array.numero_oc+'',
-                    ''+response.array.solicitado_por+'',
-                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-excel-o Generate"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveNota"></i>'+'',
-                ]).draw(false).node();
-
-                $( rowNode )
-                    .attr('id',response.array.id)
-                    .addClass('text-center')
-
+                showNotaVenta();
                 $('#cancelar').click()
 
             }else if(response.status == 2){
@@ -560,40 +548,23 @@ $(document).ready(function(){
 
     $('#cancelar').on('click', function () {
 
-        var neto = 0
-        var iva = 0
-        var total = 0
-
-        $('#neto').text(neto)
-        $('#iva').text(iva)
-        $('#total_nota').text(total)
+        $('#neto').text(0)
+        $('#iva').text(0)
+        $('#total_nota').text(0)
 
         $('#showCliente')[0].reset();
         $('#addServicio')[0].reset();
 
-        $('#personaempresa_id').empty();
-        $('#personaempresa_id').append(new Option('Seleccione Cliente',''));
+        neto_nota = 0;
+        iva_nota = 0;
+        total_nota = 0;
+
+        $('#personaempresa_id').val('');
+        $('#personaempresa_id').selectpicker('refresh');
 
         ServicioTable
             .clear()
             .draw();
-
-        $.ajax({
-            type: "POST",
-            url: "../includes/nota_venta/showPersonaEmpresa.php",
-            success: function(response){
-
-                $.each(response.array, function( index, array ) {
-                    $('#personaempresa_id').append('<option value="'+array.rut+'" data-content="'+array.nombre+'"></option>');
-                });
-
-            }
-        });
-
-        setTimeout(function() {
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
-        }, 1000);
 
         $('html,body').animate({
             scrollTop: 0
@@ -626,9 +597,7 @@ $(document).ready(function(){
                         setTimeout(function() {
                             if(response.status == 1){
                                 swal("Éxito!","El registro ha sido eliminado!","success");
-                                NotaVentaTable.row($(ObjectTR))
-                                    .remove()
-                                    .draw();
+                                showNotaVenta();
                             }else if(response.status == 3){
                                 swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee otros registros asociados','error');
                             }else{
@@ -644,13 +613,66 @@ $(document).ready(function(){
         });
     });
 
-    $('body').on('click', '.Generate', function () {
+    $('body').on('click', '.View', function () {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectId = ObjectTR.attr("id");
 
         window.open("../ajax/nota_venta/generarNotaVenta.php?id="+ObjectId, '_blank');
+    });
+
+    $('body').on('click', '.Generate', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = ObjectTR.attr("id");
+
+        swal({
+            title: "Deseas generar la factura?",
+            text: "Confirmar facturación!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            confirmButtonText: "Generar!",
+            cancelButtonText: "Cancelar",
+            showLoaderOnConfirm: true,
+            closeOnConfirm: false
+        }, function (isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    type: "POST",
+                    url: "../includes/nota_venta/generarFactura.php",
+                    data: {
+                        id: ObjectId
+                    },
+                    success: function (response) {
+
+                        if (response.status == 1) {
+                            showNotaVenta();
+                            swal("Éxito!", "La factura ha sido generada!", "success");
+
+                        } else if (response.status == 2) {
+                            swal('Solicitud no procesada', 'Debes ingresar el valor UF del mes en curso', 'error');
+                        } else if (response.status == 3) {
+                            swal('Solicitud no procesada', 'El servicio no existe, por favor actualizar la pagina', 'error');
+                        } else if (response.status == 4) {
+                            swal('Solicitud no procesada', 'El cliente no existe, por favor actualizar la pagina', 'error');
+                        } else if (response.status == 99) {
+                            swal('Solicitud no procesada', 'El servicio cUrl no esta disponible en el servidor, por favor contactar al administrador', 'error');
+                        } else {
+                            swal('Solicitud no procesada', response.Message, 'error');
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        setTimeout(function () {
+                            var err = JSON.parse(xhr.responseText);
+                            swal('Solicitud no procesada', err.Message, 'error');
+                        }, 1000);
+                    }
+                });
+            }
+        });
     });
 
     function formatcurrency(n) {

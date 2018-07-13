@@ -11,6 +11,7 @@
         <link href="../css/demo/nifty-demo-icons.min.css" rel="stylesheet">
         <link href="../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
+        <link href="../plugins/bootstrap-dataTables/jquery.dataTables.css" rel="stylesheet"  media="screen">
         <link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
         <link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
         <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
@@ -103,16 +104,14 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="control-label" for="solicitado_por">Solicitado Por</label>
-                                                        <input id="solicitado_por" name="solicitado_por" class="form-control input-sm" validation="not_null" data-nombre="Solicitado Por">
+                                                        <label class="control-label" for="name">Fecha emisión OC</label>
+                                                        <input id="fecha_oc" name="fecha_oc" validation="not_null"  type="text" placeholder="Seleccione la fecha" class="form-control date" data-nombre="Fecha">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <label class="control-label" for="name">Lugar de Retiro</label>
-                                                        <select class="selectpicker form-control" name="retiro" id="retiro"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Cliente">
-                                                            <option value="">Seleccione Bodega</option>
-                                                        </select>
+                                                        <label class="control-label" for="solicitado_por">Solicitado Por</label>
+                                                        <input id="solicitado_por" name="solicitado_por" class="form-control input-sm" validation="not_null" data-nombre="Solicitado Por">
                                                     </div>
                                                 </div>
                                             </div>
@@ -252,10 +251,12 @@
                                                     <table id="NotaVentaTable" class="table table-striped table-bordered">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-center">Fecha</th>
                                                                 <th class="text-center">Rut</th>
+                                                                <th class="text-center">Cliente</th>
+                                                                <th class="text-center">Fecha</th>
                                                                 <th class="text-center">Numero de OC</th>
                                                                 <th class="text-center">Solicitado Por</th>
+                                                                <th class="text-center">Total</th>
                                                                 <th class="text-center">Acción</th>
                                                             </tr>
                                                         </thead>

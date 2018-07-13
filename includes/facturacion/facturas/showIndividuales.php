@@ -3,6 +3,6 @@
 	include("../../../class/facturacion/facturas/FacturaClass.php");
 
 	$Factura = new Factura();
-	$Factura->showServicios();
+	$Factura->showIndividuales();
 	
 ?>   

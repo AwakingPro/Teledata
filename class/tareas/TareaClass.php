@@ -1,26 +1,24 @@
 <?php
 
-	require("../../includes/email/PHPMailer-master/class.phpmailer.php");
-	require("../../includes/email/PHPMailer-master/class.smtp.php");
-    include('../../class/methods_global/methods.php');
-    include('../../class/email/EmailClass.php');
-
+	include('../../class/methods_global/methods.php');
     header('Content-type: application/json');
 
     class Tarea{
 
     	public function showServicios(){
 
-    		$query = '	SELECT servicios.*,
-    					personaempresa.nombre as Cliente,
-    					personaempresa.id as IdPersonaEmpresa,
-    					personaempresa.direccion as Direccion,
-    					usuarios.nombre as Usuario,
-						servicios.FechaInstalacion
-    					FROM servicios 
-    					INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut 
-    					LEFT JOIN usuarios ON servicios.IdUsuarioAsignado = usuarios.id
-    					WHERE servicios.FechaInstalacion != "1970-01-01"';
+    		$query = "	SELECT
+							servicios.*, personaempresa.nombre AS Cliente,
+							personaempresa.id AS IdPersonaEmpresa,
+							personaempresa.direccion AS Direccion,
+							usuarios.nombre AS Usuario,
+							servicios.FechaInstalacion
+						FROM
+							servicios
+						INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
+						LEFT JOIN usuarios ON servicios.IdUsuarioAsignado = usuarios.id
+						WHERE
+							servicios.FechaInstalacion != '1970-01-01'";
 
             $run = new Method;
             $data = $run->select($query);
@@ -116,7 +114,7 @@
 	            	$query = "SELECT Codigo FROM servicios where Id = '$this->Id'";
 		           	$data = $run->select($query);
 			        $Codigo = $data[0]['Codigo'];
-	           		$Estatus = $this->enviarCorreo($Usuario,$Codigo);
+	           		// $Estatus = $this->enviarCorreo($Usuario,$Codigo);
 	           	}else{
 	           		$Estatus = true;
 	           	}
@@ -139,6 +137,11 @@
 
 
 	    public function enviarCorreo($Usuario,$Codigos){
+
+			require("../../includes/email/PHPMailer-master/class.phpmailer.php");
+			require("../../includes/email/PHPMailer-master/class.smtp.php");
+			include('../../class/email/EmailClass.php');
+
 
 	    	$Nombre = $Usuario['nombre'];
 	    	$Correo = $Usuario['email'];
@@ -313,7 +316,7 @@
 								$Montodiario = $Valor / $Diasdelmes;
 								$Montoporfacturar = $Diasporfacturar * $Montodiario;
 
-								$query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio) VALUES ('$FacturaId', '$Concepto', '$Montoporfacturar', '$Descuento', '$this->Id')";
+								$query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio, Cantidad) VALUES ('$FacturaId', '$Concepto', '$Montoporfacturar', '$Descuento', '$this->Id', '1')";
 								$FacturaDetalle = $run->insert($query);
 							}
 						}

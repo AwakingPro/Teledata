@@ -50,6 +50,7 @@ $(document).ready(function(){
     var totalBoletas;
     var cantidadBoletas;
     getTotales()
+    getTables()
 
     function formatcurrency(n) {
         return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
@@ -91,226 +92,219 @@ $(document).ready(function(){
                 $('#cantidadBoletasLote').text(cantidadBoletas)
             }
         });
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/getTotalesIndividual.php",
+            success: function (response) {
+                totalFacturas = response.totalFacturas
+                cantidadFacturas = response.cantidadFacturas
+                totalBoletas = response.totalBoletas
+                cantidadBoletas = response.cantidadBoletas
+                $('#totalFacturasIndividual').text(totalFacturas)
+                $('#cantidadFacturasIndividual').text(cantidadFacturas)
+                $('#totalBoletasIndividual').text(totalBoletas)
+                $('#cantidadBoletasIndividual').text(cantidadBoletas)
+            }
+        });
     }
+    function getTables(){
 
-    $.ajax({
-        type: "POST",
-        url: "../includes/facturacion/facturas/showServicios.php",
-        success: function(response){
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/showInstalaciones.php",
+            success: function(response){
 
-            InstalacionTable = $('#InstalacionTable').DataTable({
-                order: [[1, 'desc']],
-                data: response.array,
-                columns: [
-                    { data: 'Cliente' },
-                    { data: 'Rut' },
-                    { data: 'NombreGrupo' },
-                    { data: 'Valor' },
-                    { data: 'Tipo' },
-                ],
-                destroy: true,
-                'createdRow': function( row, data, dataIndex ) {
-                    $(row)
-                        .attr('rutid',data.Id)
-                        .attr('grupo',data.Grupo)
-                        .attr('EstatusFacturacion',data.EstatusFacturacion)
-                        .attr('tipo',3)
-                        .addClass('text-center')
-                },
-                "columnDefs": [
-                    {
-                        "targets": 4,
-                        "render": function (data, type, row) {
-                            if(data == 2){
-                                if(row.UrlPdfBsale != 0 && row.UrlPdfBsale != ''){
-                                    Icono = '<a href="'+row.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
-                                }else{
-                                    Icono  = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
-                                }
-                            }else{
-                                Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarServicio" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                InstalacionTable = $('#InstalacionTable').DataTable({
+                    order: [[1, 'desc']],
+                    data: response.array,
+                    columns: [
+                        { data: 'Cliente' },
+                        { data: 'Rut' },
+                        { data: 'NombreGrupo' },
+                        { data: 'Valor' },
+                        { data: 'Tipo' },
+                    ],
+                    destroy: true,
+                    'createdRow': function( row, data, dataIndex ) {
+                        $(row)
+                            .attr('rutid',data.Id)
+                            .attr('grupo',data.Grupo)
+                            .attr('tipo',3)
+                            .addClass('text-center')
+                    },
+                    "columnDefs": [
+                        {
+                            "targets": 4,
+                            "render": function (data, type, row) {
+                                Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarInstalacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                                return "<div style='text-align: center'>"+ Icono +"</div>";
                             }
-                            return "<div style='text-align: center'>"+ Icono +"</div>";
+                        },
+                    ],
+                    language: {
+                        processing:     "Procesando ...",
+                        search:         'Buscar',
+                        lengthMenu:     "Mostrar _MENU_ Registros",
+                        info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                        infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+                        infoFiltered:   "(filtrada de _MAX_ registros en total)",
+                        infoPostFix:    "",
+                        loadingRecords: "...",
+                        zeroRecords:    "No se encontraron registros coincidentes",
+                        emptyTable:     "No hay datos disponibles en la tabla",
+                        paginate: {
+                            first:      "Primero",
+                            previous:   "Anterior",
+                            next:       "Siguiente",
+                            last:       "Ultimo"
+                        },
+                        aria: {
+                            sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
                         }
-                    },
-                ],
-                language: {
-                    processing:     "Procesando ...",
-                    search:         'Buscar',
-                    lengthMenu:     "Mostrar _MENU_ Registros",
-                    info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                    infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-                    infoFiltered:   "(filtrada de _MAX_ registros en total)",
-                    infoPostFix:    "",
-                    loadingRecords: "...",
-                    zeroRecords:    "No se encontraron registros coincidentes",
-                    emptyTable:     "No hay datos disponibles en la tabla",
-                    paginate: {
-                        first:      "Primero",
-                        previous:   "Anterior",
-                        next:       "Siguiente",
-                        last:       "Ultimo"
-                    },
-                    aria: {
-                        sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
-                        sortDescending: ": habilitado para ordenar la columna en orden descendente"
                     }
-                }
-            });
+                });
+            }
+        });
 
-            $('[data-toggle="popover"]').popover();
-        }
-    });
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/showLotes.php",
+            success: function(response){
 
-    $.ajax({
-        type: "POST",
-        url: "../includes/facturacion/facturas/showFacturas.php",
-        success: function(response){
-
-            IndividualTable = $('#IndividualTable').DataTable({
-                order: [[1, 'desc']],
-                // data: response.array,
-                // columns: [
-                //     { data: 'EstatusFacturacion' },
-                //     { data: 'FechaFacturacion' },
-                //     { data: 'Cliente' },
-                //     { data: 'Rut' },
-                //     { data: 'NombreGrupo' },
-                //     { data: 'Valor' },
-                //     { data: 'EstatusFacturacion' },
-                // ],
-                destroy: true,
-                'createdRow': function( row, data, dataIndex ) {
-                    $(row)
-                        .attr('rutid',data.Id)
-                        .attr('grupo',data.Grupo)
-                        .attr('EstatusFacturacion',data.EstatusFacturacion)
-                        .attr('tipo',2)
-                        .addClass('text-center')
-                },
-                "columnDefs": [
-                    {
-                        "targets": 4,
-                        "render": function (data, type, row) {
-                            if(data == 1){
-                                if(row.UrlPdfBsale != 0 && row.UrlPdfBsale != ''){
-                                    Icono = '<a href="'+row.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
-                                }else{
-                                    Icono  = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
-                                }
-                            }else{
-                                Icono  = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                LoteTable = $('#LoteTable').DataTable({
+                    order: [[2, 'desc']],
+                    "columnDefs": [ {
+                        "targets": [ 0 ],
+                        "orderable": false
+                    } ],
+                    data: response.array,
+                    columns: [
+                        { data: 'Id' },
+                        { data: 'Cliente' },
+                        { data: 'Rut' },
+                        { data: 'NombreGrupo' },
+                        { data: 'Valor' },
+                        { data: 'EstatusFacturacion' }
+                    ],
+                    destroy: true,
+                    'createdRow': function( row, data, dataIndex ) {
+                        $(row)
+                            .attr('rutid',data.Id)
+                            .attr('grupo',data.Grupo)
+                            .attr('tipo',2)
+                            .addClass('text-center')
+                    },
+                    "columnDefs": [
+                        {
+                            "targets": 0,
+                            "render": function (data, type, row) {
+                                Check = '<input name="select_check" id="select_check_'+data+'" type="checkbox" />'
+                                return "<div style='text-align: center'>"+ Check +"</div>";
                             }
-                            return "<div style='text-align: center'>"+ Icono +"</div>";
+                        },
+                        {
+                            "targets": 5,
+                            "render": function (data, type, row) {
+                                Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarLote" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                                return "<div style='text-align: center'>"+ Icono +"</div>";
+                            }
+                        },
+                    ],
+                    language: {
+                        processing:     "Procesando ...",
+                        search:         'Buscar',
+                        lengthMenu:     "Mostrar _MENU_ Registros",
+                        info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                        infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
+                        infoFiltered:   "(filtrada de _MAX_ registros en total)",
+                        infoPostFix:    "",
+                        loadingRecords: "...",
+                        zeroRecords:    "No se encontraron registros coincidentes",
+                        emptyTable:     "No hay datos disponibles en la tabla",
+                        paginate: {
+                            first:      "Primero",
+                            previous:   "Anterior",
+                            next:       "Siguiente",
+                            last:       "Ultimo"
+                        },
+                        aria: {
+                            sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
                         }
-                    },
-                ],
-                language: {
-                    processing:     "Procesando ...",
-                    search:         'Buscar',
-                    lengthMenu:     "Mostrar _MENU_ Registros",
-                    info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                    infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-                    infoFiltered:   "(filtrada de _MAX_ registros en total)",
-                    infoPostFix:    "",
-                    loadingRecords: "...",
-                    zeroRecords:    "No se encontraron registros coincidentes",
-                    emptyTable:     "No hay datos disponibles en la tabla",
-                    paginate: {
-                        first:      "Primero",
-                        previous:   "Anterior",
-                        next:       "Siguiente",
-                        last:       "Ultimo"
-                    },
-                    aria: {
-                        sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
-                        sortDescending: ": habilitado para ordenar la columna en orden descendente"
                     }
-                }
-            });
+                });
+            }
+        });
 
-            LoteTable = $('#LoteTable').DataTable({
-                order: [[2, 'desc']],
-                "columnDefs": [ {
-                    "targets": [ 0 ],
-                    "orderable": false
-                } ],
-                data: response.array,
-                columns: [
-                    { data: 'EstatusFacturacion' },
-                    { data: 'Cliente' },
-                    { data: 'Rut' },
-                    { data: 'NombreGrupo' },
-                    { data: 'Valor' },
-                    { data: 'EstatusFacturacion' }
-                ],
-                destroy: true,
-                'createdRow': function( row, data, dataIndex ) {
-                    $(row)
-                        .attr('rutid',data.Id)
-                        .attr('grupo',data.Grupo)
-                        .attr('EstatusFacturacion',data.EstatusFacturacion)
-                        .attr('tipo',2)
-                        .addClass('text-center')
-                },
-                "columnDefs": [
-                    {
-                        "targets": 0,
-                        "render": function (data, type, row) {
-                            if(data == 1){
-                                Check = ''
-                            }else{
-                                Check = '<input name="select_check" id="select_check_'+row.Id+'" type="checkbox" />'
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/showIndividuales.php",
+            success: function (response) {
+
+                IndividualTable = $('#IndividualTable').DataTable({
+                    order: [[2, 'desc']],
+                    "columnDefs": [{
+                        "targets": [0],
+                        "orderable": false
+                    }],
+                    data: response.array,
+                    columns: [
+                        { data: 'Cliente' },
+                        { data: 'Rut' },
+                        { data: 'NombreGrupo' },
+                        { data: 'Valor' },
+                        { data: 'EstatusFacturacion' }
+                    ],
+                    destroy: true,
+                    'createdRow': function (row, data, dataIndex) {
+                        $(row)
+                            .attr('rutid', data.Id)
+                            .attr('grupo', data.Grupo)
+                            .attr('tipo', 1)
+                            .addClass('text-center')
+                    },
+                    "columnDefs": [
+                        {
+                            "targets": 4,
+                            "render": function (data, type, row) {
+                                Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarIndividual" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                                return "<div style='text-align: center'>" + Icono + "</div>";
                             }
-                            return "<div style='text-align: center'>"+ Check +"</div>";
+                        },
+                    ],
+                    language: {
+                        processing: "Procesando ...",
+                        search: 'Buscar',
+                        lengthMenu: "Mostrar _MENU_ Registros",
+                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                        infoFiltered: "(filtrada de _MAX_ registros en total)",
+                        infoPostFix: "",
+                        loadingRecords: "...",
+                        zeroRecords: "No se encontraron registros coincidentes",
+                        emptyTable: "No hay datos disponibles en la tabla",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                            last: "Ultimo"
+                        },
+                        aria: {
+                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
                         }
-                    },
-                    {
-                        "targets": 5,
-                        "render": function (data, type, row) {
-                            if(data == 1){
-                                if(row.UrlPdfBsale != 0 && row.UrlPdfBsale != ''){
-                                    Icono = '<a href="'+row.UrlPdfBsale+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
-                                }else{
-                                    Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
-                                }
-                            }else{
-                                Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarFactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
-                            }
-                            return "<div style='text-align: center'>"+ Icono +"</div>";
-                        }
-                    },
-                ],
-                language: {
-                    processing:     "Procesando ...",
-                    search:         'Buscar',
-                    lengthMenu:     "Mostrar _MENU_ Registros",
-                    info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                    infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-                    infoFiltered:   "(filtrada de _MAX_ registros en total)",
-                    infoPostFix:    "",
-                    loadingRecords: "...",
-                    zeroRecords:    "No se encontraron registros coincidentes",
-                    emptyTable:     "No hay datos disponibles en la tabla",
-                    paginate: {
-                        first:      "Primero",
-                        previous:   "Anterior",
-                        next:       "Siguiente",
-                        last:       "Ultimo"
-                    },
-                    aria: {
-                        sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
-                        sortDescending: ": habilitado para ordenar la columna en orden descendente"
                     }
-                }
-            });
+                });
+            }
+        });
 
-            $('[data-toggle="popover"]').popover();
+        $('[data-toggle="popover"]').popover();
 
-            $('body').addClass('loaded');
-            $('table').css('width', '100%');
-        }
-    });
+        $('body').addClass('loaded');
+        $('table').css('width', '100%');
+    }
 
     $('body').on('click', '.Facturar', function () {
 
@@ -332,7 +326,6 @@ $(document).ready(function(){
             closeOnConfirm: false 
         },function(isConfirm){   
             if (isConfirm) {
-
                 $.ajax({
                     type: "POST",
                     url: "../includes/facturacion/facturas/storeFactura.php",
@@ -380,18 +373,17 @@ $(document).ready(function(){
         });
     });
 
-    $('body').on('click', '.VisualizarServicio', function () {
+    $('body').on('click', '.VisualizarInstalacion', function () {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectRutId = ObjectTR.attr("rutid");
         var ObjectGroup = ObjectTR.attr("grupo");
-        var ObjectType = ObjectTR.attr("tipo");
 
         $.ajax({
             type: "POST",
-            url: "../includes/facturacion/facturas/showServicio.php",
-            data: "rut="+ObjectRutId+"&grupo="+ObjectGroup+"&tipo="+ObjectType,
+            url: "../includes/facturacion/facturas/showInstalacion.php",
+            data: "rut="+ObjectRutId+"&grupo="+ObjectGroup,
             success: function(response){
 
                 ModalTable.clear().draw()
@@ -419,22 +411,17 @@ $(document).ready(function(){
 
     });
 
-    $('body').on('click', '.VisualizarFactura', function () {
+    $('body').on('click', '.VisualizarLote', function () {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectRutId = ObjectTR.attr("rutid");
         var ObjectGroup = ObjectTR.attr("grupo");
-        var ObjectStatus = ObjectTR.attr("EstatusFacturacion");
-        var ObjectType = ObjectTR.attr("tipo");
-        if(ObjectStatus == 0){
-            ObjectRutId = ObjectRutId + "-" + ObjectGroup
-        }
 
         $.ajax({
             type: "POST",
-            url: "../includes/facturacion/facturas/showFactura.php",
-            data: "id="+ObjectRutId+"&tipo="+ObjectType,
+            url: "../includes/facturacion/facturas/showLote.php",
+            data: "rut="+ObjectRutId+"&grupo="+ObjectGroup,
             success: function(response){
 
                 ModalTable.clear().draw()
@@ -456,6 +443,43 @@ $(document).ready(function(){
                 setTimeout(function(){ 
                     var err = JSON.parse(xhr.responseText);
                     swal('Solicitud no procesada',err.Message,'error');
+                }, 1000);
+            }
+        });
+
+    });
+
+    $('body').on('click', '.VisualizarIndividual', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = ObjectTR.attr("rutid");
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/showIndividual.php",
+            data: "id=" + ObjectId,
+            success: function (response) {
+
+                ModalTable.clear().draw()
+
+                $.each(response.array, function (index, array) {
+                    var rowNode = ModalTable.row.add([
+                        '' + array.Nombre + '',
+                        '' + array.Concepto + '',
+                        '' + array.Valor + '',
+                    ]).draw(false).node();
+
+                    $(rowNode)
+                        .addClass('text-center')
+                });
+
+                $('#modalShow').modal('show')
+            },
+            error: function (xhr, status, error) {
+                setTimeout(function () {
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada', err.Message, 'error');
                 }, 1000);
             }
         });
