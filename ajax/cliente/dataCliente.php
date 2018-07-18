@@ -91,8 +91,7 @@
 				WHERE
 					servicios.Rut = '.$_POST['rut'];
 	$run = new Method;
-	$lista = $run->listViewServicios($query);
-	$listaServicios =  $lista;
+	$listaServicios = $run->listViewServicios($query);
 
 	echo json_encode(array($DataFacturacion, $listaServicios));
  ?>

@@ -126,7 +126,7 @@
 						$table[] = $field->table;
 					}
 					$tabla = "<table class='table table-striped table-hover tabeData'><thead><tr>";
-					for ($i=0; $i < count($fields) ; $i++) {
+					for ($i=1; $i < count($fields) ; $i++) {
 						$tabla.="<th>".$fields[$i]."</th>";
 					}
 					$tabla.="<th></th></tr></thead><tbody>";
@@ -137,11 +137,28 @@
 						for ($i=0; $i < count($rows) ; $i++) {
 							$tabla.= '<tr>';
 							foreach ($rows[$i] as $clave => $valor) {
-								$tabla.="<td>".$valor."</td>";
+								if($clave != 0)
+									$tabla.="<td>".$valor."</td>";
+							}
+							if($table[0] == 'personaempresa'){
+								$query = "SELECT * FROM servicios WHERE Rut = substring_index('".$rows[$i][1]."','-',1)";
+								$count = 0;
+								if ($resultado = $mysqli->query($query)) {
+									while ($fila = $resultado->fetch_array(MYSQLI_NUM)) {
+										$count++;
+									}
+								}
+								if($count){
+									$eliminar = '';
+								}else{
+									$eliminar = '<i class="fa fa-trash-o delete-'.$table[0].'"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>';
+								}
+							}else{
+								$eliminar = '<i class="fa fa-trash-o delete-'.$table[0].'"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>';
 							}
 							$tabla.='<td class="optionTable">
 								<i class="fa fa-pencil-square-o update-'.$table[0].'" attr="'.$rows[$i][0].'"  aria-hidden="true" title="Editar"></i>
-								<i class="fa fa-trash-o delete-'.$table[0].'"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>
+								'.$eliminar.'
 								</td>';
 							$tabla.= '</tr>';
 						}
