@@ -6,11 +6,11 @@ var mapCenter
 
 $(document).ready(function() {
 
-	$('select[name="Provincia"]').load('../ajax/cliente/getProvincias.php', function (data) {
-		$('select[name="Provincia"]').selectpicker('refresh');
+	$('select[name="Region"]').load('../ajax/cliente/getRegiones.php', function (data) {
+		$('select[name="Region"]').selectpicker('refresh');
 	});
-	$('.Provincia_update').load('../ajax/cliente/getProvincias.php', function (data) {
-		$('.Provincia_update').selectpicker('refresh');
+	$('.Region_update').load('../ajax/cliente/getRegiones.php', function (data) {
+		$('.Region_update').selectpicker('refresh');
 	});
 	
 	var Parametros = window.location.search.substr(1);
@@ -516,15 +516,13 @@ $(document).ready(function() {
 			$('[name="Comentario_update"]').val(value['DataCliente'][0]['comentario']);
 			$('[name="TipoCliente_update"]').val(value['DataCliente'][0]['tipo_cliente']);
 			$('[name="Alias_update"]').val(value['DataCliente'][0]['alias']);			
-			$('[name="Provincia_update"]').val(value['DataCliente'][0]['provincia']);
-			$('.Provincia_update').selectpicker('refresh');
+			$('[name="Region_update"]').val(value['DataCliente'][0]['region']);
+			$('.Region_update').selectpicker('refresh');
+			loadCiudades();
 			setTimeout(() => {
-				loadComunas();
-			}, 500);
-			$('[name="Comuna_update"]').val(value['DataCliente'][0]['comuna']);
-			setTimeout(() => {
-				$('[name="Comuna_update"]').selectpicker('refresh');
-			}, 1000);
+				$('[name="Ciudad_update"]').val(value['DataCliente'][0]['ciudad']);
+				$('[name="Ciudad_update"]').selectpicker('refresh');
+			}, 2000);
 			$('[name="IdCliente"]').val(value['DataCliente'][0]['id']);
 			$('[name="Giro_update"]').selectpicker('refresh');
 			$('[name="TipoCliente_update"]').selectpicker('refresh');
@@ -1264,25 +1262,25 @@ $(document).ready(function() {
         });     
 	});
 	
-	$(document).on('change', 'select[name="Provincia"]', function () {
+	$(document).on('change', 'select[name="Region"]', function () {
 		if ($(this).selectpicker('val') != '') {
-			$('select[name="Comuna"]').load('../ajax/cliente/getComunas.php', { Provincia: $(this).selectpicker('val') }, function (data) {
-				$('select[name="Comuna"]').selectpicker('refresh');
+			$('select[name="Ciudad"]').load('../ajax/cliente/getCiudades.php', { Region: $(this).selectpicker('val') }, function (data) {
+				$('select[name="Ciudad"]').selectpicker('refresh');
 			});
 		}
 	});
-	$(document).on('change', '.Provincia_update', function () {
-		loadComunas();
+	$(document).on('change', '.Region_update', function () {
+		loadCiudades();
 	});
-	function loadComunas(){
-		Provincia = $('select[name="Provincia_update"]').val();
-		if (Number(Provincia) > 0) {
-			$('select[name="Comuna_update"]').load('../ajax/cliente/getComunas.php', { Provincia: Provincia }, function (data) {
-				$('select[name="Comuna_update"]').selectpicker('refresh');
+	function loadCiudades(){
+		Region = $('select[name="Region_update"]').val();
+		if (Number(Region) > 0) {
+			$('select[name="Ciudad_update"]').load('../ajax/cliente/getCiudades.php', { Region: Region }, function (data) {
+				$('select[name="Ciudad_update"]').selectpicker('refresh');
 			});
 		} else {
-			$('select[name="Comuna_update"]').empty();
-			$('select[name="Comuna_update"]').selectpicker('refresh')
+			$('select[name="Ciudad_update"]').empty();
+			$('select[name="Ciudad_update"]').selectpicker('refresh')
 		}
 	}
 });

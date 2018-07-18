@@ -137,13 +137,13 @@
 						<input name="Giro_update" class="form-control" validate="not_null">
 					</div>
 					<div class="col-md-4 form-group">
-						<label>Provincia</label>
-						<select id="Provincia_update" name="Provincia_update" class="form-control Provincia_update" data-live-search="true" validate="not_null">
+						<label>Region</label>
+						<select id="Region_update" name="Region_update" class="form-control Region_update" data-live-search="true" validate="not_null">
 						</select>
 					</div>
 					<div class="col-md-4 form-group">
-						<label>Comuna</label>
-						<select id="Comuna_update" name="Comuna_update" class="form-control Comuna_update" data-live-search="true" validate="not_null">
+						<label>Ciudad</label>
+						<select id="Ciudad_update" name="Ciudad_update" class="form-control Ciudad_update" data-live-search="true" validate="not_null">
 						</select>
 					</div>
 				</div>

@@ -1,12 +1,12 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	$query = "SELECT * FROM provincias";
+	$query = "SELECT * FROM regiones ORDER BY nombre";
 	$run = new Method;
 	$data = $run->select($query);
 	if (count($data) > 0) {
 		$list ='<option value="">Seleccione...</option>';
 		for ($i=0; $i < count($data); $i++) {
-			$list.= '<option value="'.$data[$i]['provincia_id'].'">'.$data[$i]['provincia_nombre'].'</option>';
+			$list.= '<option value="'.$data[$i]['id'].'">'.$data[$i]['nombre'].'</option>';
 		}
 		echo $list;
 	}else{

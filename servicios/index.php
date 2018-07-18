@@ -521,13 +521,13 @@
 									</select>
 								</div>
 								<div class="col-md-4 form-group">
-									<label>Provincia</label>
-									<select id="Provincia" name="Provincia" class="form-control selectpicker Provincia" data-live-search="true" validate="not_null">
+									<label>Region</label>
+									<select id="Region" name="Region" class="form-control selectpicker Region" data-live-search="true" validate="not_null">
 									</select>
 								</div>
 								<div class="col-md-4 form-group">
-									<label>Comuna</label>
-									<select id="Comuna" name="Comuna" class="form-control selectpicker Comuna" data-live-search="true" validate="not_null">
+									<label>Ciudad</label>
+									<select id="Ciudad" name="Ciudad" class="form-control selectpicker Ciudad" data-live-search="true" validate="not_null">
 									</select>
 								</div>
 							</div>

@@ -23,11 +23,11 @@ $(document).ready(function() {
 		}
 	});
 
-	$('select[name="Provincia"]').load('../ajax/cliente/getProvincias.php', function (data) {
-		$('select[name="Provincia"]').selectpicker('refresh');
+	$('select[name="Region"]').load('../ajax/cliente/getRegiones.php', function (data) {
+		$('select[name="Region"]').selectpicker('refresh');
 	});
-	$('.Provincia_update').load('../ajax/cliente/getProvincias.php', function (data) {
-		$('.Provincia_update').selectpicker('refresh');
+	$('.Region_update').load('../ajax/cliente/getRegiones.php', function (data) {
+		$('.Region_update').selectpicker('refresh');
 	});
 	
 	$('[name="Rut"]').mask("00000000");
@@ -1230,10 +1230,10 @@ $(document).ready(function() {
 		});
 	});
 
-	$(document).on('change', 'select[name="Provincia"]', function () {
+	$(document).on('change', 'select[name="Region"]', function () {
 		if ($(this).selectpicker('val') != '') {
-			$('select[name="Comuna"]').load('../ajax/cliente/getComunas.php', { Provincia: $(this).selectpicker('val') }, function (data) {
-				$('select[name="Comuna"]').selectpicker('refresh');
+			$('select[name="Ciudad"]').load('../ajax/cliente/getCiudades.php', { Region: $(this).selectpicker('val') }, function (data) {
+				$('select[name="Ciudad"]').selectpicker('refresh');
 			});
 		}
 	});

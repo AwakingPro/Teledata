@@ -385,8 +385,7 @@
                     $Detalle = $Detalles[0];
                     $Rut = $Detalle['Rut'];
 
-                    $query = "SELECT * FROM personaempresa WHERE rut = '".$Rut."'";
-                    $Cliente = $run->select($query);
+                    $Cliente = $this->getCliente($Rut);
 
                     if($Cliente){
 
@@ -527,8 +526,7 @@
                             $Detalle = $Detalles[0];
                             $Rut = $Detalle['Rut'];
 
-                            $query = "SELECT * FROM personaempresa WHERE rut = '".$Rut."'";
-                            $Cliente = $run->select($query);
+                            $Cliente = $this->getCliente($Rut);
 
                             if($Cliente){
 
@@ -893,9 +891,8 @@
                         $Id = $Factura['Id'];
                         $Rut = $Factura['Rut'];
 
-                        $query = "SELECT * FROM personaempresa WHERE rut = '".$Rut."'";
-                        $Cliente = $run->select($query);
-
+                        $Cliente = $this->getCliente($Rut);
+                        
                         if($Cliente){
 
                             $Cliente = $Cliente[0];
@@ -989,13 +986,13 @@
                 if($Cliente['provincia']){
                     $provincia = $Cliente['provincia'];
                 }else{
-                    $provincia = 'Santiago';
+                    $region = 'Llanquihue';
                 }
 
-                if($Cliente['comuna']){
-                    $comuna = $Cliente['comuna'];
+                if($Cliente['ciudad']){
+                    $ciudad = $Cliente['ciudad'];
                 }else{
-                    $comuna = 'Las Condes';
+                    $ciudad = 'Puerto Varas';
                 }
 
                 $clientId = null;
@@ -1008,7 +1005,7 @@
                     "address"       => $Cliente['direccion'],
                     "company"       => $Cliente['nombre'],
                     "city"          => $provincia,
-                    "municipality"  => $comuna,
+                    "municipality"  => $ciudad,
                     "activity"      => $Cliente['giro']
                 );
             }
@@ -1241,6 +1238,19 @@
 
             echo json_encode($ToReturn);
         }
-
+        public function getCliente($Rut){
+            $run = new Method;
+            $query = "  SELECT
+                            personaempresa.*, provincias.nombre AS provincia,
+                            ciudades.nombre AS ciudad
+                        FROM
+                            personaempresa
+                        INNER JOIN ciudades ON personaempresa.ciudad = ciudades.id
+                        INNER JOIN provincias ON ciudades.provincia_id = provincias.id
+                        WHERE
+                            personaempresa.rut = '".$Rut."'";
+            $Cliente = $run->select($query);
+            return $Cliente;
+        }
     }
 ?>
