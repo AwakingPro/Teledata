@@ -25,6 +25,6 @@ CREATE TABLE `arriendo_equipos_datos` (
   `Modelo` varchar(150) DEFAULT NULL,
   `MacSN` varchar(150) DEFAULT NULL,
   `Descripcion` varchar(500) DEFAULT NULL,
-  `IdServivio` int(11) DEFAULT NULL,
+  `IdServicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdArriendoEquiposDatos`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

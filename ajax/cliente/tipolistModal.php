@@ -23,7 +23,7 @@
 				echo "listMensualidadPuertosPublicos.php";
 				break;
 			case 2:
-				echo "listServivioInternet.php";
+				echo "listServicioInternet.php";
 				break;
 			case 6:
 				echo "listTraficoGenerado.php";

@@ -23,7 +23,7 @@ CREATE TABLE `mantencion_red` (
   `IdMantencionRed` int(11) NOT NULL AUTO_INCREMENT,
   `Descripcion` varchar(300) DEFAULT NULL,
   `ComentarioDatosAdicionales` varchar(300) DEFAULT NULL,
-  `IdServivio` int(11) DEFAULT NULL,
+  `IdServicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdMantencionRed`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

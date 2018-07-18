@@ -5,7 +5,7 @@
 
 	if(!isset($run)){
 
-		if($where == 'insertArriendoEquipos.php' || $where == 'insertServicioInetrnet.php'){
+		if($where == 'insertArriendoEquipos.php' || $where == 'insertServicioInternet.php'){
 			include('../../class/methods_global/methods.php');
 		}else{
 			include('../../../class/methods_global/methods.php');
@@ -121,7 +121,7 @@
 
 										$array = array('id' => $id, 'numero_serie' => $NumeroSerie, 'producto' => $Producto, 'destino' => $Destino, 'fecha_movimiento' => $FechaMovimiento, 'hora_movimiento' => $HoraMovimiento, 'responsable' => $Responsable);
 
-										if($where == 'insertArriendoEquipos.php' || $where == 'insertServicioInetrnet.php'){
+										if($where == 'insertArriendoEquipos.php' || $where == 'insertServicioInternet.php'){
 											$response_array = $id;
 										}else{
 											$response_array['array'] = $array;

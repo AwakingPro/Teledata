@@ -72,7 +72,7 @@
 		switch ($TipoServicio) {
 			case 1:
 				include("../../class/inventario/egresos/EgresoClass.php");
-				$query = "INSERT INTO arriendo_equipos_datos (IdServivio, Velocidad, Plan, IdOrigen, IdProducto, TipoDestino) VALUES ('".$id."', '".$_POST['velocidad']."', '".$_POST['plan']."', '".$_POST['origen_id']."', '".$_POST['producto_id']."', '".$_POST['destino_tipo']."')";
+				$query = "INSERT INTO arriendo_equipos_datos (IdServicio, Velocidad, Plan, IdOrigen, IdProducto, TipoDestino) VALUES ('".$id."', '".$_POST['velocidad']."', '".$_POST['plan']."', '".$_POST['origen_id']."', '".$_POST['producto_id']."', '".$_POST['destino_tipo']."')";
 				$data = $run->insert($query);
 				if($data){
 					$Egreso = new Egreso();
@@ -81,7 +81,7 @@
 				break;
 			case 2:
 				include("../../class/inventario/egresos/EgresoClass.php");
-				$query = "INSERT INTO servicio_internet (IdServivio, Velocidad, Plan, IdOrigen, IdProducto, TipoDestino) VALUES ('".$id."', '".$_POST['velocidad']."', '".$_POST['plan']."', '".$_POST['origen_id']."', '".$_POST['producto_id']."', '".$_POST['destino_tipo']."')";
+				$query = "INSERT INTO servicio_internet (IdServicio, Velocidad, Plan, IdOrigen, IdProducto, TipoDestino) VALUES ('".$id."', '".$_POST['velocidad']."', '".$_POST['plan']."', '".$_POST['origen_id']."', '".$_POST['producto_id']."', '".$_POST['destino_tipo']."')";
 				$data = $run->insert($query);
 				if($data){
 					$Egreso = new Egreso();
@@ -89,19 +89,19 @@
 				}
 				break;
 			case 3:
-				$query = "INSERT INTO mensualidad_puerdo_publicos (PuertoTCPUDP, Descripcion,IdServivio) VALUES ('".$_POST['puerto']."', '".$_POST['descripcion']."', '".$id."')";
+				$query = "INSERT INTO mensualidad_puertos_publicos (PuertoTCPUDP, Descripcion,IdServicio) VALUES ('".$_POST['puerto']."', '".$_POST['descripcion']."', '".$id."')";
 				$data = $run->insert($query);
 				break;
 			case 4:
-				$query = "INSERT INTO mensualidad_direccion_ip_fija (DireccionIPFija, Descripcion,IdServivio) VALUES ('".$_POST['ip']."', '".$_POST['descripcion']."', '".$id."')";
+				$query = "INSERT INTO mensualidad_direccion_ip_fija (DireccionIPFija, Descripcion,IdServicio) VALUES ('".$_POST['ip']."', '".$_POST['descripcion']."', '".$id."')";
 				$data = $run->insert($query);
 				break;
 			case 5:
-				$query = "INSERT INTO mantencion_red (Descripcion, ComentarioDatosAdicionales,IdServivio) VALUES ('".$_POST['descripcion']."', '".$_POST['comentario']."', '".$id."')";
+				$query = "INSERT INTO mantencion_red (Descripcion, ComentarioDatosAdicionales,IdServicio) VALUES ('".$_POST['descripcion']."', '".$_POST['comentario']."', '".$id."')";
 				$data = $run->insert($query);
 				break;
 			case 6:
-				$query = "INSERT INTO trafico_generado (LineaTelefonica, Descripcion,IdServivio) VALUES ('".$_POST['linea']."', '".$_POST['descripcion']."','".$id."')";
+				$query = "INSERT INTO trafico_generado (LineaTelefonica, Descripcion,IdServicio) VALUES ('".$_POST['linea']."', '".$_POST['descripcion']."','".$id."')";
 				$data = $run->insert($query);
 				break;
 		}

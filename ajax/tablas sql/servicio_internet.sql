@@ -36,7 +36,7 @@ CREATE TABLE `servicio_internet` (
   `DireccionIPAP` varchar(150) DEFAULT NULL,
   `CoordenadasLatitud` varchar(150) DEFAULT NULL,
   `CoordenadasLongitud` varchar(150) DEFAULT NULL,
-  `IdServivio` int(11) DEFAULT NULL,
+  `IdServicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdServInternet`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

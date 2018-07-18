@@ -738,7 +738,7 @@ $(document).ready(function() {
 		});
 	});
 
-	$(document).on('click', '.delete-mensualidad_puerdo_publicos', function() {
+	$(document).on('click', '.delete-mensualidad_puertos_publicos', function() {
 		var id = $(this).attr('attr');
 		bootbox.confirm({
 			message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
@@ -961,6 +961,10 @@ $(document).ready(function() {
 						} else {
 							$(input).val('')
 						}
+					});
+				}else{
+					$.post('../ajax/cliente/getDv.php', { rut: rut }, function (data) {
+						$('#Dv').val(data)
 					});
 				}
 			});

@@ -28,7 +28,7 @@ CREATE TABLE `arriendo_equipos_datos`  (
   `IdOrigen` int(11) NULL DEFAULT NULL,
   `IdProducto` int(11) NULL DEFAULT NULL,
   `TipoDestino` varchar(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `IdServivio` int(11) NULL DEFAULT NULL,
+  `IdServicio` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`IdArriendoEquiposDatos`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 32 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
@@ -399,7 +399,7 @@ CREATE TABLE `mantencion_red`  (
   `IdMantencionRed` int(11) NOT NULL AUTO_INCREMENT,
   `Descripcion` varchar(300) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `ComentarioDatosAdicionales` varchar(300) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `IdServivio` int(11) NULL DEFAULT NULL,
+  `IdServicio` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`IdMantencionRed`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 41 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
@@ -600,19 +600,19 @@ CREATE TABLE `mensualidad_direccion_ip_fija`  (
   `IdMensualidadDireccionIPFija` int(11) NOT NULL AUTO_INCREMENT,
   `DireccionIPFija` varchar(15) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `Descripcion` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `IdServivio` int(11) NULL DEFAULT NULL,
+  `IdServicio` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`IdMensualidadDireccionIPFija`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for mensualidad_puerdo_publicos
+-- Table structure for mensualidad_puertos_publicos
 -- ----------------------------
-DROP TABLE IF EXISTS `mensualidad_puerdo_publicos`;
-CREATE TABLE `mensualidad_puerdo_publicos`  (
+DROP TABLE IF EXISTS `mensualidad_puertos_publicos`;
+CREATE TABLE `mensualidad_puertos_publicos`  (
   `IdMensualidadPuertosPublicos` int(11) NOT NULL AUTO_INCREMENT,
   `PuertoTCPUDP` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `Descripcion` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `IdServivio` int(11) NULL DEFAULT NULL,
+  `IdServicio` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`IdMensualidadPuertosPublicos`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
@@ -1116,7 +1116,7 @@ CREATE TABLE `servicio_internet`  (
   `IdOrigen` int(11) NOT NULL,
   `IdProducto` int(11) NOT NULL,
   `TipoDestino` varchar(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `IdServivio` int(11) NULL DEFAULT NULL,
+  `IdServicio` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`IdServInternet`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
@@ -1303,7 +1303,7 @@ CREATE TABLE `trafico_generado`  (
   `IdTraficoGenerado` int(11) NOT NULL AUTO_INCREMENT,
   `LineaTelefonica` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
   `Descripcion` varchar(300) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `IdServivio` int(11) NULL DEFAULT NULL,
+  `IdServicio` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`IdTraficoGenerado`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 

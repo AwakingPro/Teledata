@@ -23,7 +23,7 @@ CREATE TABLE `trafico_generado` (
   `IdTraficoGenerado` int(11) NOT NULL AUTO_INCREMENT,
   `LineaTelefonica` varchar(100) DEFAULT NULL,
   `Descripcion` varchar(300) DEFAULT NULL,
-  `IdServivio` int(11) DEFAULT NULL,
+  `IdServicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdTraficoGenerado`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

@@ -16,13 +16,13 @@ Date: 2017-06-15 20:12:26
 SET FOREIGN_KEY_CHECKS=0;
 
 -- ----------------------------
--- Table structure for mensualidad_puerdo_publicos
+-- Table structure for mensualidad_puertos_publicos
 -- ----------------------------
-DROP TABLE IF EXISTS `mensualidad_puerdo_publicos`;
-CREATE TABLE `mensualidad_puerdo_publicos` (
+DROP TABLE IF EXISTS `mensualidad_puertos_publicos`;
+CREATE TABLE `mensualidad_puertos_publicos` (
   `IdMensualidadPuertosPublicos` int(11) NOT NULL AUTO_INCREMENT,
   `PuertoTCPUDP` varchar(100) DEFAULT NULL,
   `Descripcion` varchar(100) DEFAULT NULL,
-  `IdServivio` int(11) DEFAULT NULL,
+  `IdServicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdMensualidadPuertosPublicos`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

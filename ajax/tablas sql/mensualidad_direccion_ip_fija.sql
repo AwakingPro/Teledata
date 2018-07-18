@@ -23,7 +23,7 @@ CREATE TABLE `mensualidad_direccion_ip_fija` (
   `IdMensualidadDireccionIPFija` int(11) NOT NULL AUTO_INCREMENT,
   `DireccionIPFija` varchar(15) DEFAULT NULL,
   `Descripcion` varchar(100) DEFAULT NULL,
-  `IdServivio` int(11) DEFAULT NULL,
+  `IdServicio` int(11) DEFAULT NULL,
   PRIMARY KEY (`IdMensualidadDireccionIPFija`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

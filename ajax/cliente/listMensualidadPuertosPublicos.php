@@ -1,13 +1,13 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
-		mensualidad_puerdo_publicos.IdMensualidadPuertosPublicos as 'Id',
-		mensualidad_puerdo_publicos.PuertoTCPUDP as 'Puerto TCPUDP',
-		mensualidad_puerdo_publicos.Descripcion
+		mensualidad_puertos_publicos.IdMensualidadPuertosPublicos as 'Id',
+		mensualidad_puertos_publicos.PuertoTCPUDP as 'Puerto TCPUDP',
+		mensualidad_puertos_publicos.Descripcion
 		FROM
-		mensualidad_puerdo_publicos
+		mensualidad_puertos_publicos
 		WHERE
-		IdServivio = ".$_POST['id'];
+		IdServicio = ".$_POST['id'];
 	$run = new Method;
 	$lista = $run->listViewDelete($query,$_POST['id'],1);
 	echo $lista;

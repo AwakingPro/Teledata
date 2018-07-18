@@ -55,9 +55,13 @@
 																<option value="">Seleccione...</option>
 															</select>
 														</div>
-														<div class="col-md-6 form-group">
+														<div class="col-md-5 form-group">
 															<label>Rut</label>
 															<input name="Rut" class="form-control" validate="not_null">
+														</div>
+														<div class="col-md-1 form-group">
+															<label>Dv</label>
+															<input id="Dv" name="Dv" class="form-control" validate="not_null" disabled>
 														</div>
 													</div>
 													<div class="row">
