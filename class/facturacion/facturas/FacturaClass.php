@@ -17,9 +17,10 @@
             $ToReturn = array();
 
             $query = "  SELECT
+                            servicios.Id,
                             servicios.Rut,
                             servicios.Grupo,
-                            SUM( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ) AS Valor,
+                            ( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ) AS Valor,
                             servicios.EstatusFacturacion,
                             servicios.FechaFacturacion,
                             personaempresa.nombre AS Cliente,
@@ -33,11 +34,7 @@
                         WHERE
                             servicios.EstatusFacturacion = 0 
                             AND servicios.CostoInstalacion > 0 
-                            AND ( servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1 ) 
-                        GROUP BY
-                            servicios.Rut,
-                            servicios.Grupo,
-                            servicios.FechaFacturacion";
+                            AND ( servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1 )";
 
             $servicios = $run->select($query);
 
@@ -47,7 +44,7 @@
                     $IVA = $servicio['Valor'] * 0.19;
                     $Valor += $IVA;
                     $data = array();
-                    $data['Id'] = $servicio['Rut']; 
+                    $data['Id'] = $servicio['Id']; 
                     $data['Rut'] = $servicio['Rut'];          
                     $data['Grupo'] = $servicio['Grupo'];       
                     $data['Cliente'] = $servicio['Cliente'];        
@@ -199,7 +196,7 @@
             echo json_encode($response_array);
         }
 
-        public function showInstalacion($Rut, $Grupo){            
+        public function showInstalacion($Id){            
 
             $run = new Method;
 
@@ -226,8 +223,7 @@
                         LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
                         LEFT JOIN mantenedor_tipo_factura ON mantenedor_tipo_factura.id = servicios.TipoFactura
                         WHERE
-                            servicios.Rut = '".$Rut."'
-                        AND servicios.Grupo = '".$Grupo."'
+                            servicios.Id = '".$Id."'
                         AND (
                             servicios.Estatus = 1
                             OR servicios.FacturarSinInstalacion = 1
@@ -367,7 +363,7 @@
                     $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, mantenedor_servicios.servicio as Servicio, '1' as Cantidad
                                 FROM servicios 
                                 LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
-                                WHERE servicios.Rut = '".$RutId."' AND servicios.Grupo = '".$Grupo."'
+                                WHERE servicios.Id = '".$RutId."'
                                 AND servicios.EstatusFacturacion = 0
                                 AND servicios.CostoInstalacion > 0";
                     $expirationDate = time() + 604800;

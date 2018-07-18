@@ -378,12 +378,11 @@ $(document).ready(function(){
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectRutId = ObjectTR.attr("rutid");
-        var ObjectGroup = ObjectTR.attr("grupo");
 
         $.ajax({
             type: "POST",
             url: "../includes/facturacion/facturas/showInstalacion.php",
-            data: "rut="+ObjectRutId+"&grupo="+ObjectGroup,
+            data: "id="+ObjectRutId,
             success: function(response){
 
                 ModalTable.clear().draw()
