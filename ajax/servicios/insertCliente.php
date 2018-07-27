@@ -5,7 +5,6 @@
 
 	$Rut = isset($_POST['Rut']) ? trim($_POST['Rut']) : "";
 	$Dv = $run->obtenerDv($Rut);
-	$CodigoCliente = $Rut.'-'.$Dv;
 	$TipoCliente = isset($_POST['TipoCliente']) ? strtoupper(trim($_POST['TipoCliente'])) : "";
 	$ClaseCliente = isset($_POST['ClaseCliente']) ? strtoupper(trim($_POST['ClaseCliente'])) : "";
 	$Nombre = isset($_POST['Nombre']) ? strtoupper(trim($_POST['Nombre'])) : "";
@@ -18,12 +17,13 @@
 	$Telefono = isset($_POST['Telefono']) ? trim($_POST['Telefono']) : "";
 	$Correo = isset($_POST['Correo']) ? strtoupper(trim($_POST['Correo'])) : "";
 	$Comentario = isset($_POST['Comentario']) ? strtoupper(trim($_POST['Comentario'])) : "";
+	$TipoPago = isset($_POST['TipoPago']) ? trim($_POST['TipoPago']) : "";
 	$idUsuario = $_SESSION['idUsuario'];
 
 	$query = "INSERT INTO personaempresa
-			(rut, dv, nombre, giro, ciudad, region, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, IdUsuarioSession, CodigoCliente, ClaseCliente)
+			(rut, dv, nombre, giro, ciudad, region, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, id_usuario_sistema, clase_cliente, tipo_pago_bsale_id)
 			VALUES
-			('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Ciudad."', '".$Region."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$idUsuario."', '".$CodigoCliente."', '".$ClaseCliente."')";
+			('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Ciudad."', '".$Region."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$idUsuario."', '".$ClaseCliente."', '".$TipoPago."')";
 	$id = $run->insert($query);
 	if($id > 0){
 		echo $Rut;

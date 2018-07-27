@@ -1,23 +1,20 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
 	session_start();
-	$query = "SELECT Count(tickets.IdTickets) FROM tickets WHERE IdUsuarioSession =".$_SESSION['idUsuario'];
 	$run = new Method;
+	$query = "SELECT Count(IdTickets) FROM tickets WHERE IdUsuarioSession =".$_SESSION['idUsuario'];
 	$result = $run->select($query);
 	$total = $result[0][0];
 
-	$query = "SELECT COUNT(tickets.IdTickets) FROM tickets WHERE IdUsuarioSession = ".$_SESSION['idUsuario']." AND tickets.Estado = '1'";
-	$run = new Method;
+	$query = "SELECT COUNT(IdTickets) FROM tickets WHERE IdUsuarioSession = ".$_SESSION['idUsuario']." AND tickets.Estado = '1'";
 	$result = $run->select($query);
 	$totalAbierto = $result[0][0];
 
-	$query = "SELECT COUNT(tickets.IdTickets) FROM tickets WHERE IdUsuarioSession = ".$_SESSION['idUsuario']." AND tickets.Estado = '2'";
-	$run = new Method;
+	$query = "SELECT COUNT(IdTickets) FROM tickets WHERE IdUsuarioSession = ".$_SESSION['idUsuario']." AND tickets.Estado = '2'";
 	$result = $run->select($query);
 	$totalCerrado = $result[0][0];
 
-	$query = "SELECT COUNT(tickets.IdTickets) FROM tickets WHERE IdUsuarioSession = ".$_SESSION['idUsuario']." AND tickets.Estado = '3'";
-	$run = new Method;
+	$query = "SELECT COUNT(IdTickets) FROM tickets WHERE IdUsuarioSession = ".$_SESSION['idUsuario']." AND tickets.Estado = '3'";
 	$result = $run->select($query);
 	$totalFinalizados = $result[0][0];
 

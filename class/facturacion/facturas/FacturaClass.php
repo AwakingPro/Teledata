@@ -556,7 +556,7 @@
                                         $Concepto = $Detalle["Concepto"] . ' - ' . $Detalle["Descuento"].'% Descuento';
                                         $Descuento = $Detalle['Descuento'];
 
-                                        $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '1', '".$Descuento."', '".$IdServicio."')";
+                                        $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '1', '".$Descuento."', '".$IdServicio."')";
                                         $FacturaDetalleId = $run->insert($query);
                                     }
 
@@ -982,7 +982,7 @@
                 if($Cliente['provincia']){
                     $provincia = $Cliente['provincia'];
                 }else{
-                    $region = 'Llanquihue';
+                    $provincia = 'Llanquihue';
                 }
 
                 if($Cliente['ciudad']){
@@ -1032,6 +1032,7 @@
             //CONSTRUCCION DEL ARRAY DE DETALLE
 
             $details = array();
+            $Total = 0;
 
             foreach($Detalles as $Detalle){
 
@@ -1050,11 +1051,21 @@
                     }else{
                         $Extra = ' ('.$CantidadAplicada.' Descuentos Aplicados)';
                     }
-                    $Concepto = $Detalle["Concepto"] . ' - ' . $Descuento.'% Descuento' . $Extra;
+                    if($Descuento > 0){
+                        $Concat = ' - ' . $Descuento.'% Descuento' . $Extra;
+                    }else{
+                        $Concat = '';
+                    }
+                    $Concepto = $Detalle["Concepto"] . $Concat;
                     $Valor = floatval($Detalle['Valor']);
                 }else{
                     $Descuento = floatval($Detalle["Descuento"]);
-                    $Concepto = 'Costo de instalación / Habilitación'. ' - ' . $Descuento.'% Descuento';
+                    if($Descuento > 0){
+                        $Concat = ' - ' . $Descuento.'% Descuento';
+                    }else{
+                        $Concat = '';
+                    }
+                    $Concepto = 'Costo de instalación / Habilitación'. $Concat;
                     $Valor = floatval($Detalle['Valor']) * $UF;
                 }
                 $Cantidad = $Detalle['Cantidad'];
@@ -1062,7 +1073,12 @@
                 $detail = array("netUnitValue" => $Valor, "quantity" => $Cantidad, "taxId" => "[1]", "comment" => $Concepto, "discount" => $Descuento);
 
                 array_push($details,$detail);
+                $Total += $Valor;
             }
+
+            $payments = array();
+            $payment = array("paymentTypeId" => $Cliente['tipo_pago_bsale_id'], "amount" => $Total, "recordDate" => time());
+            array_push($payments,$payment);
 
             //FACTURA
 
@@ -1092,7 +1108,8 @@
                 "emissionDate"      => time(),
                 "expirationDate"    => $expirationDate,
                 "declareSii"        => 1,
-                "details"           => $details
+                "details"           => $details,
+                "payments"          => $payments
             );
 
             if($clientId){

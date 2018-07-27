@@ -2,15 +2,15 @@
 	require_once('../../class/methods_global/methods.php');
 	session_start();
 	$query = "SELECT
-		personaempresa.id,
-		personaempresa.rut,
-		personaempresa.nombre,
-		personaempresa.correo,
-		personaempresa.comentario
+		id,
+		rut,
+		nombre,
+		correo,
+		comentario
 	FROM
-			personaempresa
+		personaempresa
 	WHERE
-	personaempresa.IdUsuarioSession =".$_SESSION['idUsuario'];
+	id_usuario_sistema = ".$_SESSION['idUsuario'];
 	$run = new Method;
 	$lista = $run->listViewSingle($query);
 	echo $lista;

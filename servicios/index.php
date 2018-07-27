@@ -14,6 +14,7 @@
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 		<link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
+		<link href="../plugins/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
 		<link href="../css/swalExtend.css" rel="stylesheet">
 	</head>
@@ -470,148 +471,154 @@
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary guardarDatosTecnicos">Guardar</button>
 			</div>
-			</div><!-- /.modal-content -->
-			</div><!-- /.modal-dialog -->
-			</div><!-- /.modal -->
-			<div class="modal fade" id="ModalCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog modal-lg" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="myModalLabel">Registro de Cliente</h4>
-						</div>
-						<div class="modal-body container-form2">
-							<div class="row">
-								<div class="col-md-6 form-group">
-									<label>Tipo de Cliente</label>
-									<select name="TipoCliente" class="form-control TipoCliente" data-live-search="true" validation="not_null" data-nombre="Tipo de Cliente">
-										<option value="">Seleccione...</option>
-									</select>
-								</div>
-								<div class="col-md-6 form-group">
-									<label>Rut</label>
-									<input name="Rut" class="form-control" validation="not_null" data-nombre="Rut">
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-4 form-group">
-									<label>Clase Cliente</label>
-									<select name="ClaseCliente" class="form-control selectpicker ClaseCliente" data-live-search="true" validate="not_null" data-nombre="Clase Cliente">
-									</select>
-								</div>
-								<div class="col-md-4 form-group">
-									<label> Razón social / Cliente</label>
-									<input name="Nombre" class="form-control" validation="not_null" data-nombre="Razón social">
-								</div>
-								<div class="col-md-4 form-group">
-									<label>Alias</label>
-									<input name="Alias" class="form-control" data-nombre="Alias">
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12 form-group">
-									<label>Dirección  Comercial</label>
-									<textarea name="DireccionComercial" class="form-control" validation="not_null" data-nombre="Dirección"></textarea>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-4 form-group">
-									<label>Giro</label>
-									<select name="Giro" class="form-control selectpicker Giro" data-live-search="true" validate="not_null" data-nombre="Giro">
-									</select>
-								</div>
-								<div class="col-md-4 form-group">
-									<label>Region</label>
-									<select id="Region" name="Region" class="form-control selectpicker Region" data-live-search="true" validate="not_null">
-									</select>
-								</div>
-								<div class="col-md-4 form-group">
-									<label>Ciudad</label>
-									<select id="Ciudad" name="Ciudad" class="form-control selectpicker Ciudad" data-live-search="true" validate="not_null">
-									</select>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-4 form-group">
-									<label>Contacto</label>
-									<input name="Contacto" class="form-control" validation="not_null" data-nombre="Contacto">
-								</div>
-								<div class="col-md-4 form-group">
-									<label>Teléfono</label>
-									<input name="Telefono" class="form-control" validation="not_null" data-nombre="Teléfono">
-								</div>
-								<div class="col-md-4 form-group">
-									<label>Correo</label>
-									<input name="Correo" class="form-control" validation="email" data-nombre="Correo">
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-md-12 form-group">
-									<label>Notas</label>
-									<textarea name="Comentario" class="form-control" validation="not_null" data-nombre="Notas"></textarea>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-							<button type="button" class="btn btn-primary guardarCliente">Guardar Cliente</button>
-						</div>
+		</div><!-- /.modal-content -->
+	</div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<div class="modal fade" id="ModalCliente" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Registro de Cliente</h4>
+			</div>
+			<div class="modal-body container-form2">
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<label>Tipo de Cliente</label>
+						<select name="TipoCliente" class="form-control TipoCliente" data-live-search="true" validation="not_null" data-nombre="Tipo de Cliente">
+							<option value="">Seleccione...</option>
+						</select>
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Tipo de Pago</label>
+						<select name="TipoPago" class="form-control TipoPago" data-live-search="true" validate="not_null">
+							<option value="">Seleccione...</option>
+						</select>
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Rut</label>
+						<input name="Rut" class="form-control" validation="not_null" data-nombre="Rut">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<label>Clase Cliente</label>
+						<select name="ClaseCliente" class="form-control selectpicker ClaseCliente" data-live-search="true" validate="not_null" data-nombre="Clase Cliente">
+						</select>
+					</div>
+					<div class="col-md-4 form-group">
+						<label> Razón social / Cliente</label>
+						<input name="Nombre" class="form-control" validation="not_null" data-nombre="Razón social">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Alias</label>
+						<input name="Alias" class="form-control" data-nombre="Alias">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Dirección  Comercial</label>
+						<textarea name="DireccionComercial" class="form-control" validation="not_null" data-nombre="Dirección"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<label>Giro</label>
+						<select name="Giro" class="form-control selectpicker Giro" data-live-search="true" validate="not_null" data-nombre="Giro">
+						</select>
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Region</label>
+						<select id="Region" name="Region" class="form-control selectpicker Region" data-live-search="true" validate="not_null">
+						</select>
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Ciudad</label>
+						<select id="Ciudad" name="Ciudad" class="form-control selectpicker Ciudad" data-live-search="true" validate="not_null">
+						</select>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<label>Contacto</label>
+						<input name="Contacto" class="form-control" validation="not_null" data-nombre="Contacto">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Teléfono</label>
+						<input name="Telefono" class="form-control" validation="not_null" data-nombre="Teléfono">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Correo</label>
+						<input name="Correo" class="form-control" validation="email" data-nombre="Correo">
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Notas</label>
+						<textarea name="Comentario" class="form-control" validation="not_null" data-nombre="Notas"></textarea>
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="ModalTipoFacturacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content containerTipoFactura">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="myModalLabel">Agregar Tipo de Facturación</h4>
-						</div>
-						<div class="modal-body">
-							<div class="row">
-								<div class="col-md-4 form-group">
-									<label>Código</label>
-									<input name="TipoFacCodigo" class="form-control">
-								</div>
-								<div class="col-md-4 form-group">
-									<label>Descripción</label>
-									<input name="TipoFacDescripcion" class="form-control">
-								</div>
-								<div class="col-md-4 form-group">
-									<label>Tiempo de Facturación</label>
-									<select id="TipoFacturacion" name="TipoFacturacion" class="form-control selectpicker" data-live-search="true">
-										<option value="1">Mensual</option>
-										<option value="2">Semestral</option>
-										<option value="3">Anual</option>
-									</select>
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-							<button type="button" class="btn btn-primary agregarTipoFacturacion">Guardar</button>
-						</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-primary guardarCliente">Guardar Cliente</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="ModalTipoFacturacion" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content containerTipoFactura">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Agregar Tipo de Facturación</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-4 form-group">
+						<label>Código</label>
+						<input name="TipoFacCodigo" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Descripción</label>
+						<input name="TipoFacDescripcion" class="form-control">
+					</div>
+					<div class="col-md-4 form-group">
+						<label>Tiempo de Facturación</label>
+						<select id="TipoFacturacion" name="TipoFacturacion" class="form-control selectpicker" data-live-search="true">
+							<option value="1">Mensual</option>
+							<option value="2">Semestral</option>
+							<option value="3">Anual</option>
+						</select>
 					</div>
 				</div>
 			</div>
-			<div class="modal fade" id="grupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title" id="myModalLabel">Agregar Grupo</h4>
-						</div>
-						<div class="modal-body containerGrupo">
-							<div class="row">
-								<div class="col-md-12 form-group">
-									<label>Nombre del grupo</label>
-									<input name="NomGrupo" class="form-control">
-								</div>
-							</div>
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-							<button type="button" class="btn btn-primary agregarGrupo">Guardar</button>
-						</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-primary agregarTipoFacturacion">Guardar</button>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="grupo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title" id="myModalLabel">Agregar Grupo</h4>
+			</div>
+			<div class="modal-body containerGrupo">
+				<div class="row">
+					<div class="col-md-12 form-group">
+						<label>Nombre del grupo</label>
+						<input name="NomGrupo" class="form-control">
 					</div>
 				</div>
 			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+				<button type="button" class="btn btn-primary agregarGrupo">Guardar</button>
+			</div>
+		</div>
+	</div>
+</div>

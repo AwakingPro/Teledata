@@ -1,9 +1,5 @@
 $(document).ready(function() {
 
-	$.post('../includes/facturacion/facturas/generarFacturasMensuales.php', function(data) {
-		value = $.parseJSON(data);
-	});
-
 	$.post('../ajax/bienvenida/countTickets.php', function(data) {
 		value = $.parseJSON(data);
 		$('.total').html(value[0][0]);

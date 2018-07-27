@@ -16,6 +16,7 @@
         <link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
         <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
         <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
+        <link href="../plugins/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
         <link href="../css/teledata.css" rel="stylesheet">
     </head>
     <body>

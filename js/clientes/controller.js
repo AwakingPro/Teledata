@@ -108,6 +108,10 @@ $(document).ready(function() {
 
 	$('[name="Rut"]').mask("00000000");
 
+	$('.TipoPago').load('../ajax/cliente/selectTipoPago.php', function () {
+		$('.TipoPago').selectpicker('refresh');
+	});
+
 	$('.TipoCliente').load('../ajax/cliente/selectTipoCliente.php', function () {
 		$('.TipoCliente').selectpicker('refresh');
 	});
@@ -507,7 +511,7 @@ $(document).ready(function() {
 		$.post('../ajax/cliente/dataClienteUpdate.php', { id: id }, function (data) {
 			value = $.parseJSON(data);
 			$('[name="Nombre_update"]').val(value['DataCliente'][0]['nombre']);
-			$('[name="Rut_update"]').val(value['DataCliente'][0]['rut']);
+			$('[name="Rut_update"]').val(value['DataCliente'][0]['rut'] + "-" + value['DataCliente'][0]['dv']);
 			$('[name="DireccionComercial_update"]').val(value['DataCliente'][0]['direccion']);
 			$('[name="Contacto_update"]').val(value['DataCliente'][0]['contacto']);
 			$('[name="Telefono_update"]').val(value['DataCliente'][0]['telefono']);
@@ -526,6 +530,8 @@ $(document).ready(function() {
 			$('[name="IdCliente"]').val(value['DataCliente'][0]['id']);
 			$('[name="Giro_update"]').selectpicker('refresh');
 			$('[name="TipoCliente_update"]').selectpicker('refresh');
+			$('[name="TipoPago_update"]').val(value['DataCliente'][0]['tipo_pago_bsale_id']);
+			$('[name="TipoPago_update"]').selectpicker('refresh');
 
 			if (value['DataContactosExtras'].length > 0) {
 				$('.extraTipoCont').val(value['DataContactosExtras'][0]['TipoContacto']);

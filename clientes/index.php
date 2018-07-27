@@ -49,13 +49,19 @@
 												</div>
 												<form id="insertCliente">
 													<div class="row">
-														<div class="col-md-6 form-group">
+														<div class="col-md-4 form-group">
 															<label>Tipo de Cliente</label>
 															<select name="TipoCliente" class="form-control TipoCliente" data-live-search="true" validate="not_null">
 																<option value="">Seleccione...</option>
 															</select>
 														</div>
-														<div class="col-md-5 form-group">
+														<div class="col-md-4 form-group">
+															<label>Tipo de Pago</label>
+															<select name="TipoPago" class="form-control TipoPago" data-live-search="true" validate="not_null">
+																<option value="">Seleccione...</option>
+															</select>
+														</div>
+														<div class="col-md-3 form-group">
 															<label>Rut</label>
 															<input name="Rut" class="form-control" validate="not_null">
 														</div>
@@ -212,7 +218,7 @@
 				</div>
 				<input type="hidden" name="IdCliente">
 				<div class="row">
-					<div class="col-md-5 form-group">
+					<div class="col-md-4 form-group">
 						<label>Tipo de Cliente</label>
 						<select name="TipoCliente_update" class="form-control selectpicker" data-live-search="true">
 							<option value="">Seleccione...</option>
@@ -221,7 +227,13 @@
 							<option value="3">Canje</option>
 						</select>
 					</div>
-					<div class="col-md-5 form-group">
+					<div class="col-md-4 form-group">
+						<label>Tipo de Pago</label>
+						<select name="TipoPago" class="form-control TipoPago" data-live-search="true" validate="not_null">
+							<option value="">Seleccione...</option>
+						</select>
+					</div>
+					<div class="col-md-3 form-group">
 						<label>Rut</label>
 						<input name="Rut_update" class="form-control">
 					</div>
