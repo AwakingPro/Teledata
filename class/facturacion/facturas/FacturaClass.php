@@ -18,7 +18,7 @@
 
             $query = "  SELECT
                             servicios.Id,
-                            servicios.Rut,
+                            CONCAT(servicios.Rut,'-',personaempresa.dv) as Rut,
                             servicios.Grupo,
                             ( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ) AS Valor,
                             servicios.EstatusFacturacion,
@@ -77,7 +77,7 @@
                                     )
                                 )
                             ) AS Valor,
-                            facturas.Rut,
+                            CONCAT(facturas.Rut,'-',personaempresa.dv) as Rut,
                             facturas.Grupo,
                             facturas.EstatusFacturacion,
                             facturas.TipoDocumento,
@@ -145,7 +145,7 @@
                                 )
                             ) AS Valor,
                             facturas.Id,
-                            facturas.Rut,
+                            CONCAT(facturas.Rut,'-',personaempresa.dv) as Rut,
                             facturas.Grupo,
                             facturas.EstatusFacturacion,
                             facturas.TipoDocumento,

@@ -2,7 +2,7 @@
 	require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
 		id as 'Id',
-		CONCAT(rut,'-',dv) as 'Codigo del cliente',
+		CONCAT(rut,'-',dv) as 'Rut',
 		nombre as 'Nombre',
 		correo as 'Correo',
 		comentario as 'Comentario'

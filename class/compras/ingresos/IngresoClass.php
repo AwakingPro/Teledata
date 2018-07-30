@@ -117,9 +117,9 @@
                             compras_ingresos
                             LEFT JOIN mantenedor_tipo_cliente ON compras_ingresos.tipo_documento_id = mantenedor_tipo_cliente.Id";
             if($startDate && $endDate){
-                $dt = \DateTime::createFromFormat('d-m-Y',$startDate);
+                $dt = \DateTime::createFromFormat('Y/m/d',$startDate);
                 $startDate = $dt->format('Y-m-d');
-                $dt = \DateTime::createFromFormat('d-m-Y',$endDate);
+                $dt = \DateTime::createFromFormat('Y/m/d',$endDate);
                 $endDate = $dt->format('Y-m-d');
                 $query .= " WHERE fecha_emision BETWEEN '".$startDate."' AND '".$endDate."'";
             }
@@ -260,10 +260,10 @@
                             compras_ingresos";
             if($startDate && $endDate){
                 $startDate = $startDate;
-                $dt = \DateTime::createFromFormat('d-m-Y',$startDate);
+                $dt = \DateTime::createFromFormat('Y/m/d',$startDate);
                 $startDate = $dt->format('Y-m-d');
                 $endDate = $endDate;
-                $dt = \DateTime::createFromFormat('d-m-Y',$endDate);
+                $dt = \DateTime::createFromFormat('Y/m/d',$endDate);
                 $endDate = $dt->format('Y-m-d');
                 $query .= " WHERE fecha_emision BETWEEN '".$startDate."' AND '".$endDate."'";
             }

@@ -165,9 +165,15 @@ $(document).ready(function(){
     }
 
     function getTotales() {
+        var startDate = $("#date-range .input-daterange input[name='start']").val();
+        var endDate = $("#date-range .input-daterange input[name='end']").val();
         $.ajax({
             type: "POST",
             url: "../includes/compras/ingresos/getTotales.php",
+            data:{
+                startDate,
+                endDate
+            },
             success: function (response) {
                 pagado = response.pagado
                 por_pagar = response.por_pagar

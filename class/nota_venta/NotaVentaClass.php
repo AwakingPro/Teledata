@@ -136,8 +136,8 @@
         } 
 
         function showPersonaEmpresa(){
-            $query = '  SELECT
-                            p.rut,
+            $query = "  SELECT
+                            CONCAT(p.rut,'-',p.dv) as rut,
                             p.nombre,
                             mt.nombre as tipo_cliente
                         FROM
@@ -145,7 +145,9 @@
                         INNER JOIN 
                             mantenedor_tipo_cliente mt 
                         ON 
-                            p.tipo_cliente = mt.id';
+                            p.tipo_cliente = mt.id
+                        ORDER BY
+                            p.nombre";
             $run = new Method;
             $data = $run->select($query);
 
@@ -224,20 +226,20 @@
 
          function showNotaVenta(){
 
-            $query = '  SELECT
-                            nota_venta.*, personaempresa.nombre AS cliente,
+            $query = "  SELECT
+                            nv.*, p.nombre AS cliente, CONCAT(p.rut,'-',p.dv) as rut,
                             (
                                 SELECT
                                     SUM(precio) + SUM(precio) * 0.19
                                 FROM
                                     nota_venta_detalle
                                 WHERE
-                                    nota_venta_id = nota_venta.id
+                                    nota_venta_id = nv.id
                             ) AS total
                         FROM
-                            nota_venta
-                        INNER JOIN personaempresa ON personaempresa.rut = nota_venta.rut';
-                                    $run = new Method;
+                            nota_venta nv
+                        INNER JOIN personaempresa p ON p.rut = nv.rut";
+            $run = new Method;
             $data = $run->select($query);
 
             echo json_encode($data);

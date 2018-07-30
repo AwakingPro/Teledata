@@ -65,7 +65,7 @@ $(document).ready(function(){
         success: function(response){
 
             $.each(response.array, function( index, array ) {
-                $('#personaempresa_id').append('<option value="' + array.rut + '">' + array.rut + ' - ' + array.nombre + ' - ' + array.tipo_cliente +'</option>');
+                $('#personaempresa_id').append('<option value="' + array.rut + '">' + array.rut + ' ' + array.nombre + ' - ' + array.tipo_cliente +'</option>');
             });
 
             $('.selectpicker').selectpicker('render');
