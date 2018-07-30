@@ -329,11 +329,19 @@ $(document).ready(function(){
             cantidad = 0;
         }
         precio = $('#precio').val()
+        if (precio) {
+            precio = precio.replace(',00', '')
+            precio = precio.replace('.', '')
+            precio = parseFloat(precio)
+        } else {
+            precio = 0;
+        }
         precio = precio.replace(',00', '')
         precio = precio.replace('.', '')
         precio = parseFloat(precio)
         valor = precio * cantidad
-        if (valor > 0) {
+        servicio = $('#servicio').val()
+        if (valor > 0 && servicio > 0) {
             $('#guardarServicio').prop('disabled', false);
         } else {
             $('#guardarServicio').prop('disabled', true);
@@ -453,8 +461,6 @@ $(document).ready(function(){
                                 $('#neto_nota').text(formatcurrency(neto_nota))
                                 $('#iva_nota').text(formatcurrency(iva_nota))
                                 $('#total_nota').text(formatcurrency(total_nota))
-
-                                swal("Éxito!","El registro ha sido eliminado!","success");
 
                                 ServicioTable.row($(ObjectTR))
                                     .remove()
