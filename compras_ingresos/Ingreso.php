@@ -454,7 +454,7 @@
                                             <div class="col-md-6">
                                                 <div class="pull-right">
                                                     <b><span style="font-size:16px">Pagado: <span id="pagado">0</span></span><br>
-                                                    <b><span style="font-size:16px">Por pagar: <span id="por_pagar">0</span></span></b>
+                                                    <span style="font-size:16px">Por pagar: <span id="por_pagar">0</span></span></b>
                                                     <br><br>
                                                 </div>
                                             </div>
