@@ -338,7 +338,7 @@ $(document).ready(function(){
         }
         valor = precio * cantidad
         servicio = $('#servicio').val()
-        if (valor > 0 && servicio > 0) {
+        if (valor > 0 && servicio) {
             $('#guardarServicio').prop('disabled', false);
         } else {
             $('#guardarServicio').prop('disabled', true);
