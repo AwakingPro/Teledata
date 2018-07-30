@@ -2,7 +2,7 @@
 
 	include("../../class/nota_venta/NotaVentaClass.php");
 
-	$Radio = new NotaVenta();
-	$Radio->showCliente($_POST['personaempresa_id']);
+	$NotaVenta = new NotaVenta();
+	$NotaVenta->showCliente($_POST['personaempresa_id']);
 	
 ?>   

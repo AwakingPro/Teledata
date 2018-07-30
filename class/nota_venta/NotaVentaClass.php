@@ -5,6 +5,14 @@
 
     class NotaVenta{
 
+        function deleteDetalles(){
+            session_start();
+            $Usuario=$_SESSION['idUsuario'];
+            $query = "DELETE from nota_venta_tmp where usuario_id = '".$Usuario."'";
+            $run = new Method;
+            $data = $run->delete($query);
+        }
+
     	public function GuardarServicio($Codigo,$Servicio,$Cantidad,$Precio,$Cliente){
 
             $response_array = array();
@@ -128,14 +136,6 @@
         } 
 
         function showPersonaEmpresa(){
-
-            session_start();
-            $Usuario=$_SESSION['idUsuario'];
-
-            $query = "DELETE from nota_venta_tmp where usuario_id = '$Usuario'";
-            $run = new Method;
-            $data = $run->delete($query);
-
             $query = '  SELECT
                             p.rut,
                             p.nombre,
@@ -156,14 +156,6 @@
         }
 
         function showCliente($rut){
-
-            session_start();
-            $Usuario=$_SESSION['idUsuario'];
-
-            $query = "DELETE from nota_venta_tmp where usuario_id = '$Usuario'";
-            $run = new Method;
-            $data = $run->delete($query);
-
             $query = "SELECT * FROM personaempresa where Rut = '$rut'";
             $run = new Method;
             $data = $run->select($query);

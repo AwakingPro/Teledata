@@ -2,7 +2,7 @@
 
 	include("../../class/nota_venta/NotaVentaClass.php");
 
-	$Radio = new NotaVenta();
-	$Radio->showNotaVenta();
+	$NotaVenta = new NotaVenta();
+	$NotaVenta->showNotaVenta();
 	
 ?>   

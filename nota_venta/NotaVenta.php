@@ -158,7 +158,7 @@
                                                         <div class="text-center">
                                                             <label class="control-label h5" for="name">Cantidad</label>
                                                         </div>
-                                                        <input id="cantidad" name="cantidad" class="form-control input-sm" maxlength="6" validation="not_null" data-nombre="Cantidad">
+                                                        <input id="cantidad" name="cantidad" class="form-control input-sm" maxlength="6" validation="not_null" data-nombre="Cantidad" value="1">
                                                     </div>
                                                 </div>
                                                 <!--                                                         <div class="col-md-1">
@@ -217,7 +217,7 @@
                                                         <h5>Valor Total Neto:</h5>
                                                     </div>
                                                     <div class="col-md-6" style="text-align: right">
-                                                        <h5 id="neto" style="border-bottom: 1px solid #ccc;">0</h5>
+                                                        <h5 id="neto_nota" style="border-bottom: 1px solid #ccc;">0</h5>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-offset-4">
@@ -225,7 +225,7 @@
                                                         <h5>I.V.A.:</h5>
                                                     </div>
                                                     <div class="col-md-6" style="text-align: right">
-                                                        <h5 id="iva" style="border-bottom: 1px solid #ccc;">0</h5>
+                                                        <h5 id="iva_nota" style="border-bottom: 1px solid #ccc;">0</h5>
                                                     </div>
                                                 </div>
                                                 <div class="col-sm-offset-4">

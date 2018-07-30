@@ -73,6 +73,9 @@ $(document).ready(function(){
 
         }
     });
+
+    deleteDetalles();
+
     function showNotaVenta(){
         $.ajax({
             type: "POST",
@@ -364,8 +367,8 @@ $(document).ready(function(){
                 total = parseFloat(response.array.total)
                 total_nota = total_nota + total
 
-                $('#neto').text(formatcurrency(neto_nota))
-                $('#iva').text(formatcurrency(iva_nota))
+                $('#neto_nota').text(formatcurrency(neto_nota))
+                $('#iva_nota').text(formatcurrency(iva_nota))
                 $('#total_nota').text(formatcurrency(total_nota))
 
                 var rowNode = ServicioTable.row.add([
@@ -447,8 +450,8 @@ $(document).ready(function(){
                                 total = parseFloat(response.array[0].total)
                                 total_nota = total_nota - total
 
-                                $('#neto').text(formatcurrency(neto_nota))
-                                $('#iva').text(formatcurrency(iva_nota))
+                                $('#neto_nota').text(formatcurrency(neto_nota))
+                                $('#iva_nota').text(formatcurrency(iva_nota))
                                 $('#total_nota').text(formatcurrency(total_nota))
 
                                 swal("Éxito!","El registro ha sido eliminado!","success");
@@ -523,29 +526,33 @@ $(document).ready(function(){
     });
 
     $('#cancelar').on('click', function () {
-
-        $('#neto').text(0)
-        $('#iva').text(0)
-        $('#total_nota').text(0)
-
+        deleteDetalles();
         $('#showCliente')[0].reset();
-        $('#addServicio')[0].reset();
-
-        neto_nota = 0;
-        iva_nota = 0;
-        total_nota = 0;
-
-        $('#personaempresa_id').val('');
         $('#personaempresa_id').selectpicker('refresh');
-
-        ServicioTable
-            .clear()
-            .draw();
 
         $('html,body').animate({
             scrollTop: 0
         }, 1500);
     })
+
+    function deleteDetalles() {
+        $('#neto_nota').text(0)
+        $('#iva_nota').text(0)
+        $('#total_nota').text(0)
+        $('#addServicio')[0].reset();
+
+        neto_nota = 0
+        iva_nota = 0
+        total_nota = 0
+
+        $('#codigo').selectpicker('refresh');
+
+        ServicioTable
+            .clear()
+            .draw();
+
+        $.post('../includes/nota_venta/deleteDetalles.php');
+    }
 
     $('body').on('click', '.RemoveNota', function () {
 
