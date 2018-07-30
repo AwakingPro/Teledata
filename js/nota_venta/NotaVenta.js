@@ -228,8 +228,8 @@ $(document).ready(function(){
                     $('#giro').val(response.array[0].giro);
                     $('#direccion').val(response.array[0].direccion);
                     $('#contacto').val(response.array[0].contacto);
-                    // $('#rut').val(response.array[0].rut+'-'+response.array[0].dv);
-                    $('#rut').val(response.array[0].rut);
+                    $('#rut').val(response.array[0].rut+'-'+response.array[0].dv);
+                    // $('#rut').val(response.array[0].rut);
                 }
             });
 
@@ -336,9 +336,6 @@ $(document).ready(function(){
         } else {
             precio = 0;
         }
-        precio = precio.replace(',00', '')
-        precio = precio.replace('.', '')
-        precio = parseFloat(precio)
         valor = precio * cantidad
         servicio = $('#servicio').val()
         if (valor > 0 && servicio > 0) {

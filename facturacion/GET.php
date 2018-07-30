@@ -1,5 +1,5 @@
 <?php
-    $url='https://api.bsale.cl/v1/payment_types.json';
+    $url='https://api.bsale.cl/v1/users.json';
     $access_token='55c32f657ce5aa159a6fc039b64aabceead8f061';
 
     // Inicia cURL
