@@ -209,9 +209,9 @@ $(document).ready(function() {
 		}
 	});
 
-	$('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
-		$('select[name="TipoFactura"]').selectpicker('refresh');
-	});
+	// $('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
+	// 	$('select[name="TipoFactura"]').selectpicker('refresh');
+	// });
 	$('select[name="TipoServicio"]').load('../ajax/servicios/selectTipoServicio.php', function() {
 		$('select[name="TipoServicio"]').selectpicker('refresh');
 	});
@@ -514,6 +514,9 @@ $(document).ready(function() {
 			}, function (data) {
 				values = $.parseJSON(data);
 				$('.dataServicios').html(values[1]);
+				$('select[name="TipoFactura"]').empty()
+				$('select[name="TipoFactura"]').append(values[2])
+				$('select[name="TipoFactura"]').selectpicker('refresh');
 				var count = $('.dataServicios > .tabeData tr th').length - 1;
 				$('.dataServicios > .tabeData').dataTable({
 					"scrollX": true,
@@ -545,32 +548,6 @@ $(document).ready(function() {
 						}
 					}
 				});
-
-				text = $('#Rut option:selected').text()
-				split = text.split('-');
-				if(split[2]){
-					tipo_cliente = split[2].trim()
-
-					if (tipo_cliente == "Boleta") {
-
-						$("#TipoFactura option[value='FSMI']").remove();
-						$("#TipoFactura option[value='FSMIOC']").remove();
-
-						if ($("#TipoFactura option[value='BSMI']").length == 0) {
-							$("#TipoFactura").append('<option value="BSMI">BSMI - Boleta Servicio Mensual Individual</option>');
-						}
-					} else {
-
-						$("#TipoFactura option[value='BSMI']").remove();
-
-						if ($("#TipoFactura option[value='FSMI']").length == 0) {
-							$("#TipoFactura").append('<option value="FSMI">FSMI - Factura servicio mensual</option>');
-							$("#TipoFactura").append('<option value="FSMIOC">FSMIOC - Factura servicio Mensual Orden de Compra</option>');
-						}
-					}
-
-					$('#TipoFactura').selectpicker('refresh');
-				}
 			});
 		}
 		$('#Rut').val(Rut);

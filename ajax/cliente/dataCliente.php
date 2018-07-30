@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	$query = 'SELECT id, rut, dv, nombre, giro, direccion, correo, contacto, comentario, telefono
+	$query = 'SELECT id, rut, dv, nombre, giro, direccion, correo, contacto, comentario, telefono, tipo_cliente
 	FROM
 		personaempresa
 	WHERE
@@ -19,6 +19,7 @@
 		$data8 = ($data[0][7] != '') ? $data[0][7]: 'No hay data';
 		$data9 = ($data[0][8] != '') ? $data[0][8]: 'No hay data';
 		$data10 = ($data[0][9] != '') ? $data[0][9]: 'No hay data';
+		$tipo_cliente = ($data[0][10] != '') ? $data[0][10]: '0';
 
 		$DataFacturacion = '<div class="row">
 				<div class="col-md-4 form-group">
@@ -90,8 +91,27 @@
 				LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo
 				WHERE
 					servicios.Rut = '.$_POST['rut'];
-	$run = new Method;
 	$listaServicios = $run->listViewServicios($query);
 
-	echo json_encode(array($DataFacturacion, $listaServicios));
+	$query = "	SELECT
+					fra.id,
+					fra.codigo,
+					fra.descripcion,
+					fon.nombre AS tipo_facturacion
+				FROM
+					mantenedor_tipo_factura fra
+				INNER JOIN mantenedor_tipo_facturacion fon ON fra.tipo_facturacion = fon.id
+				WHERE
+				fra.tipo_documento = '".$tipo_cliente."'";
+	$data = $run->select($query);
+	if (count($data) > 0) {
+		$list ='<option value="">Seleccione...</option>';
+		for ($i=0; $i < count($data); $i++) {
+			$list.= '<option value="'.$data[$i][0].'">'.$data[$i][1].' - '.$data[$i][2].' - '.$data[$i][3].'</option>';
+		}
+	}else{
+		$list = '<option value="">Seleccione...</option>';
+	}
+
+	echo json_encode(array($DataFacturacion, $listaServicios, $list));
  ?>
