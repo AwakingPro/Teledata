@@ -100,7 +100,7 @@
 
                     $Fecha = DateTime::createFromFormat('d-m-Y', $Fecha)->format('Y-m-d');
 
-                    $query = "INSERT INTO nota_venta(rut, fecha, numero_oc, fecha_oc, solicitado_por, estatus_facturacion) VALUES ('$Cliente','$Fecha','$NumeroOc','$FechaOc','$SolicitadoPor','0')";
+                    $query = "INSERT INTO nota_venta(rut, fecha, numero_oc, fecha_oc, solicitado_por, estatus_facturacion) VALUES ('".$Cliente."','".$Fecha."','".$NumeroOc."','".$FechaOc."','".$SolicitadoPor."','0')";
                     $Id = $run->insert($query);
 
                     if($Id){
@@ -137,7 +137,7 @@
 
         function showPersonaEmpresa(){
             $query = "  SELECT
-                            CONCAT(p.rut,'-',p.dv) as rut,
+                            p.rut,
                             p.nombre,
                             mt.nombre as tipo_cliente
                         FROM
