@@ -177,11 +177,11 @@
                                                         <div class="text-center">
                                                             <label class="control-label h5" for="name">Total</label>
                                                         </div>
-                                                        <input id="total" name="total" class="form-control input-sm number" disabled>
+                                                        <input id="total" name="total" class="form-control input-sm" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <button type="button" id="guardarServicio" name="guardarServicio" style="margin-top: 30px" class="btn btn-success btn-icon btn-circle icon-lg fa fa-plus"></button>
+                                                    <button type="button" id="guardarServicio" name="guardarServicio" style="margin-top: 30px" class="btn btn-success btn-icon btn-circle icon-lg fa fa-plus" disabled></button>
                                                 </div>
                                             </form>
                                         </div>

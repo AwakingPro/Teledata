@@ -940,70 +940,75 @@
         public function sendBsale($Cliente,$Detalles,$UF,$Tipo,$expirationDate){
 
             //Demo
-            $access_token='55c32f657ce5aa159a6fc039b64aabceead8f061';
+            $access_token = '55c32f657ce5aa159a6fc039b64aabceead8f061';
             //Producción
             // $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
-            
-            //CONSULTA AL CLIENTE
 
-            $url='https://api.bsale.cl/v1/clients.json?code='.$Cliente['rut'].'-'.$Cliente['dv'];
-
-            // Inicia cURL
-            $session = curl_init($url);
-
-            // Indica a cURL que retorne data
-            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-            // Activa SSL
-            // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
-
-            // Configura cabeceras
-            $headers = array(
-                'access_token: ' . $access_token,
-                'Accept: application/json',
-                'Content-Type: application/json'
-            );
-            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-
-            // Ejecuta cURL
-            $response = curl_exec($session);
-
-            // Cierra la sesión cURL
-            curl_close($session);
-
-            //Esto es sólo para poder visualizar lo que se está retornando
-            $client = json_decode($response, true);
-
-            //SI EL CLIENTE NO EXISTE EN LA API, SE CREA CON LA DATA DE TELEDATA
-
-            if($client['count']){
-                $clientId = $client['items'][0]['id'];
+            if($Cliente['cliente_id_bsale']){
+                $clientId = $Cliente['cliente_id_bsale'];
             }else{
+                
+                //CONSULTA AL CLIENTE
 
-                if($Cliente['provincia']){
-                    $provincia = $Cliente['provincia'];
-                }else{
-                    $provincia = 'Llanquihue';
-                }
+                $url = 'https://api.bsale.cl/v1/clients.json?code='.$Cliente['rut'].'-'.$Cliente['dv'];
 
-                if($Cliente['ciudad']){
-                    $ciudad = $Cliente['ciudad'];
-                }else{
-                    $ciudad = 'Puerto Varas';
-                }
+                // Inicia cURL
+                $session = curl_init($url);
 
-                $clientId = null;
-                $client = array(
-                    "code"          => $Cliente['rut'].'-'.$Cliente['dv'],
-                    "firstName"     => $Cliente['contacto'],
-                    "lastName"      => "",
-                    "email"         => $Cliente['correo'],
-                    "phone"         => $Cliente['telefono'],
-                    "address"       => $Cliente['direccion'],
-                    "company"       => $Cliente['nombre'],
-                    "city"          => $provincia,
-                    "municipality"  => $ciudad,
-                    "activity"      => $Cliente['giro']
+                // Indica a cURL que retorne data
+                curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+                // Activa SSL
+                // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
+
+                // Configura cabeceras
+                $headers = array(
+                    'access_token: ' . $access_token,
+                    'Accept: application/json',
+                    'Content-Type: application/json'
                 );
+                curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+                // Ejecuta cURL
+                $response = curl_exec($session);
+
+                // Cierra la sesión cURL
+                curl_close($session);
+
+                //Esto es sólo para poder visualizar lo que se está retornando
+                $client = json_decode($response, true);
+
+                //SI EL CLIENTE NO EXISTE EN LA API, SE CREA CON LA DATA DE TELEDATA
+
+                if($client['count']){
+                    $clientId = $client['items'][0]['id'];
+                }else{
+
+                    if($Cliente['provincia']){
+                        $provincia = $Cliente['provincia'];
+                    }else{
+                        $provincia = 'Llanquihue';
+                    }
+
+                    if($Cliente['ciudad']){
+                        $ciudad = $Cliente['ciudad'];
+                    }else{
+                        $ciudad = 'Puerto Varas';
+                    }
+
+                    $clientId = null;
+                    $client = array(
+                        "code"          => $Cliente['rut'].'-'.$Cliente['dv'],
+                        "firstName"     => $Cliente['contacto'],
+                        "lastName"      => "",
+                        "email"         => $Cliente['correo'],
+                        "phone"         => $Cliente['telefono'],
+                        "address"       => $Cliente['direccion'],
+                        "company"       => $Cliente['nombre'],
+                        "city"          => $provincia,
+                        "municipality"  => $ciudad,
+                        "activity"      => $Cliente['giro']
+                    );
+                }
             }
 
             //CREACION DE LA FACTURA

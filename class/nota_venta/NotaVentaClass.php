@@ -17,24 +17,24 @@
             if(!empty($Codigo) && !empty($Servicio) && !empty($Cantidad) && !empty($Precio)){
 
                 session_start();
+                $run = new Method;
 
-                $Cantidad=intval($Cantidad);
-                $Usuario=$_SESSION['idUsuario'];
+                $Cantidad = intval($Cantidad);
+                $Usuario = $_SESSION['idUsuario'];
 
                 $query = "SELECT mantenedor_servicios.servicio as Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Codigo = '$Codigo'";
-                $run = new Method;
                 $ServicioSQL = $run->select($query);
 
                 if($ServicioSQL){
 
-                    $Servicio=$ServicioSQL[0]['Servicio'];
-                    $Precio=floatval($ServicioSQL[0]['Precio']);
+                    $Servicio = $ServicioSQL[0]['Servicio'];
+                    $Precio = floatval($ServicioSQL[0]['Precio']);
 
                 }else{
 
                     $Precio = str_replace('.','',$Precio);
-                    $Servicio=$Servicio;
-                    $Precio=floatval($Precio);
+                    $Servicio = $Servicio;
+                    $Precio = floatval($Precio);
                 }
 
                 $Total = $Precio * $Cantidad;
@@ -42,8 +42,7 @@
                 $Impuesto = $Total * 0.19;
                 $Total = $Total + $Impuesto;
                 
-                $query = "INSERT INTO nota_venta_tmp(codigo, servicio, cantidad, precio, total, usuario_id) VALUES ('$Codigo','$Servicio','$Cantidad','$Precio','$Total','$Usuario')";
-                $run = new Method;
+                $query = "INSERT INTO nota_venta_tmp(codigo, servicio, cantidad, precio, total, usuario_id) VALUES ('".$Codigo."','".$Servicio."','".$Cantidad."','".$Precio."','".$Total."','".$Usuario."')";
                 $id = $run->insert($query);
 
                 if($id){

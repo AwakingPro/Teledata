@@ -55,7 +55,7 @@ $(document).ready(function(){
         defaultDate: new Date()
     });
 
-    $('.number').number(true, 2, ',', '.');
+    $('.number').number(true, 0, ',', '.');
     $("#cantidad").mask("000000");
     $("#impuesto").mask("00");
 
@@ -277,23 +277,12 @@ $(document).ready(function(){
             success: function(response){
 
                 precio = parseFloat(response.array[0].Precio)
-
-                if(!precio || precio < 0){
-                    precio = 0
-                }
-
                 $('#servicio').val(response.array[0].Servicio);
-                $('#precio').val(formatcurrency(precio));
-
-                impuesto = precio * 0.19
-                precio = precio + impuesto
-
-                $('#total').val(formatcurrency(precio));
+                $('#precio').val(precio);
+                $('#cantidad').val(1)
+                calcularDetalle();
             }
         });
-    
-        $('#cantidad').val(1)
-
     });
 
     $('body').on('blur', 'input[name="codigo"]', function (){
@@ -324,43 +313,30 @@ $(document).ready(function(){
     });
 
     $('#cantidad').on('change', function () {
-        if($('#codigo') && $('#precio')){
-            cantidad = parseInt($('#cantidad').val())
-            precio = $('#precio').val()
-            precio = precio.replace('.', '')
-            precio = parseFloat(precio)
-            total_nota = precio * cantidad
-
-            impuesto = total_nota * 0.19
-            total_nota = total_nota + impuesto
-        
-            if(!total_nota || isNaN(total_nota)){
-                total_nota = 0;
-            }
-
-            $('#total').val(formatcurrency(total_nota))
-        }
+        calcularDetalle()
     });
 
     $('#precio').on('input', function () {
-
-        if($('#codigo') && $('#cantidad')){
-            cantidad = parseInt($('#cantidad').val())
-            precio = $('#precio').val()
-            precio = precio.replace('.', '')
-            precio = parseFloat(precio)
-            total_nota = precio * cantidad
-            
-            impuesto = total_nota * 0.19
-            total_nota = total_nota + impuesto
-
-            if(!total_nota || isNaN(total_nota)){
-                total_nota = 0;
-            }
-
-            $('#total').val(formatcurrency(total_nota))
-        }
+        calcularDetalle()
     });
+
+    function calcularDetalle() {
+        cantidad = parseInt($('#cantidad').val())
+        if (!cantidad) {
+            cantidad = 0;
+        }
+        precio = $('#precio').val()
+        precio = precio.replace(',00', '')
+        precio = precio.replace('.', '')
+        precio = parseFloat(precio)
+        valor = precio * cantidad
+        if (valor > 0) {
+            $('#guardarServicio').prop('disabled', false);
+        } else {
+            $('#guardarServicio').prop('disabled', true);
+        }
+        $('#total').val(formatcurrency(valor))
+    }
 
     $('body').on('click', '#guardarServicio', function () {
 
