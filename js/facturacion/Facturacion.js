@@ -390,7 +390,7 @@ $(document).ready(function(){
                 $.each(response.array, function( index, array ) {
                     var rowNode = ModalTable.row.add([
                         ''+array.Codigo+'',
-                        ''+array.Descripcion+'',
+                        ''+array.Nombre+'',
                         ''+array.Valor+'',
                     ]).draw(false).node();
 
