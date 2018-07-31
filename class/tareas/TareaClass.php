@@ -41,9 +41,9 @@
 
 	        	$run = new Method;
 
-	            $this->IdUsuarioAsignado=$IdUsuarioAsignado;
+	            $IdUsuarioAsignado=$IdUsuarioAsignado;
 
-	           	$query = "SELECT * FROM usuarios where id = '$this->IdUsuarioAsignado'";
+	           	$query = "SELECT * FROM usuarios where id = '$IdUsuarioAsignado'";
 	           	$data = $run->select($query);
 		        $Usuario = $data[0];
 
@@ -57,7 +57,7 @@
 				        $Codigo = $data[0]['Codigo'];
 				        $Codigos[] = $Codigo;
 
-		            	$query = "UPDATE `servicios` set `IdUsuarioAsignado` = '$this->IdUsuarioAsignado', `Estatus` = '3' where `Id` = '$Tarea'";
+		            	$query = "UPDATE servicios set IdUsuarioAsignado = '$IdUsuarioAsignado', Estatus = '3' where Id = '$Tarea'";
 			            $data = $run->update($query);
 			            $array[] = $Tarea;
 		            }
@@ -65,7 +65,7 @@
 
 	           	if($Usuario['email']){
 	           		$Codigos = implode(", ", $Codigos);
-	           		// $Estatus = $this->enviarCorreo($Usuario,$Codigos);
+	           		// $Estatus = $enviarCorreo($Usuario,$Codigos);
 	           		$Estatus = true;
 	           	}else{
 	           		$Estatus = true;
@@ -100,28 +100,16 @@
 
 	        	$run = new Method;
 
-	            $this->Id=$Id;
-	            $this->IdUsuarioAsignado=$IdUsuarioAsignado;
-
-	           	$query = "SELECT * FROM usuarios where id = '$this->IdUsuarioAsignado'";
+	           	$query = "SELECT * FROM usuarios WHERE id = '".$IdUsuarioAsignado."'";
 	           	$data = $run->select($query);
 		        $Usuario = $data[0];
 
-	        	$query = "UPDATE `servicios` set `IdUsuarioAsignado` = '$this->IdUsuarioAsignado' where `Id` = '$this->Id'";
+	        	$query = "UPDATE servicios SET IdUsuarioAsignado = '".$IdUsuarioAsignado."' WHERE Id = '$Id'";
 	            $data = $run->update($query);
 
-	            if($Usuario['email']){
-	            	$query = "SELECT Codigo FROM servicios where Id = '$this->Id'";
-		           	$data = $run->select($query);
-			        $Codigo = $data[0]['Codigo'];
-	           		// $Estatus = $this->enviarCorreo($Usuario,$Codigo);
-	           	}else{
-	           		$Estatus = true;
-	           	}
-
-	            if($Estatus){
+	            if($data){
 	            	$response_array['Usuario'] = $Usuario['nombre'];
-	            	$response_array['Id'] = $this->Id;
+	            	$response_array['Id'] = $Id;
 	                $response_array['status'] = 1;
 
 	            }else{
@@ -204,14 +192,14 @@
 	        		}
 	        	}
 
-	            $this->Id=$Id;
-	            $this->FechaInstalacion=$FechaInstalacion;
-	            $this->InstaladoPor=$InstaladoPor;
-	            $this->Comentario=$Comentario;
-	            $this->UsuarioPppoe=$UsuarioPppoe;
-	            $this->EstacionFinal=$EstacionFinal;
-	            $this->SenalFinal=$SenalFinal;
-	            $this->Estatus=$Estatus;
+	            $Id=$Id;
+	            $FechaInstalacion=$FechaInstalacion;
+	            $InstaladoPor=$InstaladoPor;
+	            $Comentario=$Comentario;
+	            $UsuarioPppoe=$UsuarioPppoe;
+	            $EstacionFinal=$EstacionFinal;
+	            $SenalFinal=$SenalFinal;
+	            $Estatus=$Estatus;
 
 				if($Estatus == 1){
 					
@@ -223,7 +211,7 @@
 								INNER JOIN personaempresa ON servicios.Rut = personaempresa.rut
 								LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
 								WHERE
-									servicios.Id = '".$this->Id."'";
+									servicios.Id = '".$Id."'";
 					$Servicio = $run->select($query);
 
 					if($Servicio){
@@ -248,8 +236,8 @@
 								$Valor = $Servicio['Valor'];
 								$Descuento = $Servicio['Descuento'];
 
-								if($this->FechaInstalacion){
-									$dt = DateTime::createFromFormat('Y-m-d', $this->FechaInstalacion);
+								if($FechaInstalacion){
+									$dt = DateTime::createFromFormat('Y-m-d', $FechaInstalacion);
 								}else{
 									$dt = new DateTime();
 								}
@@ -316,18 +304,18 @@
 								$Montodiario = $Valor / $Diasdelmes;
 								$Montoporfacturar = $Diasporfacturar * $Montodiario;
 
-								$query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio, Cantidad) VALUES ('$FacturaId', '$Concepto', '$Montoporfacturar', '$Descuento', '$this->Id', '1')";
+								$query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio, Cantidad) VALUES ('$FacturaId', '$Concepto', '$Montoporfacturar', '$Descuento', '$Id', '1')";
 								$FacturaDetalle = $run->insert($query);
 							}
 						}
 					}
 				}
 
-				$query = "UPDATE `servicios` SET `FechaInstalacion` = '$this->FechaInstalacion', `InstaladoPor` = '$this->InstaladoPor', `Comentario` = '$this->Comentario', `UsuarioPppoe` = '$this->UsuarioPppoe', `EstacionFinal` = '$this->EstacionFinal', `SenalFinal` = '$this->SenalFinal', `Estatus` = '$this->Estatus' where `Id` = '$this->Id'";
+				$query = "UPDATE servicios SET FechaInstalacion = '$FechaInstalacion', InstaladoPor = '$InstaladoPor', Comentario = '$Comentario', UsuarioPppoe = '$UsuarioPppoe', EstacionFinal = '$EstacionFinal', SenalFinal = '$SenalFinal', Estatus = '$Estatus' where Id = '$Id'";
 				$data = $run->update($query);
 				
-				$response_array['Estatus'] = $this->Estatus;
-				$response_array['Id'] = $this->Id;
+				$response_array['Estatus'] = $Estatus;
+				$response_array['Id'] = $Id;
 				$response_array['status'] = 1;
 
 	            
