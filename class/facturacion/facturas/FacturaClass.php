@@ -341,7 +341,7 @@
 
                 $response_array = array();
                 if($Tipo == 1){
-                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut 
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, facturas.FechaOC
                                 FROM facturas_detalle 
                                 INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.Id = '".$RutId."'
@@ -350,7 +350,7 @@
                     $expirationDate = time() + 1728000;
                     $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else if($Tipo == 2){
-                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut 
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, facturas.FechaOC
                                 FROM facturas_detalle 
                                 INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'
@@ -360,7 +360,7 @@
                     $expirationDate = time() + 1728000;
                     $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else{
-                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, mantenedor_servicios.servicio as Servicio, '1' as Cantidad
+                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, mantenedor_servicios.servicio as Servicio, '1' as Cantidad, 0 as NumeroOC, 0 as FechaOC
                                 FROM servicios 
                                 LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                                 WHERE servicios.Id = '".$RutId."'
@@ -380,6 +380,8 @@
 
                     $Detalle = $Detalles[0];
                     $Rut = $Detalle['Rut'];
+                    $NumeroOC = $Detalle['NumeroOC'];
+                    $FechaOC = $Detalle['FechaOC'];
 
                     $Cliente = $this->getCliente($Rut);
 
@@ -405,7 +407,7 @@
                         
                         //Para actualizar los datos del servicios con los datos de Bsale
 
-                        $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento) VALUES ('".$Rut."', '".$Grupo."', '".$Tipo."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."')";
+                        $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, FechaOC) VALUES ('".$Rut."', '".$Grupo."', '".$Tipo."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."')";
                         $FacturaId = $run->insert($query);
 
                         if($FacturaId){
@@ -984,15 +986,15 @@
                 }else{
 
                     if($Cliente['provincia']){
-                        $provincia = $Cliente['provincia'];
+                        $Provincia = $Cliente['provincia'];
                     }else{
-                        $provincia = 'Llanquihue';
+                        $Provincia = 'Llanquihue';
                     }
 
                     if($Cliente['ciudad']){
-                        $ciudad = $Cliente['ciudad'];
+                        $Ciudad = $Cliente['ciudad'];
                     }else{
-                        $ciudad = 'Puerto Varas';
+                        $Ciudad = 'Puerto Varas';
                     }
 
                     $clientId = null;
@@ -1004,8 +1006,8 @@
                         "phone"         => $Cliente['telefono'],
                         "address"       => $Cliente['direccion'],
                         "company"       => $Cliente['nombre'],
-                        "city"          => $provincia,
-                        "municipality"  => $ciudad,
+                        "city"          => $Provincia,
+                        "municipality"  => $Ciudad,
                         "activity"      => $Cliente['giro']
                     );
                 }
@@ -1085,6 +1087,20 @@
             $payment = array("paymentTypeId" => $Cliente['tipo_pago_bsale_id'], "amount" => $Total, "recordDate" => time());
             array_push($payments,$payment);
 
+            $NumeroOC = $Detalles[0]['NumeroOC'];
+            if($NumeroOC){
+                $FechaOC = $Detalles[0]['FechaOC'];
+                if($FechaOC){
+                    $dateTime = new DateTime($FechaOC); 
+                }else{
+                    $dateTime = new DateTime(); 
+                } 
+                $FechaOC = $dateTime->format('U'); 
+                $references = array();
+                $reference = array("number" => $NumeroOC, "referenceDate" => $FechaOC, "reason" => "Orden de Compra " . $NumeroOC, "codeSii" => 801);
+                array_push($references,$reference);
+            }
+
             //FACTURA
 
             //Demo
@@ -1116,6 +1132,9 @@
                 "details"           => $details,
                 "payments"          => $payments
             );
+            if($references){
+                $array['references'] = $references;
+            }
 
             if($clientId){
                 $array['clientId'] = $clientId;

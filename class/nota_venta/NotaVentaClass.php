@@ -273,14 +273,25 @@
         function generarFactura($id){
             $response_array = array();
             $run = new Method;
-            $query = "SELECT personaempresa.rut, personaempresa.tipo_cliente FROM personaempresa INNER JOIN nota_venta ON personaempresa.rut = nota_venta.rut WHERE nota_venta.id = '$id'";
+            $query = "  SELECT
+                            p.rut,
+                            p.tipo_cliente,
+                            nv.numero_oc,
+                            nv.fecha_oc
+                        FROM
+                            personaempresa p
+                        INNER JOIN nota_venta nv ON p.rut = nv.rut
+                        WHERE
+                            nv.id = '".$id."'";
             $NotaVenta = $run->select($query);
             if($NotaVenta){
                 $NotaVenta = $NotaVenta[0];
                 $Rut = $NotaVenta['rut'];
                 $Grupo = 0;                
                 $TipoDocumento = $NotaVenta['tipo_cliente'];
-                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale) VALUES ('".$Rut."', '".$Grupo."', '1', '0', NOW(), NOW(), '".$TipoDocumento."', NOW(), 0.19, '0', '', '0', '')";
+                $NumeroOC = $NotaVenta['numero_oc'];
+                $FechaOC = $NotaVenta['fecha_oc'];
+                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, NumeroOC, FechaOC) VALUES ('".$Rut."', '".$Grupo."', '1', '0', NOW(), NOW(), '".$TipoDocumento."', NOW(), 0.19, '0', '', '0', '', '".$NumeroOC."', '".$FechaOC."')";
                 $FacturaId = $run->insert($query);
                 if($FacturaId){
                     $query = "SELECT * from nota_venta_detalle where nota_venta_id = '$id'";
