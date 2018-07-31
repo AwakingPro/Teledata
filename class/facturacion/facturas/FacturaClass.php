@@ -1087,18 +1087,20 @@
             $payment = array("paymentTypeId" => $Cliente['tipo_pago_bsale_id'], "amount" => $Total, "recordDate" => time());
             array_push($payments,$payment);
 
-            $NumeroOC = $Detalles[0]['NumeroOC'];
-            if($NumeroOC){
-                $FechaOC = $Detalles[0]['FechaOC'];
-                if($FechaOC){
-                    $dateTime = new DateTime($FechaOC); 
-                }else{
-                    $dateTime = new DateTime(); 
-                } 
-                $FechaOC = $dateTime->format('U'); 
-                $references = array();
-                $reference = array("number" => $NumeroOC, "referenceDate" => $FechaOC, "reason" => "Orden de Compra " . $NumeroOC, "codeSii" => 801);
-                array_push($references,$reference);
+            if(isset($Detalles[0]['NumeroOC'])){
+                $NumeroOC = $Detalles[0]['NumeroOC'];
+                if($NumeroOC){
+                    $FechaOC = $Detalles[0]['FechaOC'];
+                    if($FechaOC){
+                        $dateTime = new DateTime($FechaOC); 
+                    }else{
+                        $dateTime = new DateTime(); 
+                    } 
+                    $FechaOC = $dateTime->format('U'); 
+                    $references = array();
+                    $reference = array("number" => $NumeroOC, "referenceDate" => $FechaOC, "reason" => "Orden de Compra " . $NumeroOC, "codeSii" => 801);
+                    array_push($references,$reference);
+                }
             }
 
             //FACTURA
@@ -1132,7 +1134,7 @@
                 "details"           => $details,
                 "payments"          => $payments
             );
-            if($references){
+            if(isset($references)){
                 $array['references'] = $references;
             }
 
