@@ -418,13 +418,16 @@
                                     $Concepto = $Detalle["Concepto"];
                                 }else if($Tipo == 2){
                                     $IdServicio = $Detalle['IdServicio'];
-                                    $Concepto = $Detalle["Concepto"] . ' - ' . $Detalle["Descuento"].'% Descuento';
+                                    $Concepto = $Detalle["Concepto"];
                                 }else{
                                     $IdServicio = $Detalle['Id'];
-                                    $Concepto = 'Costo de instalación / Habilitación'. ' - ' . $Detalle["Descuento"].'% Descuento';
+                                    $Concepto = 'Costo de instalación / Habilitación';
                                     $Valor = $Valor * $UF;
                                 }
                                 $Descuento = $Detalle['Descuento'];
+                                if($Descuento > 0){
+                                    $Concepto .= ' - ' . $Descuento.'% Descuento';
+                                }
                                 $Cantidad = $Detalle['Cantidad'];
 
                                 $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$IdServicio."')";
@@ -555,8 +558,11 @@
                                     foreach($Detalles as $Detalle){
                                         $IdServicio = $Detalle['IdServicio'];
                                         $Valor = floatval($Detalle['Valor']);
-                                        $Concepto = $Detalle["Concepto"] . ' - ' . $Detalle["Descuento"].'% Descuento';
+                                        $Concepto = $Detalle["Concepto"];
                                         $Descuento = $Detalle['Descuento'];
+                                        if($Descuento > 0){
+                                            $Concepto .= ' - ' . $Descuento.'% Descuento';
+                                        }
 
                                         $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '1', '".$Descuento."', '".$IdServicio."')";
                                         $FacturaDetalleId = $run->insert($query);
