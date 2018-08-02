@@ -19,7 +19,9 @@
 	$Dv = $run->select("SELECT dv FROM personaempresa WHERE rut = '".$_POST['Rut']."'");
 	$Dv = $Dv[0][0];	
 	$TipoFactura = isset($_POST['TipoFactura']) ? trim($_POST['TipoFactura']) : "";
-	$Codigo = $Rut."-".$Dv.$TipoFactura.$Correlativo;
+	$CodigoFactura = $run->select("SELECT codigo FROM mantenedor_tipo_factura WHERE id = '".$TipoFactura."'");
+	$CodigoFactura = $CodigoFactura[0][0];
+	$Codigo = $Rut."-".$Dv.$CodigoFactura.$Correlativo;
 	$Grupo = isset($_POST['Grupo']) ? trim($_POST['Grupo']) : "";
 	$Valor = isset($_POST['Valor']) ? trim($_POST['Valor']) : "0";
 	$Descuento = isset($_POST['Descuento']) ? trim($_POST['Descuento']) : "";

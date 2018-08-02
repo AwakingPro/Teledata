@@ -41,8 +41,6 @@
 
 	        	$run = new Method;
 
-	            $IdUsuarioAsignado=$IdUsuarioAsignado;
-
 	           	$query = "SELECT * FROM usuarios where id = '$IdUsuarioAsignado'";
 	           	$data = $run->select($query);
 		        $Usuario = $data[0];
@@ -191,15 +189,6 @@
 	        			exit;
 	        		}
 	        	}
-
-	            $Id=$Id;
-	            $FechaInstalacion=$FechaInstalacion;
-	            $InstaladoPor=$InstaladoPor;
-	            $Comentario=$Comentario;
-	            $UsuarioPppoe=$UsuarioPppoe;
-	            $EstacionFinal=$EstacionFinal;
-	            $SenalFinal=$SenalFinal;
-	            $Estatus=$Estatus;
 
 				if($Estatus == 1){
 					
