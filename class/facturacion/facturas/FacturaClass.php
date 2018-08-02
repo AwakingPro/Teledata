@@ -1220,9 +1220,9 @@
             $run = new Method;
             $ToReturn = array();
 
-            $dt = \DateTime::createFromFormat('d-m-Y',$startDate);
+            $dt = \DateTime::createFromFormat('Y/m/d',$startDate);
             $startDate = $dt->format('Y-m-d');
-            $dt = \DateTime::createFromFormat('d-m-Y',$endDate);
+            $dt = \DateTime::createFromFormat('Y/m/d',$endDate);
             $endDate = $dt->format('Y-m-d');
 
             $query = "  SELECT
