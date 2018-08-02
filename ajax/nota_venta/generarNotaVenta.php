@@ -74,11 +74,10 @@
 		$index = 5;
 
 		$objPHPExcel->setActiveSheetIndex(0)
-			->setCellValue('A'.$index, 'Código')
-			->setCellValue('B'.$index, 'Servicio')
-			->setCellValue('C'.$index, 'Cantidad')
-			->setCellValue('D'.$index, 'Precio')
-			->setCellValue('E'.$index, 'Total');
+			->setCellValue('A'.$index, 'Concepto')
+			->setCellValue('B'.$index, 'Cantidad')
+			->setCellValue('C'.$index, 'Precio')
+			->setCellValue('D'.$index, 'Total');
 
 		$index = 7;
 
@@ -107,11 +106,10 @@
 				$total = $total + $total_tmp;
 
 				$objPHPExcel->setActiveSheetIndex(0)
-				->setCellValue('A'.$index, $detalle['codigo'])
-				->setCellValue('B'.$index, $detalle['concepto'])
-				->setCellValue('C'.$index, $detalle['cantidad'])
-				->setCellValue('D'.$index, floatval($detalle['precio']))
-				->setCellValue('E'.$index, floatval($detalle['total']));
+				->setCellValue('A'.$index, $detalle['concepto'])
+				->setCellValue('B'.$index, $detalle['cantidad'])
+				->setCellValue('C'.$index, floatval($detalle['precio']))
+				->setCellValue('D'.$index, floatval($detalle['total']));
 				$index++;
 			}
 

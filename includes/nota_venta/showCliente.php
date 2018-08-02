@@ -1,8 +1,0 @@
-<?php 
-
-	include("../../class/nota_venta/NotaVentaClass.php");
-
-	$NotaVenta = new NotaVenta();
-	$NotaVenta->showCliente($_POST['personaempresa_id']);
-	
-?>   

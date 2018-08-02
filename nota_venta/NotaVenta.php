@@ -52,7 +52,7 @@
                             <div class="panel-body">
                                 <div class="tab-content">
                                     <div id="ingreso_registro" class="tab-pane fade active in">
-                                        <form id="showCliente">
+                                        <form id="formCliente">
                                             <div class="row">
                                                 <div class="col-md-4">
                                                     <div class="form-group">
@@ -119,38 +119,29 @@
                                         </form>
                                         <div class="row" style="margin-top: 20px">
                                             <div class="col-md-2">
-                                                <label id="label_automatico" class="label_tipo form-radio form-icon form-text"><input id="automatico" name="switch_codigo" type="radio" value="1" checked>Automático</label>
-                                                <label id="label_manual" class="label_tipo form-radio form-icon form-text"><input id="manual" name="switch_codigo" type="radio" value="2">Manual</label>
+                                                <label id="label_automatico" class="label_tipo form-radio form-icon form-text"><input id="automatico" name="switch_tipo" type="radio" value="1" checked>Automático</label>
+                                                <label id="label_manual" class="label_tipo form-radio form-icon form-text"><input id="manual" name="switch_tipo" type="radio" value="2">Manual</label>
                                             </div>
                                             <div class="clearfix"></div>
-                                            <form id="addServicio">
+                                            <form id="formDetalle">
                                                 <input type="hidden" id="rut_tmp" name="rut_tmp"></input>
-                                                <div class="col-md-2">
+                                                <div class="col-md-3">
                                                     <div class="form-group">
                                                         <div class="text-center">
-                                                            <label class="control-label h5" for="name">Código</label>
+                                                            <label class="control-label h5" for="name">Concepto</label>
                                                         </div>
-                                                        <div id="codigo_container">
-                                                            <select class="selectpicker form-control" name="codigo" id="codigo"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Código">
-                                                                <option value="">Seleccione Código</option>
+                                                        <div id="concepto_container">
+                                                            <select class="selectpicker form-control" name="concepto" id="concepto"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Concepto">
                                                             </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <div class="form-group">
-                                                        <div class="text-center">
-                                                            <label class="control-label h5" for="name">Detalle</label>
-                                                        </div>
-                                                        <input id="servicio" name="servicio" class="form-control input-sm" validation="not_null" data-nombre="Detalle" disabled>
-                                                    </div>
-                                                </div>
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <div class="text-center">
-                                                            <label class="control-label h5" for="name">Valor Neto</label>
+                                                            <label class="control-label h5" for="name">Precio</label>
                                                         </div>
-                                                        <input id="precio" name="precio" class="form-control input-sm number" validation="not_null" data-nombre="Valor Neto" disabled>
+                                                        <input id="precio" name="precio" class="form-control input-sm number" validation="not_null" data-nombre="Precio">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-1">
@@ -161,17 +152,6 @@
                                                         <input id="cantidad" name="cantidad" class="form-control input-sm" maxlength="6" validation="not_null" data-nombre="Cantidad" value="1">
                                                     </div>
                                                 </div>
-                                                <!--                                                         <div class="col-md-1">
-                                                    <div class="form-group">
-                                                        <div class="text-center">
-                                                            <label class="control-label h5" for="name">Exención</label>
-                                                        </div>
-                                                        <select class="selectpicker form-control" name="exencion" id="exencion"  data-live-search="true" data-container="body">
-                                                            <option value="1">Afecto</option>
-                                                            <option value="2">No Afecto</option>
-                                                        </select>
-                                                    </div>
-                                                </div> -->
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <div class="text-center">
@@ -181,7 +161,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <button type="button" id="guardarServicio" name="guardarServicio" style="margin-top: 30px" class="btn btn-success btn-icon btn-circle icon-lg fa fa-plus" disabled></button>
+                                                    <button type="button" id="insertDetalle" name="insertDetalle" style="margin-top: 30px" class="btn btn-success btn-icon btn-circle icon-lg fa fa-plus" disabled></button>
                                                 </div>
                                             </form>
                                         </div>
@@ -189,12 +169,11 @@
                                         <div class="row" style="margin-top: 10px">
                                             <div class="table-responsive">
                                                 <div class="col-md-12">
-                                                    <table id="ServicioTable" class="table table-striped table-bordered">
+                                                    <table id="DetalleTable" class="table table-striped table-bordered">
                                                         <thead>
                                                             <tr>
-                                                                <th class="text-center">Código</th>
-                                                                <th class="text-center">Detalle</th>
-                                                                <th class="text-center">Valor Neto</th>
+                                                                <th class="text-center">Concepto</th>
+                                                                <th class="text-center">Precio</th>
                                                                 <th class="text-center">Cantidad</th>
                                                                 <th class="text-center">Total I.V.A. Incluido</th>
                                                                 <th class="text-center">Acción</th>
@@ -240,7 +219,7 @@
                                         </div>
                                         <div class="pull-right" style="margin-top: 40px ">
                                             <div class="col-sm-12">
-                                                <button style="margin-right: 5px" type="button" class="btn btn-purple" id="guardar" name="guardar">Guardar</button>
+                                                <button style="margin-right: 5px" type="button" class="btn btn-purple" id="insertNotaVenta" name="insertNotaVenta">Guardar</button>
                                                 <button type="button" class="btn btn-default" id="cancelar" name="cancelar">Cancelar</button>
                                             </div>
                                         </div>

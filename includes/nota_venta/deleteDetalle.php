@@ -3,6 +3,6 @@
 	include("../../class/nota_venta/NotaVentaClass.php");
 
 	$NotaVenta = new NotaVenta();
-	$NotaVenta->showNotaVenta();
+	$NotaVenta->deleteDetalle($_POST['id']);
 	
-?>   
+?>      

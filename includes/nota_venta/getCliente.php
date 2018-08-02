@@ -3,6 +3,6 @@
 	include("../../class/nota_venta/NotaVentaClass.php");
 
 	$NotaVenta = new NotaVenta();
-	$NotaVenta->deleteServicio($_POST['id']);
+	$NotaVenta->getCliente($_POST['personaempresa_id']);
 	
-?>      
+?>   

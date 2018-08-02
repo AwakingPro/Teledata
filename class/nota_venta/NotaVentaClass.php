@@ -13,49 +13,34 @@
             $data = $run->delete($query);
         }
 
-    	public function GuardarServicio($Codigo,$Servicio,$Cantidad,$Precio,$Cliente){
+    	public function insertDetalle($Concepto,$Cantidad,$Precio,$Cliente){
 
             $response_array = array();
 
-            $Codigo = isset($Codigo) ? trim($Codigo) : "";
-            $Servicio = isset($Servicio) ? trim($Servicio) : "";
+            $Concepto = isset($Concepto) ? trim($Concepto) : "";
             $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
             $Precio = isset($Precio) ? trim($Precio) : "";
 
-            if(!empty($Codigo) && !empty($Servicio) && !empty($Cantidad) && !empty($Precio)){
+            if(!empty($Concepto) && !empty($Cantidad) && !empty($Precio)){
 
                 session_start();
                 $run = new Method;
 
                 $Cantidad = intval($Cantidad);
                 $Usuario = $_SESSION['idUsuario'];
-
-                $query = "SELECT mantenedor_servicios.servicio as Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Codigo = '$Codigo'";
-                $ServicioSQL = $run->select($query);
-
-                if($ServicioSQL){
-
-                    $Servicio = $ServicioSQL[0]['Servicio'];
-                    $Precio = floatval($ServicioSQL[0]['Precio']);
-
-                }else{
-
-                    $Precio = str_replace('.','',$Precio);
-                    $Servicio = $Servicio;
-                    $Precio = floatval($Precio);
-                }
-
+                $Precio = str_replace('.','',$Precio);
+                $Precio = floatval($Precio);
                 $Total = $Precio * $Cantidad;
 
                 $Impuesto = $Total * 0.19;
                 $Total = $Total + $Impuesto;
                 
-                $query = "INSERT INTO nota_venta_tmp(codigo, servicio, cantidad, precio, total, usuario_id) VALUES ('".$Codigo."','".$Servicio."','".$Cantidad."','".$Precio."','".$Total."','".$Usuario."')";
+                $query = "INSERT INTO nota_venta_tmp(concepto, cantidad, precio, total, usuario_id) VALUES ('".$Concepto."','".$Cantidad."','".$Precio."','".$Total."','".$Usuario."')";
                 $id = $run->insert($query);
 
                 if($id){
 
-                    $array = array('id'=> $id, 'codigo' => $Codigo, 'servicio' => $Servicio, 'cantidad' => $Cantidad, 'precio' => $Precio, 'total' => $Total);
+                    $array = array('id'=> $id, 'concepto' => $Concepto, 'cantidad' => $Cantidad, 'precio' => $Precio, 'total' => $Total);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -71,7 +56,7 @@
 
     	} 
 
-        public function GuardarNotaVenta($Cliente,$Fecha,$NumeroOc,$FechaOc,$SolicitadoPor){
+        public function insertNotaVenta($Cliente,$Fecha,$NumeroOc,$FechaOc,$SolicitadoPor){
 
             $response_array = array();
 
@@ -106,13 +91,12 @@
                     if($Id){
                         foreach($detalle_nota as $detalle){
 
-                            $Codigo=$detalle['codigo'];
+                            $Concepto=$detalle['concepto'];
                             $Cantidad=$detalle['cantidad'];
-                            $Concepto=$detalle['servicio'];
                             $Precio=$detalle['precio'];
                             $Total=$detalle['total'];
 
-                            $query = "INSERT INTO nota_venta_detalle(nota_venta_id, codigo, concepto, cantidad, precio, total) VALUES ('$Id', '$Codigo','$Concepto','$Cantidad','$Precio','$Total')";
+                            $query = "INSERT INTO nota_venta_detalle(nota_venta_id, concepto, cantidad, precio, total) VALUES ('$Id','$Concepto','$Cantidad','$Precio','$Total')";
                             $data = $run->insert($query);
                         }
 
@@ -135,7 +119,7 @@
 
         } 
 
-        function showPersonaEmpresa(){
+        function getClientes(){
             $query = "  SELECT
                             p.rut,
                             p.nombre,
@@ -157,7 +141,7 @@
 
         }
 
-        function showCliente($rut){
+        function getCliente($rut){
             $query = "SELECT * FROM personaempresa where Rut = '$rut'";
             $run = new Method;
             $data = $run->select($query);
@@ -168,9 +152,14 @@
 
         }
 
-        function showCodigos($rut){
+        function getProductos(){
 
-            $query = "SELECT * FROM servicios WHERE Rut = '$rut'";
+            $query = "  SELECT
+                            CONCAT(mantenedor_modelo_producto.nombre,' ',mantenedor_marca_producto.nombre,' ',mantenedor_tipo_producto.nombre) as producto
+                        FROM
+                            mantenedor_modelo_producto
+                        INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id
+                        INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id";
             $run = new Method;
             $data = $run->select($query);
 
@@ -180,19 +169,7 @@
 
         }
 
-        function showServicio($Codigo){
-
-            $query = "SELECT mantenedor_servicios.servicio as Servicio, servicios.Valor as Precio FROM servicios LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio where servicios.Codigo = '$Codigo'";
-            $run = new Method;
-            $data = $run->select($query);
-
-            $response_array['array'] = $data;
-
-            echo json_encode($response_array);
-
-        }
-
-        function deleteServicio($Id){
+        function deleteDetalle($Id){
 
             $response_array = array();
 
@@ -224,7 +201,7 @@
             echo json_encode($response_array);
         }
 
-         function showNotaVenta(){
+         function getNotaVentas(){
 
             $query = "  SELECT
                             nv.*, p.nombre AS cliente, CONCAT(p.rut,'-',p.dv) as rut,

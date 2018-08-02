@@ -3,6 +3,6 @@
 	include("../../class/nota_venta/NotaVentaClass.php");
 
 	$NotaVenta = new NotaVenta();
-	$NotaVenta->showPersonaEmpresa();
+	$NotaVenta->getClientes();
 	
 ?>   

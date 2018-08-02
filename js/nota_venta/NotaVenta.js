@@ -1,13 +1,10 @@
 $(document).ready(function(){
 
-    $('#servicio').prop('disabled', true)
-    $('#precio').prop('disabled', true)
-
     var neto_nota = 0
     var iva_nota = 0
     var total_nota = 0
 
-    ServicioTable = $('#ServicioTable').DataTable({
+    DetalleTable = $('#DetalleTable').DataTable({
         paging: false,
         iDisplayLength: 100,
         processing: true,
@@ -39,10 +36,29 @@ $(document).ready(function(){
         }
     });
 
-    showNotaVenta();
+    getProductos()
+    getNotaVentas();
 
-    $('#showCliente')[0].reset();
-    $('#addServicio')[0].reset();
+    function getProductos(){
+        $('#concepto').empty();
+        $('#concepto').append(new Option('Seleccione Concepto', ''));
+        $.ajax({
+            type: "POST",
+            url: "../includes/nota_venta/getProductos.php",
+            success: function (response) {
+                $.each(response.array, function (index, array) {
+                    $('#concepto').append("<option value='" + array.producto + "'>" + array.producto +"</option>");
+                });
+            }
+        })
+        setTimeout(function () {
+            $('#concepto').selectpicker('render');
+            $('#concepto').selectpicker('refresh');
+        }, 1000);
+    }
+
+    $('#formCliente')[0].reset();
+    $('#formDetalle')[0].reset();
     $('#automatico').prop('checked',true);
     $('#label_automatico').addClass('active')
 
@@ -61,7 +77,7 @@ $(document).ready(function(){
 
     $.ajax({
         type: "POST",
-        url: "../includes/nota_venta/showPersonaEmpresa.php",
+        url: "../includes/nota_venta/getClientes.php",
         success: function(response){
 
             $.each(response.array, function( index, array ) {
@@ -76,10 +92,10 @@ $(document).ready(function(){
 
     deleteDetalles();
 
-    function showNotaVenta(){
+    function getNotaVentas(){
         $.ajax({
             type: "POST",
-            url: "../includes/nota_venta/showNotaVenta.php",
+            url: "../includes/nota_venta/getNotaVentas.php",
             success: function(response){
                 NotaVentaTable = $('#NotaVentaTable').DataTable({
                     order: [[0, 'asc']],
@@ -158,50 +174,22 @@ $(document).ready(function(){
         });
     }
 
-    $('input[name=switch_codigo]').on('change', function () {
-        value = $("input[name='switch_codigo']:checked").val()
-        $('#codigo_container').empty();
+    $('input[name=switch_tipo]').on('change', function () {
+        value = $("input[name='switch_tipo']:checked").val()
+        $('#concepto_container').empty();
         if(value == 1){
             $('#label_manual').removeClass('active')
             $('#label_automatico').addClass('active')
-            $('#servicio').prop('disabled', true)
-            $('#precio').prop('disabled', true)
-            append = '<select class="selectpicker form-control" name="codigo" id="codigo"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Código"></select>'
-            $('#codigo_container').append(append)
-
-            datos = $('#showCliente').serialize();
-
-            $('#codigo').append(new Option('Seleccione Código',''));
-
-            $.ajax({
-                type: "POST",
-                url: "../includes/nota_venta/showCodigos.php",
-                data: datos,
-                success: function(response){
-                    $.each(response.array, function( index, array ) {
-                        $('#codigo').append('<option value="'+array.Codigo+'" data-content="'+array.Codigo+'"></option>');
-                    });
-                }
-            })
-
-            $('#codigo').selectpicker()
-
-            setTimeout(function() {
-                $('.selectpicker').selectpicker('render');
-                $('.selectpicker').selectpicker('refresh');
-            }, 1000);
-
+            append = '<select class="selectpicker form-control" name="concepto" id="concepto"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Concepto"></select>'
+            $('#concepto_container').append(append)
+            getProductos()
         }else{
             $('#label_automatico').removeClass('active')
             $('#label_manual').addClass('active')
-            append = '<input id="codigo" name="codigo" class="form-control input-sm" validation="not_null" data-nombre="Código">'
-            $('#codigo_container').append(append)
-            $('#servicio').prop('disabled', false)
-            $('#precio').prop('disabled', false)
+            append = '<input id="concepto" name="concepto" class="form-control input-sm" validation="not_null" data-nombre="Concepto">'
+            $('#concepto_container').append(append)
         }
 
-        $('#codigo').val('')
-        $('#servicio').val('')
         $('#precio').val('')
         $('#total').val('')
 
@@ -211,17 +199,17 @@ $(document).ready(function(){
 
     $('#personaempresa_id').on('change', function () {
 
-        ServicioTable
+        DetalleTable
             .clear()
             .draw();
 
         if($(this).val()){
 
-            datos = $('#showCliente').serialize();
+            datos = $('#formCliente').serialize();
 
             $.ajax({
                 type: "POST",
-                url: "../includes/nota_venta/showCliente.php",
+                url: "../includes/nota_venta/getCliente.php",
                 data: datos,
                 success: function(response){
 
@@ -229,90 +217,14 @@ $(document).ready(function(){
                     $('#direccion').val(response.array[0].direccion);
                     $('#contacto').val(response.array[0].contacto);
                     $('#rut').val(response.array[0].rut+'-'+response.array[0].dv);
-                    // $('#rut').val(response.array[0].rut);
                 }
             });
-
-            $('#codigo').empty();
-            $('#codigo').append(new Option('Seleccione Código',''));
-
-            $.ajax({
-                type: "POST",
-                url: "../includes/nota_venta/showCodigos.php",
-                data: datos,
-                success: function(response){
-                    $.each(response.array, function( index, array ) {
-                        $('#codigo').append('<option value="'+array.Codigo+'" data-content="'+array.Codigo+'"></option>');
-                    });
-                }
-            })
-
-            setTimeout(function() {
-                $('.selectpicker').selectpicker('render');
-                $('.selectpicker').selectpicker('refresh');
-            }, 1000);
-
         }else{
-            $('#servicio').val('')
-
             $('#precio').val('')
             $('#total').val('')
         }
 
         $('#cantidad').val(1)
-    });
-
-    $('body').on('change', 'select[name="codigo"]', function (){
-
-        $('#servicio').prop('disabled', true)
-        $('#precio').prop('disabled', true)
-
-        $('#servicio').val('')
-        $('#precio').val('')
-        $('#total').val('')
-
-        datos = $('#addServicio').serialize();
-
-        $.ajax({
-            type: "POST",
-            url: "../includes/nota_venta/showServicio.php",
-            data: datos,
-            success: function(response){
-
-                precio = parseFloat(response.array[0].Precio)
-                $('#servicio').val(response.array[0].Servicio);
-                $('#precio').val(precio);
-                $('#cantidad').val(1)
-                calcularDetalle();
-            }
-        });
-    });
-
-    $('body').on('blur', 'input[name="codigo"]', function (){
-
-        datos = $('#addServicio').serialize();
-        input = $(this)
-        codigo = $(this).val()
-
-        if(codigo){
-            $.ajax({
-                type: "POST",
-                url: "../includes/nota_venta/showServicio.php",
-                data: datos,
-                success: function(response){
-                    if(response.array.length){
-                        $.niftyNoty({
-                            type: 'danger',
-                            icon : 'fa fa-check',
-                            message : 'Ya este codigo esta registrado',
-                            container : 'floating',
-                            timer : 3000
-                        });
-                        $(input).val('')
-                    }
-                }
-            });
-        }
     });
 
     $('#cantidad').on('change', function () {
@@ -337,21 +249,21 @@ $(document).ready(function(){
             precio = 0;
         }
         valor = precio * cantidad
-        servicio = $('#servicio').val()
-        if (valor > 0 && servicio) {
-            $('#guardarServicio').prop('disabled', false);
+        concepto = $('#concepto').val()
+        if (valor > 0 && concepto) {
+            $('#insertDetalle').prop('disabled', false);
         } else {
-            $('#guardarServicio').prop('disabled', true);
+            $('#insertDetalle').prop('disabled', true);
         }
         $('#total').val(formatcurrency(valor))
     }
 
-    $('body').on('click', '#guardarServicio', function () {
+    $('body').on('click', '#insertDetalle', function () {
 
         $('#rut_tmp').val($('#personaempresa_id').val())
         $('#rut_tmp').selectpicker('refresh')
 
-        $.postFormValues('../includes/nota_venta/GuardarServicio.php', '#addServicio', function(response){
+        $.postFormValues('../includes/nota_venta/insertDetalle.php', '#formDetalle', function(response){
 
             if(response.status == 1){
 
@@ -376,20 +288,19 @@ $(document).ready(function(){
                 $('#iva_nota').text(formatcurrency(iva_nota))
                 $('#total_nota').text(formatcurrency(total_nota))
 
-                var rowNode = ServicioTable.row.add([
-                    ''+response.array.codigo+'',
-                    ''+response.array.servicio+'',
+                var rowNode = DetalleTable.row.add([
+                    ''+response.array.concepto+'',
                     ''+formatcurrency(precio)+'',
                     ''+response.array.cantidad+'',
                     '' + formatcurrency(total)+'',
-                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveServicio"></i>'+'',
+                    ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times deleteDetalle"></i>'+'',
                 ]).draw(false).node();
 
                 $(rowNode)
                     .attr('id',response.array.id)
                     .addClass('text-center')
 
-                $('#addServicio')[0].reset();
+                $('#formDetalle')[0].reset();
                 $('#cantidad').val(1)
                 $('.selectpicker').selectpicker('render');
                 $('.selectpicker').selectpicker('refresh');
@@ -418,7 +329,7 @@ $(document).ready(function(){
         });
     });
 
-    $('body').on('click', '.RemoveServicio', function () {
+    $('body').on('click', '.deleteDetalle', function () {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
@@ -437,7 +348,7 @@ $(document).ready(function(){
             if (isConfirm) {
 
                 $.ajax({
-                    url: "../includes/nota_venta/deleteServicio.php",
+                    url: "../includes/nota_venta/deleteDetalle.php",
                     type: 'POST',
                     data:"&id="+ObjectId,
                     success:function(response){
@@ -459,7 +370,7 @@ $(document).ready(function(){
                                 $('#iva_nota').text(formatcurrency(iva_nota))
                                 $('#total_nota').text(formatcurrency(total_nota))
 
-                                ServicioTable.row($(ObjectTR))
+                                DetalleTable.row($(ObjectTR))
                                     .remove()
                                     .draw();
 
@@ -478,9 +389,9 @@ $(document).ready(function(){
         });
     });
 
-    $('body').on('click', '#guardar', function () {
+    $('body').on('click', '#insertNotaVenta', function () {
 
-        $.postFormValues('../includes/nota_venta/GuardarNotaVenta.php', '#showCliente', function(response){
+        $.postFormValues('../includes/nota_venta/insertNotaVenta.php', '#formCliente', function(response){
 
             if(response.status == 1){
 
@@ -491,7 +402,7 @@ $(document).ready(function(){
                     container : 'floating',
                     timer : 3000
                 });
-                showNotaVenta();
+                getNotaVentas();
                 $('#cancelar').click()
 
             }else if(response.status == 2){
@@ -509,7 +420,7 @@ $(document).ready(function(){
                 $.niftyNoty({
                     type: 'danger',
                     icon : 'fa fa-check',
-                    message : 'Debes agregar un servicio',
+                    message : 'Debes agregar un detalle',
                     container : 'floating',
                     timer : 3000
                 });
@@ -530,7 +441,7 @@ $(document).ready(function(){
 
     $('#cancelar').on('click', function () {
         deleteDetalles();
-        $('#showCliente')[0].reset();
+        $('#formCliente')[0].reset();
         $('#personaempresa_id').selectpicker('refresh');
 
         $('html,body').animate({
@@ -542,15 +453,15 @@ $(document).ready(function(){
         $('#neto_nota').text(0)
         $('#iva_nota').text(0)
         $('#total_nota').text(0)
-        $('#addServicio')[0].reset();
+        $('#formDetalle')[0].reset();
 
         neto_nota = 0
         iva_nota = 0
         total_nota = 0
 
-        $('#codigo').selectpicker('refresh');
+        $('#concepto').selectpicker('refresh');
 
-        ServicioTable
+        DetalleTable
             .clear()
             .draw();
 
@@ -583,7 +494,7 @@ $(document).ready(function(){
                         setTimeout(function() {
                             if(response.status == 1){
                                 swal("Éxito!","El registro ha sido eliminado!","success");
-                                showNotaVenta();
+                                getNotaVentas();
                             }else if(response.status == 3){
                                 swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee otros registros asociados','error');
                             }else{
@@ -635,7 +546,7 @@ $(document).ready(function(){
                     success: function (response) {
 
                         if (response.status == 1) {
-                            showNotaVenta();
+                            getNotaVentas();
                             swal("Éxito!", "La factura ha sido generada!", "success");
 
                         } else if (response.status == 2) {
