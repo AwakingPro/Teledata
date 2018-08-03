@@ -198,11 +198,6 @@ $(document).ready(function(){
     });
 
     $('#personaempresa_id').on('change', function () {
-
-        DetalleTable
-            .clear()
-            .draw();
-
         if($(this).val()){
 
             datos = $('#formCliente').serialize();
@@ -259,10 +254,6 @@ $(document).ready(function(){
     }
 
     $('body').on('click', '#insertDetalle', function () {
-
-        $('#rut_tmp').val($('#personaempresa_id').val())
-        $('#rut_tmp').selectpicker('refresh')
-
         $.postFormValues('../includes/nota_venta/insertDetalle.php', '#formDetalle', function(response){
 
             if(response.status == 1){
@@ -280,7 +271,7 @@ $(document).ready(function(){
                 neto = precio * cantidad
                 iva = neto * 0.19
                 neto_nota = neto_nota + neto
-                iva_nota = iva_nota + iva;
+                iva_nota = iva_nota + Math.round(iva);
                 total = parseFloat(response.array.total)
                 total_nota = total_nota + total
 
@@ -361,7 +352,7 @@ $(document).ready(function(){
                                 iva = neto * 0.19
 
                                 neto_nota = neto_nota - neto
-                                iva_nota = iva_nota - iva;
+                                iva_nota = iva_nota - Math.round(iva);
                                 
                                 total = parseFloat(response.array[0].total)
                                 total_nota = total_nota - total

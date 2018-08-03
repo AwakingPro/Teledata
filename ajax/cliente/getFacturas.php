@@ -30,16 +30,14 @@
             $IVA = $factura['IVA'];       
             $TotalAbono = $factura['TotalAbono'];
             $TotalFactura = 0;
-            $query = "SELECT Valor, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
+            $query = "SELECT Total, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
             $detalles = $run->select($query);
             foreach($detalles as $detalle){
-                $Valor = $detalle['Valor'];
+                $Total = $detalle['Total'];
                 $Descuento = floatval($detalle['Descuento']) / 100;
-                $Descuento = $Valor * $Descuento;
-                $Valor -= $Descuento;
-                $IvaSumatoria = $Valor * $IVA;
-                $Valor += $IvaSumatoria;
-                $TotalFactura += $Valor;
+                $Descuento = $Total * $Descuento;
+                $Total -= $Descuento;
+                $TotalFactura += round($Total,0);
             }
 
             $TotalAbono = $TotalFactura - $TotalAbono;

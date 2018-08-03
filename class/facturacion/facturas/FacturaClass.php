@@ -20,7 +20,7 @@
                             servicios.Id,
                             servicios.Rut,
                             servicios.Grupo,
-                            ( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ) AS Valor,
+                            ROUND(( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0) AS Valor,
                             servicios.EstatusFacturacion,
                             servicios.FechaFacturacion,
                             personaempresa.nombre AS Cliente,
@@ -42,7 +42,7 @@
                 foreach($servicios as $servicio){
                     $Valor = $servicio['Valor'];
                     $IVA = $servicio['Valor'] * 0.19;
-                    $Valor += $IVA;
+                    $Valor += round($IVA,0);
                     $data = array();
                     $data['Id'] = $servicio['Id']; 
                     $data['Rut'] = $servicio['Rut'];          
@@ -70,13 +70,9 @@
 
             $ToReturn = array();
             $query = "  SELECT
-                            SUM(
-                                facturas_detalle.Valor - (
-                                    facturas_detalle.Valor * (
-                                        facturas_detalle.Descuento / 100
-                                    )
-                                )
-                            ) AS Valor,
+                            ROUND(SUM(
+                                facturas_detalle.Total
+                            ),0) AS Valor,
                             facturas.Rut,
                             facturas.Grupo,
                             facturas.EstatusFacturacion,
@@ -108,8 +104,6 @@
 
                 foreach($facturas as $factura){
                     $Valor = $factura['Valor'];
-                    $IVA = $factura['Valor'] * $factura['IVA'];
-                    $Valor += $IVA;
                     $data = array();
                     $data['Id'] = $factura['Rut'];
                     $data['Rut'] = $factura['Rut'];          
@@ -137,13 +131,9 @@
 
             $ToReturn = array();
             $query = "  SELECT
-                            SUM(
-                                facturas_detalle.Valor - (
-                                    facturas_detalle.Valor * (
-                                        facturas_detalle.Descuento / 100
-                                    )
-                                )
-                            ) AS Valor,
+                            ROUND(SUM(
+                                facturas_detalle.Total
+                            ),0) AS Valor,
                             facturas.Id,
                             facturas.Rut,
                             facturas.Grupo,
@@ -173,8 +163,6 @@
 
                 foreach($facturas as $factura){
                     $Valor = $factura['Valor'];
-                    $IVA = $factura['Valor'] * $factura['IVA'];
-                    $Valor += $IVA;
                     $data = array();
                     $data['Id'] = $factura['Id'];
                     $data['Rut'] = $factura['Rut'];          
@@ -207,7 +195,7 @@
             $query = "  SELECT
                             servicios.Id,
                             servicios.Codigo,
-                            (
+                            ROUND((
                                 servicios.CostoInstalacion * '".$UF."' - (
                                     (
                                         servicios.CostoInstalacion * '".$UF."'
@@ -215,7 +203,7 @@
                                         servicios.CostoInstalacionDescuento / 100
                                     )
                                 )
-                            ) AS Valor,
+                            ),0) AS Valor,
                             mantenedor_servicios.servicio AS Nombre,
                             mantenedor_tipo_factura.descripcion AS Descripcion
                         FROM
@@ -239,7 +227,7 @@
                     $data = $servicio;
                     $Valor = $servicio['Valor'];
                     $IVA = $servicio['Valor'] * 0.19;
-                    $Valor += $IVA;
+                    $Valor += round($IVA,0);
                     $data['Valor'] = number_format($Valor, 2);
                     array_push($array,$data);
                 }
@@ -255,13 +243,9 @@
             $run = new Method;
 
             $query = "  SELECT
-                            (
-                                facturas_detalle.Valor - (
-                                    facturas_detalle.Valor * (
-                                        facturas_detalle.Descuento / 100
-                                    )
-                                )
-                            ) AS Valor,
+                            ROUND((
+                                facturas_detalle.Total
+                            ),0) AS Valor,
                             personaempresa.nombre AS Nombre,
                             facturas_detalle.Concepto AS Concepto,
                             facturas.IVA
@@ -282,8 +266,6 @@
                 foreach($facturas as $factura){
                     $data = $factura;
                     $Valor = $factura['Valor'];
-                    $IVA = $factura['Valor'] * $factura['IVA'];
-                    $Valor += $IVA;
                     $data['Valor'] = number_format($Valor, 2);
                     array_push($array,$data);
                 }
@@ -299,13 +281,9 @@
             $run = new Method;
 
             $query = "  SELECT
-                            (
-                                facturas_detalle.Valor - (
-                                    facturas_detalle.Valor * (
-                                        facturas_detalle.Descuento / 100
-                                    )
-                                )
-                            ) AS Valor,
+                            ROUND((
+                                facturas_detalle.Total
+                            ),0) AS Valor,
                             personaempresa.nombre AS Nombre,
                             facturas_detalle.Concepto AS Concepto,
                             facturas.IVA
@@ -323,8 +301,6 @@
                 foreach($facturas as $factura){
                     $data = $factura;
                     $Valor = $factura['Valor'];
-                    $IVA = $factura['Valor'] * $factura['IVA'];
-                    $Valor += $IVA;
                     $data['Valor'] = number_format($Valor, 2);
                     array_push($array,$data);
                 }
@@ -341,7 +317,7 @@
 
                 $response_array = array();
                 if($Tipo == 1){
-                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, facturas.FechaOC
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
                                 FROM facturas_detalle 
                                 INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.Id = '".$RutId."'
@@ -350,7 +326,7 @@
                     $expirationDate = time() + 1728000;
                     $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else if($Tipo == 2){
-                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, facturas.FechaOC
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
                                 FROM facturas_detalle 
                                 INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'
@@ -360,7 +336,7 @@
                     $expirationDate = time() + 1728000;
                     $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else{
-                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, mantenedor_servicios.servicio as Servicio, '1' as Cantidad, 0 as NumeroOC, 0 as FechaOC
+                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, mantenedor_servicios.servicio as Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC
                                 FROM servicios 
                                 LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                                 WHERE servicios.Id = '".$RutId."'
@@ -429,8 +405,14 @@
                                     $Concepto .= ' - ' . $Descuento.'% Descuento';
                                 }
                                 $Cantidad = $Detalle['Cantidad'];
+                                $Neto = $Valor * $Cantidad;
+                                $DescuentoValor = $Neto * ( $Descuento / 100 );
+                                $Neto -= $DescuentoValor;
+                                $Impuesto = $Neto * 0.19;
+                                $Total = $Neto + $Impuesto;
+                                $Total = round($Total,0);
 
-                                $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$IdServicio."')";
+                                $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$IdServicio."', '".$Total."')";
                                 $FacturaDetalleId = $run->insert($query);
                                 if($Tipo == 3){
                                     if($FacturaDetalleId){
@@ -563,8 +545,15 @@
                                         if($Descuento > 0){
                                             $Concepto .= ' - ' . $Descuento.'% Descuento';
                                         }
+                                        $Cantidad = 1;
+                                        $Neto = $Valor * $Cantidad;
+                                        $DescuentoValor = $Neto * ( $Descuento / 100 );
+                                        $Neto -= $DescuentoValor;
+                                        $Impuesto = $Neto * 0.19;
+                                        $Total = $Neto + $Impuesto;
+                                        $Total = round($Total,0);
 
-                                        $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '1', '".$Descuento."', '".$IdServicio."')";
+                                        $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$IdServicio."', '".$Total."')";
                                         $FacturaDetalleId = $run->insert($query);
                                     }
 
@@ -679,8 +668,15 @@
                             $Valor = $Servicio['Valor'];
                             $Valor = $Valor * $UF;
                             $Descuento = $Servicio['Descuento'];
+                            $Cantidad = 1;
+                            $Neto = $Valor * $Cantidad;
+                            $DescuentoValor = $Neto * ( $Descuento / 100 );
+                            $Neto -= $DescuentoValor;
+                            $Impuesto = $Neto * 0.19;
+                            $Total = $Neto + $Impuesto;
+                            $Total = round($Total,0);
 
-                            $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '1', '".$Descuento."', '".$Id."')";
+                            $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$Id."', '".$Total."')";
                             $data = $run->insert($query);
                             $Facturas[$Rut.'-'.$Grupo] = $FacturaId;
                         }
@@ -728,6 +724,7 @@
                 $Valor = $servicio['Valor'];
                 $IVA = $servicio['Valor'] * 0.19;
                 $Valor += $IVA;
+                $Valor = round($Valor,0);
                 if($servicio['TipoDocumento'] == '2'){
                     $totalFacturas += $Valor;
                     $cantidadFacturas++;
@@ -750,7 +747,7 @@
             $query = "  SELECT    
                             facturas.TipoDocumento, 
                             SUM(
-                                facturas_detalle.Valor - ( facturas_detalle.Valor * ( facturas_detalle.Descuento / 100 ) ) 
+                                facturas_detalle.Total
                             ) AS Valor,
                             facturas.IVA
                         FROM 
@@ -773,8 +770,6 @@
             $facturas = $run->select($query);
             foreach($facturas as $factura){
                 $Valor = $factura['Valor'];
-                $IVA = $factura['Valor'] * $factura['IVA'];
-                $Valor += $IVA;
                 if($factura['TipoDocumento'] == '2'){
                     $totalFacturas += $Valor;
                     $cantidadFacturas++;
@@ -797,7 +792,7 @@
             $query = "  SELECT    
                             facturas.TipoDocumento, 
                             SUM(
-                                facturas_detalle.Valor - ( facturas_detalle.Valor * ( facturas_detalle.Descuento / 100 ) ) 
+                                facturas_detalle.Total
                             ) AS Valor,
                             facturas.IVA
                         FROM 
@@ -817,8 +812,6 @@
             $facturas = $run->select($query);
             foreach($facturas as $factura){
                 $Valor = $factura['Valor'];
-                $IVA = $factura['Valor'] * $factura['IVA'];
-                $Valor += $IVA;
                 if($factura['TipoDocumento'] == '2'){
                     $totalFacturas += $Valor;
                     $cantidadFacturas++;
@@ -1250,16 +1243,14 @@
                     $IVA = $factura['IVA'];       
                     $TotalAbono = $factura['TotalAbono'];
                     $TotalFactura = 0;
-                    $query = "SELECT Valor, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
+                    $query = "SELECT Total, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
                     $detalles = $run->select($query);
                     foreach($detalles as $detalle){
-                        $Valor = $detalle['Valor'];
+                        $Total = $detalle['Total'];
                         $Descuento = floatval($detalle['Descuento']) / 100;
-                        $Descuento = $Valor * $Descuento;
-                        $Valor -= $Descuento;
-                        $IvaSumatoria = $Valor * $IVA;
-                        $Valor += $IvaSumatoria;
-                        $TotalFactura += $Valor;
+                        $Descuento = $Total * $Descuento;
+                        $Total -= $Descuento;
+                        $TotalFactura += round($Total,0);
                     }
 
                     $TotalAbono = $TotalFactura - $TotalAbono;

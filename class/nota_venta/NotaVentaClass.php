@@ -13,7 +13,7 @@
             $data = $run->delete($query);
         }
 
-    	public function insertDetalle($Concepto,$Cantidad,$Precio,$Cliente){
+    	public function insertDetalle($Concepto,$Cantidad,$Precio,$Moneda){
 
             $response_array = array();
 
@@ -30,10 +30,17 @@
                 $Usuario = $_SESSION['idUsuario'];
                 $Precio = str_replace('.','',$Precio);
                 $Precio = floatval($Precio);
-                $Total = $Precio * $Cantidad;
-
-                $Impuesto = $Total * 0.19;
-                $Total = $Total + $Impuesto;
+                if($Moneda == 2){
+                    $UfClass = new Uf(); 
+                    $Fecha = date('d-m-Y');
+                    $UF = $UfClass->getValue($Fecha);
+                    $Precio = $Precio * $UF;
+                }
+                $Precio = round($Precio,0);
+                $Neto = $Precio * $Cantidad;
+                $Impuesto = $Neto * 0.19;
+                $Total = $Neto + $Impuesto;
+                $Total = round($Total,0);
                 
                 $query = "INSERT INTO nota_venta_tmp(concepto, cantidad, precio, total, usuario_id) VALUES ('".$Concepto."','".$Cantidad."','".$Precio."','".$Total."','".$Usuario."')";
                 $id = $run->insert($query);
@@ -205,14 +212,14 @@
 
             $query = "  SELECT
                             nv.*, p.nombre AS cliente, CONCAT(p.rut,'-',p.dv) as rut,
-                            (
+                            ROUND((
                                 SELECT
-                                    SUM(precio) + SUM(precio) * 0.19
+                                    SUM(total)
                                 FROM
                                     nota_venta_detalle
                                 WHERE
                                     nota_venta_id = nv.id
-                            ) AS total
+                            ),0) AS total
                         FROM
                             nota_venta nv
                         INNER JOIN personaempresa p ON p.rut = nv.rut";
@@ -278,7 +285,9 @@
                             $Valor = floatval($Detalle['precio']);
                             $Concepto = $Detalle['concepto'];
                             $Cantidad = $Detalle['cantidad'];
-                            $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '0', '0')";
+                            $Total = $Detalle['total'];
+                            
+                            $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '0', '0', '".$Total."')";
                             $FacturaDetalleId = $run->insert($query);
                             
                         }

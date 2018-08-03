@@ -124,7 +124,6 @@
                                             </div>
                                             <div class="clearfix"></div>
                                             <form id="formDetalle">
-                                                <input type="hidden" id="rut_tmp" name="rut_tmp"></input>
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <div class="text-center">
@@ -142,6 +141,19 @@
                                                             <label class="control-label h5" for="name">Precio</label>
                                                         </div>
                                                         <input id="precio" name="precio" class="form-control input-sm number" validation="not_null" data-nombre="Precio">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <div class="text-center">
+                                                            <label class="control-label h5" for="name">Moneda</label>
+                                                        </div>
+                                                        <div id="concepto_container">
+                                                            <select class="selectpicker form-control" name="moneda" id="moneda"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Moneda">
+                                                                <option value="1">Pesos</option>
+                                                                <option value="2">UF</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-1">
