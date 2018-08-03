@@ -3,6 +3,15 @@ $(document).ready(function(){
     var neto_nota = 0
     var iva_nota = 0
     var total_nota = 0
+    var UF = 0;
+
+    $.ajax({
+        type: "POST",
+        url: "../includes/facturacion/uf/getValue.php",
+        success: function (response) {
+            UF = response
+        }
+    });
 
     DetalleTable = $('#DetalleTable').DataTable({
         paging: false,
@@ -222,11 +231,16 @@ $(document).ready(function(){
         $('#cantidad').val(1)
     });
 
-    $('#cantidad').on('change', function () {
+    $('#concepto').on('change', function () {
         calcularDetalle()
     });
-
-    $('#precio').on('input', function () {
+    $('#precio').on('change', function () {
+        calcularDetalle()
+    });
+    $('#moneda').on('change', function () {
+        calcularDetalle()
+    });
+    $('#cantidad').on('change', function () {
         calcularDetalle()
     });
 
@@ -242,6 +256,11 @@ $(document).ready(function(){
             precio = parseFloat(precio)
         } else {
             precio = 0;
+        }
+        moneda = $('#moneda').val()
+        if(moneda == 2){
+            precio = precio * UF
+            precio = Math.round(precio)
         }
         valor = precio * cantidad
         concepto = $('#concepto').val()
