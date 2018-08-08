@@ -397,7 +397,7 @@
                                     $Concepto = $Detalle["Concepto"];
                                 }else{
                                     $IdServicio = $Detalle['Id'];
-                                    $Concepto = 'Costo de instalación / Habilitación';
+                                    $Concepto = $Detalle['Codigo'] . ' - ' . $Detalle['Servicio'] . ' - ' . 'Costo de instalación / Habilitación';
                                     $Valor = $Valor * $UF;
                                 }
                                 $Descuento = $Detalle['Descuento'];

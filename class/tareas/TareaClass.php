@@ -221,7 +221,7 @@
 								$Fecha = date('d-m-Y');
 								$UF = $UfClass->getValue($Fecha);
 
-								$Concepto = $Servicio['Servicio'];
+								$Concepto = $Servicio['Codigo'] . ' - ' . $Servicio['Servicio'];
 								$Valor = $Servicio['Valor'];
 								$Descuento = $Servicio['Descuento'];
 
