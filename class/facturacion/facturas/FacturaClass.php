@@ -261,17 +261,30 @@
                         AND facturas_detalle.Valor > 0"; 
             $facturas = $run->select($query);
             $array = array();
-
             if($facturas){
                 foreach($facturas as $factura){
                     $data = $factura;
+                    $Explode = explode(" - ",$data['Concepto']);
+                    $Codigo = $Explode[0];
+                    if(count($Explode) > 1){
+                        $Concepto = '';
+                        for($i = 1; $i < count($Explode);$i++){
+                            $Concepto .= $Explode[$i];
+                            if($i != count($Explode) - 1){
+                                $Concepto .= ' - ';
+                            }
+                        }
+                    }else{
+                        $Concepto = $Explode[0];
+                    }
                     $Valor = $factura['Valor'];
+                    $data['Codigo'] = $Codigo;
+                    $data['Concepto'] = $Concepto;
                     $data['Valor'] = number_format($Valor, 2);
                     array_push($array,$data);
                 }
 
                 $response_array['array'] = $array;
-
                 echo json_encode($response_array);
             }
         }
