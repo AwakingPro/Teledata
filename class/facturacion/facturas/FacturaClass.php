@@ -76,7 +76,7 @@
                             facturas.Rut,
                             facturas.Grupo,
                             facturas.EstatusFacturacion,
-                            facturas.TipoDocumento,
+                            mantenedor_tipo_cliente.nombre AS TipoDocumento,
                             facturas.IVA,
                             personaempresa.nombre AS Cliente,
                             COALESCE (
@@ -87,6 +87,7 @@
                             facturas_detalle
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
+                        INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.id 
                         LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = facturas.Grupo
                         WHERE
                             facturas_detalle.Valor > 0
@@ -138,7 +139,7 @@
                             facturas.Rut,
                             facturas.Grupo,
                             facturas.EstatusFacturacion,
-                            facturas.TipoDocumento,
+                            mantenedor_tipo_cliente.nombre AS TipoDocumento,
                             facturas.IVA,
                             personaempresa.nombre AS Cliente,
                             COALESCE (
@@ -149,6 +150,7 @@
                             facturas_detalle
                         INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
+                        INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.id 
                         LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = facturas.Grupo
                         WHERE
                             facturas_detalle.Valor > 0
@@ -381,7 +383,7 @@
                         $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,$Tipo,$expirationDate);
 
                         if($FacturaBsale['status'] == 1){
-                            $UrlPdf = $FacturaBsale['urlPublicViewOriginal'];
+                            $UrlPdf = $FacturaBsale['urlPdf'];
                             $DocumentoId = $FacturaBsale['id'];
                             $informedSii = $FacturaBsale['informedSii'];
                             $responseMsgSii = $FacturaBsale['responseMsgSii'];
@@ -400,6 +402,11 @@
                         $FacturaId = $run->insert($query);
 
                         if($FacturaId){
+                            if($UrlPdf){                        
+                                $PdfContent = file_get_contents($UrlPdf);
+                                $UrlLocal = "/var/www/html/facturacion/facturas/".$FacturaId.".pdf";
+                            }
+                            file_put_contents($UrlLocal, $PdfContent);
                             foreach($Detalles as $Detalle){
                                 $Valor = floatval($Detalle['Valor']);
                                 if($Tipo == 1){
@@ -531,7 +538,7 @@
                                 $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,2,$expirationDate);
 
                                 if($FacturaBsale['status'] == 1){
-                                    $UrlPdf = $FacturaBsale['urlPublicViewOriginal'];
+                                    $UrlPdf = $FacturaBsale['urlPdf'];
                                     $DocumentoId = $FacturaBsale['id'];
                                     $informedSii = $FacturaBsale['informedSii'];
                                     $responseMsgSii = $FacturaBsale['responseMsgSii'];
@@ -550,6 +557,10 @@
                                 $FacturaId = $run->insert($query);
 
                                 if($FacturaId){
+                                    if($UrlPdf){                        
+                                        $PdfContent = file_get_contents($UrlPdf);
+                                        $UrlLocal = "/var/www/html/facturacion/facturas/".$FacturaId.".pdf";
+                                    }
                                     foreach($Detalles as $Detalle){
                                         $IdServicio = $Detalle['IdServicio'];
                                         $Valor = floatval($Detalle['Valor']);
@@ -913,7 +924,7 @@
 
                             $FacturaBsale = $this->sendBsale($Cliente,$Detalles,0,2,$expirationDate);
                             if($FacturaBsale['status'] == 1){
-                                $UrlPdf = $FacturaBsale['urlPublicViewOriginal'];
+                                $UrlPdf = $FacturaBsale['urlPdf'];
                                 $DocumentoId = $FacturaBsale['id'];
                                 $informedSii = $FacturaBsale['informedSii'];
                                 $responseMsgSii = $FacturaBsale['responseMsgSii'];
@@ -924,6 +935,8 @@
                                 $responseMsgSii = '0';
                             }
                             if($UrlPdf){
+                                $PdfContent = file_get_contents($UrlPdf);
+                                $UrlLocal = "/var/www/html/facturacion/facturas/".$Id.".pdf";
                                 $DocumentoId = $FacturaBsale['id'];
                                 $informedSii = $FacturaBsale['informedSii'];
                                 $responseMsgSii = $FacturaBsale['responseMsgSii'];

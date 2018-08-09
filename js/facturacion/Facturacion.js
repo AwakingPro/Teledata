@@ -125,6 +125,7 @@ $(document).ready(function() {
                     ],
                     data: response.array,
                     columns: [
+                        { data: 'TipoDocumento' },
                         { data: 'Cliente' },
                         { data: 'Rut' },
                         { data: 'NombreGrupo' },
@@ -140,7 +141,7 @@ $(document).ready(function() {
                             .addClass('text-center')
                     },
                     "columnDefs": [{
-                        "targets": 4,
+                        "targets": 5,
                         "render": function(data, type, row) {
                             Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarInstalacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                             return "<div style='text-align: center'>" + Icono + "</div>";
@@ -188,6 +189,7 @@ $(document).ready(function() {
                     data: response.array,
                     columns: [
                         { data: 'Id' },
+                        { data: 'TipoDocumento' },
                         { data: 'Cliente' },
                         { data: 'Rut' },
                         { data: 'NombreGrupo' },
@@ -210,7 +212,7 @@ $(document).ready(function() {
                             }
                         },
                         {
-                            "targets": 5,
+                            "targets": 6,
                             "render": function(data, type, row) {
                                 Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarLote" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                                 return "<div style='text-align: center'>" + Icono + "</div>";
@@ -250,7 +252,7 @@ $(document).ready(function() {
 
                 IndividualTable = $('#IndividualTable').DataTable({
                     order: [
-                        [2, 'desc']
+                        [1, 'desc']
                     ],
                     "columnDefs": [{
                         "targets": [0],
@@ -258,6 +260,7 @@ $(document).ready(function() {
                     }],
                     data: response.array,
                     columns: [
+                        { data: 'TipoDocumento' },
                         { data: 'Cliente' },
                         { data: 'Rut' },
                         { data: 'NombreGrupo' },
@@ -273,7 +276,7 @@ $(document).ready(function() {
                             .addClass('text-center')
                     },
                     "columnDefs": [{
-                        "targets": 4,
+                        "targets": 5,
                         "render": function(data, type, row) {
                             Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarIndividual" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                             return "<div style='text-align: center'>" + Icono + "</div>";
@@ -611,5 +614,26 @@ $(document).ready(function() {
                 });
             }
         });
+    });
+    $("#TipoLote").on('change', function() {
+        var Tipo = $(this).val();
+        LoteTable
+            .columns(1)
+            .search(Tipo)
+            .draw();
+    });
+    $("#TipoIndividual").on('change', function() {
+        var Tipo = $(this).val();
+        IndividualTable
+            .columns(0)
+            .search(Tipo)
+            .draw();
+    });
+    $("#TipoInstalacion").on('change', function() {
+        var Tipo = $(this).val();
+        InstalacionTable
+            .columns(0)
+            .search(Tipo)
+            .draw();
     });
 });

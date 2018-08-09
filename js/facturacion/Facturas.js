@@ -1,14 +1,12 @@
-
-
-$(document).ready(function () {
+$(document).ready(function() {
 
     var ModalTable
 
     $.ajax({
         type: "POST",
         url: "../includes/compras/ingresos/showEstado.php",
-        success: function (response) {
-            $.each(response.array, function (index, array) {
+        success: function(response) {
+            $.each(response.array, function(index, array) {
                 $('#TipoPago').append('<option value="' + array.id + '">' + array.nombre + '</option>');
             });
 
@@ -34,7 +32,7 @@ $(document).ready(function () {
         todayHighlight: true,
         language: 'es'
     });
-    $(document).on('click', '#filtrar', function () {
+    $(document).on('click', '#filtrar', function() {
         var startDate = $("#date-range .input-daterange input[name='start']").val();
         var endDate = $("#date-range .input-daterange input[name='end']").val();
         if (startDate != '' & endDate != '') {
@@ -48,9 +46,11 @@ $(document).ready(function () {
     function getFacturas() {
         var startDate = $("#date-range .input-daterange input[name='start']").val();
         var endDate = $("#date-range .input-daterange input[name='end']").val();
-        $.post('../includes/facturacion/facturas/filtrarFacturasPorFecha.php', {startDate: startDate, endDate: endDate}, function (data) {
+        $.post('../includes/facturacion/facturas/filtrarFacturasPorFecha.php', { startDate: startDate, endDate: endDate }, function(data) {
             FacturasTable = $('#FacturasTable').DataTable({
-                order: [[0, 'desc']],
+                order: [
+                    [0, 'desc']
+                ],
                 "columnDefs": [{
                     "targets": [0],
                     "orderable": false
@@ -64,37 +64,35 @@ $(document).ready(function () {
                     { data: 'FechaVencimiento' },
                     { data: 'TotalFactura' },
                     { data: 'TotalAbono' },
-                    { data: 'UrlPdfBsale' }
+                    { data: 'Id' }
                 ],
                 destroy: true,
-                'createdRow': function (row, data, dataIndex) {
+                'createdRow': function(row, data, dataIndex) {
                     $(row)
                         .attr('id', data.Id)
                         .addClass('text-center')
                 },
-                "columnDefs": [
-                    {
-                        "targets": 7,
-                        "render": function (data, type, row) {
-                            if (row.TotalAbono != '0.00') {
-                                Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'
-                            } else {
-                                Abonar = ''
-                            }
-                            if (row.TotalFactura != row.TotalAbono) {
-                                Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
-                            } else {
-                                Pagos = ''
-                            }
-                            if (data != '') {
-                                Pdf = '<a href="' + data + '" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>'
-                            } else {
-                                Pdf = '';
-                            }
-                            return "<div style='text-align: center'>" + Abonar + " " + Pagos + " " + Pdf + "</div>";
+                "columnDefs": [{
+                    "targets": 7,
+                    "render": function(data, type, row) {
+                        if (row.TotalAbono != '0.00') {
+                            Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'
+                        } else {
+                            Abonar = ''
                         }
-                    },
-                ],
+                        if (row.TotalFactura != row.TotalAbono) {
+                            Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
+                        } else {
+                            Pagos = ''
+                        }
+                        if (data != '') {
+                            Ver = '<a href="../facturacion/facturas/' + data + '.pdf" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
+                        } else {
+                            Pdf = '';
+                        }
+                        return "<div style='text-align: center'>" + Abonar + " " + Pagos + " " + Pdf + "</div>";
+                    }
+                }, ],
                 language: {
                     processing: "Procesando ...",
                     search: 'Buscar',
@@ -121,10 +119,10 @@ $(document).ready(function () {
 
             $('[data-toggle="popover"]').popover();
             $('table').css('width', '100%');
-            });
-       
+        });
+
     }
-    $('body').on('click', '.Abonar', function () {
+    $('body').on('click', '.Abonar', function() {
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         Monto = $(ObjectTR).find("td").eq(5).html();
@@ -139,7 +137,7 @@ $(document).ready(function () {
         $('#modalIngreso').modal('show')
     });
 
-    $('#TipoPago').on('change', function () {
+    $('#TipoPago').on('change', function() {
         TipoPago = $(this).find('option:selected').text()
         if (TipoPago == "Transferencia") {
             $('.label_Detalle').text('ID de Transferencia')
@@ -167,7 +165,7 @@ $(document).ready(function () {
             $('.Detalle').removeClass('number')
         }
     });
-    $("#FechaEmisionCheque").blur(function () {
+    $("#FechaEmisionCheque").blur(function() {
         FechaEmision = moment($(this).val(), 'DD-MM-YYYY');
         if (FechaEmision.day() === 5) { // friday, show monday
             // set to monday
@@ -181,7 +179,7 @@ $(document).ready(function () {
         $('#FechaVencimientoCheque').val(FechaVencimiento)
     });
 
-    $('#modalIngreso').on('hidden.bs.modal', function () {
+    $('#modalIngreso').on('hidden.bs.modal', function() {
 
         $('#storePago')[0].reset();
         $('.selectpicker').selectpicker('refresh');
@@ -189,9 +187,9 @@ $(document).ready(function () {
     });
 
 
-    $('body').on('click', '#guardarPago', function () {
+    $('body').on('click', '#guardarPago', function() {
 
-        $.postFormValues('../ajax/cliente/storePago.php', '#storePago', function (response) {
+        $.postFormValues('../ajax/cliente/storePago.php', '#storePago', function(response) {
 
             if (response == 1) {
 
@@ -231,7 +229,7 @@ $(document).ready(function () {
             }
         });
     });
-    $('body').on('click', '.mostrarPagos', function () {
+    $('body').on('click', '.mostrarPagos', function() {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
@@ -241,10 +239,12 @@ $(document).ready(function () {
             type: "POST",
             url: "../ajax/cliente/getPagos.php",
             data: "id=" + id,
-            success: function (response) {
+            success: function(response) {
                 data = JSON.parse(response)
                 ModalTable = $('#ModalTable').DataTable({
-                    order: [[0, 'desc']],
+                    order: [
+                        [0, 'desc']
+                    ],
                     "columnDefs": [{
                         "targets": [0],
                         "orderable": false
@@ -260,20 +260,18 @@ $(document).ready(function () {
                         { data: 'Id' }
                     ],
                     destroy: true,
-                    'createdRow': function (row, data, dataIndex) {
+                    'createdRow': function(row, data, dataIndex) {
                         $(row)
                             .attr('id', data.Id)
                             .addClass('text-center')
                     },
-                    "columnDefs": [
-                        {
-                            "targets": 6,
-                            "render": function (data, type, row) {
-                                Icono = '<i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-times EliminarPago"></i>'
-                                return Icono;
-                            }
-                        },
-                    ],
+                    "columnDefs": [{
+                        "targets": 6,
+                        "render": function(data, type, row) {
+                            Icono = '<i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-times EliminarPago"></i>'
+                            return Icono;
+                        }
+                    }, ],
                     language: {
                         processing: "Procesando ...",
                         search: 'Buscar',
@@ -300,8 +298,8 @@ $(document).ready(function () {
 
                 $('#modalShow').modal('show')
             },
-            error: function (xhr, status, error) {
-                setTimeout(function () {
+            error: function(xhr, status, error) {
+                setTimeout(function() {
                     var err = JSON.parse(xhr.responseText);
                     swal('Solicitud no procesada', err.Message, 'error');
                 }, 1000);
@@ -310,7 +308,7 @@ $(document).ready(function () {
 
     });
 
-    $(document).on('click', '.EliminarPago', function () {
+    $(document).on('click', '.EliminarPago', function() {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
@@ -325,15 +323,15 @@ $(document).ready(function () {
             confirmButtonText: "Eliminar!",
             cancelButtonText: "Cancelar",
             showLoaderOnConfirm: true
-        }, function (isConfirm) {
+        }, function(isConfirm) {
             if (isConfirm) {
 
                 $.ajax({
                     url: "../ajax/cliente/deletePago.php",
                     type: 'POST',
                     data: "&id=" + ObjectId,
-                    success: function (response) {
-                        setTimeout(function () {
+                    success: function(response) {
+                        setTimeout(function() {
                             if (response == 1) {
                                 swal("Éxito!", "El registro ha sido eliminado!", "success");
                                 ModalTable.row($(ObjectTR))
@@ -347,7 +345,7 @@ $(document).ready(function () {
                             }
                         }, 1000);
                     },
-                    error: function () {
+                    error: function() {
                         swal('Solicitud no procesada', 'Ha ocurrido un error, intente nuevamente por favor', 'error');
                     }
                 });

@@ -470,9 +470,9 @@
                                 <textarea id="Descripcion" name="Descripcion" class="form-control" rows="5" disabled></textarea>
                                 <br>
 
-                                <label class="campo-apellidoServicio">Apellido del Servicio</label>
+                                <label class="campo-Conexiones">Conexiones</label>
                                 <div class="form-group">
-                                    <input id="Alias" type="text" name="Alias" class="form-control campo-apellidoServicio" disabled>
+                                    <input id="Alias" type="text" name="Alias" class="form-control campo-Conexiones" disabled>
                                 </div>
 
                                 <label class="campo-direccion">Dirección</label>

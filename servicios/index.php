@@ -101,9 +101,9 @@
 													<div id="otrosServicios" style="display:none">
 														<br>
 
-														<label class="campo-apellidoServicio">Apellido del Servicio</label>
+														<label class="campo-Conexiones">Conexiones</label>
 														<div class="form-group">
-															<input type="text" name="Alias" class="form-control campo-apellidoServicio">
+															<input type="text" name="Alias" class="form-control campo-Conexiones">
 														</div>
 
 														<label class="campo-direccion">Dirección</label>
@@ -307,9 +307,9 @@
 									<textarea id="Descripcion" name="Descripcion" class="form-control" rows="5"></textarea>
 									<br>
 
-									<label class="campo-apellidoServicio">Apellido del Servicio</label>
+									<label class="campo-Conexiones">Conexiones</label>
 									<div class="form-group">
-										<input id="Alias" type="text" name="Alias" class="form-control campo-apellidoServicio">
+										<input id="Alias" type="text" name="Alias" class="form-control campo-Conexiones">
 									</div>
 
 									<label class="campo-direccion">Dirección</label>

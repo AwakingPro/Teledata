@@ -86,6 +86,13 @@
                                 <div id="lotes" class="tab-pane fade active in">
                                     <div class="col-md-6" style="margin-bottom:10px">
                                         <b><span style="font-size:16px">Valor UF: <span class="ValorUF">0</span></span></b><br><br>
+                                        <div class="col-sm-6">
+                                            <select class="selectpicker form-control" id="TipoLote" data-container="body">
+                                                <option value="">Todos</option>
+                                                <option value="Boleta">Boleta</option>
+                                                <option value="Factura">Factura</option>
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="col-md-6" style="margin-bottom:10px">
                                         <button id="Facturar" class="btn btn-success pull-right" style="opacity: 0.2;" disabled>Facturar</button>
@@ -97,6 +104,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center"><input class="select-checkbox" name="select_all" id="select_all" type="checkbox"></th>
+                                                        <th class="text-center">Tipo</th>
                                                         <th class="text-center">Cliente</th>
                                                         <th class="text-center">Rut</th>
                                                         <th class="text-center">Grupo Factura</th>
@@ -121,7 +129,14 @@
                                 <div id="individual" class="tab-pane fade">
                                     <div class="row" style="margin-top: 10px">
                                         <div class="col-md-12" style="margin-bottom:10px">
-                                            <b><span style="font-size:16px">Valor UF: <span class="ValorUF">0</span></span></b>
+                                            <b><span style="font-size:16px">Valor UF: <span class="ValorUF">0</span></span></b><br><br>
+                                            <div class="col-sm-3">
+                                                <select class="selectpicker form-control" id="TipoIndividual" data-container="body">
+                                                    <option value="">Todos</option>
+                                                    <option value="Boleta">Boleta</option>
+                                                    <option value="Factura">Factura</option>
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="table-responsive">
@@ -129,6 +144,7 @@
                                                 <table id="IndividualTable" class="table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
+                                                            <th class="text-center">Tipo</th>
                                                             <th class="text-center">Cliente</th>
                                                             <th class="text-center">Rut</th>
                                                             <th class="text-center">Grupo Factura</th>
@@ -154,7 +170,14 @@
                                 <div id="instalacion" class="tab-pane fade">
                                     <div class="row" style="margin-top: 10px">
                                         <div class="col-md-12" style="margin-bottom:10px">
-                                            <b><span style="font-size:16px">Valor UF: <span class="ValorUF">0</span></span></b>
+                                            <b><span style="font-size:16px">Valor UF: <span class="ValorUF">0</span></span></b><br><br>
+                                            <div class="col-sm-3">
+                                                <select class="selectpicker form-control" id="TipoInstalacion" data-container="body">
+                                                    <option value="">Todos</option>
+                                                    <option value="Boleta">Boleta</option>
+                                                    <option value="Factura">Factura</option>
+                                                </select>
+                                            </div>
                                         </div>
                                         <div class="clearfix"></div>
                                         <div class="table-responsive">
@@ -162,6 +185,7 @@
                                                 <table id="InstalacionTable" class="table table-striped table-bordered">
                                                     <thead>
                                                         <tr>
+                                                            <th class="text-center">Tipo</th>
                                                             <th class="text-center">Cliente</th>
                                                             <th class="text-center">Rut</th>
                                                             <th class="text-center">Grupo Factura</th>

@@ -46,8 +46,8 @@ $(document).ready(function() {
     $.ajax({
         type: "POST",
         url: "../includes/inventario/egresos/showEstaciones.php",
-        success: function (response) {
-            $.each(response.array, function (index, array) {
+        success: function(response) {
+            $.each(response.array, function(index, array) {
                 $('#EstacionFinal').append('<option value="' + array.id + '" data-content="' + array.nombre + '"></option>');
             });
             $('#EstacionFinal').selectpicker('refresh');
@@ -55,36 +55,38 @@ $(document).ready(function() {
     });
 
     PorHacerTable = $('#PorHacerTable').DataTable({
-        "columnDefs": [ {
-            "targets": [ 0 ],
+        "columnDefs": [{
+            "targets": [0],
             "orderable": false
-        } ],
+        }],
         paging: false,
         iDisplayLength: 100,
         processing: true,
         serverSide: false,
-        bInfo:false,
+        bInfo: false,
         // bFilter:false,
-        order: [[1, 'asc']],
+        order: [
+            [1, 'asc']
+        ],
         language: {
-            processing:     "Procesando ...",
-            search:         'Buscar',
-            lengthMenu:     "Mostrar _MENU_ Registros",
-            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-            infoFiltered:   "(filtrada de _MAX_ registros en total)",
-            infoPostFix:    "",
+            processing: "Procesando ...",
+            search: 'Buscar',
+            lengthMenu: "Mostrar _MENU_ Registros",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+            infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+            infoFiltered: "(filtrada de _MAX_ registros en total)",
+            infoPostFix: "",
             loadingRecords: "...",
-            zeroRecords:    "No se encontraron registros coincidentes",
-            emptyTable:     "No hay datos disponibles en la tabla",
+            zeroRecords: "No se encontraron registros coincidentes",
+            emptyTable: "No hay datos disponibles en la tabla",
             paginate: {
-                first:      "Primero",
-                previous:   "Anterior",
-                next:       "Siguiente",
-                last:       "Ultimo"
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
             },
             aria: {
-                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                sortAscending: ": habilitado para ordenar la columna en orden ascendente",
                 sortDescending: ": habilitado para ordenar la columna en orden descendente"
             }
         }
@@ -95,28 +97,30 @@ $(document).ready(function() {
         iDisplayLength: 100,
         processing: true,
         serverSide: false,
-        bInfo:false,
+        bInfo: false,
         // bFilter:false,
-        order: [[1, 'asc']],
+        order: [
+            [1, 'asc']
+        ],
         language: {
-            processing:     "Procesando ...",
-            search:         'Buscar',
-            lengthMenu:     "Mostrar _MENU_ Registros",
-            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-            infoFiltered:   "(filtrada de _MAX_ registros en total)",
-            infoPostFix:    "",
+            processing: "Procesando ...",
+            search: 'Buscar',
+            lengthMenu: "Mostrar _MENU_ Registros",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+            infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+            infoFiltered: "(filtrada de _MAX_ registros en total)",
+            infoPostFix: "",
             loadingRecords: "...",
-            zeroRecords:    "No se encontraron registros coincidentes",
-            emptyTable:     "No hay datos disponibles en la tabla",
+            zeroRecords: "No se encontraron registros coincidentes",
+            emptyTable: "No hay datos disponibles en la tabla",
             paginate: {
-                first:      "Primero",
-                previous:   "Anterior",
-                next:       "Siguiente",
-                last:       "Ultimo"
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
             },
             aria: {
-                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                sortAscending: ": habilitado para ordenar la columna en orden ascendente",
                 sortDescending: ": habilitado para ordenar la columna en orden descendente"
             }
         }
@@ -127,28 +131,30 @@ $(document).ready(function() {
         iDisplayLength: 100,
         processing: true,
         serverSide: false,
-        bInfo:false,
+        bInfo: false,
         // bFilter:false,
-        order: [[1, 'asc']],
+        order: [
+            [1, 'asc']
+        ],
         language: {
-            processing:     "Procesando ...",
-            search:         'Buscar',
-            lengthMenu:     "Mostrar _MENU_ Registros",
-            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-            infoFiltered:   "(filtrada de _MAX_ registros en total)",
-            infoPostFix:    "",
+            processing: "Procesando ...",
+            search: 'Buscar',
+            lengthMenu: "Mostrar _MENU_ Registros",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+            infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+            infoFiltered: "(filtrada de _MAX_ registros en total)",
+            infoPostFix: "",
             loadingRecords: "...",
-            zeroRecords:    "No se encontraron registros coincidentes",
-            emptyTable:     "No hay datos disponibles en la tabla",
+            zeroRecords: "No se encontraron registros coincidentes",
+            emptyTable: "No hay datos disponibles en la tabla",
             paginate: {
-                first:      "Primero",
-                previous:   "Anterior",
-                next:       "Siguiente",
-                last:       "Ultimo"
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
             },
             aria: {
-                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                sortAscending: ": habilitado para ordenar la columna en orden ascendente",
                 sortDescending: ": habilitado para ordenar la columna en orden descendente"
             }
         }
@@ -159,28 +165,30 @@ $(document).ready(function() {
         iDisplayLength: 100,
         processing: true,
         serverSide: false,
-        bInfo:false,
+        bInfo: false,
         // bFilter:false,
-        order: [[0, 'asc']],
+        order: [
+            [0, 'asc']
+        ],
         language: {
-            processing:     "Procesando ...",
-            search:         'Buscar',
-            lengthMenu:     "Mostrar _MENU_ Registros",
-            info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-            infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-            infoFiltered:   "(filtrada de _MAX_ registros en total)",
-            infoPostFix:    "",
+            processing: "Procesando ...",
+            search: 'Buscar',
+            lengthMenu: "Mostrar _MENU_ Registros",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+            infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+            infoFiltered: "(filtrada de _MAX_ registros en total)",
+            infoPostFix: "",
             loadingRecords: "...",
-            zeroRecords:    "No se encontraron registros coincidentes",
-            emptyTable:     "No hay datos disponibles en la tabla",
+            zeroRecords: "No se encontraron registros coincidentes",
+            emptyTable: "No hay datos disponibles en la tabla",
             paginate: {
-                first:      "Primero",
-                previous:   "Anterior",
-                next:       "Siguiente",
-                last:       "Ultimo"
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
             },
             aria: {
-                sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                sortAscending: ": habilitado para ordenar la columna en orden ascendente",
                 sortDescending: ": habilitado para ordenar la columna en orden descendente"
             }
         }
@@ -189,14 +197,14 @@ $(document).ready(function() {
     $.ajax({
         type: "POST",
         url: "../includes/inventario/bodegas/showPersonal.php",
-        success: function(response){
-            $.each(response.array, function( index, array ) {
-                $('.IdUsuarioAsignado').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+        success: function(response) {
+            $.each(response.array, function(index, array) {
+                $('.IdUsuarioAsignado').append('<option value="' + array.id + '" data-content="' + array.nombre + '"></option>');
             });
 
-            setTimeout(function(){
+            setTimeout(function() {
                 $('.IdUsuarioAsignado').selectpicker('refresh');
-            },500)
+            }, 500)
 
         }
     });
@@ -204,105 +212,105 @@ $(document).ready(function() {
     $.ajax({
         type: "POST",
         url: "../includes/tareas/showServicios.php",
-        success: function(response){
+        success: function(response) {
 
-            $.each(response.array, function( index, array ) {
+            $.each(response.array, function(index, array) {
 
-                if(array.Usuario){
+                if (array.Usuario) {
                     Usuario = array.Usuario
-                }else{
+                } else {
                     Usuario = ''
                 }
 
-                if(array.Estatus == 1){
+                if (array.Estatus == 1) {
 
                     var rowNode = FinalizadasTable.row.add([
-                        ''+Usuario+'',
-                        ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
-                        ''+array.Codigo+'',
-                        ''+array.Descripcion+'',
-                        ''+array.FechaInstalacion+'',
-                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>'+'',
+                        '' + Usuario + '',
+                        '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
+                        '' + array.Codigo + '',
+                        '' + array.Descripcion + '',
+                        '' + array.FechaInstalacion + '',
+                        '' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>' + '',
                     ]).draw(false).node();
 
-                    $( rowNode )
-                        .attr('id',array.Id)
+                    $(rowNode)
+                        .attr('id', array.Id)
                         .addClass('text-center')
 
-                }else if(array.Estatus == 2){
+                } else if (array.Estatus == 2) {
 
                     var rowNode = PendientesTable.row.add([
-                        ''+Usuario+'',
-                        ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
-                        ''+array.Codigo+'',
-                        ''+array.Descripcion+'',
-                        ''+array.Direccion+'',
-                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
+                        '' + Usuario + '',
+                        '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
+                        '' + array.Codigo + '',
+                        '' + array.Descripcion + '',
+                        '' + array.Direccion + '',
+                        '' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
                     ]).draw(false).node();
 
-                    $( rowNode )
-                        .attr('id',array.Id)
+                    $(rowNode)
+                        .attr('id', array.Id)
                         .addClass('text-center')
 
                     var rowNode = AsignadasTable.row.add([
-                        ''+Usuario+'',
-                        ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
-                        ''+array.Codigo+'',
-                        ''+array.Descripcion+'',
-                        ''+array.Direccion+'',
-                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
+                        '' + Usuario + '',
+                        '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
+                        '' + array.Codigo + '',
+                        '' + array.Descripcion + '',
+                        '' + array.Direccion + '',
+                        '' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
                     ]).draw(false).node();
 
-                    $( rowNode )
-                        .attr('id',array.Id)
+                    $(rowNode)
+                        .attr('id', array.Id)
                         .addClass('text-center')
 
-                }else if(array.Estatus == 3){
+                } else if (array.Estatus == 3) {
 
                     var rowNode = AsignadasTable.row.add([
-                        ''+Usuario+'',
-                        ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
-                        ''+array.Codigo+'',
-                        ''+array.Descripcion+'',
-                        ''+array.Direccion+'',
-                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'+'',
+                        '' + Usuario + '',
+                        '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
+                        '' + array.Codigo + '',
+                        '' + array.Descripcion + '',
+                        '' + array.Direccion + '',
+                        '' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
                     ]).draw(false).node();
 
-                    $( rowNode )
-                        .attr('id',array.Id)
+                    $(rowNode)
+                        .attr('id', array.Id)
                         .addClass('text-center')
 
-                }else{
+                } else {
 
-                    if(array.FechaComprometidaInstalacion && array.FechaComprometidaInstalacion != '0000-00-00' && array.FechaComprometidaInstalacion != '1969-01-31'){
+                    if (array.FechaComprometidaInstalacion && array.FechaComprometidaInstalacion != '0000-00-00' && array.FechaComprometidaInstalacion != '1969-01-31') {
                         FechaComprometidaInstalacion = moment(array.FechaComprometidaInstalacion).format('DD-MM-YYYY');
-                    }else{
+                    } else {
                         FechaComprometidaInstalacion = ''
                     }
-                    
+
                     var rowNode = PorHacerTable.row.add([
-                        ''+'<input name="select_check" id="select_check_"'+array.Id+' type="checkbox" />'+'',
-                        ''+'<span style="cursor: pointer;" attrId = "'+array.IdPersonaEmpresa+'" class="dataClienteTable">'+array.Cliente+'</span>'+'',
-                        ''+array.Codigo+'',
-                        ''+array.Descripcion+'',
-                        ''+array.Direccion+'',
-                        ''+FechaComprometidaInstalacion+'',
-                        ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>'+''
+                        '' + '<input name="select_check" id="select_check_"' + array.Id + ' type="checkbox" />' + '',
+                        '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
+                        '' + array.Codigo + '',
+                        '' + array.Descripcion + '',
+                        '' + array.Direccion + '',
+                        '' + FechaComprometidaInstalacion + '',
+                        '' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>' + ''
                     ]).draw(false).node();
 
-                    $( rowNode )
-                        .attr('id',array.Id)
+                    $(rowNode)
+                        .attr('id', array.Id)
                         .addClass('text-center')
                 }
 
-                
+
             });
 
             $('body').addClass('loaded');
         }
     });
 
-    $('#AsignarModal').click(function () {
+    $('#AsignarModal').click(function() {
 
         Tareas = getChecked();
         Tareas = Tareas.join();
@@ -312,25 +320,25 @@ $(document).ready(function() {
 
     });
 
-    $(document).on('click', '#Asignar', function () {
+    $(document).on('click', '#Asignar', function() {
 
-        $.postFormValues('../includes/tareas/asignarTareas.php', '#asignarTareas', function(response){
+        $.postFormValues('../includes/tareas/asignarTareas.php', '#asignarTareas', function(response) {
 
-            if(response.status == 1){
+            if (response.status == 1) {
 
                 $.niftyNoty({
                     type: 'success',
-                    icon : 'fa fa-check',
-                    message : 'Registro Guardado Exitosamente',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Registro Guardado Exitosamente',
+                    container: 'floating',
+                    timer: 3000
                 });
 
                 Usuario = response.Usuario
 
-                $.each(response.array, function( index, Id ) {
+                $.each(response.array, function(index, Id) {
 
-                    Row = $('#'+Id)
+                    Row = $('#' + Id)
                     Cliente = $(Row).find("td").eq(1).html();
                     Codigo = $(Row).find("td").eq(2).html();
                     Descripcion = $(Row).find("td").eq(3).html();
@@ -342,16 +350,16 @@ $(document).ready(function() {
                         .draw();
 
                     var rowNode = AsignadasTable.row.add([
-                        ''+Usuario+'',
-                        ''+Cliente+'',
-                        ''+Codigo+'',
-                        ''+Descripcion+'',
-                        ''+Direccion+'',
-                        ''+Operacion+'',
+                        '' + Usuario + '',
+                        '' + Cliente + '',
+                        '' + Codigo + '',
+                        '' + Descripcion + '',
+                        '' + Direccion + '',
+                        '' + Operacion + '',
                     ]).draw(false).node();
 
                     $(rowNode)
-                        .attr('id',Id)
+                        .attr('id', Id)
                         .addClass('text-center')
 
                 });
@@ -360,103 +368,103 @@ $(document).ready(function() {
                 $('#asignarTareas')[0].reset();
                 $('.selectpicker').selectpicker('refresh')
                 $('#select_all').prop('checked', false);
-                $("#AsignarModal").attr("disabled","disabled");
+                $("#AsignarModal").attr("disabled", "disabled");
                 $("#AsignarModal").css({
                     "opacity": ("0.2")
                 });
                 $('.modal').modal('hide');
 
-            }else if(response.status == 2){
+            } else if (response.status == 2) {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Debe llenar todos los campos',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Debe llenar todos los campos',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-            }else if(response.status == 99){
+            } else if (response.status == 99) {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Debe llenar los datos de los productos',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Debe llenar los datos de los productos',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-            }else{
+            } else {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Ocurrió un error en el Proceso',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Ocurrió un error en el Proceso',
+                    container: 'floating',
+                    timer: 3000
                 });
 
             }
         });
     });
 
-    $(document).on('click', '#Reasignar', function () {
+    $(document).on('click', '#Reasignar', function() {
 
-        $.postFormValues('../includes/tareas/reasignarTarea.php', '#reasignarTarea', function(response){
+        $.postFormValues('../includes/tareas/reasignarTarea.php', '#reasignarTarea', function(response) {
 
-            if(response.status == 1){
+            if (response.status == 1) {
 
                 $.niftyNoty({
                     type: 'success',
-                    icon : 'fa fa-check',
-                    message : 'Registro Guardado Exitosamente',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Registro Guardado Exitosamente',
+                    container: 'floating',
+                    timer: 3000
                 });
 
                 Usuario = response.Usuario
-                Row = $('#'+response.Id)
+                Row = $('#' + response.Id)
                 Cliente = $(Row).find("td").eq(0).html(Usuario);
 
                 $('#reasignarTarea')[0].reset();
                 $('.selectpicker').selectpicker('refresh')
                 $('.modal').modal('hide');
 
-            }else if(response.status == 2){
+            } else if (response.status == 2) {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Debe llenar todos los campos',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Debe llenar todos los campos',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-            }else if(response.status == 99){
+            } else if (response.status == 99) {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Debe llenar los datos de los productos',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Debe llenar los datos de los productos',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-            }else{
+            } else {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Ocurrió un error en el Proceso',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Ocurrió un error en el Proceso',
+                    container: 'floating',
+                    timer: 3000
                 });
 
             }
         });
     });
 
-    $('body').on( 'click', 'i.fa-pencil', function () {
+    $('body').on('click', 'i.fa-pencil', function() {
 
         $('body').removeClass('loaded');
 
@@ -471,14 +479,14 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "../includes/tareas/showTarea.php",
-            data: "id="+ObjectId,
-            success: function(response){
+            data: "id=" + ObjectId,
+            success: function(response) {
 
-                if(response){
+                if (response) {
 
-                    if(response.array.FechaInstalacion){
+                    if (response.array.FechaInstalacion) {
                         FechaInstalacion = moment(response.array.FechaInstalacion).format('DD-MM-YYYY');
-                    }else{
+                    } else {
                         FechaInstalacion = ''
                     }
 
@@ -499,40 +507,40 @@ $(document).ready(function() {
                 $('#modalTarea').modal('show');
 
             },
-            error: function(xhr, status, error){
-                setTimeout(function(){
+            error: function(xhr, status, error) {
+                setTimeout(function() {
                     var err = JSON.parse(xhr.responseText);
-                    swal('Solicitud no procesada',err.Message,'error');
+                    swal('Solicitud no procesada', err.Message, 'error');
                 }, 1000);
             }
         });
     });
 
-    $(document).on('click', '#guardarTarea', function () {
+    $(document).on('click', '#guardarTarea', function() {
 
-        $.postFormValues('../includes/tareas/storeTarea.php', '#storeTarea', function(response){
+        $.postFormValues('../includes/tareas/storeTarea.php', '#storeTarea', function(response) {
 
-            if(response.status == 1){
+            if (response.status == 1) {
 
                 $.niftyNoty({
                     type: 'success',
-                    icon : 'fa fa-check',
-                    message : 'Registro Guardado Exitosamente',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Registro Guardado Exitosamente',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-                Row = $('#'+response.Id)[0]
+                Row = $('#' + response.Id)[0]
                 Usuario = $(Row).find("td").eq(0).html();
                 Cliente = $(Row).find("td").eq(1).html();
                 Codigo = $(Row).find("td").eq(2).html();
                 Descripcion = $(Row).find("td").eq(3).html();
                 FechaInstalacion = $(Row).find("td").eq(4).html();
 
-                if(response.Estatus == 1){
+                if (response.Estatus == 1) {
 
                     var nodes = AsignadasTable.rows().nodes()
-                    if( $(nodes).filter('tr#' + response.Id).length == 1 ) {
+                    if ($(nodes).filter('tr#' + response.Id).length == 1) {
                         AsignadasTable.row(Row)
                             .remove()
                             .draw();
@@ -540,46 +548,46 @@ $(document).ready(function() {
 
                     var nodes = PendientesTable.rows().nodes()
 
-                    if( $(nodes).filter('tr#' + response.Id).length == 1 ) {
+                    if ($(nodes).filter('tr#' + response.Id).length == 1) {
                         PendientesTable.row(Row)
                             .remove()
                             .draw();
                     }
 
                     Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>'
-                    
+
                     var rowNode = FinalizadasTable.row.add([
-                        ''+Usuario+'',
-                        ''+Cliente+'',
-                        ''+Codigo+'',
-                        ''+Descripcion+'',
-                        ''+FechaInstalacion+'',
-                        ''+Operacion+'',
+                        '' + Usuario + '',
+                        '' + Cliente + '',
+                        '' + Codigo + '',
+                        '' + Descripcion + '',
+                        '' + FechaInstalacion + '',
+                        '' + Operacion + '',
                     ]).draw(false).node();
 
                     $(rowNode)
-                        .attr('id',response.Id)
+                        .attr('id', response.Id)
                         .addClass('text-center')
 
-                }else{
+                } else {
 
                     var nodes = PendientesTable.rows().nodes()
 
-                    if( $(nodes).filter('tr#' + response.Id).length == 0) {
+                    if ($(nodes).filter('tr#' + response.Id).length == 0) {
 
                         Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'
 
                         var rowNode = PendientesTable.row.add([
-                            ''+Usuario+'',
-                            ''+Cliente+'',
-                            ''+Codigo+'',
-                            ''+Descripcion+'',
-                            ''+Direccion+'',
-                            ''+Operacion+'',
+                            '' + Usuario + '',
+                            '' + Cliente + '',
+                            '' + Codigo + '',
+                            '' + Descripcion + '',
+                            '' + Direccion + '',
+                            '' + Operacion + '',
                         ]).draw(false).node();
 
                         $(rowNode)
-                            .attr('id',response.Id)
+                            .attr('id', response.Id)
                             .addClass('text-center')
                     }
                 }
@@ -587,51 +595,51 @@ $(document).ready(function() {
                 $('#storeTarea')[0].reset();
                 $('.modal').modal('hide');
 
-            }else if(response.status == 2){
+            } else if (response.status == 2) {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Debe llenar todos los campos',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Debe llenar todos los campos',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-            }else if(response.status == 3){
+            } else if (response.status == 3) {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'La fecha de instalación no puede ser mayor a hoy',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'La fecha de instalación no puede ser mayor a hoy',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-            }else if(response.status == 99){
+            } else if (response.status == 99) {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Debe llenar los datos de los productos',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Debe llenar los datos de los productos',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-            }else{
+            } else {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Ocurrió un error en el Proceso',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Ocurrió un error en el Proceso',
+                    container: 'floating',
+                    timer: 3000
                 });
 
             }
         });
     });
 
-    $('body').on( 'click', 'i.fa-refresh', function () {
+    $('body').on('click', 'i.fa-refresh', function() {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
@@ -645,14 +653,14 @@ $(document).ready(function() {
 
     })
 
-    function getChecked(){
+    function getChecked() {
 
         var checked = [];
 
-        $('#PorHacerTable tr').each(function (i, row) {
+        $('#PorHacerTable tr').each(function(i, row) {
             var actualrow = $(row);
             checkbox = actualrow.find('input:checked').val();
-            if(checkbox == 'on'){
+            if (checkbox == 'on') {
                 var id = $(actualrow).attr('id');
                 checked[i] = id;
             }
@@ -661,46 +669,46 @@ $(document).ready(function() {
         return checked;
     }
 
-    $('#select_all').on('click', function(){
+    $('#select_all').on('click', function() {
         var rows = PorHacerTable.rows({ 'search': 'applied' }).nodes();
         $('input[type="checkbox"]', rows).prop('checked', this.checked);
 
         values = getChecked();
 
-        if(values.length > 0){
+        if (values.length > 0) {
 
             $("#AsignarModal").removeAttr("disabled");
             $("#AsignarModal").css({
                 "opacity": ("1")
             });
 
-        }else{
-            $("#AsignarModal").attr("disabled","disabled");
+        } else {
+            $("#AsignarModal").attr("disabled", "disabled");
             $("#AsignarModal").css({
                 "opacity": ("0.2")
             });
         }
     });
 
-    $('#PorHacerTable tbody').on( 'click', 'input[type="checkbox"]', function () {
+    $('#PorHacerTable tbody').on('click', 'input[type="checkbox"]', function() {
         values = getChecked();
 
-        if(values.length > 0){
+        if (values.length > 0) {
 
             $("#AsignarModal").removeAttr("disabled");
             $("#AsignarModal").css({
                 "opacity": ("1")
             });
 
-        }else{
-            $("#AsignarModal").attr("disabled","disabled");
+        } else {
+            $("#AsignarModal").attr("disabled", "disabled");
             $("#AsignarModal").css({
                 "opacity": ("0.2")
             });
         }
     });
 
-    $(document).on('click', '.Compare', function () {
+    $(document).on('click', '.Compare', function() {
 
         $('body').removeClass('loaded');
 
@@ -713,10 +721,10 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "../includes/tareas/showTarea.php",
-            data: "id="+ObjectId,
-            success: function(response){
+            data: "id=" + ObjectId,
+            success: function(response) {
 
-                if(response){
+                if (response) {
                     $('#modalComparacion').find('#UsuarioPppoeTeorico_update').val(response.array.UsuarioPppoeTeorico)
                     $('#modalComparacion').find('#UsuarioPppoeFinal_update').val(response.array.UsuarioPppoe)
 
@@ -731,17 +739,17 @@ $(document).ready(function() {
 
                 $('#modalComparacion').modal('show')
             },
-            error: function(xhr, status, error){
-                setTimeout(function(){
+            error: function(xhr, status, error) {
+                setTimeout(function() {
                     var err = JSON.parse(xhr.responseText);
-                    swal('Solicitud no procesada',err.Message,'error');
+                    swal('Solicitud no procesada', err.Message, 'error');
                 }, 1000);
             }
         });
 
     });
 
-    $(document).on('click', '.Search', function () {
+    $(document).on('click', '.Search', function() {
 
         $('body').removeClass('loaded');
 
@@ -754,17 +762,17 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "../includes/tareas/showTarea.php",
-            data: "id="+ObjectId,
-            success: function(response){
+            data: "id=" + ObjectId,
+            success: function(response) {
 
                 array = response.array
 
-                for(var name in array) {
+                for (var name in array) {
                     var value = array[name];
-                    if(name == "Descripcion" || name == "Direccion"){
-                        $('#showServicio').find('#'+name).text(value);
-                    }else{
-                        $('#showServicio').find('#'+name).val(value);
+                    if (name == "Descripcion" || name == "Direccion") {
+                        $('#showServicio').find('#' + name).text(value);
+                    } else {
+                        $('#showServicio').find('#' + name).val(value);
                     }
                 }
 
@@ -787,10 +795,10 @@ $(document).ready(function() {
                 $('body').addClass('loaded');
                 $('#modalServicio').modal('show')
             },
-            error: function(xhr, status, error){
-                setTimeout(function(){
+            error: function(xhr, status, error) {
+                setTimeout(function() {
                     var err = JSON.parse(xhr.responseText);
-                    swal('Solicitud no procesada',err.Message,'error');
+                    swal('Solicitud no procesada', err.Message, 'error');
                 }, 1000);
             }
         });
@@ -800,12 +808,12 @@ $(document).ready(function() {
     $(document).on('click', '.dataClienteTable', function(event) {
         $('.container-dataCliente').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
         $('#InfoClienteTable').modal('show');
-        $.post('../ajax/tarea/dataCliente.php', {id: $(this).attr('attrId')}, function(data) {
-             $('.container-dataCliente').html(data);
+        $.post('../ajax/tarea/dataCliente.php', { id: $(this).attr('attrId') }, function(data) {
+            $('.container-dataCliente').html(data);
         });
     });
 
-    $('#Estatus').change(function (event) {
+    $('#Estatus').change(function(event) {
         if ($(this).val() == 1) {
             $('#Comentario').removeAttr('validation')
         } else {

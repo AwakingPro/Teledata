@@ -9,16 +9,16 @@
 	$data = $run->select($query);
 	if (count($data) > 0) {
 
-		$data1 = ($data[0][0] != '') ? $data[0][0]: 'No hay data';
-		$data2 = ($data[0][1] != '') ? $data[0][1]: 'No hay data';
-		$data3 = ($data[0][2] != '') ? $data[0][2]: 'No hay data';
-		$data4 = ($data[0][3] != '') ? $data[0][3]: 'No hay data';
-		$data5 = ($data[0][4] != '') ? $data[0][4]: 'No hay data';
-		$data6 = ($data[0][5] != '') ? $data[0][5]: 'No hay data';
-		$data7 = ($data[0][6] != '') ? $data[0][6]: 'No hay data';
-		$data8 = ($data[0][7] != '') ? $data[0][7]: 'No hay data';
-		$data9 = ($data[0][8] != '') ? $data[0][8]: 'No hay data';
-		$data10 = ($data[0][9] != '') ? $data[0][9]: 'No hay data';
+		$data1 = ($data[0][0] != '') ? $data[0][0]: '';
+		$data2 = ($data[0][1] != '') ? $data[0][1]: '';
+		$data3 = ($data[0][2] != '') ? $data[0][2]: '';
+		$data4 = ($data[0][3] != '') ? $data[0][3]: '';
+		$data5 = ($data[0][4] != '') ? $data[0][4]: '';
+		$data6 = ($data[0][5] != '') ? $data[0][5]: '';
+		$data7 = ($data[0][6] != '') ? $data[0][6]: '';
+		$data8 = ($data[0][7] != '') ? $data[0][7]: '';
+		$data9 = ($data[0][8] != '') ? $data[0][8]: '';
+		$data10 = ($data[0][9] != '') ? $data[0][9]: '';
 		$tipo_cliente = ($data[0][10] != '') ? $data[0][10]: '0';
 
 		$DataFacturacion = '<div class="row">
