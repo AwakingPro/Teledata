@@ -404,9 +404,9 @@
                         if($FacturaId){
                             if($UrlPdf){                        
                                 $PdfContent = file_get_contents($UrlPdf);
-                                $UrlLocal = "/var/www/html/facturacion/facturas/".$FacturaId.".pdf";
+                                $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$FacturaId.".pdf";
+                                file_put_contents($UrlLocal, $PdfContent);
                             }
-                            file_put_contents($UrlLocal, $PdfContent);
                             foreach($Detalles as $Detalle){
                                 $Valor = floatval($Detalle['Valor']);
                                 if($Tipo == 1){
@@ -559,7 +559,8 @@
                                 if($FacturaId){
                                     if($UrlPdf){                        
                                         $PdfContent = file_get_contents($UrlPdf);
-                                        $UrlLocal = "/var/www/html/facturacion/facturas/".$FacturaId.".pdf";
+                                        $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$FacturaId.".pdf";
+                                        file_put_contents($UrlLocal, $PdfContent);
                                     }
                                     foreach($Detalles as $Detalle){
                                         $IdServicio = $Detalle['IdServicio'];
@@ -936,7 +937,8 @@
                             }
                             if($UrlPdf){
                                 $PdfContent = file_get_contents($UrlPdf);
-                                $UrlLocal = "/var/www/html/facturacion/facturas/".$Id.".pdf";
+                                $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$Id.".pdf";
+                                file_put_contents($UrlLocal, $PdfContent);
                                 $DocumentoId = $FacturaBsale['id'];
                                 $informedSii = $FacturaBsale['informedSii'];
                                 $responseMsgSii = $FacturaBsale['responseMsgSii'];
