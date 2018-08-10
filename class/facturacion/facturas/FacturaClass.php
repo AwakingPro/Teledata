@@ -1337,12 +1337,15 @@
                     $Id = $factura['Id'];
                     $file = '/var/www/html/Teledata/facturacion/facturas/'.$Id.'.pdf';
                     if(file_exists($file)){
-                        $zip->addFromString(basename($file),  file_get_contents($file)); 
+                        // $zip->addFromString(basename($file),  file_get_contents($file)); 
+                        $zip->addFile($file);
                     }else{
                         echo $file;
                         return;
                     }
                 }
+                $filename = $zip->filename;
+                $status=$zip->getStatusString();
                 $zip->close();
                 header("Pragma: public");
                 header("Expires: 0");
@@ -1350,11 +1353,11 @@
                 header("Cache-Control: public");
                 header("Content-Description: File Transfer");
                 header("Content-type: application/octet-stream");
-                header("Content-Disposition: attachment; filename=\"".$zipname."\"");
+                header("Content-Disposition: attachment; filename=\"".$filename."\"");
                 header("Content-Transfer-Encoding: binary");
-                header("Content-Length: ".filesize($zipname));
+                header("Content-Length: ".filesize($filename));
                 ob_end_flush();
-                @readfile($zipname);
+                @readfile($filename);
             }else{
                 echo 'No hay documentos correspondientes a este rango de fecha';
             }
