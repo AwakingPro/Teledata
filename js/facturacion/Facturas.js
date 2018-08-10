@@ -138,7 +138,7 @@ $(document).ready(function() {
         var endDate = $("#date-range .input-daterange input[name='end']").val();
         var documentType = $("#documentType").val();
         data = "startDate=" + startDate + "&endDate=" + endDate + "&documentType=" + documentType
-        url = '/facturas/descargarFacturasPorFecha.php?' + data;
+        url = 'facturas/descargarFacturasPorFecha.php?' + data;
         window.open(url, '_blank');
     }
     $('body').on('click', '.Abonar', function() {
