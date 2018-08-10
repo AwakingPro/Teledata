@@ -497,6 +497,15 @@ $(document).ready(function() {
 
     $(document).on('click', '.update-personaempresa', function(event) {
         id = $(this).attr('attr')
+        tipo = $(this).attr('id');
+        if (tipo == 'update') {
+            $("#editarCliente :input:not(.btn)").prop("disabled", false);
+            $('.actualizarCliente').show();
+        } else {
+            $("#editarCliente :input:not(.btn)").prop("disabled", true);
+            $('.actualizarCliente').hide();
+        }
+        $('[name="Rut_update"]').prop("disabled", true);
         getPersonaempresa(id)
     });
 
