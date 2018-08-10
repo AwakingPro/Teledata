@@ -1,4 +1,5 @@
 <?php
+    include('../../class/methods_global/methods.php');
     if(isset($_GET['documentType'])){
 		$documentType = $_GET['documentType'];
 	}else{
