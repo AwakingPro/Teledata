@@ -1335,17 +1335,23 @@
                 $zip->open($zipname, ZipArchive::CREATE);
                 foreach($facturas as $factura){
                     $Id = $factura['Id'];
-                    $path = '/var/www/html/Teledata/facturacion/facturas/'.$Id.'.pdf';
+                    $file = '/var/www/html/Teledata/facturacion/facturas/'.$Id.'.pdf';
                     if(file_exists($path)){
-                        // $zip->addFromString(basename($path),  file_get_contents($path)); 
-                        echo $path;
+                        $zip->addFromString(basename($file),  file_get_contents($file)); 
                     }
                 }
-                // $zip->close();
-                // header('Content-Type: application/zip');
-                // header('Content-disposition: attachment; filename='.$zipname);
-                // header('Content-Length: ' . filesize($zipname));
-                // readfile($zipname);
+                $zip->close();
+                header("Pragma: public");
+                header("Expires: 0");
+                header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+                header("Cache-Control: public");
+                header("Content-Description: File Transfer");
+                header("Content-type: application/octet-stream");
+                header("Content-Disposition: attachment; filename=\"".$zipname."\"");
+                header("Content-Transfer-Encoding: binary");
+                header("Content-Length: ".filesize($zipname));
+                ob_end_flush();
+                @readfile($zipname);
             }else{
                 echo 'No hay documentos correspondientes a este rango de fecha';
             }
