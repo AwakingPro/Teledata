@@ -35,7 +35,7 @@
         $zip->open($zipname, ZipArchive::CREATE);
         foreach($facturas as $factura){
             $Id = $factura['Id'];
-            $file = '/var/www/html/Teledata/facturacion/facturas/'.$Id.'.pdf';
+            $file = $Id.'.pdf';
             if(file_exists($file)){
                 // $zip->addFromString(basename($file),  file_get_contents($file)); 
                 $zip->addFile($file);
