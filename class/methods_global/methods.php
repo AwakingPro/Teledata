@@ -202,7 +202,13 @@
 							foreach ($rows[$i] as $clave => $valor) {
 								$tabla.="<td>".$valor."</td>";
 							}
+							if($tipo){
+								$update = '<i class="fa fa-edit updateDatosTecnicos" data-toggle="modal" data-target="#ModalDatosTecnicos" id="'.$rows[$i][0].'" attr="'.$id.'" aria-hidden="true" title="Editar"></i>';
+							}else{
+								$update = '';
+							}
 							$tabla.='<td class="optionTable">
+								'.$update.'
 								<i class="fa fa-trash-o delete-'.$table[0].'"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>
 								</td>';
 							$tabla.= '</tr>';

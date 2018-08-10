@@ -1002,40 +1002,31 @@ $(document).ready(function() {
             callback: function(result) {
                 if (result == true) {
                     $.post('../ajax/cliente/eliminarArriendoEquipo.php', { id: id }, function(data) {
-                        $.post('../ajax/cliente/tipolistModal.php', { id: $('.containerListDatosTecnicos').attr('idTipoLista') }, function(data) {
-                            $.post('../ajax/cliente/' + data, { id: $('.containerListDatosTecnicos').attr('idTipoLista') }, function(data) {
-                                $('.containerListDatosTecnicos').html(data);
-                                var count = $('.containerListDatosTecnicos > .tabeData tr th').length - 1;
-                                $('.containerListDatosTecnicos > .tabeData').dataTable({
-                                    "columnDefs": [{
-                                        'orderable': false,
-                                        'targets': [count]
-                                    }, ],
-                                    language: {
-                                        processing: "Procesando ...",
-                                        search: 'Buscar',
-                                        lengthMenu: "Mostrar _MENU_ Registros",
-                                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
-                                        infoFiltered: "(filtrada de _MAX_ registros en total)",
-                                        infoPostFix: "",
-                                        loadingRecords: "...",
-                                        zeroRecords: "No se encontraron registros coincidentes",
-                                        emptyTable: "No hay datos disponibles en la tabla",
-                                        paginate: {
-                                            first: "Primero",
-                                            previous: "Anterior",
-                                            next: "Siguiente",
-                                            last: "Ultimo"
-                                        },
-                                        aria: {
-                                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
-                                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
-                                        }
-                                    }
-                                });
-                            });
-                        });
+                        ListDatosTecnicos($('.containerListDatosTecnicos').attr('idTipoLista'));
+                    });
+                }
+            }
+        });
+    });
+
+    $(document).on('click', '.delete-servicio_internet', function() {
+        var id = $(this).attr('attr');
+        bootbox.confirm({
+            message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+            buttons: {
+                confirm: {
+                    label: 'Si borrar',
+                    className: 'btn-success'
+                },
+                cancel: {
+                    label: 'No borrar',
+                    className: 'btn-danger'
+                }
+            },
+            callback: function(result) {
+                if (result == true) {
+                    $.post('../ajax/cliente/eliminarServicioInternet.php', { id: id }, function(data) {
+                        ListDatosTecnicos($('.containerListDatosTecnicos').attr('idTipoLista'));
                     });
                 }
             }
@@ -1059,40 +1050,7 @@ $(document).ready(function() {
             callback: function(result) {
                 if (result == true) {
                     $.post('../ajax/cliente/eliminarMatencionRed.php', { id: id }, function(data) {
-                        $.post('../ajax/cliente/tipolistModal.php', { id: $('.containerListDatosTecnicos').attr('idTipoLista') }, function(data) {
-                            $.post('../ajax/cliente/' + data, { id: $('.containerListDatosTecnicos').attr('idTipoLista') }, function(data) {
-                                $('.containerListDatosTecnicos').html(data);
-                                var count = $('.containerListDatosTecnicos > .tabeData tr th').length - 1;
-                                $('.containerListDatosTecnicos > .tabeData').dataTable({
-                                    "columnDefs": [{
-                                        'orderable': false,
-                                        'targets': [count]
-                                    }, ],
-                                    language: {
-                                        processing: "Procesando ...",
-                                        search: 'Buscar',
-                                        lengthMenu: "Mostrar _MENU_ Registros",
-                                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
-                                        infoFiltered: "(filtrada de _MAX_ registros en total)",
-                                        infoPostFix: "",
-                                        loadingRecords: "...",
-                                        zeroRecords: "No se encontraron registros coincidentes",
-                                        emptyTable: "No hay datos disponibles en la tabla",
-                                        paginate: {
-                                            first: "Primero",
-                                            previous: "Anterior",
-                                            next: "Siguiente",
-                                            last: "Ultimo"
-                                        },
-                                        aria: {
-                                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
-                                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
-                                        }
-                                    }
-                                });
-                            });
-                        });
+                        ListDatosTecnicos($('.containerListDatosTecnicos').attr('idTipoLista'));
                     });
                 }
             }
@@ -1116,40 +1074,7 @@ $(document).ready(function() {
             callback: function(result) {
                 if (result == true) {
                     $.post('../ajax/cliente/eliminarMensualidadPuertoPublico.php', { id: id }, function(data) {
-                        $.post('../ajax/cliente/tipolistModal.php', { id: $('.containerListDatosTecnicos').attr('idTipoLista') }, function(data) {
-                            $.post('../ajax/cliente/' + data, { id: $('.containerListDatosTecnicos').attr('idTipoLista') }, function(data) {
-                                $('.containerListDatosTecnicos').html(data);
-                                var count = $('.containerListDatosTecnicos > .tabeData tr th').length - 1;
-                                $('.containerListDatosTecnicos > .tabeData').dataTable({
-                                    "columnDefs": [{
-                                        'orderable': false,
-                                        'targets': [count]
-                                    }, ],
-                                    language: {
-                                        processing: "Procesando ...",
-                                        search: 'Buscar',
-                                        lengthMenu: "Mostrar _MENU_ Registros",
-                                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
-                                        infoFiltered: "(filtrada de _MAX_ registros en total)",
-                                        infoPostFix: "",
-                                        loadingRecords: "...",
-                                        zeroRecords: "No se encontraron registros coincidentes",
-                                        emptyTable: "No hay datos disponibles en la tabla",
-                                        paginate: {
-                                            first: "Primero",
-                                            previous: "Anterior",
-                                            next: "Siguiente",
-                                            last: "Ultimo"
-                                        },
-                                        aria: {
-                                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
-                                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
-                                        }
-                                    }
-                                });
-                            });
-                        });
+                        ListDatosTecnicos($('.containerListDatosTecnicos').attr('idTipoLista'));
                     });
                 }
             }
@@ -1172,41 +1097,8 @@ $(document).ready(function() {
             },
             callback: function(result) {
                 if (result == true) {
-                    $.post('../ajax/cliente/eliminarArriendoEquipo.php', { id: id }, function(data) {
-                        $.post('../ajax/cliente/tipolistModal.php', { id: $('.containerListDatosTecnicos').attr('idTipoLista') }, function(data) {
-                            $.post('../ajax/cliente/' + data, { id: $('.containerListDatosTecnicos').attr('idTipoLista') }, function(data) {
-                                $('.containerListDatosTecnicos').html(data);
-                                var count = $('.containerListDatosTecnicos > .tabeData tr th').length - 1;
-                                $('.containerListDatosTecnicos > .tabeData').dataTable({
-                                    "columnDefs": [{
-                                        'orderable': false,
-                                        'targets': [count]
-                                    }, ],
-                                    language: {
-                                        processing: "Procesando ...",
-                                        search: 'Buscar',
-                                        lengthMenu: "Mostrar _MENU_ Registros",
-                                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
-                                        infoFiltered: "(filtrada de _MAX_ registros en total)",
-                                        infoPostFix: "",
-                                        loadingRecords: "...",
-                                        zeroRecords: "No se encontraron registros coincidentes",
-                                        emptyTable: "No hay datos disponibles en la tabla",
-                                        paginate: {
-                                            first: "Primero",
-                                            previous: "Anterior",
-                                            next: "Siguiente",
-                                            last: "Ultimo"
-                                        },
-                                        aria: {
-                                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
-                                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
-                                        }
-                                    }
-                                });
-                            });
-                        });
+                    $.post('../ajax/cliente/eliminarTraficoGenerado.php', { id: id }, function(data) {
+                        ListDatosTecnicos($('.containerListDatosTecnicos').attr('idTipoLista'));
                     });
                 }
             }
@@ -1219,5 +1111,49 @@ $(document).ready(function() {
                 $('select[name="Ciudad"]').selectpicker('refresh');
             });
         }
+    });
+
+    $(document).on('click', '.updateDatosTecnicos', function() {
+        $('.containerTipoServicio').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
+        var idServicio = $(this).attr('attr');
+        var id = $(this).attr('id');
+        $.post('../ajax/cliente/tipoViewModal.php', { id: idServicio }, function(data) {
+            if (data.trim() == 'arriendoEquipos.php') {
+                url = 'getArriendoEquipo.php';
+            } else {
+                url = 'getServicioInternet.php'
+            }
+            $.post('../ajax/servicios/' + url, { id: id }, function(response) {
+                response = JSON.parse(response)
+                response = response[0]
+                Velocidad = response.Velocidad;
+                Plan = response.Plan;
+                $('.containerTipoServicio').load('../clientesServicios/viewTipoServicio/' + data, { Velocidad, Plan, idServicio }, function() {
+                    $('[name="idServicio"]').val(id);
+                    $('.productos').remove();
+                });
+            });
+        });
+    });
+    $(document).on('click', '.actualizarDatosTecnicos', function() {
+        $.postFormValues('../ajax/servicios/updateDatosTecnicos.php', '.container-form-datosTecnicos', function(data) {
+            if (Number(data) > 0) {
+                var id = $('.containerListDatosTecnicos').attr('idTipoLista');
+                $('.modal').modal('hide')
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'fa fa-check',
+                    message: 'Registro Actualizado Exitosamente',
+                    container: 'floating',
+                    timer: 3000
+                });
+                setTimeout(function() {
+                    $('#verServicios').modal('show')
+                    ListDatosTecnicos(id)
+                }, 500)
+            } else {
+                bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+            }
+        });
     });
 });
