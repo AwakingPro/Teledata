@@ -1336,7 +1336,7 @@
                 foreach($facturas as $factura){
                     $Id = $factura['Id'];
                     $file = '/var/www/html/Teledata/facturacion/facturas/'.$Id.'.pdf';
-                    if(file_exists($path)){
+                    if(file_exists($file)){
                         $zip->addFromString(basename($file),  file_get_contents($file)); 
                     }else{
                         echo $file;
