@@ -1236,7 +1236,7 @@
             $array = array('DescuentoAplicado' => $DescuentoAplicado, 'CantidadAplicada' => $CantidadAplicada);
             return $array; 
         }
-        public function filtrarFacturasPorFecha($startDate,$endDate){
+        public function filtrarFacturasPorFecha($startDate,$endDate,$documentType){
 
             $run = new Method;
             $ToReturn = array();
@@ -1263,6 +1263,9 @@
                         WHERE
                             facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'
                             AND facturas.EstatusFacturacion = '1'";
+            if($documentType){
+                $query .= "AND facturas.TipoDocumento = '".$documentType."'";
+            }
             $facturas = $run->select($query);
 
             if($facturas){
@@ -1301,6 +1304,48 @@
             }
 
             echo json_encode($ToReturn);
+        }
+        public function descargarFacturasPorFecha($startDate,$endDate,$documentType){
+
+            $run = new Method;
+            $ToReturn = array();
+
+            $dt = \DateTime::createFromFormat('Y/m/d',$startDate);
+            $startDate = $dt->format('Y-m-d');
+            $dt = \DateTime::createFromFormat('Y/m/d',$endDate);
+            $endDate = $dt->format('Y-m-d');
+
+            $query = "  SELECT
+                            facturas.Id
+                        FROM
+                            facturas
+                            INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
+                            INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
+                        WHERE
+                            facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'
+                            AND facturas.EstatusFacturacion = '1'";
+            if($documentType){
+                $query .= "AND facturas.TipoDocumento = '".$documentType."'";
+            }
+            $facturas = $run->select($query);
+
+            if($facturas){
+                $zipname = time().'.zip';
+                $zip = new ZipArchive;
+                $zip->open($zipname, ZipArchive::CREATE);
+                foreach($facturas as $factura){
+                    $Id = $factura['Id'];
+                    $file = '/var/www/html/Teledata/facturacion/facturas/'.$Id.'.pdf';
+                    $zip->addFile($file);
+                }
+                $zip->close();
+                header('Content-Type: application/zip');
+                header('Content-disposition: attachment; filename='.$zipname);
+                header('Content-Length: ' . filesize($zipname));
+                readfile($zipname);
+            }else{
+                echo 'No hay documentos correspondientes a este rango de fecha';
+            }
         }
         public function getCliente($Rut){
             $run = new Method;

@@ -46,7 +46,8 @@ $(document).ready(function() {
     function getFacturas() {
         var startDate = $("#date-range .input-daterange input[name='start']").val();
         var endDate = $("#date-range .input-daterange input[name='end']").val();
-        $.post('../includes/facturacion/facturas/filtrarFacturasPorFecha.php', { startDate: startDate, endDate: endDate }, function(data) {
+        var documentType = $("#documentType").val();
+        $.post('../includes/facturacion/facturas/filtrarFacturasPorFecha.php', { startDate: startDate, endDate: endDate, documentType: documentType }, function(data) {
             FacturasTable = $('#FacturasTable').DataTable({
                 order: [
                     [0, 'desc']
@@ -86,7 +87,7 @@ $(document).ready(function() {
                             Pagos = ''
                         }
                         if (data != '') {
-                            Ver = '<a href="../facturacion/facturas/' + data + '.pdf" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
+                            Pdf = '<a href="../facturacion/facturas/' + data + '.pdf" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
                         } else {
                             Pdf = '';
                         }
@@ -120,7 +121,25 @@ $(document).ready(function() {
             $('[data-toggle="popover"]').popover();
             $('table').css('width', '100%');
         });
+    }
+    $(document).on('click', '#descargar', function() {
+        var startDate = $("#date-range .input-daterange input[name='start']").val();
+        var endDate = $("#date-range .input-daterange input[name='end']").val();
+        if (startDate != '' & endDate != '') {
+            downloadFacturas();
+        } else {
+            bootbox.alert('Debe Seleccionar un rango de fecha')
+            return false;
+        }
+    });
 
+    function downloadFacturas() {
+        var startDate = $("#date-range .input-daterange input[name='start']").val();
+        var endDate = $("#date-range .input-daterange input[name='end']").val();
+        var documentType = $("#documentType").val();
+        data = "startDate=" + startDate + "&endDate=" + endDate + "&documentType=" + documentType
+        url = '../includes/facturacion/facturas/descargarFacturasPorFecha.php?' + data;
+        window.open(url, '_blank');
     }
     $('body').on('click', '.Abonar', function() {
         var ObjectMe = $(this);

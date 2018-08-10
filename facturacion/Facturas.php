@@ -51,7 +51,13 @@
                                                     </div>
                                                 </div>
                                                 <br>
-                                                <button id="filtrar" class="btn btn-success">Filtrar</button><br><br>
+												<select class="selectpicker form-control" id="documentType" data-container="body">
+													<option value="">Todos</option>
+													<option value="1">Boleta</option>
+													<option value="2">Factura</option>
+												</select>
+												<br><br>
+                                                <button id="filtrar" class="btn btn-success">Filtrar</button> <button id="descargar" class="btn btn-primary">Descargar</button><br><br>
                                             </div>
 											<br><br>
 											<div class="row">
