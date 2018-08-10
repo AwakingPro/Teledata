@@ -1338,6 +1338,9 @@
                     $file = '/var/www/html/Teledata/facturacion/facturas/'.$Id.'.pdf';
                     if(file_exists($path)){
                         $zip->addFromString(basename($file),  file_get_contents($file)); 
+                    }else{
+                        echo $file;
+                        return;
                     }
                 }
                 $zip->close();
