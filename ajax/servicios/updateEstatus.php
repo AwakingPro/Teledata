@@ -5,7 +5,7 @@
     $Id = isset($_POST['Id']) ? trim($_POST['Id']) : "";
 	$Activo = isset($_POST['Activo']) ? trim($_POST['Activo']) : "";
 	$FechaActivacion = isset($_POST['FechaActivacion']) ? trim($_POST['FechaActivacion']) : "";
-    if(!$Activo){
+    if(!$Activo || $Activo == 2){
         if($FechaActivacion){
             $FechaActivacion = DateTime::createFromFormat('d-m-Y', $FechaActivacion);
             $Hoy = new DateTime();

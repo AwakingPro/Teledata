@@ -299,6 +299,7 @@
 											<select id="Activo" name="Activo" class="form-control selectpicker" data-live-search="true">
 												<option value="">Seleccione...</option>
 												<option value="1">Activo</option>
+												<option value="2">Suspendido</option>
 												<option value="0">Inactivo</option>
 											</select>
 										</div>

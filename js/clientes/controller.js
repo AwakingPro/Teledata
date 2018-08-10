@@ -1194,17 +1194,20 @@ $(document).ready(function() {
             url: "../ajax/servicios/showEstatus.php",
             data: "id=" + ObjectId,
             success: function(response) {
-                if (response) {
+                $('#FechaActivacion').val()
+                if (response == '31-01-2999') {
                     $('#Activo').val(0)
+                    $('#divFechaActivacion').hide()
+                } else if (response) {
+                    $('#Activo').val(2)
+                    $('#FechaActivacion').val(response)
                     $('#divFechaActivacion').show()
                 } else {
                     $('#Activo').val(1)
                     $('#divFechaActivacion').hide()
                 }
-
                 $('#Activo').selectpicker('refresh')
 
-                $('#FechaActivacion').val(response)
 
                 $('body').addClass('loaded');
             },
@@ -1221,9 +1224,12 @@ $(document).ready(function() {
         if ($(this).val() == "1") {
             $('#divFechaActivacion').hide()
             $('input[name="FechaActivacion"]').removeAttr('validate')
-        } else {
+        } else if ($(this).val() == "2") {
             $('#divFechaActivacion').show()
             $('input[name="FechaActivacion"]').attr('validate', 'not_null')
+        } else {
+            $('#divFechaActivacion').hide()
+            $('input[name="FechaActivacion"]').val('31-01-2999')
         }
     });
 

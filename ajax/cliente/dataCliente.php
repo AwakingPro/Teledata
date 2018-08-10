@@ -77,12 +77,11 @@
 						grupo_servicio.Nombre,
 						servicios.Grupo
 					) AS Grupo,
-
-				IF (
-					FechaActivacion IS NULL,
-					"Activo",
-					"Inactivo"
-				) AS Estatus
+				(CASE
+					WHEN FechaActivacion IS NULL THEN "Activo"
+					WHEN FechaActivacion = "2999-01-31" THEN "Inactivo"
+					ELSE "Suspendido"
+				END) AS Estatus
 				FROM
 					servicios
 				INNER JOIN mantenedor_tipo_factura ON mantenedor_tipo_factura.id = servicios.TipoFactura
