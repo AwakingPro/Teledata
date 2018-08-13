@@ -31,7 +31,7 @@
 
 		echo $IdCliente;
 
-		$query = "SELECT token_prueba as access_token FROM variables_globales";
+		$query = "SELECT token_produccion as access_token FROM variables_globales";
 		$variables_globales = $run->select($query);
 		$access_token = $variables_globales[0]['access_token'];
 		$query = "	SELECT

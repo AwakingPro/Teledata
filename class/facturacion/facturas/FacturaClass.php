@@ -968,10 +968,9 @@
 
         public function sendBsale($Cliente,$Detalles,$UF,$Tipo,$expirationDate){
 
-            //Demo
-            $access_token = '55c32f657ce5aa159a6fc039b64aabceead8f061';
-            //Producción
-            // $access_token='957d3b3419bacf7dbd0dd528172073c9903d618b';
+            $query = "SELECT token_produccion as access_token FROM variables_globales";
+            $variables_globales = $run->select($query);
+            $access_token = $variables_globales[0]['access_token'];
 
             if($Cliente['cliente_id_bsale']){
                 $clientId = $Cliente['cliente_id_bsale'];
