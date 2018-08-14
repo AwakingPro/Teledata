@@ -2,7 +2,8 @@
 	require_once('../../class/methods_global/methods.php');
 	session_start();
 	$run = new Method;
-	$UltimoCodigo = $run->select("SELECT Codigo FROM servicios WHERE Rut = '". $_POST['Rut']."'");
+	$Rut = isset($_POST['Rut']) ? trim($_POST['Rut']) : "";
+	$UltimoCodigo = $run->select("SELECT Codigo FROM servicios WHERE Rut = '".$Rut."' ORDER BY Id DESC");
 	if($UltimoCodigo){
 		$UltimoCodigo = $UltimoCodigo[0]['Codigo'];
 		$Correlativo = substr($UltimoCodigo, -2);
@@ -14,9 +15,7 @@
 	}else{
 		$Correlativo = "01";
 	}
-
-	$Rut = isset($_POST['Rut']) ? trim($_POST['Rut']) : "";
-	$Dv = $run->select("SELECT dv FROM personaempresa WHERE rut = '".$_POST['Rut']."'");
+	$Dv = $run->select("SELECT dv FROM personaempresa WHERE rut = '".$Rut."'");
 	$Dv = $Dv[0][0];	
 	$TipoFactura = isset($_POST['TipoFactura']) ? trim($_POST['TipoFactura']) : "";
 	$CodigoFactura = $run->select("SELECT codigo FROM mantenedor_tipo_factura WHERE id = '".$TipoFactura."'");

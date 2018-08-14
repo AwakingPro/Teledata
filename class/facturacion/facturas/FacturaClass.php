@@ -351,7 +351,7 @@
                     $expirationDate = time() + 1728000;
                     $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else{
-                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, mantenedor_servicios.servicio as Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC
+                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, mantenedor_servicios.servicio as Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto
                                 FROM servicios 
                                 LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                                 WHERE servicios.Id = '".$RutId."'
@@ -378,7 +378,6 @@
 
                     if($Cliente){
 
-                        $Cliente = $Cliente[0];
                         $TipoDocumento = $Cliente['tipo_cliente'];
                         $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,$Tipo,$expirationDate);
 
@@ -533,7 +532,6 @@
 
                             if($Cliente){
 
-                                $Cliente = $Cliente[0];
                                 $TipoDocumento = $Cliente['tipo_cliente'];
                                 $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,2,$expirationDate);
 
@@ -917,7 +915,6 @@
                         
                         if($Cliente){
 
-                            $Cliente = $Cliente[0];
                             $TipoDocumento = $Cliente['tipo_cliente'];
 
                             $query = "SELECT * FROM facturas_detalle WHERE FacturaId = '".$Id."'";
@@ -1068,10 +1065,10 @@
             $Total = 0;
 
             foreach($Detalles as $Detalle){
-
+                $Valor = floatval($Detalle['Valor']);
+                $Concepto = $Detalle["Concepto"];
+                $Cantidad = $Detalle['Cantidad'];
                 if($Tipo == 1){
-                    $Concepto = $Detalle["Concepto"];
-                    $Valor = floatval($Detalle['Valor']);
                     $Descuento = $Detalle['Descuento'];
                 }else if($Tipo == 2){
                     $Descuentos = $this->aplicarDescuento($Detalle);
@@ -1089,8 +1086,8 @@
                     }else{
                         $Concat = '';
                     }
-                    $Concepto = $Detalle["Concepto"] . $Concat;
-                    $Valor = floatval($Detalle['Valor']);
+                    $Concepto .= $Concat;
+                    
                 }else{
                     $Descuento = floatval($Detalle["Descuento"]);
                     if($Descuento > 0){
@@ -1098,10 +1095,9 @@
                     }else{
                         $Concat = '';
                     }
-                    $Concepto = 'Costo de instalación / Habilitación'. $Concat;
-                    $Valor = floatval($Detalle['Valor']) * $UF;
+                    $Concepto .= $Concat;
+                    $Valor = $Valor * $UF;
                 }
-                $Cantidad = $Detalle['Cantidad'];
 
                 $detail = array("netUnitValue" => $Valor, "quantity" => $Cantidad, "taxId" => "[1]", "comment" => $Concepto, "discount" => $Descuento);
 
@@ -1263,7 +1259,7 @@
                             facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'
                             AND facturas.EstatusFacturacion = '1'";
             if($documentType){
-                $query .= "AND facturas.TipoDocumento = '".$documentType."'";
+                $query .= " AND facturas.TipoDocumento = '".$documentType."'";
             }
             $facturas = $run->select($query);
 
@@ -1316,7 +1312,11 @@
                         WHERE
                             personaempresa.rut = '".$Rut."'";
             $Cliente = $run->select($query);
-            return $Cliente;
+            if($Cliente){
+                return $Cliente[0];
+            }else{
+                return array();
+            }
         }
     }
 ?>
