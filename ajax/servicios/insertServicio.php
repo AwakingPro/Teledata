@@ -8,8 +8,8 @@
 		$UltimoCodigo = $UltimoCodigo[0]['Codigo'];
 		$Correlativo = substr($UltimoCodigo, -2);
 		$Correlativo = intval($Correlativo);
+		$Correlativo++;
 		if($Correlativo < 9){
-			$Correlativo++;
 			$Correlativo = "0".$Correlativo; 
 		}
 	}else{
