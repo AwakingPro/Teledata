@@ -51,12 +51,23 @@ $(document).ready(function() {
         center = new google.maps.LatLng(-41.3214705, -73.0138898);
 
         mapOptions = {
-            zoom: 13,
+            zoom: 14,
             center: center,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
         Map = new google.maps.Map(document.getElementById("Map"), mapOptions);
+        var marker = new google.maps.Marker({
+            map: Map,
+            draggable: true,
+            position: center
+
+        });
+
+        google.maps.event.addListener(marker, 'dragend', function(evt) {
+            $('#Latitud').val(evt.latLng.lat())
+            $('#Longitud').val(evt.latLng.lng())
+        });
     }
 
     function isNumber(n) {
