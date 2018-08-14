@@ -70,7 +70,8 @@
 	$query = '	SELECT
 					servicios.Id AS Id,
 					servicios.Codigo AS "Codigo de Servicios",
-					mantenedor_tipo_facturacion.nombre AS "Tiempo de Facturacion",
+					servicios.Alias AS "Conexión",
+					-- mantenedor_tipo_facturacion.nombre AS "Tiempo de Facturacion",
 					mantenedor_servicios.servicio AS "Tipo de Servicio",
 					servicios.Valor,
 					COALESCE (

@@ -23,7 +23,7 @@
 	$Codigo = $Rut."-".$Dv.$CodigoFactura.$Correlativo;
 	$Grupo = isset($_POST['Grupo']) ? trim($_POST['Grupo']) : "";
 	$Valor = isset($_POST['Valor']) ? trim($_POST['Valor']) : "0";
-	$Descuento = isset($_POST['Descuento']) ? trim($_POST['Descuento']) : "";
+	$Descuento = isset($_POST['Descuento']) ? trim($_POST['Descuento']) : "0";
 	$TipoServicio = isset($_POST['TipoServicio']) ? trim($_POST['TipoServicio']) : "";
 	$Descripcion = isset($_POST['Descripcion']) ? trim($_POST['Descripcion']) : "";
 	$Alias = isset($_POST['Alias']) ? trim($_POST['Alias']) : "";
@@ -41,7 +41,7 @@
 	$idUsuario = $_SESSION['idUsuario'];
 	$BooleanCostoInstalacion = isset($_POST['BooleanCostoInstalacion']) ? trim($_POST['BooleanCostoInstalacion']) : "";
 	$CostoInstalacion = isset($_POST['CostoInstalacion']) ? trim($_POST['CostoInstalacion']) : "";
-	$CostoInstalacionDescuento = isset($_POST['CostoInstalacionDescuento']) ? trim($_POST['CostoInstalacionDescuento']) : "";
+	$CostoInstalacionDescuento = isset($_POST['CostoInstalacionDescuento']) ? trim($_POST['CostoInstalacionDescuento']) : "0";
 	$FechaComprometidaInstalacion = isset($_POST['FechaComprometidaInstalacion']) ? trim($_POST['FechaComprometidaInstalacion']) : "";
 
 	if(!$Descuento){
