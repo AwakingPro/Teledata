@@ -417,12 +417,15 @@
                                 }else{
                                     $IdServicio = $Detalle['Id'];
                                     $Concepto = $Detalle['Codigo'] . ' - ' . $Detalle['Servicio'] . ' - ' . 'Costo de instalación / Habilitación';
+                                    if($Detalle['Conexion']){
+                                        $Concepto .= ' - ' . $Detalle['Conexion'];
+                                    }
                                     $Valor = $Valor * $UF;
                                 }
-                                $Descuento = $Detalle['Descuento'];
-                                if($Descuento > 0){
-                                    $Concepto .= ' - ' . $Descuento.'% Descuento';
-                                }
+                                // $Descuento = $Detalle['Descuento'];
+                                // if($Descuento > 0){
+                                //     $Concepto .= ' - ' . $Descuento.'% Descuento';
+                                // }
                                 $Cantidad = $Detalle['Cantidad'];
                                 $Neto = $Valor * $Cantidad;
                                 $DescuentoValor = $Neto * ( $Descuento / 100 );
@@ -679,7 +682,10 @@
                         if($FechaUltimoCobro <= $dt){
                             $Rut = $Servicio['Rut'];
                             $Grupo = $Servicio['Grupo'];
-
+                            $Conexion = $Servicio['Conexion'];
+                            if($Conexion){
+                                $Concepto .= ' - ' . $Conexion;
+                            }
                             if(isset($Facturas[$Rut.'-'.$Grupo])){
                                 $FacturaId = $Facturas[$Rut.'-'.$Grupo];
                             }else{

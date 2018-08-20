@@ -1138,7 +1138,7 @@ CREATE TABLE `servicios`  (
   `InstaladoPor` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Comentario` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `UsuarioPppoe` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `Alias` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `Conexion` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `IdUsuarioSession` int(11) NOT NULL,
   `Direccion` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `Latitud` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,

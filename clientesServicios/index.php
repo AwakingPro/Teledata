@@ -184,7 +184,7 @@
 
 											<label class="campo-Conexiones">Conexiones</label>
 											<div class="form-group">
-												<input id="Alias" type="text" name="Alias" class="form-control campo-Conexiones">
+												<input id="Conexion" type="text" name="Conexion" class="form-control campo-Conexiones">
 											</div>
 
 											<label class="campo-direccion">Dirección</label>

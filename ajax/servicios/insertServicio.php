@@ -26,7 +26,7 @@
 	$Descuento = isset($_POST['Descuento']) ? trim($_POST['Descuento']) : "0";
 	$TipoServicio = isset($_POST['TipoServicio']) ? trim($_POST['TipoServicio']) : "";
 	$Descripcion = isset($_POST['Descripcion']) ? trim($_POST['Descripcion']) : "";
-	$Alias = isset($_POST['Alias']) ? trim($_POST['Alias']) : "";
+	$Conexion = isset($_POST['Conexion']) ? trim($_POST['Conexion']) : "";
 	$Direccion = isset($_POST['Direccion']) ? trim($_POST['Direccion']) : "";
 	$Latitud = isset($_POST['Latitud']) ? trim($_POST['Latitud']) : "";
 	$Longitud = isset($_POST['Longitud']) ? trim($_POST['Longitud']) : "";
@@ -67,7 +67,7 @@
     	$FechaComprometidaInstalacion = '1969-01-31';
     }
 
-	$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, Codigo, Descripcion, IdUsuarioSession, Alias, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, UsuarioPppoeTeorico, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion, FechaUltimoCobro) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '".$Valor."', '".$Descuento."', '".$TipoServicio."', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Alias."', '0', '".$FechaInstalacion."', '', '', '', '".$Direccion."', '".$Latitud."', '".$Longitud."', '".$Referencia."', '".$Contacto."', '".$Fono."', '".$PosibleEstacion."', '".$Equipamiento."', '".$SenalTeorica."', '".$UsuarioPppoeTeorico."', '0', '', '', '0', '".$CostoInstalacion."', '".$CostoInstalacionDescuento."', '0', '".$FechaComprometidaInstalacion."',NOW(),NOW())";
+	$query = " INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, Codigo, Descripcion, IdUsuarioSession, Conexion, Estatus, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, UsuarioPppoeTeorico, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion, FechaUltimoCobro) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '".$Valor."', '".$Descuento."', '".$TipoServicio."', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Conexion."', '0', '".$FechaInstalacion."', '', '', '', '".$Direccion."', '".$Latitud."', '".$Longitud."', '".$Referencia."', '".$Contacto."', '".$Fono."', '".$PosibleEstacion."', '".$Equipamiento."', '".$SenalTeorica."', '".$UsuarioPppoeTeorico."', '0', '', '', '0', '".$CostoInstalacion."', '".$CostoInstalacionDescuento."', '0', '".$FechaComprometidaInstalacion."',NOW(),NOW())";
 	$id = $run->insert($query);
 	if($id){
 		switch ($TipoServicio) {

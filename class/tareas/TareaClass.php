@@ -224,6 +224,7 @@
 								$Concepto = $Servicio['Codigo'] . ' - ' . $Servicio['Servicio'];
 								$Valor = $Servicio['Valor'];
 								$Descuento = $Servicio['Descuento'];
+								$Conexion = $Servicio['Conexion'];
 
 								if($FechaInstalacion){
 									$dt = DateTime::createFromFormat('Y-m-d', $FechaInstalacion);
@@ -289,6 +290,9 @@
 									$Diasporfacturar = 1;
 									$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dia)';
 								}	
+								if($Conexion){
+									$Concepto .= ' - ' . $Conexion;
+								}
 								$Valor = $Valor * $UF;
 								$Montodiario = $Valor / $Diasdelmes;
 								$Valor = $Diasporfacturar * $Montodiario;
