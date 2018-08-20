@@ -624,7 +624,7 @@
             $query = "  SELECT
                             s.*,
                             ms.servicio AS Servicio,
-                            p.tipo_Cliente,
+                            p.tipo_cliente as TipoDocumento,
                             mtf.tipo_facturacion as TipoFacturacion,
                         CASE
                                 
@@ -639,16 +639,16 @@
                                         s.Id = fd.IdServicio 
                                         AND f.TipoFactura = 2 
                                         AND f.EstatusFacturacion = 0 
-                                    ) >= ( SELECT limite_facturas FROM clase_clientes WHERE id = p.ClaseCliente ) 
-                                    OR ( SELECT limite_facturas FROM clase_clientes WHERE id = p.ClaseCliente ) = 0 
+                                    ) >= ( SELECT limite_facturas FROM clase_clientes WHERE id = p.clase_cliente ) 
+                                    OR ( SELECT limite_facturas FROM clase_clientes WHERE id = p.clase_cliente ) = 0 
                                     ) THEN
                                     '0' ELSE '1' 
                                 END AS PermitirFactura 
                             FROM
                                 servicios s
                             INNER JOIN personaempresa p ON s.Rut = p.rut
-                            LEFT JOIN mantenedor_servicios ms ON s.IdServicio = ms.IdServicio
-                            INNER JOIN mantenedor_tipo_factura mtf ON s.TipoFactura = mtf.codigo";
+                            INNER JOIN mantenedor_servicios ms ON s.IdServicio = ms.IdServicio
+                            INNER JOIN mantenedor_tipo_factura mtf ON s.TipoFactura = mtf.id";
             $Servicios = $run->select($query);
 
             if($Servicios){
@@ -664,7 +664,7 @@
                     if(!$FechaActivacion && $PermitirFactura && $TipoFacturacion){
                         $FechaUltimoCobro = $Servicio['FechaUltimoCobro'];
                         $FechaUltimoCobro = new DateTime($FechaUltimoCobro);                     
-                        $Concepto = $Servicio['Servicio'];
+                        $Concepto = $Servicio['Codigo'] . ' - ' . $Servicio['Servicio'];
                         if($TipoFacturacion == '1'){
                             $Concepto .= ' - Mes ' . $MesFacturacion;
                             $FechaUltimoCobro->add(new DateInterval("P1M"));
@@ -683,9 +683,10 @@
                             if(isset($Facturas[$Rut.'-'.$Grupo])){
                                 $FacturaId = $Facturas[$Rut.'-'.$Grupo];
                             }else{
-                                $TipoDocumento = $Servicio['tipo_cliente'];
+                                $TipoDocumento = $Servicio['TipoDocumento'];
                                 $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, 0)";
                                 $FacturaId = $run->insert($query);
+                                $Facturas[$Rut.'-'.$Grupo] = $FacturaId;
                             }
 
                             $Valor = $Servicio['Valor'];
@@ -700,12 +701,13 @@
                             $Total = round($Total,0);
 
                             $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$Id."', '".$Total."')";
-                            $data = $run->insert($query);
-                            $Facturas[$Rut.'-'.$Grupo] = $FacturaId;
+                            $detalle = $run->insert($query);
+                            if($detalle){
+                                $query = "UPDATE servicios SET FechaUltimoCobro = NOW() WHERE Id = '".$Id."'";
+                                $data = $run->update($query);
+                            }
                         }
                     }
-                    $query = "UPDATE servicios SET FechaUltimoCobro = NOW() WHERE Id = '".$Id."'";
-                    $data = $run->update($query);
                 }
             }
 
