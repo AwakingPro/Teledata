@@ -1,7 +1,7 @@
 <?php
 $run = new Method;
 session_start();
-if (!isset($_SESSION['idUsuario']) || empty($_SESSION['idUsuario'])) {
+if (!isset($_SESSION['idUsuario']) || !isset($_SESSION['idUsuario'])) {
 	echo "<script> window.location = '../index.php' </script>";
 }
 $query = 'SELECT nombre FROM usuarios WHERE id ='.$_SESSION['idUsuario'];
