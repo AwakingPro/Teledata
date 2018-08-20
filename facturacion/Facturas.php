@@ -218,7 +218,6 @@
 
 	<script src="../js/jquery-2.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/demo/nifty.demo.js"></script>
     <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 	<script src="../plugins/bootbox/bootbox.min.js"></script>
 	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>

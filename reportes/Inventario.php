@@ -161,9 +161,6 @@
 
         <script src="../js/jquery-2.2.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
-
-        <script src="../js/demo/nifty.demo.js"></script>
-
         <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
         <script src="../plugins/bootbox/bootbox.min.js"></script>
         <script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
