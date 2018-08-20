@@ -4,6 +4,8 @@
     $run = new Method;
     $Id = isset($_POST['Id']) ? trim($_POST['Id']) : "";
 	$TipoFactura = isset($_POST['TipoFactura']) ? trim($_POST['TipoFactura']) : "";
+	$CodigoFactura = $run->select("SELECT codigo FROM mantenedor_tipo_factura WHERE id = '".$TipoFactura."'");
+	$CodigoFactura = $CodigoFactura[0][0];
 	$Grupo = isset($_POST['Grupo']) ? trim($_POST['Grupo']) : "";
 	$Valor = isset($_POST['Valor']) ? trim($_POST['Valor']) : "0";
 	$Descuento = isset($_POST['Descuento']) ? trim($_POST['Descuento']) : "0";
@@ -26,21 +28,11 @@
 	$Servicio  = $run->select("SELECT Rut, Codigo FROM servicios WHERE Id = '". $Id."'");
 	if($Servicio){
 		$Rut = $Servicio[0]['Rut'];
-		$UltimoCodigo = $run->select("SELECT Codigo FROM servicios WHERE Rut = '". $Rut."'");
-		if($UltimoCodigo){
-			$UltimoCodigo = $UltimoCodigo[0]['Codigo'];
-			$Correlativo = substr($UltimoCodigo, -2);
-			$Correlativo = intval($Correlativo) - 1;
-			if($Correlativo < 9){
-				$Correlativo++;
-				$Correlativo = "0".$Correlativo; 
-			}
-		}else{
-			$Correlativo = "01";
-		}
+		$UltimoCodigo = $Servicio[0]['Codigo'];
+		$Correlativo = substr($UltimoCodigo, -2);
 		$Dv = $run->select("SELECT dv FROM personaempresa WHERE rut = '".$Rut."'");
 		$Dv = $Dv[0][0];	
-		$Codigo = $Rut."-".$Dv.$TipoFactura.$Correlativo;
+		$Codigo = $Rut."-".$Dv.$CodigoFactura.$Correlativo;
 	}else{
 		$Codigo = '';
 	}

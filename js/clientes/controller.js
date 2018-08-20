@@ -13,6 +13,10 @@ $(document).ready(function() {
         $('.Region_update').selectpicker('refresh');
     });
 
+    $('select[name="Grupo"]').load('../ajax/servicios/listGrupo.php', function() {
+        $('select[name="Grupo"]').selectpicker('refresh');
+    });
+
     var Parametros = window.location.search.substr(1);
     if (Parametros != "") {
         var ParametrosArray = Parametros.split("&");
