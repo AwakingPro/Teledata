@@ -367,7 +367,7 @@
                     if($Cliente){
 
                         $TipoDocumento = $Cliente['tipo_cliente'];
-                        $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,$Tipo,$expirationDate);
+                        $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,$Tipo);
 
                         if($FacturaBsale['status'] == 1){
                             $UrlPdf = $FacturaBsale['urlPdf'];
@@ -529,7 +529,7 @@
                             if($Cliente){
 
                                 $TipoDocumento = $Cliente['tipo_cliente'];
-                                $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,2,$expirationDate);
+                                $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,2);
 
                                 if($FacturaBsale['status'] == 1){
                                     $UrlPdf = $FacturaBsale['urlPdf'];
@@ -665,7 +665,7 @@
                     if(!$FechaActivacion && $PermitirFactura && $TipoFacturacion){
                         $FechaUltimoCobro = $Servicio['FechaUltimoCobro'];
                         $FechaUltimoCobro = new DateTime($FechaUltimoCobro);                     
-                        $Concepto = $Servicio['Codigo'] . ' - ' . $Servicio['Servicio'];
+                        $Concepto = $Servicio['Servicio'];
                         if($TipoFacturacion == '1'){
                             $Concepto .= ' - Mes ' . $MesFacturacion;
                             $FechaUltimoCobro->add(new DateInterval("P1M"));
@@ -926,7 +926,7 @@
                             $query = "SELECT * FROM facturas_detalle WHERE FacturaId = '".$Id."'";
                             $Detalles = $run->select($query);
 
-                            $FacturaBsale = $this->sendBsale($Cliente,$Detalles,0,2,$expirationDate);
+                            $FacturaBsale = $this->sendBsale($Cliente,$Detalles,0,2);
                             if($FacturaBsale['status'] == 1){
                                 $UrlPdf = $FacturaBsale['urlPdf'];
                                 $DocumentoId = $FacturaBsale['id'];
@@ -969,7 +969,7 @@
             echo json_encode($response_array);
         }
 
-        public function sendBsale($Cliente,$Detalles,$UF,$Tipo,$expirationDate){
+        public function sendBsale($Cliente,$Detalles,$UF,$Tipo){
             $run = new Method;
             $query = "SELECT token_produccion as access_token FROM variables_globales";
             $variables_globales = $run->select($query);
@@ -1130,7 +1130,14 @@
                     array_push($references,$reference);
                 }
             }
-
+            $tipo_pago = $Cliente['tipo_pago'];
+            $Explode = explode(' ',$tipo_pago);
+            if(ctype_digit($Explode[0])){
+                $expirationDate = time() + (intval($Explode[0]) * 24 * 60 * 60);
+            }else{
+                $expirationDate = time();
+            }
+            
             //FACTURA
 
             //Demo
@@ -1310,11 +1317,13 @@
             $run = new Method;
             $query = "  SELECT
                             personaempresa.*, provincias.nombre AS provincia,
-                            ciudades.nombre AS ciudad
+                            ciudades.nombre AS ciudad,
+                            mantenedor_tipo_pago_bsale.nombre AS tipo_pago
                         FROM
                             personaempresa
                         INNER JOIN ciudades ON personaempresa.ciudad = ciudades.id
                         INNER JOIN provincias ON ciudades.provincia_id = provincias.id
+                        INNER JOIN mantenedor_tipo_pago_bsale ON personaempresa.tipo_pago_bsale_id = mantenedor_tipo_pago_bsale.id
                         WHERE
                             personaempresa.rut = '".$Rut."'";
             $Cliente = $run->select($query);
