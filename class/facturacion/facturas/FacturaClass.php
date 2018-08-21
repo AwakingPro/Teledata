@@ -388,11 +388,15 @@
                             $responseMsgSii = $FacturaBsale['responseMsgSii'];
                             $NumeroDocumento = $FacturaBsale['number'];
                         }else{
-                            $UrlPdf = '0';
-                            $DocumentoId = '0';
-                            $informedSii = '0';
-                            $responseMsgSii = '0';
-                            $NumeroDocumento = '0';
+                            $response_array['Message'] = $FacturaBsale['Message'];
+                            $response_array['status'] = 0;
+                            echo json_encode($response_array);
+                            return;
+                            // $UrlPdf = '0';
+                            // $DocumentoId = '0';
+                            // $informedSii = '0';
+                            // $responseMsgSii = '0';
+                            // $NumeroDocumento = '0';
                         }
                         
                         //Para actualizar los datos del servicios con los datos de Bsale
@@ -422,7 +426,7 @@
                                     }
                                     $Valor = $Valor * $UF;
                                 }
-                                // $Descuento = $Detalle['Descuento'];
+                                $Descuento = $Detalle['Descuento'];
                                 // if($Descuento > 0){
                                 //     $Concepto .= ' - ' . $Descuento.'% Descuento';
                                 // }
@@ -545,11 +549,15 @@
                                     $responseMsgSii = $FacturaBsale['responseMsgSii'];
                                     $NumeroDocumento = $FacturaBsale['number'];
                                 }else{
-                                    $UrlPdf = '0';
-                                    $DocumentoId = '0';
-                                    $informedSii = '0';
-                                    $responseMsgSii = '0';
-                                    $NumeroDocumento = '0';
+                                    $response_array['Message'] = $FacturaBsale['Message'];
+                                    $response_array['status'] = 0;
+                                    echo json_encode($response_array);
+                                    return;
+                                    // $UrlPdf = '0';
+                                    // $DocumentoId = '0';
+                                    // $informedSii = '0';
+                                    // $responseMsgSii = '0';
+                                    // $NumeroDocumento = '0';
                                 }
 
                                 //Para actualizar los datos del servicios con los datos de Bsale
@@ -973,7 +981,7 @@
 
         public function sendBsale($Cliente,$Detalles,$UF,$Tipo,$expirationDate){
             $run = new Method;
-            $query = "SELECT token_produccion as access_token FROM variables_globales";
+            $query = "SELECT token_prueba as access_token FROM variables_globales";
             $variables_globales = $run->select($query);
             $access_token = $variables_globales[0]['access_token'];
 
@@ -1325,6 +1333,49 @@
             }else{
                 return array();
             }
+        }
+        public function getOC($RutId, $Grupo, $Tipo){
+            if($Tipo == 1){
+                $query = "  SELECT facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
+                            FROM facturas 
+                            WHERE facturas.Id = '".$RutId."'
+                            AND facturas.EstatusFacturacion = 0";
+            }else if($Tipo == 2){
+                $query = "  SELECT facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
+                            FROM facturas 
+                            WHERE facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'
+                            AND facturas.TipoFactura = '".$Tipo."'
+                            AND facturas.EstatusFacturacion = 0";
+            }else{
+                $query = "  SELECT 0 as NumeroOC, '1970-01-31' as FechaOC
+                            FROM servicios 
+                            WHERE servicios.Id = '".$RutId."'
+                            AND servicios.EstatusFacturacion = 0
+                            AND servicios.CostoInstalacion > 0";
+            }
+            $run = new Method;
+            $Detalles = $run->select($query);
+            if($Detalles){
+                $Detalle = $Detalles[0];
+                $NumeroOC = $Detalle['NumeroOC'];
+                $FechaOC = $Detalle['FechaOC'];
+                if(!$FechaOC OR $FechaOC == '1970-01-31'){
+                    $FechaOC = '';
+                }
+            }
+            return array('NumeroOC' => $NumeroOC, 'FechaOC' => $FechaOC);
+        }
+        public function storeOC($RutId, $Grupo, $Tipo, $NumeroOC, $FechaOC){
+            if($Tipo == 1){
+                $query = "  UPDATE facturas SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."' WHERE Id = '".$RutId."' AND EstatusFacturacion = 0";
+            }else if($Tipo == 2){
+                $query = "  UPDATE facturas SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."' WHERE Rut = '".$RutId."' AND Grupo = '".$Grupo."' AND TipoFactura = '".$Tipo."' AND EstatusFacturacion = 0";
+            }else{
+                $query = "  UPDATE servicios SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."' WHERE Id = '".$RutId."'";
+            }
+            $run = new Method;
+            $update = $run->update($query);
+            return $update;
         }
     }
 ?>

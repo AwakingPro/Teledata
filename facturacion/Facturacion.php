@@ -50,6 +50,42 @@
                 </div>
             </div>
         </div>
+        <div id="modalOC" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                        <h4 class="modal-title c-negro">Agregar Orden de Compra <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:20px">
+                            <form class="form-horizontal" id = "storeOC">
+                                <input type="hidden" name="rutidOC" id="rutidOC">
+                                <input type="hidden" name="grupoOC" id="grupoOC">
+                                <input type="hidden" name="tipoOC" id="tipoOC">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Numero de OC</label>
+                                        <input id="NumeroOC" name="NumeroOC" type="text" placeholder="Ingrese el numero de la OC" class="form-control input-sm number" validation="not_null" data-nombre="Numero de OC">
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Fecha emisión OC</label>
+                                        <input id="FechaOC" name="FechaOC" type="text" placeholder="Ingrese la fecha de la OC" class="form-control input-sm date" validation="not_null" data-nombre="Fecha emisión OC">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                     </div><!-- /.modal-body -->
+                    <div class="modal-footer p-b-20 m-b-20">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-purple" id="guardarOC" name="guardarOC">Guardar</button>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <div id="container" class="effect aside-float aside-bright mainnav-sm">
             <div class="containerHeader"><?php require('../ajax/header/mainHeader.php') ?></div>
             <div class="boxed">
