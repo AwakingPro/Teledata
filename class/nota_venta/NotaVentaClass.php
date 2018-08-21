@@ -287,7 +287,7 @@
                             $Cantidad = $Detalle['cantidad'];
                             $Total = $Detalle['total'];
                             
-                            $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '0', '0', '".$Total."')";
+                            $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '0', '0', '".$Total."', '')";
                             $FacturaDetalleId = $run->insert($query);
                             
                         }

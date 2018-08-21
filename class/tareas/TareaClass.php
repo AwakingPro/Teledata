@@ -220,8 +220,9 @@
 								$UfClass = new Uf(); 
 								$Fecha = date('d-m-Y');
 								$UF = $UfClass->getValue($Fecha);
-
-								$Concepto = $Servicio['Codigo'] . ' - ' . $Servicio['Servicio'];
+								
+								$Codigo = $Servicio['Codigo'];
+								$Concepto = $Servicio['Servicio'];
 								$Valor = $Servicio['Valor'];
 								$Descuento = $Servicio['Descuento'];
 								$Conexion = $Servicio['Conexion'];
@@ -304,7 +305,7 @@
 								$Total = $Valor + $Impuesto;
 								$Total = round($Total,0);
 
-								$query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio, Cantidad, Total) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Descuento."', '".$Id."', '".$Cantidad."', '".$Total."')";
+								$query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio, Cantidad, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Descuento."', '".$Id."', '".$Cantidad."', '".$Total."', '".$Codigo."')";
 								$FacturaDetalle = $run->insert($query);
 							}
 						}

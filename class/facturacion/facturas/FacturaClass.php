@@ -249,7 +249,8 @@
                                 facturas_detalle.Total
                             ),0) AS Valor,
                             personaempresa.nombre AS Nombre,
-                            facturas_detalle.Concepto AS Concepto,
+                            facturas_detalle.Codigo,
+                            facturas_detalle.Concepto,
                             facturas.IVA
                         FROM
                             facturas_detalle
@@ -266,22 +267,9 @@
             if($facturas){
                 foreach($facturas as $factura){
                     $data = $factura;
-                    $Explode = explode(" - ",$data['Concepto']);
-                    $Codigo = $Explode[0];
-                    if(count($Explode) > 1){
-                        $Concepto = '';
-                        for($i = 1; $i < count($Explode);$i++){
-                            $Concepto .= $Explode[$i];
-                            if($i != count($Explode) - 1){
-                                $Concepto .= ' - ';
-                            }
-                        }
-                    }else{
-                        $Concepto = $Explode[0];
-                    }
                     $Valor = $factura['Valor'];
-                    $data['Codigo'] = $Codigo;
-                    $data['Concepto'] = $Concepto;
+                    $data['Codigo'] = $data['Codigo'];
+                    $data['Concepto'] = $data['Concepto'];
                     $data['Valor'] = number_format($Valor, 2);
                     array_push($array,$data);
                 }
@@ -411,6 +399,7 @@
                                 file_put_contents($UrlLocal, $PdfContent);
                             }
                             foreach($Detalles as $Detalle){
+                                $Codigo = $Detalle['Codigo'];
                                 $Valor = floatval($Detalle['Valor']);
                                 if($Tipo == 1){
                                     $IdServicio = $Detalle['IdServicio'];
@@ -420,7 +409,7 @@
                                     $Concepto = $Detalle["Concepto"];
                                 }else{
                                     $IdServicio = $Detalle['Id'];
-                                    $Concepto = $Detalle['Codigo'] . ' - ' . $Detalle['Servicio'] . ' - ' . 'Costo de instalación / Habilitación';
+                                    $Concepto = $Detalle['Servicio'] . ' - ' . 'Costo de instalación / Habilitación';
                                     if($Detalle['Conexion']){
                                         $Concepto .= ' - ' . $Detalle['Conexion'];
                                     }
@@ -438,7 +427,7 @@
                                 $Total = $Neto + $Impuesto;
                                 $Total = round($Total,0);
 
-                                $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$IdServicio."', '".$Total."')";
+                                $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$IdServicio."', '".$Total."', '".$Codigo."')";
                                 $FacturaDetalleId = $run->insert($query);
                                 if($Tipo == 3){
                                     if($FacturaDetalleId){
@@ -572,6 +561,7 @@
                                         file_put_contents($UrlLocal, $PdfContent);
                                     }
                                     foreach($Detalles as $Detalle){
+                                        $Codigo = $Detalle['Codigo'];
                                         $IdServicio = $Detalle['IdServicio'];
                                         $Valor = floatval($Detalle['Valor']);
                                         $Concepto = $Detalle["Concepto"];
@@ -587,7 +577,7 @@
                                         $Total = $Neto + $Impuesto;
                                         $Total = round($Total,0);
 
-                                        $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$IdServicio."', '".$Total."')";
+                                        $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$IdServicio."', '".$Total."', '".$Codigo."')";
                                         $FacturaDetalleId = $run->insert($query);
                                     }
 
@@ -702,7 +692,7 @@
                                 $FacturaId = $run->insert($query);
                                 $Facturas[$Rut.'-'.$Grupo] = $FacturaId;
                             }
-
+                            $Codigo = $Servicio['Codigo'];
                             $Valor = $Servicio['Valor'];
                             $Valor = $Valor * $UF;
                             $Descuento = $Servicio['Descuento'];
@@ -714,7 +704,7 @@
                             $Total = $Neto + $Impuesto;
                             $Total = round($Total,0);
 
-                            $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$Id."', '".$Total."')";
+                            $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$Id."', '".$Total."', '".$Codigo."')";
                             $detalle = $run->insert($query);
                             if($detalle){
                                 $query = "UPDATE servicios SET FechaUltimoCobro = NOW() WHERE Id = '".$Id."'";
