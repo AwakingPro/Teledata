@@ -721,6 +721,8 @@ $(document).ready(function() {
                         if (response.status == 1) {
                             url = "prefacturas/" + response.NombrePdf + ".pdf";
                             window.open(url, '_blank');
+                            swal.close();
+
                         } else if (response.status == 2) {
                             swal('Solicitud no procesada', 'Debes ingresar el valor UF del mes en curso', 'error');
                         } else if (response.status == 3) {
