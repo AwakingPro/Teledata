@@ -1451,6 +1451,7 @@
                 $response_array['Message'] = 'Error curl';
                 $response_array['status'] = 99;
             }
+            return $response_array;
         }
     }
 ?>
