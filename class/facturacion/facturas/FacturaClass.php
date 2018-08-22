@@ -367,7 +367,7 @@
                     if($Cliente){
 
                         $TipoDocumento = $Cliente['tipo_cliente'];
-                        $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,$Tipo);
+                        $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,$Tipo,1);
 
                         if($FacturaBsale['status'] == 1){
                             $UrlPdf = $FacturaBsale['urlPdf'];
@@ -529,7 +529,7 @@
                             if($Cliente){
 
                                 $TipoDocumento = $Cliente['tipo_cliente'];
-                                $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,2);
+                                $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,2,1);
 
                                 if($FacturaBsale['status'] == 1){
                                     $UrlPdf = $FacturaBsale['urlPdf'];
@@ -926,7 +926,7 @@
                             $query = "SELECT * FROM facturas_detalle WHERE FacturaId = '".$Id."'";
                             $Detalles = $run->select($query);
 
-                            $FacturaBsale = $this->sendBsale($Cliente,$Detalles,0,2);
+                            $FacturaBsale = $this->sendBsale($Cliente,$Detalles,0,2,1);
                             if($FacturaBsale['status'] == 1){
                                 $UrlPdf = $FacturaBsale['urlPdf'];
                                 $DocumentoId = $FacturaBsale['id'];
@@ -969,16 +969,21 @@
             echo json_encode($response_array);
         }
 
-        public function sendBsale($Cliente,$Detalles,$UF,$Tipo){
+        public function sendBsale($Cliente,$Detalles,$UF,$Tipo,$TipoToken){
             $run = new Method;
-            $query = "SELECT token_produccion as access_token FROM variables_globales";
+            if($TipoToken == 1){
+                $query = "SELECT token_produccion as access_token FROM variables_globales";
+            }else{
+                $query = "SELECT token_prueba as access_token FROM variables_globales";
+            }
             $variables_globales = $run->select($query);
             $access_token = $variables_globales[0]['access_token'];
-
+            $clientId = null;
+            /*
             if($Cliente['cliente_id_bsale']){
                 $clientId = $Cliente['cliente_id_bsale'];
             }else{
-                
+
                 //CONSULTA AL CLIENTE
 
                 $url = 'https://api.bsale.cl/v1/clients.json?code='.$Cliente['rut'].'-'.$Cliente['dv'];
@@ -1013,7 +1018,7 @@
                 if($client['count']){
                     $clientId = $client['items'][0]['id'];
                 }else{
-
+                */
                     if($Cliente['provincia']){
                         $Provincia = $Cliente['provincia'];
                     }else{
@@ -1039,8 +1044,8 @@
                         "municipality"  => $Ciudad,
                         "activity"      => $Cliente['giro']
                     );
-                }
-            }
+            //     }
+            // }
 
             //CREACION DE LA FACTURA
 
@@ -1375,6 +1380,77 @@
             $run = new Method;
             $update = $run->update($query);
             return $update;
+        }
+        public function showPrefactura($RutId, $Grupo, $Tipo){
+
+            if(in_array  ('curl', get_loaded_extensions())) {
+
+                $response_array = array();
+                if($Tipo == 1){
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
+                                FROM facturas_detalle 
+                                INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
+                                WHERE facturas.Id = '".$RutId."'
+                                AND facturas.EstatusFacturacion = 0
+                                AND facturas_detalle.Valor > 0";
+                    $NombrePdf = $RutId.'_'.'1';
+                }else if($Tipo == 2){
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
+                                FROM facturas_detalle 
+                                INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
+                                WHERE facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'
+                                AND facturas.TipoFactura = '".$Tipo."'
+                                AND facturas.EstatusFacturacion = 0
+                                AND facturas_detalle.Valor > 0";
+                    $NombrePdf = $RutId.'_'.$Grupo.'_'.$Tipo;
+                }else{
+                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, mantenedor_servicios.servicio as Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto
+                                FROM servicios 
+                                LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
+                                WHERE servicios.Id = '".$RutId."'
+                                AND servicios.EstatusFacturacion = 0
+                                AND servicios.CostoInstalacion > 0";
+                    $NombrePdf = $RutId.'_'.'2';
+                }
+                if(!file_exists("/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf") || $Tipo == 2){
+                    $run = new Method;
+                    $Detalles = $run->select($query);
+                    $Fecha = date('d-m-Y');
+                    $UfClass = new Uf(); 
+                    $UF = $UfClass->getValue($Fecha);
+
+                    if($Detalles){
+                        $Detalle = $Detalles[0];
+                        $Rut = $Detalle['Rut'];
+                        $Cliente = $this->getCliente($Rut);
+                        if($Cliente){
+                            $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,$Tipo,2);
+                            if($FacturaBsale['status'] == 1){
+                                $PdfContent = file_get_contents($FacturaBsale['urlPdf']);
+                                $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
+                                file_put_contents($UrlLocal, $PdfContent);
+                                $response_array['NombrePdf'] = $NombrePdf;
+                                $response_array['status'] = 1;
+                            }else{
+                                $response_array['Message'] = $FacturaBsale['Message'];
+                                $response_array['status'] = 0;
+                            }
+                        }else{
+                            $response_array['Message'] = 'Error cliente';
+                            $response_array['status'] = 4;
+                        }
+                    }else{
+                        $response_array['Message'] = 'Error detalle';
+                        $response_array['status'] = 3;
+                    }
+                }else{
+                    $response_array['NombrePdf'] = $NombrePdf;
+                    $response_array['status'] = 1;
+                }
+            }else{
+                $response_array['Message'] = 'Error curl';
+                $response_array['status'] = 99;
+            }
         }
     }
 ?>
