@@ -186,7 +186,7 @@
                     $data = array();
                     $data['Id'] = $pago['Id'];
                     $data['FechaPago'] = \DateTime::createFromFormat('Y-m-d',$pago['FechaPago'])->format('d-m-Y');    
-                    $data['Monto'] = number_format($pago['Monto'], 2);    
+                    $data['Monto'] = number_format($pago['Monto'], 0);    
                     $data['TipoPago'] = $pago['TipoPago'];
                     $data['Detalle'] = $pago['Detalle'];
                     if($pago['TipoPago'] != 'Cheque al dia'){
@@ -280,7 +280,7 @@
                 $por_pagar = 0;
             }
 
-            $response_array = array('pagado' => number_format($pagado, 2), 'por_pagar' => number_format($por_pagar, 2) );
+            $response_array = array('pagado' => number_format($pagado, 0), 'por_pagar' => number_format($por_pagar, 0) );
 
             echo json_encode($response_array);
 

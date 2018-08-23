@@ -358,8 +358,16 @@
 						for ($i=0; $i < count($rows) ; $i++) {
 							$tabla.= '<tr>';
 							foreach ($rows[$i] as $clave => $valor) {
-								if($clave != 0)
+								if($clave != 0 && $clave != 4){
 									$tabla.="<td>".$valor."</td>";
+								}
+								if($clave == 4){
+									$explode = explode('.',$valor);
+									if($explode[1] == '00'){
+										$valor = intval($valor);
+									}
+									$tabla.="<td>".$valor."</td>";
+								}
 							}
 							$query = "SELECT * FROM facturas_detalle WHERE IdServicio = '".$rows[$i][0]."'";
 							$count = 0;

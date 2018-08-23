@@ -67,21 +67,21 @@
 		$DataFacturacion = 'false';
 	}
 
-	$query = '	SELECT
+	$query = "	SELECT
 					servicios.Id AS Id,
-					servicios.Codigo AS "Codigo de Servicios",
-					servicios.Conexion AS "Conexión",
-					-- mantenedor_tipo_facturacion.nombre AS "Tiempo de Facturacion",
-					mantenedor_servicios.servicio AS "Tipo de Servicio",
+					servicios.Codigo AS 'Codigo de Servicios',
+					servicios.Conexion AS 'Conexión',
+					-- mantenedor_tipo_facturacion.nombre AS 'Tiempo de Facturacion',
+					mantenedor_servicios.servicio AS 'Tipo de Servicio',
 					servicios.Valor,
 					COALESCE (
 						grupo_servicio.Nombre,
 						servicios.Grupo
 					) AS Grupo,
 				(CASE
-					WHEN FechaActivacion IS NULL THEN "Activo"
-					WHEN FechaActivacion = "2999-01-31" THEN "Inactivo"
-					ELSE "Suspendido"
+					WHEN FechaActivacion IS NULL THEN 'Activo'
+					WHEN FechaActivacion = '2999-01-31' THEN 'Inactivo'
+					ELSE 'Suspendido'
 				END) AS Estatus
 				FROM
 					servicios
@@ -90,7 +90,7 @@
 				LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
 				LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo
 				WHERE
-					servicios.Rut = '.$_POST['rut'];
+					servicios.Rut = ".$_POST['rut'];
 	$listaServicios = $run->listViewServicios($query);
 
 	$query = "	SELECT

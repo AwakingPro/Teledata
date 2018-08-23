@@ -74,26 +74,41 @@ $(document).ready(function() {
                         .addClass('text-center')
                 },
                 "columnDefs": [{
-                    "targets": 7,
-                    "render": function(data, type, row) {
-                        if (row.TotalAbono != '0.00') {
-                            Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'
-                        } else {
-                            Abonar = ''
+                        "targets": 5,
+                        "render": function(data, type, row) {
+                            value = formatcurrency(data)
+                            return "<div style='text-align: center'>" + value + "</div>";
                         }
-                        if (row.TotalFactura != row.TotalAbono) {
-                            Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
-                        } else {
-                            Pagos = ''
+                    },
+                    {
+                        "targets": 6,
+                        "render": function(data, type, row) {
+                            value = formatcurrency(data)
+                            return "<div style='text-align: center'>" + value + "</div>";
                         }
-                        if (data != '') {
-                            Pdf = '<a href="../facturacion/facturas/' + data + '.pdf" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
-                        } else {
-                            Pdf = '';
+                    },
+                    {
+                        "targets": 7,
+                        "render": function(data, type, row) {
+                            if (row.TotalAbono != '0') {
+                                Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'
+                            } else {
+                                Abonar = ''
+                            }
+                            if (row.TotalFactura != row.TotalAbono) {
+                                Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
+                            } else {
+                                Pagos = ''
+                            }
+                            if (data != '') {
+                                Pdf = '<a href="../facturacion/facturas/' + data + '.pdf" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
+                            } else {
+                                Pdf = '';
+                            }
+                            return "<div style='text-align: center'>" + Abonar + " " + Pagos + " " + Pdf + "</div>";
                         }
-                        return "<div style='text-align: center'>" + Abonar + " " + Pagos + " " + Pdf + "</div>";
-                    }
-                }, ],
+                    },
+                ],
                 language: {
                     processing: "Procesando ...",
                     search: 'Buscar',
@@ -371,4 +386,8 @@ $(document).ready(function() {
             }
         });
     });
+
+    function formatcurrency(n) {
+        return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+    }
 });

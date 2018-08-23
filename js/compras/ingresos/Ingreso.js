@@ -1,6 +1,6 @@
 var json = []
 
-$(document).ready(function(){
+$(document).ready(function() {
     // showIngresos()
     $('.input-daterange').datepicker({
         format: "dd-mm-yyyy",
@@ -10,7 +10,7 @@ $(document).ready(function(){
         todayHighlight: true,
         language: 'es'
     });
-    $(document).on('click', '#filtrar', function () {
+    $(document).on('click', '#filtrar', function() {
         var startDate = $("#date-range .input-daterange input[name='start']").val();
         var endDate = $("#date-range .input-daterange input[name='end']").val();
         if (startDate != '' & endDate != '') {
@@ -24,7 +24,7 @@ $(document).ready(function(){
     //FUNCION NECESARIA PARA MOSTRAR 2 MODALES AL MISMO TIEMPO
 
     $(document).on({
-        'show.bs.modal': function () {
+        'show.bs.modal': function() {
             var zIndex = 1040 + (10 * $('.modal:visible').length);
             $(this).css('z-index', zIndex);
             setTimeout(function() {
@@ -33,9 +33,9 @@ $(document).ready(function(){
         },
         'hidden.bs.modal': function() {
             if ($('.modal:visible').length > 0) {
-              if($('.modal').hasClass('in')) {
-                $('body').addClass('modal-open');
-              }    
+                if ($('.modal').hasClass('in')) {
+                    $('body').addClass('modal-open');
+                }
 
             }
         }
@@ -51,14 +51,14 @@ $(document).ready(function(){
 
     $(".number").mask("0000000000");
     $('.money').number(true, 2, ',', '.');
-    $('.tipo_documento_id').load('../ajax/cliente/selectTipoCliente.php', function () {
+    $('.tipo_documento_id').load('../ajax/cliente/selectTipoCliente.php', function() {
         $('.tipo_documento_id').selectpicker('refresh');
     });
     $.ajax({
         type: "POST",
         url: "../includes/compras/ingresos/showEstado.php",
-        success: function (response) {
-            $.each(response.array, function (index, array) {
+        success: function(response) {
+            $.each(response.array, function(index, array) {
                 $('#TipoPago').append('<option value="' + array.id + '">' + array.nombre + '</option>');
             });
 
@@ -69,19 +69,21 @@ $(document).ready(function(){
 
     Table = $('#IngresoTable').DataTable()
 
-    function showIngresos(){
+    function showIngresos() {
         var startDate = $("#date-range .input-daterange input[name='start']").val();
         var endDate = $("#date-range .input-daterange input[name='end']").val();
         $.ajax({
             type: "POST",
             url: "../includes/compras/ingresos/showIngreso.php",
-            data:{
+            data: {
                 startDate: startDate,
                 endDate: endDate
             },
-            success: function(response){
+            success: function(response) {
                 Table = $('#IngresoTable').DataTable({
-                    order: [[0, 'desc']],
+                    order: [
+                        [0, 'desc']
+                    ],
                     data: response.array,
                     columns: [
                         { data: 'numero_documento' },
@@ -93,36 +95,35 @@ $(document).ready(function(){
                         { data: 'id' }
                     ],
                     destroy: true,
-                    'createdRow': function( row, data, dataIndex ) {
+                    'createdRow': function(row, data, dataIndex) {
                         $(row)
-                            .attr('id',data.id)
-                            .data('tipo_documento_id',data.tipo_documento_id)
-                            .data('proveedor_id',data.proveedor_id)
-                            .data('centro_costo_id',data.centro_costo_id)
-                            .data('detalle',data.detalle)
-                            .data('total_documento',data.total_documento)
+                            .attr('id', data.id)
+                            .data('tipo_documento_id', data.tipo_documento_id)
+                            .data('proveedor_id', data.proveedor_id)
+                            .data('centro_costo_id', data.centro_costo_id)
+                            .data('detalle', data.detalle)
+                            .data('total_documento', data.total_documento)
                             .addClass('text-center')
                     },
-                    "columnDefs": [
-                        {
+                    "columnDefs": [{
                             "targets": 2,
-                            "render": function (data, type, row) {
+                            "render": function(data, type, row) {
                                 fecha_emision = moment(data).format('DD-MM-YYYY');
                                 return fecha_emision
                             }
                         },
                         {
                             "targets": 3,
-                            "render": function (data, type, row) {
+                            "render": function(data, type, row) {
                                 fecha_vencimiento = moment(data).format('DD-MM-YYYY');
                                 return fecha_vencimiento
                             }
                         },
                         {
                             "targets": 6,
-                            "render": function (data, type, row) {
+                            "render": function(data, type, row) {
                                 Icono = ' <i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-times Remove"></i>'
-                                if (row.total_abono != '0.00') {
+                                if (row.total_abono != '0') {
                                     Abonar = '<i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'
                                 } else {
                                     Abonar = ''
@@ -137,24 +138,24 @@ $(document).ready(function(){
                         },
                     ],
                     language: {
-                        processing:     "Procesando ...",
-                        search:         'Buscar',
-                        lengthMenu:     "Mostrar _MENU_ Registros",
-                        info:           "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                        infoEmpty:      "Mostrando 0 a 0 de 0 Registros",
-                        infoFiltered:   "(filtrada de _MAX_ registros en total)",
-                        infoPostFix:    "",
+                        processing: "Procesando ...",
+                        search: 'Buscar',
+                        lengthMenu: "Mostrar _MENU_ Registros",
+                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                        infoFiltered: "(filtrada de _MAX_ registros en total)",
+                        infoPostFix: "",
                         loadingRecords: "...",
-                        zeroRecords:    "No se encontraron registros coincidentes",
-                        emptyTable:     "No hay datos disponibles en la tabla",
+                        zeroRecords: "No se encontraron registros coincidentes",
+                        emptyTable: "No hay datos disponibles en la tabla",
                         paginate: {
-                            first:      "Primero",
-                            previous:   "Anterior",
-                            next:       "Siguiente",
-                            last:       "Ultimo"
+                            first: "Primero",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                            last: "Ultimo"
                         },
                         aria: {
-                            sortAscending:  ": habilitado para ordenar la columna en orden ascendente",
+                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
                             sortDescending: ": habilitado para ordenar la columna en orden descendente"
                         }
                     }
@@ -170,11 +171,11 @@ $(document).ready(function(){
         $.ajax({
             type: "POST",
             url: "../includes/compras/ingresos/getTotales.php",
-            data:{
+            data: {
                 startDate,
                 endDate
             },
-            success: function (response) {
+            success: function(response) {
                 pagado = response.pagado
                 por_pagar = response.por_pagar
                 $('#pagado').text(pagado)
@@ -186,38 +187,38 @@ $(document).ready(function(){
     $.ajax({
         type: "POST",
         url: "../includes/compras/ingresos/showProveedor.php",
-        success: function(response){
+        success: function(response) {
 
-            $.each(response.array, function( index, array ) {
-                $('.proveedor_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+            $.each(response.array, function(index, array) {
+                $('.proveedor_id').append('<option value="' + array.id + '" data-content="' + array.nombre + '"></option>');
             });
 
             $('.proveedor_id').selectpicker('refresh');
-        
+
         }
     });
 
     $.ajax({
         type: "POST",
         url: "../includes/compras/ingresos/showEstado.php",
-        success: function(response){
+        success: function(response) {
 
-            $.each(response.array, function( index, array ) {
-                $('.tipo_pago_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+            $.each(response.array, function(index, array) {
+                $('.tipo_pago_id').append('<option value="' + array.id + '" data-content="' + array.nombre + '"></option>');
             });
 
             $('.tipo_pago_id').selectpicker('refresh');
-        
+
         }
     });
 
     $.ajax({
         type: "POST",
         url: "../includes/compras/ingresos/showCentroCosto.php",
-        success: function(response){
+        success: function(response) {
 
-            $.each(response.array, function( index, array ) {
-                $('.centro_costo_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+            $.each(response.array, function(index, array) {
+                $('.centro_costo_id').append('<option value="' + array.id + '" data-content="' + array.nombre + '"></option>');
             });
 
             $('.centro_costo_id').selectpicker('refresh');
@@ -227,27 +228,27 @@ $(document).ready(function(){
     $.ajax({
         type: "POST",
         url: "../includes/compras/costos/showPersonal.php",
-        success: function(response){
+        success: function(response) {
 
-            $.each(response.array, function( index, array ) {
-                $('.personal_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
+            $.each(response.array, function(index, array) {
+                $('.personal_id').append('<option value="' + array.id + '" data-content="' + array.nombre + '"></option>');
             });
 
             $('.personal_id').selectpicker('refresh');
-        
+
         }
     });
 
-    $('select[name=tipo_pago_id]').on('change', function () {
+    $('select[name=tipo_pago_id]').on('change', function() {
         estado = $(this).val()
-        if(estado == "1"){
+        if (estado == "1") {
             $('.detalle').show()
-        }else{
+        } else {
             $('.detalle').hide()
         }
     });
 
-    $('#IngresoForm').on('hidden.bs.modal', function () {
+    $('#IngresoForm').on('hidden.bs.modal', function() {
 
         $('#storeIngreso')[0].reset();
         $('select').selectpicker('refresh');
@@ -255,69 +256,69 @@ $(document).ready(function(){
     });
 
 
-    $('body').on('click', '#guardarIngreso', function () {
+    $('body').on('click', '#guardarIngreso', function() {
 
-        $.postFormValues('../includes/compras/ingresos/storeIngreso.php', '#storeIngreso', function(response){
+        $.postFormValues('../includes/compras/ingresos/storeIngreso.php', '#storeIngreso', function(response) {
 
-            if(response.status == 1){
+            if (response.status == 1) {
 
                 $.niftyNoty({
                     type: 'success',
-                    icon : 'fa fa-check',
-                    message : 'Registro Guardado Exitosamente',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Registro Guardado Exitosamente',
+                    container: 'floating',
+                    timer: 3000
                 });
-     
+
                 showIngresos();
                 $('#storeIngreso')[0].reset();
                 $('select').selectpicker('refresh');
                 $('.modal').modal('hide');
 
-            }else if(response.status == 2){
+            } else if (response.status == 2) {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Debe llenar todos los campos',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Debe llenar todos los campos',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-            }else if(response.status == 3){
+            } else if (response.status == 3) {
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'La fecha de emisión debe ser menor a la fecha de vencimiento',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'La fecha de emisión debe ser menor a la fecha de vencimiento',
+                    container: 'floating',
+                    timer: 3000
                 });
-            }else if(response.status == 99){
+            } else if (response.status == 99) {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Debe llenar los datos de los productos',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Debe llenar los datos de los productos',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-            }else{
+            } else {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Ocurrió un error en el Proceso',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Ocurrió un error en el Proceso',
+                    container: 'floating',
+                    timer: 3000
                 });
 
             }
         });
     });
-   
 
-    $('body').on( 'click', 'i.fa', function () {
+
+    $('body').on('click', 'i.fa', function() {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
@@ -342,12 +343,12 @@ $(document).ready(function(){
         $('#updateIngreso').find('input[name="detalle"]').val(ObjectDetail);
         $('#updateIngreso').find('input[name="total_documento"]').val(ObjectValue);
 
-        if($(this).hasClass('fa-search')){
+        if ($(this).hasClass('fa-search')) {
             $("#IngresoFormUpdate :input").attr("readonly", true);
             $('#span_ingreso').text('Ver');
             $('#actualizarIngreso').hide()
             $('#IngresoFormUpdate').modal('show');
-        }else if($(this).hasClass('fa-pencil')){
+        } else if ($(this).hasClass('fa-pencil')) {
             $("#IngresoFormUpdate :input").attr("readonly", false);
             $('#span_ingreso').text('Actualizar');
             $('#actualizarIngreso').show()
@@ -357,184 +358,184 @@ $(document).ready(function(){
     });
 
 
-    $('body').on('click', '#actualizarIngreso', function () {
+    $('body').on('click', '#actualizarIngreso', function() {
 
-        $.postFormValues('../includes/compras/ingresos/updateIngreso.php', '#updateIngreso', function(response){
-                    
-            if(response.status == 1){
+        $.postFormValues('../includes/compras/ingresos/updateIngreso.php', '#updateIngreso', function(response) {
+
+            if (response.status == 1) {
 
                 $.niftyNoty({
                     type: 'success',
-                    icon : 'fa fa-check',
-                    message : 'Registro Actualizado Exitosamente',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Registro Actualizado Exitosamente',
+                    container: 'floating',
+                    timer: 3000
                 });
 
                 showIngresos();
                 $('.modal').modal('hide');
-                
 
-            }else if(response.status == 2){
+
+            } else if (response.status == 2) {
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Debe llenar todos los campos',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Debe llenar todos los campos',
+                    container: 'floating',
+                    timer: 3000
                 });
-            }else if(response.status == 3){
+            } else if (response.status == 3) {
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'La fecha de emisión debe ser menor a la fecha de vencimiento',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'La fecha de emisión debe ser menor a la fecha de vencimiento',
+                    container: 'floating',
+                    timer: 3000
                 });
-            }else{
+            } else {
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Ocurrió un error en el Proceso',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Ocurrió un error en el Proceso',
+                    container: 'floating',
+                    timer: 3000
                 });
             }
-        });   
+        });
     });
 
-    $('body').on('click', '.Remove', function () {
+    $('body').on('click', '.Remove', function() {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectId = ObjectTR.attr("id");
 
-        swal({   
-            title: "Desea eliminar este registro?",   
-            text: "Confirmar eliminación!",   
-            type: "warning",   
-            showCancelButton: true,   
-            confirmButtonColor: "#28a745",   
-            confirmButtonText: "Eliminar!",  
-            cancelButtonText: "Cancelar",         
+        swal({
+            title: "Desea eliminar este registro?",
+            text: "Confirmar eliminación!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            confirmButtonText: "Eliminar!",
+            cancelButtonText: "Cancelar",
             showLoaderOnConfirm: true
-        },function(isConfirm){   
+        }, function(isConfirm) {
             if (isConfirm) {
-    
+
                 $.ajax({
                     url: "../includes/compras/ingresos/deleteIngreso.php",
                     type: 'POST',
-                    data:"&id="+ObjectId,
-                    success:function(response){
+                    data: "&id=" + ObjectId,
+                    success: function(response) {
                         setTimeout(function() {
-                            if(response.status == 1){
-                                swal("Éxito!","El registro ha sido eliminado!","success");
+                            if (response.status == 1) {
+                                swal("Éxito!", "El registro ha sido eliminado!", "success");
                                 showIngresos();
-                            }else if(response.status == 3){
-                                swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee otros registros asociados','error');
-                            }else{
-                                swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                            } else if (response.status == 3) {
+                                swal('Solicitud no procesada', 'Este registro no puede ser eliminado porque posee otros registros asociados', 'error');
+                            } else {
+                                swal('Solicitud no procesada', 'Ha ocurrido un error, intente nuevamente por favor', 'error');
                             }
-                        }, 1000);  
+                        }, 1000);
                     },
-                    error:function(){
-                        swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                    error: function() {
+                        swal('Solicitud no procesada', 'Ha ocurrido un error, intente nuevamente por favor', 'error');
                     }
                 });
             }
         });
     });
 
-    $('body').on('click', '#guardarProveedor', function () {
+    $('body').on('click', '#guardarProveedor', function() {
 
-        $.postFormValues('../includes/inventario/proveedores/storeProveedor.php', '#storeProveedor', function(response){
+        $.postFormValues('../includes/inventario/proveedores/storeProveedor.php', '#storeProveedor', function(response) {
 
-            if(response.status == 1){
+            if (response.status == 1) {
 
                 $.niftyNoty({
                     type: 'success',
-                    icon : 'fa fa-check',
-                    message : 'Registro Guardado Exitosamente',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Registro Guardado Exitosamente',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-                $('.proveedor_id').append('<option value="'+response.array.id+'" data-content="'+response.array.rut+ ' - '+ response.array.nombre+'"></option>');
+                $('.proveedor_id').append('<option value="' + response.array.id + '" data-content="' + response.array.rut + ' - ' + response.array.nombre + '"></option>');
                 $('.proveedor_id').val(response.array.id);
-                
+
                 $('.selectpicker').selectpicker('refresh')
 
                 $('#storeProveedor')[0].reset();
                 $('#modalProveedor').modal('hide');
 
-            }else if(response.status == 2){
+            } else if (response.status == 2) {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Debe llenar todos los campos',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Debe llenar todos los campos',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-            }else{
+            } else {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Ocurrió un error en el Proceso',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Ocurrió un error en el Proceso',
+                    container: 'floating',
+                    timer: 3000
                 });
             }
-       });   
+        });
     });
 
-    $('body').on('click', '#guardarCosto', function () {
+    $('body').on('click', '#guardarCosto', function() {
 
-        $.postFormValues('../includes/compras/costos/storeCosto.php', '#storeCosto', function(response){
+        $.postFormValues('../includes/compras/costos/storeCosto.php', '#storeCosto', function(response) {
 
-            if(response.status == 1){
+            if (response.status == 1) {
 
                 $.niftyNoty({
                     type: 'success',
-                    icon : 'fa fa-check',
-                    message : 'Registro Guardado Exitosamente',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Registro Guardado Exitosamente',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-                $('.centro_costo_id').append('<option value="'+response.array.id+'" data-content="'+response.array.nombre+'"></option>');
+                $('.centro_costo_id').append('<option value="' + response.array.id + '" data-content="' + response.array.nombre + '"></option>');
                 $('.centro_costo_id').val(response.array.id);
-                
+
                 $('.selectpicker').selectpicker('refresh')
 
                 $('#storeCosto')[0].reset();
                 $('#modalCosto').modal('hide');
 
-            }else if(response.status == 2){
+            } else if (response.status == 2) {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Debe llenar todos los campos',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Debe llenar todos los campos',
+                    container: 'floating',
+                    timer: 3000
                 });
 
-            }else{
+            } else {
 
                 $.niftyNoty({
                     type: 'danger',
-                    icon : 'fa fa-check',
-                    message : 'Ocurrió un error en el Proceso',
-                    container : 'floating',
-                    timer : 3000
+                    icon: 'fa fa-check',
+                    message: 'Ocurrió un error en el Proceso',
+                    container: 'floating',
+                    timer: 3000
                 });
             }
-       });   
+        });
     });
-    $('body').on('click', '.Abonar', function () {
+    $('body').on('click', '.Abonar', function() {
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         Monto = $(ObjectTR).find("td").eq(5).html();
@@ -548,7 +549,7 @@ $(document).ready(function(){
         $('#CompraId').val(id)
         $('#modalIngreso').modal('show')
     });
-    $('#TipoPago').on('change', function () {
+    $('#TipoPago').on('change', function() {
         TipoPago = $(this).find('option:selected').text()
         if (TipoPago == "Transferencia") {
             $('.label_Detalle').text('ID de Transferencia')
@@ -576,7 +577,7 @@ $(document).ready(function(){
             $('.Detalle').removeClass('number')
         }
     });
-    $("#FechaEmisionCheque").blur(function () {
+    $("#FechaEmisionCheque").blur(function() {
         FechaEmision = moment($(this).val(), 'DD-MM-YYYY');
         if (FechaEmision.day() === 5) { // friday, show monday
             // set to monday
@@ -590,7 +591,7 @@ $(document).ready(function(){
         $('#FechaVencimientoCheque').val(FechaVencimiento)
     });
 
-    $('#modalIngreso').on('hidden.bs.modal', function () {
+    $('#modalIngreso').on('hidden.bs.modal', function() {
 
         $('#storePago')[0].reset();
         $('.selectpicker').selectpicker('refresh');
@@ -598,9 +599,9 @@ $(document).ready(function(){
     });
 
 
-    $('body').on('click', '#guardarPago', function () {
+    $('body').on('click', '#guardarPago', function() {
 
-        $.postFormValues('../includes/compras/ingresos/storePago.php', '#storePago', function (response) {
+        $.postFormValues('../includes/compras/ingresos/storePago.php', '#storePago', function(response) {
 
             if (response.status == 1) {
 
@@ -640,7 +641,7 @@ $(document).ready(function(){
             }
         });
     });
-    $('body').on('click', '.mostrarPagos', function () {
+    $('body').on('click', '.mostrarPagos', function() {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
@@ -650,10 +651,12 @@ $(document).ready(function(){
             type: "POST",
             url: "../includes/compras/ingresos/showPagos.php",
             data: "id=" + id,
-            success: function (data) {
+            success: function(data) {
                 // data = JSON.parse(data)
                 ModalTable = $('#ModalTable').DataTable({
-                    order: [[0, 'desc']],
+                    order: [
+                        [0, 'desc']
+                    ],
                     "columnDefs": [{
                         "targets": [0],
                         "orderable": false
@@ -669,20 +672,18 @@ $(document).ready(function(){
                         { data: 'Id' }
                     ],
                     destroy: true,
-                    'createdRow': function (row, data, dataIndex) {
+                    'createdRow': function(row, data, dataIndex) {
                         $(row)
                             .attr('id', data.Id)
                             .addClass('text-center')
                     },
-                    "columnDefs": [
-                        {
-                            "targets": 6,
-                            "render": function (data, type, row) {
-                                Icono = '<i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-times EliminarPago"></i>'
-                                return Icono;
-                            }
-                        },
-                    ],
+                    "columnDefs": [{
+                        "targets": 6,
+                        "render": function(data, type, row) {
+                            Icono = '<i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-times EliminarPago"></i>'
+                            return Icono;
+                        }
+                    }, ],
                     language: {
                         processing: "Procesando ...",
                         search: 'Buscar',
@@ -709,8 +710,8 @@ $(document).ready(function(){
 
                 $('#modalShow').modal('show')
             },
-            error: function (xhr, status, error) {
-                setTimeout(function () {
+            error: function(xhr, status, error) {
+                setTimeout(function() {
                     var err = JSON.parse(xhr.responseText);
                     swal('Solicitud no procesada', err.Message, 'error');
                 }, 1000);
@@ -719,7 +720,7 @@ $(document).ready(function(){
 
     });
 
-    $(document).on('click', '.EliminarPago', function () {
+    $(document).on('click', '.EliminarPago', function() {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
@@ -734,15 +735,15 @@ $(document).ready(function(){
             confirmButtonText: "Eliminar!",
             cancelButtonText: "Cancelar",
             showLoaderOnConfirm: true
-        }, function (isConfirm) {
+        }, function(isConfirm) {
             if (isConfirm) {
 
                 $.ajax({
                     url: "../includes/compras/ingresos/deletePago.php",
                     type: 'POST',
                     data: "&id=" + ObjectId,
-                    success: function (response) {
-                        setTimeout(function () {
+                    success: function(response) {
+                        setTimeout(function() {
                             if (response == 1) {
                                 swal("Éxito!", "El registro ha sido eliminado!", "success");
                                 ModalTable.row($(ObjectTR))
@@ -756,7 +757,7 @@ $(document).ready(function(){
                             }
                         }, 1000);
                     },
-                    error: function () {
+                    error: function() {
                         swal('Solicitud no procesada', 'Ha ocurrido un error, intente nuevamente por favor', 'error');
                     }
                 });

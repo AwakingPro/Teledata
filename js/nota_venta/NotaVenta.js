@@ -161,12 +161,13 @@ $(document).ready(function() {
                                 if (row.estatus_facturacion == 0) {
                                     Editar = ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'
                                     Generar = ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-excel-o Generate"></i>'
+                                    Eliminar = ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveNota"></i>'
                                 } else {
                                     Editar = '';
                                     Generar = ''
+                                    Eliminar = ''
                                 }
-                                Remove = ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveNota"></i>'
-                                return "<div style='text-align: center'>" + Ver + " " + Editar + " " + Generar + " " + Remove + "</div>";
+                                return "<div style='text-align: center'>" + Ver + " " + Editar + " " + Generar + " " + Eliminar + "</div>";
                             }
                         },
                     ],

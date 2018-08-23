@@ -50,8 +50,8 @@
             $data['NumeroDocumento'] = $factura['NumeroDocumento'];
             $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
             $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
-            $data['TotalFactura'] = number_format($TotalFactura, 2);
-            $data['TotalAbono'] = number_format($TotalAbono, 2);
+            $data['TotalFactura'] = $TotalFactura;
+            $data['TotalAbono'] = $TotalAbono;
             $data['UrlPdfBsale'] = $factura['UrlPdfBsale'];
             $data['TipoDocumento'] = $factura['TipoDocumento'];
             array_push($ToReturn,$data);

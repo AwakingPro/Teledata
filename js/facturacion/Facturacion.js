@@ -71,9 +71,9 @@ $(document).ready(function() {
                 cantidadFacturas = response.cantidadFacturas
                 totalBoletas = response.totalBoletas
                 cantidadBoletas = response.cantidadBoletas
-                $('#totalFacturasInstalacion').text(totalFacturas)
+                $('#totalFacturasInstalacion').text(formatcurrency(totalFacturas))
                 $('#cantidadFacturasInstalacion').text(cantidadFacturas)
-                $('#totalBoletasInstalacion').text(totalBoletas)
+                $('#totalBoletasInstalacion').text(formatcurrency(totalBoletas))
                 $('#cantidadBoletasInstalacion').text(cantidadBoletas)
             }
         });
@@ -86,9 +86,9 @@ $(document).ready(function() {
                 cantidadFacturas = response.cantidadFacturas
                 totalBoletas = response.totalBoletas
                 cantidadBoletas = response.cantidadBoletas
-                $('#totalFacturasLote').text(totalFacturas)
+                $('#totalFacturasLote').text(formatcurrency(totalFacturas))
                 $('#cantidadFacturasLote').text(cantidadFacturas)
-                $('#totalBoletasLote').text(totalBoletas)
+                $('#totalBoletasLote').text(formatcurrency(totalBoletas))
                 $('#cantidadBoletasLote').text(cantidadBoletas)
             }
         });
@@ -101,9 +101,9 @@ $(document).ready(function() {
                 cantidadFacturas = response.cantidadFacturas
                 totalBoletas = response.totalBoletas
                 cantidadBoletas = response.cantidadBoletas
-                $('#totalFacturasIndividual').text(totalFacturas)
+                $('#totalFacturasIndividual').text(formatcurrency(totalFacturas))
                 $('#cantidadFacturasIndividual').text(cantidadFacturas)
-                $('#totalBoletasIndividual').text(totalBoletas)
+                $('#totalBoletasIndividual').text(formatcurrency(totalBoletas))
                 $('#cantidadBoletasIndividual').text(cantidadBoletas)
             }
         });
@@ -138,13 +138,21 @@ $(document).ready(function() {
                             .addClass('text-center')
                     },
                     "columnDefs": [{
-                        "targets": 5,
-                        "render": function(data, type, row) {
-                            Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarInstalacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
-                            Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
-                            return "<div style='text-align: center'>" + Icono + "</div>";
-                        }
-                    }, ],
+                            "targets": 4,
+                            "render": function(data, type, row) {
+                                value = formatcurrency(data)
+                                return "<div style='text-align: center'>" + value + "</div>";
+                            }
+                        },
+                        {
+                            "targets": 5,
+                            "render": function(data, type, row) {
+                                Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarInstalacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
+                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                                return "<div style='text-align: center'>" + Icono + "</div>";
+                            }
+                        },
+                    ],
                     language: {
                         processing: "Procesando ...",
                         search: 'Buscar',
@@ -207,6 +215,13 @@ $(document).ready(function() {
                             "render": function(data, type, row) {
                                 Check = '<input name="select_check" id="select_check_' + data + '" type="checkbox" />'
                                 return "<div style='text-align: center'>" + Check + "</div>";
+                            }
+                        },
+                        {
+                            "targets": 5,
+                            "render": function(data, type, row) {
+                                value = formatcurrency(data)
+                                return "<div style='text-align: center'>" + value + "</div>";
                             }
                         },
                         {
@@ -277,13 +292,22 @@ $(document).ready(function() {
                             .addClass('text-center')
                     },
                     "columnDefs": [{
-                        "targets": 5,
-                        "render": function(data, type, row) {
-                            Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarIndividual" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
-                            Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
-                            return "<div style='text-align: center'>" + Icono + "</div>";
-                        }
-                    }, ],
+                            "targets": 4,
+                            "render": function(data, type, row) {
+                                value = formatcurrency(data)
+                                return "<div style='text-align: center'>" + value + "</div>";
+                            }
+                        },
+                        {
+
+                            "targets": 5,
+                            "render": function(data, type, row) {
+                                Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarIndividual" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
+                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                                return "<div style='text-align: center'>" + Icono + "</div>";
+                            }
+                        },
+                    ],
                     language: {
                         processing: "Procesando ...",
                         search: 'Buscar',
@@ -401,7 +425,7 @@ $(document).ready(function() {
                     var rowNode = ModalTable.row.add([
                         '' + array.Codigo + '',
                         '' + array.Nombre + '',
-                        '' + array.Valor + '',
+                        '' + formatcurrency(array.Valor) + '',
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -439,7 +463,7 @@ $(document).ready(function() {
                     var rowNode = ModalTable.row.add([
                         '' + array.Codigo + '',
                         '' + array.Concepto + '',
-                        '' + array.Valor + '',
+                        '' + formatcurrency(array.Valor) + '',
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -476,7 +500,7 @@ $(document).ready(function() {
                     var rowNode = ModalTable.row.add([
                         '' + array.Nombre + '',
                         '' + array.Concepto + '',
-                        '' + array.Valor + '',
+                        '' + formatcurrency(array.Valor) + '',
                     ]).draw(false).node();
 
                     $(rowNode)

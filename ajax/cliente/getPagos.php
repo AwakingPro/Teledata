@@ -19,7 +19,7 @@
             $data = array();
             $data['Id'] = $pago['Id'];
             $data['FechaPago'] = \DateTime::createFromFormat('Y-m-d',$pago['FechaPago'])->format('d-m-Y');    
-            $data['Monto'] = number_format($pago['Monto'], 2);    
+            $data['Monto'] = $pago['Monto'];    
             $data['TipoPago'] = $pago['TipoPago'];
             $data['Detalle'] = $pago['Detalle'];
             if($pago['TipoPago'] != 'Cheque al dia'){

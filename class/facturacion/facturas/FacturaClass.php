@@ -50,7 +50,7 @@
                     $data['Cliente'] = $servicio['Cliente'];        
                     $data['UrlPdfBsale'] = ''; 
                     $data['Tipo'] = 1;
-                    $data['Valor'] = number_format($Valor, 2);  
+                    $data['Valor'] = $Valor;  
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $servicio['TipoDocumento']; 
                     $data['NombreGrupo'] = $servicio['NombreGrupo'];
@@ -112,7 +112,7 @@
                     $data['Cliente'] = $factura['Cliente'];   
                     $data['UrlPdfBsale'] = '';
                     $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
-                    $data['Valor'] = number_format($Valor, 2);
+                    $data['Valor'] = $Valor;
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['NombreGrupo'] = $factura['NombreGrupo'];
@@ -172,7 +172,7 @@
                     $data['Cliente'] = $factura['Cliente'];   
                     $data['UrlPdfBsale'] = '';
                     $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
-                    $data['Valor'] = number_format($Valor, 2);
+                    $data['Valor'] = $Valor;
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['NombreGrupo'] = $factura['NombreGrupo'];
@@ -230,7 +230,7 @@
                     $Valor = $servicio['Valor'];
                     $IVA = $servicio['Valor'] * 0.19;
                     $Valor += round($IVA,0);
-                    $data['Valor'] = number_format($Valor, 2);
+                    $data['Valor'] = $Valor;
                     array_push($array,$data);
                 }
 
@@ -270,7 +270,7 @@
                     $Valor = $factura['Valor'];
                     $data['Codigo'] = $data['Codigo'];
                     $data['Concepto'] = $data['Concepto'];
-                    $data['Valor'] = number_format($Valor, 2);
+                    $data['Valor'] = $Valor;
                     array_push($array,$data);
                 }
 
@@ -304,7 +304,7 @@
                 foreach($facturas as $factura){
                     $data = $factura;
                     $Valor = $factura['Valor'];
-                    $data['Valor'] = number_format($Valor, 2);
+                    $data['Valor'] = $Valor;
                     array_push($array,$data);
                 }
 
@@ -763,7 +763,7 @@
                 }
             }
 
-            $array = array('totalFacturas' => number_format($totalFacturas, 2), 'totalBoletas' => number_format($totalBoletas, 2), 'cantidadFacturas' => $cantidadFacturas, 'cantidadBoletas' => $cantidadBoletas);
+            $array = array('totalFacturas' => $totalFacturas, 'totalBoletas' => $totalBoletas, 'cantidadFacturas' => $cantidadFacturas, 'cantidadBoletas' => $cantidadBoletas);
             return $array;
         }
         public function getTotalesLote(){
@@ -808,7 +808,7 @@
                 }
             }
             
-            $array = array('totalFacturas' => number_format($totalFacturas, 2), 'totalBoletas' => number_format($totalBoletas, 2), 'cantidadFacturas' => $cantidadFacturas, 'cantidadBoletas' => $cantidadBoletas);
+            $array = array('totalFacturas' => $totalFacturas, 'totalBoletas' => $totalBoletas, 'cantidadFacturas' => $cantidadFacturas, 'cantidadBoletas' => $cantidadBoletas);
             return $array;
         }
         public function getTotalesIndividual(){
@@ -850,7 +850,7 @@
                 }
             }
             
-            $array = array('totalFacturas' => number_format($totalFacturas, 2), 'totalBoletas' => number_format($totalBoletas, 2), 'cantidadFacturas' => $cantidadFacturas, 'cantidadBoletas' => $cantidadBoletas);
+            $array = array('totalFacturas' => $totalFacturas, 'totalBoletas' => $totalBoletas, 'cantidadFacturas' => $cantidadFacturas, 'cantidadBoletas' => $cantidadBoletas);
             return $array;
         }
 
@@ -1308,8 +1308,8 @@
                     $data['NumeroDocumento'] = $factura['NumeroDocumento'];
                     $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
                     $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
-                    $data['TotalFactura'] = number_format($TotalFactura, 2);
-                    $data['TotalAbono'] = number_format($TotalAbono, 2);
+                    $data['TotalFactura'] = $TotalFactura;
+                    $data['TotalAbono'] = $TotalAbono;
                     $data['UrlPdfBsale'] = $factura['UrlPdfBsale'];
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     array_push($ToReturn,$data);

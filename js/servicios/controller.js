@@ -23,6 +23,11 @@ $(document).ready(function() {
         }
     });
 
+    $('[name="Valor"]').number(true, 0, ',', '.');
+    $('[name="Descuento"]').mask('00');
+    $('[name="CostoInstalacion"]').number(true, 0, ',', '.');
+    $('[name="CostoInstalacionDescuento"]').mask('00');
+
     $('select[name="Region"]').load('../ajax/cliente/getRegiones.php', function(data) {
         $('select[name="Region"]').selectpicker('refresh');
     });
@@ -133,10 +138,6 @@ $(document).ready(function() {
         });
     });
 
-    $('[name="Valor"]').number(true, 2, ',', '.');
-    $('[name="Descuento"]').number(true, 0, '.', '');
-    $('[name="CostoInstalacion"]').number(true, 2, ',', '.');
-    $('[name="CostoInstalacionDescuento"]').number(true, 0, '.', '');
     $('select[name="TipoServicio"]').change(function(event) {
 
         Latitud = $('#Latitud').val()

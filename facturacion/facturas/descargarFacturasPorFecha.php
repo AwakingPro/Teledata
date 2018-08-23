@@ -39,10 +39,11 @@
             if(file_exists($file)){
                 // $zip->addFromString(basename($file),  file_get_contents($file)); 
                 $zip->addFile($file);
-            }else{
-                echo $file;
-                return;
             }
+            // else{
+            //     echo $file;
+            //     return;
+            // }
         }
         $filename = $zip->filename;
         $status=$zip->getStatusString();
