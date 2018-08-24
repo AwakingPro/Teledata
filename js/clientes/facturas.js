@@ -402,7 +402,7 @@ $(document).ready(function() {
 
         $.postFormValues('../includes/facturacion/facturas/storeDevolucion.php', '#storeDevolucion', function(response) {
 
-            if (response == 1) {
+            if (response.status == 1) {
 
                 $.niftyNoty({
                     type: 'success',
@@ -417,7 +417,7 @@ $(document).ready(function() {
                 $('.modal').modal('hide');
                 getFacturas();
 
-            } else if (response == 2) {
+            } else if (response.status == 2) {
 
                 $.niftyNoty({
                     type: 'danger',

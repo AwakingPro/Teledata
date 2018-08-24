@@ -1474,7 +1474,7 @@
                     $Rut = $Factura['Rut'];
                     $Cliente = $this->getCliente($Rut);
                     if($Cliente){
-                        $DevolucionBsale = $this->sendDevolucionBsale($Cliente,$Id,$Motivo,2);
+                        $DevolucionBsale = $this->sendDevolucionBsale($Cliente,$Id,$Motivo,1);
 
                         if($DevolucionBsale['status'] == 1){
                             $DevolucionIdBsale = $DevolucionBsale['id'];
@@ -1487,7 +1487,7 @@
                             echo json_encode($response_array);
                             return;
                         }
-                        $DocumentoBsale = $this->getDocumentoBsale($DocumentoIdBsale,2);
+                        $DocumentoBsale = $this->getDocumentoBsale($DocumentoIdBsale,1);
                         if($DocumentoBsale['status'] == 1){
                             $UrlPdf = $DocumentoBsale['urlPdf'];
                         }else{
@@ -1502,7 +1502,7 @@
                             file_put_contents($UrlLocal, $PdfContent);
                         }
 
-                        $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion) VALUES ('".$Id."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$urlPdf."','".$Motivo."', NOW(), NOW())";
+                        $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion) VALUES ('".$Id."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', NOW(), NOW())";
                         $DevolucionId = $run->insert($query);
 
                         if($DevolucionId){
