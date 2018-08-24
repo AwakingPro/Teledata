@@ -204,6 +204,34 @@
 			</div>
 		</div>
 	</div>
+	<div id="modalDevolucion" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h4 class="modal-title">Realizar Devolución <button type="button" data-dismiss="modal" class="close f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+				</div>
+				<div class="modal-body">
+					<div class="row" style="padding:20px">
+						<form class="form-horizontal" id = "storeDevolucion">
+							<input type="hidden" id="FacturaIdDevolucion" name="FacturaIdDevolucion">
+							<div class="clearfix m-b-10"></div>
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="control-label" for="name">Motivo</label>
+									<textarea class="form-control" name="Motivo" id="Motivo" cols="20" rows="5" validation="not_null" data-nombre="Motivo"></textarea>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div><!-- /.modal-body -->
+				<div class="modal-footer p-b-20 m-b-20">
+					<div class="col-sm-12">
+						<button type="button" class="btn btn-purple" id="guardarDevolucion" name="guardarDevolucion">Guardar</button>
+					</div>
+				</div>
+			</div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
 
 	<script src="../js/jquery-2.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>

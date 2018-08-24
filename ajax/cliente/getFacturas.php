@@ -13,13 +13,14 @@
                     facturas.UrlPdfBsale,
                     mantenedor_tipo_cliente.nombre AS TipoDocumento,
                     facturas.IVA,
+                    facturas.EstatusFacturacion,
                     IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalAbono 
                 FROM
                     facturas
                     INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
                 WHERE
                     facturas.Rut = '".$Rut."' 
-                    AND facturas.EstatusFacturacion = '1' 
+                    AND facturas.EstatusFacturacion != '0' 
                 GROUP BY
                     facturas.Id";
     $facturas = $run->select($query);
@@ -54,6 +55,7 @@
             $data['TotalAbono'] = $TotalAbono;
             $data['UrlPdfBsale'] = $factura['UrlPdfBsale'];
             $data['TipoDocumento'] = $factura['TipoDocumento'];
+            $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
             array_push($ToReturn,$data);
         }
     }

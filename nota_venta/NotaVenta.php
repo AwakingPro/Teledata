@@ -106,7 +106,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Fecha emisión OC</label>
-                                                        <input id="fecha_oc" name="fecha_oc" validation="not_null"  type="text" placeholder="Seleccione la fecha" class="form-control date" data-nombre="Fecha emisión OC">
+                                                        <input id="fecha_oc" name="fecha_oc" validation="not_null"  type="text">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">

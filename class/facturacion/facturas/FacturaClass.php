@@ -367,7 +367,7 @@
                     if($Cliente){
 
                         $TipoDocumento = $Cliente['tipo_cliente'];
-                        $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,$Tipo,1);
+                        $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
 
                         if($FacturaBsale['status'] == 1){
                             $UrlPdf = $FacturaBsale['urlPdf'];
@@ -529,7 +529,7 @@
                             if($Cliente){
 
                                 $TipoDocumento = $Cliente['tipo_cliente'];
-                                $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,2,1);
+                                $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,2,1);
 
                                 if($FacturaBsale['status'] == 1){
                                     $UrlPdf = $FacturaBsale['urlPdf'];
@@ -926,7 +926,7 @@
                             $query = "SELECT * FROM facturas_detalle WHERE FacturaId = '".$Id."'";
                             $Detalles = $run->select($query);
 
-                            $FacturaBsale = $this->sendBsale($Cliente,$Detalles,0,2,1);
+                            $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,0,2,1);
                             if($FacturaBsale['status'] == 1){
                                 $UrlPdf = $FacturaBsale['urlPdf'];
                                 $DocumentoId = $FacturaBsale['id'];
@@ -969,7 +969,7 @@
             echo json_encode($response_array);
         }
 
-        public function sendBsale($Cliente,$Detalles,$UF,$Tipo,$TipoToken){
+        public function sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,$TipoToken){
             $run = new Method;
             if($TipoToken == 1){
                 $query = "SELECT token_produccion as access_token FROM variables_globales";
@@ -1424,7 +1424,7 @@
                         $Rut = $Detalle['Rut'];
                         $Cliente = $this->getCliente($Rut);
                         if($Cliente){
-                            $FacturaBsale = $this->sendBsale($Cliente,$Detalles,$UF,$Tipo,2);
+                            $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
                                 $PdfContent = file_get_contents($FacturaBsale['urlPdf']);
                                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
@@ -1452,6 +1452,306 @@
                 $response_array['status'] = 99;
             }
             return $response_array;
+        }
+        public function storeDevolucion($Id, $Motivo){
+
+            if(in_array  ('curl', get_loaded_extensions())) {
+
+                $response_array = array();
+                $query = "  SELECT
+                                Rut
+                            FROM
+                                facturas
+                            WHERE
+                                Id = '".$Id."'";
+
+                $run = new Method;
+                $Facturas = $run->select($query);
+
+                if($Facturas){
+
+                    $Factura = $Facturas[0];
+                    $Rut = $Factura['Rut'];
+                    $Cliente = $this->getCliente($Rut);
+                    if($Cliente){
+                        $DevolucionBsale = $this->sendDevolucionBsale($Cliente,$Id,$Motivo,2);
+                        print_r($DevolucionBsale);
+
+                        if($DevolucionBsale['status'] == 1){
+                            $DevolucionIdBsale = $DevolucionBsale['id'];
+                            $NotaCredito = $DevolucionBsale['credit_note'];
+                            $DocumentoIdBsale = $NotaCredito['id'];
+                        }else{
+                            $response_array['Message'] = $DevolucionBsale['Message'];
+                            $response_array['tipo'] = 'Devolucion';
+                            $response_array['status'] = 0;
+                            echo json_encode($response_array);
+                            return;
+                        }
+                        $DocumentoBsale = $this->getDocumentoBsale($DocumentoIdBsale,2);
+                        if($DocumentoBsale['status'] == 1){
+                            $UrlPdf = $DocumentoBsale['urlPdf'];
+                        }else{
+                            $response_array['Message'] = $DocumentoBsale['Message'];
+                            $response_array['status'] = 'Documento';
+                            echo json_encode($response_array);
+                            return;
+                        }
+                        if($UrlPdf){                        
+                            $PdfContent = file_get_contents($UrlPdf);
+                            $UrlLocal = "/var/www/html/Teledata/facturacion/notas_credito/".$Id.".pdf";
+                            file_put_contents($UrlLocal, $PdfContent);
+                        }
+
+                        $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion) VALUES ('".$Id."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$urlPdf."','".$Motivo."', NOW(), NOW())";
+                        $DevolucionId = $run->insert($query);
+
+                        if($DevolucionId){
+              
+                            $query = "UPDATE facturas SET EstatusFacturacion = '2', FechaFacturacion = NOW() WHERE Id = '".$Id."'";
+                            $update = $run->update($query);
+                                    
+                            $response_array['Id'] = $Id;
+                            $response_array['UrlPdf'] = $UrlPdf;
+                            $response_array['status'] = 1; 
+
+                        }else{
+                            $response_array['Message'] = 'Error Devolucion';
+                            $response_array['status'] = 0;
+                        }
+                    }else{
+                        $response_array['status'] = 4;
+                    }
+                }else{
+                    $response_array['status'] = 3;
+                }
+            }else{
+                $response_array['status'] = 99;
+            }
+
+            echo json_encode($response_array);
+        }
+        public function sendDevolucionBsale($Cliente,$referenceDocumentId,$motive,$TipoToken){
+            $run = new Method;
+            if($TipoToken == 1){
+                $query = "SELECT token_produccion as access_token FROM variables_globales";
+            }else{
+                $query = "SELECT token_prueba as access_token FROM variables_globales";
+            }
+            $variables_globales = $run->select($query);
+            $access_token = $variables_globales[0]['access_token'];
+
+            $url='https://api.bsale.cl/v1/documents/'.$referenceDocumentId.'/details.json';
+
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+
+            // Cierra la sesión cURL
+            curl_close($session);
+            $DetallesBsale = json_decode($response, true);
+            $details = array();
+            foreach($DetallesBsale['items'] as $Detalle){
+                $documentDetailId = $Detalle['id'];
+                $quantity = $Detalle['quantity'];
+                $detail = array("documentDetailId" => $documentDetailId, "unitValue" => 0, "quantity" => $quantity);
+                array_push($details,$detail);
+            }
+            $clientId = null;
+            /*
+            if($Cliente['cliente_id_bsale']){
+                $clientId = $Cliente['cliente_id_bsale'];
+            }else{
+
+                //CONSULTA AL CLIENTE
+
+                $url = 'https://api.bsale.cl/v1/clients.json?code='.$Cliente['rut'].'-'.$Cliente['dv'];
+
+                // Inicia cURL
+                $session = curl_init($url);
+
+                // Indica a cURL que retorne data
+                curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+                // Activa SSL
+                // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
+
+                // Configura cabeceras
+                $headers = array(
+                    'access_token: ' . $access_token,
+                    'Accept: application/json',
+                    'Content-Type: application/json'
+                );
+                curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+                // Ejecuta cURL
+                $response = curl_exec($session);
+
+                // Cierra la sesión cURL
+                curl_close($session);
+
+                //Esto es sólo para poder visualizar lo que se está retornando
+                $client = json_decode($response, true);
+
+                //SI EL CLIENTE NO EXISTE EN LA API, SE CREA CON LA DATA DE TELEDATA
+
+                if($client['count']){
+                    $clientId = $client['items'][0]['id'];
+                }else{
+                */
+                    if($Cliente['provincia']){
+                        $Provincia = $Cliente['provincia'];
+                    }else{
+                        $Provincia = 'Llanquihue';
+                    }
+
+                    if($Cliente['ciudad']){
+                        $Ciudad = $Cliente['ciudad'];
+                    }else{
+                        $Ciudad = 'Puerto Varas';
+                    }
+
+                    $clientId = null;
+                    $client = array(
+                        "code"          => $Cliente['rut'].'-'.$Cliente['dv'],
+                        "firstName"     => $Cliente['contacto'],
+                        "lastName"      => "",
+                        "email"         => $Cliente['correo'],
+                        "phone"         => $Cliente['telefono'],
+                        "address"       => $Cliente['direccion'],
+                        "company"       => $Cliente['nombre'],
+                        "city"          => $Provincia,
+                        "municipality"  => $Ciudad,
+                        "activity"      => $Cliente['giro']
+                    );
+            //     }
+            // }
+
+            //CREACION DE LA DEVOLUCION
+
+            $url='https://api.bsale.cl/v1/returns.json';
+
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+            // Activa SSL
+            // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Indica que se va ser una petición POST
+            curl_setopt($session, CURLOPT_POST, true);
+
+            //CONSTRUCCION DEL ARRAY DE DEVOLUCION
+
+            $array = array(
+                "documentTypeId"        => 9,
+                "officeId"              => 1,
+                "referenceDocumentId"   => $referenceDocumentId,
+                "emissionDate"          => time(),
+                "expirationDate"        => time(),
+                "motive"                => $motive,
+                "declareSii"            => 1,
+                "priceAdjustment"       => 0,
+                "editTexts"             => 0,
+                "type"                  => 3,
+                "details"               => $details
+            );
+            if($clientId){
+                $array['clientId'] = $clientId;
+            }else{
+                $array['client'] = $client;
+            }
+
+            // Parsea a JSON
+            $data = json_encode($array);
+
+            // Agrega parámetros
+            curl_setopt($session, CURLOPT_POSTFIELDS, $data);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+
+            // // Cierra la sesión cURL
+            curl_close($session);
+
+            //Esto es sólo para poder visualizar lo que se está retornando
+            $DevolucionBsale = json_decode($response, true);
+            $DocumentoId = isset($DevolucionBsale['id']) ? trim($DevolucionBsale['id']) : "";
+            if($DocumentoId){
+                $DevolucionBsale['status'] = 1;
+            }else{
+                $Message = $DevolucionBsale['error'];
+                $DevolucionBsale = array();
+                $DevolucionBsale['Message'] = $Message;
+                $DevolucionBsale['status'] = 0;
+            }
+            return $DevolucionBsale;
+        }
+        public function getDocumentoBsale($Id,$TipoToken){
+            $run = new Method;
+            if($TipoToken == 1){
+                $query = "SELECT token_produccion as access_token FROM variables_globales";
+            }else{
+                $query = "SELECT token_prueba as access_token FROM variables_globales";
+            }
+            $variables_globales = $run->select($query);
+            $access_token = $variables_globales[0]['access_token'];
+
+            $url='https://api.bsale.cl/v1/documents/'.$Id.'.json';
+
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+
+            // Cierra la sesión cURL
+            curl_close($session);
+
+            //Esto es sólo para poder visualizar lo que se está retornando
+            $DocumentoBsale = json_decode($response, true);
+            $DocumentoId = isset($DocumentoBsale['id']) ? trim($DocumentoBsale['id']) : "";
+            if($DocumentoId){
+                $DocumentoBsale['status'] = 1;
+            }else{
+                $Message = $DocumentoBsale['error'];
+                $DocumentoBsale = array();
+                $DocumentoBsale['Message'] = $Message;
+                $DocumentoBsale['status'] = 0;
+            }
+            return $DocumentoBsale;
         }
     }
 ?>
