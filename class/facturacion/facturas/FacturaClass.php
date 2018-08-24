@@ -1275,7 +1275,7 @@
                             INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
                         WHERE
                             facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'
-                            AND facturas.EstatusFacturacion = '1'";
+                            AND facturas.EstatusFacturacion != '0'";
             if($documentType){
                 $query .= " AND facturas.TipoDocumento = '".$documentType."'";
             }

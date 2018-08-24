@@ -90,22 +90,31 @@ $(document).ready(function() {
                     {
                         "targets": 7,
                         "render": function(data, type, row) {
-                            if (row.TotalAbono != '0') {
-                                Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'
+                            if (row.EstatusFacturacion == '1') {
+                                Folder = 'facturas';
+                                Devolucion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-undo Devolucion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Devolucion" title="" data-container="body"></i>'
+                                if (row.TotalAbono != '0') {
+                                    Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'
+                                } else {
+                                    Abonar = ''
+                                }
+                                if (row.TotalFactura != row.TotalAbono) {
+                                    Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
+                                } else {
+                                    Pagos = ''
+                                }
                             } else {
+                                Folder = 'notas_credito';
+                                Devolucion = ''
                                 Abonar = ''
-                            }
-                            if (row.TotalFactura != row.TotalAbono) {
-                                Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
-                            } else {
                                 Pagos = ''
                             }
                             if (data != '') {
-                                Pdf = '<a href="../facturacion/facturas/' + data + '.pdf" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
+                                Pdf = '<a href="../facturacion/' + Folder + '/' + data + '.pdf" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
                             } else {
                                 Pdf = '';
                             }
-                            return "<div style='text-align: center'>" + Abonar + " " + Pagos + " " + Pdf + "</div>";
+                            return "<div style='text-align: center'>" + Devolucion + " " + Abonar + " " + Pagos + " " + Pdf + "</div>";
                         }
                     },
                 ],
@@ -390,4 +399,58 @@ $(document).ready(function() {
     function formatcurrency(n) {
         return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
     }
+    $('body').on('click', '.Devolucion', function() {
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var id = ObjectTR.attr("id");
+        $('#FacturaIdDevolucion').val(id)
+        $('#modalDevolucion').modal('show')
+    });
+    $('body').on('click', '#guardarDevolucion', function() {
+
+        $.postFormValues('../includes/facturacion/facturas/storeDevolucion.php', '#storeDevolucion', function(response) {
+
+            if (response.status == 1) {
+
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'fa fa-check',
+                    message: 'Registro Guardado Exitosamente',
+                    container: 'floating',
+                    timer: 3000
+                });
+
+                $('#storeDevolucion')[0].reset();
+                $('.selectpicker').selectpicker('refresh');
+                $('.modal').modal('hide');
+                getFacturas();
+
+            } else if (response.status == 2) {
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon: 'fa fa-check',
+                    message: 'Debe llenar todos los campos',
+                    container: 'floating',
+                    timer: 3000
+                });
+
+            } else {
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon: 'fa fa-check',
+                    message: response.Message,
+                    container: 'floating',
+                    timer: 3000
+                });
+
+            }
+        });
+    });
+    $('#modalDevolucion').on('hidden.bs.modal', function() {
+
+        $('#storeDevolucion')[0].reset();
+
+    });
 });
