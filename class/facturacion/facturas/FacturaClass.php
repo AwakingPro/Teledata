@@ -1702,6 +1702,7 @@
             if($DocumentoId){
                 $DevolucionBsale['status'] = 1;
             }else{
+                print_r($DevolucionBsale);
                 $Message = $DevolucionBsale['error'];
                 $DevolucionBsale = array();
                 $DevolucionBsale['Message'] = $Message;
