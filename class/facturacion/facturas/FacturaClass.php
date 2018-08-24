@@ -367,7 +367,7 @@
                     if($Cliente){
 
                         $TipoDocumento = $Cliente['tipo_cliente'];
-                        $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
+                        $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,1);
 
                         if($FacturaBsale['status'] == 1){
                             $UrlPdf = $FacturaBsale['urlPdf'];
