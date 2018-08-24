@@ -1666,7 +1666,7 @@
             //CONSTRUCCION DEL ARRAY DE DEVOLUCION
 
             $array = array(
-                "documentTypeId"        => 9,
+                "documentTypeId"        => 2,
                 "officeId"              => 1,
                 "referenceDocumentId"   => $referenceDocumentId,
                 "emissionDate"          => time(),
