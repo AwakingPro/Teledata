@@ -296,13 +296,11 @@
 								}
 								$Valor = $Valor * $UF;
 								$Montodiario = $Valor / $Diasdelmes;
-								$Valor = $Diasporfacturar * $Montodiario;
-								$Cantidad = 1;
-								$Neto = $Valor * $Cantidad;
+								$Neto = $Diasporfacturar * $Montodiario;
                                 $DescuentoValor = $Neto * ( $Descuento / 100 );
                                 $Neto -= $DescuentoValor;
 								$Impuesto = $Neto * 0.19;
-								$Total = $Valor + $Impuesto;
+								$Total = $Neto + $Impuesto;
 								$Total = round($Total,0);
 
 								$query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio, Cantidad, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Descuento."', '".$Id."', '".$Cantidad."', '".$Total."', '".$Codigo."')";
