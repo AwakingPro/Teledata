@@ -432,7 +432,7 @@ $(document).ready(function() {
                 $.niftyNoty({
                     type: 'danger',
                     icon: 'fa fa-check',
-                    message: 'Ocurrió un error en el Proceso',
+                    message: response.Message,
                     container: 'floating',
                     timer: 3000
                 });
