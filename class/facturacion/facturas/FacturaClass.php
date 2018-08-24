@@ -1268,6 +1268,7 @@
                             facturas.UrlPdfBsale,
                             mantenedor_tipo_cliente.nombre AS TipoDocumento,
                             facturas.IVA,
+                            facturas.EstatusFacturacion,
                             IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalAbono 
                         FROM
                             facturas
