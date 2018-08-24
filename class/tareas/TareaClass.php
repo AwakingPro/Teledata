@@ -303,7 +303,7 @@
 								$Total = $Neto + $Impuesto;
 								$Total = round($Total,0);
 
-								$query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio, Cantidad, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Descuento."', '".$Id."', '".$Cantidad."', '".$Total."', '".$Codigo."')";
+								$query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Descuento, IdServicio, Cantidad, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Descuento."', '".$Id."', '1', '".$Total."', '".$Codigo."')";
 								$FacturaDetalle = $run->insert($query);
 							}
 						}
