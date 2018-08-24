@@ -1313,6 +1313,7 @@
                     $data['TotalAbono'] = $TotalAbono;
                     $data['UrlPdfBsale'] = $factura['UrlPdfBsale'];
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
+                    $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
                     array_push($ToReturn,$data);
                 }
             }
