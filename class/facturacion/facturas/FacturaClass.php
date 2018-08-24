@@ -1459,7 +1459,8 @@
 
                 $response_array = array();
                 $query = "  SELECT
-                                Rut
+                                Rut,
+                                DocumentoIdBsale
                             FROM
                                 facturas
                             WHERE
@@ -1472,9 +1473,10 @@
 
                     $Factura = $Facturas[0];
                     $Rut = $Factura['Rut'];
+                    $DocumentoIdBsale = $Factura['DocumentoIdBsale'];
                     $Cliente = $this->getCliente($Rut);
                     if($Cliente){
-                        $DevolucionBsale = $this->sendDevolucionBsale($Cliente,$Id,$Motivo,1);
+                        $DevolucionBsale = $this->sendDevolucionBsale($Cliente,$DocumentoIdBsale,$Motivo,1);
 
                         if($DevolucionBsale['status'] == 1){
                             $DevolucionIdBsale = $DevolucionBsale['id'];
