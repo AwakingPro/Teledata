@@ -1474,7 +1474,7 @@
                     $Rut = $Factura['Rut'];
                     $Cliente = $this->getCliente($Rut);
                     if($Cliente){
-                        $DevolucionBsale = $this->sendDevolucionBsale($Cliente,$Id,$Motivo,1);
+                        $DevolucionBsale = $this->sendDevolucionBsale($Cliente,$Id,$Motivo,2);
 
                         if($DevolucionBsale['status'] == 1){
                             $DevolucionIdBsale = $DevolucionBsale['id'];
@@ -1487,7 +1487,7 @@
                             echo json_encode($response_array);
                             return;
                         }
-                        $DocumentoBsale = $this->getDocumentoBsale($DocumentoIdBsale,1);
+                        $DocumentoBsale = $this->getDocumentoBsale($DocumentoIdBsale,2);
                         if($DocumentoBsale['status'] == 1){
                             $UrlPdf = $DocumentoBsale['urlPdf'];
                         }else{
