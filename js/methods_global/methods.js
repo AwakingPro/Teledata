@@ -20,6 +20,15 @@ if (($('#demo-dp-component .input-group.date').size() > 0) || ($('.input-dateran
 	});
 }
 
+$.ajax({
+	type: "POST",
+	url: "../includes/facturacion/uf/getValue.php",
+	success: function(response) {
+		$('.ValorUF').text(response)
+		ValorUF = response
+	}
+});
+
 $.postFormValues = function(url, form,callback) {
 	if ($(form).length) {
 		var countObjs = 0;

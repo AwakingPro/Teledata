@@ -327,7 +327,7 @@
 
 	    public function showTarea($Id){
 			$ToReturn = array();
-    		$query = "SELECT * FROM servicios WHERE Id = '$Id'";
+    		$query = "SELECT s.*, ms.nombre as EstacionFinalNombre FROM servicios s LEFT JOIN mantenedor_site ms ON s.EstacionFinal = ms.id WHERE s.Id = '".$Id."'";
 
             $run = new Method;
             $data = $run->select($query);

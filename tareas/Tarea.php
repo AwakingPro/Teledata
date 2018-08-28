@@ -275,7 +275,7 @@
                             <div class="form-group">
                                 <label class="control-label" for="name">Instalado Por</label>
                                 <div class="select">
-                                    <select class="form-control IdUsuarioAsignado" name="InstaladoPor" id="InstaladoPor"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Instalado Por">
+                                    <select class="form-control IdUsuarioAsignado" name="InstaladoPor" id="InstaladoPor" data-live-search="true" data-container="body" validation="not_null" data-nombre="Instalado Por">
                                     </select>
                                 </div>
                             </div>

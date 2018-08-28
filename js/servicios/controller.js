@@ -221,6 +221,12 @@ $(document).ready(function() {
         }
     });
 
+    $('#CostoInstalacion').on('change', function () {
+        CostoInstalacion = $(this).val()
+        CostoInstalacionPesos = CostoInstalacion * ValorUF
+        $('#CostoInstalacionPesos').text(CostoInstalacionPesos)
+    });
+
     // $('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
     // 	$('select[name="TipoFactura"]').selectpicker('refresh');
     // });

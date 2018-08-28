@@ -5,7 +5,7 @@
     $array = array();
     $array['status'] = 0;
 
-	$nombreGiro = isset($_POST['nombreGiro']) ? trim($_POST['nombreGiro']) : "";
+	$nombreGiro = isset($_POST['nombreGiro']) ? strtoupper(trim($_POST['nombreGiro'])) : "";
     if($nombreGiro){
         $query = "INSERT INTO giros (nombre) VALUES ('".$nombreGiro."')";
         $id = $run->insert($query);

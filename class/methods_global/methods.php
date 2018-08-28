@@ -142,8 +142,14 @@
 							}
 							if($table[0] == 'personaempresa'){
 								$ver = '<i class="fa fa-eye update-'.$table[0].'" id="view" attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>';
-								$query = "SELECT * FROM servicios WHERE Rut = substring_index('".$rows[$i][1]."','-',1)";
 								$count = 0;
+								$query = "SELECT * FROM servicios WHERE Rut = substring_index('".$rows[$i][1]."','-',1)";
+								if ($resultado = $mysqli->query($query)) {
+									while ($fila = $resultado->fetch_array(MYSQLI_NUM)) {
+										$count++;
+									}
+								}
+								$query = "SELECT * FROM facturas WHERE Rut = substring_index('".$rows[$i][1]."','-',1)";
 								if ($resultado = $mysqli->query($query)) {
 									while ($fila = $resultado->fetch_array(MYSQLI_NUM)) {
 										$count++;

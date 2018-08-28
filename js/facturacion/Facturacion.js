@@ -727,12 +727,12 @@ $(document).ready(function() {
         var ObjectType = ObjectTR.attr("tipo");
 
         swal({
-            title: "Deseas visualizar la prefactura?",
+            title: "Deseas visualizar como quedara la factura?",
             text: "Confirmar visualización!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#28a745",
-            confirmButtonText: "Facturar!",
+            confirmButtonText: "Visualizar!",
             cancelButtonText: "Cancelar",
             showLoaderOnConfirm: true,
             closeOnConfirm: false

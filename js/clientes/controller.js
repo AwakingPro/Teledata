@@ -886,7 +886,7 @@ $(document).ready(function() {
     $('select[name="TipoCliente"]').on('change', function() {
         $('#Giro').empty();
         if ($(this).val() == "1") {
-            $('#Giro').append('<option value="Sin giro, persona natural" selected="">Sin giro, persona natural</option>')
+            $('#Giro').append('<option value="SIN GIRO, PERSONA NATURAL" selected="">SIN GIRO, PERSONA NATURAL</option>')
             $('#Giro').removeAttr('validate')
             $('#guardarClienteIrServicio').show();
         } else {

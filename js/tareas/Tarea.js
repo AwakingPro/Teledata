@@ -13,7 +13,7 @@ $(document).ready(function() {
         center = new google.maps.LatLng(0, 0);
 
         mapOptions = {
-            zoom: 20,
+            zoom: 14,
             center: center,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
@@ -491,7 +491,7 @@ $(document).ready(function() {
                     }
 
                     $('#modalTarea').find('input[name="FechaInstalacion"]').val(FechaInstalacion)
-                    $('#modalTarea').find('select[name="InstaladoPor"]').val(response.array.InstaladoPor)
+                    $('#modalTarea').find('select[name="InstaladoPor"]').val(response.array.IdUsuarioAsignado)
                     $('#modalTarea').find('input[name="UsuarioPppoe"]').val(response.array.UsuarioPppoe)
                     $('#modalTarea').find('input[name="UsuarioPppoeTeorico"]').val(response.array.UsuarioPppoeTeorico)
                     $('#modalTarea').find('input[name="SenalTeorica"]').val(response.array.SenalTeorica)
@@ -502,7 +502,7 @@ $(document).ready(function() {
 
                 }
 
-                $('.selectpicker').selectpicker('refresh')
+                $('select').selectpicker('refresh')
                 $('body').addClass('loaded');
                 $('#modalTarea').modal('show');
 
@@ -517,124 +517,137 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '#guardarTarea', function() {
+        swal({
+            title: "Desea confirmar la fecha de instalación?",
+            text: "Esto generara una factura proporcional que no puede ser modificada",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: true,
+            allowOutsideClick: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                $.postFormValues('../includes/tareas/storeTarea.php', '#storeTarea', function(response) {
 
-        $.postFormValues('../includes/tareas/storeTarea.php', '#storeTarea', function(response) {
+                    if (response.status == 1) {
 
-            if (response.status == 1) {
+                        $.niftyNoty({
+                            type: 'success',
+                            icon: 'fa fa-check',
+                            message: 'Registro Guardado Exitosamente',
+                            container: 'floating',
+                            timer: 3000
+                        });
 
-                $.niftyNoty({
-                    type: 'success',
-                    icon: 'fa fa-check',
-                    message: 'Registro Guardado Exitosamente',
-                    container: 'floating',
-                    timer: 3000
-                });
+                        Row = $('#' + response.Id)[0]
+                        Usuario = $(Row).find("td").eq(0).html();
+                        Cliente = $(Row).find("td").eq(1).html();
+                        Codigo = $(Row).find("td").eq(2).html();
+                        Descripcion = $(Row).find("td").eq(3).html();
+                        FechaInstalacion = $(Row).find("td").eq(4).html();
 
-                Row = $('#' + response.Id)[0]
-                Usuario = $(Row).find("td").eq(0).html();
-                Cliente = $(Row).find("td").eq(1).html();
-                Codigo = $(Row).find("td").eq(2).html();
-                Descripcion = $(Row).find("td").eq(3).html();
-                FechaInstalacion = $(Row).find("td").eq(4).html();
+                        if (response.Estatus == 1) {
 
-                if (response.Estatus == 1) {
+                            var nodes = AsignadasTable.rows().nodes()
+                            if ($(nodes).filter('tr#' + response.Id).length == 1) {
+                                AsignadasTable.row(Row)
+                                    .remove()
+                                    .draw();
+                            }
 
-                    var nodes = AsignadasTable.rows().nodes()
-                    if ($(nodes).filter('tr#' + response.Id).length == 1) {
-                        AsignadasTable.row(Row)
-                            .remove()
-                            .draw();
+                            var nodes = PendientesTable.rows().nodes()
+
+                            if ($(nodes).filter('tr#' + response.Id).length == 1) {
+                                PendientesTable.row(Row)
+                                    .remove()
+                                    .draw();
+                            }
+
+                            Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>'
+
+                            var rowNode = FinalizadasTable.row.add([
+                                '' + Usuario + '',
+                                '' + Cliente + '',
+                                '' + Codigo + '',
+                                '' + Descripcion + '',
+                                '' + FechaInstalacion + '',
+                                '' + Operacion + '',
+                            ]).draw(false).node();
+
+                            $(rowNode)
+                                .attr('id', response.Id)
+                                .addClass('text-center')
+
+                        } else {
+
+                            var nodes = PendientesTable.rows().nodes()
+
+                            if ($(nodes).filter('tr#' + response.Id).length == 0) {
+
+                                Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'
+
+                                var rowNode = PendientesTable.row.add([
+                                    '' + Usuario + '',
+                                    '' + Cliente + '',
+                                    '' + Codigo + '',
+                                    '' + Descripcion + '',
+                                    '' + Direccion + '',
+                                    '' + Operacion + '',
+                                ]).draw(false).node();
+
+                                $(rowNode)
+                                    .attr('id', response.Id)
+                                    .addClass('text-center')
+                            }
+                        }
+
+                        $('#storeTarea')[0].reset();
+                        $('.modal').modal('hide');
+
+                    } else if (response.status == 2) {
+
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon: 'fa fa-check',
+                            message: 'Debe llenar todos los campos',
+                            container: 'floating',
+                            timer: 3000
+                        });
+
+                    } else if (response.status == 3) {
+
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon: 'fa fa-check',
+                            message: 'La fecha de instalación no puede ser mayor a hoy',
+                            container: 'floating',
+                            timer: 3000
+                        });
+
+                    } else if (response.status == 99) {
+
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon: 'fa fa-check',
+                            message: 'Debe llenar los datos de los productos',
+                            container: 'floating',
+                            timer: 3000
+                        });
+
+                    } else {
+
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon: 'fa fa-check',
+                            message: 'Ocurrió un error en el Proceso',
+                            container: 'floating',
+                            timer: 3000
+                        });
+
                     }
-
-                    var nodes = PendientesTable.rows().nodes()
-
-                    if ($(nodes).filter('tr#' + response.Id).length == 1) {
-                        PendientesTable.row(Row)
-                            .remove()
-                            .draw();
-                    }
-
-                    Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>'
-
-                    var rowNode = FinalizadasTable.row.add([
-                        '' + Usuario + '',
-                        '' + Cliente + '',
-                        '' + Codigo + '',
-                        '' + Descripcion + '',
-                        '' + FechaInstalacion + '',
-                        '' + Operacion + '',
-                    ]).draw(false).node();
-
-                    $(rowNode)
-                        .attr('id', response.Id)
-                        .addClass('text-center')
-
-                } else {
-
-                    var nodes = PendientesTable.rows().nodes()
-
-                    if ($(nodes).filter('tr#' + response.Id).length == 0) {
-
-                        Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'
-
-                        var rowNode = PendientesTable.row.add([
-                            '' + Usuario + '',
-                            '' + Cliente + '',
-                            '' + Codigo + '',
-                            '' + Descripcion + '',
-                            '' + Direccion + '',
-                            '' + Operacion + '',
-                        ]).draw(false).node();
-
-                        $(rowNode)
-                            .attr('id', response.Id)
-                            .addClass('text-center')
-                    }
-                }
-
-                $('#storeTarea')[0].reset();
-                $('.modal').modal('hide');
-
-            } else if (response.status == 2) {
-
-                $.niftyNoty({
-                    type: 'danger',
-                    icon: 'fa fa-check',
-                    message: 'Debe llenar todos los campos',
-                    container: 'floating',
-                    timer: 3000
                 });
-
-            } else if (response.status == 3) {
-
-                $.niftyNoty({
-                    type: 'danger',
-                    icon: 'fa fa-check',
-                    message: 'La fecha de instalación no puede ser mayor a hoy',
-                    container: 'floating',
-                    timer: 3000
-                });
-
-            } else if (response.status == 99) {
-
-                $.niftyNoty({
-                    type: 'danger',
-                    icon: 'fa fa-check',
-                    message: 'Debe llenar los datos de los productos',
-                    container: 'floating',
-                    timer: 3000
-                });
-
-            } else {
-
-                $.niftyNoty({
-                    type: 'danger',
-                    icon: 'fa fa-check',
-                    message: 'Ocurrió un error en el Proceso',
-                    container: 'floating',
-                    timer: 3000
-                });
-
             }
         });
     });
@@ -732,7 +745,7 @@ $(document).ready(function() {
                     $('#modalComparacion').find('#SenalFinal_update').val(response.array.SenalFinal)
 
                     $('#modalComparacion').find('#PosibleEstacion_update').val(response.array.PosibleEstacion)
-                    $('#modalComparacion').find('#EstacionFinal_update').val(response.array.EstacionFinal)
+                    $('#modalComparacion').find('#EstacionFinal_update').val(response.array.EstacionFinalNombre)
                 }
 
                 $('body').addClass('loaded');
@@ -789,6 +802,17 @@ $(document).ready(function() {
                         google.maps.event.trigger(Map, "resize");
                         Map.setCenter(mapCenter);
                         Map.setZoom(Map.getZoom());
+                        var marker = new google.maps.Marker({
+                            map: Map,
+                            draggable: true,
+                            position: mapCenter
+                
+                        });
+                
+                        google.maps.event.addListener(marker, 'dragend', function(evt) {
+                            $('#Latitud').val(evt.latLng.lat())
+                            $('#Longitud').val(evt.latLng.lng())
+                        });
                     }, 1000)
                 }
 

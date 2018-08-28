@@ -5,6 +5,8 @@
 	nombre
 	FROM
     mantenedor_tipo_pago_bsale
+	WHERE
+	activo = 1
     ORDER BY
     nombre';
 	$run = new Method;

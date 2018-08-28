@@ -181,8 +181,9 @@
 
 													<div id="divCostoInstalacion">
 														<label class="campo-CostoInstalacion">Costo de instalación / Habilitación</label>
-														<div class="form-group">
-															<input type="text" name="CostoInstalacion" class="form-control" validation="not_null" data-nombre="Costo de Instalacion">
+														<div class="input-group">
+															<input type="text" id="CostoInstalacion" name="CostoInstalacion" class="form-control" validation="not_null" data-nombre="Costo de Instalacion">
+															<span class="input-group-addon" id="CostoInstalacionPesos">0</span>
 														</div>
 														<br>
 														<label>Descuento Instalación</label>

@@ -31,6 +31,9 @@ if (file_exists('../ajax/perfil/img-profile/'.$_SESSION['idUsuario'].'.jpg')) {
 				</li>
 			</ul>
 			<ul class="nav navbar-top-links pull-right">
+				<li class="username" style="color:white">
+					UF: <span class="ValorUF">0</span>
+				</li>
 				<li id="dropdown-user" class="dropdown">
 					<a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
 						<span class="pull-right">
