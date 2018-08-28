@@ -255,7 +255,7 @@
 		<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>
 		<script src="../plugins/moment/moment.js"></script>
-    	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+    	<script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
 		<script src="../plugins/sweetalert/sweetalert.min.js"></script>
 		<script src="../js/servicios/controller.js"></script>
@@ -432,8 +432,14 @@
 								<br>
 								<div id="divFechaActivacion" style="display:none">
 									<label>Fecha de Activación</label>
-									<div class="form-group campo-FechaComprometidaInstalacion">
-										<input id="FechaActivacion" name="FechaActivacion" class="form-control date">
+									<div class="form-group">
+										<div id="date-range">
+											<div class="input-daterange input-group" id="datepicker">
+												<input type="text" class="form-control" id="FechaInicioDesactivacion" name="FechaInicioDesactivacion" data-nombre="Fecha de Activación" />
+												<span class="input-group-addon">a</span>
+												<input type="text" class="form-control" id="FechaFinalDesactivacion" name="FechaFinalDesactivacion" data-nombre="Fecha de Activación" />
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>

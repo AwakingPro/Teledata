@@ -6,6 +6,28 @@ var mapCenter
 
 $(document).ready(function() {
 
+    if (($('#demo-dp-component .input-group.date').size() > 0) || ($('.input-daterange').size() > 0)) {
+        $.fn.datepicker.dates['es'] = {
+            days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+            daysShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb", "Dom"],
+            daysMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sa", "Do"],
+            months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+            monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+            today: "Hoy"
+        };
+    
+        $('#demo-dp-component .input-group.date').datepicker({ autoclose: true, format: "yyyy-mm-dd", weekStart: 1, language: 'es' });
+    
+        $('.input-daterange').datepicker({
+            format: "yyyy/mm/dd",
+            weekStart: 1,
+            todayBtn: "linked",
+            autoclose: true,
+            todayHighlight: true,
+            language: 'es'
+        });
+    }
+
     $('select[name="Rut"]').load('../ajax/servicios/selectClientes.php', function() {
         $('select[name="Rut"]').selectpicker('refresh');
         var Parametros = window.location.search.substr(1);
@@ -900,20 +922,23 @@ $(document).ready(function() {
             url: "../ajax/servicios/showEstatus.php",
             data: "id=" + ObjectId,
             success: function(response) {
-                $('#FechaActivacion').val()
-                if (response == '31-01-2999') {
+                response = JSON.parse(response)
+                $('#FechaInicioDesactivacion').val('')
+                $('#FechaFinalDesactivacion').val('')
+                console.log(response.FechaFinalDesactivacion)
+                if (response.FechaFinalDesactivacion == '2999/01/31') {
                     $('#Activo').val(0)
                     $('#divFechaActivacion').hide()
-                } else if (response) {
+                } else if (response.FechaFinalDesactivacion) {
                     $('#Activo').val(2)
+                    $('#FechaInicioDesactivacion').val(response.FechaInicioDesactivacion)
+                    $('#FechaFinalDesactivacion').val(response.FechaFinalDesactivacion)
                     $('#divFechaActivacion').show()
-                    $('#FechaActivacion').val(response)
                 } else {
                     $('#Activo').val(1)
                     $('#divFechaActivacion').hide()
                 }
                 $('#Activo').selectpicker('refresh')
-
                 $('body').addClass('loaded');
             },
             error: function(xhr, status, error) {
@@ -928,13 +953,16 @@ $(document).ready(function() {
     $('#Activo').on('change', function() {
         if ($(this).val() == "1") {
             $('#divFechaActivacion').hide()
-            $('input[name="FechaActivacion"]').removeAttr('validate')
+            $('input[name="FechaInicioDesactivacion"]').removeAttr('validate')
+            $('input[name="FechaFinalDesactivacion"]').removeAttr('validate')
         } else if ($(this).val() == "2") {
             $('#divFechaActivacion').show()
-            $('input[name="FechaActivacion"]').attr('validate', 'not_null')
+            $('input[name="FechaInicioDesactivacion"]').attr('validate', 'not_null')
+            $('input[name="FechaFinalDesactivacion"]').attr('validate', 'not_null')
         } else {
             $('#divFechaActivacion').hide()
-            $('input[name="FechaActivacion"]').val('31-01-2999')
+            $('input[name="FechaInicioDesactivacion"]').val('1970/01/31')
+            $('input[name="FechaFinalDesactivacion"]').val('2999/01/31')
         }
     });
 

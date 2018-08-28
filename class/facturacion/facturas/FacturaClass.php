@@ -659,10 +659,12 @@
                 
                 foreach($Servicios as $Servicio){
                     $Id = $Servicio['Id'];
-                    $FechaActivacion = $Servicio['FechaActivacion'];
+                    $FechaInicioDesactivacion = $Servicio['FechaInicioDesactivacion'];
+                    $FechaFinalDesactivacion = $Servicio['FechaFinalDesactivacion'];
+                    $Hoy = date('Y-m-d');
                     $PermitirFactura = $Servicio['PermitirFactura'];
                     $TipoFacturacion = $Servicio['TipoFacturacion'];
-                    if(!$FechaActivacion && $PermitirFactura && $TipoFacturacion){
+                    if(($FechaInicioDesactivacion > $Hoy OR $FechaFinalDesactivacion < $Hoy) && $PermitirFactura && $TipoFacturacion){
                         $FechaUltimoCobro = $Servicio['FechaUltimoCobro'];
                         $FechaUltimoCobro = new DateTime($FechaUltimoCobro);                     
                         $Concepto = $Servicio['Servicio'];

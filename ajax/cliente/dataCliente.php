@@ -79,8 +79,8 @@
 						servicios.Grupo
 					) AS Grupo,
 				(CASE
-					WHEN FechaActivacion IS NULL THEN 'Activo'
-					WHEN FechaActivacion = '2999-01-31' THEN 'Inactivo'
+					WHEN FechaFinalDesactivacion IS NULL THEN 'Activo'
+					WHEN FechaFinalDesactivacion = '2999-01-31' THEN 'Inactivo'
 					ELSE 'Suspendido'
 				END) AS Estatus
 				FROM
