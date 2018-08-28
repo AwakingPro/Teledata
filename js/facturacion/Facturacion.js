@@ -214,7 +214,11 @@ $(document).ready(function() {
                     "columnDefs": [{
                             "targets": 0,
                             "render": function(data, type, row) {
-                                Check = '<input name="select_check" id="select_check_' + data + '" type="checkbox" />'
+                                if(row.PermitirFactura == 1){
+                                    Check = '<input name="select_check" id="select_check_' + data + '" type="checkbox" />'
+                                }else{
+                                    Check = ''
+                                }
                                 return "<div style='text-align: center'>" + Check + "</div>";
                             }
                         },
@@ -231,7 +235,9 @@ $(document).ready(function() {
                                 Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarLote" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-list-alt OC" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Orden de Compra" title="" data-container="body"></i>'
-                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                                if(row.PermitirFactura == 1){
+                                    Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                                }
                                 return "<div style='text-align: center'>" + Icono + "</div>";
                             }
                         },

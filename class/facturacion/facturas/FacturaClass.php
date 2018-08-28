@@ -82,10 +82,11 @@
                             COALESCE (
                                 grupo_servicio.Nombre,
                                 facturas.Grupo
-                            ) AS NombreGrupo
+                            ) AS NombreGrupo,
+                            grupo_servicio.EsOC
                         FROM
-                            facturas_detalle
-                        INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id
+                            facturas
+                        INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
                         INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.id 
                         LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = facturas.Grupo
@@ -93,6 +94,7 @@
                             facturas_detalle.Valor > 0
                         AND facturas.TipoFactura = '2'
                         AND facturas.EstatusFacturacion = '0'
+                        AND (facturas.Grupo != 1000 && facturas.Grupo != 1001)
                         GROUP BY
                             facturas.Rut,
                             facturas.Grupo,
@@ -104,9 +106,80 @@
             if($facturas){
 
                 foreach($facturas as $factura){
+                    $Rut = $factura['Rut'];
+                    $Grupo = $factura['Grupo'];
+                    $TipoDocumento = $factura['TipoDocumento'];
+                    $IVA = $factura['IVA'];
                     $Valor = $factura['Valor'];
                     $data = array();
-                    $data['Id'] = $factura['Rut'];
+                    $data['Id'] = $Rut;
+                    $data['Rut'] = $Rut;          
+                    $data['Grupo'] = $Grupo;   
+                    $data['Cliente'] = $factura['Cliente'];   
+                    $data['UrlPdfBsale'] = '';
+                    $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
+                    $data['Valor'] = $Valor;
+                    $data['EstatusFacturacion'] = 0;
+                    $data['TipoDocumento'] = $TipoDocumento;
+                    $data['NombreGrupo'] = $factura['NombreGrupo'];
+                    if($factura['EsOC']){
+                        $query = "SELECT NumeroOC FROM facturas WHERE Rut = '".$Rut."' AND Grupo = '".$Grupo."' AND TipoDocumento = '".$TipoDocumento."' AND IVA = '".$IVA."' LIMIT 1";
+                        $OC = $run->select($query);
+                        if($OC){
+                            $OC = $OC[0];
+                            if($OC['NumeroOC']){
+                                $data['PermitirFactura'] = 1;
+                            }else{
+                                $data['PermitirFactura'] = 0;
+                            }
+                        }else{
+                            $data['PermitirFactura'] = 0;
+                        }
+                    }else{
+                        $data['PermitirFactura'] = 1;
+                    }
+
+                    array_push($ToReturn,$data);
+                }
+            }
+
+            $query = "  SELECT
+                            IFNULL(ROUND(SUM(
+                                facturas_detalle.Total
+                            ),0),0) AS Valor,
+                            facturas.Id,
+                            facturas.Rut,
+                            facturas.Grupo,
+                            facturas.EstatusFacturacion,
+                            facturas.NumeroOC,
+                            mantenedor_tipo_cliente.nombre AS TipoDocumento,
+                            facturas.IVA,
+                            personaempresa.nombre AS Cliente,
+                            COALESCE (
+                                grupo_servicio.Nombre,
+                                facturas.Grupo
+                            ) AS NombreGrupo,
+                            grupo_servicio.EsOC
+                        FROM
+                            facturas
+                        INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id
+                        INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
+                        INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.id 
+                        LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = facturas.Grupo
+                        WHERE
+                            facturas.TipoFactura = '2'
+                        AND (facturas.Grupo = 1000 OR facturas.Grupo = 1001)
+                        AND facturas.EstatusFacturacion = '0'
+                        GROUP BY
+                            facturas.Id";
+
+            $facturas = $run->select($query);
+            if($facturas){
+
+                foreach($facturas as $factura){
+                    $Valor = $factura['Valor'];
+                    $data = array();
+                    $data['Id'] = $factura['Id'];
                     $data['Rut'] = $factura['Rut'];          
                     $data['Grupo'] = $factura['Grupo'];   
                     $data['Cliente'] = $factura['Cliente'];   
@@ -116,6 +189,15 @@
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['NombreGrupo'] = $factura['NombreGrupo'];
+                    if($factura['EsOC']){
+                        if($factura['NumeroOC']){
+                            $data['PermitirFactura'] = 1;
+                        }else{
+                            $data['PermitirFactura'] = 0;
+                        }
+                    }else{
+                        $data['PermitirFactura'] = 1;
+                    }
 
                     array_push($ToReturn,$data);
                 }
@@ -147,8 +229,8 @@
                                 facturas.Grupo
                             ) AS NombreGrupo
                         FROM
-                            facturas_detalle
-                        INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id
+                            facturas
+                        INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
                         INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.id 
                         LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = facturas.Grupo
@@ -253,8 +335,8 @@
                             facturas_detalle.Concepto,
                             facturas.IVA
                         FROM
-                            facturas_detalle
-                        INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id
+                            facturas
+                        INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
                         WHERE
                             facturas.TipoFactura = '2'
@@ -291,8 +373,8 @@
                             facturas_detalle.Concepto AS Concepto,
                             facturas.IVA
                         FROM
-                            facturas_detalle
-                        INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id
+                            facturas
+                        INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
                         WHERE
                             facturas.Id = '".$Id."'
@@ -321,21 +403,25 @@
                 $response_array = array();
                 if($Tipo == 1){
                     $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
-                                FROM facturas_detalle 
-                                INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
+                                FROM facturas 
+                                INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.Id = '".$RutId."'
                                 AND facturas.EstatusFacturacion = 0
                                 AND facturas_detalle.Valor > 0";
                     $expirationDate = time() + 1728000;
                     $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else if($Tipo == 2){
+                    if($Grupo == 1000 OR $Grupo == 1001){
+                        $Concat = " AND facturas.Id = '".$RutId."'";
+                    }else{
+                        $Concat = " AND facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."' AND facturas.TipoFactura = '".$Tipo."'";
+                    }
                     $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
-                                FROM facturas_detalle 
-                                INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
-                                WHERE facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'
-                                AND facturas.TipoFactura = '".$Tipo."'
-                                AND facturas.EstatusFacturacion = 0
-                                AND facturas_detalle.Valor > 0";
+                                FROM facturas 
+                                INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
+                                WHERE facturas.EstatusFacturacion = 0
+                                AND facturas_detalle.Valor > 0"                                 
+                                .$Concat;
                     $expirationDate = time() + 1728000;
                     $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else{
@@ -455,7 +541,7 @@
                                     $delete = $run->delete($query);
                                 }
                             }else if($Tipo == 2){
-                                $query = "SELECT Id FROM facturas WHERE Rut = '".$RutId."' AND Grupo = '".$Grupo."' AND EstatusFacturacion = 0";
+                                $query = "SELECT Id FROM facturas WHERE EstatusFacturacion = 0".$Concat;
                                 $facturas = $run->select($query);
                                 foreach($facturas as $factura){
                                     $DeleteId = $factura['Id'];
@@ -509,13 +595,23 @@
                         $Rut = $RutGrupo[0];
                         $Grupo = $RutGrupo[1];
 
-                        $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut 
-                                FROM facturas_detalle 
-                                INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
-                                WHERE facturas.Rut = '".$Rut."' AND facturas.Grupo = '".$Grupo."'
-                                AND facturas.TipoFactura = '2'
-                                AND facturas.EstatusFacturacion = 0
-                                AND facturas_detalle.Valor > 0";
+                        if($Grupo == 1000 OR $Grupo == 1001){
+                            $Concat = " AND facturas.Id = '".$Rut."'";
+                        }else{
+                            $Concat = " AND facturas.Rut = '".$Rut."' AND facturas.Grupo = '".$Grupo."'";
+                        }
+
+                        $query = "  SELECT
+                                        facturas_detalle.*,
+                                        facturas.FechaFacturacion,
+                                        facturas.Rut 
+                                    FROM
+                                        facturas
+                                        INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
+                                        AND facturas.TipoFactura = '2' 
+                                        AND facturas.EstatusFacturacion = 0 
+                                        AND facturas_detalle.Valor > 0"
+                                        .$Concat;
 
                         $run = new Method;
                         $Detalles = $run->select($query);
@@ -586,7 +682,7 @@
                                     $response_array['Facturas'][$Factura]['UrlPdf'] = $UrlPdf;
                                     $response_array['status'] = 1; 
 
-                                    $query = "SELECT Id FROM facturas WHERE Rut = '".$Rut."' AND Grupo = '".$Grupo."' AND EstatusFacturacion = 0";
+                                    $query = "SELECT Id FROM facturas WHERE EstatusFacturacion = 0".$Concat;
                                     $pagadas = $run->select($query);
                                     foreach($pagadas as $pagada){
                                         $DeleteId = $pagada['Id'];
@@ -709,7 +805,8 @@
                             $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$Id."', '".$Total."', '".$Codigo."')";
                             $detalle = $run->insert($query);
                             if($detalle){
-                                $query = "UPDATE servicios SET FechaUltimoCobro = NOW() WHERE Id = '".$Id."'";
+                                $PrimerDiaDelMes = date('Y-m-01');
+                                $query = "UPDATE servicios SET FechaUltimoCobro = '".$PrimerDiaDelMes."' WHERE Id = '".$Id."'";
                                 $data = $run->update($query);
                             }
                         }
@@ -782,9 +879,9 @@
                             ) AS Valor,
                             facturas.IVA
                         FROM 
-                            facturas_detalle 
-                        INNER JOIN 
                             facturas 
+                        INNER JOIN 
+                            facturas_detalle 
                         ON 
                             facturas_detalle.FacturaId = facturas.Id 
                         WHERE 
@@ -827,9 +924,9 @@
                             ) AS Valor,
                             facturas.IVA
                         FROM 
-                            facturas_detalle 
-                        INNER JOIN 
                             facturas 
+                        INNER JOIN 
+                            facturas_detalle 
                         ON 
                             facturas_detalle.FacturaId = facturas.Id 
                         WHERE 
@@ -1349,11 +1446,16 @@
                             WHERE facturas.Id = '".$RutId."'
                             AND facturas.EstatusFacturacion = 0";
             }else if($Tipo == 2){
+                if($Grupo == 1000 OR $Grupo == 1001){
+                    $Concat = " AND facturas.Id = '".$RutId."'";
+                }else{
+                    $Concat = " AND facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'";
+                }
                 $query = "  SELECT facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
                             FROM facturas 
-                            WHERE facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'
-                            AND facturas.TipoFactura = '".$Tipo."'
-                            AND facturas.EstatusFacturacion = 0";
+                            WHERE facturas.TipoFactura = '".$Tipo."'
+                            AND facturas.EstatusFacturacion = 0"
+                            .$Concat;
             }else{
                 $query = "  SELECT 0 as NumeroOC, '1970-01-31' as FechaOC
                             FROM servicios 
@@ -1375,9 +1477,13 @@
         }
         public function storeOC($RutId, $Grupo, $Tipo, $NumeroOC, $FechaOC){
             if($Tipo == 1){
-                $query = "  UPDATE facturas SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."' WHERE Id = '".$RutId."' AND EstatusFacturacion = 0";
+                $query = "  UPDATE facturas SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."' WHERE Id = '".$RutId."'";
             }else if($Tipo == 2){
-                $query = "  UPDATE facturas SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."' WHERE Rut = '".$RutId."' AND Grupo = '".$Grupo."' AND TipoFactura = '".$Tipo."' AND EstatusFacturacion = 0";
+                if($Grupo == 1000 OR $Grupo == 1001){
+                    $query = "  UPDATE facturas SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."' WHERE Id = '".$RutId."'";
+                }else{
+                    $query = "  UPDATE facturas SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."' WHERE Rut = '".$RutId."' AND Grupo = '".$Grupo."' AND TipoFactura = '".$Tipo."' AND EstatusFacturacion = 0";
+                }
             }else{
                 $query = "  UPDATE servicios SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."' WHERE Id = '".$RutId."'";
             }
@@ -1392,20 +1498,25 @@
                 $response_array = array();
                 if($Tipo == 1){
                     $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
-                                FROM facturas_detalle 
-                                INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
+                                FROM facturas 
+                                INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.Id = '".$RutId."'
                                 AND facturas.EstatusFacturacion = 0
                                 AND facturas_detalle.Valor > 0";
                     $NombrePdf = $RutId.'_'.'1';
                 }else if($Tipo == 2){
+                    if($Grupo == 1000 OR $Grupo == 1001){
+                        $Concat = " AND facturas.Id = '".$RutId."'";
+                    }else{
+                        $Concat = " AND facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'";
+                    }
                     $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
-                                FROM facturas_detalle 
-                                INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id 
-                                WHERE facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'
-                                AND facturas.TipoFactura = '".$Tipo."'
+                                FROM facturas 
+                                INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
+                                WHERE facturas.TipoFactura = '".$Tipo."'
                                 AND facturas.EstatusFacturacion = 0
-                                AND facturas_detalle.Valor > 0";
+                                AND facturas_detalle.Valor > 0"
+                                .$Concat;
                     $NombrePdf = $RutId.'_'.$Grupo.'_'.$Tipo;
                 }else{
                     $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, mantenedor_servicios.servicio as Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto
