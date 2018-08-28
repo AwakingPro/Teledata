@@ -193,7 +193,8 @@
 				if($Estatus == 1){
 					
 					$query = "	SELECT
-									servicios.*, mantenedor_servicios.servicio AS Servicio,
+									servicios.*, 
+									( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Servicio,
 									personaempresa.tipo_cliente
 								FROM
 									servicios

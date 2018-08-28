@@ -194,6 +194,11 @@ $(document).ready(function() {
                 $('#otrosServicios').hide()
                 $('#otrosServicios').find('input').val('');
                 break;
+            case '7':
+                url = "otroServicio.php";
+                $('#otrosServicios').hide()
+                $('#otrosServicios').find('input').val('');
+                break;
             default:
                 url = "404.html";
                 $('#otrosServicios').hide()

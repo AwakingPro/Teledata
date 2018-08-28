@@ -369,8 +369,10 @@
 								}
 								if($clave == 4){
 									$explode = explode('.',$valor);
-									if($explode[1] == '00'){
-										$valor = intval($valor);
+									if(isset($explode[1])){
+										if($explode[1] == '00'){
+											$valor = intval($valor);
+										}
 									}
 									$tabla.="<td>".$valor."</td>";
 								}

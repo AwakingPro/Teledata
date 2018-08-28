@@ -127,6 +127,11 @@
 				$query = "INSERT INTO trafico_generado (LineaTelefonica, Descripcion,IdServicio) VALUES ('".$_POST['linea']."', '".$_POST['descripcion']."','".$id."')";
 				$data = $run->insert($query);
 				break;
+			case 7:
+				$NombreServicioExtra = isset($_POST['NombreServicioExtra']) ? trim($_POST['NombreServicioExtra']) : "";
+				$query = "UPDATE servicios SET NombreServicioExtra = '".$NombreServicioExtra."' WHERE Id = '".$id."'";
+				$data = $run->update($query);
+				break;
 		}
 	}
 

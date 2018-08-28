@@ -288,7 +288,7 @@
                                     )
                                 )
                             ),0) AS Valor,
-                            mantenedor_servicios.servicio AS Nombre,
+                            ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Nombre,
                             mantenedor_tipo_factura.descripcion AS Descripcion
                         FROM
                             servicios
@@ -425,7 +425,7 @@
                     $expirationDate = time() + 1728000;
                     $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else{
-                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, mantenedor_servicios.servicio as Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto
+                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto
                                 FROM servicios 
                                 LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                                 WHERE servicios.Id = '".$RutId."'
@@ -720,7 +720,7 @@
 
             $query = "  SELECT
                             s.*,
-                            ms.servicio AS Servicio,
+                            ( CASE s.IdServicio WHEN 7 THEN s.NombreServicioExtra ELSE ms.servicio END ) AS Servicio,
                             p.tipo_cliente as TipoDocumento,
                             mtf.tipo_facturacion as TipoFacturacion,
                         CASE
@@ -1519,7 +1519,7 @@
                                 .$Concat;
                     $NombrePdf = $RutId.'_'.$Grupo.'_'.$Tipo;
                 }else{
-                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, mantenedor_servicios.servicio as Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto
+                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto
                                 FROM servicios 
                                 LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                                 WHERE servicios.Id = '".$RutId."'
