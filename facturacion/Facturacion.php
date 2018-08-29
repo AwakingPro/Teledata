@@ -86,6 +86,35 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        <div id="modalReferencia" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                        <h4 class="modal-title c-negro">Agregar Referencia <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:20px">
+                            <form class="form-horizontal" id = "storeReferencia">
+                                <input type="hidden" name="rutidReferencia" id="rutidReferencia">
+                                <input type="hidden" name="grupoReferencia" id="grupoReferencia">
+                                <input type="hidden" name="tipoReferencia" id="tipoReferencia">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Referencia</label>
+                                        <input id="Referencia" name="Referencia" type="text" placeholder="Ingrese la Referencia" class="form-control input-sm">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                     </div><!-- /.modal-body -->
+                    <div class="modal-footer p-b-20 m-b-20">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-purple" id="guardarReferencia" name="guardarReferencia">Guardar</button>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <div id="container" class="effect aside-float aside-bright mainnav-sm">
             <div class="containerHeader"><?php require('../ajax/header/mainHeader.php') ?></div>
             <div class="boxed">

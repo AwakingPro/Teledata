@@ -235,6 +235,7 @@ $(document).ready(function() {
                                 Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarLote" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-list-alt OC" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Orden de Compra" title="" data-container="body"></i>'
+                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-info-circle Referencia" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Referencia" title="" data-container="body"></i>'
                                 if(row.PermitirFactura == 1){
                                     Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                                 }
@@ -311,6 +312,8 @@ $(document).ready(function() {
                             "render": function(data, type, row) {
                                 Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarIndividual" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
+                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-list-alt OC" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Orden de Compra" title="" data-container="body"></i>'
+                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-info-circle Referencia" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Referencia" title="" data-container="body"></i>'
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                                 return "<div style='text-align: center'>" + Icono + "</div>";
                             }
@@ -773,6 +776,59 @@ $(document).ready(function() {
                             swal('Solicitud no procesada', err.Message, 'error');
                         }, 1000);
                     }
+                });
+            }
+        });
+    });
+    $('body').on('click', '.Referencia', function() {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectRutId = ObjectTR.attr("rutid");
+        var ObjectGroup = ObjectTR.attr("grupo");
+        var ObjectType = ObjectTR.attr("tipo");
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/getReferencia.php",
+            data: "rutid=" + ObjectRutId + "&grupo=" + ObjectGroup + "&tipo=" + ObjectType,
+            success: function(response) {
+                $('#Referencia').val(response.Referencia)
+                $('#rutidReferencia').val(ObjectRutId)
+                $('#grupoReferencia').val(ObjectGroup)
+                $('#tipoReferencia').val(ObjectType)
+                $('#modalReferencia').modal('show')
+            },
+            error: function(xhr, status, error) {
+                setTimeout(function() {
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada', err.Message, 'error');
+                }, 1000);
+            }
+        });
+    });
+    $(document).on('click', '#guardarReferencia', function() {
+
+        $.postFormValues('../includes/facturacion/facturas/storeReferencia.php', '#storeReferencia', function(response) {
+
+            if (response) {
+
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'fa fa-check',
+                    message: 'Registro Guardado Exitosamente',
+                    container: 'floating',
+                    timer: 3000
+                });
+                $('.modal').modal('hide');
+            } else {
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon: 'fa fa-check',
+                    message: 'Ocurrió un error en el Proceso',
+                    container: 'floating',
+                    timer: 3000
                 });
             }
         });

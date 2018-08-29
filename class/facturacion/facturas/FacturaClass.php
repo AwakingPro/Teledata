@@ -402,7 +402,7 @@
 
                 $response_array = array();
                 if($Tipo == 1){
-                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.Referencia
                                 FROM facturas 
                                 INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.Id = '".$RutId."'
@@ -416,7 +416,7 @@
                     }else{
                         $Concat = " AND facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."' AND facturas.TipoFactura = '".$Tipo."'";
                     }
-                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.Referencia
                                 FROM facturas 
                                 INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.EstatusFacturacion = 0
@@ -425,7 +425,7 @@
                     $expirationDate = time() + 1728000;
                     $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else{
-                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto
+                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto, 0 as Referencia
                                 FROM servicios 
                                 LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                                 WHERE servicios.Id = '".$RutId."'
@@ -605,6 +605,9 @@
                                         facturas_detalle.*,
                                         facturas.FechaFacturacion,
                                         facturas.Rut 
+                                        facturas.NumeroOC, 
+                                        IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, 
+                                        facturas.Referencia
                                     FROM
                                         facturas
                                         INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
@@ -1214,6 +1217,13 @@
                 array_push($details,$detail);
                 $Total += $Valor;
             }
+            if(isset($Detalles[0]['Referencia'])){
+                $Referencia = $Detalles[0]['Referencia'];
+                if($Referencia){
+                    $last_index = count($details) - 1;
+                    $details[$last_index]['comment'] .= PHP_EOL . ' ' . $Referencia;
+                }
+            }
 
             $payments = array();
             $payment = array("paymentTypeId" => $Cliente['tipo_pago_bsale_id'], "amount" => $Total, "recordDate" => time());
@@ -1497,7 +1507,7 @@
 
                 $response_array = array();
                 if($Tipo == 1){
-                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.Referencia
                                 FROM facturas 
                                 INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.Id = '".$RutId."'
@@ -1510,7 +1520,7 @@
                     }else{
                         $Concat = " AND facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'";
                     }
-                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.Referencia
                                 FROM facturas 
                                 INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.TipoFactura = '".$Tipo."'
@@ -1519,7 +1529,7 @@
                                 .$Concat;
                     $NombrePdf = $RutId.'_'.$Grupo.'_'.$Tipo;
                 }else{
-                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto
+                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto, 0 as Referencia
                                 FROM servicios 
                                 LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                                 WHERE servicios.Id = '".$RutId."'
@@ -1541,7 +1551,8 @@
                         if($Cliente){
                             $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
-                                $PdfContent = file_get_contents($FacturaBsale['urlPdf']);
+                                $urlPdf = $FacturaBsale['urlPdf'];
+                                $PdfContent = file_get_contents($urlPdf);
                                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                 file_put_contents($UrlLocal, $PdfContent);
                                 $response_array['NombrePdf'] = $NombrePdf;
@@ -1868,6 +1879,56 @@
                 $DocumentoBsale['status'] = 0;
             }
             return $DocumentoBsale;
+        }
+        public function getReferencia($RutId, $Grupo, $Tipo){
+            if($Tipo == 1){
+                $query = "  SELECT Referencia
+                            FROM facturas 
+                            WHERE facturas.Id = '".$RutId."'
+                            AND facturas.EstatusFacturacion = 0";
+            }else if($Tipo == 2){
+                if($Grupo == 1000 OR $Grupo == 1001){
+                    $Concat = " AND facturas.Id = '".$RutId."'";
+                }else{
+                    $Concat = " AND facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'";
+                }
+                $query = "  SELECT Referencia
+                            FROM facturas 
+                            WHERE facturas.TipoFactura = '".$Tipo."'
+                            AND facturas.EstatusFacturacion = 0"
+                            .$Concat;
+            }else{
+                $query = "  SELECT 0 as Referencia
+                            FROM servicios 
+                            WHERE servicios.Id = '".$RutId."'
+                            AND servicios.EstatusFacturacion = 0
+                            AND servicios.CostoInstalacion > 0";
+            }
+            $run = new Method;
+            $Detalles = $run->select($query);
+            if($Detalles){
+                $Detalle = $Detalles[0];
+                $Referencia = $Detalle['Referencia'];
+            }else{
+                $Referencia = '';
+            }
+            return array('Referencia' => $Referencia);
+        }
+        public function storeReferencia($RutId, $Grupo, $Tipo, $Referencia){
+            if($Tipo == 1){
+                $query = "  UPDATE facturas SET Referencia = '".$Referencia."' WHERE Id = '".$RutId."'";
+            }else if($Tipo == 2){
+                if($Grupo == 1000 OR $Grupo == 1001){
+                    $query = "  UPDATE facturas SET Referencia = '".$Referencia."' WHERE Id = '".$RutId."'";
+                }else{
+                    $query = "  UPDATE facturas SET Referencia = '".$Referencia."' WHERE Rut = '".$RutId."' AND Grupo = '".$Grupo."' AND TipoFactura = '".$Tipo."' AND EstatusFacturacion = 0";
+                }
+            }else{
+                $query = "  UPDATE servicios SET Referencia = '".$Referencia."' WHERE Id = '".$RutId."'";
+            }
+            $run = new Method;
+            $update = $run->update($query);
+            return $update;
         }
     }
 ?>

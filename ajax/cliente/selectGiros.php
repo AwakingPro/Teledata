@@ -3,7 +3,9 @@
 	$query = 'SELECT
 	nombre
 	FROM
-	giros';
+	giros
+	ORDER BY
+	nombre';
 	$run = new Method;
 	$data = $run->select($query);
 	if (count($data) > 0) {
