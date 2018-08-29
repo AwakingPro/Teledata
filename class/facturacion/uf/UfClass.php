@@ -5,7 +5,13 @@ class Uf {
         $apiUrl = 'https://mindicador.cl/api/uf';
         //Es necesario tener habilitada la directiva allow_url_fopen para usar file_get_contents
         if ( ini_get('allow_url_fopen') ) {
-            $json = file_get_contents($apiUrl);
+            $arrContextOptions=array(
+                "ssl"=>array(
+                    "verify_peer"=>false,
+                    "verify_peer_name"=>false,
+                ),
+            ); 
+            $json = file_get_contents($apiUrl,false,stream_context_create($arrContextOptions));
         } else {
             //De otra forma utilizamos cURL
             $curl = curl_init($apiUrl);
