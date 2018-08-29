@@ -480,9 +480,7 @@
 
                         if($FacturaId){
                             if($UrlPdf){                        
-                                $PdfContent = file_get_contents($UrlPdf);
-                                $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$FacturaId.".pdf";
-                                file_put_contents($UrlLocal, $PdfContent);
+                                $this->almacenarDocumento($FacturaId,1,$UrlPdf);
                             }
                             foreach($Detalles as $Detalle){
                                 $Codigo = $Detalle['Codigo'];
@@ -655,9 +653,7 @@
 
                                 if($FacturaId){
                                     if($UrlPdf){                        
-                                        $PdfContent = file_get_contents($UrlPdf);
-                                        $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$FacturaId.".pdf";
-                                        file_put_contents($UrlLocal, $PdfContent);
+                                        $this->almacenarDocumento($FacturaId,1,$UrlPdf);
                                     }
                                     foreach($Detalles as $Detalle){
                                         $Codigo = $Detalle['Codigo'];
@@ -1041,9 +1037,7 @@
                                 $responseMsgSii = '0';
                             }
                             if($UrlPdf){
-                                $PdfContent = file_get_contents($UrlPdf);
-                                $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$Id.".pdf";
-                                file_put_contents($UrlLocal, $PdfContent);
+                                $this->almacenarDocumento($Id,1,$UrlPdf);
                                 $DocumentoId = $FacturaBsale['id'];
                                 $informedSii = $FacturaBsale['informedSii'];
                                 $responseMsgSii = $FacturaBsale['responseMsgSii'];
@@ -1645,9 +1639,7 @@
                             return;
                         }
                         if($UrlPdf){                        
-                            $PdfContent = file_get_contents($UrlPdf);
-                            $UrlLocal = "/var/www/html/Teledata/facturacion/notas_credito/".$Id.".pdf";
-                            file_put_contents($UrlLocal, $PdfContent);
+                            $this->almacenarDocumento($Id,2,$UrlPdf);
                         }
 
                         $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento) VALUES ('".$Id."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', NOW(), NOW(),'".$NumeroDocumento."')";
@@ -1678,16 +1670,7 @@
 
             echo json_encode($response_array);
         }
-        public function sendDevolucionBsale($Cliente,$referenceDocumentId,$motive,$TipoToken){
-            $run = new Method;
-            if($TipoToken == 1){
-                $query = "SELECT token_produccion as access_token FROM variables_globales";
-            }else{
-                $query = "SELECT token_prueba as access_token FROM variables_globales";
-            }
-            $variables_globales = $run->select($query);
-            $access_token = $variables_globales[0]['access_token'];
-
+        public function getDetallesDocumentoBsale($referenceDocumentId,$access_token){
             $url='https://api.bsale.cl/v1/documents/'.$referenceDocumentId.'/details.json';
 
             // Inicia cURL
@@ -1717,6 +1700,50 @@
                 $detail = array("documentDetailId" => $documentDetailId, "unitValue" => 0, "quantity" => $quantity);
                 array_push($details,$detail);
             }
+            return $details;
+        }
+        public function getReferenciasDocumentoBsale($referenceDocumentId,$access_token){
+            $url='https://api.bsale.cl/v1/documents/'.$referenceDocumentId.'/references.json';
+
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+
+            // Cierra la sesión cURL
+            curl_close($session);
+            $ReferenciasBsale = json_decode($response, true);
+            $references = array();
+            foreach($ReferenciasBsale['items'] as $Referencia){
+                $NumeroOC = $Referencia['number'];
+                $FechaOC = $Referencia['referenceDate'];
+                $reference = array("number" => $NumeroOC, "referenceDate" => $FechaOC, "reason" => "Orden de Compra " . $NumeroOC, "codeSii" => 801);
+                array_push($references,$reference);
+            }
+            return $references;
+        }
+        public function sendDevolucionBsale($Cliente,$referenceDocumentId,$motive,$TipoToken){
+            $run = new Method;
+            if($TipoToken == 1){
+                $query = "SELECT token_produccion as access_token FROM variables_globales";
+            }else{
+                $query = "SELECT token_prueba as access_token FROM variables_globales";
+            }
+            $variables_globales = $run->select($query);
+            $access_token = $variables_globales[0]['access_token'];
+            $details = $this->getDetallesDocumentoBsale($referenceDocumentId,$access_token);
             $clientId = null;
             /*
             if($Cliente['cliente_id_bsale']){
@@ -1988,6 +2015,169 @@
 
             $response_array['status'] = 1;
             echo json_encode($response_array);
+        }
+        public function sincronizarConBsale(){
+            $run = new Method;
+            $query = "SELECT token_produccion as access_token FROM variables_globales";
+            $variables_globales = $run->select($query);
+            $access_token = $variables_globales[0]['access_token'];
+
+            //DOCUMENTOS
+
+            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]';
+
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+
+            // Cierra la sesión cURL
+            curl_close($session);
+            $DocumentosBsale = json_decode($response, true);
+
+            foreach($DocumentosBsale['items'] as $DocumentoBsale){
+                $DocumentoId = $DocumentoBsale['id'];
+                $document_type = $DocumentoBsale['document_type'];
+                $TipoDocumento = $document_type['id'];
+                if($TipoDocumento == 22){
+                    $TipoDocumento = 1;
+                }else if($TipoDocumento == 5){
+                    $TipoDocumento = 2;
+                }else{
+                    $TipoDocumento = 3;
+                }
+                if($TipoDocumento == 1 OR $TipoDocumento == 2){
+                    $query = "SELECT Id FROM facturas WHERE DocumentoIdBsale = '".$DocumentoId."'";
+                    $Factura = $run->select($query);
+                    if(!$Factura){
+                        $UrlPdf = $DocumentoBsale['urlPdf'];
+                        $informedSii = $DocumentoBsale['informedSii'];
+                        $responseMsgSii = $DocumentoBsale['responseMsgSii'];
+                        $NumeroDocumento = $DocumentoBsale['number'];
+                        $FechaFacturacion = date('Y-m-d', $DocumentoBsale['emissionDate']);
+                        $HoraFacturacion = date('H:i:s', $DocumentoBsale['emissionDate']);
+                        $FechaVencimiento = date('Y-m-d', $DocumentoBsale['expirationDate']);
+                        $references = $DocumentoBsale['references']['items'];
+                        if($references){
+                            foreach($references as $reference){
+                                $NumeroOC = $reference['number'];
+                                $FechaOC = date('H:i:s',$reference['referenceDate']);
+                            }
+                            $Grupo = 1001;
+                        }else{
+                            $Grupo = 1000;
+                            $NumeroOC = '';
+                            $FechaOC = '1970-01-31';
+                        }
+                        $code = $DocumentoBsale['client']['code'];
+                        $Explode = explode('-',$code);
+                        $Rut = $Explode[0];
+                        if($Rut){
+                            $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, FechaOC) VALUES ('".$Rut."', '".$Grupo."', '4', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', '".$FechaFacturacion."', '".$HoraFacturacion."', '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."')";
+                            $Id = $run->insert($query);
+                            if($Id){
+                                $details = $DocumentoBsale['details']['items'];
+                                foreach($details as $detail){
+                                    $Valor = $detail['netUnitValue'];
+                                    $Cantidad = $detail['quantity'];
+                                    $Concepto = $detail['comment'];
+                                    $Descuento = $detail['discount'];
+                                    $Neto = $Valor * $Cantidad;
+                                    $DescuentoValor = $Neto * ( $Descuento / 100 );
+                                    $Neto -= $DescuentoValor;
+                                    $Impuesto = $Neto * 0.19;
+                                    $Total = $Neto + $Impuesto;
+                                    $Total = round($Total,0);
+                                    $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$Id."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '0', '".$Total."', '')";
+                                    $FacturaDetalleId = $run->insert($query);
+                                }
+                            }
+                        }
+                    }else{
+                        $Id = $Factura['Id'];
+                        $UrlPdf = $Factura['UrlPdfBsale'];
+                    }
+                    if($Id){   
+                        $this->almacenarDocumento($Id,1,$UrlPdf);
+                    }
+                }
+            }
+
+            //DEVOLUCIONES
+
+            $url='https://api.bsale.cl/v1/returns.json';
+
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+
+            // Cierra la sesión cURL
+            curl_close($session);
+            $DevolucionesBsale = json_decode($response, true);
+            foreach($DevolucionesBsale['items'] as $DevolucionBsale){
+                $DevolucionIdBsale = $DevolucionBsale['id'];
+                $query = "SELECT Id FROM devoluciones WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
+                $Devolucion = $run->select($query);
+                if(!$Devolucion){
+                    $DocumentoIdBsale = $DevolucionBsale['reference_document']['id'];
+                    $query = "SELECT Id FROM facturas WHERE DocumentoIdBsale = '".$DocumentoIdBsale."'";
+                    $Factura = $run->select($query);
+                    if($Factura){
+                        $FacturaId = $Factura[0]['Id'];
+                    }else{
+                        $FacturaId = 0;
+                    }
+                    $UrlPdf = $DevolucionBsale['urlPdf'];
+                    $Motivo = $DevolucionBsale['motive'];
+                    $FechaDevolucion = date('Y-m-d', $DocumentoBsale['returnDate']);
+                    $HoraDevolucion = date('H:i:s', $DocumentoBsale['returnDate']);
+                    $NumeroDocumento = $DevolucionBsale['number'];
+                    $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento) VALUES ('".$FacturaId."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', '".$FechaDevolucion."', '".$HoraDevolucion."','".$NumeroDocumento."')";
+                }else{
+                    $Id = $Devolucion['Id'];
+                    $UrlPdf = $Devolucion['UrlPdfBsale'];
+                }
+                if($Id){   
+                    $this->almacenarDocumento($Id,2,$UrlPdf);
+                }
+            }
+        }
+        public function almacenarDocumento($DocumentoId,$Tipo,$UrlPdf){
+            if($Tipo == 1){
+                $Folder = 'facturas';
+            }else{
+                $Folder = 'notas_credito';
+            }
+            $UrlLocal = "/var/www/html/Teledata/facturacion/".$Folder."/".$DocumentoId.".pdf";    
+            if(!file_exists($UrlLocal)){
+                $PdfContent = file_get_contents($UrlPdf);
+                file_put_contents($UrlLocal, $PdfContent);
+            }   
         }
     }
 ?>
