@@ -2140,7 +2140,7 @@
             $DevolucionesBsale = json_decode($response, true);
             foreach($DevolucionesBsale['items'] as $DevolucionBsale){
                 $DevolucionIdBsale = $DevolucionBsale['id'];
-                $query = "SELECT Id, UrlPdfBsale FROM devoluciones WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
+                $query = "SELECT FacturaId as Id, UrlPdfBsale FROM devoluciones WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
                 $Devolucion = $run->select($query);
                 if(!$Devolucion){
                     $DocumentoIdBsale = $DevolucionBsale['reference_document']['id'];
