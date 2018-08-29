@@ -32,8 +32,7 @@
                 $Precio = floatval($Precio);
                 if($Moneda == 2){
                     $UfClass = new Uf(); 
-                    $Fecha = date('d-m-Y');
-                    $UF = $UfClass->getValue($Fecha);
+                    $UF = $UfClass->getValue();
                     $Precio = $Precio * $UF;
                 }
                 $Precio = round($Precio,0);

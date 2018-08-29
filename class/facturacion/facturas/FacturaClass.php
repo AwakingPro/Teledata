@@ -11,8 +11,7 @@
             $run = new Method;
 
             $UfClass = new Uf(); 
-            $Fecha = date('d-m-Y');
-            $UF = $UfClass->getValue($Fecha);
+            $UF = $UfClass->getValue();
 
             $ToReturn = array();
 
@@ -273,8 +272,7 @@
             $run = new Method;
 
             $UfClass = new Uf(); 
-            $Fecha = date('d-m-Y');
-            $UF = $UfClass->getValue($Fecha);
+            $UF = $UfClass->getValue();
 
             $query = "  SELECT
                             servicios.Id,
@@ -437,9 +435,8 @@
 
                 $run = new Method;
                 $Detalles = $run->select($query);
-                $Fecha = date('d-m-Y');
                 $UfClass = new Uf(); 
-                $UF = $UfClass->getValue($Fecha);
+                $UF = $UfClass->getValue();
 
                 if($Detalles){
 
@@ -578,9 +575,8 @@
                 $response_array = array();
 
                 $Facturas = explode(",", $Facturas);
-                $Fecha = date('d-m-Y');
                 $UfClass = new Uf(); 
-                $UF = $UfClass->getValue($Fecha);
+                $UF = $UfClass->getValue();
                 $expirationDate = time() + 1728000;
                 $FechaVencimiento = date('Y-m-d', $expirationDate);
 
@@ -749,8 +745,7 @@
 
             if($Servicios){
                 $UfClass = new Uf(); 
-                $Fecha = date('d-m-Y');
-                $UF = $UfClass->getValue($Fecha);
+                $UF = $UfClass->getValue();
                 
                 foreach($Servicios as $Servicio){
                     $Id = $Servicio['Id'];
@@ -821,8 +816,7 @@
         public function getTotalesInstalacion(){
             $run = new Method;
             $UfClass = new Uf(); 
-            $Fecha = date('d-m-Y');
-            $UF = $UfClass->getValue($Fecha);
+            $UF = $UfClass->getValue();
             $totalBoletas = 0;
             $totalFacturas = 0;
             $cantidadBoletas = 0;
@@ -1553,9 +1547,8 @@
                 if(!file_exists("/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf") || $Tipo == 2){
                     $run = new Method;
                     $Detalles = $run->select($query);
-                    $Fecha = date('d-m-Y');
                     $UfClass = new Uf(); 
-                    $UF = $UfClass->getValue($Fecha);
+                    $UF = $UfClass->getValue();
 
                     if($Detalles){
                         $Detalle = $Detalles[0];

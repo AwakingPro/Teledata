@@ -219,8 +219,7 @@
 							if($FacturaId){
 
 								$UfClass = new Uf(); 
-								$Fecha = date('d-m-Y');
-								$UF = $UfClass->getValue($Fecha);
+								$UF = $UfClass->getValue();
 								
 								$Codigo = $Servicio['Codigo'];
 								$Concepto = $Servicio['Servicio'];

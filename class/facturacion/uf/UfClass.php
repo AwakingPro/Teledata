@@ -1,8 +1,8 @@
 <?php
 class Uf {
 
-    public function getValue($date) {
-        $apiUrl = 'https://mindicador.cl/api/uf/'.$date;
+    public function getValue() {
+        $apiUrl = 'https://mindicador.cl/api/uf';
         //Es necesario tener habilitada la directiva allow_url_fopen para usar file_get_contents
         if ( ini_get('allow_url_fopen') ) {
             $json = file_get_contents($apiUrl);
