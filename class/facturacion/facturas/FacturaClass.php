@@ -2059,7 +2059,7 @@
                     $TipoDocumento = 3;
                 }
                 if($TipoDocumento == 1 OR $TipoDocumento == 2){
-                    $query = "SELECT Id FROM facturas WHERE DocumentoIdBsale = '".$DocumentoId."'";
+                    $query = "SELECT Id, UrlPdfBsale FROM facturas WHERE DocumentoIdBsale = '".$DocumentoId."'";
                     $Factura = $run->select($query);
                     if(!$Factura){
                         $UrlPdf = $DocumentoBsale['urlPdf'];
@@ -2144,7 +2144,7 @@
             $DevolucionesBsale = json_decode($response, true);
             foreach($DevolucionesBsale['items'] as $DevolucionBsale){
                 $DevolucionIdBsale = $DevolucionBsale['id'];
-                $query = "SELECT Id FROM devoluciones WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
+                $query = "SELECT Id, UrlPdfBsale FROM devoluciones WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
                 $Devolucion = $run->select($query);
                 if(!$Devolucion){
                     $DocumentoIdBsale = $DevolucionBsale['reference_document']['id'];
@@ -2158,9 +2158,9 @@
                     $credit_note = $DevolucionBsale['credit_note'];
                     $UrlPdf = $credit_note['urlPdf'];
                     $Motivo = $DevolucionBsale['motive'];
-                    $FechaDevolucion = date('Y-m-d', $DocumentoBsale['returnDate']);
-                    $HoraDevolucion = date('H:i:s', $DocumentoBsale['returnDate']);
-                    $NumeroDocumento = $DevolucionBsale['number'];
+                    $FechaDevolucion = date('Y-m-d', $DevolucionBsale['returnDate']);
+                    $HoraDevolucion = date('H:i:s', $DevolucionBsale['returnDate']);
+                    $NumeroDocumento = $credit_note['number'];
                     $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento) VALUES ('".$FacturaId."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', '".$FechaDevolucion."', '".$HoraDevolucion."','".$NumeroDocumento."')";
                 }else{
                     $Id = $Devolucion['Id'];
