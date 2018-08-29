@@ -2148,17 +2148,19 @@
                     $Factura = $run->select($query);
                     if($Factura){
                         $FacturaId = $Factura[0]['Id'];
-                    }else{
-                        $FacturaId = 0;
+                        $credit_note = $DevolucionBsale['credit_note'];
+                        $UrlPdf = $credit_note['urlPdf'];
+                        $Motivo = $DevolucionBsale['motive'];
+                        $FechaDevolucion = date('Y-m-d', $DevolucionBsale['returnDate']);
+                        $HoraDevolucion = date('H:i:s', $DevolucionBsale['returnDate']);
+                        $NumeroDocumento = $credit_note['number'];
+                        $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento) VALUES ('".$FacturaId."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', '".$FechaDevolucion."', '".$HoraDevolucion."','".$NumeroDocumento."')";
+                        $DevolucionId = $run->insert($query);
+                        if($DevolucionId){
+                            $query = "UPDATE facturas SET EstatusFacturacion = 2 WHERE Id = '".$FacturaId."'";
+                            $update = $run->update($query);
+                        }
                     }
-                    $credit_note = $DevolucionBsale['credit_note'];
-                    $UrlPdf = $credit_note['urlPdf'];
-                    $Motivo = $DevolucionBsale['motive'];
-                    $FechaDevolucion = date('Y-m-d', $DevolucionBsale['returnDate']);
-                    $HoraDevolucion = date('H:i:s', $DevolucionBsale['returnDate']);
-                    $NumeroDocumento = $credit_note['number'];
-                    $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento) VALUES ('".$FacturaId."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', '".$FechaDevolucion."', '".$HoraDevolucion."','".$NumeroDocumento."')";
-                    $DevolucionId = $run->insert($query);
                 }else{
                     $FacturaId = $Devolucion[0]['FacturaId'];
                     $UrlPdf = $Devolucion[0]['UrlPdfBsale'];
