@@ -2163,8 +2163,8 @@
                     $NumeroDocumento = $credit_note['number'];
                     $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento) VALUES ('".$FacturaId."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', '".$FechaDevolucion."', '".$HoraDevolucion."','".$NumeroDocumento."')";
                 }else{
-                    $Id = $Devolucion['Id'];
-                    $UrlPdf = $Devolucion['UrlPdfBsale'];
+                    $Id = $Devolucion[0]['Id'];
+                    $UrlPdf = $Devolucion[0]['UrlPdfBsale'];
                 }
                 if($Id){   
                     $this->almacenarDocumento($Id,2,$UrlPdf);
