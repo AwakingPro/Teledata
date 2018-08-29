@@ -39,7 +39,7 @@ if (file_exists('../ajax/perfil/img-profile/'.$_SESSION['idUsuario'].'.jpg')) {
 						<span class="pull-right">
 							<?php echo $img; ?>
 						</span>
-						<div class="username hidden-xs"><?php echo $data[0][0]; ?></div>
+						<div id="username" class="username hidden-xs"><?php echo $data[0][0]; ?></div>
 					</a>
 					<div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
 						<!-- Dropdown heading  -->
