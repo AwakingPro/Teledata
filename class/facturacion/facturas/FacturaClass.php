@@ -2109,8 +2109,8 @@
                             }
                         }
                     }else{
-                        $Id = $Factura['Id'];
-                        $UrlPdf = $Factura['UrlPdfBsale'];
+                        $Id = $Factura[0]['Id'];
+                        $UrlPdf = $Factura[0]['UrlPdfBsale'];
                     }
                     if($Id){   
                         $this->almacenarDocumento($Id,1,$UrlPdf);
@@ -2120,7 +2120,7 @@
 
             //DEVOLUCIONES
 
-            $url='https://api.bsale.cl/v1/returns.json';
+            $url='https://api.bsale.cl/v1/returns.json?expand=[credit_note]';
 
             // Inicia cURL
             $session = curl_init($url);
@@ -2155,7 +2155,8 @@
                     }else{
                         $FacturaId = 0;
                     }
-                    $UrlPdf = $DevolucionBsale['urlPdf'];
+                    $credit_note = $DevolucionBsale['credit_note'];
+                    $UrlPdf = $credit_note['urlPdf'];
                     $Motivo = $DevolucionBsale['motive'];
                     $FechaDevolucion = date('Y-m-d', $DocumentoBsale['returnDate']);
                     $HoraDevolucion = date('H:i:s', $DocumentoBsale['returnDate']);
