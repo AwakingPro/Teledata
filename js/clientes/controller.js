@@ -410,7 +410,7 @@ $(document).ready(function() {
             });
         });
     }
-
+   
     $(document).on('click', '.guardarDatosTecnicos', function() {
         var url = $('.container-form-datosTecnicos').attr('attr');
         $.postFormValues('../ajax/cliente/' + url, '.container-form-datosTecnicos', function(data) {

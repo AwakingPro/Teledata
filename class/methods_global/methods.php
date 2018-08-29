@@ -140,7 +140,7 @@
 								if($clave != 0) {
 									
 									if($clave == 5) {
-										$tabla.="<td class='campo-servicios'>".$valor."<i attr='".$rows[$i][1]."' class='verServiciosCliente fa fa-eye'></i></td>";
+										$tabla.="<td class='campo-servicios'>".$valor."<i attr='".$rows[$i][1]."' class='verServiciosCliente fa fa-eye' title='Ver Servicios'></i></td>";
 									} else {
 										$tabla.="<td>".$valor."</td>";
 									}
