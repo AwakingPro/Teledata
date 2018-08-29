@@ -149,7 +149,7 @@
 									
 							}
 							if($table[0] == 'personaempresa'){
-								$ver = '<i class="fa fa-eye update-'.$table[0].'" id="view" attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>';
+								$ver = '<i class="fa fa-eye update-'.$table[0].'" id="view" attr="'.$rows[$i][0].'" aria-hidden="true" title="Visualizar"></i>';
 								$count = 0;
 								$query = "SELECT * FROM servicios WHERE Rut = substring_index('".$rows[$i][1]."','-',1)";
 								if ($resultado = $mysqli->query($query)) {

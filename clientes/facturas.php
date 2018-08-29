@@ -47,9 +47,17 @@
 													<select name="rutCliente" class="form-control" data-live-search="true">
 														<option value="">Seleccione...</option>
 													</select>
+													<br><br>
+													<select class="selectpicker form-control" id="documentType" data-container="body">
+														<option value="">Todos</option>
+														<option value="1">Boleta</option>
+														<option value="2">Factura</option>
+													</select>
 												</div>
+												<br><br>
 											</div>
 											<br><br>
+											<button id="descargar" class="btn btn-primary">Descargar</button><br><br>
 											<div class="row">
 												<div class="col-md-12">
 													<div class="table-responsive">
