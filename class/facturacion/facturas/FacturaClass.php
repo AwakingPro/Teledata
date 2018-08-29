@@ -2069,7 +2069,8 @@
                         $FechaFacturacion = date('Y-m-d', $DocumentoBsale['emissionDate']);
                         $HoraFacturacion = date('H:i:s', $DocumentoBsale['emissionDate']);
                         $FechaVencimiento = date('Y-m-d', $DocumentoBsale['expirationDate']);
-                        $references = $DocumentoBsale['references']['items'];
+                        $references = $DocumentoBsale['references'];
+                        $references = $references['items'];
                         if($references){
                             foreach($references as $reference){
                                 $NumeroOC = $reference['number'];
@@ -2081,14 +2082,16 @@
                             $NumeroOC = '';
                             $FechaOC = '1970-01-31';
                         }
-                        $code = $DocumentoBsale['client']['code'];
+                        $client ) $DocumentoBsale['client'];
+                        $code = $client['code'];
                         $Explode = explode('-',$code);
                         $Rut = $Explode[0];
                         if($Rut){
                             $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, FechaOC) VALUES ('".$Rut."', '".$Grupo."', '4', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', '".$FechaFacturacion."', '".$HoraFacturacion."', '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."')";
                             $Id = $run->insert($query);
                             if($Id){
-                                $details = $DocumentoBsale['details']['items'];
+                                $details = $DocumentoBsale['details'];
+                                $details = $details['items'];
                                 foreach($details as $detail){
                                     $Valor = $detail['netUnitValue'];
                                     $Cantidad = $detail['quantity'];
