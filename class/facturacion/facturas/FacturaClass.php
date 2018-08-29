@@ -2082,7 +2082,7 @@
                             $NumeroOC = '';
                             $FechaOC = '1970-01-31';
                         }
-                        $client ) $DocumentoBsale['client'];
+                        $client = $DocumentoBsale['client'];
                         $code = $client['code'];
                         $Explode = explode('-',$code);
                         $Rut = $Explode[0];
