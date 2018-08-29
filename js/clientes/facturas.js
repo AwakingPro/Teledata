@@ -445,4 +445,20 @@ $(document).ready(function() {
         $('#storeDevolucion')[0].reset();
 
     });
+    $(document).on('click', '#descargar', function() {
+        Rut = $('select[name="rutCliente"]').selectpicker('val')
+        if (Rut != '') {
+            downloadFacturas();
+        } else {
+            bootbox.alert('Debe Seleccionar un cliente')
+            return false;
+        }
+    });
+    function downloadFacturas() {
+        Rut = $('select[name="rutCliente"]').selectpicker('val')
+        var documentType = $("#documentType").val();
+        data = "Rut=" + Rut + "&documentType=" + documentType
+        url = '../facturacion/facturas/descargarFacturasPorCliente.php?' + data;
+        window.open(url, '_blank');
+    }
 });
