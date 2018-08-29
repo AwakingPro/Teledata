@@ -284,12 +284,70 @@ $(document).ready(function() {
             });
         }
     });
+    
+    //agregar y ver contactos del modulo /clientes/listaCliente.php
+    $(document).on('click', '.abre-modal-contactos', function() {
+        $('#modalContactos').modal('show');
+
+        valor = $(this).attr('attr');
+        $('#IdClienteOculto').val(valor);
+        // console.log(valor+' valor en el input hidden '+$('#IdClienteOculto').val());
+
+        $(document).on('click', '.guardarContacto', function() {
+            $('#guardarContacto').attr('disabled', 'disabled');
+            return;
+            $.postFormValues('../ajax/cliente/insertContacto.php', '.form-cont1, .container-form-extraTelefono, .container-form-extraCorreo', function(data) {
+                if (Number(data) > 0) {
+                    $('.listaCliente').load('../ajax/cliente/listClientes.php', function() {
+                        var count = $('.listaCliente > .tabeData tr th').length - 1;
+                        $('.listaCliente > .tabeData').dataTable({
+                            "columnDefs": [{
+                                'orderable': false,
+                                'targets': [count]
+                            }, ],
+                            language: {
+                                processing: "Procesando ...",
+                                search: 'Buscar',
+                                lengthMenu: "Mostrar _MENU_ Registros",
+                                info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                                infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                                infoFiltered: "(filtrada de _MAX_ registros en total)",
+                                infoPostFix: "",
+                                loadingRecords: "...",
+                                zeroRecords: "No se encontraron registros coincidentes",
+                                emptyTable: "No hay datos disponibles en la tabla",
+                                paginate: {
+                                    first: "Primero",
+                                    previous: "Anterior",
+                                    next: "Siguiente",
+                                    last: "Ultimo"
+                                },
+                                aria: {
+                                    sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                                    sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                                }
+                            }
+                        });
+                    });
+                    bootbox.alert('<h3 class="text-center">El cliente #' + data + ' se registro con éxito.</h3>');
+                    $('#insertContactos')[0].reset();
+                } else {
+                    console.log(data);
+                    if (data != "Dv") {
+                        bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
+                    } else {
+                        bootbox.alert('<h3 class="text-center">Disculpe el campo Dv es obligatorio.</h3>');
+                    }
+                }
+            });
+        });
+    });
 
     //ver servicios del modulo /clientes/listaCliente.php
     $(document).on('click', '.verServiciosCliente', function() {
         $('#modalVerServicios').modal('show')
         var id = $(this).attr('attr');
-        console.log(id);
+        
         if (id != '') {
             $.post('../ajax/cliente/dataCliente.php', { rutListaCliente: id }, function(data) {
                 values = $.parseJSON(data);

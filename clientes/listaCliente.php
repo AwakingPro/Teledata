@@ -89,6 +89,7 @@
 </body>
 </html>
 <?php
+	include 'modalContactos.php';
 	include 'modalVerServicios.php';
 ?>
 <div class="modal fade" role="dialog" id="editarCliente">
