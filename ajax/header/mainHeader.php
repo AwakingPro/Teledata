@@ -40,6 +40,7 @@ if (file_exists('../ajax/perfil/img-profile/'.$_SESSION['idUsuario'].'.jpg')) {
 							<?php echo $img; ?>
 						</span>
 						<div id="username" class="username hidden-xs"><?php echo $data[0][0]; ?></div>
+						<input type="hidden" id="IdUsuarioSession" value="<?php echo $_SESSION['idUsuario'] ?>">
 					</a>
 					<div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
 						<!-- Dropdown heading  -->
