@@ -296,7 +296,6 @@ $(document).ready(function() {
                 $('.dataServicios').html(values);
                 var count = $('.dataServicios > .tabeData tr th').length - 1;
                 $('.dataServicios > .tabeData').dataTable({
-                    responsive: true,
                     "columnDefs": [{
                         'orderable': false,
                         'targets': [count]
