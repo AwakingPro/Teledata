@@ -63,7 +63,7 @@ class Email
 		);*/
 
 		include('../../includes/functions/Functions.php');
-		include('../../db/connect.php');
+		include('../../run/connect.php');
 		include('opciones.php');
 
 		$config = new opciones; 
@@ -173,7 +173,7 @@ class Email
 
 	public function get_var_value($rut,$var,$cedente){
 
-    	$db = new Db();
+    	$run = new Method();
 
 		$return = false;
 
@@ -183,7 +183,7 @@ class Email
 //echo $fields_variable."\n";
 //}
 
-		$row = $db->select($fields_variable);
+		$row = $run->select($fields_variable);
 
 		if(count($row)>0){
 
@@ -203,7 +203,7 @@ class Email
 				$consulta_valores = "SELECT ".$operacion."(".$campos.") AS ".$campos." FROM ".$tabla." WHERE Rut='".$rut."'".$cedente;
 			}
 			
-			$valores = $db->select($consulta_valores);
+			$valores = $run->select($consulta_valores);
 			
 			if(count($array_campos) > 1){
 				$tabla = '<table width="700" style="border-spacing: 0px;">
@@ -245,7 +245,7 @@ class Email
 	}
 	public function gen_code(){
 
-    	$db = new Db();
+    	$run = new Method();
 		$exist = true;
 		$char = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     	$lon = strlen($char) - 1;
@@ -259,7 +259,7 @@ class Email
 
 			$query_exist = "SELECT * FROM Confirmacion WHERE codigo = '".$code."'";
 
-			$result = $db->select($query_exist);
+			$result = $run->select($query_exist);
 
 			if(count($result) > 0){
 				$exist = true;
@@ -275,11 +275,11 @@ class Email
 	}
 
 	public function verificacionCron(){
-		$db = new Db();
+		$run = new Method();
 		$isValid = 2; // 1=activo y 2=inactivo   
 		// verifico si el cron esta activo
 		$consulta_cron = "SELECT * FROM cron_email WHERE estatus = 1 and id = 1";
-		$cron = $db->select($consulta_cron);
+		$cron = $run->select($consulta_cron);
 		if(count($cron) > 0){
 			$isValid = 1;
 		}
@@ -287,16 +287,16 @@ class Email
 	}
 
 	public function verificacionAlertaEnvio(){
-		$db = new Db();
+		$run = new Method();
 		//verifico si existe cola de envio
 		$consulta_envio = "SELECT DISTINCT id_usuario FROM envio_email WHERE status = 0";
-		$envio = $db->select($consulta_envio);
+		$envio = $run->select($consulta_envio);
 		$colaUsuarios = array();
 		if(count($envio) > 0){			
 		    foreach($envio as $cola){
 				$idUsuario = $cola['id_usuario'];
         		$consultaUsuario = "SELECT nombre, id FROM Usuarios WHERE id = ".$idUsuario."";
-        		$usua = $db->select($consultaUsuario);
+        		$usua = $run->select($consultaUsuario);
           		foreach($usua as $usuario){
 					$Array = array();
             		$Array[] = $usuario['nombre'];
@@ -308,10 +308,10 @@ class Email
 	}
 
 	public function getListarColas(){
-    	$db = new Db();
+    	$run = new Method();
     	$colasArray = array();
     	$Sql = "SELECT estrategia, id FROM envio_email WHERE id_usuario = ".$_SESSION['id_usuario']." AND status = 0";
-    	$colas = $db -> select($Sql);
+    	$colas = $run -> select($Sql);
     	foreach($colas as $cola){
       		$Array = array();
       		$Array['estrategia'] = $cola["estrategia"];
@@ -323,23 +323,23 @@ class Email
 	 
 
 	public function cancelarColaEnvio($idCola){
-    	$db = new Db();
+    	$run = new Method();
   		$SqlUpdate = "UPDATE envio_email set status = '2', fechaProceso = NOW(), continuar = '0'  WHERE id ='".$idCola."'";
-    	$db -> query($SqlUpdate);
+    	$run -> query($SqlUpdate);
     }  
 
 	public function continuarEnvioCola($idCola){
 		$isValid = 2;
-    	$db = new Db();
+    	$run = new Method();
   		$SqlUpdate = "UPDATE envio_email set continuar = '0' WHERE id ='".$idCola."'";
-    	$db -> query($SqlUpdate);
+    	$run -> query($SqlUpdate);
 		// verifico si tengo mas envios en cola parados
 		$Sql = "SELECT * FROM envio_email WHERE status = 0, fechaProceso = NOW() AND continuar = 1";
-    	$colas = $db -> select($Sql);
+    	$colas = $run -> select($Sql);
 		if(count($colas) == 0){		
 			// si no existen colas paradas activo el cron
 			$SqlUpdate = "UPDATE cron_email set estatus = 1 WHERE id = 1";
-    		$db -> query($SqlUpdate);
+    		$run -> query($SqlUpdate);
 			$isValid = 1;
 		}
 		return $isValid;   	

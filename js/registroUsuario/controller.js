@@ -137,7 +137,7 @@ $(document).ready(function() {
 			value = $.parseJSON(data);
 			$('[name="usuarioUpdate"]').val(value[0][1]);
 			$('[name="nombreUpdate"]').val(value[0][2]);
-			$('[name="previlegiosUpdate"]').selectpicker('val',value[0][4]);
+			$('[name="nivelUpdate"]').selectpicker('val',value[0][4]);
 			$('[name="cargoUpdate"]').val(value[0][5]);
 			$('[name="correoUpdate"]').val(value[0][6]);
 			$('[name="idPerfil"]').val(value[0][0]);

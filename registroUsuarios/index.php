@@ -98,7 +98,7 @@
 							</div>
 							<div class="col-md-6 form-group">
 								<label>Privilegios</label>
-								<select name="previlegios" class="selectpicker form-control" data-live-search="true">
+								<select name="nivel" class="selectpicker form-control" data-live-search="true">
 									<option value=""> Seleccione...</option>
 									<option value="1">Administrador</option>
 									<option value="2">Soporte</option>
@@ -162,7 +162,7 @@
 							</div>
 							<div class="col-md-6 form-group">
 								<label>Privilegios</label>
-								<select name="previlegiosUpdate" class="selectpicker form-control" data-live-search="true">
+								<select name="nivelUpdate" class="selectpicker form-control" data-live-search="true">
 									<option value=""> Seleccione...</option>
 									<option value="1">Administrador</option>
 									<option value="2">Soporte</option>
