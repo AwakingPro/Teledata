@@ -2095,14 +2095,10 @@
                                 foreach($details as $detail){
                                     $Valor = $detail['netUnitValue'];
                                     $Cantidad = $detail['quantity'];
-                                    $Concepto = $detail['comment'];
-                                    $Descuento = $detail['discount'];
-                                    $Neto = $Valor * $Cantidad;
-                                    $DescuentoValor = $Neto * ( $Descuento / 100 );
-                                    $Neto -= $DescuentoValor;
-                                    $Impuesto = $Neto * 0.19;
-                                    $Total = $Neto + $Impuesto;
-                                    $Total = round($Total,0);
+                                    $variant = $detail['variant'];
+                                    $Concepto = $variant['description'];
+                                    $Descuento = 0;
+                                    $Total = $detail['totalAmount'];
                                     $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$Id."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '0', '".$Total."', '')";
                                     $FacturaDetalleId = $run->insert($query);
                                 }
