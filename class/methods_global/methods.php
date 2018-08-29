@@ -137,8 +137,16 @@
 						for ($i=0; $i < count($rows) ; $i++) {
 							$tabla.= '<tr>';
 							foreach ($rows[$i] as $clave => $valor) {
-								if($clave != 0)
-									$tabla.="<td>".$valor."</td>";
+								if($clave != 0) {
+									
+									if($clave == 5) {
+										$tabla.="<td class='campo-servicios'>".$valor."<i attr='".$rows[$i][1]."' class='verServiciosCliente fa fa-eye'></i></td>";
+									} else {
+										$tabla.="<td>".$valor."</td>";
+									}
+									
+								}
+									
 							}
 							if($table[0] == 'personaempresa'){
 								$ver = '<i class="fa fa-eye update-'.$table[0].'" id="view" attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>';
