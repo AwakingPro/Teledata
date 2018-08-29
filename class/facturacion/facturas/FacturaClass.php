@@ -2161,7 +2161,7 @@
                     $FechaDevolucion = date('Y-m-d', $DevolucionBsale['returnDate']);
                     $HoraDevolucion = date('H:i:s', $DevolucionBsale['returnDate']);
                     $NumeroDocumento = $credit_note['number'];
-                    $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento) VALUES ('".$FacturaId."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', '".$FechaDevolucion."', '".$HoraDevolucion."','".$NumeroDocumento."')";
+                    echo $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento) VALUES ('".$FacturaId."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', '".$FechaDevolucion."', '".$HoraDevolucion."','".$NumeroDocumento."')";
                 }else{
                     $Id = $Devolucion[0]['Id'];
                     $UrlPdf = $Devolucion[0]['UrlPdfBsale'];
