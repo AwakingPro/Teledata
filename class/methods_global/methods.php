@@ -150,6 +150,7 @@
 							}
 							if($table[0] == 'personaempresa'){
 								$ver = '<i class="fa fa-eye update-'.$table[0].'" id="view" attr="'.$rows[$i][0].'" aria-hidden="true" title="Visualizar"></i>';
+								$contactos = '<i class="fa fa-phone update-'.$table[0].'" id="contactos" attr="'.$rows[$i][0].'" aria-hidden="true" title="Contactos"></i>';
 								$count = 0;
 								$query = "SELECT * FROM servicios WHERE Rut = substring_index('".$rows[$i][1]."','-',1)";
 								if ($resultado = $mysqli->query($query)) {
@@ -175,6 +176,7 @@
 							$tabla.='<td class="optionTable">
 								<i class="fa fa-pencil-square-o update-'.$table[0].'" attr="'.$rows[$i][0].'" id="update" aria-hidden="true" title="Editar"></i>
 								'.$ver.'
+								'.$contactos.'
 								'.$eliminar.'
 								</td>';
 							$tabla.= '</tr>';
