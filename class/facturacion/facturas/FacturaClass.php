@@ -1411,9 +1411,9 @@
                     if($TotalAbono < 0){
                         $TotalAbono = 0;
                     }
-
+                    $Id = $factura['Id'];
                     $data = array();
-                    $data['Id'] = $factura['Id'];
+                    $data['Id'] = $Id;
                     $data['Cliente'] = $factura['Cliente'];
                     $data['NumeroDocumento'] = $factura['NumeroDocumento'];
                     $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
@@ -1422,8 +1422,27 @@
                     $data['TotalAbono'] = $TotalAbono;
                     $data['UrlPdfBsale'] = $factura['UrlPdfBsale'];
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
-                    $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
+                    $data['EstatusFacturacion'] = 1;
                     array_push($ToReturn,$data);
+                    if($factura['EstatusFacturacion'] == 2){
+                        $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale FROM devoluciones WHERE FacturaId = '".$Id."'";
+                        $devoluciones = $run->select($query);
+                        if($devoluciones){
+                            $devolucion = $devoluciones[0];
+                            $data = array();
+                            $data['Id'] = $Id;
+                            $data['Cliente'] = $factura['Cliente'];
+                            $data['NumeroDocumento'] = $devolucion['NumeroDocumento'];
+                            $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
+                            $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
+                            $data['TotalFactura'] = $TotalFactura;
+                            $data['TotalAbono'] = $TotalAbono;
+                            $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
+                            $data['TipoDocumento'] = 'Nota de credito';
+                            $data['EstatusFacturacion'] = 2;
+                            array_push($ToReturn,$data);
+                        }
+                    }
                 }
             }
 
@@ -1618,6 +1637,7 @@
                         $DocumentoBsale = $this->getDocumentoBsale($DocumentoIdBsale,1);
                         if($DocumentoBsale['status'] == 1){
                             $UrlPdf = $DocumentoBsale['urlPdf'];
+                            $NumeroDocumento = $DocumentoBsale['number'];
                         }else{
                             $response_array['Message'] = $DocumentoBsale['Message'];
                             $response_array['status'] = 'Documento';
@@ -1630,7 +1650,7 @@
                             file_put_contents($UrlLocal, $PdfContent);
                         }
 
-                        $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion) VALUES ('".$Id."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', NOW(), NOW())";
+                        $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento) VALUES ('".$Id."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', NOW(), NOW(),'".$NumeroDocumento."')";
                         $DevolucionId = $run->insert($query);
 
                         if($DevolucionId){
@@ -1929,6 +1949,45 @@
             $run = new Method;
             $update = $run->update($query);
             return $update;
+        }
+        public function deleteFactura($RutId, $Grupo, $Tipo){
+            $response_array = array();
+            $run = new Method;
+            if($Tipo == 1){
+                $query = "  SELECT Id
+                            FROM facturas 
+                            WHERE facturas.Id = '".$RutId."'";
+            }else if($Tipo == 2){
+                if($Grupo == 1000 OR $Grupo == 1001){
+                    $Concat = " AND facturas.Id = '".$RutId."'";
+                }else{
+                    $Concat = " AND facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."' AND facturas.TipoFactura = '".$Tipo."'";
+                }
+                $query = "  SELECT Id
+                            FROM facturas 
+                            WHERE facturas.EstatusFacturacion = 0"                                 
+                            .$Concat;
+            }else{
+                $query = "  SELECT Id
+                            FROM servicios  
+                            WHERE servicios.Id = '".$RutId."'";
+            }
+            $facturas = $run->select($query);
+            foreach($facturas as $factura){
+                $Id = $factura['Id'];
+                if($Tipo != 3){
+                    $query = "DELETE FROM facturas_detalle WHERE FacturaId = '".$Id."'";
+                    $delete = $run->delete($query);
+                    $query = "DELETE FROM facturas WHERE Id = '".$Id."'";
+                    $delete = $run->delete($query);
+                }else{
+                    $query = "UPDATE servicios SET CostoInstalacion = 0 WHERE iD = '".$Id."'";
+                    $delete = $run->update($query);
+                }
+            }
+
+            $response_array['status'] = 1;
+            echo json_encode($response_array);
         }
     }
 ?>
