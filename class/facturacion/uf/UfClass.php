@@ -14,7 +14,12 @@ class Uf {
             curl_close($curl);
         }
         $dailyIndicators = json_decode($json);
-        return floatval($dailyIndicators->serie[0]->valor);
+        if(isset($dailyIndicators->serie[0]->valor)){
+            $Value = floatval($dailyIndicators->serie[0]->valor);
+        }else{
+            $Value = 0;
+        }
+        return $Value;
     }
 }
 ?>
