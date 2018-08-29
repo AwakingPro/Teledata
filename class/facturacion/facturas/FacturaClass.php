@@ -2140,7 +2140,7 @@
             $DevolucionesBsale = json_decode($response, true);
             foreach($DevolucionesBsale['items'] as $DevolucionBsale){
                 $DevolucionIdBsale = $DevolucionBsale['id'];
-                $query = "SELECT FacturaId as Id, UrlPdfBsale FROM devoluciones WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
+                $query = "SELECT FacturaId, UrlPdfBsale FROM devoluciones WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
                 $Devolucion = $run->select($query);
                 if(!$Devolucion){
                     $DocumentoIdBsale = $DevolucionBsale['reference_document']['id'];
@@ -2158,13 +2158,13 @@
                     $HoraDevolucion = date('H:i:s', $DevolucionBsale['returnDate']);
                     $NumeroDocumento = $credit_note['number'];
                     $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento) VALUES ('".$FacturaId."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', '".$FechaDevolucion."', '".$HoraDevolucion."','".$NumeroDocumento."')";
-                    $Id = $run->insert($query);
+                    $DevolucionId = $run->insert($query);
                 }else{
-                    $Id = $Devolucion[0]['Id'];
+                    $FacturaId = $Devolucion[0]['FacturaId'];
                     $UrlPdf = $Devolucion[0]['UrlPdfBsale'];
                 }
-                if($Id){   
-                    $this->almacenarDocumento($Id,2,$UrlPdf);
+                if($FacturaId){   
+                    $this->almacenarDocumento($FacturaId,2,$UrlPdf);
                 }
             }
         }
