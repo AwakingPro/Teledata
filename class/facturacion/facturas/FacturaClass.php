@@ -708,6 +708,7 @@
         public function generarFacturas(){
 
             $run = new Method;
+            $Hoy = date('Y-m-d');
             $dt = new DateTime(); 
             $Anio = $dt->format('Y');
             $MesFacturacion = $this->generarMes($dt);
@@ -717,25 +718,25 @@
                             s.*,
                             ( CASE s.IdServicio WHEN 7 THEN s.NombreServicioExtra ELSE ms.servicio END ) AS Servicio,
                             p.tipo_cliente as TipoDocumento,
-                            mtf.tipo_facturacion as TipoFacturacion,
-                        CASE
+                            mtf.tipo_facturacion as TipoFacturacion
+                        -- ,CASE
                                 
-                                WHEN (
-                                    (
-                                    SELECT
-                                        COUNT( fd.Id ) 
-                                    FROM
-                                        facturas_detalle fd
-                                        INNER JOIN facturas f ON f.Id = fd.FacturaId 
-                                    WHERE
-                                        s.Id = fd.IdServicio 
-                                        AND f.TipoFactura = 2 
-                                        AND f.EstatusFacturacion = 0 
-                                    ) >= ( SELECT limite_facturas FROM clase_clientes WHERE id = p.clase_cliente ) 
-                                    OR ( SELECT limite_facturas FROM clase_clientes WHERE id = p.clase_cliente ) = 0 
-                                    ) THEN
-                                    '0' ELSE '1' 
-                                END AS PermitirFactura 
+                        --         WHEN (
+                        --             (
+                        --             SELECT
+                        --                 COUNT( fd.Id ) 
+                        --             FROM
+                        --                 facturas_detalle fd
+                        --                 INNER JOIN facturas f ON f.Id = fd.FacturaId 
+                        --             WHERE
+                        --                 s.Id = fd.IdServicio 
+                        --                 AND f.TipoFactura = 2 
+                        --                 AND f.EstatusFacturacion = 0 
+                        --             ) >= ( SELECT limite_facturas FROM clase_clientes WHERE id = p.clase_cliente ) 
+                        --             OR ( SELECT limite_facturas FROM clase_clientes WHERE id = p.clase_cliente ) = 0 
+                        --             ) THEN
+                        --             '0' ELSE '1' 
+                        --         END AS PermitirFactura 
                             FROM
                                 servicios s
                             INNER JOIN personaempresa p ON s.Rut = p.rut
@@ -751,8 +752,8 @@
                     $Id = $Servicio['Id'];
                     $FechaInicioDesactivacion = $Servicio['FechaInicioDesactivacion'];
                     $FechaFinalDesactivacion = $Servicio['FechaFinalDesactivacion'];
-                    $Hoy = date('Y-m-d');
-                    $PermitirFactura = $Servicio['PermitirFactura'];
+                    // $PermitirFactura = $Servicio['PermitirFactura'];
+                    $PermitirFactura = 1;
                     $TipoFacturacion = $Servicio['TipoFacturacion'];
                     if(($FechaInicioDesactivacion > $Hoy OR $FechaFinalDesactivacion < $Hoy) && $PermitirFactura && $TipoFacturacion){
                         $FechaUltimoCobro = $Servicio['FechaUltimoCobro'];
@@ -770,8 +771,6 @@
                             $FechaUltimoCobro->add(new DateInterval("P1Y"));
                         }
                         if($FechaUltimoCobro <= $dt){
-                            $Rut = $Servicio['Rut'];
-                            $Grupo = $Servicio['Grupo'];
                             $Conexion = $Servicio['Conexion'];
                             if($Conexion){
                                 $Concepto .= ' - ' . $Conexion;
@@ -779,8 +778,10 @@
                             if(isset($Facturas[$Rut.'-'.$Grupo])){
                                 $FacturaId = $Facturas[$Rut.'-'.$Grupo];
                             }else{
+                                $Rut = $Servicio['Rut'];
+                                $Grupo = $Servicio['Grupo'];
                                 $TipoDocumento = $Servicio['TipoDocumento'];
-                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, 0)";
+                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(), '".$TipoDocumento."', NOW(), 0.19, 0)";
                                 $FacturaId = $run->insert($query);
                                 $Facturas[$Rut.'-'.$Grupo] = $FacturaId;
                             }
