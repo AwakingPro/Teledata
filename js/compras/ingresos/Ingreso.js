@@ -129,7 +129,7 @@ $(document).ready(function() {
                                     Abonar = ''
                                 }
                                 if (row.total_documento != row.total_abono) {
-                                    Pagos = '<i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-eye mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
+                                    Pagos = '<i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-copy mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
                                 } else {
                                     Pagos = ''
                                 }

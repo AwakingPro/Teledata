@@ -196,6 +196,7 @@
 								<table id="ModalTable" class="table table-striped table-bordered">
 									<thead>
 										<tr>
+											<th class="text-center">Referencia</th>
 											<th class="text-center">Fecha Pago</th>
 											<th class="text-center">Monto</th>
 											<th class="text-center">Tipo Pago</th>

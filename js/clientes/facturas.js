@@ -108,7 +108,7 @@ $(document).ready(function() {
                                         Abonar = ''
                                     }
                                     if (row.TotalFactura != row.TotalAbono) {
-                                        Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
+                                        Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-copy mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
                                     } else {
                                         Pagos = ''
                                     }
@@ -285,6 +285,7 @@ $(document).ready(function() {
                     }],
                     data: data,
                     columns: [
+                        { data: 'Id' },
                         { data: 'FechaPago' },
                         { data: 'Monto' },
                         { data: 'TipoPago' },
@@ -300,7 +301,7 @@ $(document).ready(function() {
                             .addClass('text-center')
                     },
                     "columnDefs": [{
-                        "targets": 6,
+                        "targets": 7,
                         "render": function(data, type, row) {
                             Icono = '<i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-times EliminarPago"></i>'
                             return Icono;
