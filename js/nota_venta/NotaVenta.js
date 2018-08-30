@@ -12,7 +12,7 @@ $(document).ready(function() {
                 $('#solicitado_por').append('<option value="' + array.id + '">' + array.nombre + '</option>');
             });
             $.each(response.array, function(index, array) {
-                $('#solicitado_por_tmp').append('<option value="' + array.id + '">' + array.nombre + '</option>');
+                $('#solicitado_por_update').append('<option value="' + array.id + '">' + array.nombre + '</option>');
             });
             setTimeout(function() {
                 $('.selectpicker').selectpicker('refresh');
@@ -84,26 +84,26 @@ $(document).ready(function() {
 
     $('.selectpicker').selectpicker();
     $('.number').number(true, 0, ',', '.');
-    $('#fecha_tmp').datetimepicker({
-        locale: 'es',
-        format: 'DD-MM-YYYY',
-        defaultDate: new Date()
-    });
-    $('#fecha_oc_tmp').datetimepicker({
-        locale: 'es',
-        format: 'DD-MM-YYYY'
-    });
     $("#cantidad_tmp").mask("000000");
+    $("#cantidad").mask("000000");
 
     $('#fecha').datetimepicker({
         locale: 'es',
-        format: 'DD-MM-YYYY'
+        format: 'DD-MM-YYYY',
+        defaultDate: new Date()
     });
     $('#fecha_oc').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY'
     });
-    $("#cantidad").mask("000000");
+    $('#fecha_update').datetimepicker({
+        locale: 'es',
+        format: 'DD-MM-YYYY'
+    });
+    $('#fecha_oc_update').datetimepicker({
+        locale: 'es',
+        format: 'DD-MM-YYYY'
+    });
 
     $.ajax({
         type: "POST",
@@ -112,6 +112,9 @@ $(document).ready(function() {
 
             $.each(response.array, function(index, array) {
                 $('#personaempresa_id').append('<option value="' + array.rut + '">' + array.rut + ' ' + array.nombre + ' - ' + array.tipo_cliente + '</option>');
+            });
+            $.each(response.array, function(index, array) {
+                $('#personaempresa_id_update').append('<option value="' + array.rut + '">' + array.rut + ' ' + array.nombre + ' - ' + array.tipo_cliente + '</option>');
             });
 
             $('.selectpicker').selectpicker('refresh');
@@ -257,11 +260,11 @@ $(document).ready(function() {
         $('#cantidad_tmp').val(1)
     });
 
-    $('#numero_oc_tmp').change(function(event) {
+    $('#numero_oc').change(function(event) {
         if ($(this).val() == '') {
-            $('#fecha_oc_tmp').removeAttr('validation')
+            $('#fecha_oc').removeAttr('validation')
         } else {
-            $('#fecha_oc_tmp').attr('validation', 'not_null')
+            $('#fecha_oc').attr('validation', 'not_null')
         }
     });
 
@@ -620,9 +623,24 @@ $(document).ready(function() {
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectId = ObjectTR.attr("id");
-        getDetalles(ObjectId)
-        $('input[name="nota_venta_id"]').val(ObjectId);
-        $('#modalEditar').modal('show')
+        $.ajax({
+            type: "POST",
+            url: "../includes/nota_venta/getNotaVenta.php",
+            data: {
+                id: ObjectId
+            },
+            success: function(response) {
+                getDetalles(ObjectId)
+                $('input[name="nota_venta_id"]').val(ObjectId);
+                $('#personaempresa_id_update').val(response.rut)
+                $('#fecha_update').val(response.fecha)
+                $('#numero_oc_update').val(response.numero_oc)
+                $('#fecha_oc_update').val(response.fecha_oc)
+                $('#solicitado_por_update').val(response.solicitado_por)
+                $('.selectpicker').selectpicker('refresh');
+                $('#modalNotaVenta').modal('show')
+            }
+        });
     });
 
     function getDetalles(ObjectId){
@@ -701,11 +719,11 @@ $(document).ready(function() {
         });
     }
 
-    $('#numero_oc').change(function(event) {
+    $('#numero_oc_update').change(function(event) {
         if ($(this).val() == '') {
-            $('#fecha_oc').removeAttr('validation')
+            $('#fecha_oc_update').removeAttr('validation')
         } else {
-            $('#fecha_oc').attr('validation', 'not_null')
+            $('#fecha_oc_update').attr('validation', 'not_null')
         }
     });
 
@@ -839,7 +857,7 @@ $(document).ready(function() {
 
     $('body').on('click', '#updateNotaVenta', function() {
 
-        $.postFormValues('../includes/nota_venta/updateNotaVenta.php', '#formCliente', function(response) {
+        $.postFormValues('../includes/nota_venta/updateNotaVenta.php', '#formNotaVenta', function(response) {
 
             if (response.status == 1) {
 
@@ -850,7 +868,124 @@ $(document).ready(function() {
                     container: 'floating',
                     timer: 3000
                 });
+                $('.modal').modal('hide')
                 getNotaVentas();
+
+            } else if (response.status == 2) {
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon: 'fa fa-check',
+                    message: 'Debe llenar todos los campos',
+                    container: 'floating',
+                    timer: 3000
+                });
+
+            } else if (response.status == 3) {
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon: 'fa fa-check',
+                    message: 'Debes agregar un detalle',
+                    container: 'floating',
+                    timer: 3000
+                });
+
+            } else {
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon: 'fa fa-check',
+                    message: 'Ocurrió un error en el Proceso',
+                    container: 'floating',
+                    timer: 3000
+                });
+
+            }
+        });
+    });
+
+    $('body').on('click', '.editDetalle', function() {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = ObjectTR.attr("id");
+        $.ajax({
+            type: "POST",
+            url: "../includes/nota_venta/getDetalle.php",
+            data: {
+                id: ObjectId
+            },
+            success: function(response) {
+                $('input[name="detalle_id"]').val(ObjectId);
+                $('input[name="concepto_update"]').val(response.concepto);
+                $('input[name="precio_update"]').val(response.precio);
+                $('input[name="cantidad_update"]').val(response.cantidad);
+                $('input[name="moneda_update"]').val(1);
+                $('input[name="total_update"]').val(formatcurrency(response.total));
+                $('input[name="moneda_update"]').selectpicker('refresh')
+                $('#modalDetalle').modal('show')
+            }
+        });
+    });
+
+    $('#concepto_update').on('change', function() {
+        calcularDetalleUpdate()
+    });
+    $('#precio_update').on('change', function() {
+        calcularDetalleUpdate()
+    });
+    $('#moneda_update').on('change', function() {
+        calcularDetalleUpdate()
+    });
+    $('#cantidad_update').on('change', function() {
+        calcularDetalleUpdate()
+    });
+
+    function calcularDetalleUpdate() {
+        cantidad = parseInt($('#cantidad_update').val())
+        if (!cantidad) {
+            cantidad = 0;
+        }
+        precio = $('#precio_update').val()
+        if (precio) {
+            precio = precio.replace(',00', '')
+            precio = precio.replace('.', '')
+            precio = parseFloat(precio)
+        } else {
+            precio = 0;
+        }
+        moneda = $('#moneda_update').val()
+        if (moneda == 2) {
+            precio = precio * ValorUF
+            precio = Math.round(precio)
+        }
+        valor = precio * cantidad
+        concepto = $('#concepto_update').val()
+        if (valor > 0 && concepto) {
+            $('#updateDetalle').prop('disabled', false);
+        } else {
+            $('#updateDetalle').prop('disabled', true);
+        }
+        $('#total_update').val(formatcurrency(valor))
+    }
+
+    $('body').on('click', '#updateDetalle', function() {
+
+        $.postFormValues('../includes/nota_venta/updateDetalle.php', '#formDetalleUpdate', function(response) {
+
+            if (response.status == 1) {
+
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'fa fa-check',
+                    message: 'Registro Actualizado Exitosamente',
+                    container: 'floating',
+                    timer: 3000
+                });
+                ObjectId = $('input[name="nota_venta_id"]').val();
+                getDetalles(ObjectId);
+                $('#modalDetalle').modal('hide')
 
             } else if (response.status == 2) {
 

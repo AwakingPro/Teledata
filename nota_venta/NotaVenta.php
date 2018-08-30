@@ -20,7 +20,7 @@
         <link href="../css/teledata.css" rel="stylesheet">
     </head>
     <body>
-        <div id="modalEditar" class="modal fade" tabindex="-1" role="dialog">
+        <div id="modalNotaVenta" class="modal fade" tabindex="-1" role="dialog">
             <div class="modal-dialog" role="document">
                 <div class="modal-content modal-lg">
                     <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
@@ -30,6 +30,38 @@
                         <div class="row" style="padding:10px">
                             <form class="form-horizontal" id = "formNotaVenta">
                                 <input type="hidden" name="nota_venta_id" id="nota_venta_id">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label h5" for="name">Cliente</label>
+                                        <select class="selectpicker form-control" name="personaempresa_id_update" id="personaempresa_id_update" data-live-search="true" data-container="body" validation="not_null" data-nombre="Cliente">
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Fecha</label>
+                                        <input id="fecha_update" name="fecha_update" validation="not_null" type="text" placeholder="Seleccione la fecha" class="form-control date" data-nombre="Fecha">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Numero de OC</label>
+                                        <input id="numero_oc_update" name="numero_oc_update" class="form-control input-sm" data-nombre="Numero de OC">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Fecha emisión OC</label>
+                                        <input id="fecha_oc_update" name="fecha_oc_update" class="form-control input-sm" data-nombre="Fecha emisión OC">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label class="control-label" for="solicitado_por">Solicitado Por</label>
+                                        <select class="selectpicker form-control" name="solicitado_por_update" id="solicitado_por_update" data-live-search="true" data-container="body" validation="not_null" data-nombre="Solicitado Por">
+                                        </select>
+                                    </div>
+                                </div>
                             </form>
                             <form class="form-horizontal" id = "formDetalle">
                                 <input type="hidden" name="nota_venta_id" id="nota_venta_id">
@@ -107,6 +139,60 @@
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
+        <div id="modalDetalle" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                        <h4 class="modal-title c-negro">Editar Detalle <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:20px">
+                            <form class="form-horizontal" id = "formDetalleUpdate">
+                                <input type="hidden" name="detalle_id" id="detalle_id">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label h5" for="name">Concepto</label>
+                                        <input id="concepto_update" name="concepto_update" class="form-control input-sm" validation="not_null" data-nombre="Concepto">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label h5" for="name">Precio</label>
+                                        <input id="precio_update" name="precio_update" class="form-control input-sm number" validation="not_null" data-nombre="Precio">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label h5" for="name">Moneda</label>
+                                        <select class="selectpicker form-control" name="moneda_update" id="moneda_update"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Moneda">
+                                            <option value="1">Pesos</option>
+                                            <option value="2">UF</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label h5" for="name">Cantidad</label>
+                                        <input id="cantidad_update" name="cantidad_update" class="form-control input-sm_update" maxlength="6" validation="not_null" data-nombre="Cantidad" value="1">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label h5" for="name">Total</label>
+                                        <input id="total_update" name="total_update" class="form-control input-sm" disabled>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                     </div><!-- /.modal-body -->
+                    <div class="modal-footer p-b-20 m-b-20">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-purple" id="updateDetalle" name="updateDetalle">Actualizar</button>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <div id="container" class="effect aside-float aside-bright mainnav-sm">
             <div class="containerHeader"><?php require('../ajax/header/mainHeader.php') ?></div>
             <div class="boxed">
@@ -152,7 +238,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Fecha</label>
-                                                        <input id="fecha_tmp" name="fecha_tmp" validation="not_null"  type="text" placeholder="Seleccione la fecha" class="form-control date" data-nombre="Fecha">
+                                                        <input id="fecha" name="fecha" validation="not_null"  type="text" placeholder="Seleccione la fecha" class="form-control date" data-nombre="Fecha">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -183,23 +269,22 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Numero de OC</label>
-                                                        <input id="numero_oc_tmp" name="numero_oc_tmp" class="form-control input-sm" data-nombre="Numero de OC">
+                                                        <input id="numero_oc" name="numero_oc" class="form-control input-sm" data-nombre="Numero de OC">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Fecha emisión OC</label>
-                                                        <input id="fecha_oc_tmp" name="fecha_oc_tmp" class="form-control input-sm" data-nombre="Fecha emisión OC">
+                                                        <input id="fecha_oc" name="fecha_oc" class="form-control input-sm" data-nombre="Fecha emisión OC">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="solicitado_por">Solicitado Por</label>
-                                                        <select class="selectpicker form-control" name="solicitado_por_tmp" id="solicitado_por_tmp" data-live-search="true" data-container="body" validation="not_null" data-nombre="Solicitado Por">
+                                                        <select class="selectpicker form-control" name="solicitado_por" id="solicitado_por" data-live-search="true" data-container="body" validation="not_null" data-nombre="Solicitado Por">
                                                         </select>
                                                     </div>
                                                 </div>

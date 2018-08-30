@@ -310,13 +310,59 @@
                         WHERE
                             id = '".$Id."'";
             $data = $run->select($query);
+            $array = array();
             if($data){
                 $nota_venta = $data[0];
-            }else{
-                $nota_venta = array();
+                $array['id'] = $nota_venta['id'];
+                $array['rut'] = $nota_venta['rut'];                
+                $array['fecha'] = DateTime::createFromFormat('Y-m-d', $nota_venta['fecha'])->format('d-m-Y');
+                $array['numero_oc'] = $nota_venta['numero_oc'];
+                if($nota_venta['fecha_oc'] && $nota_venta['fecha_oc'] != '1969-01-31'){
+                    $array['fecha_oc'] = DateTime::createFromFormat('Y-m-d', $nota_venta['fecha_oc'])->format('d-m-Y');
+                }else{
+                    $array['fecha_oc'] = '';
+                }
+                $array['solicitado_por'] = $nota_venta['solicitado_por'];
             }
-            echo json_encode($nota_venta);
+            echo json_encode($array);
         }
+        public function updateNotaVenta($Cliente,$Fecha,$NumeroOc,$FechaOc,$SolicitadoPor,$Id){
+
+            $response_array = array();
+
+            $Cliente = isset($Cliente) ? trim($Cliente) : "";
+            $Fecha = isset($Fecha) ? trim($Fecha) : "";
+            $NumeroOc = isset($NumeroOc) ? trim($NumeroOc) : "";
+            $FechaOc = isset($FechaOc) ? trim($FechaOc) : "";
+            $SolicitadoPor = isset($SolicitadoPor) ? trim($SolicitadoPor) : "";
+
+            if(!empty($Cliente) && !empty($Fecha) && !empty($SolicitadoPor)){
+                if($FechaOc){
+                    $FechaOc = DateTime::createFromFormat('d-m-Y', $FechaOc)->format('Y-m-d');
+                }else{
+                    $FechaOc = '1969-01-31';
+                }
+                $Fecha = DateTime::createFromFormat('d-m-Y', $Fecha)->format('Y-m-d');
+                $run = new Method;
+                $query = "UPDATE nota_venta SET rut = '".$Cliente."', fecha = '".$Fecha."', numero_oc = '".$NumeroOc."', fecha_oc = '".$FechaOc."', solicitado_por = '".$SolicitadoPor."' WHERE id = '".$Id."'";
+                $Id = $run->update($query);
+
+                if($Id){
+                    $array = array('id'=> $Id, 'rut' => $Cliente, 'fecha' => $Fecha, 'numero_oc' => $NumeroOc, 'solicitado_por' => $SolicitadoPor);
+                    
+                    $response_array['array'] = $array;
+                    $response_array['status'] = 1; 
+                }else{
+                    $response_array['status'] = 0; 
+                }
+              
+            }else{
+                $response_array['status'] = 2; 
+            }
+
+            echo json_encode($response_array);
+
+        } 
         function getDetalles($Id){
             $run = new Method;
             $query = "  SELECT
@@ -350,11 +396,9 @@
 
             if(!empty($Concepto) && !empty($Cantidad) && !empty($Precio)){
 
-                session_start();
                 $run = new Method;
 
                 $Cantidad = intval($Cantidad);
-                $Usuario = $_SESSION['idUsuario'];
                 $Precio = str_replace('.','',$Precio);
                 $Precio = floatval($Precio);
                 if($Moneda == 2){
@@ -370,6 +414,68 @@
                 
                 $query = "INSERT INTO nota_venta_detalle(concepto, cantidad, precio, total, nota_venta_id) VALUES ('".$Concepto."','".$Cantidad."','".$Precio."','".$Total."','".$NotaVentaId."')";
                 $id = $run->insert($query);
+
+                if($id){
+
+                    $array = array('id'=> $id, 'concepto' => $Concepto, 'cantidad' => $Cantidad, 'precio' => $Precio, 'total' => $Total);
+
+                    $response_array['array'] = $array;
+                    $response_array['status'] = 1; 
+                }else{
+                    $response_array['status'] = 0; 
+                }
+            
+            }else{
+                $response_array['status'] = 2; 
+            }
+
+            echo json_encode($response_array);
+
+        }
+        function getDetalle($Id){
+            $run = new Method;
+            $query = "  SELECT
+                            *
+                        FROM
+                            nota_venta_detalle
+                        WHERE
+                            id = '".$Id."'";
+            $data = $run->select($query);
+            if($data){
+                $detalle = $data[0];
+            }else{
+                $detalle = array();
+            }
+            echo json_encode($detalle);
+        }
+        public function updateDetalle($Concepto,$Cantidad,$Precio,$Moneda,$Id){
+
+            $response_array = array();
+
+            $Concepto = isset($Concepto) ? trim($Concepto) : "";
+            $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
+            $Precio = isset($Precio) ? trim($Precio) : "";
+
+            if(!empty($Concepto) && !empty($Cantidad) && !empty($Precio)){
+
+                $run = new Method;
+
+                $Cantidad = intval($Cantidad);
+                $Precio = str_replace('.','',$Precio);
+                $Precio = floatval($Precio);
+                if($Moneda == 2){
+                    $UfClass = new Uf(); 
+                    $UF = $UfClass->getValue();
+                    $Precio = $Precio * $UF;
+                }
+                $Precio = round($Precio,0);
+                $Neto = $Precio * $Cantidad;
+                $Impuesto = $Neto * 0.19;
+                $Total = $Neto + $Impuesto;
+                $Total = round($Total,0);
+                
+                $query = "UPDATE nota_venta_detalle SET concepto = '".$Concepto."', cantidad = '".$Cantidad."', precio = '".$Precio."', total = '".$Total."' WHERE id = '".$Id."'";
+                $id = $run->update($query);
 
                 if($id){
 
