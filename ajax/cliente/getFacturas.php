@@ -70,7 +70,7 @@
                     $data['TotalFactura'] = $TotalFactura;
                     $data['TotalAbono'] = $TotalAbono;
                     $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
-                    $data['TipoDocumento'] = 'Nota de credito';
+                    $data['TipoDocumento'] = 'Nota de crédito';
                     $data['EstatusFacturacion'] = 2;
                     array_push($ToReturn,$data);
                 }

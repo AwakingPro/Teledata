@@ -207,25 +207,46 @@
             echo json_encode($response_array);
         }
 
-         function getNotaVentas(){
+        function getNotaVentas(){
 
             $query = "  SELECT
-                            nv.*, p.nombre AS cliente, CONCAT(p.rut,'-',p.dv) as rut,
-                            ROUND((
-                                SELECT
-                                    SUM(total)
-                                FROM
-                                    nota_venta_detalle
-                                WHERE
-                                    nota_venta_id = nv.id
-                            ),0) AS total
+                            nv.*,
+                            p.nombre AS cliente,
+                            CONCAT( p.rut, '-', p.dv ) AS rut,
+                            u.nombre AS solicitado_por,
+                            ROUND( ( SELECT SUM( total ) FROM nota_venta_detalle WHERE nota_venta_id = nv.id ), 0 ) AS total 
                         FROM
                             nota_venta nv
-                        INNER JOIN personaempresa p ON p.rut = nv.rut";
+                            INNER JOIN personaempresa p ON p.rut = nv.rut
+                            INNER JOIN usuarios u ON u.id = nv.solicitado_por";
             $run = new Method;
             $data = $run->select($query);
 
             echo json_encode($data);
+
+        }
+        function getNotaVenta($Id){
+            $run = new Method;
+            $query = "  SELECT
+                            *
+                        FROM
+                            nota_venta
+                        WHERE
+                            id = '".$Id."'";
+            $data = $run->select($query);
+            if($data){
+                $nota_venta = $data[0];
+            }else{
+                $nota_venta = array();
+            }
+            $query = "  SELECT
+                            *
+                        FROM
+                            nota_venta_detalle
+                        WHERE
+                            nota_venta_id = '".$Id."'";
+            $detalles = $run->select($query);
+            echo json_encode(array('nota_venta' => $nota_venta, 'detalles' => $data));
 
         }
 

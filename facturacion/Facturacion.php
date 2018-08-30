@@ -124,7 +124,7 @@
                     <br>
                     <ol class="breadcrumb">
                         <li><a href="#">Inicio</a></li>
-                        <li class="active">Facturación</li>
+                        <li class="active">Emisión de Documentos</li>
                     </ol>
                     <div id="page-content">
                         <div class="row">
@@ -143,14 +143,13 @@
                                     </li>
                                 </ul>
                             </div>
-                            <h3 class="panel-title">Modulo Facturación</h3>
+                            <h3 class="panel-title">Documentos por emitir</h3>
                         </div>
                         <!--Panel body-->
                         <div class="panel-body">
                             <div class="tab-content">
                                 <div id="lotes" class="tab-pane fade active in">
                                     <div class="col-md-6" style="margin-bottom:10px">
-                                        <b><span style="font-size:16px">Valor UF: <span class="ValorUF">0</span></span></b><br><br>
                                         <div class="col-sm-6">
                                             <select class="selectpicker form-control" id="TipoLote" data-container="body">
                                                 <option value="">Todos</option>
@@ -194,7 +193,6 @@
                                 <div id="individual" class="tab-pane fade">
                                     <div class="row" style="margin-top: 10px">
                                         <div class="col-md-12" style="margin-bottom:10px">
-                                            <b><span style="font-size:16px">Valor UF: <span class="ValorUF">0</span></span></b><br><br>
                                             <div class="col-sm-3">
                                                 <select class="selectpicker form-control" id="TipoIndividual" data-container="body">
                                                     <option value="">Todos</option>
@@ -235,7 +233,6 @@
                                 <div id="instalacion" class="tab-pane fade">
                                     <div class="row" style="margin-top: 10px">
                                         <div class="col-md-12" style="margin-bottom:10px">
-                                            <b><span style="font-size:16px">Valor UF: <span class="ValorUF">0</span></span></b><br><br>
                                             <div class="col-sm-3">
                                                 <select class="selectpicker form-control" id="TipoInstalacion" data-container="body">
                                                     <option value="">Todos</option>

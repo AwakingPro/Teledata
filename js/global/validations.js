@@ -19,7 +19,7 @@ if (($('#demo-dp-component .input-group.date').size() > 0) || ($('.input-dateran
         language: 'es'
     });
 }
-
+var ValorUF = 0
 $.ajax({
     type: "POST",
     url: "../includes/facturacion/uf/getValue.php",

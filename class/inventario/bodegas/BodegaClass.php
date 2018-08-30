@@ -139,7 +139,7 @@
 
         function showPersonal(){
 
-            $query = 'SELECT * FROM usuarios';
+            $query = 'SELECT * FROM usuarios ORDER BY nombre';
             $run = new Method;
             $data = $run->select($query);
 

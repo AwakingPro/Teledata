@@ -112,7 +112,8 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="solicitado_por">Solicitado Por</label>
-                                                        <input id="solicitado_por" name="solicitado_por" class="form-control input-sm" validation="not_null" data-nombre="Solicitado Por">
+                                                        <select class="selectpicker form-control" name="solicitado_por" id="solicitado_por" data-live-search="true" data-container="body" validation="not_null" data-nombre="Solicitado Por">
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>

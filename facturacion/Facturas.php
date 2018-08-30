@@ -27,7 +27,7 @@
 					<br>
 					<ol class="breadcrumb">
 						<li><a href="#">Inicio</a></li>
-						<li class="active">Facturas por Fecha</li>
+						<li class="active">Documentos por fecha</li>
 					</ol>
 					<div id="page-content">
 						<div class="row">
@@ -35,7 +35,7 @@
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
-										<h3 class="panel-title">Visualización de facturas </h3>
+										<h3 class="panel-title">Visualización de documentos </h3>
 									</div>
 									<!--Panel body-->
 									<div class="panel-body">

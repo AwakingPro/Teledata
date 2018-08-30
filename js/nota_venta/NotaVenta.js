@@ -3,13 +3,19 @@ $(document).ready(function() {
     var neto_nota = 0
     var iva_nota = 0
     var total_nota = 0
-    var UF = 0;
 
     $.ajax({
         type: "POST",
-        url: "../includes/facturacion/uf/getValue.php",
+        url: "../includes/inventario/bodegas/showPersonal.php",
         success: function(response) {
-            UF = response
+            $.each(response.array, function(index, array) {
+                $('#solicitado_por').append('<option value="' + array.id + '">' + array.nombre + '</option>');
+            });
+
+            setTimeout(function() {
+                $('#solicitado_por').selectpicker('refresh');
+            }, 500)
+
         }
     });
 
@@ -275,7 +281,7 @@ $(document).ready(function() {
         }
         moneda = $('#moneda').val()
         if (moneda == 2) {
-            precio = precio * UF
+            precio = precio * ValorUF
             precio = Math.round(precio)
         }
         valor = precio * cantidad
@@ -597,6 +603,90 @@ $(document).ready(function() {
             }
         });
     });
+
+    function getNotaVentas() {
+        $.ajax({
+            type: "POST",
+            url: "../includes/nota_venta/getNotaVentas.php",
+            success: function(response) {
+                NotaVentaTable = $('#NotaVentaTable').DataTable({
+                    order: [
+                        [0, 'asc']
+                    ],
+                    data: response,
+                    columns: [
+                        { data: 'rut' },
+                        { data: 'cliente' },
+                        { data: 'fecha' },
+                        { data: 'numero_oc' },
+                        { data: 'solicitado_por' },
+                        { data: 'total' },
+                        { data: 'id' }
+                    ],
+                    destroy: true,
+                    'createdRow': function(row, data, dataIndex) {
+                        $(row)
+                            .attr('id', data.id)
+                            .addClass('text-center')
+                    },
+                    "columnDefs": [{
+                            "targets": 2,
+                            "render": function(data, type, row) {
+                                fecha = moment(data).format('DD-MM-YYYY');
+                                return "<div style='text-align: center'>" + fecha + "</div>";
+                            }
+                        },
+                        {
+                            "targets": 5,
+                            "render": function(data, type, row) {
+                                total = formatcurrency(data)
+                                return "<div style='text-align: center'>" + total + "</div>";
+                            }
+                        },
+                        {
+                            "targets": 6,
+                            "render": function(data, type, row) {
+                                Ver = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye View"></i>';
+                                if (row.estatus_facturacion == 0) {
+                                    Editar = ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'
+                                    Generar = ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-excel-o Generate"></i>'
+                                    Eliminar = ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times RemoveNota"></i>'
+                                } else {
+                                    Editar = '';
+                                    Generar = ''
+                                    Eliminar = ''
+                                }
+                                return "<div style='text-align: center'>" + Ver + " " + Editar + " " + Generar + " " + Eliminar + "</div>";
+                            }
+                        },
+                    ],
+                    language: {
+                        processing: "Procesando ...",
+                        search: 'Buscar',
+                        lengthMenu: "Mostrar _MENU_ Registros",
+                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                        infoFiltered: "(filtrada de _MAX_ registros en total)",
+                        infoPostFix: "",
+                        loadingRecords: "...",
+                        zeroRecords: "No se encontraron registros coincidentes",
+                        emptyTable: "No hay datos disponibles en la tabla",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                            last: "Ultimo"
+                        },
+                        aria: {
+                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                        }
+                    }
+                });
+                $('table').css('width', '100%');
+            }
+        });
+    }
 
     function formatcurrency(n) {
         return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");

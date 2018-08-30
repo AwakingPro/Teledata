@@ -54,14 +54,6 @@ $(document).ready(function() {
     function formatcurrency(n) {
         return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
     }
-    $.ajax({
-        type: "POST",
-        url: "../includes/facturacion/uf/getValue.php",
-        success: function(response) {
-            $('.ValorUF').text(response)
-        }
-    });
-
     function getTotales() {
         $.ajax({
             type: "POST",
