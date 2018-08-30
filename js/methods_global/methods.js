@@ -67,6 +67,7 @@ $.validate = function(obj) {
 	if (obj.hasAttribute('validate')) {
 		switch($(obj).attr('validate')) {
 			case 'not_null':
+				$('#guardarContacto').attr('disabled', false);
 				if ($(obj).val() == "") {
 
 					label = $(obj).siblings('label').html()
