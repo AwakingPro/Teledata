@@ -20,6 +20,93 @@
         <link href="../css/teledata.css" rel="stylesheet">
     </head>
     <body>
+        <div id="modalEditar" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content modal-lg">
+                    <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
+                        <h4 class="modal-title c-negro">Editar Nota de Venta <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row" style="padding:10px">
+                            <form class="form-horizontal" id = "formNotaVenta">
+                                <input type="hidden" name="nota_venta_id" id="nota_venta_id">
+                            </form>
+                            <form class="form-horizontal" id = "formDetalle">
+                                <input type="hidden" name="nota_venta_id" id="nota_venta_id">
+                                <div class="row" style="margin:0">
+                                    <div class="col-md-3" style="padding-left:20px;padding-right:20px">
+                                        <div class="form-group">
+                                            <div class="text-center">
+                                                <label class="control-label h5" for="name">Concepto</label>
+                                            </div>
+                                            <input id="concepto" name="concepto" class="form-control input-sm" validation="not_null" data-nombre="Concepto">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group" style="padding-left:20px;padding-right:20px">
+                                            <div class="text-center">
+                                                <label class="control-label h5" for="name">Precio</label>
+                                            </div>
+                                            <input id="precio" name="precio" class="form-control input-sm number" validation="not_null" data-nombre="Precio">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <div class="text-center" style="padding-left:20px;padding-right:20px">
+                                                <label class="control-label h5" for="name">Moneda</label>
+                                            </div>
+                                            <select class="selectpicker form-control" name="moneda" id="moneda"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Moneda">
+                                                <option value="1">Pesos</option>
+                                                <option value="2">UF</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <div class="form-group" style="padding-left:20px;padding-right:20px">
+                                            <div class="text-center">
+                                                <label class="control-label h5" for="name">Cantidad</label>
+                                            </div>
+                                            <input id="cantidad" name="cantidad" class="form-control input-sm" maxlength="6" validation="not_null" data-nombre="Cantidad" value="1">
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group" style="padding-left:20px;padding-right:20px">
+                                            <div class="text-center">
+                                                <label class="control-label h5" for="name">Total</label>
+                                            </div>
+                                            <input id="total" name="total" class="form-control input-sm" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="button" id="insertDetalle" name="insertDetalle" style="margin-top: 30px" class="btn btn-success btn-icon btn-circle icon-lg fa fa-plus" disabled></button>
+                                    </div>
+                                </div>
+                                <div class="table-responsive">
+                                    <table id="DetalleTable" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Concepto</th>
+                                                <th class="text-center">Precio</th>
+                                                <th class="text-center">Cantidad</th>
+                                                <th class="text-center">Total I.V.A. Incluido</th>
+                                                <th class="text-center">Acción</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                     </div><!-- /.modal-body -->
+                    <div class="modal-footer p-b-20 m-b-20">
+                        <div class="col-sm-12">
+                            <button type="button" class="btn btn-purple" id="updateNotaVenta" name="updateNotaVenta">Actualizar</button>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
         <div id="container" class="effect aside-float aside-bright mainnav-sm">
             <div class="containerHeader"><?php require('../ajax/header/mainHeader.php') ?></div>
             <div class="boxed">
@@ -65,7 +152,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Fecha</label>
-                                                        <input id="fecha" name="fecha" validation="not_null"  type="text" placeholder="Seleccione la fecha" class="form-control date" data-nombre="Fecha">
+                                                        <input id="fecha_tmp" name="fecha_tmp" validation="not_null"  type="text" placeholder="Seleccione la fecha" class="form-control date" data-nombre="Fecha">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -100,19 +187,19 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Numero de OC</label>
-                                                        <input id="numero_oc" name="numero_oc" class="form-control input-sm" data-nombre="Numero de OC">
+                                                        <input id="numero_oc_tmp" name="numero_oc_tmp" class="form-control input-sm" data-nombre="Numero de OC">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Fecha emisión OC</label>
-                                                        <input id="fecha_oc" name="fecha_oc" class="form-control input-sm" data-nombre="Fecha emisión OC">
+                                                        <input id="fecha_oc_tmp" name="fecha_oc_tmp" class="form-control input-sm" data-nombre="Fecha emisión OC">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="solicitado_por">Solicitado Por</label>
-                                                        <select class="selectpicker form-control" name="solicitado_por" id="solicitado_por" data-live-search="true" data-container="body" validation="not_null" data-nombre="Solicitado Por">
+                                                        <select class="selectpicker form-control" name="solicitado_por_tmp" id="solicitado_por_tmp" data-live-search="true" data-container="body" validation="not_null" data-nombre="Solicitado Por">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -124,14 +211,14 @@
                                                 <label id="label_manual" class="label_tipo form-radio form-icon form-text"><input id="manual" name="switch_tipo" type="radio" value="2">Manual</label>
                                             </div>
                                             <div class="clearfix"></div>
-                                            <form id="formDetalle">
+                                            <form id="formDetalleTmp">
                                                 <div class="col-md-3">
                                                     <div class="form-group">
                                                         <div class="text-center">
                                                             <label class="control-label h5" for="name">Concepto</label>
                                                         </div>
                                                         <div id="concepto_container">
-                                                            <select class="selectpicker form-control" name="concepto" id="concepto"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Concepto">
+                                                            <select class="selectpicker form-control" name="concepto_tmp" id="concepto_tmp"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Concepto">
                                                             </select>
                                                         </div>
                                                     </div>
@@ -141,7 +228,7 @@
                                                         <div class="text-center">
                                                             <label class="control-label h5" for="name">Precio</label>
                                                         </div>
-                                                        <input id="precio" name="precio" class="form-control input-sm number" validation="not_null" data-nombre="Precio">
+                                                        <input id="precio_tmp" name="precio_tmp" class="form-control input-sm number" validation="not_null" data-nombre="Precio">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
@@ -149,12 +236,10 @@
                                                         <div class="text-center">
                                                             <label class="control-label h5" for="name">Moneda</label>
                                                         </div>
-                                                        <div id="concepto_container">
-                                                            <select class="selectpicker form-control" name="moneda" id="moneda"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Moneda">
-                                                                <option value="1">Pesos</option>
-                                                                <option value="2">UF</option>
-                                                            </select>
-                                                        </div>
+                                                        <select class="selectpicker form-control" name="moneda_tmp" id="moneda_tmp"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Moneda">
+                                                            <option value="1">Pesos</option>
+                                                            <option value="2">UF</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-1">
@@ -162,7 +247,7 @@
                                                         <div class="text-center">
                                                             <label class="control-label h5" for="name">Cantidad</label>
                                                         </div>
-                                                        <input id="cantidad" name="cantidad" class="form-control input-sm" maxlength="6" validation="not_null" data-nombre="Cantidad" value="1">
+                                                        <input id="cantidad_tmp" name="cantidad_tmp" class="form-control input-sm" maxlength="6" validation="not_null" data-nombre="Cantidad" value="1">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
@@ -170,11 +255,11 @@
                                                         <div class="text-center">
                                                             <label class="control-label h5" for="name">Total</label>
                                                         </div>
-                                                        <input id="total" name="total" class="form-control input-sm" disabled>
+                                                        <input id="total_tmp" name="total_tmp" class="form-control input-sm" disabled>
                                                     </div>
                                                 </div>
                                                 <div class="col-md-1">
-                                                    <button type="button" id="insertDetalle" name="insertDetalle" style="margin-top: 30px" class="btn btn-success btn-icon btn-circle icon-lg fa fa-plus" disabled></button>
+                                                    <button type="button" id="insertDetalleTmp" name="insertDetalleTmp" style="margin-top: 30px" class="btn btn-success btn-icon btn-circle icon-lg fa fa-plus" disabled></button>
                                                 </div>
                                             </form>
                                         </div>
@@ -182,7 +267,7 @@
                                         <div class="row" style="margin-top: 10px">
                                             <div class="table-responsive">
                                                 <div class="col-md-12">
-                                                    <table id="DetalleTable" class="table table-striped table-bordered">
+                                                    <table id="DetalleTableTmp" class="table table-striped table-bordered">
                                                         <thead>
                                                             <tr>
                                                                 <th class="text-center">Concepto</th>

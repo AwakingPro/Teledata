@@ -13,7 +13,7 @@
             $data = $run->delete($query);
         }
 
-    	public function insertDetalle($Concepto,$Cantidad,$Precio,$Moneda){
+    	public function insertDetalleTmp($Concepto,$Cantidad,$Precio,$Moneda){
 
             $response_array = array();
 
@@ -175,7 +175,7 @@
 
         }
 
-        function deleteDetalle($Id){
+        function deleteDetalleTmp($Id){
 
             $response_array = array();
 
@@ -214,7 +214,7 @@
                             p.nombre AS cliente,
                             CONCAT( p.rut, '-', p.dv ) AS rut,
                             u.nombre AS solicitado_por,
-                            ROUND( ( SELECT SUM( total ) FROM nota_venta_detalle WHERE nota_venta_id = nv.id ), 0 ) AS total 
+                            IFNULL(ROUND( ( SELECT SUM( total ) FROM nota_venta_detalle WHERE nota_venta_id = nv.id ), 0 ), 0) AS total 
                         FROM
                             nota_venta nv
                             INNER JOIN personaempresa p ON p.rut = nv.rut
@@ -223,30 +223,6 @@
             $data = $run->select($query);
 
             echo json_encode($data);
-
-        }
-        function getNotaVenta($Id){
-            $run = new Method;
-            $query = "  SELECT
-                            *
-                        FROM
-                            nota_venta
-                        WHERE
-                            id = '".$Id."'";
-            $data = $run->select($query);
-            if($data){
-                $nota_venta = $data[0];
-            }else{
-                $nota_venta = array();
-            }
-            $query = "  SELECT
-                            *
-                        FROM
-                            nota_venta_detalle
-                        WHERE
-                            nota_venta_id = '".$Id."'";
-            $detalles = $run->select($query);
-            echo json_encode(array('nota_venta' => $nota_venta, 'detalles' => $data));
 
         }
 
@@ -322,6 +298,125 @@
             }else{
                 $response_array['status'] = 2; 
             }
+            echo json_encode($response_array);
+        }
+
+        function getNotaVenta($Id){
+            $run = new Method;
+            $query = "  SELECT
+                            *
+                        FROM
+                            nota_venta
+                        WHERE
+                            id = '".$Id."'";
+            $data = $run->select($query);
+            if($data){
+                $nota_venta = $data[0];
+            }else{
+                $nota_venta = array();
+            }
+            echo json_encode($nota_venta);
+        }
+        function getDetalles($Id){
+            $run = new Method;
+            $query = "  SELECT
+                            *
+                        FROM
+                            nota_venta_detalle
+                        WHERE
+                            nota_venta_id = '".$Id."'";
+            $data = $run->select($query);
+            $detalles = array();
+            if($data){
+                foreach($data as $detalle){
+                    $array = array();
+                    $array['id'] = $detalle['id'];
+                    $array['concepto'] = $detalle['concepto'];
+                    $array['precio'] = $detalle['precio'];
+                    $array['cantidad'] = $detalle['cantidad'];
+                    $array['total'] = $detalle['total'];
+                    array_push($detalles,$array);
+                }
+            }
+            echo json_encode($detalles);
+        }
+        public function insertDetalle($Concepto,$Cantidad,$Precio,$Moneda,$NotaVentaId){
+
+            $response_array = array();
+
+            $Concepto = isset($Concepto) ? trim($Concepto) : "";
+            $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
+            $Precio = isset($Precio) ? trim($Precio) : "";
+
+            if(!empty($Concepto) && !empty($Cantidad) && !empty($Precio)){
+
+                session_start();
+                $run = new Method;
+
+                $Cantidad = intval($Cantidad);
+                $Usuario = $_SESSION['idUsuario'];
+                $Precio = str_replace('.','',$Precio);
+                $Precio = floatval($Precio);
+                if($Moneda == 2){
+                    $UfClass = new Uf(); 
+                    $UF = $UfClass->getValue();
+                    $Precio = $Precio * $UF;
+                }
+                $Precio = round($Precio,0);
+                $Neto = $Precio * $Cantidad;
+                $Impuesto = $Neto * 0.19;
+                $Total = $Neto + $Impuesto;
+                $Total = round($Total,0);
+                
+                $query = "INSERT INTO nota_venta_detalle(concepto, cantidad, precio, total, nota_venta_id) VALUES ('".$Concepto."','".$Cantidad."','".$Precio."','".$Total."','".$NotaVentaId."')";
+                $id = $run->insert($query);
+
+                if($id){
+
+                    $array = array('id'=> $id, 'concepto' => $Concepto, 'cantidad' => $Cantidad, 'precio' => $Precio, 'total' => $Total);
+
+                    $response_array['array'] = $array;
+                    $response_array['status'] = 1; 
+                }else{
+                    $response_array['status'] = 0; 
+                }
+            
+            }else{
+                $response_array['status'] = 2; 
+            }
+
+            echo json_encode($response_array);
+
+        }
+        function deleteDetalle($Id){
+
+            $response_array = array();
+
+            $Id = isset($Id) ? trim($Id) : "";
+
+            if(!empty($Id)){
+
+                $Id=$Id;
+
+                $query = "SELECT * from nota_venta_detalle where id = '$Id'";
+                $run = new Method;
+                $data = $run->select($query);
+
+                if($data){
+
+                    $response_array['array'] = $data;
+
+                    $query = "DELETE from nota_venta_detalle where id = '$Id'";
+                    $run = new Method;
+                    $data = $run->delete($query);
+                    $response_array['status'] = 1; 
+                }else{
+                    $response_array['status'] = 3; 
+                }
+            }else{
+                $response_array['status'] = 2; 
+            }
+
             echo json_encode($response_array);
         }
     }
