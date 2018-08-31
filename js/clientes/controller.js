@@ -141,75 +141,52 @@ $(document).ready(function() {
     $('[name="CostoInstalacion"]').number(true, 2, ',', '.');
     $('[name="CostoInstalacionDescuento"]').number(true, 0, '.', '');
 
-    $('.listaCliente').html('<div class="spinner loading"></div>');
-    $('.listaCliente').load('../ajax/cliente/listClientes.php', function() {
-        var count = $('.listaCliente > .tabeData tr th').length - 1;
-        $('.listaCliente > .tabeData').dataTable({
-            "columnDefs": [{
-                'orderable': false,
-                'targets': [count]
-            }, ],
-            language: {
-                processing: "Procesando ...",
-                search: 'Buscar',
-                lengthMenu: "Mostrar _MENU_ Registros",
-                info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                infoEmpty: "Mostrando 0 a 0 de 0 Registros",
-                infoFiltered: "(filtrada de _MAX_ registros en total)",
-                infoPostFix: "",
-                loadingRecords: "...",
-                zeroRecords: "No se encontraron registros coincidentes",
-                emptyTable: "No hay datos disponibles en la tabla",
-                paginate: {
-                    first: "Primero",
-                    previous: "Anterior",
-                    next: "Siguiente",
-                    last: "Ultimo"
-                },
-                aria: {
-                    sortAscending: ": habilitado para ordenar la columna en orden ascendente",
-                    sortDescending: ": habilitado para ordenar la columna en orden descendente"
+    listClientes();
+    function listClientes(){
+        $('.listaCliente').html('<div class="spinner loading"></div>');
+        $('.listaCliente').load('../ajax/cliente/listClientes.php', function() {
+            var count = $('.listaCliente > .tabeData tr th').length - 1;
+            $('.listaCliente > .tabeData').dataTable({
+                "columnDefs": [{
+                    'orderable': false,
+                    'targets': [count]
+                }, ],
+                order: [
+                    [1, 'asc']
+                ],
+                language: {
+                    processing: "Procesando ...",
+                    search: 'Buscar',
+                    lengthMenu: "Mostrar _MENU_ Registros",
+                    info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                    infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                    infoFiltered: "(filtrada de _MAX_ registros en total)",
+                    infoPostFix: "",
+                    loadingRecords: "...",
+                    zeroRecords: "No se encontraron registros coincidentes",
+                    emptyTable: "No hay datos disponibles en la tabla",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                    }
                 }
-            }
+            });
         });
-    });
+    }
+    
 
     $(document).on('click', '.guardarCliente', function() {
         tipo = $(this).attr('id')
         $.postFormValues('../ajax/cliente/insertCliente.php', '.form-cont1', function(data) {
             if (Number(data) > 0) {
                 if (tipo == 'guardarCliente') {
-                    $('.listaCliente').load('../ajax/cliente/listClientes.php', function() {
-                        var count = $('.listaCliente > .tabeData tr th').length - 1;
-                        $('.listaCliente > .tabeData').dataTable({
-                            "columnDefs": [{
-                                'orderable': false,
-                                'targets': [count]
-                            }, ],
-                            language: {
-                                processing: "Procesando ...",
-                                search: 'Buscar',
-                                lengthMenu: "Mostrar _MENU_ Registros",
-                                info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                                infoEmpty: "Mostrando 0 a 0 de 0 Registros",
-                                infoFiltered: "(filtrada de _MAX_ registros en total)",
-                                infoPostFix: "",
-                                loadingRecords: "...",
-                                zeroRecords: "No se encontraron registros coincidentes",
-                                emptyTable: "No hay datos disponibles en la tabla",
-                                paginate: {
-                                    first: "Primero",
-                                    previous: "Anterior",
-                                    next: "Siguiente",
-                                    last: "Ultimo"
-                                },
-                                aria: {
-                                    sortAscending: ": habilitado para ordenar la columna en orden ascendente",
-                                    sortDescending: ": habilitado para ordenar la columna en orden descendente"
-                                }
-                            }
-                        });
-                    });
+                    listClientes();
                     bootbox.alert('<h3 class="text-center">El cliente #' + data + ' se registro con éxito.</h3>');
                     $('#insertCliente')[0].reset();
                     $('.selectpicker').selectpicker('refresh')
@@ -659,37 +636,7 @@ $(document).ready(function() {
             callback: function(result) {
                 if (result == true) {
                     $.post('../ajax/cliente/eliminarCliente.php', { id: id }, function(data) {
-                        $('.listaCliente').load('../ajax/cliente/listClientes.php', function() {
-                            var count = $('.listaCliente > .tabeData tr th').length - 1;
-                            $('.listaCliente > .tabeData').dataTable({
-                                "columnDefs": [{
-                                    'orderable': false,
-                                    'targets': [count]
-                                }, ],
-                                language: {
-                                    processing: "Procesando ...",
-                                    search: 'Buscar',
-                                    lengthMenu: "Mostrar _MENU_ Registros",
-                                    info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                                    infoEmpty: "Mostrando 0 a 0 de 0 Registros",
-                                    infoFiltered: "(filtrada de _MAX_ registros en total)",
-                                    infoPostFix: "",
-                                    loadingRecords: "...",
-                                    zeroRecords: "No se encontraron registros coincidentes",
-                                    emptyTable: "No hay datos disponibles en la tabla",
-                                    paginate: {
-                                        first: "Primero",
-                                        previous: "Anterior",
-                                        next: "Siguiente",
-                                        last: "Ultimo"
-                                    },
-                                    aria: {
-                                        sortAscending: ": habilitado para ordenar la columna en orden ascendente",
-                                        sortDescending: ": habilitado para ordenar la columna en orden descendente"
-                                    }
-                                }
-                            });
-                        });
+                        listClientes();
                     });
                 }
             }
@@ -741,37 +688,7 @@ $(document).ready(function() {
 
     $(document).on('click', '.actualizarCliente', function() {
         $.postFormValues('../ajax/cliente/updateCliente.php', '.container-form-update', function(data) {
-            $('.listaCliente').load('../ajax/cliente/listClientes.php', function() {
-                var count = $('.listaCliente > .tabeData tr th').length - 1;
-                $('.listaCliente > .tabeData').dataTable({
-                    "columnDefs": [{
-                        'orderable': false,
-                        'targets': [count]
-                    }, ],
-                    language: {
-                        processing: "Procesando ...",
-                        search: 'Buscar',
-                        lengthMenu: "Mostrar _MENU_ Registros",
-                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
-                        infoFiltered: "(filtrada de _MAX_ registros en total)",
-                        infoPostFix: "",
-                        loadingRecords: "...",
-                        zeroRecords: "No se encontraron registros coincidentes",
-                        emptyTable: "No hay datos disponibles en la tabla",
-                        paginate: {
-                            first: "Primero",
-                            previous: "Anterior",
-                            next: "Siguiente",
-                            last: "Ultimo"
-                        },
-                        aria: {
-                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
-                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
-                        }
-                    }
-                });
-            });
+            listClientes();
             $('#editarCliente').modal('hide');
             bootbox.alert('<h3 class="text-center">El cliente se actualizo con éxito.</h3>');
         });
