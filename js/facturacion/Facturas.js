@@ -97,15 +97,21 @@ $(document).ready(function() {
                         "render": function(data, type, row) {
                             if (row.EstatusFacturacion == '1') {
                                 Folder = 'facturas';
-                                Devolucion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-undo Devolucion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Devolucion" title="" data-container="body"></i>'
-                                if (row.TotalSaldo != '0') {
-                                    Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'
-                                } else {
+                                if(row.Acciones == 1){
+                                    Devolucion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-undo Devolucion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Devolucion" title="" data-container="body"></i>'
+                                    if (row.TotalSaldo != '0') {
+                                        Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'
+                                    } else {
+                                        Abonar = ''
+                                    }
+                                    if (row.TotalFactura != row.TotalSaldo) {
+                                        Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-copy mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
+                                    } else {
+                                        Pagos = ''
+                                    }
+                                }else{
+                                    Devolucion = ''
                                     Abonar = ''
-                                }
-                                if (row.TotalFactura != row.TotalSaldo) {
-                                    Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-copy mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
-                                } else {
                                     Pagos = ''
                                 }
                             } else {

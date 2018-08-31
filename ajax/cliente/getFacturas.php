@@ -47,8 +47,10 @@
                 if($TotalSaldo < 0){
                     $TotalSaldo = 0;
                 }
+                $Acciones = 1;
             }else{
                 $TotalSaldo = 0;
+                $Acciones = 0;
             }
             $Id = $factura['Id'];
             $data = array();
@@ -60,6 +62,7 @@
             $data['TotalSaldo'] = $TotalSaldo;
             $data['UrlPdfBsale'] = $factura['UrlPdfBsale'];
             $data['TipoDocumento'] = $factura['TipoDocumento'];
+            $data['Acciones'] = $Acciones;
             $data['EstatusFacturacion'] = 1;
             array_push($ToReturn,$data);
             if($EstatusFacturacion == 2){
