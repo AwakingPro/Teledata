@@ -18,6 +18,29 @@
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
+		<div class="modal fade" role="dialog" id="agregarGiro">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+						<h4 class="modal-title">Agregar Giro</h4>
+					</div>
+					<div class="modal-body">
+						<form id="insertGiro">
+							<div class="row">
+								<div class="col-md-12 form-group">
+								<label>Giro</label>
+									<input name="nombreGiro" class="form-control" validation="not_null">
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-purple" id="guardarGiro">Guardar</button>
+					</div>
+				</div>
+			</div>
+		</div>
 		<div id="container" class="effect aside-float aside-bright mainnav-sm">
 			<div class="containerHeader"><?php require('../ajax/header/mainHeader.php') ?></div>
 			<div class="boxed">
@@ -116,31 +139,15 @@
 													<div class="row">
 														<div class="col-md-4 form-group">
 															<label>Contacto</label>
-															<div class="input-group">
-																<input name="Contacto" class="form-control" validate="not_null">
-																<span class="input-group-btn">
-																	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraContactos"><i class="fa fa-plus" aria-hidden="true"></i></button>
-																</span>
-															</div>
+															<input name="Contacto" class="form-control" validate="not_null">
 														</div>
 														<div class="col-md-4 form-group">
 															<label>Teléfono</label>
-															<div class="input-group">
-																<input name="Telefono" class="form-control" validate="not_null">
-																<span class="input-group-btn">
-																	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraTelefono"><i class="fa fa-plus" aria-hidden="true"></i></button>
-																</span>
-															</div>
+															<input name="Telefono" class="form-control" validate="not_null">
 														</div>
 														<div class="col-md-4 form-group">
 															<label>Correo</label>
-															<div class="input-group">
-																<input name="Correo" class="form-control" validate="email">
-																<span class="input-group-btn">
-																	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraCorreo"><i class="fa fa-plus" aria-hidden="true"></i></button>
-																</span>
-															</div>
-
+															<input name="Correo" class="form-control" validate="email">
 														</div>
 													</div>
 													<div class="row">
@@ -202,345 +209,3 @@
 	<script src="../js/clientes/controller.js"></script>
 </body>
 </html>
-
-<div class="modal fade" role="dialog" id="editarCliente">
-	<div class="modal-dialog modal-lg" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Editar Cliente</h4>
-			</div>
-			<div class="modal-body container-form-update">
-				<div class="row">
-					<div class="col-md-12">
-						<h3>Datos del Cliente</h3><br>
-					</div>
-				</div>
-				<input type="hidden" name="IdCliente">
-				<div class="row">
-					<div class="col-md-4 form-group">
-						<label>Tipo de Cliente</label>
-						<select name="TipoCliente_update" class="form-control selectpicker" data-live-search="true">
-							<option value="">Seleccione...</option>
-							<option value="1">Boleta</option>
-							<option value="2">Factura</option>
-							<option value="3">Canje</option>
-						</select>
-					</div>
-					<div class="col-md-4 form-group">
-						<label>Tipo de Pago</label>
-						<select name="TipoPago" class="form-control TipoPago" data-live-search="true" validate="not_null">
-							<option value="">Seleccione...</option>
-						</select>
-					</div>
-					<div class="col-md-3 form-group">
-						<label>Rut</label>
-						<input name="Rut_update" class="form-control">
-					</div>
-					<div class="col-md-1 form-group">
-						<div class="text-center" style="padding-top: 5px">
-							<h3>-</h3>
-						</div>
-					</div>
-					<div class="col-md-1 form-group">
-						<label>Dv</label>
-						<select name="Dv_update" class="form-control selectpicker" data-live-search="true">
-							<option value="">Seleccione...</option>
-							<option>1</option>
-							<option>2</option>
-							<option>3</option>
-							<option>4</option>
-							<option>5</option>
-							<option>6</option>
-							<option>7</option>
-							<option>8</option>
-							<option>9</option>
-							<option>K</option>
-						</select>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4 form-group">
-						<label>Clase Cliente</label>
-						<select name="ClaseCliente_update" class="form-control selectpicker ClaseCliente" data-live-search="true" validate="not_null">
-						</select>
-					</div>
-					<div class="col-md-4 form-group">
-						<label> Razón social / Cliente</label>
-						<input name="Nombre_update" class="form-control">
-					</div>
-					
-					<div class="col-md-4 form-group">
-						<label>Alias</label>
-						<input name="Alias_update" class="form-control">
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 form-group">
-						<label>Dirección  Comercial</label>
-						<textarea name="DireccionComercial_update" class="form-control"></textarea>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4 form-group">
-						<label>Giro</label>
-						<input name="Giro_update" class="form-control" validate="not_null">
-					</div>
-					<div class="col-md-4 form-group">
-						<label>Region</label>
-						<select id="Region_update" name="Region_update" class="form-control Region_update" data-live-search="true" validate="not_null">
-						</select>
-					</div>
-					<div class="col-md-4 form-group">
-						<label>Ciudad</label>
-						<select id="Ciudad_update" name="Ciudad_update" class="form-control Ciudad_update" data-live-search="true" validate="not_null">
-						</select>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-4 form-group">
-						<label>Contacto</label>
-						<div class="input-group">
-							<input name="Contacto_update" class="form-control">
-							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraContactosUpdate"><i class="fa fa-plus" aria-hidden="true"></i></button>
-							</span>
-						</div>
-					</div>
-					<div class="col-md-4 form-group">
-						<label>Teléfono</label>
-						<div class="input-group">
-							<input name="Telefono_update" class="form-control">
-							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraTelefonoUpdate"><i class="fa fa-plus" aria-hidden="true"></i></button>
-							</span>
-						</div>
-					</div>
-					<div class="col-md-4 form-group">
-						<label>Correo</label>
-						<div class="input-group">
-							<input name="Correo_update" class="form-control">
-							<span class="input-group-btn">
-								<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraCorreoUpdate"><i class="fa fa-plus" aria-hidden="true"></i></button>
-							</span>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 form-group">
-						<label>Comentarios</label>
-						<textarea name="Comentario_update" class="form-control"></textarea>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<br>
-						<button type="button" class="btn btn-primary actualizarCliente">Actualizar</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" role="dialog" id="extraTelefono">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Telefono Extra</h4>
-			</div>
-			<div class="modal-body container-form-extraTelefono">
-				<div class="row">
-					<div class="col-md-9 form-group">
-					<label>Telefono</label>
-						<input name="extra_telefono[]" class="form-control">
-					</div>
-					<div class="col-md-3">
-						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampTele"><i class="glyphicon glyphicon-plus"></i></button>
-					</div>
-				</div>
-				<div class="contenedorExtraTelefono">
-
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" role="dialog" id="extraTelefonoUpdate">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Telefono Extra</h4>
-			</div>
-			<div class="modal-body container-form-extraTelefono">
-				<div class="row">
-					<div class="col-md-9 form-group">
-					<label>Telefono</label>
-						<input name="extra_telefono[]" class="form-control">
-					</div>
-					<div class="col-md-3">
-						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampTele"><i class="glyphicon glyphicon-plus"></i></button>
-					</div>
-				</div>
-				<div class="contenedorExtraTelefono">
-
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" role="dialog" id="extraCorreo">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Correo Extra</h4>
-			</div>
-			<div class="modal-body container-form-extraCorreo">
-				<div class="row">
-					<div class="col-md-9 form-group">
-					<label>Correo</label>
-						<input name="extra_correo[]" class="form-control">
-					</div>
-					<div class="col-md-3">
-						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampCorreo"><i class="glyphicon glyphicon-plus"></i></button>
-					</div>
-				</div>
-				<div class="contenedorExtraCorreo">
-
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" role="dialog" id="extraCorreoUpdate">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Correo Extra</h4>
-			</div>
-			<div class="modal-body container-form-extraCorreo">
-				<div class="row">
-					<div class="col-md-9 form-group">
-					<label>Correo</label>
-						<input name="extra_correo[]" class="form-control">
-					</div>
-					<div class="col-md-3">
-						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampCorreo"><i class="glyphicon glyphicon-plus"></i></button>
-					</div>
-				</div>
-				<div class="contenedorExtraCorreo">
-
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
-			</div>
-		</div>
-	</div>
-</div>
-
-<div class="modal fade" role="dialog" id="extraContactos">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Contacto extra</h4>
-			</div>
-			<div class="modal-body container-form-extraCorreo">
-				<div class="row">
-					<div class="col-md-5 form-group">
-						<label>Tipo de contacto</label>
-						<input name="extra_TipoContacto[]" class="form-control">
-					</div>
-					<div class="col-md-5 form-group">
-						<label>Contacto</label>
-						<input name="extra_Contacto[]" class="form-control">
-					</div>
-					<div class="col-md-2">
-						<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampContacto"><i class="glyphicon glyphicon-plus"></i></button>
-					</div>
-				</div>
-				<div class="contenedorContactosExtras">
-
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-			</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade" role="dialog" id="extraContactosUpdate">
-		<div class="modal-dialog" role="document">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Contacto extra</h4>
-				</div>
-				<div class="modal-body container-form-extraCorreo">
-					<div class="row">
-						<div class="col-md-5 form-group">
-							<label>Tipo de contacto</label>
-							<input name="extra_TipoContacto[]" class="form-control">
-						</div>
-						<div class="col-md-5 form-group">
-							<label>Contacto</label>
-							<input name="extra_Contacto[]" class="form-control">
-						</div>
-						<div class="col-md-2">
-							<button type="button" class="btn btn-success btn-block mgExtraButton agregarCampContacto"><i class="glyphicon glyphicon-plus"></i></button>
-						</div>
-					</div>
-					<div class="contenedorContactosExtras">
-
-					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
-				</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="modal fade" role="dialog" id="agregarGiro">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-						<h4 class="modal-title">Agregar Giro</h4>
-					</div>
-					<div class="modal-body">
-						<form id="insertGiro">
-							<div class="row">
-								<div class="col-md-12 form-group">
-								<label>Giro</label>
-									<input name="nombreGiro" class="form-control" validation="not_null">
-								</div>
-							</div>
-						</form>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-purple" id="guardarGiro">Guardar</button>
-					</div>
-				</div>
-			</div>
-		</div>

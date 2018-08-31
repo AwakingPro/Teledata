@@ -178,14 +178,9 @@
 										<div class="row">
 											<div class="col-md-12 form-group">
 												<label>Cliente</label>
-												<div class="input-group">
-													<select name="Cliente" class="form-control" id="cliente" data-live-search="true" validation="not_null" data-nombre="Cliente">
-														<option value="">Seleccione...</option>
-													</select>
-													<span class="input-group-btn">
-														<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalClienteExtra"><i class="fa fa-plus" aria-hidden="true"></i></button>
-													</span>
-												</div>
+												<select name="Cliente" class="form-control" id="cliente" data-live-search="true" validation="not_null" data-nombre="Cliente">
+													<option value="">Seleccione...</option>
+												</select>
 												<input type="hidden"  name="Origen">
 												<input type="hidden" name="Departamento">
 												<input type="hidden" name="Prioridad">

@@ -988,25 +988,5 @@ $.post('../ajax/privilegios.php', function(data) {
 		});
 
 	});
-
-
-	$(document).on('click', '.guardarCliente', function() {
-		$.postFormValues('../ajax/tickets/insertCliente.php','.container-form2',function(data){
-			value = $.parseJSON(data);
-			$('[name="Cliente"]').append(value[1]);
-			$('[name="Cliente"]').selectpicker('refresh');
-			$('[name="Cliente"]').selectpicker('val', value[2]);
-			if (Number(value[0]) > 0){
-				$('#modalClienteExtra').modal('hide');
-				bootbox.alert('<h3 class="text-center">El cliente #'+value[0]+' se registro con éxito.</h3>');
-				$('.container-form2 input, .container-form2 select, .container-form2 textarea').value('')
-				$('.container-form2 select').selectpicker('val', '');
-			}else{
-				console.log(data);
-				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar el ticket.</h3>');
-			}
-		});
-	});
-
 });
 
