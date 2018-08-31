@@ -67,7 +67,6 @@ $.validate = function(obj) {
 	if (obj.hasAttribute('validate')) {
 		switch($(obj).attr('validate')) {
 			case 'not_null':
-				$('#guardarContacto').attr('disabled', false);
 				if ($(obj).val() == "") {
 
 					label = $(obj).siblings('label').html()
@@ -78,8 +77,16 @@ $.validate = function(obj) {
 						label = $(obj).parent().siblings('label').html()
 						$(obj).closest('.form-group').addClass('has-error');
 					}
-
-					bootbox.alert('<h3 class="text-center">Disculpe el campo '+label+' es obligatorio.</h3>');
+					$('#guardarContacto').attr('disabled', false);
+					$.niftyNoty({
+                        type: 'danger',
+                        icon : 'fa fa-check',
+                        message : '<h4>Disculpe el campo '+label+' es obligatorio</h4>',
+                        container : 'floating',
+                        timer : 3000
+                    });
+					// bootbox.alert('<h3 class="text-center">Disculpe el campo '+label+' es obligatorio.</h3>');
+					
 				}else{
 					return true;
 				}
@@ -90,7 +97,15 @@ $.validate = function(obj) {
 					return true;
 				} else {
 					$(obj).parent('.form-group').addClass('has-error');
-					bootbox.alert('<h3 class="text-center">Disculpe el campo correo no es correcto.</h3>');
+					// bootbox.alert('<h3 class="text-center">Disculpe el campo correo no es correcto.</h3>');
+					$.niftyNoty({
+                        type: 'danger',
+                        icon : 'fa fa-check',
+                        message : '<h4>Disculpe el campo correo no es correcto</h4>',
+                        container : 'floating',
+                        timer : 3000
+                    });
+					$('#guardarContacto').attr('disabled', false);
 				}
 				break;
 			default:
@@ -144,3 +159,13 @@ $(document).on('click', '.tgl-menu-btn', function(event){
 		$('.effect').attr('attr', '1');
 	}
 });
+
+function alertas(type, message) {
+	$.niftyNoty({
+		type: type,
+		icon : 'fa fa-check',
+		message : '<h4>'+message+'</h4>',
+		container : 'floating',
+		timer : 3000
+	});
+};

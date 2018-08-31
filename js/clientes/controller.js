@@ -285,35 +285,138 @@ $(document).ready(function() {
         }
     });
     
+    
+
     //agregar y ver contactos del modulo /clientes/listaCliente.php
     $(document).on('click', '.abre-modal-contactos', function() {
+        
         $('#modalContactos').modal('show');
-        
-        valor = $(this).attr('attr');
-        
+        //id del cliente
+        var valor = $(this).attr('attr');
+        console.log('id desde la apartura del moda es'+valor);
         $('#IdClienteOculto').val(valor);
-        // console.log(valor+' valor en el input hidden '+$('#IdClienteOculto').val());
         var url = '../ajax/cliente/listContactos.php';
         var contenedor = '.dataContactos';
         var contenedorTable = '.dataContactos > .tabeData';
         var contenedorTableCampos = '.dataContactos > .tabeData tr th';
         
         getDataTables(url, valor, contenedor, contenedorTableCampos, contenedorTable );
+        // console.log(valor+' valor en el input hidden '+$('#IdClienteOculto').val());
+        
+    });
 
-        $(document).on('click', '.guardarContacto', function() {
-            var nombre = $('#NombreContacto').val();
-            $('.guardarContacto').attr('disabled', 'disabled');
+    $(document).on('click', '.guardarContacto', function() {
+
+        var nombre = $('#NombreContacto').val();
+        $('#guardarContacto').attr('disabled', 'disabled');
             
-            $.postFormValues('../ajax/cliente/insertContacto.php', '#insertContactos', function(data) {
-                if (Number(data) > 0) {
-                    getDataTables(url, valor, contenedor, contenedorTableCampos, contenedorTable );
-                    bootbox.alert('<h3 class="text-center">El contacto ' + nombre + ' se registro con éxito.</h3>');
+            var valor = $('#IdClienteOculto').val();
+
+            console.log('id desde que se guarda el contacto es '+valor);
+            setTimeout(function(){
+                if($('#guardarContacto').is(':disabled')){
+                    $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Guardando Contacto...</div><div class="spinner loading"></div>');
+                }
+            }, 1000);
+            
+            
+            $.postFormValues('../ajax/cliente/insertContacto.php', '.insertContactos', function(data) {
+                
+                if(data) {
+                    $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
+                    tablalistContactos(valor);
+                    alertas('success', 'El contacto '+nombre+' se registro con éxito.');
+                    // bootbox.alert('<h3 class="text-center">El contacto ' + nombre + ' se registro con éxito.</h3>');
                     $('#insertContactos')[0].reset();
-                } else {
-                    bootbox.alert('<h3 class="text-center">'+data+'</h3>'); 
+                    $('.form-group').removeClass('has-error');
+                    $('#guardarContacto').attr('disabled', false);
                 }
             });
-        });
+    });
+    // muestra datatable pertenecientes al parametro que se envia para Contactos
+    function tablalistContactos(valor) {
+        var url = '../ajax/cliente/listContactos.php';
+        var contenedor = '.dataContactos';
+        var contenedorTable = '.dataContactos > .tabeData';
+        var contenedorTableCampos = '.dataContactos > .tabeData tr th';
+        
+        getDataTables(url, valor, contenedor, contenedorTableCampos, contenedorTable );
+    };
+
+    $(document).on('click', '.delete-contactos', function() {
+        var id = $(this).attr('attr');
+        console.log('id del contacto eliminado '+id);
+        swal({
+            title: '¿Esta seguro de querer eliminar los datos?',
+            text: "Presione Si de lo contrario Cancel",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Si Borrar!',
+            background: 'rgba(0, 0, 0, 0.96)'
+          }).then((result) => {
+            if (result == true) {
+                $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Elimando Contacto...</div><div class="spinner loading"></div>');
+                $.post('../ajax/cliente/eliminarContacto.php', { id: id }, function(data) {
+                    
+                    if(data == true) {
+                        alertas('success', 'El contacto se Elimino con éxito.');
+                        // bootbox.alert('<h3 class="text-center">El contacto se Elimino con éxito.</h3>');
+                        var valor = $('#IdClienteOculto').val();
+                        //reresh table Contactos
+                        tablalistContactos(valor);
+                    }
+                    else if(data == false) {
+                        alertas('danger', 'El contacto No se Elimino.');
+                        // bootbox.alert('<h3 class="text-center">El contacto No se Elimino.</h3>');
+                    }
+                    else {
+                        alertas('danger', data);
+                        // bootbox.alert('<h3 class="text-center">'+data+'</h3>');
+                    }
+                    
+                });
+            }
+          });
+
+        // bootbox.confirm({
+        //     message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
+        //     buttons: {
+        //         confirm: {
+        //             label: 'Si borrar',
+        //             className: 'btn-success'
+        //         },
+        //         cancel: {
+        //             label: 'No borrar',
+        //             className: 'btn-danger'
+        //         }
+        //     },
+        //     callback: function(result) {
+        //         if (result == true) {
+        //             $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Elimando Contacto...</div><div class="spinner loading"></div>');
+        //             $.post('../ajax/cliente/eliminarContacto.php', { id: id }, function(data) {
+                        
+        //                 if(data == true) {
+        //                     alertas('success', 'El contacto se Elimino con éxito.');
+        //                     // bootbox.alert('<h3 class="text-center">El contacto se Elimino con éxito.</h3>');
+        //                     var valor = $('#IdClienteOculto').val();
+        //                     //reresh table Contactos
+        //                     tablalistContactos(valor);
+        //                 }
+        //                 else if(data == false) {
+        //                     alertas('danger', 'El contacto No se Elimino.');
+        //                     // bootbox.alert('<h3 class="text-center">El contacto No se Elimino.</h3>');
+        //                 }
+        //                 else {
+        //                     alertas('danger', data);
+        //                     // bootbox.alert('<h3 class="text-center">'+data+'</h3>');
+        //                 }
+                        
+        //             });
+        //         }
+        //     }
+        // });
     });
 
     //ver servicios del modulo /clientes/listaCliente.php
@@ -334,6 +437,7 @@ $(document).ready(function() {
 
     // funcion para obtener datos con datatable
     function getDataTables(url, id, contenedor, contenedorTableCampos, contenedorTable ){
+        $(contenedor).html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
         if (id != '') {
             $.post(url, { id: id }, function(data) {
                 //aqui faltaria validar si la data es json o no con if para usar los 2 tipos de datos
@@ -345,7 +449,7 @@ $(document).ready(function() {
                 
                 $(contenedorTable).dataTable({
                     "columnDefs": [{
-                        'orderable': false,
+                        'orderable': true,
                         'targets': [count]
                     }, ],
                     language: {
@@ -372,8 +476,9 @@ $(document).ready(function() {
                     }
                 });
             });
+            
         }
-        return;
+        
     }
 
 

@@ -192,6 +192,55 @@
 			}
 		}
 
+		function listViewContactos($post,$id = '',$tipo = '') {
+			$mysqli = $this->conexion();
+			if ($mysqli) {
+				if ($resultado = $mysqli->query($post)) {
+					while ($field = mysqli_fetch_field($resultado)) {
+						$fields[] = $field->name;
+						$table[] = $field->table;
+					}
+					$tabla = '';
+					if($tipo){
+						$tabla .= '<button class="btn btn-success agregarDatosTecnicos" attr="'.$id.'"  data-toggle="modal" data-target="#agregarDatosTecnicos" aria-hidden="true" title="Agregar" style="margin-bottom:20px">Agregar</button>';
+					}
+					$tabla .= "<table class='table table-striped table-hover tabeData'><thead><tr>";
+					for ($i=1; $i < count($fields) ; $i++) {
+						$tabla.="<th>".$fields[$i]."</th>";
+					}
+					$tabla.="<th></th></tr></thead><tbody>";
+					while ($fila = $resultado->fetch_array(MYSQLI_NUM)) {
+						$rows[] = $fila;
+					}
+					if (isset($rows)) {
+						for ($i=0; $i < count($rows) ; $i++) {
+							$tabla.= '<tr>';
+							foreach ($rows[$i] as $clave => $valor) {
+								if($clave != 0)
+								$tabla.="<td>".$valor."</td>";
+							}
+							if($tipo){
+								$update = '<i class="fa fa-edit updateDatosTecnicos" data-toggle="modal" data-target="#ModalDatosTecnicos" id="'.$rows[$i][0].'" attr="'.$id.'" aria-hidden="true" title="Editar"></i>';
+							}else{
+								$update = '';
+							}
+							$tabla.='<td class="optionTable">
+								'.$update.'
+								<i class="fa fa-trash-o delete-'.$table[0].'"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>
+								</td>';
+							$tabla.= '</tr>';
+						}
+					}
+					$tabla.="</tbody></table>";
+					return $tabla;
+				}else{
+					return 'Problemas en el query de consulta';
+				}
+			}else{
+				return 'No hay conexion';
+			}
+		}
+
 		function listViewDelete($post,$id = '',$tipo = '') {
 			$mysqli = $this->conexion();
 			if ($mysqli) {

@@ -5,10 +5,10 @@ if(isset($_POST['IdClienteOculto'])) {
     session_start();
     $run = new Method;
 
-    $contacto        = $_POST['Nombre'];
-    $tipo_contacto   = $_POST['Tipo'];
-    $correo          = $_POST['Correo'];
-    $telefono        = $_POST['Telefono'];
+    $contacto        = $_POST['NombreContacto'];
+    $tipo_contacto   = $_POST['TipoContacto'];
+    $correo          = $_POST['CorreoContacto'];
+    $telefono        = $_POST['TelefonoContacto'];
     $id_persona      = $_POST['IdClienteOculto'];
 
     $query = "INSERT INTO contactos
