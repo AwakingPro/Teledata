@@ -219,11 +219,8 @@
 								if($clave != 0)
 								$tabla.="<td>".$valor."</td>";
 							}
-							if($tipo){
-								$update = '<i class="fa fa-edit updateDatosTecnicos" data-toggle="modal" data-target="#ModalDatosTecnicos" id="'.$rows[$i][0].'" attr="'.$id.'" aria-hidden="true" title="Editar"></i>';
-							}else{
-								$update = '';
-							}
+							// $update = '<i class="fa fa-edit updateDatosTecnicos" data-toggle="modal" data-target="#ModalDatosTecnicos" id="'.$rows[$i][0].'" attr="'.$id.'" aria-hidden="true" title="Editar"></i>';
+							$update = '<i class="fa fa-edit update-'.$table[0].'" id="'.$rows[$i][0].'" attr="'.$id.'" aria-hidden="true" title="Editar"></i>';
 							$tabla.='<td class="optionTable">
 								'.$update.'
 								<i class="fa fa-trash-o delete-'.$table[0].'"  attr="'.$rows[$i][0].'" aria-hidden="true" title="Eliminar"></i>

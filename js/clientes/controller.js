@@ -323,16 +323,31 @@ $(document).ready(function() {
             $.postFormValues('../ajax/cliente/insertContacto.php', '.insertContactos', function(data) {
                 
                 if(data) {
+                    if(data == 'Editado') {
+                        alertas('success', 'El contacto '+nombre+' se Actualizo con éxito.');
+                        $('#IdContactoOculto').val('');
+                        $('.moda-title-contacto').html('<h4>Agregar Contacto</h4>');
+                        $('#guardarContacto').html('Guardar');
+                    }
+                    else if(data == 'No Editado') {
+                        alertas('warning', 'El contacto '+nombre+' No se Actualizo con éxito.');
+                    }
+                    else {
+                        alertas('success', 'El contacto '+nombre+' se Registro con éxito.');
+                    }
+                    
                     $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
                     tablalistContactos(valor);
-                    alertas('success', 'El contacto '+nombre+' se registro con éxito.');
+                    
                     // bootbox.alert('<h3 class="text-center">El contacto ' + nombre + ' se registro con éxito.</h3>');
                     $('#insertContactos')[0].reset();
                     $('.form-group').removeClass('has-error');
                     $('#guardarContacto').attr('disabled', false);
                 }
+                
             });
     });
+
     // muestra datatable pertenecientes al parametro que se envia para Contactos
     function tablalistContactos(valor) {
         var url = '../ajax/cliente/listContactos.php';
@@ -342,6 +357,27 @@ $(document).ready(function() {
         
         getDataTables(url, valor, contenedor, contenedorTableCampos, contenedorTable );
     };
+
+    $(document).on('click', '.update-contactos', function(event) {
+        id = $(this).attr('id');
+        $('.moda-title-contacto').html('<h4>Actualizar Contacto</h4>');
+        $('#guardarContacto').html('Actualizar');
+        getContacto(id);
+    });
+
+    function getContacto(id) {
+        $('#insertContactos')[0].reset();
+        $.post('../ajax/cliente/dataContactoUpdate.php', { id: id }, function(data) {
+            value = $.parseJSON(data);
+            $('[name="NombreContacto"]').val(value['DataContacto'][0]['contacto']);
+            $('[name="TipoContacto"]').val(value['DataContacto'][0]['tipo_contacto']);
+            $('[name="CorreoContacto"]').val(value['DataContacto'][0]['correo']);
+            $('[name="TelefonoContacto"]').val(value['DataContacto'][0]['telefono']);
+            $('[name="IdClienteOculto"]').val(value['DataContacto'][0]['id_persona']);
+            $('[name="IdContactoOculto"]').val(id);
+            
+        });
+    }
 
     $(document).on('click', '.delete-contactos', function() {
         var id = $(this).attr('attr');
@@ -379,44 +415,6 @@ $(document).ready(function() {
                 });
             }
           });
-
-        // bootbox.confirm({
-        //     message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
-        //     buttons: {
-        //         confirm: {
-        //             label: 'Si borrar',
-        //             className: 'btn-success'
-        //         },
-        //         cancel: {
-        //             label: 'No borrar',
-        //             className: 'btn-danger'
-        //         }
-        //     },
-        //     callback: function(result) {
-        //         if (result == true) {
-        //             $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Elimando Contacto...</div><div class="spinner loading"></div>');
-        //             $.post('../ajax/cliente/eliminarContacto.php', { id: id }, function(data) {
-                        
-        //                 if(data == true) {
-        //                     alertas('success', 'El contacto se Elimino con éxito.');
-        //                     // bootbox.alert('<h3 class="text-center">El contacto se Elimino con éxito.</h3>');
-        //                     var valor = $('#IdClienteOculto').val();
-        //                     //reresh table Contactos
-        //                     tablalistContactos(valor);
-        //                 }
-        //                 else if(data == false) {
-        //                     alertas('danger', 'El contacto No se Elimino.');
-        //                     // bootbox.alert('<h3 class="text-center">El contacto No se Elimino.</h3>');
-        //                 }
-        //                 else {
-        //                     alertas('danger', data);
-        //                     // bootbox.alert('<h3 class="text-center">'+data+'</h3>');
-        //                 }
-                        
-        //             });
-        //         }
-        //     }
-        // });
     });
 
     //ver servicios del modulo /clientes/listaCliente.php

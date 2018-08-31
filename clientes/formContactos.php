@@ -16,9 +16,7 @@
         <label>Teléfono</label>
         <input name="TelefonoContacto" class="form-control" validate="not_null">
         <input type="hidden" id="IdClienteOculto" name="IdClienteOculto" class="form-control" validate="not_null">
-        <!-- <span class="input-group-btn">
-            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#extraTelefono"><i class="fa fa-plus" aria-hidden="true"></i></button>
-        </span> -->
+        <input type="hidden" id="IdContactoOculto" name="IdContactoOculto" class="form-control">
     </div>
 </form>
 
