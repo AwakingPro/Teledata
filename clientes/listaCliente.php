@@ -19,6 +19,10 @@
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
+	<?php
+		include 'modalContactos.php';
+		include 'modalVerServicios.php';
+	?>
 	<div class="modal fade" role="dialog" id="editarCliente">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -407,7 +411,3 @@
 	<script src="../js/clientes/controller.js"></script>
 </body>
 </html>
-<?php
-	include 'modalContactos.php';
-	include 'modalVerServicios.php';
-?>
