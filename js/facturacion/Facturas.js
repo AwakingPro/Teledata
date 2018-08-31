@@ -331,6 +331,12 @@ $(document).ready(function() {
                             .addClass('text-center')
                     },
                     "columnDefs": [{
+                        "targets": 2,
+                        "render": function(data, type, row) {
+                            value = formatcurrency(data)
+                            return "<div style='text-align: center'>" + value + "</div>";
+                        }
+                    },{
                         "targets": 8,
                         "render": function(data, type, row) {
                             Icono = '<i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-times EliminarPago"></i>'

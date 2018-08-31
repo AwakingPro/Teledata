@@ -1501,7 +1501,7 @@
                     $data = array();
                     $data['Id'] = $pago['Id'];
                     $data['FechaPago'] = \DateTime::createFromFormat('Y-m-d',$pago['FechaPago'])->format('d-m-Y');    
-                    $data['Monto'] = $pago['Monto'];    
+                    $data['Monto'] = doubleval($pago['Monto']);    
                     $data['TipoPago'] = $pago['TipoPago'];
                     $data['Detalle'] = $pago['Detalle'];
                     $data['Usuario'] = $pago['Usuario'];
