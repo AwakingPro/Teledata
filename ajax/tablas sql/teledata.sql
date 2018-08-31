@@ -109,29 +109,6 @@ CREATE TABLE `contactos`  (
 ) ENGINE = MyISAM AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for contactos_extras
--- ----------------------------
-DROP TABLE IF EXISTS `contactos_extras`;
-CREATE TABLE `contactos_extras`  (
-  `IdContactoExtra` int(11) NOT NULL AUTO_INCREMENT,
-  `IdCliente` int(11) NULL DEFAULT NULL,
-  `TipoContacto` varchar(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  `Contacto` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`IdContactoExtra`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Table structure for correo_extra
--- ----------------------------
-DROP TABLE IF EXISTS `correo_extra`;
-CREATE TABLE `correo_extra`  (
-  `IdCorreoExtra` int(11) NOT NULL AUTO_INCREMENT,
-  `IdUsuario` int(11) NULL DEFAULT NULL,
-  `Correo` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`IdCorreoExtra`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
-
--- ----------------------------
 -- Table structure for datos_tecnicos
 -- ----------------------------
 DROP TABLE IF EXISTS `datos_tecnicos`;
@@ -1215,17 +1192,6 @@ CREATE TABLE `subtipo_ticket`  (
 -- ----------------------------
 INSERT INTO `subtipo_ticket` VALUES (1, 2, 'Problema Sin Visita');
 INSERT INTO `subtipo_ticket` VALUES (4, 1, 'Ejemplo de subtipo correos');
-
--- ----------------------------
--- Table structure for telefono_extra
--- ----------------------------
-DROP TABLE IF EXISTS `telefono_extra`;
-CREATE TABLE `telefono_extra`  (
-  `IdTelefonoExtra` int(11) NOT NULL AUTO_INCREMENT,
-  `IdUsuario` int(11) NULL DEFAULT NULL,
-  `Telefono` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL DEFAULT NULL,
-  PRIMARY KEY (`IdTelefonoExtra`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = latin1 COLLATE = latin1_swedish_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for tickets

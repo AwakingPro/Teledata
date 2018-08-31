@@ -78,13 +78,16 @@
 					servicios.Valor,
 					COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS Grupo,
 					( CASE WHEN FechaFinalDesactivacion IS NULL THEN 'Activo' WHEN FechaFinalDesactivacion = '2999-01-31' THEN 'Inactivo' ELSE 'Suspendido' END ) AS Estatus,
-					( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS 'Tipo de Servicio' 
+					( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS 'Tipo de Servicio',
+					( CASE servicios.IdServicio WHEN 1 THEN arriendo_equipos_datos.Velocidad ELSE '' END ) AS 'Velocidad',
+					( CASE servicios.IdServicio WHEN 1 THEN arriendo_equipos_datos.Plan ELSE '' END ) AS 'Plan' 
 				FROM
 					servicios
 					INNER JOIN mantenedor_tipo_factura ON mantenedor_tipo_factura.id = servicios.TipoFactura
 					INNER JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_facturacion.id = mantenedor_tipo_factura.tipo_facturacion
 					LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
 					LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo
+					LEFT JOIN arriendo_equipos_datos ON arriendo_equipos_datos.IdServicio = servicios.Id
 				WHERE
 					servicios.Rut = ".$_POST['rut'];
 	$listaServicios = $run->listViewServicios($query);

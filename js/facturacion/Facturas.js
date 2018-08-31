@@ -15,7 +15,7 @@ $(document).ready(function() {
         }
     });
 
-    $('.number').number(true, 2, ',', '.');
+    $('.number').number(true, 0, ',', '.');
     $('.date').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY'
@@ -47,7 +47,7 @@ $(document).ready(function() {
         var startDate = $("#date-range .input-daterange input[name='start']").val();
         var endDate = $("#date-range .input-daterange input[name='end']").val();
         var documentType = $("#documentType").val();
-        $.post('../includes/facturacion/facturas/filtrarFacturasPorFecha.php', { startDate: startDate, endDate: endDate, documentType: documentType }, function(data) {
+        $.post('../includes/facturacion/facturas/filtrarFacturas.php', { startDate: startDate, endDate: endDate, documentType: documentType }, function(data) {
             FacturasTable = $('#FacturasTable').DataTable({
                 order: [
                     [0, 'desc']
@@ -65,7 +65,7 @@ $(document).ready(function() {
                     { data: 'FechaVencimiento' },
                     { data: 'TotalFactura' },
                     { data: 'TotalSaldo' },
-                    { data: 'Id' }
+                    { data: 'DocumentoId' }
                 ],
                 destroy: true,
                 'createdRow': function(row, data, dataIndex) {
@@ -84,10 +84,12 @@ $(document).ready(function() {
                         "targets": 6,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
-                            if(row.TipoDocumento != 'Nota de crédito'){
-                                Div = "<div style='text-align: center'>";
-                            }else{
+                            if(row.TipoDocumento == 'Nota de crédito'){
                                 Div = "<div style='text-align: center;color:red'>-"
+                            }else if(row.TipoDocumento == 'Nota de debito'){
+                                Div = "<div style='text-align: center;color:blue'>+"
+                            }else{
+                                Div = "<div style='text-align: center'>";
                             }
                             return Div + value + "</div>";
                         }
@@ -114,18 +116,30 @@ $(document).ready(function() {
                                     Abonar = ''
                                     Pagos = ''
                                 }
-                            } else {
+                                Anulacion = '';
+                            } else if(row.EstatusFacturacion == 2){
                                 Folder = 'notas_credito';
                                 Devolucion = ''
                                 Abonar = ''
                                 Pagos = ''
+                                if(row.Acciones == 1){
+                                    Anulacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times-circle Anulacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Anular Devolucion" title="" data-container="body"></i>'
+                                }else{
+                                    Anulacion = ''
+                                }
+                            }else{
+                                Folder = 'notas_debito';
+                                Devolucion = ''
+                                Abonar = ''
+                                Pagos = ''
+                                Anulacion = ''
                             }
                             if (data != '') {
                                 Pdf = '<a href="../facturacion/' + Folder + '/' + data + '.pdf" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
                             } else {
                                 Pdf = '';
                             }
-                            return "<div style='text-align: center'>" + Devolucion + " " + Abonar + " " + Pagos + " " + Pdf + "</div>";
+                            return "<div style='text-align: center'>" + Devolucion + " " + Anulacion + " " + Abonar + " " + Pagos + " " + Pdf + "</div>";
                         }
                     },
                 ],
@@ -179,12 +193,8 @@ $(document).ready(function() {
     $('body').on('click', '.Abonar', function() {
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
-        Monto = $(ObjectTR).find("td").eq(5).html();
-        Explode = Monto.split(".");
-        Monto = Explode[0]
-        Monto = Monto.replace(",", "");
-        Monto += ','
-        Monto += Explode[1]
+        Monto = $(ObjectTR).find("td").eq(5).text();
+        Monto = Monto.replace(".", "");
         $('#Monto').val(Monto)
         var id = ObjectTR.attr("id");
         $('#FacturaId').val(id)
@@ -243,7 +253,7 @@ $(document).ready(function() {
 
     $('body').on('click', '#guardarPago', function() {
 
-        $.postFormValues('../ajax/cliente/storePago.php', '#storePago', function(response) {
+        $.postFormValues('../includes/facturacion/facturas/storePago.php', '#storePago', function(response) {
 
             if (response == 1) {
 
@@ -291,10 +301,9 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "../ajax/cliente/getPagos.php",
+            url: "../includes/facturacion/facturas/getPagos.php",
             data: "id=" + id,
             success: function(response) {
-                data = JSON.parse(response)
                 ModalTable = $('#ModalTable').DataTable({
                     order: [
                         [0, 'desc']
@@ -303,7 +312,7 @@ $(document).ready(function() {
                         "targets": [0],
                         "orderable": false
                     }],
-                    data: data,
+                    data: response,
                     columns: [
                         { data: 'Id' },
                         { data: 'FechaPago' },
@@ -382,7 +391,7 @@ $(document).ready(function() {
             if (isConfirm) {
 
                 $.ajax({
-                    url: "../ajax/cliente/deletePago.php",
+                    url: "../includes/facturacion/facturas/deletePago.php",
                     type: 'POST',
                     data: "&id=" + ObjectId,
                     success: function(response) {
