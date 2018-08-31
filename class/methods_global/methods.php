@@ -421,12 +421,13 @@
 					}
 					if (isset($rows)) {
 						for ($i=0; $i < count($rows) ; $i++) {
+							$id = $rows[$i][0];
 							$tabla.= '<tr>';
 							foreach ($rows[$i] as $clave => $valor) {
 								if($clave != 0 && $clave != 4){
 									$tabla.="<td>".$valor."</td>";
 								}
-								if($clave == 4){
+								if($clave == 3){
 									$explode = explode('.',$valor);
 									if(isset($explode[1])){
 										if($explode[1] == '00'){
@@ -436,7 +437,7 @@
 									$tabla.="<td>".$valor."</td>";
 								}
 							}
-							$query = "SELECT * FROM facturas_detalle WHERE IdServicio = '".$rows[$i][0]."'";
+							$query = "SELECT * FROM facturas_detalle WHERE IdServicio = '".$id."'";
 							$count = 0;
 							if ($resultado = $mysqli->query($query)) {
 								while ($fila = $resultado->fetch_array(MYSQLI_NUM)) {
@@ -444,14 +445,14 @@
 								}
 							}
 							if(!$count){
-								$eliminar = '<i class="fa fa-times eliminarServicio" attr="'.$rows[$i][0].'" aria-hidden="true" title="eliminar"></i>';
+								$eliminar = '<i class="fa fa-times eliminarServicio" attr="'.$id.'" aria-hidden="true" title="eliminar"></i>';
 							}else{
 								$eliminar = '';
 							}
 							$tabla.='<td class="optionTable">
-								<i class="fa fa-power-off estatusServicio" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#modalEstatus" aria-hidden="true" title="Activar/Desactivar"></i>
-								<i class="fa fa-plus listDatosTecnicos" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#verServicios" aria-hidden="true" title="Ver"></i>
-								<i class="fa fa-pencil-square-o mostrarDatosTecnicos" attr="'.$rows[$i][0].'"  data-toggle="modal" data-target="#modalEditar" aria-hidden="true" title="Ver"></i>
+								<i class="fa fa-power-off estatusServicio" attr="'.$id.'"  data-toggle="modal" data-target="#modalEstatus" aria-hidden="true" title="Activar/Desactivar"></i>
+								<i class="fa fa-plus listDatosTecnicos" attr="'.$id.'"  data-toggle="modal" data-target="#verServicios" aria-hidden="true" title="Ver"></i>
+								<i class="fa fa-pencil-square-o mostrarDatosTecnicos" attr="'.$id.'"  data-toggle="modal" data-target="#modalEditar" aria-hidden="true" title="Ver"></i>
 								'.$eliminar.'
 								</td>';
 							$tabla.= '</tr>';
