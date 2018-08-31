@@ -3,7 +3,8 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title moda-title-contacto">Agregar Contacto</h4>
+				<h4 class="modal-title modal-title-accion">Agregar Contacto</h4>
+				<h4><span class="modal-title-contacto"></span></h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">

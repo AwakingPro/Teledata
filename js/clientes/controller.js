@@ -274,6 +274,8 @@ $(document).ready(function() {
         $('#modalContactos').modal('show');
         //id del cliente
         var valor = $(this).attr('attr');
+        var nombre_cliente = $(this).attr('data-nombre');
+        $('.modal-title-contacto').html(nombre_cliente);
         console.log('id desde la apartura del moda es'+valor);
         $('#IdClienteOculto').val(valor);
         var url = '../ajax/cliente/listContactos.php';
@@ -307,7 +309,7 @@ $(document).ready(function() {
                     if(data == 'Editado') {
                         alertas('success', 'El contacto '+nombre+' se Actualizo con éxito.');
                         $('#IdContactoOculto').val('');
-                        $('.moda-title-contacto').html('<h4>Agregar Contacto</h4>');
+                        $('.modal-title-accion').html('Agregar Contacto');
                         $('#guardarContacto').html('Guardar');
                     }
                     else if(data == 'No Editado') {
@@ -341,7 +343,7 @@ $(document).ready(function() {
 
     $(document).on('click', '.update-contactos', function(event) {
         id = $(this).attr('id');
-        $('.moda-title-contacto').html('<h4>Actualizar Contacto</h4>');
+        $('.modal-title-accion').html('Actualizar Contacto');
         $('#guardarContacto').html('Actualizar');
         getContacto(id);
     });
@@ -405,6 +407,8 @@ $(document).ready(function() {
 
         // parametros para armar la data table
         var id = $(this).attr('attr');
+        var nombre_cliente = $(this).attr('data-nombre');
+        $('.modal-title-servicio').html(nombre_cliente);
         var url = '../ajax/cliente/dataServicios.php';
         var contenedor = '.dataServicios';
         var contenedorTable = '.dataServicios > .tabeData';
