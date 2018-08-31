@@ -203,6 +203,7 @@
 											<th class="text-center">Detalle</th>
 											<th class="text-center">Fecha Emisión Cheque</th>
 											<th class="text-center">Fecha Vencimiento Cheque</th>
+											<th class="text-center">Usuario</th>
 											<th class="text-center">Acciones</th>
 										</tr>
 									</thead>
@@ -221,7 +222,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title">Realizar Devolución <button type="button" data-dismiss="modal" class="close f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+					<h4 class="modal-title">Generar Nota de Crédito <button type="button" data-dismiss="modal" class="close f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
 				</div>
 				<div class="modal-body">
 					<div class="row" style="padding:20px">

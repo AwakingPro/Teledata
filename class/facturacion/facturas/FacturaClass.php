@@ -1481,10 +1481,16 @@
             $run = new Method;
             $ToReturn = array();
 
-            $query = "  SELECT   facturas_pagos.*, mantenedor_tipo_pago.nombre as TipoPago
-                        FROM facturas_pagos 
-                        INNER JOIN mantenedor_tipo_pago ON facturas_pagos.TipoPago = mantenedor_tipo_pago.id 
-                        WHERE facturas_pagos.FacturaId = '".$id."'";
+            $query = "  SELECT
+                            facturas_pagos.*,
+                            mantenedor_tipo_pago.nombre AS TipoPago,
+                            usuarios.nombre AS Usuario 
+                        FROM
+                            facturas_pagos
+                            INNER JOIN mantenedor_tipo_pago ON facturas_pagos.TipoPago = mantenedor_tipo_pago.id
+                            LEFT JOIN usuarios ON facturas_pagos.IdUsuarioSession = usuarios.id 
+                        WHERE
+                            facturas_pagos.FacturaId = '".$id."'";
 
             $pagos = $run->select($query);
 
@@ -1495,9 +1501,10 @@
                     $data = array();
                     $data['Id'] = $pago['Id'];
                     $data['FechaPago'] = \DateTime::createFromFormat('Y-m-d',$pago['FechaPago'])->format('d-m-Y');    
-                    $data['Monto'] = $pago['Monto'];    
+                    $data['Monto'] = doubleval($pago['Monto']);    
                     $data['TipoPago'] = $pago['TipoPago'];
                     $data['Detalle'] = $pago['Detalle'];
+                    $data['Usuario'] = $pago['Usuario'];
                     if($pago['TipoPago'] != 'Cheque al dia'){
                         $data['FechaEmisionCheque'] = 'N/A';        
                         $data['FechaVencimientoCheque'] = 'N/A';
@@ -1514,6 +1521,7 @@
         }
         public function storePago($FacturaId,$FechaPago,$TipoPago,$Detalle,$Monto,$FechaEmisionCheque,$FechaVencimientoCheque){
             $response_array = array();
+            session_start();
 
             $FacturaId = $_POST['FacturaId'];
             $FechaPago = $_POST['FechaPago'];
@@ -1522,6 +1530,7 @@
             $Monto = $_POST['Monto'];
             $FechaEmisionCheque = $_POST['FechaEmisionCheque'];
             $FechaVencimientoCheque = $_POST['FechaVencimientoCheque'];
+            $idUsuario = $_SESSION['idUsuario'];
             
             $FacturaId = isset($FacturaId) ? trim($FacturaId) : "";
             $FechaPago = isset($FechaPago) ? trim($FechaPago) : "";
@@ -1546,7 +1555,7 @@
                 }
                 $array = array();
 
-                $query = "INSERT INTO facturas_pagos(FacturaId, FechaPago, TipoPago, Detalle, Monto, FechaEmisionCheque, FechaVencimientoCheque) VALUES ('$FacturaId','$FechaPago','$TipoPago','$Detalle','$Monto','$FechaEmisionCheque','$FechaVencimientoCheque')";
+                $query = "INSERT INTO facturas_pagos(FacturaId, FechaPago, TipoPago, Detalle, Monto, FechaEmisionCheque, FechaVencimientoCheque, IdUsuarioSession) VALUES ('".$FacturaId."','".$FechaPago."','".$TipoPago."','".$Detalle."','".$Monto."','".$FechaEmisionCheque."','".$FechaVencimientoCheque."','".$idUsuario."')";
                 $run = new Method;
                 $id = $run->insert($query);
 
@@ -2386,6 +2395,52 @@
                     $this->almacenarDocumento($FacturaId,2,$UrlPdf);
                 }
             }
+
+            //NOTAS DE DEBITO
+            /*
+            $url='https://api.bsale.cl/v1/documents.json?documenttypeid=17';
+
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+
+            // Cierra la sesión cURL
+            curl_close($session);
+            $DocumentosBsale = json_decode($response, true);
+
+            foreach($DocumentosBsale['items'] as $DocumentoBsale){
+                $DocumentoId = $DocumentoBsale['id'];
+                $query = "SELECT Id, UrlPdfBsale FROM anulaciones WHERE DocumentoIdBsale = '".$DocumentoId."'";
+                $NotaDebito = $run->select($query);
+                if(!$NotaDebito){
+                    $UrlPdf = $DocumentoBsale['urlPdf'];
+                    $NumeroDocumento = $DocumentoBsale['number'];
+                    $FechaAnulacion = date('Y-m-d', $DocumentoBsale['emissionDate']);
+                    $HoraAnulacion = date('H:i:s', $DocumentoBsale['emissionDate']);
+                    $query = "INSERT INTO anulaciones(DevolucionId, AnulacionIdBsale, DocumentoIdBsale, UrlPdfBsale, FechaAnulacion, HoraAnulacion, NumeroDocumento) VALUES ('".$Id."', '".$AnulacionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."', '".$FechaAnulacion."', '".$HoraAnulacion."','".$NumeroDocumento."')";
+                    $Id = $run->insert($query);
+                }else{
+                    $Id = $Factura[0]['Id'];
+                    $UrlPdf = $Factura[0]['UrlPdfBsale'];
+                }
+                if($Id){   
+                    $this->almacenarDocumento($Id,3,$UrlPdf);
+                }
+            }
+            */
         }
         public function almacenarDocumento($DocumentoId,$Tipo,$UrlPdf){
             if($Tipo == 1){

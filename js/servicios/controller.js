@@ -300,7 +300,7 @@ $(document).ready(function() {
     $('#CostoInstalacion').on('change', function () {
         CostoInstalacion = $(this).val()
         CostoInstalacionPesos = CostoInstalacion * ValorUF
-        $('#CostoInstalacionPesos').text(CostoInstalacionPesos)
+        $('#CostoInstalacionPesos').text(Math.round(CostoInstalacionPesos))
     });
 
     $('body').on('focus', ".date", function() {

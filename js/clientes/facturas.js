@@ -108,7 +108,7 @@ $(document).ready(function() {
                                 if (row.EstatusFacturacion == '1') {
                                     Folder = 'facturas';
                                     if(row.Acciones == 1){
-                                        Devolucion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-undo Devolucion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Devolucion" title="" data-container="body"></i>'
+                                        Devolucion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-undo Devolucion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Generar Nota de Crédito" title="" data-container="body"></i>'
                                         if (row.TotalSaldo != '0') {
                                             Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'
                                         } else {
@@ -131,7 +131,7 @@ $(document).ready(function() {
                                     Abonar = ''
                                     Pagos = ''
                                     if(row.Acciones == 1){
-                                        Anulacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times-circle Anulacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Anular Devolucion" title="" data-container="body"></i>'
+                                        Anulacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times-circle Anulacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Generar Nota de Debito" title="" data-container="body"></i>'
                                     }else{
                                         Anulacion = ''
                                     }
@@ -311,6 +311,7 @@ $(document).ready(function() {
                         { data: 'Detalle' },
                         { data: 'FechaEmisionCheque' },
                         { data: 'FechaVencimientoCheque' },
+                        { data: 'Usuario' },
                         { data: 'Id' }
                     ],
                     destroy: true,
@@ -320,7 +321,13 @@ $(document).ready(function() {
                             .addClass('text-center')
                     },
                     "columnDefs": [{
-                        "targets": 7,
+                        "targets": 2,
+                        "render": function(data, type, row) {
+                            value = formatcurrency(data)
+                            return "<div style='text-align: center'>" + value + "</div>";
+                        }
+                    },{
+                        "targets": 8,
                         "render": function(data, type, row) {
                             Icono = '<i style="cursor: pointer; margin: 0 5px; font-size:15px;" class="fa fa-times EliminarPago"></i>'
                             return Icono;
@@ -410,7 +417,6 @@ $(document).ready(function() {
     function formatcurrency(n) {
         return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
     }
-
     $('body').on('click', '.Devolucion', function() {
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
@@ -472,7 +478,7 @@ $(document).ready(function() {
         var ObjectId = ObjectTR.attr("id");
 
         swal({
-            title: "Desea anular esta nota de crédito?",
+            title: "Desea generar la nota de debito?",
             text: "Confirmar anulación!",
             type: "warning",
             showCancelButton: true,
