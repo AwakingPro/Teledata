@@ -18,15 +18,16 @@ $objPHPExcel->getProperties()
 // Agregar Informacion
 $objPHPExcel->setActiveSheetIndex(0)
 ->setCellValue('A1', 'id')
-->setCellValue('B1', 'rut')
-->setCellValue('C1', 'dv')
-->setCellValue('D1', 'nombre')
-->setCellValue('E1', 'giro')
-->setCellValue('F1', 'direccion')
-->setCellValue('G1', 'correo')
-->setCellValue('H1', 'contacto')
-->setCellValue('I1', 'comentario')
-->setCellValue('J1', 'telefono');
+->setCellValue('B1', 'Rut')
+->setCellValue('C1', 'DV')
+->setCellValue('D1', 'Nombre')
+->setCellValue('E1', 'Giro')
+->setCellValue('F1', 'Direccion')
+->setCellValue('G1', 'Correo')
+->setCellValue('H1', 'Contacto')
+->setCellValue('I1', 'Comentario')
+->setCellValue('J1', 'Teléfono')
+->setCellValue('K1', 'Tipo de Cliente');
 
 foreach (range(0, 33) as $col) {
         $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -34,19 +35,26 @@ foreach (range(0, 33) as $col) {
 
 
 require_once('../../class/methods_global/methods.php');
-$query = 'SELECT
-personaempresa.id,
-personaempresa.rut,
-personaempresa.dv,
-personaempresa.nombre,
-personaempresa.giro,
-personaempresa.direccion,
-personaempresa.correo,
-personaempresa.contacto,
-personaempresa.comentario,
-personaempresa.telefono
-FROM
-personaempresa';
+	$query = '	SELECT
+					p.id,
+					p.rut,
+					p.dv,
+					p.nombre,
+					p.giro,
+					p.direccion,
+					p.correo,
+					p.contacto,
+					p.comentario,
+					p.telefono,
+					mt.nombre as tipo_cliente
+				FROM
+					personaempresa p 
+				INNER JOIN 
+					mantenedor_tipo_cliente mt 
+				ON 
+					p.tipo_cliente = mt.id
+				ORDER BY
+					p.nombre';
 $run = new Method;
 $data = $run->select($query);
 if (count($data) > 0) {
@@ -64,7 +72,8 @@ if (count($data) > 0) {
 		->setCellValue('G'.$index, $data[$i][6])
 		->setCellValue('H'.$index, $data[$i][7])
 		->setCellValue('I'.$index, $data[$i][8])
-		->setCellValue('J'.$index, $data[$i][9]);
+		->setCellValue('J'.$index, $data[$i][9])
+		->setCellValue('K'.$index, $data[$i][10]);
 		$index ++;
 	}
 }

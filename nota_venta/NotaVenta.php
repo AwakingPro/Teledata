@@ -50,7 +50,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-4">
-                                    <div class="form-group">
+                                    <div class="form-group" style="padding-left:20px;padding-right:20px">
                                         <label class="control-label" for="name">Fecha emisión OC</label>
                                         <input id="fecha_oc_update" name="fecha_oc_update" class="form-control input-sm" data-nombre="Fecha emisión OC">
                                     </div>

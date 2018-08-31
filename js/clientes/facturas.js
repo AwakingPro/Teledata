@@ -74,7 +74,7 @@ $(document).ready(function() {
                         { data: 'FechaFacturacion' },
                         { data: 'FechaVencimiento' },
                         { data: 'TotalFactura' },
-                        { data: 'TotalAbono' },
+                        { data: 'TotalSaldo' },
                         { data: 'Id' }
                     ],
                     destroy: true,
@@ -94,7 +94,12 @@ $(document).ready(function() {
                             "targets": 5,
                             "render": function(data, type, row) {
                                 value = formatcurrency(data)
-                                return "<div style='text-align: center'>" + value + "</div>";
+                                if(row.TipoDocumento != 'Nota de crédito'){
+                                    Div = "<div style='text-align: center'>";
+                                }else{
+                                    Div = "<div style='text-align: center;color:red'>-"
+                                }
+                                return Div + value + "</div>";
                             }
                         }, {
                             "targets": 6,
@@ -102,12 +107,12 @@ $(document).ready(function() {
                                 if (row.EstatusFacturacion == '1') {
                                     Folder = 'facturas';
                                     Devolucion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-undo Devolucion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Devolucion" title="" data-container="body"></i>'
-                                    if (row.TotalAbono != '0') {
+                                    if (row.TotalSaldo != '0') {
                                         Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'
                                     } else {
                                         Abonar = ''
                                     }
-                                    if (row.TotalFactura != row.TotalAbono) {
+                                    if (row.TotalFactura != row.TotalSaldo) {
                                         Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-copy mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
                                     } else {
                                         Pagos = ''

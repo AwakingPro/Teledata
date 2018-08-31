@@ -45,10 +45,17 @@ $(document).ready(function() {
         }
     });
 
-    $('[name="Valor"]').number(true, 0, ',', '.');
-    $('[name="Descuento"]').mask('00');
-    $('[name="CostoInstalacion"]').number(true, 0, ',', '.');
-    $('[name="CostoInstalacionDescuento"]').mask('00');
+    // $('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
+    // 	$('select[name="TipoFactura"]').selectpicker('refresh');
+    // });
+    $('select[name="TipoServicio"]').load('../ajax/servicios/selectTipoServicio.php', function() {
+        $('select[name="TipoServicio"]').selectpicker('refresh');
+    });
+
+    $('select[name="Grupo"]').load('../ajax/servicios/listGrupo.php', function() {
+        $('select[name="Grupo"]').val(1000)
+        $('select[name="Grupo"]').selectpicker('refresh');
+    });
 
     $('select[name="Region"]').load('../ajax/cliente/getRegiones.php', function(data) {
         $('select[name="Region"]').selectpicker('refresh');
@@ -56,8 +63,6 @@ $(document).ready(function() {
     $('.Region_update').load('../ajax/cliente/getRegiones.php', function(data) {
         $('.Region_update').selectpicker('refresh');
     });
-
-    $('[name="Rut"]').mask("00000000");
 
     $('.TipoCliente').load('../ajax/cliente/selectTipoCliente.php', function() {
         $('.TipoCliente').selectpicker('refresh');
@@ -70,6 +75,12 @@ $(document).ready(function() {
     $('.ClaseCliente').load('../ajax/cliente/selectClaseCliente.php', function() {
         $('.ClaseCliente').selectpicker('refresh');
     });
+
+    $('[name="Rut"]').mask("00000000");
+    $('[name="Valor"]').number(true, 0, ',', '.');
+    $('[name="Descuento"]').mask('00');
+    $('[name="CostoInstalacion"]').number(true, 0, ',', '.');
+    $('[name="CostoInstalacionDescuento"]').mask('00');
 
     google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -254,17 +265,6 @@ $(document).ready(function() {
         $('#CostoInstalacionPesos').text(CostoInstalacionPesos)
     });
 
-    // $('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
-    // 	$('select[name="TipoFactura"]').selectpicker('refresh');
-    // });
-    $('select[name="TipoServicio"]').load('../ajax/servicios/selectTipoServicio.php', function() {
-        $('select[name="TipoServicio"]').selectpicker('refresh');
-    });
-
-    $('select[name="Grupo"]').load('../ajax/servicios/listGrupo.php', function() {
-        $('select[name="Grupo"]').selectpicker('refresh');
-    });
-
     $('body').on('focus', ".date", function() {
         $('.date').datetimepicker({
             locale: 'es',
@@ -394,6 +394,7 @@ $(document).ready(function() {
                     $('.selectpicker').selectpicker('refresh')
                     $('#divCostoInstalacion').show()
                     $('#Rut').val(Rut)
+                    $('select[name="Grupo"]').val(1000)
                     $('.selectpicker').selectpicker('refresh')
                     $('#otrosServicios').hide()
                     setTimeout(function() {

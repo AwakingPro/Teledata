@@ -14,7 +14,7 @@
                     mantenedor_tipo_cliente.nombre AS TipoDocumento,
                     facturas.IVA,
                     facturas.EstatusFacturacion,
-                    IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalAbono 
+                    IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalSaldo 
                 FROM
                     facturas
                     INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
@@ -29,7 +29,7 @@
         foreach($facturas as $factura){
             $Id = $factura['Id'];
             $IVA = $factura['IVA'];       
-            $TotalAbono = $factura['TotalAbono'];
+            $EstatusFacturacion = $factura['EstatusFacturacion'];
             $TotalFactura = 0;
             $query = "SELECT Total, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
             $detalles = $run->select($query);
@@ -41,9 +41,14 @@
                 $TotalFactura += round($Total,0);
             }
 
-            $TotalAbono = $TotalFactura - $TotalAbono;
-            if($TotalAbono < 0){
-                $TotalAbono = 0;
+            if($EstatusFacturacion != 2){
+                $TotalSaldo = $factura['TotalSaldo'];
+                $TotalSaldo = $TotalFactura - $TotalSaldo;
+                if($TotalSaldo < 0){
+                    $TotalSaldo = 0;
+                }
+            }else{
+                $TotalSaldo = 0;
             }
             $Id = $factura['Id'];
             $data = array();
@@ -52,23 +57,28 @@
             $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
             $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
             $data['TotalFactura'] = $TotalFactura;
-            $data['TotalAbono'] = $TotalAbono;
+            $data['TotalSaldo'] = $TotalSaldo;
             $data['UrlPdfBsale'] = $factura['UrlPdfBsale'];
             $data['TipoDocumento'] = $factura['TipoDocumento'];
             $data['EstatusFacturacion'] = 1;
             array_push($ToReturn,$data);
-            if($factura['EstatusFacturacion'] == 2){
+            if($EstatusFacturacion == 2){
                 $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale FROM devoluciones WHERE FacturaId = '".$Id."'";
                 $devoluciones = $run->select($query);
                 if($devoluciones){
                     $devolucion = $devoluciones[0];
+                    $TotalSaldo = $factura['TotalSaldo'];
+                    $TotalSaldo = $TotalFactura - $TotalSaldo;
+                    if($TotalSaldo < 0){
+                        $TotalSaldo = 0;
+                    }
                     $data = array();
                     $data['Id'] = $Id;
                     $data['NumeroDocumento'] = $devolucion['NumeroDocumento'];
                     $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                     $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                     $data['TotalFactura'] = $TotalFactura;
-                    $data['TotalAbono'] = $TotalAbono;
+                    $data['TotalSaldo'] = $TotalSaldo;
                     $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
                     $data['TipoDocumento'] = 'Nota de crédito';
                     $data['EstatusFacturacion'] = 2;

@@ -15,7 +15,9 @@
 							Rut = personaempresa.Rut
 					) AS Servicios
 				FROM
-					personaempresa";
+					personaempresa
+				ORDER BY
+					nombre";
 	$run = new Method;
 	$lista = $run->listView($query);
 	echo $lista;
