@@ -21,8 +21,8 @@
     </head>
     <body>
         <div id="modalNotaVenta" class="modal fade" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content modal-lg">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
                     <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
                         <h4 class="modal-title c-negro">Editar Nota de Venta <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
                     </div>

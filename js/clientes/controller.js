@@ -231,7 +231,7 @@ $(document).ready(function() {
                     window.location = "../servicios?Rut=" + rut;
                 }
             } else {
-                console.log(data);
+                // console.log(data);
                 if (data != "Dv") {
                     bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
                 } else {
@@ -274,7 +274,7 @@ $(document).ready(function() {
         $('#modalContactos').modal('show');
         //id del cliente
         var valor = $(this).attr('attr');
-        console.log('id desde la apartura del moda es'+valor);
+        // console.log('id desde la apartura del moda es'+valor);
         $('#IdClienteOculto').val(valor);
         var url = '../ajax/cliente/listContactos.php';
         var contenedor = '.dataContactos';
@@ -293,7 +293,7 @@ $(document).ready(function() {
             
             var valor = $('#IdClienteOculto').val();
 
-            console.log('id desde que se guarda el contacto es '+valor);
+            // console.log('id desde que se guarda el contacto es '+valor);
             setTimeout(function(){
                 if($('#guardarContacto').is(':disabled')){
                     $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Guardando Contacto...</div><div class="spinner loading"></div>');
@@ -362,7 +362,7 @@ $(document).ready(function() {
 
     $(document).on('click', '.delete-contactos', function() {
         var id = $(this).attr('attr');
-        console.log('id del contacto eliminado '+id);
+        // console.log('id del contacto eliminado '+id);
         swal({
             title: '¿Esta seguro de querer eliminar los datos?',
             text: "Presione Si de lo contrario Cancel",
@@ -370,8 +370,7 @@ $(document).ready(function() {
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
-            confirmButtonText: 'Si Borrar!',
-            background: 'rgba(0, 0, 0, 0.96)'
+            confirmButtonText: 'Si Borrar!'
           }).then((result) => {
             if (result == true) {
                 $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Elimando Contacto...</div><div class="spinner loading"></div>');
@@ -993,7 +992,7 @@ $(document).ready(function() {
                 }, 500)
                 getServicios();
             } else {
-                console.log(data);
+                // console.log(data);
                 bootbox.alert('<h3 class="text-center">Se produjo un error al actualizar</h3>');
             }
         });
@@ -1018,7 +1017,6 @@ $(document).ready(function() {
                 response = JSON.parse(response)
                 $('#FechaInicioDesactivacion').val('')
                 $('#FechaFinalDesactivacion').val('')
-                console.log(response.FechaFinalDesactivacion)
                 if (response.FechaFinalDesactivacion == '2999/01/31') {
                     $('#Activo').val(0)
                     $('#divFechaActivacion').hide()
