@@ -1347,16 +1347,10 @@
             $array = array('DescuentoAplicado' => $DescuentoAplicado, 'CantidadAplicada' => $CantidadAplicada);
             return $array; 
         }
-        public function filtrarFacturasPorFecha($startDate,$endDate,$documentType){
+        public function filtrarFacturas($startDate,$endDate,$Rut,$documentType){
 
             $run = new Method;
             $ToReturn = array();
-
-            $dt = \DateTime::createFromFormat('Y/m/d',$startDate);
-            $startDate = $dt->format('Y-m-d');
-            $dt = \DateTime::createFromFormat('Y/m/d',$endDate);
-            $endDate = $dt->format('Y-m-d');
-
             $query = "  SELECT
                             personaempresa.nombre as Cliente,
                             facturas.Id,
@@ -1373,8 +1367,16 @@
                             INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
                             INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
                         WHERE
-                            facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'
-                            AND facturas.EstatusFacturacion != '0'";
+                            facturas.EstatusFacturacion != '0'";
+            if($startDate){
+                $dt = \DateTime::createFromFormat('Y/m/d',$startDate);
+                $startDate = $dt->format('Y-m-d');
+                $dt = \DateTime::createFromFormat('Y/m/d',$endDate);
+                $endDate = $dt->format('Y-m-d');
+                $query .= " AND facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'";
+            }else{
+                $query .= " AND facturas.Rut = '".$Rut."'";
+            }
             if($documentType){
                 $query .= " AND facturas.TipoDocumento = '".$documentType."'";
             }
@@ -1395,12 +1397,13 @@
                         $Total -= $Descuento;
                         $TotalFactura += round($Total,0);
                     }
+                    $TotalSaldo = $factura['TotalSaldo'];
+                    $TotalSaldo = $TotalFactura - $TotalSaldo;
+                    if($TotalSaldo < 0){
+                        $TotalSaldo = 0;
+                    }
+                    $TotalSaldoFactura = $TotalSaldo;
                     if($EstatusFacturacion != 2){
-                        $TotalSaldo = $factura['TotalSaldo'];
-                        $TotalSaldo = $TotalFactura - $TotalSaldo;
-                        if($TotalSaldo < 0){
-                            $TotalSaldo = 0;
-                        }
                         $Acciones = 1;
                     }else{
                         $TotalSaldo = 0;
@@ -1409,6 +1412,7 @@
                     $Id = $factura['Id'];
                     $data = array();
                     $data['Id'] = $Id;
+                    $data['DocumentoId'] = $Id;
                     $data['Cliente'] = $factura['Cliente'];
                     $data['NumeroDocumento'] = $factura['NumeroDocumento'];
                     $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
@@ -1421,33 +1425,148 @@
                     $data['EstatusFacturacion'] = 1;
                     array_push($ToReturn,$data);
                     if($EstatusFacturacion == 2){
-                        $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale FROM devoluciones WHERE FacturaId = '".$Id."'";
+                        $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada FROM devoluciones WHERE FacturaId = '".$Id."'";
                         $devoluciones = $run->select($query);
                         if($devoluciones){
                             $devolucion = $devoluciones[0];
-                            $TotalSaldo = $factura['TotalSaldo'];
-                            $TotalSaldo = $TotalFactura - $TotalSaldo;
-                            if($TotalSaldo < 0){
-                                $TotalSaldo = 0;
+                            $DevolucionAnulada = $devolucion['DevolucionAnulada'];
+                            if($DevolucionAnulada == 0){
+                                $Acciones = 1;
+                            }else{
+                                $Acciones = 0;
                             }
                             $data = array();
-                            $data['Id'] = $Id;
+                            $data['Id'] = $devolucion['Id'];
+                            $data['DocumentoId'] = $Id;
                             $data['Cliente'] = $factura['Cliente'];
                             $data['NumeroDocumento'] = $devolucion['NumeroDocumento'];
                             $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                             $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                             $data['TotalFactura'] = $TotalFactura;
-                            $data['TotalSaldo'] = $TotalSaldo;
+                            $data['TotalSaldo'] = $TotalSaldoFactura;
                             $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
                             $data['TipoDocumento'] = 'Nota de crédito';
+                            $data['Acciones'] = $Acciones;
                             $data['EstatusFacturacion'] = 2;
                             array_push($ToReturn,$data);
+                            if($DevolucionAnulada == 1){
+                                $DevolucionId = $devolucion['Id'];
+                                $query = "SELECT Id, FechaAnulacion, NumeroDocumento, UrlPdfBsale FROM anulaciones WHERE DevolucionId = '".$DevolucionId."'";
+                                $anulaciones = $run->select($query);
+                                if($anulaciones){
+                                    $anulacion = $anulaciones[0];
+                                    $data = array();
+                                    $data['Id'] = $anulacion['Id'];
+                                    $data['DocumentoId'] = $Id;
+                                    $data['Cliente'] = $factura['Cliente'];
+                                    $data['NumeroDocumento'] = $anulacion['NumeroDocumento'];
+                                    $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
+                                    $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
+                                    $data['TotalFactura'] = $TotalFactura;
+                                    $data['TotalSaldo'] = $TotalSaldoFactura;
+                                    $data['UrlPdfBsale'] = $anulacion['UrlPdfBsale'];
+                                    $data['TipoDocumento'] = 'Nota de debito';
+                                    $data['EstatusFacturacion'] = 3;
+                                    array_push($ToReturn,$data);
+                                }
+                            }
                         }
                     }
                 }
             }
 
             echo json_encode($ToReturn);
+        }
+        public function getPagos($id){
+            $run = new Method;
+            $ToReturn = array();
+
+            $query = "  SELECT   facturas_pagos.*, mantenedor_tipo_pago.nombre as TipoPago
+                        FROM facturas_pagos 
+                        INNER JOIN mantenedor_tipo_pago ON facturas_pagos.TipoPago = mantenedor_tipo_pago.id 
+                        WHERE facturas_pagos.FacturaId = '".$id."'";
+
+            $pagos = $run->select($query);
+
+            if($pagos){
+
+                foreach($pagos as $pago){
+
+                    $data = array();
+                    $data['Id'] = $pago['Id'];
+                    $data['FechaPago'] = \DateTime::createFromFormat('Y-m-d',$pago['FechaPago'])->format('d-m-Y');    
+                    $data['Monto'] = $pago['Monto'];    
+                    $data['TipoPago'] = $pago['TipoPago'];
+                    $data['Detalle'] = $pago['Detalle'];
+                    if($pago['TipoPago'] != 'Cheque al dia'){
+                        $data['FechaEmisionCheque'] = 'N/A';        
+                        $data['FechaVencimientoCheque'] = 'N/A';
+                    }else{
+                        $data['FechaEmisionCheque'] = \DateTime::createFromFormat('Y-m-d',$pago['FechaEmisionCheque'])->format('d-m-Y');        
+                        $data['FechaVencimientoCheque'] = \DateTime::createFromFormat('Y-m-d',$pago['FechaVencimientoCheque'])->format('d-m-Y');
+                    }
+                    
+                    array_push($ToReturn,$data);
+                }
+            }
+
+            return $ToReturn;
+        }
+        public function storePago($FacturaId,$FechaPago,$TipoPago,$Detalle,$Monto,$FechaEmisionCheque,$FechaVencimientoCheque){
+            $response_array = array();
+
+            $FacturaId = $_POST['FacturaId'];
+            $FechaPago = $_POST['FechaPago'];
+            $TipoPago = $_POST['TipoPago'];
+            $Detalle = $_POST['Detalle'];
+            $Monto = $_POST['Monto'];
+            $FechaEmisionCheque = $_POST['FechaEmisionCheque'];
+            $FechaVencimientoCheque = $_POST['FechaVencimientoCheque'];
+            
+            $FacturaId = isset($FacturaId) ? trim($FacturaId) : "";
+            $FechaPago = isset($FechaPago) ? trim($FechaPago) : "";
+            $TipoPago = isset($TipoPago) ? trim($TipoPago) : "";
+            $Detalle = isset($Detalle) ? trim($Detalle) : "";
+            $Monto = isset($Monto) ? trim($Monto) : "";
+            $FechaEmisionCheque = isset($FechaEmisionCheque) ? trim($FechaEmisionCheque) : "";
+            $FechaVencimientoCheque = isset($FechaVencimientoCheque) ? trim($FechaVencimientoCheque) : "";
+
+            if(!empty($FacturaId) && !empty($FechaPago) && !empty($TipoPago) && !empty($Monto)){
+
+                $FechaPago = DateTime::createFromFormat('d-m-Y', $FechaPago)->format('Y-m-d');
+                if($FechaEmisionCheque){
+                    $FechaEmisionCheque = DateTime::createFromFormat('d-m-Y', $FechaEmisionCheque)->format('Y-m-d');
+                }else{
+                    $FechaEmisionCheque = '1969-01-31';
+                }
+                if($FechaVencimientoCheque){
+                    $FechaVencimientoCheque = DateTime::createFromFormat('d-m-Y', $FechaVencimientoCheque)->format('Y-m-d');
+                }else{
+                    $FechaVencimientoCheque = '1969-01-31';
+                }
+                $array = array();
+
+                $query = "INSERT INTO facturas_pagos(FacturaId, FechaPago, TipoPago, Detalle, Monto, FechaEmisionCheque, FechaVencimientoCheque) VALUES ('$FacturaId','$FechaPago','$TipoPago','$Detalle','$Monto','$FechaEmisionCheque','$FechaVencimientoCheque')";
+                $run = new Method;
+                $id = $run->insert($query);
+
+                if($id){
+                    $ToReturn = 1; 
+                }else{
+                    $ToReturn = 0; 
+                }
+
+            }else{
+                $ToReturn = 2; 
+            }
+
+            return $ToReturn;
+        }
+        public function deletePago($id){
+            $query = "DELETE FROM facturas_pagos WHERE Id = ".$id;
+            $run = new Method;
+            $data = $run->delete($query);
+            return $data;
         }
         public function getCliente($Rut){
             $run = new Method;
@@ -1648,7 +1767,7 @@
                             $this->almacenarDocumento($Id,2,$UrlPdf);
                         }
 
-                        $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento) VALUES ('".$Id."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', NOW(), NOW(),'".$NumeroDocumento."')";
+                        $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento, DevolucionAnulada) VALUES ('".$Id."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', NOW(), NOW(),'".$NumeroDocumento."', '0')";
                         $DevolucionId = $run->insert($query);
 
                         if($DevolucionId){
@@ -1750,74 +1869,29 @@
             $variables_globales = $run->select($query);
             $access_token = $variables_globales[0]['access_token'];
             $details = $this->getDetallesDocumentoBsale($referenceDocumentId,$access_token);
-            $clientId = null;
-            /*
-            if($Cliente['cliente_id_bsale']){
-                $clientId = $Cliente['cliente_id_bsale'];
+            if($Cliente['provincia']){
+                $Provincia = $Cliente['provincia'];
             }else{
+                $Provincia = 'Llanquihue';
+            }
 
-                //CONSULTA AL CLIENTE
-
-                $url = 'https://api.bsale.cl/v1/clients.json?code='.$Cliente['rut'].'-'.$Cliente['dv'];
-
-                // Inicia cURL
-                $session = curl_init($url);
-
-                // Indica a cURL que retorne data
-                curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-                // Activa SSL
-                // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
-
-                // Configura cabeceras
-                $headers = array(
-                    'access_token: ' . $access_token,
-                    'Accept: application/json',
-                    'Content-Type: application/json'
-                );
-                curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-
-                // Ejecuta cURL
-                $response = curl_exec($session);
-
-                // Cierra la sesión cURL
-                curl_close($session);
-
-                //Esto es sólo para poder visualizar lo que se está retornando
-                $client = json_decode($response, true);
-
-                //SI EL CLIENTE NO EXISTE EN LA API, SE CREA CON LA DATA DE TELEDATA
-
-                if($client['count']){
-                    $clientId = $client['items'][0]['id'];
-                }else{
-                */
-                    if($Cliente['provincia']){
-                        $Provincia = $Cliente['provincia'];
-                    }else{
-                        $Provincia = 'Llanquihue';
-                    }
-
-                    if($Cliente['ciudad']){
-                        $Ciudad = $Cliente['ciudad'];
-                    }else{
-                        $Ciudad = 'Puerto Varas';
-                    }
-
-                    $clientId = null;
-                    $client = array(
-                        "code"          => $Cliente['rut'].'-'.$Cliente['dv'],
-                        "firstName"     => $Cliente['contacto'],
-                        "lastName"      => "",
-                        "email"         => $Cliente['correo'],
-                        "phone"         => $Cliente['telefono'],
-                        "address"       => $Cliente['direccion'],
-                        "company"       => $Cliente['nombre'],
-                        "city"          => $Provincia,
-                        "municipality"  => $Ciudad,
-                        "activity"      => $Cliente['giro']
-                    );
-            //     }
-            // }
+            if($Cliente['ciudad']){
+                $Ciudad = $Cliente['ciudad'];
+            }else{
+                $Ciudad = 'Puerto Varas';
+            }
+            $client = array(
+                "code"          => $Cliente['rut'].'-'.$Cliente['dv'],
+                "firstName"     => $Cliente['contacto'],
+                "lastName"      => "",
+                "email"         => $Cliente['correo'],
+                "phone"         => $Cliente['telefono'],
+                "address"       => $Cliente['direccion'],
+                "company"       => $Cliente['nombre'],
+                "city"          => $Provincia,
+                "municipality"  => $Ciudad,
+                "activity"      => $Cliente['giro']
+            );
 
             //CREACION DE LA DEVOLUCION
 
@@ -1855,14 +1929,9 @@
                 "priceAdjustment"       => 0,
                 "editTexts"             => 0,
                 "type"                  => 3,
-                "details"               => $details
+                "details"               => $details,
+                "client"                => $client
             );
-            if($clientId){
-                $array['clientId'] = $clientId;
-            }else{
-                $array['client'] = $client;
-            }
-
             // Parsea a JSON
             $data = json_encode($array);
 
@@ -1932,6 +2001,148 @@
                 $DocumentoBsale['status'] = 0;
             }
             return $DocumentoBsale;
+        }
+        public function anularDevolucion($Id){
+
+            if(in_array  ('curl', get_loaded_extensions())) {
+
+                $response_array = array();
+                $query = "  SELECT
+                                DevolucionIdBsale, DocumentoIdBsale, FacturaId
+                            FROM
+                                devoluciones
+                            WHERE
+                                Id = '".$Id."'";
+
+                $run = new Method;
+                $Devoluciones = $run->select($query);
+
+                if($Devoluciones){
+
+                    $Devolucion = $Devoluciones[0];
+                    $DevolucionIdBsale = $Devolucion['DevolucionIdBsale'];
+                    $DocumentoIdBsale = $Devolucion['DocumentoIdBsale'];
+                    $AnulacionBsale = $this->sendAnulacionBsale($DevolucionIdBsale,$DocumentoIdBsale,1);
+
+                    if($AnulacionBsale['status'] == 1){
+                        $AnulacionIdBsale = $AnulacionBsale['id'];
+                        $NotaDebito = $AnulacionBsale['debit_note'];
+                        $DocumentoIdBsale = $NotaDebito['id'];
+                    }else{
+                        $response_array['Message'] = $AnulacionBsale['Message'];
+                        $response_array['tipo'] = 'Anulacion';
+                        $response_array['status'] = 0;
+                        echo json_encode($response_array);
+                        return;
+                    }
+                    $DocumentoBsale = $this->getDocumentoBsale($DocumentoIdBsale,1);
+                    if($DocumentoBsale['status'] == 1){
+                        $UrlPdf = $DocumentoBsale['urlPdf'];
+                        $NumeroDocumento = $DocumentoBsale['number'];
+                    }else{
+                        $response_array['Message'] = $DocumentoBsale['Message'];
+                        $response_array['status'] = 'Documento';
+                        echo json_encode($response_array);
+                        return;
+                    }
+                    if($UrlPdf){     
+                        $FacturaId = $Devolucion['FacturaId'];                   
+                        $this->almacenarDocumento($FacturaId,3,$UrlPdf);
+                    }
+
+                    $query = "INSERT INTO anulaciones(DevolucionId, AnulacionIdBsale, DocumentoIdBsale, UrlPdfBsale, FechaAnulacion, HoraAnulacion, NumeroDocumento) VALUES ('".$Id."', '".$AnulacionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."', NOW(), NOW(),'".$NumeroDocumento."')";
+                    $DevolucionId = $run->insert($query);
+
+                    if($DevolucionId){
+            
+                        $query = "UPDATE devoluciones SET DevolucionAnulada = '1', FechaDevolucion = NOW() WHERE Id = '".$Id."'";
+                        $update = $run->update($query);
+                                
+                        $response_array['Id'] = $Id;
+                        $response_array['UrlPdf'] = $UrlPdf;
+                        $response_array['status'] = 1; 
+
+                    }else{
+                        $response_array['Message'] = 'Error Anulacion';
+                        $response_array['status'] = 0;
+                    }
+                 
+                }else{
+                    $response_array['status'] = 3;
+                }
+            }else{
+                $response_array['status'] = 99;
+            }
+
+            echo json_encode($response_array);
+        }
+        public function sendAnulacionBsale($DevolucionId,$referenceDocumentId,$TipoToken){
+            $run = new Method;
+            if($TipoToken == 1){
+                $query = "SELECT token_produccion as access_token FROM variables_globales";
+            }else{
+                $query = "SELECT token_prueba as access_token FROM variables_globales";
+            }
+            $variables_globales = $run->select($query);
+            $access_token = $variables_globales[0]['access_token'];
+
+            //CREACION DE LA ANULACION
+
+            $url='https://api.bsale.cl/v1/returns/'.$DevolucionId.'/annulments.json';
+
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+            // Activa SSL
+            // curl_setopt($handle, CURLOPT_SSL_VERIFYHOST, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Indica que se va ser una petición POST
+            curl_setopt($session, CURLOPT_POST, true);
+
+            //CONSTRUCCION DEL ARRAY DE DEVOLUCION
+
+            $array = array(
+                "documentTypeId"        => 17,
+                "referenceDocumentId"   => $referenceDocumentId,
+                "emissionDate"          => time(),
+                "expirationDate"        => time(),
+                "declareSii"            => 1
+            );
+
+            // Parsea a JSON
+            $data = json_encode($array);
+
+            // Agrega parámetros
+            curl_setopt($session, CURLOPT_POSTFIELDS, $data);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+
+            // // Cierra la sesión cURL
+            curl_close($session);
+
+            //Esto es sólo para poder visualizar lo que se está retornando
+            $AnulacionBsale = json_decode($response, true);
+            $DocumentoId = isset($AnulacionBsale['id']) ? trim($AnulacionBsale['id']) : "";
+            if($DocumentoId){
+                $AnulacionBsale['status'] = 1;
+            }else{
+                $Message = $AnulacionBsale['error'];
+                $AnulacionBsale = array();
+                $AnulacionBsale['Message'] = $Message;
+                $AnulacionBsale['status'] = 0;
+            }
+            return $AnulacionBsale;
         }
         public function getReferencia($RutId, $Grupo, $Tipo){
             if($Tipo == 1){
@@ -2179,8 +2390,10 @@
         public function almacenarDocumento($DocumentoId,$Tipo,$UrlPdf){
             if($Tipo == 1){
                 $Folder = 'facturas';
-            }else{
+            }else if($Tipo == 2){
                 $Folder = 'notas_credito';
+            }else{
+                $Folder = 'notas_debito';
             }
             $UrlLocal = "/var/www/html/Teledata/facturacion/".$Folder."/".$DocumentoId.".pdf";    
             if(!file_exists($UrlLocal)){
