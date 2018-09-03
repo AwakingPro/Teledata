@@ -771,6 +771,8 @@
                             $FechaUltimoCobro->add(new DateInterval("P1Y"));
                         }
                         if($FechaUltimoCobro <= $dt){
+                            $Rut = $Servicio['Rut'];
+                            $Grupo = $Servicio['Grupo'];
                             $Conexion = $Servicio['Conexion'];
                             if($Conexion){
                                 $Concepto .= ' - ' . $Conexion;
@@ -778,8 +780,6 @@
                             if(isset($Facturas[$Rut.'-'.$Grupo])){
                                 $FacturaId = $Facturas[$Rut.'-'.$Grupo];
                             }else{
-                                $Rut = $Servicio['Rut'];
-                                $Grupo = $Servicio['Grupo'];
                                 $TipoDocumento = $Servicio['TipoDocumento'];
                                 $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(), '".$TipoDocumento."', NOW(), 0.19, 0)";
                                 $FacturaId = $run->insert($query);
