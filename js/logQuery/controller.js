@@ -2,6 +2,8 @@ $('.listaLog').html('<div style="text-align:center; font-size:15px;">Cargando In
 
 $(document).ready(function() {
 	$('.listaLog').load('../ajax/logQuery/listaLog.php',function(){
-		$('.listaLog > .tabeData').dataTable();
+		$('.listaLog > .tabeData').dataTable({
+			order: [[1, 'desc']]
+		});
 	});
 });
