@@ -1,15 +1,18 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	$query = "SELECT
-	log_query.IdLogSql,
-	log_query.IdUsuario,
-	log_query.Fecha,
-	TipoOperacion,
-	log_query.Query
-	FROM
-	log_query
-	ORDER BY Fecha DESC
-	LIMIT 5000";
+	$query = "	SELECT
+					u.nombre AS 'Usuario',
+					l.Fecha,
+					l.TipoOperacion,
+					l.QUERY 
+				FROM
+					log_query l
+					INNER JOIN usuarios u ON l.IdUsuario = u.id 
+				WHERE
+					TipoOperacion != 'select' 
+				ORDER BY
+					l.Fecha DESC 
+					LIMIT 5000";
 	$run = new Method;
 	$lista = $run->listViewSingle($query);
 	echo $lista;
