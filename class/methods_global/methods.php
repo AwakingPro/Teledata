@@ -104,7 +104,7 @@
 			if ($mysqli) {
 				$rows = array();
 				if ($resultado = $mysqli->query($query)) {
-					$this->log($query, 'select');
+					// $this->log($query, 'select');
 					while ($fila = $resultado->fetch_array(MYSQLI_BOTH)) {
 						$rows[] = $fila;
 					}
