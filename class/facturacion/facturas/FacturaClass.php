@@ -785,24 +785,26 @@
                                 $FacturaId = $run->insert($query);
                                 $Facturas[$Rut.'-'.$Grupo] = $FacturaId;
                             }
-                            $Codigo = $Servicio['Codigo'];
-                            $Valor = $Servicio['Valor'];
-                            $Valor = $Valor * $UF;
-                            $Descuento = $Servicio['Descuento'];
-                            $Cantidad = 1;
-                            $Neto = $Valor * $Cantidad;
-                            $DescuentoValor = $Neto * ( $Descuento / 100 );
-                            $Neto -= $DescuentoValor;
-                            $Impuesto = $Neto * 0.19;
-                            $Total = $Neto + $Impuesto;
-                            $Total = round($Total,0);
-
-                            $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$Id."', '".$Total."', '".$Codigo."')";
-                            $detalle = $run->insert($query);
-                            if($detalle){
-                                $PrimerDiaDelMes = date('Y-m-01');
-                                $query = "UPDATE servicios SET FechaUltimoCobro = '".$PrimerDiaDelMes."' WHERE Id = '".$Id."'";
-                                $data = $run->update($query);
+                            if($FacturaId){
+                                $Codigo = $Servicio['Codigo'];
+                                $Valor = $Servicio['Valor'];
+                                $Valor = $Valor * $UF;
+                                $Descuento = $Servicio['Descuento'];
+                                $Cantidad = 1;
+                                $Neto = $Valor * $Cantidad;
+                                $DescuentoValor = $Neto * ( $Descuento / 100 );
+                                $Neto -= $DescuentoValor;
+                                $Impuesto = $Neto * 0.19;
+                                $Total = $Neto + $Impuesto;
+                                $Total = round($Total,0);
+                                
+                                $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$Id."', '".$Total."', '".$Codigo."')";
+                                $detalle = $run->insert($query);
+                                if($detalle){
+                                    $PrimerDiaDelMes = date('Y-m-01');
+                                    $query = "UPDATE servicios SET FechaUltimoCobro = '".$PrimerDiaDelMes."' WHERE Id = '".$Id."'";
+                                    $data = $run->update($query);
+                                }
                             }
                         }
                     }
