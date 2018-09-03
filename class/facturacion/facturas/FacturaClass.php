@@ -2231,9 +2231,7 @@
             foreach($facturas as $factura){
                 $Id = $factura['Id'];
                 if($Tipo != 3){
-                    $query = "DELETE FROM facturas_detalle WHERE FacturaId = '".$Id."'";
-                    $delete = $run->delete($query);
-                    $query = "DELETE FROM facturas WHERE Id = '".$Id."'";
+                    $query = "UPDATE facturas SET deleted_at = NOW() WHERE Id = '".$Id."'";
                     $delete = $run->delete($query);
                 }else{
                     $query = "UPDATE servicios SET CostoInstalacion = 0 WHERE iD = '".$Id."'";
