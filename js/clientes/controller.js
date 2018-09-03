@@ -1122,4 +1122,48 @@ $(document).ready(function() {
             $('select[name="Ciudad_update"]').selectpicker('refresh')
         }
     }
+    $(document).on('click', '.updateDatosTecnicos', function() {
+        $('.containerTipoServicio').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
+        var idServicio = $(this).attr('attr');
+        var id = $(this).attr('id');
+        $.post('../ajax/cliente/tipoViewModal.php', { id: idServicio }, function(data) {
+            if (data.trim() == 'arriendoEquipos.php') {
+                url = 'getArriendoEquipo.php';
+            } else {
+                url = 'getServicioInternet.php'
+            }
+            $.post('../ajax/servicios/' + url, { id: id }, function(response) {
+                response = JSON.parse(response)
+                response = response[0]
+                Velocidad = response.Velocidad;
+                Plan = response.Plan;
+                $('.containerTipoServicio').load('../clientesServicios/viewTipoServicio/' + data, { Velocidad, Plan, idServicio }, function() {
+                    $('[name="idServicio"]').val(id);
+                    $('.productos').remove();
+                    $('#agregarDatosTecnicos').modal('show')
+                });
+            });
+        });
+    });
+    $(document).on('click', '.actualizarDatosTecnicos', function() {
+        $.postFormValues('../ajax/servicios/updateDatosTecnicos.php', '.container-form-datosTecnicos', function(data) {
+            if (Number(data) > 0) {
+                var id = $('.containerListDatosTecnicos').attr('idTipoLista');
+                $('.modal').modal('hide')
+                $.niftyNoty({
+                    type: 'success',
+                    icon: 'fa fa-check',
+                    message: 'Registro Actualizado Exitosamente',
+                    container: 'floating',
+                    timer: 3000
+                });
+                setTimeout(function() {
+                    $('#verServicios').modal('show')
+                    ListDatosTecnicos(id)
+                }, 500)
+            } else {
+                bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+            }
+        });
+    });
 });

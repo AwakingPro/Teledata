@@ -86,6 +86,9 @@ $(document).ready(function() {
         $.post('../ajax/cliente/dataCliente.php', { rut: $('select[name="Rut"]').selectpicker('val') }, function(data) {
             values = $.parseJSON(data);
             $('.dataServicios').html(values[1]);
+            $('select[name="TipoFactura"]').empty()
+            $('select[name="TipoFactura"]').append(values[2])
+            $('select[name="TipoFactura"]').selectpicker('refresh');
             var count = $('.dataServicios > .tabeData tr th').length - 1;
             $('.dataServicios > .tabeData').dataTable({
                 "scrollX": true,
@@ -362,6 +365,7 @@ $(document).ready(function() {
 
     $(document).on('click', '.guardarServ', function() {
         BooleanCostoInstalacion = $('#BooleanCostoInstalacion').val();
+        Rut = $('#Rut').val()
         $.postFormValues('../ajax/servicios/insertServicio.php', '.container-form', function(data) {
             if (Number(data) > 0) {
                 servicio_id = data
@@ -532,6 +536,7 @@ $(document).ready(function() {
                     }
                 });
                 $('.containerListDatosTecnicos').attr('idTipoLista', id);
+                getServicios();
             });
         });
     }

@@ -251,7 +251,7 @@
 						$tabla .= '<button class="btn btn-success agregarDatosTecnicos" attr="'.$id.'"  data-toggle="modal" data-target="#agregarDatosTecnicos" aria-hidden="true" title="Agregar" style="margin-bottom:20px">Agregar</button>';
 					}
 					$tabla .= "<table class='table table-striped table-hover tabeData'><thead><tr>";
-					for ($i=0; $i < count($fields) ; $i++) {
+					for ($i=1; $i < count($fields) ; $i++) {
 						$tabla.="<th>".$fields[$i]."</th>";
 					}
 					$tabla.="<th></th></tr></thead><tbody>";
@@ -262,6 +262,7 @@
 						for ($i=0; $i < count($rows) ; $i++) {
 							$tabla.= '<tr>';
 							foreach ($rows[$i] as $clave => $valor) {
+								if($clave != 0)
 								$tabla.="<td>".$valor."</td>";
 							}
 							if($tipo){
