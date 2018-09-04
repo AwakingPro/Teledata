@@ -1,7 +1,7 @@
 $(document).ready(function() {
 
     var ModalTable
-
+    
     $.ajax({
         type: "POST",
         url: "../includes/compras/ingresos/showEstado.php",
@@ -22,7 +22,7 @@ $(document).ready(function() {
     });
 
 
-    $('#FacturasTable').DataTable();
+    $('#FacturasTableFechas').DataTable();
 
     $('.input-daterange').datepicker({
         format: "dd-mm-yyyy",
@@ -32,6 +32,22 @@ $(document).ready(function() {
         todayHighlight: true,
         language: 'es'
     });
+
+    $('.row-por-fechas').hide();
+    $('.row-por-clientes').hide();
+
+    $(document).on('click',  '.select-por-fecha', function() {
+        $('.row-por-fechas').show('slow');
+        $('.row-por-clientes').hide('slow');
+       
+    });
+
+    $(document).on('click',  '.select-por-cliente', function() {
+        $('.row-por-fechas').hide('slow');
+        $('.row-por-clientes').show('slow');
+       
+    });
+
     $(document).on('click', '#filtrar', function() {
         var startDate = $("#date-range .input-daterange input[name='start']").val();
         var endDate = $("#date-range .input-daterange input[name='end']").val();
@@ -48,7 +64,7 @@ $(document).ready(function() {
         var endDate = $("#date-range .input-daterange input[name='end']").val();
         var documentType = $("#documentType").val();
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { startDate: startDate, endDate: endDate, documentType: documentType }, function(data) {
-            FacturasTable = $('#FacturasTable').DataTable({
+            FacturasTableFechas = $('#FacturasTableFechas').DataTable({
                 order: [
                     [0, 'desc']
                 ],

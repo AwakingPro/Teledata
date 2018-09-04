@@ -30,13 +30,96 @@
 						<li class="active">Documentos por fecha</li>
 					</ol>
 					<div id="page-content">
+					<!-- row de seleccion -->
 						<div class="row">
+							<div class="col-md-12">
+								<div class="panel">
+									<div class="panel-heading">
+										<h3 class="panel-title">Seleccione tipo de Visualización </h3>
+									</div>
+									<div id="body-fecha" class="panel-body">
+										<div class="col-md-12">
+											<select class="selectpicker form-control" id="select-por" data-container="body">
+												<option value="">Seleccine Filtro</option>
+												<option class="select-por-fecha" id="select-por-fecha" value="1">Documento por Fecha</option>
+												<option  class="select-por-cliente" id="select-por-cliente" value="2">Documento por Cliente</option>
+											</select>
+										</div>
+									</div>
+									<!-- end panel body -->
+								</div>
+							</div>
+						</div>
+					<!-- fin row de seleccion -->
+
+						<!-- incicio row por clientes -->
+						<div class="row-por-clientes" id="row-por-clientes" class="row">
 							<div class="col-md-12">
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
 										<h3 class="panel-title">Visualización de documentos </h3>
 									</div>
+									<!--Panel body-->
+									<div class="panel-body">
+										<!--Tabs content-->
+										<div class="tab-content">
+											<h3>Lista de Clientes</h3><br>
+											<div class="row">
+												<div class="col-md-4">
+													<select name="rutCliente" class="form-control" data-live-search="true">
+														<option value="">Seleccione...</option>
+													</select>
+													<br><br>
+													<select class="selectpicker form-control" id="documentType" data-container="body">
+														<option value="">Todos</option>
+														<option value="1">Boleta</option>
+														<option value="2">Factura</option>
+													</select>
+												</div>
+												<br><br>
+											</div>
+											<br><br>
+											<button id="descargar" class="btn btn-primary">Descargar</button><br><br>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="table-responsive">
+														<div class="col-md-12">
+															<table id="FacturasTable" class="table table-striped table-bordered">
+																<thead>
+																	<tr>
+																		<th class="text-center">N* de Documento</th>
+																		<th class="text-center">Tipo de Documento</th>
+																		<th class="text-center">Fecha Emisión</th>
+																		<th class="text-center">Fecha Vencimiento</th>
+																		<th class="text-center">Total Doc.</th>
+																		<th class="text-center">Saldo Doc.</th>
+																		<th class="text-center">Acción</th>
+																	</tr>
+																</thead>
+																<tbody>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- fin row por clientes -->
+						
+						<div class="row-por-fechas" id="row-por-fechas" class="row">
+							<div class="col-md-12">
+								<div class="panel ">
+									<!--Panel heading-->
+									<div class="panel-heading">
+										<h3 class="panel-title">Visualización de documentos </h3>
+										
+									</div>
+									
 									<!--Panel body-->
 									<div class="panel-body">
 										<!--Tabs content-->
@@ -57,14 +140,15 @@
 													<option value="2">Factura</option>
 												</select>
 												<br><br>
-                                                <button id="filtrar" class="btn btn-success">Filtrar</button> <button id="descargar" class="btn btn-primary">Descargar</button><br><br>
+                                                <button id="filtrar" class="btn btn-success">Filtrar</button> 
+												<button id="descargar" class="btn btn-primary">Descargar</button><br><br>
                                             </div>
 											<br><br>
 											<div class="row">
 												<div class="col-md-12">
 													<div class="table-responsive">
 														<div class="col-md-12">
-															<table id="FacturasTable" class="table table-striped table-bordered">
+															<table id="FacturasTableFechas" class="table table-striped table-bordered">
 																<thead>
 																	<tr>
                                                                         <th class="text-center">Cliente</th>
@@ -86,6 +170,7 @@
 											</div>
 										</div>
 									</div>
+									<!-- end panel body -->
 								</div>
 							</div>
 						</div>
@@ -258,6 +343,7 @@
 	<script src="../plugins/moment/moment.js"></script>
 	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 	<script src="../js/facturacion/Facturas.js"></script>
+	<script src="../js/clientes/facturas.js"></script>
 	<script src="../plugins/numbers/jquery.number.js"></script>
 	<script src="../plugins/sweetalert/sweetalert.min.js"></script>
 	<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
