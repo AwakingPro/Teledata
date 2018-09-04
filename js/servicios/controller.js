@@ -15,9 +15,9 @@ $(document).ready(function() {
             monthsShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
             today: "Hoy"
         };
-    
+
         $('#demo-dp-component .input-group.date').datepicker({ autoclose: true, format: "yyyy-mm-dd", weekStart: 1, language: 'es' });
-    
+
         $('.input-daterange').datepicker({
             format: "yyyy/mm/dd",
             weekStart: 1,
@@ -79,10 +79,10 @@ $(document).ready(function() {
     $('[name="Rut"]').mask("00000000");
     $('[name="Valor"]').number(true, 0, ',', '.');
     $('[name="Descuento"]').mask('00');
-    $('[name="CostoInstalacion"]').number(true, 0, ',', '.');
+    $('[name="CostoInstalacion"]').number(true, 2, ',', '.');
     $('[name="CostoInstalacionDescuento"]').mask('00');
 
-    function getServicios(){
+    function getServicios() {
         $.post('../ajax/cliente/dataCliente.php', { rut: $('select[name="Rut"]').selectpicker('val') }, function(data) {
             values = $.parseJSON(data);
             $('.dataServicios').html(values[1]);
@@ -300,7 +300,7 @@ $(document).ready(function() {
         }
     });
 
-    $('#CostoInstalacion').on('change', function () {
+    $('#CostoInstalacion').on('change', function() {
         CostoInstalacion = $(this).val()
         CostoInstalacionPesos = CostoInstalacion * ValorUF
         $('#CostoInstalacionPesos').text(Math.round(CostoInstalacionPesos))
