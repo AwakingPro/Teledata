@@ -598,7 +598,7 @@
                         $query = "  SELECT
                                         facturas_detalle.*,
                                         facturas.FechaFacturacion,
-                                        facturas.Rut 
+                                        facturas.Rut,
                                         facturas.NumeroOC, 
                                         IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, 
                                         facturas.Referencia
