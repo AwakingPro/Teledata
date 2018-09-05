@@ -307,9 +307,13 @@ $(document).ready(function() {
     });
 
     $('body').on('focus', ".date", function() {
-        $('.date').datetimepicker({
-            locale: 'es',
-            format: 'DD-MM-YYYY'
+        $('.date').datepicker({
+            format: "dd-mm-yyyy",
+            weekStart: 1,
+            todayBtn: "linked",
+            autoclose: true,
+            todayHighlight: true,
+            language: 'es'
         });
     });
 

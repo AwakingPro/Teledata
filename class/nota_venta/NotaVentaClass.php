@@ -267,11 +267,11 @@
             if($NotaVenta){
                 $NotaVenta = $NotaVenta[0];
                 $Rut = $NotaVenta['rut'];
-                $Grupo = 0;                
+                $Grupo = 1000;                
                 $TipoDocumento = $NotaVenta['tipo_cliente'];
                 $NumeroOC = $NotaVenta['numero_oc'];
                 $FechaOC = $NotaVenta['fecha_oc'];
-                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, NumeroOC, FechaOC) VALUES ('".$Rut."', '".$Grupo."', '1', '1000', NOW(), NOW(), '".$TipoDocumento."', NOW(), 0.19, '0', '', '0', '', '".$NumeroOC."', '".$FechaOC."')";
+                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, NumeroOC, FechaOC) VALUES ('".$Rut."', '".$Grupo."', '1', '0', NOW(), NOW(), '".$TipoDocumento."', NOW(), 0.19, '0', '', '0', '', '".$NumeroOC."', '".$FechaOC."')";
                 $FacturaId = $run->insert($query);
                 if($FacturaId){
                     $query = "SELECT * from nota_venta_detalle where nota_venta_id = '$id'";

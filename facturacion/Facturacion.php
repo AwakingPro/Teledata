@@ -65,7 +65,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Numero de OC</label>
-                                        <input id="NumeroOC" name="NumeroOC" type="text" placeholder="Ingrese el numero de la OC" class="form-control input-sm number" validation="not_null" data-nombre="Numero de OC">
+                                        <input id="NumeroOC" name="NumeroOC" type="text" placeholder="Ingrese el numero de la OC" class="form-control input-sm" validation="not_null" data-nombre="Numero de OC">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
