@@ -59,7 +59,7 @@
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
-										<h3 class="panel-title">Visualización de documentos </h3>
+										<h3 class="panel-title">Visualización de documentos por Cliente</h3>
 									</div>
 									<!--Panel body-->
 									<div class="panel-body">
@@ -111,13 +111,14 @@
 							</div>
 						</div>
 						<!-- fin row por clientes -->
-						
+
+						<!-- inicio row por fechas -->
 						<div class="row-por-fechas" id="row-por-fechas" class="row">
 							<div class="col-md-12">
 								<div class="panel ">
 									<!--Panel heading-->
 									<div class="panel-heading">
-										<h3 class="panel-title">Visualización de documentos </h3>
+										<h3 class="panel-title">Visualización de documentos por Fechas </h3>
 										
 									</div>
 									
@@ -175,6 +176,71 @@
 								</div>
 							</div>
 						</div>
+						<!-- fin row por fechas -->
+
+						<!-- inicio row por NFactura -->
+						<div class="row-por-NFactura" id="row-por-NFactura" class="row">
+							<div class="col-md-12">
+								<div class="panel ">
+									<!--Panel heading-->
+									<div class="panel-heading">
+										<h3 class="panel-title">Visualización de documentos Por Nº de Documento</h3>	
+									</div>
+									
+									<!--Panel body-->
+									<div class="panel-body">
+										<!--Tabs content-->
+										<div class="tab-content">
+											<h3>Filtrar</h3><br>
+											<div class="col-sm-4">
+                                                <div id="">
+                                                    <div class="input-group" id="">
+                                                        <input type="text" class="form-control" name="NumeroDocumento" />
+                                                    </div>
+                                                </div>
+                                                <br>
+												<select class="selectpicker form-control" id="documentType" data-container="body">
+													<option value="">Todos</option>
+													<option value="1">Boleta</option>
+													<option value="2">Factura</option>
+												</select>
+												<br><br>
+                                                <button id="filtrarNDocumento" class="btn btn-success">Filtrar</button> 
+												<button id="descargarNDocumento" class="btn btn-primary">Descargar</button><br><br>
+                                            </div>
+											<br><br>
+											<div class="row">
+												<div class="col-md-12">
+													<div class="table-responsive">
+														<div class="col-md-12">
+															<table id="FacturasTableNDocumento" class="table table-striped table-bordered">
+																<thead>
+																	<tr>
+                                                                        <th class="text-center">Cliente</th>
+																		<th class="text-center">N* de Documento</th>
+																		<th class="text-center">Tipo de Documento</th>
+																		<th class="text-center">Fecha Emisión</th>
+																		<th class="text-center">Fecha Vencimiento</th>
+																		<th class="text-center">Total Doc.</th>
+																		<th class="text-center">Saldo Doc.</th>
+																		<th class="text-center">Acción</th>
+																	</tr>
+																</thead>
+																<tbody>
+																</tbody>
+															</table>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<!-- end panel body -->
+								</div>
+							</div>
+						</div>
+						<!-- fin row por NFactura -->
+
 					</div>
 				</div>
 			</div>

@@ -1376,7 +1376,8 @@
                 $dt = \DateTime::createFromFormat('Y/m/d',$endDate);
                 $endDate = $dt->format('Y-m-d');
                 $query .= " AND facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'";
-            }else{
+            }
+            if($Rut){
                 $query .= " AND facturas.Rut = '".$Rut."'";
             }
             if($documentType){
