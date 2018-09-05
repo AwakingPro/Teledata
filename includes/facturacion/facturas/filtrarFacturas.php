@@ -18,8 +18,13 @@
 	}else{
 		$Rut = '';
 	}
+	if(isset($_POST['NumeroDocumento'])){
+		$NumeroDocumento = $_POST['NumeroDocumento'];
+	}else{
+		$NumeroDocumento = '';
+	}
 
 	$Factura = new Factura();
-	$Factura->filtrarFacturas($startDate,$endDate,$Rut,$documentType);
+	$Factura->filtrarFacturas($startDate, $endDate, $Rut, $documentType, $NumeroDocumento);
 	
 ?>

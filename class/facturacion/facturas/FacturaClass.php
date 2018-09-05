@@ -1349,7 +1349,7 @@
             $array = array('DescuentoAplicado' => $DescuentoAplicado, 'CantidadAplicada' => $CantidadAplicada);
             return $array; 
         }
-        public function filtrarFacturas($startDate,$endDate,$Rut,$documentType){
+        public function filtrarFacturas($startDate,$endDate,$Rut,$documentType, $NumeroDocumento){
 
             $run = new Method;
             $ToReturn = array();
@@ -1381,6 +1381,9 @@
             }
             if($documentType){
                 $query .= " AND facturas.TipoDocumento = '".$documentType."'";
+            }
+            if($NumeroDocumento){
+                $query .= " AND facturas.NumeroDocumento = '".$NumeroDocumento."'";
             }
             $facturas = $run->select($query);
 

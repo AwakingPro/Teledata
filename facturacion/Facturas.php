@@ -43,6 +43,7 @@
 												<option value="">Seleccine Filtro</option>
 												<option class="select-por-fecha" id="select-por-fecha" value="1">Documento por Fecha</option>
 												<option  class="select-por-cliente" id="select-por-cliente" value="2">Documento por Cliente</option>
+												<option  class="select-por-NFactura" id="select-por-NFactura" value="3">Documento por Número de Factura</option>
 											</select>
 										</div>
 									</div>
