@@ -37,15 +37,13 @@ $(document).ready(function() {
     $('.row-por-clientes').hide();
 
     $(document).on('click',  '.select-por-fecha', function() {
-        $('.row-por-fechas').show('slow');
-        $('.row-por-clientes').hide('slow');
-       
+        $('.row-por-clientes').slideUp('slow');
+        $('.row-por-fechas').slideDown('slow');
     });
 
     $(document).on('click',  '.select-por-cliente', function() {
-        $('.row-por-fechas').hide('slow');
-        $('.row-por-clientes').show('slow');
-       
+        $('.row-por-fechas').slideUp('slow');
+        $('.row-por-clientes').slideDown('slow');
     });
 
     $(document).on('click', '#filtrar', function() {
