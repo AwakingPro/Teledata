@@ -27,7 +27,7 @@
 					<br>
 					<ol class="breadcrumb">
 						<li><a href="#">Inicio</a></li>
-						<li class="active">Documentos por fecha</li>
+						<li class="active">Listado de documentos</li>
 					</ol>
 					<div id="page-content">
 					<!-- row de seleccion -->
@@ -40,10 +40,10 @@
 									<div id="body-fecha" class="panel-body">
 										<div class="col-md-12">
 											<select class="selectpicker form-control" id="select-por" data-container="body">
-												<option value="">Seleccine Filtro</option>
-												<option class="select-por-fecha" id="select-por-fecha" value="1">Documento por Fecha</option>
-												<option  class="select-por-cliente" id="select-por-cliente" value="2">Documento por Cliente</option>
-												<option  class="select-por-NFactura" id="select-por-NFactura" value="3">Documento por Número de Factura</option>
+												<option value="">Seleccione Filtro</option>
+												<option class="select-por-fecha" id="select-por-fecha" value="1">Por Fecha</option>
+												<option  class="select-por-cliente" id="select-por-cliente" value="2">Por Cliente</option>
+												<option  class="select-por-NFactura" id="select-por-NFactura" value="3">Por Nº de Documento</option>
 											</select>
 										</div>
 									</div>

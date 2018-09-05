@@ -1349,7 +1349,7 @@
             $array = array('DescuentoAplicado' => $DescuentoAplicado, 'CantidadAplicada' => $CantidadAplicada);
             return $array; 
         }
-        public function filtrarFacturas($startDate,$endDate,$Rut,$documentType, $NumeroDocumento){
+        public function filtrarFacturas($startDate,$endDate,$Rut,$documentType,$NumeroDocumento){
 
             $run = new Method;
             $ToReturn = array();
@@ -1432,6 +1432,12 @@
                     array_push($ToReturn,$data);
                     if($EstatusFacturacion == 2){
                         $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada FROM devoluciones WHERE FacturaId = '".$Id."'";
+                        if($startDate){
+                            $query .= " AND FechaDevolucion BETWEEN '".$startDate."' AND '".$endDate."'";
+                        }
+                        if($NumeroDocumento){
+                            $query .= " AND NumeroDocumento = '".$NumeroDocumento."'";
+                        }
                         $devoluciones = $run->select($query);
                         if($devoluciones){
                             $devolucion = $devoluciones[0];
