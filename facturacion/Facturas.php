@@ -86,7 +86,7 @@
 												<div class="col-md-12">
 													<div class="table-responsive">
 														<div class="col-md-12">
-															<table id="FacturasTable" class="table table-striped table-bordered">
+															<table id="FacturasTableCliente" class="table table-striped table-bordered">
 																<thead>
 																	<tr>
 																		<th class="text-center">N* de Documento</th>
@@ -410,7 +410,6 @@
 	<script src="../plugins/moment/moment.js"></script>
 	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 	<script src="../js/facturacion/Facturas.js"></script>
-	<script src="../js/clientes/facturas.js"></script>
 	<script src="../plugins/numbers/jquery.number.js"></script>
 	<script src="../plugins/sweetalert/sweetalert.min.js"></script>
 	<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
