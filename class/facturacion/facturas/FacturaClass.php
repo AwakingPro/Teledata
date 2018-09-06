@@ -107,9 +107,6 @@
                 foreach($facturas as $factura){
                     $Rut = $factura['Rut'];
                     $Grupo = $factura['Grupo'];
-                    $TipoDocumento = $factura['TipoDocumento'];
-                    $IVA = $factura['IVA'];
-                    $Valor = $factura['Valor'];
                     $data = array();
                     $data['Id'] = $Rut;
                     $data['Rut'] = $Rut;          
@@ -117,12 +114,11 @@
                     $data['Cliente'] = $factura['Cliente'];   
                     $data['UrlPdfBsale'] = '';
                     $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
-                    $data['Valor'] = $Valor;
-                    $data['EstatusFacturacion'] = 0;
-                    $data['TipoDocumento'] = $TipoDocumento;
+                    $data['Valor'] = $factura['Valor'];
+                    $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['NombreGrupo'] = $factura['NombreGrupo'];
                     if($factura['EsOC']){
-                        $query = "SELECT NumeroOC FROM facturas WHERE Rut = '".$Rut."' AND Grupo = '".$Grupo."' AND TipoDocumento = '".$TipoDocumento."' AND IVA = '".$IVA."' LIMIT 1";
+                        $query = "SELECT NumeroOC FROM facturas WHERE Rut = '".$Rut."' AND Grupo = '".$Grupo."' AND EstatusFacturacion = '0' LIMIT 1";
                         $OC = $run->select($query);
                         if($OC){
                             $OC = $OC[0];
