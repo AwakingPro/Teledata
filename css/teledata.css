@@ -1,3 +1,15 @@
+.label-cliente {
+	    margin-bottom: 0px;
+}
+.panel-body-cliente {
+	padding-top:35px;
+}
+.info-cliente {
+	margin-top: 5px;
+}
+.boton-volver {
+	padding-top:10px;
+}
 div.bg-img{
 	background-image: url('../img/bg-img/bg-img-2.jpg');
 }
