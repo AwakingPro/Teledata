@@ -32,150 +32,29 @@ $id_cliente = $_GET['cliente'];
 					</div>
 					<div id="page-content">
 						<div class="row">
+							<?php
+								include 'resumen/cliente-info.php';
+							?>
 							<div class="col-md-4">
-								<div class="panel">
-									<div class="panel-bg-cover">
-										<img class="img-responsive" src="../img/thumbs/img1.jpg" alt="Image">
-										
-									</div>
-									<div class="panel-media imgUser">
-										<img class="panel-media-img img-circle img-border-light" src="../img/av1.png" alt="Profile Picture">
-										
-									</div>
-									<div class="panel-body panel-body-cliente">
-                                        <!-- <h3 class="nameUser">Teledata ERP</h3> -->
-										<div class="col-md-6">
-											<label class="label-cliente">Nombre Contacto</label>
-											<h5 class="info-cliente"><?php echo $lista[0][1]; ?></h5>
-											<label class="label-cliente">Mail Contacto</label>
-											<h5 class="info-cliente"><?php echo $lista[0][2]; ?></h5>
-										</div>
-                                        <div class="col-md-6">
-										<label class="label-cliente">Teléfono Contacto</label>
-											<h5 class="info-cliente"><?php echo $lista[0][3]; ?></h5>
-										</div>
-										<br>
-										<div class="col-md-12">
-											Para obtener ayuda descargue aquí el manual de usuario <br>
-											<i class="pli-information icon-lg icon-fw"></i> Ayuda
-										</div>
-										<br><br>
-										<div class="col-md-6 boton-volver">
-											<a href="../clientes/listaCliente.php" class="btn btn-primary"><i class="fa fa-paper-plane-o"> Volver</i></a>
-										</div>
-										
-									</div>
-								</div>
-							</div>
-							<div class="col-md-4">
-								<div class="col-md-12">
-									<div class="panel">
-										<div class="panel-body">
-											<div class="row">
-												<div class="col-xs-10"><h1 class="marginNull numberMiniPanel" style="color: #2ab4c0; margin-left: 5px;"><span class="total"></span></h1> </div>
-												<div class="col-xs-2"><h1 class="marginNull" style="    color: #cbd4e0;"><i class="fa fa-ticket" aria-hidden="true"></i></h1></div>
-												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales</h2></div>
-												<div class="col-md-12" style="margin-top: 27px;">
-													<div class="progress">
-														<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
-															<span class="sr-only">60% Complete</span>
-														</div>
-													</div>
-												</div>
-												<div class="col-xs-10 smalTextMiniPanel"> El porcentaje es de </div>
-												<div class="col-xs-2 smalTextMiniPanel">100%</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-12">
-									<div class="panel">
-										<div class="panel-body">
-											<div class="row">
-												<div class="col-xs-10"><h1 class="marginNull numberMiniPanel" style="color: #f36a5a; margin-left: 5px;"><span class="abiertos"></span></h1> </div>
-												<div class="col-xs-2"><h1 class="marginNull" style="    color: #cbd4e0;"><i class="fa fa-ticket" aria-hidden="true"></i></h1></div>
-												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales abiertos</h2></div>
-												<div class="col-md-12" style="margin-top: 27px;">
-													<div class="progress">
-														<div class="progress-bar progress-bar-danger porcAbiertos" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-															<span class="sr-only">60% Complete</span>
-														</div>
-													</div>
-												</div>
-												<div class="col-xs-10 smalTextMiniPanel"> El porcentaje es de </div>
-												<div class="col-xs-2 smalTextMiniPanel porcAbiertosTxt">0%</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
+								<?php 
+									include 'resumen/documentos-vencidos.php';
+									include 'resumen/servicios.php';
+								?>
 							</div>
 							<div class="col-md-4">
 
-
-
-							<div class="col-md-12">
-									<div class="panel">
-										<div class="panel-body">
-											<div class="row">
-												<div class="col-xs-10"><h1 class="marginNull numberMiniPanel" style="color: #8877a9; margin-left: 5px;"><span class="cerrados"></span></h1> </div>
-												<div class="col-xs-2"><h1 class="marginNull" style="    color: #cbd4e0;"><i class="fa fa-ticket" aria-hidden="true"></i></h1></div>
-												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales cerrados</h2></div>
-												<div class="col-md-12" style="margin-top: 27px;">
-													<div class="progress">
-														<div class="progress-bar porcCerrados" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-															<span class="sr-only">60% Complete</span>
-														</div>
-													</div>
-												</div>
-												<div class="col-xs-10 smalTextMiniPanel"> El porcentaje es de </div>
-												<div class="col-xs-2 smalTextMiniPanel porcCerradosTxt">0%</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-12">
-									<div class="panel">
-										<div class="panel-body">
-											<div class="row">
-												<div class="col-xs-10"><h1 class="marginNull numberMiniPanel" style="color: #5C9BD1; margin-left: 5px;"><span class="finalizados"></span></h1> </div>
-												<div class="col-xs-2"><h1 class="marginNull" style="    color: #cbd4e0;"><i class="fa fa-ticket" aria-hidden="true"></i></h1></div>
-												<div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales finalizados</h2></div>
-												<div class="col-md-12" style="margin-top: 27px;">
-													<div class="progress">
-														<div class="progress-bar progress-bar-info porcFinalizado" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-															<span class="sr-only">60% Complete</span>
-														</div>
-													</div>
-												</div>
-												<div class="col-xs-10 smalTextMiniPanel"> El porcentaje es de </div>
-												<div class="col-xs-2 smalTextMiniPanel porcFinalizadoTxt">0%</div>
-											</div>
-										</div>
-									</div>
-								</div>
-
+								<?php
+									include 'resumen/saldo.php';
+									include 'resumen/cliente-deuda.php';	
+								?>
 							</div>
 						</div>
 						<div class="row">
-							<div class="col-md-6">
-								<div class="panel">
-									<div class="panel-body">
-										<h3 style="margin-top: 0">Lista de clientes creados</h3>
-										<div class="listaCliente"></div>
-									</div>
-								</div>
-							</div>
-							<div class="col-md-6">
-								<div class="panel">
-									<div class="panel-body">
-										<h3 style="margin-top: 0">Lista de servicios asignados</h3>
-										<div class="listaServicio"></div>
-									</div>
-								</div>
-							</div>
+							<?php
+								include 'resumen/documentos-emitidos.php';
+								include 'resumen/documentos-pagados.php';
+							?>
+							
 						</div>
 					</div>
 				</div>
