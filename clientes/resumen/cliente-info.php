@@ -12,13 +12,13 @@
             <!-- <h3 class="nameUser">Teledata ERP</h3> -->
             <div class="col-md-6">
                 <label class="label-cliente">Nombre Contacto</label>
-                <h5 class="info-cliente"><?php echo $lista[0][1]; ?></h5>
-                <label class="label-cliente">Mail Contacto</label>
                 <h5 class="info-cliente"><?php echo $lista[0][2]; ?></h5>
+                <label class="label-cliente">Mail Contacto</label>
+                <h5 class="info-cliente"><?php echo $lista[0][3]; ?></h5>
             </div>
             <div class="col-md-6">
             <label class="label-cliente">Teléfono Contacto</label>
-                <h5 class="info-cliente"><?php echo $lista[0][3]; ?></h5>
+                <h5 class="info-cliente"><?php echo $lista[0][4]; ?></h5>
             </div>
             <br>
             <div class="col-md-12">
