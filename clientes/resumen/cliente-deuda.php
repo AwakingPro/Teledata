@@ -2,18 +2,12 @@
     <div class="panel">
         <div class="panel-body">
             <div class="row">
-                <div class="col-xs-10"><h1 class="marginNull numberMiniPanel" style="color: #5C9BD1; margin-left: 5px;"><span class="finalizados"></span></h1> </div>
-                <div class="col-xs-2"><h1 class="marginNull" style="    color: #cbd4e0;"><i class="fa fa-ticket" aria-hidden="true"></i></h1></div>
-                <div class="col-md-12"><h2 class="marginNull textMiniPanel">Tickets totales finalizados</h2></div>
-                <div class="col-md-12" style="margin-top: 27px;">
-                    <div class="progress">
-                        <div class="progress-bar progress-bar-info porcFinalizado" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-                            <span class="sr-only">60% Complete</span>
-                        </div>
-                    </div>
+                
+                <div class="col-md-12" style="margin-top: 34px;color:red; text-align:center;">
+                    <h4>Cliente Cortado por Deuda desde el <span class=""></span class="">01/01/2018</h4>
                 </div>
-                <div class="col-xs-10 smalTextMiniPanel"> El porcentaje es de </div>
-                <div class="col-xs-2 smalTextMiniPanel porcFinalizadoTxt">0%</div>
+                <div class="col-md-6 relleno"></div>
+               
             </div>
         </div>
     </div>
