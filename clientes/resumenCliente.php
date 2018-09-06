@@ -61,7 +61,7 @@ $id_cliente = $_GET['cliente'];
 										</div>
 										<br><br>
 										<div class="col-md-6 boton-volver">
-											<a href="../clientes/listaCliente.php" class="btn btn-primary">Volver</a>
+											<a href="../clientes/listaCliente.php" class="btn btn-primary"><i class="fa fa-paper-plane-o"> Volver</i></a>
 										</div>
 										
 									</div>
