@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-xs-5">
                     <h1 class="marginNull numberMiniPanel" style="color: #2ab4c0; margin-left: 5px;">
-                    <span class="">$534</span>
+                    <span class="">$0</span>
                     </h1>
                  </div>
                 <div class="col-xs-7">

@@ -5,7 +5,8 @@ $id_cliente = $_GET['cliente'];
 
 <?php 
     require_once('../class/methods_global/methods.php'); 
-    require_once('../ajax/cliente/personaempresa.php');
+	require_once('../ajax/cliente/listaResumenCliente.php');
+	require_once('../ajax/cliente/getServicios.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
