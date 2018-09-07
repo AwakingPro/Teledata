@@ -27,6 +27,9 @@
 		public function log($query,$operacion){
 			$mysqli = $this->conexion();
 			if ($mysqli) {
+				if (session_status() != PHP_SESSION_ACTIVE){
+					session_start();
+				}
 				if (!isset($_SESSION['idUsuario']) || empty($_SESSION['idUsuario'])) {
 					$resultado = $mysqli->query('INSERT INTO log_query (IdUsuario, Fecha, Query, TipoOperacion) VALUES (0, "'.date("Y-m-d H:i:s").'", "'.$query.'", "'.$operacion.'")');
 				}else{

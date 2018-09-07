@@ -1,17 +1,17 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
 	$query = "	SELECT
-					u.nombre AS 'Usuario',
+					IFNULL(u.nombre, 'Sin usuario') AS 'Usuario',
 					l.Fecha,
 					l.TipoOperacion,
 					l.QUERY 
 				FROM
 					log_query l
-					INNER JOIN usuarios u ON l.IdUsuario = u.id 
+					LEFT JOIN usuarios u ON l.IdUsuario = u.id 
 				WHERE
 					TipoOperacion != 'select' 
 				ORDER BY
-					l.Fecha DESC 
+					l.Fecha ASC 
 					LIMIT 5000";
 	$run = new Method;
 	$lista = $run->listViewSingle($query);
