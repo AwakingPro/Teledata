@@ -24,7 +24,7 @@
                 <div class="col-md-6 ">
                     <h3 class="textMiniPanel">Monto Adeudado</h3>
                 </div>
-                <div class="col-md-6"><h2 class="montos">$100.000</h2></div>
+                <div class="col-md-6"><h2 class="montos">$<?php echo $monto_deuda; ?></h2></div>
             </div>
         </div>
     </div>
