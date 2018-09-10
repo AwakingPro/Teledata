@@ -94,8 +94,7 @@
 		}
 		
 		
-	}
-	
+	}	
 	
 	// echo $FacturasVencidas[0][0];
 	$documentos_vencidos = '';

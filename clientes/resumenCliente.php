@@ -5,7 +5,8 @@ $id_cliente = $_GET['cliente'];
 
 <?php 
     require_once('../class/methods_global/methods.php'); 
-    require_once('../ajax/cliente/personaempresa.php');
+	require_once('../ajax/cliente/listaResumenCliente.php');
+	require_once('../ajax/cliente/getServicios.php');
 ?>
 <!DOCTYPE html>
 <html lang="es">
@@ -85,6 +86,7 @@ $id_cliente = $_GET['cliente'];
 	<script src="../js/methods_global/methods.js"></script>
 	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
-	<script src="../js/bienvenida/controller.js"></script>
+	<!-- <script src="../js/bienvenida/controller.js"></script> -->
+	<script src="../js/resumenCliente/resumenCliente.js"></script>
 </body>
 </html>
