@@ -71,12 +71,6 @@
 													<select name="rutCliente" class="form-control" data-live-search="true">
 														<option value="">Seleccione...</option>
 													</select>
-													<br><br>
-													<select class="selectpicker form-control" id="documentType" data-container="body">
-														<option value="">Todos</option>
-														<option value="1">Boleta</option>
-														<option value="2">Factura</option>
-													</select>
 												</div>
 												<br><br>
 											</div>

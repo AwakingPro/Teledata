@@ -212,6 +212,25 @@ $(document).ready(function() {
         }
     });
 
+    $(document).on('change', '#documentType', function() {
+        var documentType = $(this).val();
+        if (documentType) {
+            if (documentType == 1) {
+                documentType = 'Boleta'
+            } else {
+                documentType = 'Factura'
+            }
+        } else {
+            documentType = '';
+        }
+        FacturasTableFechas
+            .columns(2)
+            .search(documentType)
+            .draw();
+    });
+
+
+
     function getFacturasNDocumento() {
 
         var NumeroDocumento = $('[name="NumeroDocumento"]').val();
