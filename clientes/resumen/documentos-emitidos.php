@@ -14,6 +14,7 @@
                                         <th class="text-center">Fecha Vencimiento</th>
                                         <th class="text-center">Deuda</th>
                                         <th class="text-center">Pago</th>
+                                        <th class="text-center">Por Pagar</th>
                                     </tr>
                                 </thead>
                                 <tbody>
