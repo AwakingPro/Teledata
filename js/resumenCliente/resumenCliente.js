@@ -34,6 +34,25 @@ $(document).ready(function() {
                         .attr('id', data.id_factura)
                         .addClass('text-center')
                 },
+                "columnDefs": [{
+                    "targets": 4,
+                    "render": function(data, type, row) {
+                        value = formatcurrency(data)
+                        return "<div style='text-align: center'>" + value + "</div>";
+                    }
+                }, {
+                    "targets": 5,
+                    "render": function(data, type, row) {
+                        value = formatcurrency(data)
+                        return "<div style='text-align: center'>" + value + "</div>";
+                    }
+                }, {
+                    "targets": 6,
+                    "render": function(data, type, row) {
+                        value = formatcurrency(data)
+                        return "<div style='text-align: center'>" + value + "</div>";
+                    }
+                }],
                 language: {
                     processing: "Procesando ...",
                     search: 'Buscar',
@@ -89,6 +108,25 @@ $(document).ready(function() {
                         .attr('id', data.id_factura)
                         .addClass('text-center')
                 },
+                "columnDefs": [{
+                    "targets": 4,
+                    "render": function(data, type, row) {
+                        value = formatcurrency(data)
+                        return "<div style='text-align: center'>" + value + "</div>";
+                    }
+                }, {
+                    "targets": 5,
+                    "render": function(data, type, row) {
+                        value = formatcurrency(data)
+                        return "<div style='text-align: center'>" + value + "</div>";
+                    }
+                }, {
+                    "targets": 6,
+                    "render": function(data, type, row) {
+                        value = formatcurrency(data)
+                        return "<div style='text-align: center'>" + value + "</div>";
+                    }
+                }],
                 language: {
                     processing: "Procesando ...",
                     search: 'Buscar',
@@ -117,4 +155,9 @@ $(document).ready(function() {
         });
     }
 
+    $('.montos').text(formatcurrency($('.montos').text()))
+
+    function formatcurrency(n) {
+        return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+    }
 });
