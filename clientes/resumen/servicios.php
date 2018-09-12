@@ -25,7 +25,7 @@
                     </h1>
                  </div>
                 <div class="col-md-12"><h2 class="marginNull textMiniPanel">Servicios Suspendidos <i class="fa fa-eye eye-inactivos" title="Ver Servicios Suspendidos"></i></h2></div>
-                <?php   //include 'ModalServInactivos.php'; ?>
+                <?php   include 'ModalServInactivos.php'; ?>
             </div>
         </div>
     </div>
