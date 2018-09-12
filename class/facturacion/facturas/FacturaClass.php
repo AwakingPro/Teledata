@@ -1940,7 +1940,7 @@
 
             echo json_encode($response_array);
         }
-        public function getDetallesDocumentoBsale($referenceDocumentId,$access_token){
+        public function getDetallesDocumentoBsale($referenceDocumentId,$access_token, $type = 1){
             $url='https://api.bsale.cl/v1/documents/'.$referenceDocumentId.'/details.json';
 
             // Inicia cURL
@@ -1966,8 +1966,17 @@
             $details = array();
             foreach($DetallesBsale['items'] as $Detalle){
                 $documentDetailId = $Detalle['id'];
-                $quantity = $Detalle['quantity'];
-                $detail = array("documentDetailId" => $documentDetailId, "unitValue" => 0, "quantity" => $quantity);
+                if($type == 1 OR $type == 3){
+                    $unitValue = 0;
+                }else{
+                    $unitValue = $Detalle['unitValue'];
+                }
+                if($type == 2 OR $type == 3){
+                    $quantity = 0;
+                }else{
+                    $quantity = $Detalle['quantity'];
+                }
+                $detail = array("documentDetailId" => $documentDetailId, "unitValue" => $unitValue, "quantity" => $quantity);
                 array_push($details,$detail);
             }
             return $details;
@@ -2073,7 +2082,7 @@
                 "declareSii"            => 1,
                 "priceAdjustment"       => 0,
                 "editTexts"             => 0,
-                "type"                  => 3,
+                "type"                  => 0,
                 "details"               => $details,
                 "client"                => $client
             );
@@ -2368,7 +2377,7 @@
                     $query = "UPDATE facturas SET deleted_at = NOW() WHERE Id = '".$Id."'";
                     $delete = $run->delete($query);
                 }else{
-                    $query = "UPDATE servicios SET CostoInstalacion = 0 WHERE iD = '".$Id."'";
+                    $query = "UPDATE servicios SET CostoInstalacion = 0 WHERE Id = '".$Id."'";
                     $delete = $run->update($query);
                 }
             }
@@ -2453,13 +2462,14 @@
                                 $details = $DocumentoBsale['details'];
                                 $details = $details['items'];
                                 foreach($details as $detail){
+                                    $documentDetailIdBsale = $detail['id'];
                                     $Valor = $detail['netUnitValue'];
                                     $Cantidad = $detail['quantity'];
                                     $variant = $detail['variant'];
                                     $Concepto = $variant['description'];
                                     $Descuento = 0;
                                     $Total = $detail['totalAmount'];
-                                    $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$Id."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '0', '".$Total."', '')";
+                                    $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo, documentDetailIdBsale) VALUES ('".$Id."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '0', '".$Total."', '', '".$documentDetailIdBsale."')";
                                     $FacturaDetalleId = $run->insert($query);
                                 }
                             }
