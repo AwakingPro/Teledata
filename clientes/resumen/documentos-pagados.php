@@ -12,9 +12,7 @@
                                         <th class="text-center">Tipo de Documento</th>
                                         <th class="text-center">Fecha Emisión</th>
                                         <th class="text-center">Fecha Vencimiento</th>
-                                        <th class="text-center">Deuda</th>
-                                        <th class="text-center">Pago</th>
-                                        <th class="text-center">Por Pagar</th>
+                                        <th class="text-center">Total Doc.</th>
                                     </tr>
                                 </thead>
                                 <tbody>

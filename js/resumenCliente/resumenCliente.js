@@ -25,7 +25,6 @@ $(document).ready(function() {
                     { data: 'FechaFacturacion' },
                     { data: 'FechaVencimiento' },
                     { data: 'deuda' },
-                    { data: 'pagos' },
                     { data: 'deuda_restante' }
                 ],
                 destroy: true,
@@ -42,12 +41,6 @@ $(document).ready(function() {
                     }
                 }, {
                     "targets": 5,
-                    "render": function(data, type, row) {
-                        value = formatcurrency(data)
-                        return "<div style='text-align: center'>" + value + "</div>";
-                    }
-                }, {
-                    "targets": 6,
                     "render": function(data, type, row) {
                         value = formatcurrency(data)
                         return "<div style='text-align: center'>" + value + "</div>";
@@ -98,9 +91,7 @@ $(document).ready(function() {
                     { data: 'TipoDocumento' },
                     { data: 'FechaFacturacion' },
                     { data: 'FechaVencimiento' },
-                    { data: 'deuda' },
-                    { data: 'pagos' },
-                    { data: 'deuda_restante' }
+                    { data: 'deuda' }
                 ],
                 destroy: true,
                 'createdRow': function(row, data, dataIndex) {
@@ -116,12 +107,6 @@ $(document).ready(function() {
                     }
                 }, {
                     "targets": 5,
-                    "render": function(data, type, row) {
-                        value = formatcurrency(data)
-                        return "<div style='text-align: center'>" + value + "</div>";
-                    }
-                }, {
-                    "targets": 6,
                     "render": function(data, type, row) {
                         value = formatcurrency(data)
                         return "<div style='text-align: center'>" + value + "</div>";
