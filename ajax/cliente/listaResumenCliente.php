@@ -57,7 +57,7 @@
 				if($total_facturas_detalle > 0) {
 					foreach($facturas_detalle as $factura_detalle) {
 						$factura_detalle_FacturaId = $factura_detalle['FacturaId'];
-						$factura_detalle_Total = $factura_detalle['Total'];
+						$factura_detalle_Total += $factura_detalle['Total'];
 						// echo $factura_detalle_Total.'/';
 						$query_facturas_pagos = "SELECT
 						Id,
