@@ -4,6 +4,7 @@
     $zipname = time().'.zip';
     $zip = new ZipArchive;
     $zip->open($zipname, ZipArchive::CREATE);
+    $run = new Method;
 
     if(isset($_GET['documentType'])){
 		$documentType = $_GET['documentType'];
@@ -55,7 +56,7 @@
         if($NumeroDocumento){
             $query .= " AND facturas.NumeroDocumento = '".$NumeroDocumento."'";
         }
-        $run = new Method;
+        echo $query;
         $facturas = $run->select($query);
         
         if($facturas){
