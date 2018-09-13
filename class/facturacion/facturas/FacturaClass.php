@@ -1346,6 +1346,147 @@
             return $array; 
         }
 
+        //obtiene servicio activos
+        public function getServiciosInactivos($Rut) {
+            $run = new Method;
+            $data = array();
+            $data2 = array();
+            $total_data = array();
+            $activos = 0;
+            $vencidos = 0;
+            $servicio['Tipo'] = 'Sin data';
+            $data['error'] = '';
+            if(isset($Rut) && $Rut != '') {
+                $query_servicios = "SELECT
+                Id,
+                Grupo,
+                Valor,
+                Codigo,
+                Estatus,
+                Conexion,
+                mantenedor_servicios.servicio as Tipo
+                FROM servicios
+                INNER JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
+                WHERE Rut = $Rut AND EstatusServicio != 1";
+
+                $servicios = $run->select($query_servicios);
+                $total_servicios =  count($servicios);
+
+                if($total_servicios > 0) {
+                    foreach($servicios as $servicio) {
+                        $data['Codigo'] = $servicio['Codigo'];
+                        $data['Conexion'] = $servicio['Conexion'];
+                        $data['Valor'] = $servicio['Valor'];
+                        $data['Grupo'] = $servicio['Grupo'];
+                        $data['Id'] = $servicio['Id'];
+                        $data['Estatus'] = $servicio['Estatus'];
+                        $data['Tipo'] = $servicio['Tipo'];
+                        array_push($total_data, $data);
+                    }
+                }
+            } 
+            else 
+            {
+                $data['error'] = 'No Existe el Rut para hacer la busqueda';
+                array_push($total_data, $data);
+            }
+            return json_encode($total_data);
+        }
+
+
+         //obtiene servicio activos
+         public function getServiciosActivos($Rut) {
+            $run = new Method;
+            $data = array();
+            $data2 = array();
+            $total_data = array();
+            $activos = 0;
+            $vencidos = 0;
+            $servicio['Tipo'] = 'Sin data';
+            $data['error'] = '';
+            if(isset($Rut) && $Rut != '') {
+                $query_servicios = "SELECT
+                Id,
+                Grupo,
+                Valor,
+                Codigo,
+                Estatus,
+                Conexion,
+                mantenedor_servicios.servicio as Tipo
+                FROM servicios
+                INNER JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
+                WHERE Rut = $Rut AND EstatusServicio = 1";
+
+                $servicios = $run->select($query_servicios);
+                $total_servicios =  count($servicios);
+
+                if($total_servicios > 0) {
+                    foreach($servicios as $servicio) {
+                        $data['Codigo'] = $servicio['Codigo'];
+                        $data['Conexion'] = $servicio['Conexion'];
+                        $data['Valor'] = $servicio['Valor'];
+                        $data['Grupo'] = $servicio['Grupo'];
+                        $data['Id'] = $servicio['Id'];
+                        $data['Estatus'] = $servicio['Estatus'];
+                        $data['Tipo'] = $servicio['Tipo'];
+                        array_push($total_data, $data);
+                    }
+                }
+            } 
+            else 
+            {
+                $data['error'] = 'No Existe el Rut para hacer la busqueda';
+                array_push($total_data, $data);
+            }
+            return json_encode($total_data);
+        }
+
+        //obtiene total servicio activos y inactivos
+        public function getServicios($Rut) {
+            $run = new Method;
+            $data = array();
+            $total_data = array();
+            $activos = 0;
+            $vencidos = 0;
+            if(isset($Rut) && $Rut != '') {
+                $query_servicios = "SELECT
+                Estatus
+                FROM servicios
+                WHERE Rut = $Rut ";
+
+                $servicios = $run->select($query_servicios);
+                $total_servicios =  count($servicios);
+
+                if($total_servicios > 0) {
+                    foreach($servicios as $servicio) {
+                        if($servicio['Estatus'] == 1) {
+                            $activos+= 1;
+                            $data['activos'] = $activos;
+                            $data['vencidos'] = $vencidos;
+                        } else {
+                            $vencidos+=1;
+                            $data['activos'] = $activos;
+                            $data['vencidos'] = $vencidos;
+                        }
+                    }
+                    $data['error'] = '';
+                    array_push($total_data, $data);
+                } else {
+                    $data['activos'] = $activos;
+                    $data['vencidos'] = $vencidos;
+                    $data['error'] = '';
+                    array_push($total_data, $data);
+                }
+            } 
+            else 
+            {
+                $data['error'] = 'No Existe el Rut para hacer la busqueda';
+                array_push($total_data, $data);
+            }
+            
+            return json_encode($total_data);
+        }
+
         public function filtrarDocPagados($Rut){
 
             $run = new Method;
