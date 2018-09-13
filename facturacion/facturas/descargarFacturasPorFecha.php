@@ -1,5 +1,10 @@
 <?php
     include('../../class/methods_global/methods.php');
+
+    $zipname = time().'.zip';
+    $zip = new ZipArchive;
+    $zip->open($zipname, ZipArchive::CREATE);
+
     if(isset($_GET['documentType'])){
 		$documentType = $_GET['documentType'];
 	}else{
@@ -54,9 +59,6 @@
         $facturas = $run->select($query);
         
         if($facturas){
-            $zipname = time().'.zip';
-            $zip = new ZipArchive;
-            $zip->open($zipname, ZipArchive::CREATE);
             foreach($facturas as $factura){
                 $Id = $factura['Id'];
                 $file = $Id.'.pdf';
@@ -68,7 +70,7 @@
                     }else{
                         $TipoDocumento = 'Factura';
                     }
-                    $name = $TipoDocumento.'_'.$NumeroDocumento;
+                    $name = $TipoDocumento.'_'.$NumeroDocumento.'.pdf';
                     $zip->addFile($file,$name);
                 }
                 // else{
@@ -79,11 +81,6 @@
         }
     }
     if(!$documentType OR $documentType == 3){
-        if(!isset($zipname)){
-            $zipname = time().'.zip';
-            $zip = new ZipArchive;
-            $zip->open($zipname, ZipArchive::CREATE);
-        }
         $query = "SELECT facturas.Id, devoluciones.NumeroDocumento FROM devoluciones INNER JOIN facturas ON devoluciones.FacturaId = facturas.Id";
         if($startDate){
             $query .= " AND devoluciones.FechaDevolucion BETWEEN '".$startDate."' AND '".$endDate."'";
@@ -98,8 +95,8 @@
             if(file_exists('../notas_credito/'.$file)){
                 $TipoDocumento = 'Nota_credito';
                 $NumeroDocumento = $devolucion['NumeroDocumento'];
-                $name = $TipoDocumento.'_'.$NumeroDocumento;
-                $zip->addFile($file,$name);
+                $name = $TipoDocumento.'_'.$NumeroDocumento.'.pdf';
+                // $zip->addFile($file,$name);
             }
             // else{
             //     echo $file;
@@ -107,7 +104,7 @@
             // }
         }
     }
-    if(isset($zipname)){
+    if($zip->numFiles > 0){
         $filename = $zip->filename;
         $status=$zip->getStatusString();
         $zip->close();
