@@ -68,14 +68,20 @@
 											<h3>Lista de Clientes</h3><br>
 											<div class="row">
 												<div class="col-md-4">
-													<select name="rutCliente" class="form-control" data-live-search="true">
+													<select id="rutCliente" name="rutCliente" class="form-control" data-live-search="true">
 														<option value="">Seleccione...</option>
 													</select>
+													<br><br>
+													<select class="selectpicker form-control" id="documentTypeRut" data-container="body">
+														<option value="">Todos</option>
+														<option value="1">Boleta</option>
+														<option value="2">Factura</option>
+													</select>
+													<br><br>
 												</div>
-												<br><br>
 											</div>
 											<br><br>
-											<button id="descargar" class="btn btn-primary">Descargar</button><br><br>
+											<button id="descargarRut" class="btn btn-primary descargar">Descargar</button><br><br>
 											<div class="row">
 												<div class="col-md-12">
 													<div class="table-responsive">
@@ -130,14 +136,14 @@
                                                     </div>
                                                 </div>
                                                 <br>
-												<select class="selectpicker form-control" id="documentType" data-container="body">
+												<select class="selectpicker form-control" id="documentTypeFecha" data-container="body">
 													<option value="">Todos</option>
 													<option value="1">Boleta</option>
 													<option value="2">Factura</option>
 												</select>
 												<br><br>
                                                 <button id="filtrar" class="btn btn-success">Filtrar</button> 
-												<button id="descargar" class="btn btn-primary">Descargar</button><br><br>
+												<button id="descargarFecha" class="btn btn-primary descargar">Descargar</button><br><br>
                                             </div>
 											<br><br>
 											<div class="row">
@@ -189,18 +195,18 @@
 											<div class="col-sm-4">
                                                 <div id="">
                                                     <div class="input-group" id="">
-                                                        <input type="text" class="form-control" name="NumeroDocumento" />
+                                                        <input type="text" class="form-control" name="NumeroDocumento" id="NumeroDocumento"/>
                                                     </div>
                                                 </div>
                                                 <br>
-												<select class="selectpicker form-control" id="documentType" data-container="body">
+												<select class="selectpicker form-control" id="documentTypeNDocumento" data-container="body">
 													<option value="">Todos</option>
 													<option value="1">Boleta</option>
 													<option value="2">Factura</option>
 												</select>
 												<br><br>
                                                 <button id="filtrarNDocumento" class="btn btn-success">Filtrar</button> 
-												<button id="descargarNDocumento" class="btn btn-primary">Descargar</button><br><br>
+												<button id="descargarNDocumento" class="btn btn-primary descargar">Descargar</button><br><br>
                                             </div>
 											<br><br>
 											<div class="row">

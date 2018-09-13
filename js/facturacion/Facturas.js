@@ -490,23 +490,53 @@ $(document).ready(function() {
         });
     }
 
-    $(document).on('click', '#descargar', function() {
-        var startDate = $("#date-range .input-daterange input[name='start']").val();
-        var endDate = $("#date-range .input-daterange input[name='end']").val();
-        if (startDate != '' & endDate != '') {
-            downloadFacturas();
-        } else {
-            bootbox.alert('Debe Seleccionar un rango de fecha')
-            return false;
+    $(document).on('click', '.descargar', function() {
+        Tipo = $('#select-por').val();
+        if(Tipo == 1){
+            var startDate = $("#date-range .input-daterange input[name='start']").val();
+            var endDate = $("#date-range .input-daterange input[name='end']").val();
+            if (startDate != '' & endDate != '') {
+                var documentType = $("#documentType").val();
+                data = "startDate=" + startDate + "&endDate=" + endDate
+                if(documentType){
+                    data += "&documentType=" + documentType
+                }
+                downloadFacturas(data);
+            } else {
+                bootbox.alert('Debe Seleccionar un rango de fecha')
+                return false;
+            }
+        } else if (Tipo == 2) {
+            Rut = $('#rutCliente').val()
+            if (Rut) {
+                var documentType = $("#documentType").val();
+                data = "Rut=" + Rut
+                if (documentType) {
+                    data += "&documentType=" + documentType
+                }
+                downloadFacturas(data);
+            } else {
+                bootbox.alert('Debe Seleccionar un Rut')
+                return false;
+            }
+        } else{
+            NumeroDocumento = $('#NumeroDocumento').val()
+            if (NumeroDocumento != '') {
+                var documentType = $("#documentType").val();
+                data = "NumeroDocumento=" + NumeroDocumento
+                if (documentType) {
+                    data += "&documentType=" + documentType
+                }
+                downloadFacturas(data);
+            } else {
+                bootbox.alert('Debe ingresar un numero de documento')
+                return false;
+            }
         }
     });
 
-    function downloadFacturas() {
-        var startDate = $("#date-range .input-daterange input[name='start']").val();
-        var endDate = $("#date-range .input-daterange input[name='end']").val();
-        var documentType = $("#documentType").val();
-        data = "startDate=" + startDate + "&endDate=" + endDate + "&documentType=" + documentType
-        url = 'facturas/descargarFacturasPorFecha.php?' + data;
+    function downloadFacturas(data) {
+        url = 'facturas/descargarFacturas.php?' + data;
         window.open(url, '_blank');
     }
     $('body').on('click', '.Abonar', function() {
