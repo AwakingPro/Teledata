@@ -76,6 +76,7 @@
 														<option value="">Todos</option>
 														<option value="1">Boleta</option>
 														<option value="2">Factura</option>
+														<option value="3">Notas de Crédito</option>
 													</select>
 													<br><br>
 												</div>
@@ -140,6 +141,7 @@
 													<option value="">Todos</option>
 													<option value="1">Boleta</option>
 													<option value="2">Factura</option>
+													<option value="3">Notas de Crédito</option>
 												</select>
 												<br><br>
                                                 <button id="filtrar" class="btn btn-success">Filtrar</button> 
@@ -203,6 +205,7 @@
 													<option value="">Todos</option>
 													<option value="1">Boleta</option>
 													<option value="2">Factura</option>
+													<option value="3">Notas de Crédito</option>
 												</select>
 												<br><br>
                                                 <button id="filtrarNDocumento" class="btn btn-success">Filtrar</button> 
