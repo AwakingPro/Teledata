@@ -61,7 +61,7 @@
         if($facturas){
             foreach($facturas as $factura){
                 $Id = $factura['Id'];
-                $file = '/var/www/html/Teledata/facturacion/facturas/'.$Id.'.pdf';
+                $file = $Id.'.pdf';
                 if(file_exists($file)){
                     $TipoDocumento = $factura['TipoDocumento'];
                     $NumeroDocumento = $factura['NumeroDocumento'];
