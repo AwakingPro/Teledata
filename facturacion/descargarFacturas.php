@@ -61,7 +61,7 @@
         if($facturas){
             foreach($facturas as $factura){
                 $Id = $factura['Id'];
-                $file = '/facturas/'.$Id.'.pdf';
+                $file = 'facturas/'.$Id.'.pdf';
                 if(file_exists($file)){
                     $TipoDocumento = $factura['TipoDocumento'];
                     $NumeroDocumento = $factura['NumeroDocumento'];
@@ -91,7 +91,7 @@
         $devoluciones = $run->select($query);
         foreach($devoluciones as $devolucion){
             $Id = $devolucion['Id'];
-            $file = '/notas_credito/'.$Id.'.pdf';
+            $file = 'notas_credito/'.$Id.'.pdf';
             if(file_exists($file)){
                 $TipoDocumento = 'Nota_credito';
                 $NumeroDocumento = $devolucion['NumeroDocumento'];
