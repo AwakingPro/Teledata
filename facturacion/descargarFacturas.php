@@ -88,7 +88,6 @@
         if($NumeroDocumento){
             $query .= " AND devoluciones.NumeroDocumento = '".$NumeroDocumento."'";
         }
-        echo $query;
         $devoluciones = $run->select($query);
         foreach($devoluciones as $devolucion){
             $Id = $devolucion['Id'];
