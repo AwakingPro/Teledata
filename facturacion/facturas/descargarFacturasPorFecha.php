@@ -39,7 +39,7 @@
                         INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
                         INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
                     WHERE
-                        facturas.EstatusFacturacion = '1'";
+                        (facturas.EstatusFacturacion = '1' OR facturas.EstatusFacturacion = '2')";
         if($startDate){
             $dt = \DateTime::createFromFormat('Y/m/d',$startDate);
             $startDate = $dt->format('Y-m-d');
