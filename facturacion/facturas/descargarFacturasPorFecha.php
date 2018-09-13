@@ -31,7 +31,7 @@
 
     if(!$documentType OR ($documentType == 1 OR $documentType == 2)){
         $query = "  SELECT
-                        facturas.Id
+                        facturas.Id,
                         facturas.NumeroDocumento,
                         factura.TipoDocumento
                     FROM
@@ -56,7 +56,6 @@
         if($NumeroDocumento){
             $query .= " AND facturas.NumeroDocumento = '".$NumeroDocumento."'";
         }
-        echo $query;
         $facturas = $run->select($query);
         
         if($facturas){
