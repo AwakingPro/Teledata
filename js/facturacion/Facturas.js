@@ -574,7 +574,7 @@ $(document).ready(function() {
     });
 
     function downloadFacturas(data) {
-        url = 'descargarFacturas.php?' + data;
+        url = '/facturas/descargarFacturas.php?' + data;
         window.open(url, '_blank');
     }
     $('body').on('click', '.Abonar', function() {
