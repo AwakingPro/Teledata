@@ -26,7 +26,6 @@ $(document).ready(function() {
                     { data: 'Conexion' },
                     { data: 'Valor' },
                     { data: 'Grupo' },
-                    { data: 'Estatus' },
                     { data: 'Tipo' },
                     // { data: 'Acciones' }
                 ],
@@ -82,7 +81,6 @@ $(document).ready(function() {
                     { data: 'Conexion' },
                     { data: 'Valor' },
                     { data: 'Grupo' },
-                    { data: 'Estatus' },
                     { data: 'Tipo' },
                     // { data: 'Acciones' }
                 ],

@@ -9,7 +9,7 @@
 				<div class="row">
                     <div class="panel">
                         <div class="panel-body">
-                            <h3 style="margin-top: 0">Últimos Servicios Activos</h3>
+                            <h3 style="margin-top: 0">Servicios Activos</h3>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
@@ -20,7 +20,6 @@
                                                         <th class="text-center">Conexión</th>
                                                         <th class="text-center">Valor</th>
                                                         <th class="text-center">Grupo</th>
-                                                        <th class="text-center">Estatus</th>
                                                         <th class="text-center">Tipo de Servicio</th>
                                                         <!-- <th class="text-center">Acciones</th> -->
                                                     </tr>

@@ -1450,7 +1450,7 @@
             $vencidos = 0;
             if(isset($Rut) && $Rut != '') {
                 $query_servicios = "SELECT
-                Estatus
+                EstatusServicio
                 FROM servicios
                 WHERE Rut = $Rut ";
 
@@ -1459,30 +1459,25 @@
 
                 if($total_servicios > 0) {
                     foreach($servicios as $servicio) {
-                        if($servicio['Estatus'] == 1) {
+                        if($servicio['EstatusServicio'] == 1) {
                             $activos+= 1;
-                            $data['activos'] = $activos;
-                            $data['vencidos'] = $vencidos;
                         } else {
                             $vencidos+=1;
-                            $data['activos'] = $activos;
-                            $data['vencidos'] = $vencidos;
                         }
                     }
                     $data['error'] = '';
-                    array_push($total_data, $data);
                 } else {
-                    $data['activos'] = $activos;
-                    $data['vencidos'] = $vencidos;
                     $data['error'] = '';
-                    array_push($total_data, $data);
                 }
             } 
             else 
             {
                 $data['error'] = 'No Existe el Rut para hacer la busqueda';
-                array_push($total_data, $data);
+
             }
+            $data['activos'] = $activos;
+            $data['vencidos'] = $vencidos;
+            array_push($total_data, $data);
             
             return json_encode($total_data);
         }
