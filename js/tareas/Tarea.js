@@ -222,7 +222,7 @@ $(document).ready(function() {
                     Usuario = ''
                 }
 
-                if (array.Estatus == 1) {
+                if (array.EstatusInstalacion == 1) {
 
                     var rowNode = FinalizadasTable.row.add([
                         '' + Usuario + '',
@@ -237,7 +237,7 @@ $(document).ready(function() {
                         .attr('id', array.Id)
                         .addClass('text-center')
 
-                } else if (array.Estatus == 2) {
+                } else if (array.EstatusInstalacion == 2) {
 
                     var rowNode = PendientesTable.row.add([
                         '' + Usuario + '',
@@ -265,7 +265,7 @@ $(document).ready(function() {
                         .attr('id', array.Id)
                         .addClass('text-center')
 
-                } else if (array.Estatus == 3) {
+                } else if (array.EstatusInstalacion == 3) {
 
                     var rowNode = AsignadasTable.row.add([
                         '' + Usuario + '',

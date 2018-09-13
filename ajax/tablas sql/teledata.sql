@@ -1110,7 +1110,7 @@ CREATE TABLE `servicios`  (
   `IdServicio` int(11) NOT NULL,
   `Codigo` varchar(150) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `Descripcion` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `Estatus` int(11) NOT NULL,
+  `EstatusInstalacion` int(11) NOT NULL,
   `FechaInstalacion` date NULL DEFAULT NULL,
   `InstaladoPor` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `Comentario` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,

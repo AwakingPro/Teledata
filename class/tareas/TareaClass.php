@@ -55,7 +55,7 @@
 				        $Codigo = $data[0]['Codigo'];
 				        $Codigos[] = $Codigo;
 
-		            	$query = "UPDATE servicios set IdUsuarioAsignado = '$IdUsuarioAsignado', Estatus = '3' where Id = '$Tarea'";
+		            	$query = "UPDATE servicios set IdUsuarioAsignado = '$IdUsuarioAsignado', EstatusInstalacion = '3' where Id = '$Tarea'";
 			            $data = $run->update($query);
 			            $array[] = $Tarea;
 		            }
@@ -206,7 +206,7 @@
 
 					if($Servicio){
 						$Servicio = $Servicio[0];
-						$EstatusTarea = $Servicio['Estatus'];
+						$EstatusTarea = $Servicio['EstatusInstalacion'];
 						
 						if($EstatusTarea != 1){
 							$Rut = $Servicio['Rut'];
@@ -310,7 +310,7 @@
 					}
 				}
 
-				$query = "UPDATE servicios SET FechaInstalacion = '$FechaInstalacion', InstaladoPor = '$InstaladoPor', Comentario = '$Comentario', UsuarioPppoe = '$UsuarioPppoe', EstacionFinal = '$EstacionFinal', SenalFinal = '$SenalFinal', Estatus = '$Estatus' where Id = '$Id'";
+				$query = "UPDATE servicios SET FechaInstalacion = '$FechaInstalacion', InstaladoPor = '$InstaladoPor', Comentario = '$Comentario', UsuarioPppoe = '$UsuarioPppoe', EstacionFinal = '$EstacionFinal', SenalFinal = '$SenalFinal', EstatusInstalacion = '$Estatus' where Id = '$Id'";
 				$data = $run->update($query);
 				
 				$response_array['Estatus'] = $Estatus;

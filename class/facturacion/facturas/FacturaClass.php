@@ -33,7 +33,7 @@
                         WHERE
                             servicios.EstatusFacturacion = 0 
                             AND servicios.CostoInstalacion > 0 
-                            AND ( servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1 )";
+                            AND ( servicios.EstatusInstalacion = 1 OR servicios.FacturarSinInstalacion = 1 )";
 
             $servicios = $run->select($query);
 
@@ -179,7 +179,7 @@
                     $data['Grupo'] = $factura['Grupo'];   
                     $data['Cliente'] = $factura['Cliente'];   
                     $data['UrlPdfBsale'] = '';
-                    $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
+                    // $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
                     $data['Valor'] = $Valor;
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
@@ -291,7 +291,7 @@
                         WHERE
                             servicios.Id = '".$Id."'
                         AND (
-                            servicios.Estatus = 1
+                            servicios.EstatusInstalacion = 1
                             OR servicios.FacturarSinInstalacion = 1
                         )
                         AND servicios.EstatusFacturacion = 0
@@ -835,7 +835,7 @@
                         AND 
                             servicios.CostoInstalacion > 0 
                         AND 
-                            (servicios.Estatus = 1 OR servicios.FacturarSinInstalacion = 1)
+                            (servicios.EstatusInstalacion = 1 OR servicios.FacturarSinInstalacion = 1)
                         GROUP BY
                             servicios.Rut,
                             servicios.Grupo";
