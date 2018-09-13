@@ -212,13 +212,15 @@ $(document).ready(function() {
         }
     });
 
-    $(document).on('change', '#documentType', function() {
+    $(document).on('change', '#documentTypeFecha', function() {
         var documentType = $(this).val();
         if (documentType) {
             if (documentType == 1) {
                 documentType = 'Boleta'
-            } else {
+            }else if (documentType == 2) {
                 documentType = 'Factura'
+            } else {
+                documentType = 'Nota de crédito'
             }
         } else {
             documentType = '';
@@ -229,7 +231,43 @@ $(document).ready(function() {
             .draw();
     });
 
+    $(document).on('change', '#documentTypeRut', function () {
+        var documentType = $(this).val();
+        if (documentType) {
+            if (documentType == 1) {
+                documentType = 'Boleta'
+            } else if (documentType == 2) {
+                documentType = 'Factura'
+            } else {
+                documentType = 'Nota de crédito'
+            }
+        } else {
+            documentType = '';
+        }
+        FacturasTableCliente
+            .columns(1)
+            .search(documentType)
+            .draw();
+    });
 
+    $(document).on('change', '#documentTypeNDocumento', function () {
+        var documentType = $(this).val();
+        if (documentType) {
+            if (documentType == 1) {
+                documentType = 'Boleta'
+            } else if (documentType == 2) {
+                documentType = 'Factura'
+            } else {
+                documentType = 'Nota de crédito'
+            }
+        } else {
+            documentType = '';
+        }
+        FacturasTableNDocumento
+            .columns(2)
+            .search(documentType)
+            .draw();
+    });
 
     function getFacturasNDocumento() {
 
@@ -496,7 +534,7 @@ $(document).ready(function() {
             var startDate = $("#date-range .input-daterange input[name='start']").val();
             var endDate = $("#date-range .input-daterange input[name='end']").val();
             if (startDate != '' & endDate != '') {
-                var documentType = $("#documentType").val();
+                var documentType = $("#documentTypeFecha").val();
                 data = "startDate=" + startDate + "&endDate=" + endDate
                 if(documentType){
                     data += "&documentType=" + documentType
@@ -509,7 +547,7 @@ $(document).ready(function() {
         } else if (Tipo == 2) {
             Rut = $('#rutCliente').val()
             if (Rut) {
-                var documentType = $("#documentType").val();
+                var documentType = $("#documentTypeRut").val();
                 data = "Rut=" + Rut
                 if (documentType) {
                     data += "&documentType=" + documentType
@@ -522,7 +560,7 @@ $(document).ready(function() {
         } else{
             NumeroDocumento = $('#NumeroDocumento').val()
             if (NumeroDocumento != '') {
-                var documentType = $("#documentType").val();
+                var documentType = $("#documentTypeNDocumento").val();
                 data = "NumeroDocumento=" + NumeroDocumento
                 if (documentType) {
                     data += "&documentType=" + documentType
