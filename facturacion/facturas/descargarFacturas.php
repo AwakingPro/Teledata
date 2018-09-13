@@ -82,6 +82,9 @@
     }
     if(!$documentType OR $documentType == 3){
         $query = "SELECT facturas.Id, devoluciones.NumeroDocumento FROM devoluciones INNER JOIN facturas ON devoluciones.FacturaId = facturas.Id";
+        if($Rut){
+            $query .= " AND facturas.Rut = '".$Rut."'";
+        }
         if($startDate){
             $query .= " AND devoluciones.FechaDevolucion BETWEEN '".$startDate."' AND '".$endDate."'";
         }
