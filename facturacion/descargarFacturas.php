@@ -1,5 +1,5 @@
 <?php
-    include('../../class/methods_global/methods.php');
+    include('../class/methods_global/methods.php');
 
     $zipname = time().'.zip';
     $zip = new ZipArchive;
