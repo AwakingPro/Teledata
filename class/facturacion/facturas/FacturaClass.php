@@ -1492,15 +1492,19 @@
             $ano = date("Y");
             $fecha_actual = $ano.'-'.$mes.'-'.$dia;
 
-            $query_factura = "SELECT
-            facturas.Id,
-            facturas.NumeroDocumento,
-            facturas.FechaFacturacion,
-            mantenedor_tipo_cliente.nombre AS TipoDocumento,
-            facturas.FechaVencimiento
-            FROM facturas
-            INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id
-            WHERE Rut = $Rut AND EstatusFacturacion = 1 AND FechaVencimiento < '".$fecha_actual."' ";
+            $query_factura = "  SELECT
+                                    facturas.Id,
+                                    facturas.NumeroDocumento,
+                                    facturas.FechaFacturacion,
+                                    mantenedor_tipo_cliente.nombre AS TipoDocumento,
+                                    facturas.FechaVencimiento 
+                                FROM
+                                    facturas
+                                    INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
+                                WHERE
+                                    Rut = $Rut 
+                                    AND EstatusFacturacion = 1 
+                                    AND FechaVencimiento < '".$fecha_actual."'";
 
             
             // echo $Rut;

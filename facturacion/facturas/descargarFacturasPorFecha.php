@@ -4,47 +4,110 @@
 		$documentType = $_GET['documentType'];
 	}else{
 		$documentType = '';
+	}
+	if(isset($_GET['startDate'])){
+		$startDate = $_GET['startDate'];
+		$endDate = $_GET['endDate'];
+	}else{
+		$startDate = '';
+		$endDate = '';
+	}
+	if(isset($_GET['Rut'])){
+		$Rut = $_GET['Rut'];
+	}else{
+		$Rut = '';
+	}
+	if(isset($_GET['NumeroDocumento'])){
+		$NumeroDocumento = $_GET['NumeroDocumento'];
+	}else{
+		$NumeroDocumento = '';
+	}
+
+    if(!$documentType OR ($documentType == 1 OR $documentType == 2)){
+        $query = "  SELECT
+                        facturas.Id
+                        facturas.NumeroDocumento,
+                        factura.TipoDocumento
+                    FROM
+                        facturas
+                        INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
+                        INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
+                    WHERE
+                        facturas.EstatusFacturacion = '1'";
+        if($startDate){
+            $dt = \DateTime::createFromFormat('Y/m/d',$startDate);
+            $startDate = $dt->format('Y-m-d');
+            $dt = \DateTime::createFromFormat('Y/m/d',$endDate);
+            $endDate = $dt->format('Y-m-d');
+            $query .= " AND facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'";
+        }
+        if($Rut){
+            $query .= " AND facturas.Rut = '".$Rut."'";
+        }
+        if($documentType){
+            $query .= " AND facturas.TipoDocumento = '".$documentType."'";
+        }
+        if($NumeroDocumento){
+            $query .= " AND facturas.NumeroDocumento = '".$NumeroDocumento."'";
+        }
+        $run = new Method;
+        $facturas = $run->select($query);
+        
+        if($facturas){
+            $zipname = time().'.zip';
+            $zip = new ZipArchive;
+            $zip->open($zipname, ZipArchive::CREATE);
+            foreach($facturas as $factura){
+                $Id = $factura['Id'];
+                $file = $Id.'.pdf';
+                if(file_exists($file)){
+                    $TipoDocumento = $factura['TipoDocumento'];
+                    $NumeroDocumento = $factura['NumeroDocumento'];
+                    if($TipoDocumento == 1){
+                        $TipoDocumento = 'Boleta';
+                    }else{
+                        $TipoDocumento = 'Factura';
+                    }
+                    $name = $TipoDocumento.'_'.$NumeroDocumento;
+                    $zip->addFile($file,$name);
+                }
+                // else{
+                //     echo $file;
+                //     return;
+                // }
+            }
+        }
     }
-    $startDate = $_GET['startDate'];
-    $endDate = $_GET['endDate'];
-
-
-    $dt = \DateTime::createFromFormat('Y/m/d',$startDate);
-    $startDate = $dt->format('Y-m-d');
-    $dt = \DateTime::createFromFormat('Y/m/d',$endDate);
-    $endDate = $dt->format('Y-m-d');
-
-    $query = "  SELECT
-                    facturas.Id
-                FROM
-                    facturas
-                    INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
-                    INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
-                WHERE
-                    facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'
-                    AND facturas.EstatusFacturacion = '1'";
-    if($documentType){
-        $query .= "AND facturas.TipoDocumento = '".$documentType."'";
-    }
-    $run = new Method;
-    $facturas = $run->select($query);
-
-    if($facturas){
-        $zipname = time().'.zip';
-        $zip = new ZipArchive;
-        $zip->open($zipname, ZipArchive::CREATE);
-        foreach($facturas as $factura){
-            $Id = $factura['Id'];
+    if(!$documentType OR $documentType == 3){
+        if(!isset($zipname)){
+            $zipname = time().'.zip';
+            $zip = new ZipArchive;
+            $zip->open($zipname, ZipArchive::CREATE);
+        }
+        $query = "SELECT facturas.Id, devoluciones.NumeroDocumento FROM devoluciones INNER JOIN facturas ON devoluciones.FacturaId = facturas.Id";
+        if($startDate){
+            $query .= " AND devoluciones.FechaDevolucion BETWEEN '".$startDate."' AND '".$endDate."'";
+        }
+        if($NumeroDocumento){
+            $query .= " AND devoluciones.NumeroDocumento = '".$NumeroDocumento."'";
+        }
+        $devoluciones = $run->select($query);
+        foreach($devoluciones as $devolucion){
+            $Id = $devolucion['Id'];
             $file = $Id.'.pdf';
-            if(file_exists($file)){
-                // $zip->addFromString(basename($file),  file_get_contents($file)); 
-                $zip->addFile($file);
+            if(file_exists('../notas_credito/'.$file)){
+                $TipoDocumento = 'Nota_credito';
+                $NumeroDocumento = $devolucion['NumeroDocumento'];
+                $name = $TipoDocumento.'_'.$NumeroDocumento;
+                $zip->addFile($file,$name);
             }
             // else{
             //     echo $file;
             //     return;
             // }
         }
+    }
+    if(isset($zipname)){
         $filename = $zip->filename;
         $status=$zip->getStatusString();
         $zip->close();
@@ -60,6 +123,6 @@
         ob_end_flush();
         @readfile($filename);
     }else{
-        echo 'No hay documentos correspondientes a este rango de fecha';
+        echo 'No hay documentos correspondientes a estos criterios';
     }
 ?>
