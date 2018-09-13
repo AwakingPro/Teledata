@@ -33,7 +33,7 @@
         $query = "  SELECT
                         facturas.Id,
                         facturas.NumeroDocumento,
-                        factura.TipoDocumento
+                        facturas.TipoDocumento
                     FROM
                         facturas
                         INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
