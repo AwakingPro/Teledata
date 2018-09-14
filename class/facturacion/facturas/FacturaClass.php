@@ -1362,7 +1362,7 @@
                 Grupo,
                 Valor,
                 Codigo,
-                Estatus,
+                EstatusServicio,
                 Conexion,
                 mantenedor_servicios.servicio as Tipo
                 FROM servicios
@@ -1379,7 +1379,7 @@
                         $data['Valor'] = $servicio['Valor'];
                         $data['Grupo'] = $servicio['Grupo'];
                         $data['Id'] = $servicio['Id'];
-                        $data['Estatus'] = $servicio['Estatus'];
+                        $data['Estatus'] = $servicio['EstatusServicio'];
                         $data['Tipo'] = $servicio['Tipo'];
                         array_push($total_data, $data);
                     }
@@ -1410,7 +1410,7 @@
                 Grupo,
                 Valor,
                 Codigo,
-                Estatus,
+                EstatusServicio,
                 Conexion,
                 mantenedor_servicios.servicio as Tipo
                 FROM servicios
@@ -1427,7 +1427,7 @@
                         $data['Valor'] = $servicio['Valor'];
                         $data['Grupo'] = $servicio['Grupo'];
                         $data['Id'] = $servicio['Id'];
-                        $data['Estatus'] = $servicio['Estatus'];
+                        $data['Estatus'] = $servicio['EstatusServicio'];
                         $data['Tipo'] = $servicio['Tipo'];
                         array_push($total_data, $data);
                     }
@@ -1591,6 +1591,114 @@
             echo json_encode($ToReturn);
         }
 
+        public function filtrarDocVencidos($Rut){
+
+            $run = new Method;
+            $ToReturn = array();
+            $data = array();
+            $data2 = array();
+            $data3 = array();
+            $fecha_actual = date("Y-m-d");
+
+            $query_factura = "SELECT
+            facturas.Id,
+            facturas.NumeroDocumento,
+            facturas.FechaFacturacion,
+            mantenedor_tipo_cliente.nombre AS TipoDocumento,
+            facturas.FechaVencimiento
+            FROM facturas
+            INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id
+            WHERE Rut = $Rut AND EstatusFacturacion = 1 AND FechaVencimiento < '".$fecha_actual."' ";
+
+            
+            // echo $Rut;
+            $FacturasVencidas = $run->select($query_factura);
+            $total_facturas =  count($FacturasVencidas);
+            // echo $total_facturas;
+            $id_facturas = '';
+            $NumeroDocumento = '';
+            $FechaFacturacion = '';
+            $TipoDocumento = '';
+            $fechaVencimiento = '';
+            $factura_detalle_FacturaId = '';
+            $factura_detalle_Total = 0;
+            $contador_vencidos = 0;
+            $monto_deuda = 0;
+            $fp_monto = 0;
+            $pagos = 0;
+            $bandera = 0;
+
+            if($total_facturas > 0) {
+                foreach($FacturasVencidas as $factura) {
+                    $factura_detalle_Total = 0;
+                    $id_facturas = $factura['Id'];
+                    $NumeroDocumento = $factura['NumeroDocumento'];
+                    $TipoDocumento = $factura['TipoDocumento'];
+                    $FechaFacturacion = $factura['FechaFacturacion'];
+                    $fechaVencimiento = $factura['FechaVencimiento'];
+                    
+                    $query_facturas_detalle = "SELECT
+                    Id,
+                    FacturaId,
+                    Total
+                    FROM facturas_detalle
+                    WHERE FacturaId = $id_facturas ";
+                    $facturas_detalle = $run->select($query_facturas_detalle);
+                    $total_facturas_detalle = count($facturas_detalle);
+                    if($total_facturas_detalle > 0) {
+                        foreach($facturas_detalle as $factura_detalle) {
+                            $factura_detalle_FacturaId = $factura_detalle['FacturaId'];
+                            $factura_detalle_Total += $factura_detalle['Total'];
+                            $monto_deuda += $factura_detalle['Total'];
+                            // echo $factura_detalle_Total.'/';
+                            $query_facturas_pagos = "SELECT
+                            Id,
+                            FacturaId,
+                            Monto
+                            FROM facturas_pagos
+                            WHERE FacturaId = $factura_detalle_FacturaId ";
+                            // WHERE FacturaId = $factura_detalle_FacturaId AND Monto < '".$factura_detalle_Total."' ";
+                            $facturas_pagos = $run->select($query_facturas_pagos);
+                            $total_facturas_pagos = count($facturas_pagos);
+                            if($total_facturas_pagos > 0) {
+                            
+                                foreach($facturas_pagos as $factura_pago) {
+                                    $fp_facturaId = $factura_pago['FacturaId'];    
+                                    $fp_monto = $factura_pago['Monto'];
+                                    $monto_deuda = $factura_detalle_Total - $fp_monto;
+                                    if($fp_monto < $factura_detalle_Total) {
+                                        $factura_detalle_Total;
+                                        $data['pagos'] = $fp_monto;
+                                        $bandera = 0;
+                                    }  else {
+                                        $bandera = 1;
+                                    } 
+                                } //else significa que no ha pagado nada
+                            } else {
+
+                                $bandera = 0;
+                                $fp_monto = 0;
+                                $monto_deuda = $factura_detalle_Total;
+                            }
+                        }
+                    }
+                    if($bandera != 1) {
+                        $data['NumeroDocumento'] = $NumeroDocumento;
+                        $data['TipoDocumento'] = $TipoDocumento;
+                        $data['FechaFacturacion'] = $FechaFacturacion;
+                        $data['FechaVencimiento'] = $fechaVencimiento;
+                        $data['id_factura'] = $factura_detalle_FacturaId;
+                        $data['deuda'] = $factura_detalle_Total;
+                        $data['pagos'] = $fp_monto;
+                        $data['deuda_restante'] = $monto_deuda;
+                        array_push($ToReturn, $data ); 
+                    }
+                   
+                }
+            }	
+            echo json_encode($ToReturn);
+        }
+
         public function filtrarDocEmitidos($Rut){
 
             $run = new Method;
@@ -1598,10 +1706,6 @@
             $data = array();
             $data2 = array();
             $data3 = array();
-            $dia = date("d");
-            $mes = date("m");
-            $ano = date("Y");
-            $fecha_actual = $ano.'-'.$mes.'-'.$dia;
 
             $query_factura = "SELECT
             facturas.Id,

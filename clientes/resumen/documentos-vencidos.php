@@ -13,7 +13,8 @@
                         Abonar Documentos
                     </h4>
                 </div>
-                <div class="col-md-12"><h2 class="marginNull textMiniPanel">Documentos Vencidos <i class="fa fa-eye"></i></h2></div>
+                <div class="col-md-12"><h2 class="marginNull textMiniPanel">Documentos Vencidos <i class="fa fa-eye verDocVencidos" title="Ver Documentos Vencidos"></i></h2></div>
+                <?php include 'ModalDocVencidos.php'; ?>
                 <div class="col-md-12" style="margin-top: 27px;">
                     <div class="progress">
                         <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
