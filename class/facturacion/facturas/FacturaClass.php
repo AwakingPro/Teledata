@@ -1529,8 +1529,8 @@
                     $id_facturas = $factura['Id'];
                     $NumeroDocumento = $factura['NumeroDocumento'];
                     $TipoDocumento = $factura['TipoDocumento'];
-                    $FechaFacturacion = $factura['FechaFacturacion'];
-                    $fechaVencimiento = $factura['FechaVencimiento'];
+                    $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');
+                    $fechaVencimiento = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');
                     if($fechaVencimiento < $fecha_actual) {
                         $query_facturas_detalle = "SELECT
                         Id,
@@ -1634,8 +1634,9 @@
                     $id_facturas = $factura['Id'];
                     $NumeroDocumento = $factura['NumeroDocumento'];
                     $TipoDocumento = $factura['TipoDocumento'];
-                    $FechaFacturacion = $factura['FechaFacturacion'];
-                    $fechaVencimiento = $factura['FechaVencimiento'];
+                    
+                    $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');
+                    $fechaVencimiento = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');
                     
                     $query_facturas_detalle = "SELECT
                     Id,
@@ -1741,8 +1742,8 @@
                     $id_facturas = $factura['Id'];
                     $NumeroDocumento = $factura['NumeroDocumento'];
                     $TipoDocumento = $factura['TipoDocumento'];
-                    $FechaFacturacion = $factura['FechaFacturacion'];
-                    $fechaVencimiento = $factura['FechaVencimiento'];
+                    $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');
+                    $fechaVencimiento = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');
                     
                     $query_facturas_detalle = "SELECT
                     Id,
