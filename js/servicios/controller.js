@@ -76,8 +76,12 @@ $(document).ready(function() {
         $('.ClaseCliente').selectpicker('refresh');
     });
 
+    $('.TipoPago').load('../ajax/cliente/selectTipoPago.php', function () {
+        $('.TipoPago').selectpicker('refresh');
+    });
+
     $('[name="Rut"]').mask("00000000");
-    $('[name="Valor"]').number(true, 0, ',', '.');
+    $('[name="Valor"]').number(true, 2, ',', '.');
     $('[name="Descuento"]').mask('00');
     $('[name="CostoInstalacion"]').number(true, 2, ',', '.');
     $('[name="CostoInstalacionDescuento"]').mask('00');
@@ -406,11 +410,10 @@ $(document).ready(function() {
                         }, 1500);
                     }, 1000);
                 }
-
+                getServicios();
             } else {
                 bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
             }
-            getServicios();
         });
     });
 
@@ -476,8 +479,7 @@ $(document).ready(function() {
                 bootbox.alert('<h3 class="text-center">El cliente con Rut #' + data + ' se registro con éxito.</h3>');
                 $('select[name="Rut"]').load('../ajax/servicios/selectClientes.php', function() {
                     $('select[name="Rut"]').selectpicker('refresh');
-                    $('#Rut').val(data)
-                    $('#Rut').selectpicker('refresh')
+                    getCliente(data)
                 });
             } else {
                 console.log(data);
@@ -487,13 +489,13 @@ $(document).ready(function() {
     });
 
     function getCliente(Rut) {
-        if (Rut != '') {
-            getServicios();
-        }
         $('#Rut').val(Rut);
         setTimeout(() => {
             $('#Rut').selectpicker('refresh')
-        }, 1000);
+            if (Rut != '') {
+                getServicios();
+            }
+        }, 1000); 
     }
     $(document).on('change', 'select[name="Rut"]', function() {
         getCliente($(this).val())
@@ -755,19 +757,36 @@ $(document).ready(function() {
 
     });
 
-    $('input[name="Rut"]').on('blur', function() {
+    $('input[name="Rut"]').on('blur', function () {
 
         rut = $(this).val()
         input = $(this)
 
         if (rut) {
-            $.post('../ajax/cliente/listCliente.php', {
-                rut: rut
-            }, function(data) {
+            $.post('../ajax/cliente/listCliente.php', { rut: rut }, function (data) {
                 data = $.parseJSON(data);
                 if (data.length) {
-                    bootbox.alert('<h3 class="text-center">Este rut ya esta registrado.</h3>');
-                    $(input).val('')
+                    swal({
+                        title: "Este rut ya esta registrado",
+                        text: "Desea modificarlo?",
+                        type: "warning",
+                        showCancelButton: true,
+                        confirmButtonColor: "#28a745",
+                        confirmButtonText: "Si",
+                        cancelButtonText: "No",
+                        closeOnConfirm: true,
+                        allowOutsideClick: false
+                    }, function (isConfirm) {
+                        if (isConfirm) {
+                            window.location = "../clientes/listaCliente.php?Rut=" + rut;
+                        } else {
+                            $(input).val('')
+                        }
+                    });
+                } else {
+                    $.post('../ajax/cliente/getDv.php', { rut: rut }, function (data) {
+                        $('#Dv').val(data)
+                    });
                 }
             });
         }
