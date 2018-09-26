@@ -271,6 +271,9 @@
                 $TipoDocumento = $NotaVenta['tipo_cliente'];
                 $NumeroOC = $NotaVenta['numero_oc'];
                 $FechaOC = $NotaVenta['fecha_oc'];
+                if(!$FechaOC){
+                    $FechaOC = '1969-01-31';
+                }
                 $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, NumeroOC, FechaOC) VALUES ('".$Rut."', '".$Grupo."', '1', '0', NOW(), NOW(), '".$TipoDocumento."', NOW(), 0.19, '0', '', '0', '', '".$NumeroOC."', '".$FechaOC."')";
                 $FacturaId = $run->insert($query);
                 if($FacturaId){
