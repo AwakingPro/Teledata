@@ -184,6 +184,7 @@ $(document).ready(function() {
             });
             $('[data-toggle="popover"]').popover();
             $('table').css('width', '100%');
+            filtrarPorDocumentoCliente();
         });
     }
 
@@ -211,13 +212,12 @@ $(document).ready(function() {
             return false;
         }
     });
-
-    $(document).on('change', '#documentTypeFecha', function() {
-        var documentType = $(this).val();
+    function filtrarPorDocumentoFecha() {
+        var documentType = $('#documentTypeFecha').val();
         if (documentType) {
             if (documentType == 1) {
                 documentType = 'Boleta'
-            }else if (documentType == 2) {
+            } else if (documentType == 2) {
                 documentType = 'Factura'
             } else {
                 documentType = 'Nota de crédito'
@@ -229,10 +229,12 @@ $(document).ready(function() {
             .columns(2)
             .search(documentType)
             .draw();
+    }
+    $(document).on('change', '#documentTypeFecha', function() {
+        filtrarPorDocumentoFecha();
     });
-
-    $(document).on('change', '#documentTypeRut', function () {
-        var documentType = $(this).val();
+    function filtrarPorDocumentoCliente(){
+        var documentType = $('#documentTypeRut').val();
         if (documentType) {
             if (documentType == 1) {
                 documentType = 'Boleta'
@@ -248,10 +250,12 @@ $(document).ready(function() {
             .columns(1)
             .search(documentType)
             .draw();
+    }
+    $(document).on('change', '#documentTypeRut', function () {
+        filtrarPorDocumentoCliente();
     });
-
-    $(document).on('change', '#documentTypeNDocumento', function () {
-        var documentType = $(this).val();
+    function filtrarPorDocumentoNDocumento() {
+        var documentType = $('#documentTypeNDocumento').val();
         if (documentType) {
             if (documentType == 1) {
                 documentType = 'Boleta'
@@ -267,6 +271,10 @@ $(document).ready(function() {
             .columns(2)
             .search(documentType)
             .draw();
+    }
+
+    $(document).on('change', '#documentTypeNDocumento', function () {
+        filtrarPorDocumentoNDocumento();
     });
 
     function getFacturasNDocumento() {
@@ -394,6 +402,7 @@ $(document).ready(function() {
 
             $('[data-toggle="popover"]').popover();
             $('table').css('width', '100%');
+            filtrarPorDocumentoNDocumento();
         });
     }
 
@@ -525,6 +534,7 @@ $(document).ready(function() {
 
             $('[data-toggle="popover"]').popover();
             $('table').css('width', '100%');
+            filtrarPorDocumentoFecha();
         });
     }
 

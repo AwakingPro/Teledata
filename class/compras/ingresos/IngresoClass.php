@@ -146,7 +146,7 @@
 
         function showEstado(){
 
-            $query = 'SELECT * FROM mantenedor_tipo_pago';
+            $query = 'SELECT * FROM mantenedor_tipo_pago ORDER BY nombre';
             $run = new Method;
             $data = $run->select($query);
 
