@@ -306,6 +306,16 @@ $(document).ready(function() {
         
     });
 
+    // al cerrar modal
+    $('#modalContactos').on('hidden.bs.modal', function () {
+        // $('#IdContactoOculto').val('');
+        $('.modal-title-accion').html('Agregar Contacto');
+        $('#guardarContacto').html('Guardar');
+        $('.form-group').removeClass('has-error');
+        $('#insertContactos')[0].reset();
+        $('#IdContactoOculto').val('');
+    });
+
     $(document).on('click', '.guardarContacto', function() {
 
         var nombre = $('#NombreContacto').val();
@@ -337,7 +347,7 @@ $(document).ready(function() {
                         alertas('success', 'El contacto '+nombre+' se Registro con éxito.');
                     }
                     
-                    $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
+                    $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Cargando Información...</div><div class="spinner loading"></div>');
                     tablalistContactos(valor);
                     
                     // bootbox.alert('<h3 class="text-center">El contacto ' + nombre + ' se registro con éxito.</h3>');
@@ -359,6 +369,7 @@ $(document).ready(function() {
         getDataTables(url, valor, contenedor, contenedorTableCampos, contenedorTable );
     };
 
+    //actualizar contacto
     $(document).on('click', '.update-contactos', function(event) {
         id = $(this).attr('id');
         $('.modal-title-accion').html('Actualizar Contacto');
@@ -393,7 +404,7 @@ $(document).ready(function() {
             confirmButtonText: 'Si Borrar!'
           }).then((result) => {
             if (result == true) {
-                $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Elimando Contacto...</div><div class="spinner loading"></div>');
+                $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Eliminando Contacto...</div><div class="spinner loading"></div>');
                 $.post('../ajax/cliente/eliminarContacto.php', { id: id }, function(data) {
                     
                     if(data == true) {
@@ -437,7 +448,7 @@ $(document).ready(function() {
 
     // funcion para obtener datos con datatable
     function getDataTables(url, id, contenedor, contenedorTableCampos, contenedorTable ){
-        $(contenedor).html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
+        $(contenedor).html('<div style="text-align:center; font-size:15px;">Cargando Información...</div><div class="spinner loading"></div>');
         if (id != '') {
             $.post(url, { id: id }, function(data) {
                 //aqui faltaria validar si la data es json o no con if para usar los 2 tipos de datos
@@ -483,7 +494,7 @@ $(document).ready(function() {
 
 
     $(document).on('click', '.agregarDatosTecnicos', function() {
-        $('.containerTipoServicio').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
+        $('.containerTipoServicio').html('<div style="text-align:center; font-size:15px;">Cargando Información...</div><div class="spinner loading"></div>');
 
         var id = $(this).attr('attr');
 
@@ -524,7 +535,7 @@ $(document).ready(function() {
     });
 
     function ListDatosTecnicos(id) {
-        $('.containerListDatosTecnicos').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
+        $('.containerListDatosTecnicos').html('<div style="text-align:center; font-size:15px;">Cargando Información...</div><div class="spinner loading"></div>');
         $.post('../ajax/cliente/tipolistModal.php', {
             id: id
         }, function(data) {
@@ -1141,7 +1152,7 @@ $(document).ready(function() {
         }
     }
     $(document).on('click', '.updateDatosTecnicos', function() {
-        $('.containerTipoServicio').html('<div style="text-align:center; font-size:15px;">Cargando Informacion...</div><div class="spinner loading"></div>');
+        $('.containerTipoServicio').html('<div style="text-align:center; font-size:15px;">Cargando Información...</div><div class="spinner loading"></div>');
         var idServicio = $(this).attr('attr');
         var id = $(this).attr('id');
         $.post('../ajax/cliente/tipoViewModal.php', { id: idServicio }, function(data) {
