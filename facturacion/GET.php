@@ -1,5 +1,5 @@
 <?php
-    $url='https://api.bsale.cl/v1/documents.json';
+    $url='https://api.bsale.cl/v1/documents/21.json?expand=[details]';
     //PRUEBA
     // $access_token='55c32f657ce5aa159a6fc039b64aabceead8f061';
     //PRODUCCION

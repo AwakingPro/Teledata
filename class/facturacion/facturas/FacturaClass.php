@@ -2456,7 +2456,7 @@
             $variables_globales = $run->select($query);
             $access_token = $variables_globales[0]['access_token'];
 
-            $url='https://api.bsale.cl/v1/documents/'.$Id.'.json';
+            $url='https://api.bsale.cl/v1/documents/'.$Id.'.json?expand=[details]';
 
             // Inicia cURL
             $session = curl_init($url);
@@ -2934,6 +2934,48 @@
                 $PdfContent = file_get_contents($UrlPdf);
                 file_put_contents($UrlLocal, $PdfContent);
             }   
+        }
+        public function updateDetallesDocumentoBsale(){
+            $run = new Method;
+            $query = "  SELECT
+                            fd.Id,
+                            fd.Concepto,
+                            f.DocumentoIdBsale 
+                        FROM
+                            facturas_detalle fd
+                            INNER JOIN facturas f ON fd.FacturaId = f.Id 
+                        WHERE
+                            fd.documentDetailIdBsale IS NULL 
+                        AND
+                            f.EstatusFacturacion != 0
+                        ORDER BY
+                            f.Id";
+            $Detalles = $run->select($query);
+            if($Detalles){
+                $DocumentoIdBsale = 0;
+                foreach($Detalles as $Detalle){
+                    if($DocumentoIdBsale != $Detalle['DocumentoIdBsale']){
+                        $DocumentoIdBsale = $Detalle['DocumentoIdBsale'];
+                        $DocumentoBsale = $this->getDocumentoBsale($DocumentoIdBsale,1);
+                    }
+                    if($DocumentoBsale){
+                        $Id = $Detalle['Id'];
+                        $Concepto = $Detalle['Concepto'];
+                        $details = $DocumentoBsale['details'];
+                        $details = $details['items'];
+                        $cantidadDetalles = count($details);
+                        foreach($details as $detail){
+                            $documentDetailIdBsale = $detail['id'];
+                            $variant = $detail['variant'];
+                            $ConceptoBsale = $variant['description'];
+                            if(stripos($ConceptoBsale, $Concepto) !== FALSE OR $cantidadDetalles == 1){
+                                $query = "UPDATE facturas_detalle SET documentDetailIdBsale = '".$documentDetailIdBsale."' WHERE Id = '".$Id."'";
+                                $run->update($query); 
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 ?>
