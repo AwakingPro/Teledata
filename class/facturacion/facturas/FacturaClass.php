@@ -947,6 +947,7 @@
 
         function generarMes($dt){
             $Mes = $dt->format('m');
+            $Mes--;
 
             switch ($Mes) {
                 case 1:
