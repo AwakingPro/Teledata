@@ -3,7 +3,7 @@
 class Email
 {
 	//Versión 2
-	public function SendMail($html,$subject,$email){ 
+	public function SendMail($html,$subject,$email,$attachments = false){ 
 
 		$mail = new PHPMailer();  
 		
@@ -16,6 +16,12 @@ class Email
 				'allow_self_signed' => true
 			)
 		);
+
+		if($attachments){
+			foreach($attachments as $attachment){
+				$mail->addAttachment($attachment['url'],$attachment['name']);  
+			}
+		}
 		
 		// $mail->SMTPSecure = "ssl";
 		$mail->SMTPSecure = "TLS";

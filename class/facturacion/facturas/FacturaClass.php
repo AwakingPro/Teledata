@@ -2979,5 +2979,56 @@
                 }
             }
         }
+
+        public function enviarDocumentos($Id){
+            $run = new Method;
+            $query = "SELECT p.nombre, p.correo, d.NumeroDocumento, d.TipoDocumento FROM personaempresa p INNER JOIN facturas d ON p.Rut = d.Rut WHERE d.Id = '".$Id."'";
+            $Documento = $run->select($query);
+            if($Documento){
+                $Documento = $Documento[0];
+                $Nombre = $Documento['nombre'];
+                $Correo = $Documento['correo'];
+                $NumeroDocumento = $Documento['NumeroDocumento'];
+
+                if($Documento['TipoDocumento'] == 1){
+                    $TipoDocumento = 'Boleta';
+                }else{
+                    $TipoDocumento = 'Factura';
+                }
+                $Asunto = $TipoDocumento . ' #' . $NumeroDocumento . ' Teledata';
+
+                $Html =
+                "<html>
+                    <head>
+                        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+                        <style>
+                        body{font-family:Open Sans;font-size:14px;}
+                        table{font-size:13px;border-collapse:collapse;}
+                        th{padding:8px;text-align:left;color:#595e62;border-bottom: 2px solid rgba(0,0,0,0.14);font-size:14px;}
+                        td{padding:8px;border-bottom: 1px solid rgba(0,0,0,0.05);}
+                        </style>
+                    </head>
+                    <body>
+                    ESTIMADO(A) ".$Nombre.",<br>
+                        Su ".$TipoDocumento." se genero con exito con el folio ".$NumeroDocumento." y ha sido adjuntada en este correo.<br><br>
+                        Saludos.
+                    </body>
+                </html>";
+                
+                $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$Id.".pdf";    
+                if(file_exists($UrlLocal)){
+                    $Archivos = array();
+                    $Archivo = array('url' => $UrlLocal, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');
+                    array_push($Archivos,$Archivo);
+                    $Email = new Email();
+                    $ToReturn = $Email->SendMail($Html,$Asunto,$Correo,$Archivos);
+                }else{
+                    $ToReturn = 2;
+                }
+            }else{
+                $ToReturn = 3;
+            }
+            return $ToReturn;
+	    }
     }
 ?>
