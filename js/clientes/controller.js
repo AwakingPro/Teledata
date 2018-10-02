@@ -224,6 +224,7 @@ $(document).ready(function() {
 
     $(document).on('click', '.guardarCliente', function() {
         tipo = $(this).attr('id')
+        // extras = $('#ContactoTable').DataTable().rows().data();
         $.postFormValues('../ajax/cliente/insertCliente.php', '.form-cont1', function(data) {
             if (Number(data) > 0) {
                 if (tipo == 'guardarCliente') {

@@ -85,7 +85,7 @@ function ValidarString(Input, Text) {
     }
 };
 
-$.postFormValues = function(url, form,callback) {
+$.postFormValues = function (url, form, extras = false, callback) {
     if ($(form).length) {
         var countObjs = 0;
         var countValidates = 0;
@@ -103,6 +103,9 @@ $.postFormValues = function(url, form,callback) {
             }
         });
         if (countObjs == countValidates) {
+            if (extras) {
+                formValues.append('extras', extras);
+            }
             $.ajax({
                 url: url,
                 type: 'POST',

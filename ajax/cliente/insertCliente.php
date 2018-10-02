@@ -18,6 +18,7 @@
 	$Correo = isset($_POST['Correo']) ? strtoupper(trim($_POST['Correo'])) : "";
 	$Comentario = isset($_POST['Comentario']) ? strtoupper(trim($_POST['Comentario'])) : "";
 	$TipoPago = isset($_POST['TipoPago']) ? trim($_POST['TipoPago']) : "";
+	// $Extras = isset($_POST['extras']) ? trim($_POST['extras']) : "";
 	$idUsuario = $_SESSION['idUsuario'];
 
 	$query = "INSERT INTO personaempresa
@@ -25,81 +26,94 @@
 			VALUES
 			('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Ciudad."', '".$Region."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$idUsuario."', '".$ClaseCliente."', '".$TipoPago."')";
 
-	$IdCliente = $run->insert($query);
+	$Id = $run->insert($query);
 
-	if($IdCliente > 0){
+	if($Id > 0){
 
-		echo $IdCliente;
+		// if($Extras){
+		// 	foreach($Extras as $Extra){
+		// 		$contacto = $Extra['contacto'];
+		// 		$tipo_contacto = $Extra['tipo_contacto'];
+		// 		$correo = $Extra['correo'];
+		// 		$telefono = $Extra['telefono'];
+		// 		$query = "	INSERT INTO contactos ( contacto, tipo_contacto, correo, telefono, id_persona )
+		// 					VALUES
+		// 						( '".$contacto."', '".$tipo_contacto."', '".$correo."', '".$telefono."', '".$Id."' )";
+		// 		$run->insert($query);
+		// 	}
+		// }
 
-		$query = "SELECT token_produccion as access_token FROM variables_globales";
-		$variables_globales = $run->select($query);
-		$access_token = $variables_globales[0]['access_token'];
-		$query = "	SELECT
-						CONCAT(per.rut, '-', per.dv) as codigo, per.cliente_id_bsale, pro.nombre AS provincia, ciu.nombre AS ciudad
-					FROM
-						personaempresa per
-					INNER JOIN ciudades ciu ON per.ciudad = ciu.id
-					INNER JOIN provincias pro ON ciu.provincia_id = pro.id
-					WHERE
-						per.id = '".$IdCliente."'";
-		$Cliente = $run->select($query);
-		$Cliente = $Cliente[0];
-		$Provincia = $Cliente['provincia'];
-		$Ciudad = $Cliente['ciudad'];
-		$array = array(
-			"firstName"     => $Contacto,
-			"lastName"      => "",
-			"email"         => $Correo,
-			"phone"         => $Telefono,
-			"address"       => $DireccionComercial,
-			"company"       => $Nombre,
-			"city"          => $Provincia,
-			"municipality"  => $Ciudad,
-			"activity"      => $Giro
-		);
+		echo $Id;
 
-		$codigo = $Cliente['codigo'];
-		$url = 'https://api.bsale.cl/v1/clients.json?code='.$codigo;
-		$session = curl_init($url);
-		curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-		$headers = array(
-			'access_token: ' . $access_token,
-			'Accept: application/json',
-			'Content-Type: application/json'
-		);
-		curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-		$response = curl_exec($session);
-		curl_close($session);
-		$client = json_decode($response, true);
-		if($client['count']){
-			$id = $client['items'][0]['id'];
-			$array['id'] = $id;
-			$url = "https://api.bsale.cl/v1/clients/".$id.".json";
-			$session = curl_init($url);
-			curl_setopt($session, CURLOPT_CUSTOMREQUEST, "PUT");
-		}else{
-			$array['code'] = $codigo;
-			$url = 'https://api.bsale.cl/v1/clients.json';
-			$session = curl_init($url);
-			curl_setopt($session, CURLOPT_POST, true);
-		}
-		curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-		$headers = array(
-			'access_token: ' . $access_token,
-			'Accept: application/json',
-			'Content-Type: application/json'
-		);
-		curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-		$data = json_encode($array);
-		curl_setopt($session, CURLOPT_POSTFIELDS, $data);
-		$response = curl_exec($session);
-		curl_close($session);
-		if(!isset($id)){
-			$client = json_decode($response, true);
-			$id = $client['id'];
-		}
-		$query = "UPDATE personaempresa SET cliente_id_bsale = '".$id."' WHERE id = '".$IdCliente."'";
-		$update = $run->update($query);
+		// $query = "SELECT token_produccion as access_token FROM variables_globales";
+		// $variables_globales = $run->select($query);
+		// $access_token = $variables_globales[0]['access_token'];
+		// $query = "	SELECT
+		// 				CONCAT(per.rut, '-', per.dv) as codigo, per.cliente_id_bsale, pro.nombre AS provincia, ciu.nombre AS ciudad
+		// 			FROM
+		// 				personaempresa per
+		// 			INNER JOIN ciudades ciu ON per.ciudad = ciu.id
+		// 			INNER JOIN provincias pro ON ciu.provincia_id = pro.id
+		// 			WHERE
+		// 				per.id = '".$IdCliente."'";
+		// $Cliente = $run->select($query);
+		// $Cliente = $Cliente[0];
+		// $Provincia = $Cliente['provincia'];
+		// $Ciudad = $Cliente['ciudad'];
+		// $array = array(
+		// 	"firstName"     => $Contacto,
+		// 	"lastName"      => "",
+		// 	"email"         => $Correo,
+		// 	"phone"         => $Telefono,
+		// 	"address"       => $DireccionComercial,
+		// 	"company"       => $Nombre,
+		// 	"city"          => $Provincia,
+		// 	"municipality"  => $Ciudad,
+		// 	"activity"      => $Giro
+		// );
+
+		// $codigo = $Cliente['codigo'];
+		// $url = 'https://api.bsale.cl/v1/clients.json?code='.$codigo;
+		// $session = curl_init($url);
+		// curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+		// $headers = array(
+		// 	'access_token: ' . $access_token,
+		// 	'Accept: application/json',
+		// 	'Content-Type: application/json'
+		// );
+		// curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+		// $response = curl_exec($session);
+		// curl_close($session);
+		// $client = json_decode($response, true);
+		// if($client['count']){
+		// 	$id = $client['items'][0]['id'];
+		// 	$array['id'] = $id;
+		// 	$url = "https://api.bsale.cl/v1/clients/".$id.".json";
+		// 	$session = curl_init($url);
+		// 	curl_setopt($session, CURLOPT_CUSTOMREQUEST, "PUT");
+		// }else{
+		// 	$array['code'] = $codigo;
+		// 	$url = 'https://api.bsale.cl/v1/clients.json';
+		// 	$session = curl_init($url);
+		// 	curl_setopt($session, CURLOPT_POST, true);
+		// }
+		// curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+		// $headers = array(
+		// 	'access_token: ' . $access_token,
+		// 	'Accept: application/json',
+		// 	'Content-Type: application/json'
+		// );
+		// curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+		// $data = json_encode($array);
+		// curl_setopt($session, CURLOPT_POSTFIELDS, $data);
+		// $response = curl_exec($session);
+		// curl_close($session);
+		// if(!isset($id)){
+		// 	$client = json_decode($response, true);
+		// 	$id = $client['id'];
+		// }
+		// $query = "UPDATE personaempresa SET cliente_id_bsale = '".$id."' WHERE id = '".$IdCliente."'";
+		// $update = $run->update($query);
 		
 	}else{
 		echo false;

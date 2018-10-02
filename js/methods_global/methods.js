@@ -95,8 +95,18 @@ $.validate = function(obj) {
 				break;
 			case 'email':
 				emailRegex = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-				if (emailRegex.test($(obj).val())) {
-					return true;
+				emails = $(obj).val();
+				emails = emails.split(',');
+				ToReturn = true
+				$.each(emails, function (index, email) {
+					if (!emailRegex.test(email)) {
+						ToReturn = false;
+						return ToReturn;
+					}
+				});	
+				
+				if (ToReturn) {
+					return ToReturn;
 				} else {
 					$(obj).parent('.form-group').addClass('has-error');
 					// bootbox.alert('<h3 class="text-center">Disculpe el campo correo no es correcto.</h3>');
