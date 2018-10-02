@@ -3021,6 +3021,7 @@
                     $Archivo = array('url' => $UrlLocal, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');
                     array_push($Archivos,$Archivo);
                     $Email = new Email();
+                    // $Archivos = array();
                     $ToReturn = $Email->SendMail($Html,$Asunto,$Correo,$Archivos);
                 }else{
                     $ToReturn = 2;

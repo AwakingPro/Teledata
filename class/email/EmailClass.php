@@ -25,7 +25,7 @@ class Email
 		
 		// $mail->SMTPSecure = "ssl";
 		$mail->SMTPSecure = "TLS";
-		$mail->Host = "mail.teledata.cl"; 
+		$mail->Host = "smtp.gmail.com"; 
 		// $mail->Port = 25;  
 		$mail->Port = 587;  
 		$mail->Username = "teledatadte@teledata.cl";  
