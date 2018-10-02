@@ -17,6 +17,10 @@ $(document).ready(function() {
         $('select[name="Grupo"]').selectpicker('refresh');
     });
 
+    $('select[name="TipoContacto"]').load('../ajax/cliente/getTipoContactos.php', function () {
+        $('select[name="TipoContacto"]').selectpicker('refresh');
+    });
+
     var Parametros = window.location.search.substr(1);
     if (Parametros != "") {
         var ParametrosArray = Parametros.split("&");
@@ -313,6 +317,7 @@ $(document).ready(function() {
         $('#guardarContacto').html('Guardar');
         $('.form-group').removeClass('has-error');
         $('#insertContactos')[0].reset();
+        $('.selectpicker').selectpicker('refresh')
         $('#IdContactoOculto').val('');
     });
 
@@ -352,6 +357,7 @@ $(document).ready(function() {
                     
                     // bootbox.alert('<h3 class="text-center">El contacto ' + nombre + ' se registro con éxito.</h3>');
                     $('#insertContactos')[0].reset();
+                    $('.selectpicker').selectpicker('refresh')
                     $('.form-group').removeClass('has-error');
                     $('#guardarContacto').attr('disabled', false);
                 }
@@ -370,7 +376,7 @@ $(document).ready(function() {
     };
 
     //actualizar contacto
-    $(document).on('click', '.update-contactos', function(event) {
+    $(document).on('click', '.update-c', function(event) {
         id = $(this).attr('id');
         $('.modal-title-accion').html('Actualizar Contacto');
         $('#guardarContacto').html('Actualizar');
@@ -387,11 +393,12 @@ $(document).ready(function() {
             $('[name="TelefonoContacto"]').val(value['DataContacto'][0]['telefono']);
             $('[name="IdClienteOculto"]').val(value['DataContacto'][0]['id_persona']);
             $('[name="IdContactoOculto"]').val(id);
+            $('.selectpicker').selectpicker('refresh')
             
         });
     }
 
-    $(document).on('click', '.delete-contactos', function() {
+    $(document).on('click', '.delete-c', function() {
         var id = $(this).attr('attr');
         // console.log('id del contacto eliminado '+id);
         swal({

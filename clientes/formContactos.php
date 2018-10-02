@@ -5,7 +5,8 @@
     </div>
     <div class="col-md-6 form-group">
         <label>Tipo de Contacto</label>
-        <input name="TipoContacto" class="form-control">
+        <select class="selectpicker form-control" name="TipoContacto" id="TipoContacto"  data-live-search="true" data-container="body">
+        </select>
     </div>
 
     <div class="col-md-6 form-group">

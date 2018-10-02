@@ -2985,12 +2985,25 @@
 
         public function enviarDocumento($Id){
             $run = new Method;
-            $query = "SELECT p.nombre, p.correo, d.NumeroDocumento, d.TipoDocumento FROM personaempresa p INNER JOIN facturas d ON p.Rut = d.Rut WHERE d.Id = '".$Id."'";
+            $query = "  SELECT
+                            p.nombre,
+                            GROUP_CONCAT( c.correo ) as correos,
+                            d.NumeroDocumento,
+                            d.TipoDocumento 
+                        FROM
+                            personaempresa p
+                            INNER JOIN facturas d ON p.Rut = d.Rut
+                            INNER JOIN contactos c ON c.id_persona = p.id 
+                        WHERE
+                            d.Id = '".$Id."' 
+                            AND c.tipo_contacto = 2 
+                        GROUP BY
+                            c.id_persona";
             $Documento = $run->select($query);
             if($Documento){
                 $Documento = $Documento[0];
                 $Nombre = $Documento['nombre'];
-                $Correo = $Documento['correo'];
+                $Correos = $Documento['correos'];
                 $NumeroDocumento = $Documento['NumeroDocumento'];
 
                 if($Documento['TipoDocumento'] == 1){
@@ -3025,7 +3038,7 @@
                     array_push($Archivos,$Archivo);
                     $Email = new Email();
                     // $Archivos = array();
-                    $ToReturn = $Email->SendMail($Html,$Asunto,$Correo,$Archivos);
+                    $ToReturn = $Email->SendMail($Html,$Asunto,$Correos,$Archivos);
                 }else{
                     $ToReturn = 2;
                 }

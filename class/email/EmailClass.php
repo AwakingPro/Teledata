@@ -3,7 +3,7 @@
 class Email
 {
 	//Versión 2
-	public function SendMail($html,$subject,$email,$attachments = false){ 
+	public function SendMail($html,$subject,$emails,$attachments = false){ 
 
 		$mail = new PHPMailer();  
 		
@@ -35,7 +35,14 @@ class Email
 		$mail->Subject = $subject;  
 		$mail->IsHTML(true);  
 		$mail->MsgHTML($html); 
-		$mail->AddAddress($email);   
+
+		$emails = explode(',',$emails);
+		foreach($emails as $email){
+			$email = trim($email);
+			if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+				$mail->AddAddress($email);   
+			}
+		}
 		
 		if($mail->Send()){  
 			$ToReturn = true; 
