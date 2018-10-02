@@ -24,19 +24,19 @@ class Email
 		}
 		
 		// $mail->SMTPSecure = "ssl";
-		$mail->SMTPSecure = "TLS";
+		// $mail->SMTPSecure = "TLS";
 		$mail->Host = "mail.teledata.cl"; 
-		// $mail->Port = 25;  
-		$mail->Port = 587;  
-		$mail->Username = "erp@teledata.cl";  
-		$mail->Password = "6stmailerp";  
-		$mail->From = "erp@teledata.cl";
+		$mail->Port = 25;  
+		// $mail->Port = 587;  
+		$mail->Username = "teledatadte@teledata.cl";  
+		$mail->Password = "erp-mail.tldt.";  
+		$mail->From = "teledatadte@teledata.cl";
 		$mail->FromName = "Teledata";  
 		$mail->Subject = $subject;  
 		$mail->IsHTML(true);  
 		$mail->MsgHTML($html); 
 		$mail->AddAddress($email);   
-
+		
 		if($mail->Send()){  
 			$ToReturn = true; 
 		}else{   
