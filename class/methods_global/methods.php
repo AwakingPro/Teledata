@@ -427,18 +427,18 @@
 							$id = $rows[$i][0];
 							$tabla.= '<tr>';
 							foreach ($rows[$i] as $clave => $valor) {
-								if($clave != 0 && $clave != 4){
+								if($clave != 0){
 									$tabla.="<td>".$valor."</td>";
 								}
-								if($clave == 3){
-									$explode = explode('.',$valor);
-									if(isset($explode[1])){
-										if($explode[1] == '00'){
-											$valor = intval($valor);
-										}
-									}
-									$tabla.="<td>".$valor."</td>";
-								}
+								// if($clave == 3){
+								// 	$explode = explode('.',$valor);
+								// 	if(isset($explode[1])){
+								// 		if($explode[1] == '00'){
+								// 			$valor = intval($valor);
+								// 		}
+								// 	}
+								// 	$tabla.="<td>".$valor."</td>";
+								// }
 							}
 							$query = "SELECT * FROM facturas_detalle WHERE IdServicio = '".$id."'";
 							$count = 0;
