@@ -3026,7 +3026,7 @@
                     </head>
                     <body>
                     ESTIMADO(A) ".$Nombre.",<br>
-                        Su ".$TipoDocumento." se genero con exito con el folio ".$NumeroDocumento." y ha sido adjuntada en este correo.<br><br>
+                        La ".$TipoDocumento." #".$NumeroDocumento." se genero con exito y ha sido adjuntada en este correo.<br><br>
                         Saludos.
                     </body>
                 </html>";
