@@ -24,10 +24,10 @@ class Email
 		}
 		
 		// $mail->SMTPSecure = "ssl";
-		// $mail->SMTPSecure = "TLS";
+		$mail->SMTPSecure = "TLS";
 		$mail->Host = "mail.teledata.cl"; 
-		$mail->Port = 25;  
-		// $mail->Port = 587;  
+		// $mail->Port = 25;  
+		$mail->Port = 587;  
 		$mail->Username = "teledatadte@teledata.cl";  
 		$mail->Password = "erp-mail.tldt.";  
 		$mail->From = "teledatadte@teledata.cl";
