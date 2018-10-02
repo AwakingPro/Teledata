@@ -31,7 +31,7 @@ class Email
 		$mail->Username = "teledatadte@teledata.cl";  
 		$mail->Password = "erp-mail.tldt.";  
 		$mail->From = "teledatadte@teledata.cl";
-		$mail->FromName = "Teledata";  
+		$mail->FromName = "Teledata DTE";  
 		$mail->Subject = $subject;  
 		$mail->IsHTML(true);  
 		$mail->MsgHTML($html); 
