@@ -960,7 +960,9 @@ $(document).ready(function() {
                                 swal("Éxito!", "El documento ha sido reenviado!", "success");
                             } else if (response == 2) {
                                 swal('Solicitud no procesada', 'Este documento no puede ser enviado, por favor contactar al administrador', 'error');
-                            } else {
+                            } else if (response == 3) {
+                                swal('Solicitud no procesada', 'Este cliente no posee contacto de facturación', 'error');
+                            }else {
                                 swal('Solicitud no procesada', 'Ha ocurrido un error, intente nuevamente por favor', 'error');
                             }
                         }, 1000);
