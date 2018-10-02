@@ -133,7 +133,7 @@ $(document).ready(function() {
                                     Pagos = ''
                                 }
                                 Anulacion = '';
-                                Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumentos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
+                                Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
                             } else if (row.EstatusFacturacion == 2) {
                                 Folder = 'notas_credito';
                                 Devolucion = ''
@@ -353,7 +353,7 @@ $(document).ready(function() {
                                     Pagos = ''
                                 }
                                 Anulacion = '';
-                                Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumentos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
+                                Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
                             } else if (row.EstatusFacturacion == 2) {
                                 Folder = 'notas_credito';
                                 Devolucion = ''
@@ -488,7 +488,7 @@ $(document).ready(function() {
                                     Pagos = ''
                                 }
                                 Anulacion = '';
-                                Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumentos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
+                                Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
                             } else if (row.EstatusFacturacion == 2) {
                                 Folder = 'notas_credito';
                                 Devolucion = ''
@@ -932,7 +932,7 @@ $(document).ready(function() {
         });
     });
 
-    $(document).on('click', '.enviarDocumentos', function () {
+    $(document).on('click', '.enviarDocumento', function () {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
@@ -951,7 +951,7 @@ $(document).ready(function() {
             if (isConfirm) {
 
                 $.ajax({
-                    url: "../includes/facturacion/facturas/enviarDocumentos.php",
+                    url: "../includes/facturacion/facturas/enviarDocumento.php",
                     type: 'POST',
                     data: "&id=" + ObjectId,
                     success: function (response) {

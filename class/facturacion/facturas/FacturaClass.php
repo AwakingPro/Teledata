@@ -474,6 +474,7 @@
                         if($FacturaId){
                             if($UrlPdf){                        
                                 $this->almacenarDocumento($FacturaId,1,$UrlPdf);
+                                $this->enviarDocumento($FacturaId);
                             }
                             foreach($Detalles as $Detalle){
                                 $Codigo = $Detalle['Codigo'];
@@ -646,6 +647,7 @@
                                 if($FacturaId){
                                     if($UrlPdf){                        
                                         $this->almacenarDocumento($FacturaId,1,$UrlPdf);
+                                        $this->enviarDocumento($FacturaId);
                                     }
                                     foreach($Detalles as $Detalle){
                                         $Codigo = $Detalle['Codigo'];
@@ -1032,6 +1034,7 @@
                             }
                             if($UrlPdf){
                                 $this->almacenarDocumento($Id,1,$UrlPdf);
+                                $this->enviarDocumento($Id);
                                 $DocumentoId = $FacturaBsale['id'];
                                 $informedSii = $FacturaBsale['informedSii'];
                                 $responseMsgSii = $FacturaBsale['responseMsgSii'];
@@ -2980,7 +2983,7 @@
             }
         }
 
-        public function enviarDocumentos($Id){
+        public function enviarDocumento($Id){
             $run = new Method;
             $query = "SELECT p.nombre, p.correo, d.NumeroDocumento, d.TipoDocumento FROM personaempresa p INNER JOIN facturas d ON p.Rut = d.Rut WHERE d.Id = '".$Id."'";
             $Documento = $run->select($query);

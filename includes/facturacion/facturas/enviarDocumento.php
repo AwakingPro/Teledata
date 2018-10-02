@@ -5,6 +5,6 @@
     include('../../../class/facturacion/facturas/FacturaClass.php');
 
     $Factura = new Factura();
-    $ToReturn = $Factura->enviarDocumentos($_POST['id']);
+    $ToReturn = $Factura->enviarDocumento($_POST['id']);
     echo $ToReturn;
 ?>
