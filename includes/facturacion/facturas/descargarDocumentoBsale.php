@@ -4,7 +4,7 @@
     if(isset($_POST['id'])){
         $id = $_POST['id'];
     }else{
-        $id = $argv[0];
+        $id = $argv[1];
     }
 
     $Factura = new Factura();
