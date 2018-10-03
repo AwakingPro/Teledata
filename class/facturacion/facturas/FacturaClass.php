@@ -2934,8 +2934,9 @@
                 $Folder = 'notas_debito';
             }
             $UrlLocal = "/var/www/html/Teledata/facturacion/".$Folder."/".$DocumentoId.".pdf";    
-            $finfo = finfo_open(FILEINFO_MIME_TYPE);
-            if(!file_exists($UrlLocal) OR finfo_file($finfo, $UrlLocal) != 'application/pdf'){
+            // $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            // OR finfo_file($finfo, $UrlLocal) != 'application/pdf'
+            if(!file_exists($UrlLocal)){
                 $PdfContent = file_get_contents($UrlPdf);
                 file_put_contents($UrlLocal, $PdfContent);
             }   
