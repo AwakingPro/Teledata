@@ -3049,6 +3049,7 @@
         }
         
         public function descargarDocumentoBsale($id){
+            $run = new Method;
             $query = "SELECT urlPdfBsale FROM facturas WHERE Id = '".$id."'";
             $Documento = $run->select($query);
             if($Documento){
