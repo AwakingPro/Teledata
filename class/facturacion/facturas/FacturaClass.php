@@ -3058,5 +3058,15 @@
             }
             return 1;
         }
+        public function eliminarZipsTmp(){
+            $directory = "/var/www/html/Teledata/facturacion/facturas";
+            $looper = new RecursiveDirectoryIterator($directory);
+            foreach (new RecursiveIteratorIterator($looper) as $filename => $cur) {
+                $ext = trim($cur->getExtension());
+                if($ext == "zip"){
+                    unlink($filename);
+                }
+            }
+        }
     }
 ?>
