@@ -99,7 +99,7 @@ $.validate = function(obj) {
 				emails = emails.split(',');
 				ToReturn = true
 				$.each(emails, function (index, email) {
-					if (!emailRegex.test(email)) {
+					if (!emailRegex.test(email.trim())) {
 						ToReturn = false;
 						return ToReturn;
 					}
