@@ -2,7 +2,6 @@
 require_once('../../class/methods_global/methods.php');
 
 if(isset($_POST['IdClienteOculto'])) {
-    session_start();
     $run = new Method;
     
     $contacto        = $_POST['NombreContacto'];
@@ -33,7 +32,7 @@ if(isset($_POST['IdClienteOculto'])) {
                 '".$contacto."',
                 '".$tipo_contacto."',
                 '".$correo."',
-                '".$telefono."'
+                '".$telefono."',
                 rut 
                 FROM
                     personaempresa 
