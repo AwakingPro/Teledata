@@ -2994,12 +2994,12 @@
                         FROM
                             personaempresa p
                             INNER JOIN facturas d ON p.Rut = d.Rut
-                            INNER JOIN contactos c ON c.id_persona = p.id 
+                            INNER JOIN contactos c ON c.rut = p.rut 
                         WHERE
                             d.Id = '".$Id."' 
                             AND c.tipo_contacto = 2 
                         GROUP BY
-                            c.id_persona";
+                            p.rut";
             $Documento = $run->select($query);
             if($Documento){
                 $Documento = $Documento[0];
