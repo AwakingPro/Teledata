@@ -274,21 +274,8 @@ $(document).ready(function() {
     
     //abreb el dashboard asociado al id del cliente del modulo /clientes/listaCliente.php
     $(document).on('click', '.dashboard', function() {
-        
-        
-        //id del cliente
         var valor = $(this).attr('attr');
-        
-        window.location = "../clientes/resumenCliente.php?cliente=" + valor;
-        // $('#IdClienteOculto').val(valor);
-        // var url = '../ajax/cliente/listContactos.php';
-        // var contenedor = '.dataContactos';
-        // var contenedorTable = '.dataContactos > .tabeData';
-        // var contenedorTableCampos = '.dataContactos > .tabeData tr th';
-        
-        // getDataTables(url, valor, contenedor, contenedorTableCampos, contenedorTable );
-        // console.log(valor+' valor en el input hidden '+$('#IdClienteOculto').val());
-        
+        window.open("../clientes/resumenCliente.php?cliente=" + valor, '_blank')
     });
 
     //agregar y ver contactos del modulo /clientes/listaCliente.php

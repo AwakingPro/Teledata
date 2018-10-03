@@ -20,16 +20,6 @@
             <label class="label-cliente">Teléfono Contacto</label>
                 <h5 class="info-cliente"><?php echo $lista[0][4]; ?></h5>
             </div>
-            <br>
-            <div class="col-md-12">
-                Para obtener ayuda descargue aquí el manual de usuario <br>
-                <i class="pli-information icon-lg icon-fw"></i> Ayuda
-            </div>
-            <br><br>
-            <div class="col-md-6 boton-volver">
-                <a href="../clientes/listaCliente.php" class="btn btn-primary"><i class="fa fa-paper-plane-o"> Volver</i></a>
-            </div>
-            
         </div>
     </div>
 </div>
