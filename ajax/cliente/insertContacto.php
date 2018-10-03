@@ -13,9 +13,13 @@ if(isset($_POST['IdClienteOculto'])) {
 
     if(isset($_POST['IdContactoOculto']) && $_POST['IdContactoOculto'] != '') {
         $idContacto = $_POST['IdContactoOculto'];
-        $query = "UPDATE contactos SET contacto = '".$contacto."', tipo_contacto = '".$tipo_contacto."', 
-                    correo = '".$correo."', telefono = '".$telefono."', id_persona = '".$id_persona."'
-                     WHERE id = '".$idContacto."' ";
+        $query = "  UPDATE contactos 
+                    SET contacto = '".$contacto."',
+                    tipo_contacto = '".$tipo_contacto."',
+                    correo = '".$correo."',
+                    telefono = '".$telefono."' 
+                    WHERE
+                        id = '".$idContacto."'";
         $update = $run->update($query);
         if($update){
             echo 'Editado';
@@ -25,12 +29,11 @@ if(isset($_POST['IdClienteOculto'])) {
         return;
     }
 
-    $query = "  INSERT INTO contactos ( contacto, tipo_contacto, correo, telefono, id_persona, rut ) SELECT
+    $query = "  INSERT INTO contactos ( contacto, tipo_contacto, correo, telefono, rut ) SELECT
                 '".$contacto."',
                 '".$tipo_contacto."',
                 '".$correo."',
-                '".$telefono."',
-                '".$id_persona."',
+                '".$telefono."'
                 rut 
                 FROM
                     personaempresa 
