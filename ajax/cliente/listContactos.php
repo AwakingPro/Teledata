@@ -10,7 +10,7 @@
 				FROM
 					contactos c
 					INNER JOIN mantenedor_tipo_contacto mtc ON c.tipo_contacto = mtc.id 
-					INNER JOIN personaempresa p ON c.id_persona = p.id 
+					INNER JOIN personaempresa p ON c.rut = p.rut
 				WHERE
 					p.id = '".$id."'
 				ORDER BY
