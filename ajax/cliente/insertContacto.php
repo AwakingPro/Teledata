@@ -25,16 +25,23 @@ if(isset($_POST['IdClienteOculto'])) {
         return;
     }
 
-    $query = "INSERT INTO contactos
-            (contacto, tipo_contacto, correo, telefono, id_persona)
-            VALUES
-            ('".$contacto."', '".$tipo_contacto."', '".$correo."', '".$telefono."', '".$id_persona."')";
+    $query = "  INSERT INTO contactos ( contacto, tipo_contacto, correo, telefono, id_persona, rut ) SELECT
+                '".$contacto."',
+                '".$tipo_contacto."',
+                '".$correo."',
+                '".$telefono."',
+                '".$id_persona."',
+                rut 
+                FROM
+                    personaempresa 
+                WHERE
+                    id = '".$id_persona."'";
 
-    $IdCliente = $run->insert($query);
+    $id = $run->insert($query);
 
-    if($IdCliente > 0){
+    if($id > 0){
 
-        echo $IdCliente;
+        echo $id;
     }
 } else {
     echo 'No existe El id del Cliente para el Contacto';
