@@ -3046,6 +3046,15 @@
                 $ToReturn = 3;
             }
             return $ToReturn;
-	    }
+        }
+        
+        public function descargarDocumentoBsale($id){
+            $query = "SELECT urlPdfBsale FROM facturas WHERE Id = '".$id."'";
+            $Documento = $run->select($query);
+            if($Documento){
+                $this->almacenarDocumento($id,1,$Documento[0]['urlPdfBsale']);
+            }
+            return 1;
+        }
     }
 ?>
