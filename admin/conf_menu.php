@@ -89,7 +89,7 @@
         <!--JAVASCRIPT-->
         <script src="../js/jquery-2.2.1.min.js"></script>
         <script src="../js/bootstrap.min.js"></script>
-        <script src="../js/global/validations.js"></script>
+        <script src="../js/methods_global/methods.js"></script>
         <script src="../js/admin/conf_menu.js"></script>
     </body>
 </html>

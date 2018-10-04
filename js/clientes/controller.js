@@ -3,6 +3,7 @@ var center
 var mapOptions
 var map
 var mapCenter
+var TableContactos
 
 $(document).ready(function() {
 
@@ -145,12 +146,21 @@ $(document).ready(function() {
     $('[name="CostoInstalacion"]').number(true, 2, ',', '.');
     $('[name="CostoInstalacionDescuento"]').number(true, 0, '.', '');
 
+    function loadModalContactos(){
+        var valor = -1;
+        var url = '../ajax/cliente/listContactos.php';
+        var contenedor = '.dataContactos';
+        var contenedorTable = '.dataContactos > .tabeData';
+        var contenedorTableCampos = '.dataContactos > .tabeData tr th';
+        getDataTables(url, valor, contenedor, contenedorTableCampos, contenedorTable);
+    }
+    loadModalContactos()
     listClientes();
     function listClientes(){
         $('.listaCliente').html('<div class="spinner loading"></div>');
         $('.listaCliente').load('../ajax/cliente/listClientes.php', function() {
             var count = $('.listaCliente > .tabeData tr th').length - 1;
-            $('.listaCliente > .tabeData').dataTable({
+            $('.listaCliente > .tabeData').DataTable({
                 "columnDefs": [{
                     'orderable': false,
                     'targets': [count]
@@ -188,7 +198,7 @@ $(document).ready(function() {
             values = $.parseJSON(data);
             $('.dataServicios').html(values[1]);
             var count = $('.dataServicios > .tabeData tr th').length - 1;
-            $('.dataServicios > .tabeData').dataTable({
+            $('.dataServicios > .tabeData').DataTable({
                 "scrollX": true,
                 "columnDefs": [{
                     'orderable': false,
@@ -224,14 +234,18 @@ $(document).ready(function() {
 
     $(document).on('click', '.guardarCliente', function() {
         tipo = $(this).attr('id')
-        // extras = $('#ContactoTable').DataTable().rows().data();
-        $.postFormValues('../ajax/cliente/insertCliente.php', '.form-cont1', function(data) {
+        extras = JSON.stringify(TableContactos.data().toArray())
+        $.postFormValues('../ajax/cliente/insertCliente.php', '.form-cont1', extras, function(data) {
             if (Number(data) > 0) {
                 if (tipo == 'guardarCliente') {
                     listClientes();
                     bootbox.alert('<h3 class="text-center">El cliente #' + data + ' se registro con éxito.</h3>');
                     $('#insertCliente')[0].reset();
                     $('.selectpicker').selectpicker('refresh')
+                    TableContactos
+                        .rows()
+                        .remove()
+                        .draw();
                 } else {
                     window.location = "../servicios?Rut=" + rut;
                 }
@@ -311,20 +325,18 @@ $(document).ready(function() {
 
     $(document).on('click', '.guardarContacto', function() {
 
+        var valor = $('#IdClienteOculto').val();            
         var nombre = $('#NombreContacto').val();
         $('#guardarContacto').attr('disabled', 'disabled');
-            
-            var valor = $('#IdClienteOculto').val();
-
-            // console.log('id desde que se guarda el contacto es '+valor);
-            setTimeout(function(){
-                if($('#guardarContacto').is(':disabled')){
+        
+        if(valor){        
+            setTimeout(function () {
+                if ($('#guardarContacto').is(':disabled')) {
                     $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Guardando Contacto...</div><div class="spinner loading"></div>');
                 }
             }, 1000);
-            
-            
-            $.postFormValues('../ajax/cliente/insertContacto.php', '.insertContactos', function(data) {
+
+            $.postFormValues('../ajax/cliente/insertContacto.php', '.insertContactos', {}, function(data) {
                 
                 if(data) {
                     if(data == 'Editado') {
@@ -347,10 +359,41 @@ $(document).ready(function() {
                     $('#insertContactos')[0].reset();
                     $('.selectpicker').selectpicker('refresh')
                     $('.form-group').removeClass('has-error');
-                    $('#guardarContacto').attr('disabled', false);
                 }
-                
             });
+        }else{
+            $.localFormValues('#insertContactos', function (response) {
+                for (var [name, value] of response.entries()) {
+                    switch (name){
+                        case 'NombreContacto':
+                            NombreContacto = value
+                            break;
+                        case 'TipoContacto':
+                            TipoContacto = $('#TipoContacto').find("option:selected").text();
+                            break;
+                        case 'CorreoContacto':
+                            CorreoContacto = value
+                            break;
+                        case 'TelefonoContacto':
+                            TelefonoContacto = value
+                            break;
+
+                    }
+                }
+                TableContactos.row.add([
+                    '' + NombreContacto + '',
+                    '' + TipoContacto + '',
+                    '' + CorreoContacto + '',
+                    '' + TelefonoContacto + '',
+                    '' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times delete-c"></i>' + '',
+                ]).draw(false).node();
+                $('#insertContactos')[0].reset();
+                $('.selectpicker').selectpicker('refresh')
+                $('.form-group').removeClass('has-error');
+                alertas('success', 'El contacto ' + nombre + ' se Registro con éxito.');
+            });
+        }
+        $('#guardarContacto').attr('disabled', false);
     });
 
     // muestra datatable pertenecientes al parametro que se envia para Contactos
@@ -388,7 +431,7 @@ $(document).ready(function() {
 
     $(document).on('click', '.delete-c', function() {
         var id = $(this).attr('attr');
-        // console.log('id del contacto eliminado '+id);
+        var element = $(this)
         swal({
             title: '¿Esta seguro de querer eliminar los datos?',
             text: "Presione Si de lo contrario Cancel",
@@ -397,30 +440,38 @@ $(document).ready(function() {
             confirmButtonColor: '#3085d6',
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si Borrar!'
-          }).then((result) => {
-            if (result == true) {
-                $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Eliminando Contacto...</div><div class="spinner loading"></div>');
-                $.post('../ajax/cliente/eliminarContacto.php', { id: id }, function(data) {
-                    
-                    if(data == true) {
-                        alertas('success', 'El contacto se Elimino con éxito.');
-                        // bootbox.alert('<h3 class="text-center">El contacto se Elimino con éxito.</h3>');
-                        var valor = $('#IdClienteOculto').val();
-                        //reresh table Contactos
-                        tablalistContactos(valor);
-                    }
-                    else if(data == false) {
-                        alertas('danger', 'El contacto No se Elimino.');
-                        // bootbox.alert('<h3 class="text-center">El contacto No se Elimino.</h3>');
-                    }
-                    else {
-                        alertas('danger', data);
-                        // bootbox.alert('<h3 class="text-center">'+data+'</h3>');
-                    }
-                    
-                });
+        }, function (isConfirm) {
+            if (isConfirm == true) {
+                if(id){
+                    $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Eliminando Contacto...</div><div class="spinner loading"></div>');
+                    $.post('../ajax/cliente/eliminarContacto.php', { id: id }, function(data) {
+                        
+                        if(data == true) {
+                            alertas('success', 'El contacto se Elimino con éxito.');
+                            // bootbox.alert('<h3 class="text-center">El contacto se Elimino con éxito.</h3>');
+                            var valor = $('#IdClienteOculto').val();
+                            //reresh table Contactos
+                            tablalistContactos(valor);
+                        }
+                        else if(data == false) {
+                            alertas('danger', 'El contacto No se Elimino.');
+                            // bootbox.alert('<h3 class="text-center">El contacto No se Elimino.</h3>');
+                        }
+                        else {
+                            alertas('danger', data);
+                            // bootbox.alert('<h3 class="text-center">'+data+'</h3>');
+                        }
+                        
+                    });
+                }else{
+                    alertas('success', 'El contacto se Elimino con éxito.');
+                    TableContactos
+                        .row($(element).parents('tr'))
+                        .remove()
+                        .draw();
+                }
             }
-          });
+        });
     });
 
     //ver servicios del modulo /clientes/listaCliente.php
@@ -453,7 +504,7 @@ $(document).ready(function() {
                 $(contenedor).html(values);
                 var count = $(contenedorTableCampos).length - 1;
                 
-                $(contenedorTable).dataTable({
+                TableContactos = $(contenedorTable).DataTable({
                     "columnDefs": [{
                         'orderable': true,
                         'targets': [count]
@@ -539,7 +590,7 @@ $(document).ready(function() {
             }, function(data) {
                 $('.containerListDatosTecnicos').html(data);
                 var count = $('.containerListDatosTecnicos > .tabeData tr th').length - 1;
-                $('.containerListDatosTecnicos > .tabeData').dataTable({
+                $('.containerListDatosTecnicos > .tabeData').DataTable({
                     "columnDefs": [{
                         'orderable': false,
                         'targets': [count]
@@ -574,7 +625,7 @@ $(document).ready(function() {
    
     $(document).on('click', '.guardarDatosTecnicos', function() {
         var url = $('.container-form-datosTecnicos').attr('attr');
-        $.postFormValues('../ajax/cliente/' + url, '.container-form-datosTecnicos', function(data) {
+        $.postFormValues('../ajax/cliente/' + url, '.container-form-datosTecnicos', {}, function(data) {
             if (Number(data) > 0) {
                 var id = $('.containerListDatosTecnicos').attr('idTipoLista');
                 $('.modal').modal('hide')
@@ -683,7 +734,7 @@ $(document).ready(function() {
     }
 
     $(document).on('click', '.actualizarCliente', function() {
-        $.postFormValues('../ajax/cliente/updateCliente.php', '.container-form-update', function(data) {
+        $.postFormValues('../ajax/cliente/updateCliente.php', '.container-form-update', {}, function(data) {
             listClientes();
             $('#editarCliente').modal('hide');
             bootbox.alert('<h3 class="text-center">El cliente se actualizo con éxito.</h3>');
@@ -940,11 +991,11 @@ $(document).ready(function() {
                         if (value > 0) {
                             $('#showServicio #BooleanCostoInstalacion').val(1);
                             $('#divCostoInstalacionEditar').show();
-                            $('#showServicio').find('input[name="CostoInstalacion"]').attr('validation', 'not_null')
+                            $('#showServicio').find('input[name="CostoInstalacion"]').attr('validate', 'not_null')
                         } else {
                             $('#showServicio #BooleanCostoInstalacion').val(0);
                             $('#divCostoInstalacionEditar').hide();
-                            $('#showServicio').find('input[name="CostoInstalacion"]').removeAttr('validation')
+                            $('#showServicio').find('input[name="CostoInstalacion"]').removeAttr('validate')
                         }
                     }
                 }
@@ -1003,15 +1054,15 @@ $(document).ready(function() {
     $('#showServicio #BooleanCostoInstalacion').change(function(event) {
         if ($(this).val() == 1) {
             $('#divCostoInstalacionEditar').show();
-            $('#showServicio').find('input[name="CostoInstalacion"]').attr('validation', 'not_null')
+            $('#showServicio').find('input[name="CostoInstalacion"]').attr('validate', 'not_null')
         } else {
             $('#divCostoInstalacionEditar').hide();
-            $('#showServicio').find('input[name="CostoInstalacion"]').removeAttr('validation')
+            $('#showServicio').find('input[name="CostoInstalacion"]').removeAttr('validate')
         }
     });
 
     $(document).on('click', '#updateServ', function() {
-        $.postFormValues('../ajax/servicios/updateServicio.php', '#showServicio', function(data) {
+        $.postFormValues('../ajax/servicios/updateServicio.php', '#showServicio', {}, function(data) {
             if (data) {
                 servicio_id = data
                 $('.modal').modal('hide')
@@ -1086,7 +1137,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '#updateEstatus', function() {
-        $.postFormValues('../ajax/servicios/updateEstatus.php', '#formEstatus', function(data) {
+        $.postFormValues('../ajax/servicios/updateEstatus.php', '#formEstatus', {}, function(data) {
             if (data == 1) {
                 $('.modal').modal('hide')
                 setTimeout(function() {
@@ -1105,7 +1156,7 @@ $(document).ready(function() {
 
     $('body').on('click', '#guardarGiro', function() {
 
-        $.postFormValues('../ajax/cliente/insertGiro.php', '#insertGiro', function(response) {
+        $.postFormValues('../ajax/cliente/insertGiro.php', '#insertGiro', {}, function(response) {
 
             response = JSON.parse(response);
 
@@ -1170,7 +1221,7 @@ $(document).ready(function() {
         });
     });
     $(document).on('click', '.actualizarDatosTecnicos', function() {
-        $.postFormValues('../ajax/servicios/updateDatosTecnicos.php', '.container-form-datosTecnicos', function(data) {
+        $.postFormValues('../ajax/servicios/updateDatosTecnicos.php', '.container-form-datosTecnicos', {}, function(data) {
             if (Number(data) > 0) {
                 var id = $('.containerListDatosTecnicos').attr('idTipoLista');
                 $('.modal').modal('hide')

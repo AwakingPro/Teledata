@@ -282,14 +282,14 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label class="control-label" for="name">Fecha de Pago</label>
-									<input id="FechaPago" name="FechaPago" validation="not_null"  type="text" placeholder="Seleccione la fecha de pago" class="form-control date FechaPago" data-nombre="Fecha de Pago">
+									<input id="FechaPago" name="FechaPago" validate="not_null"  type="text" placeholder="Seleccione la fecha de pago" class="form-control date FechaPago" data-nombre="Fecha de Pago">
 								</div>
 							</div>
 							<div class="clearfix m-b-10"></div>
 							<div class="col-md-12">
 								<div class="form-group">
 									<label class="control-label" for="name">Monto</label>
-									<input id="Monto" name="Monto" validation="not_null" placeholder="Ingrese el monto" class="form-control input-sm number Monto" data-nombre="Monto">
+									<input id="Monto" name="Monto" validate="not_null" placeholder="Ingrese el monto" class="form-control input-sm number Monto" data-nombre="Monto">
 								</div>
 							</div>
 							<div class="clearfix m-b-10"></div>
@@ -297,7 +297,7 @@
 								<div class="form-group">
 									<label class="control-label" for="name">Tipo de Pago</label>
 									<div class="select">
-										<select class="form-control TipoPago" id="TipoPago" name="TipoPago" validation="not_null" data-live-search="true" data-nombre="Tipo de Pago" data-container="body">
+										<select class="form-control TipoPago" id="TipoPago" name="TipoPago" validate="not_null" data-live-search="true" data-nombre="Tipo de Pago" data-container="body">
 											<option value="">Seleccione Opción</option>
 										</select>
 									</div>
@@ -387,7 +387,7 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label class="control-label" for="name">Motivo</label>
-									<textarea class="form-control" name="Motivo" id="Motivo" cols="20" rows="5" validation="not_null" data-nombre="Motivo"></textarea>
+									<textarea class="form-control" name="Motivo" id="Motivo" cols="20" rows="5" validate="not_null" data-nombre="Motivo"></textarea>
 								</div>
 							</div>
 						</form>
@@ -408,7 +408,7 @@
 	<script src="../plugins/bootbox/bootbox.min.js"></script>
 	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
-	<script src="../js/global/validations.js"></script>
+	<script src="../js/methods_global/methods.js"></script>
 	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 	<script src="../plugins/moment/moment.js"></script>
 	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>

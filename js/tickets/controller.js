@@ -281,7 +281,7 @@ $.post('../ajax/privilegios.php', function(data) {
 		});
 
 		$('.guardarTicket').click(function() {
-			$.postFormValues('../ajax/tickets/insertData.php','.cont-form1',function(data){
+			$.postFormValues('../ajax/tickets/insertData.php','.cont-form1', {},function(data){
 				if (Number(data) > 0){
 					reloadData()
 
@@ -298,7 +298,7 @@ $.post('../ajax/privilegios.php', function(data) {
 		});
 
 		$('.guardarTicketInterno').click(function() {
-			$.postFormValues('../ajax/tickets/insertData.php','.cont-form3',function(data){
+			$.postFormValues('../ajax/tickets/insertData.php','.cont-form3', {},function(data){
 				if (Number(data) > 0){
 					reloadData()
 
@@ -313,7 +313,7 @@ $.post('../ajax/privilegios.php', function(data) {
 		});
 
 		$('.busqueda').click(function() {
-			$.postFormValues('../ajax/tickets/listBuscar.php','.cont-form2',function(data){
+			$.postFormValues('../ajax/tickets/listBuscar.php','.cont-form2', {},function(data){
 				$('.listaBusqueda').html(data);
 				var count = $('.listaBusqueda > .tabeData tr th').length -1;
 				$('.listaBusqueda > .tabeData').dataTable({
@@ -348,7 +348,7 @@ $.post('../ajax/privilegios.php', function(data) {
 		});
 		$('.guardarPrioridad').click(function() {
 			if ($('[name="idUpdatePrioridad"]').val() != "") {
-				$.postFormValues('../ajax/tickets/updatePrioridad.php','.cont-form3',function(data){
+				$.postFormValues('../ajax/tickets/updatePrioridad.php','.cont-form3', {},function(data){
 					if (Number(data) > 0) {
 						$('.listaPrioridad').load('../ajax/tickets/listPrioridad.php',function(){
 							var count = $('.listaPrioridad > .tabeData tr th').length -1;
@@ -394,7 +394,7 @@ $.post('../ajax/privilegios.php', function(data) {
 					}
 				});
 			}else{
-				$.postFormValues('../ajax/tickets/dataPrioridad.php','.cont-form3',function(data){
+				$.postFormValues('../ajax/tickets/dataPrioridad.php','.cont-form3', {},function(data){
 					if (Number(data) > 0) {
 						var count = $('.listaPrioridad > .tabeData tr th').length -1;
 						$('.listaPrioridad').load('../ajax/tickets/listPrioridad.php',function(){
@@ -612,7 +612,7 @@ $.post('../ajax/privilegios.php', function(data) {
 		});
 
 		$(document).on('click', '.updateTicket', function(){
-			$.postFormValues('../ajax/tickets/updateTickets.php','.cont-form4',function(data){
+			$.postFormValues('../ajax/tickets/updateTickets.php','.cont-form4', {},function(data){
 				reloadData();
 				$('.modal').modal('hide')
 				bootbox.alert('<h3 class="text-center">El ticket se actualizo con éxito.</h3>');
@@ -631,7 +631,7 @@ $.post('../ajax/privilegios.php', function(data) {
 
 		$(document).on('click', '.guardarTipoTicket', function() {
 			if ($('[name="idUpdateTipoTicket"]').val() != "") {
-				$.postFormValues('../ajax/tickets/updateTipoTicket.php','.cont-form5',function(data){
+				$.postFormValues('../ajax/tickets/updateTipoTicket.php','.cont-form5', {},function(data){
 					if (Number(data) > 0) {
 						$('.listaTipoTicket').load('../ajax/tickets/listTipoTicket.php',function(){
 							var count = $('.listaPrioridad > .tabeData tr th').length -1;
@@ -676,7 +676,7 @@ $.post('../ajax/privilegios.php', function(data) {
 					}
 				});
 			}else{
-				$.postFormValues('../ajax/tickets/insertTipoTicket.php','.cont-form5',function(data){
+				$.postFormValues('../ajax/tickets/insertTipoTicket.php','.cont-form5', {},function(data){
 					if (Number(data) > 0) {
 						$('.listaTipoTicket').load('../ajax/tickets/listTipoTicket.php',function(){
 							var count = $('.listaTipoTicket > .tabeData tr th').length -1;
@@ -796,7 +796,7 @@ $.post('../ajax/privilegios.php', function(data) {
 
 		$(document).on('click', '.guardarSubTipoTicket', function() {
 			if ($('[name="idUpdateSubtipoTicket"]').val() != "") {
-				$.postFormValues('../ajax/tickets/updateSubtipoTicket.php','.cont-form6',function(data){
+				$.postFormValues('../ajax/tickets/updateSubtipoTicket.php','.cont-form6', {},function(data){
 					if (Number(data) > 0) {
 						$('.listaSubTipoTicket').load('../ajax/tickets/listSubTipoTicket.php',function(){
 							var count = $('.listaSubTipoTicket > .tabeData tr th').length -1;
@@ -844,7 +844,7 @@ $.post('../ajax/privilegios.php', function(data) {
 					}
 				});
 			}else{
-				$.postFormValues('../ajax/tickets/insertSubtipoticket.php','.cont-form6',function(data){
+				$.postFormValues('../ajax/tickets/insertSubtipoticket.php','.cont-form6', {},function(data){
 					if (Number(data) > 0) {
 						$('.listaSubTipoTicket').load('../ajax/tickets/listSubTipoTicket.php',function(){
 							var count = $('.listaSubTipoTicket > .tabeData tr th').length -1;

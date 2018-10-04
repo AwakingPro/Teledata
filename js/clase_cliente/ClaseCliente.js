@@ -56,7 +56,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#guardarClase', function () {
 
-        $.postFormValues('../includes/clase_cliente/storeClase.php', '#storeClase', function(response){
+        $.postFormValues('../includes/clase_cliente/storeClase.php', '#storeClase', {}, function(response){
 
             if(response.status == 1){
 
@@ -124,7 +124,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#actualizarClase', function () {
 
-        $.postFormValues('../includes/clase_cliente/updateClase.php', '#updateClase', function(response){
+        $.postFormValues('../includes/clase_cliente/updateClase.php', '#updateClase', {}, function(response){
        
             if(response.status == 1){
 

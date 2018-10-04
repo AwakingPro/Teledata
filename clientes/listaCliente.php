@@ -269,7 +269,7 @@
 									<div id="divCostoInstalacionEditar">
 										<label class="campo-CostoInstalacion">Costo de instalación / Habilitación</label>
 										<div class="form-group">
-											<input type="text" id="CostoInstalacion" name="CostoInstalacion" class="form-control" validation="not_null" data-nombre="Costo de Instalacion">
+											<input type="text" id="CostoInstalacion" name="CostoInstalacion" class="form-control" validate="not_null" data-nombre="Costo de Instalacion">
 										</div>
 										<br>
 										<label>Descuento Instalación</label>

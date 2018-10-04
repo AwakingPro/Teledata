@@ -209,7 +209,7 @@
 					if($tipo){
 						$tabla .= '<button class="btn btn-success agregarDatosTecnicos" attr="'.$id.'"  data-toggle="modal" data-target="#agregarDatosTecnicos" aria-hidden="true" title="Agregar" style="margin-bottom:20px">Agregar</button>';
 					}
-					$tabla .= "<table class='table table-striped table-hover tabeData'><thead><tr>";
+					$tabla .= "<table class='table table-striped table-hover tabeData' id='TableContactos'><thead><tr>";
 					for ($i=1; $i < count($fields) ; $i++) {
 						$tabla.="<th>".$fields[$i]."</th>";
 					}

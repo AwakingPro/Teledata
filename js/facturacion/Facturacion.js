@@ -704,7 +704,7 @@ $(document).ready(function() {
     });
     $(document).on('click', '#guardarOC', function() {
 
-        $.postFormValues('../includes/facturacion/facturas/storeOC.php', '#storeOC', function(response) {
+        $.postFormValues('../includes/facturacion/facturas/storeOC.php', '#storeOC', {}, function(response) {
 
             if (response) {
 
@@ -810,7 +810,7 @@ $(document).ready(function() {
     });
     $(document).on('click', '#guardarReferencia', function() {
 
-        $.postFormValues('../includes/facturacion/facturas/storeReferencia.php', '#storeReferencia', function(response) {
+        $.postFormValues('../includes/facturacion/facturas/storeReferencia.php', '#storeReferencia', {}, function(response) {
 
             if (response) {
 

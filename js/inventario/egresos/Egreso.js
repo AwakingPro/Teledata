@@ -254,7 +254,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#guardarEgreso', function () {
 
-        $.postFormValues('../includes/inventario/egresos/storeMovimiento.php', '#storeEgreso', function(response){
+        $.postFormValues('../includes/inventario/egresos/storeMovimiento.php', '#storeEgreso', {}, function(response){
 
             if(response.status == 1){
 

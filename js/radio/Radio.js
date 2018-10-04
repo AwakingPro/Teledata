@@ -346,7 +346,7 @@ $(document).ready(function(){
     $('body').on('click', '#guardarEstacion', function () {
 
 
-        $.postFormValues('../includes/radio/storeEstacion.php', '#storeEstacion', function(response){
+        $.postFormValues('../includes/radio/storeEstacion.php', '#storeEstacion', {}, function(response){
 
             if(response.status == 1){
 
@@ -493,7 +493,7 @@ $(document).ready(function(){
         var data = $('#updateEstacion').serialize();
         var array = $('#updateEstacion').serializeArray();
 
-        $.postFormValues('../includes/radio/updateEstacion.php', '#updateEstacion', function(response){
+        $.postFormValues('../includes/radio/updateEstacion.php', '#updateEstacion', {}, function(response){
 
             if(response.status == 1){
 
@@ -656,7 +656,7 @@ $(document).ready(function(){
     $('body').on('click', '#guardarIngreso', function () {
 
 
-        $.postFormValues('../includes/radio/storeIngreso.php', '#storeIngreso', function(response){
+        $.postFormValues('../includes/radio/storeIngreso.php', '#storeIngreso', {}, function(response){
 
             if(response.status == 1){
 
@@ -771,7 +771,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#actualizarIngreso', function () {
 
-        $.postFormValues('../includes/radio/updateIngreso.php', '#updateIngreso', function(response){
+        $.postFormValues('../includes/radio/updateIngreso.php', '#updateIngreso', {}, function(response){
                     
             if(response.status == 1){
 

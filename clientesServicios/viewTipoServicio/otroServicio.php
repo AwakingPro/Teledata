@@ -5,7 +5,7 @@
 	<div class="col-md-12 form-group" rows="5">
         <br>
 		<label>Nombre Servicio</label>
-		<input name="NombreServicioExtra" id="NombreServicioExtra" class="form-control" validation="not_null" data-nombre="Nombre del Servicio">
+		<input name="NombreServicioExtra" id="NombreServicioExtra" class="form-control" validate="not_null" data-nombre="Nombre del Servicio">
         <br>
 	</div>
 </div>

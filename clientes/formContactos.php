@@ -16,7 +16,7 @@
     <div class="col-md-6 form-group">
         <label>Teléfono</label>
         <input name="TelefonoContacto" class="form-control" validate="not_null">
-        <input type="hidden" id="IdClienteOculto" name="IdClienteOculto" class="form-control" validate="not_null">
+        <input type="hidden" id="IdClienteOculto" name="IdClienteOculto" class="form-control">
         <input type="hidden" id="IdContactoOculto" name="IdContactoOculto" class="form-control">
     </div>
 </form>

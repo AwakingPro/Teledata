@@ -322,7 +322,7 @@ $(document).ready(function() {
 
     $(document).on('click', '#Asignar', function() {
 
-        $.postFormValues('../includes/tareas/asignarTareas.php', '#asignarTareas', function(response) {
+        $.postFormValues('../includes/tareas/asignarTareas.php', '#asignarTareas', {}, function(response) {
 
             if (response.status == 1) {
 
@@ -410,7 +410,7 @@ $(document).ready(function() {
 
     $(document).on('click', '#Reasignar', function() {
 
-        $.postFormValues('../includes/tareas/reasignarTarea.php', '#reasignarTarea', function(response) {
+        $.postFormValues('../includes/tareas/reasignarTarea.php', '#reasignarTarea', {}, function(response) {
 
             if (response.status == 1) {
 
@@ -529,7 +529,7 @@ $(document).ready(function() {
             allowOutsideClick: false
         }, function(isConfirm) {
             if (isConfirm) {
-                $.postFormValues('../includes/tareas/storeTarea.php', '#storeTarea', function(response) {
+                $.postFormValues('../includes/tareas/storeTarea.php', '#storeTarea', {}, function(response) {
 
                     if (response.status == 1) {
 
@@ -839,9 +839,9 @@ $(document).ready(function() {
 
     $('#Estatus').change(function(event) {
         if ($(this).val() == 1) {
-            $('#Comentario').removeAttr('validation')
+            $('#Comentario').removeAttr('validate')
         } else {
-            $('#Comentario').attr('validation', 'not_null')
+            $('#Comentario').attr('validate', 'not_null')
         }
     });
 });

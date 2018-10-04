@@ -18,6 +18,9 @@
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
+		<?php
+			include 'modalContactos.php';
+		?>
 		<div class="modal fade" role="dialog" id="agregarGiro">
 			<div class="modal-dialog" role="document">
 				<div class="modal-content">
@@ -30,7 +33,7 @@
 							<div class="row">
 								<div class="col-md-12 form-group">
 								<label>Giro</label>
-									<input name="nombreGiro" class="form-control" validation="not_null">
+									<input name="nombreGiro" class="form-control" validate="not_null">
 								</div>
 							</div>
 						</form>
@@ -139,7 +142,12 @@
 													<div class="row">
 														<div class="col-md-4 form-group">
 															<label>Contacto</label>
-															<input name="Contacto" class="form-control" validate="not_null">
+															<div class="input-group">
+																<input name="Contacto" class="form-control" validate="not_null">
+																<span class="input-group-btn">
+																	<button id="agregarContactos" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalContactos"><i class="fa fa-plus" aria-hidden="true"></i></button>
+																</span>
+															</div>
 														</div>
 														<div class="col-md-4 form-group">
 															<label>Teléfono</label>
@@ -196,6 +204,7 @@
 	</div>
 	<script src="../js/jquery-2.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
+	<script src="../js/nifty.min.js"></script>
 
 	<script src="../plugins/bootbox/bootbox.min.js"></script>
 	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>

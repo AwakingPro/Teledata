@@ -297,10 +297,10 @@ $(document).ready(function() {
     $('#BooleanCostoInstalacion').change(function(event) {
         if ($(this).val() == 1) {
             $('#divCostoInstalacion').show();
-            $('input[name="CostoInstalacion"]').attr('validation', 'not_null')
+            $('input[name="CostoInstalacion"]').attr('validate', 'not_null')
         } else {
             $('#divCostoInstalacion').hide();
-            $('input[name="CostoInstalacion"]').removeAttr('validation')
+            $('input[name="CostoInstalacion"]').removeAttr('validate')
         }
     });
 
@@ -374,7 +374,7 @@ $(document).ready(function() {
     $(document).on('click', '.guardarServ', function() {
         BooleanCostoInstalacion = $('#BooleanCostoInstalacion').val();
         Rut = $('#Rut').val()
-        $.postFormValues('../ajax/servicios/insertServicio.php', '.container-form', function(data) {
+        $.postFormValues('../ajax/servicios/insertServicio.php', '.container-form', {}, function(data) {
             if (Number(data) > 0) {
                 servicio_id = data
                 if (BooleanCostoInstalacion == 1) {
@@ -420,10 +420,10 @@ $(document).ready(function() {
     $('#showServicio #BooleanCostoInstalacion').change(function(event) {
         if ($(this).val() == 1) {
             $('#divCostoInstalacionEditar').show();
-            $('#showServicio').find('input[name="CostoInstalacion"]').attr('validation', 'not_null')
+            $('#showServicio').find('input[name="CostoInstalacion"]').attr('validate', 'not_null')
         } else {
             $('#divCostoInstalacionEditar').hide();
-            $('#showServicio').find('input[name="CostoInstalacion"]').removeAttr('validation')
+            $('#showServicio').find('input[name="CostoInstalacion"]').removeAttr('validate')
         }
     });
 
@@ -431,7 +431,7 @@ $(document).ready(function() {
 
         Rut = $('#Rut').val()
 
-        $.postFormValues('../ajax/servicios/updateServicio.php', '#showServicio', function(data) {
+        $.postFormValues('../ajax/servicios/updateServicio.php', '#showServicio', {}, function(data) {
             if (data) {
                 servicio_id = data
                 bootbox.alert('<h3 class="text-center">El servicio se actualizo con éxito.</h3>');
@@ -444,7 +444,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.agregarTipoFacturacion', function() {
-        $.postFormValues('../ajax/servicios/insertTipoFacturacion.php', '.containerTipoFactura', function(data) {
+        $.postFormValues('../ajax/servicios/insertTipoFacturacion.php', '.containerTipoFactura', {}, function(data) {
             if (Number(data) > 0) {
                 $('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
                     $('select[name="TipoFactura"]').selectpicker('refresh');
@@ -459,7 +459,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.agregarGrupo', function() {
-        $.postFormValues('../ajax/servicios/insertGrupo.php', '.containerGrupo', function(data) {
+        $.postFormValues('../ajax/servicios/insertGrupo.php', '.containerGrupo', {}, function(data) {
             if (Number(data) > 0) {
                 $('select[name="Grupo"]').load('../ajax/servicios/listGrupo.php', function() {
                     $('select[name="Grupo"]').selectpicker('refresh');
@@ -473,7 +473,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.guardarCliente', function() {
-        $.postFormValues('../ajax/servicios/insertCliente.php', '.container-form2', function(data) {
+        $.postFormValues('../ajax/servicios/insertCliente.php', '.container-form2', {}, function(data) {
             if (Number(data) > 0) {
                 $('.modal').modal('hide');
                 bootbox.alert('<h3 class="text-center">El cliente con Rut #' + data + ' se registro con éxito.</h3>');
@@ -618,11 +618,11 @@ $(document).ready(function() {
                         if (value > 0) {
                             $('#showServicio #BooleanCostoInstalacion').val(1);
                             $('#divCostoInstalacionEditar').show();
-                            $('#showServicio').find('input[name="CostoInstalacion"]').attr('validation', 'not_null')
+                            $('#showServicio').find('input[name="CostoInstalacion"]').attr('validate', 'not_null')
                         } else {
                             $('#showServicio #BooleanCostoInstalacion').val(0);
                             $('#divCostoInstalacionEditar').hide();
-                            $('#showServicio').find('input[name="CostoInstalacion"]').removeAttr('validation')
+                            $('#showServicio').find('input[name="CostoInstalacion"]').removeAttr('validate')
                         }
                     }
                 }
@@ -706,7 +706,7 @@ $(document).ready(function() {
 
     $(document).on('click', '.guardarDatosTecnicos', function() {
         var url = $('.container-form-datosTecnicos').attr('attr');
-        $.postFormValues('../ajax/cliente/' + url, '.container-form-datosTecnicos', function(data) {
+        $.postFormValues('../ajax/cliente/' + url, '.container-form-datosTecnicos', {}, function(data) {
             if (Number(data) > 0) {
                 var id = $('.containerListDatosTecnicos').attr('idTipoLista');
                 $('.modal').modal('hide')
@@ -853,7 +853,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '#updateEstatus', function() {
-        $.postFormValues('../ajax/servicios/updateEstatus.php', '#formEstatus', function(data) {
+        $.postFormValues('../ajax/servicios/updateEstatus.php', '#formEstatus', {}, function(data) {
             if (data == 1) {
                 var id = $('.Id').val();
                 $('.modal').modal('hide')
@@ -1034,7 +1034,7 @@ $(document).ready(function() {
         });
     });
     $(document).on('click', '.actualizarDatosTecnicos', function() {
-        $.postFormValues('../ajax/servicios/updateDatosTecnicos.php', '.container-form-datosTecnicos', function(data) {
+        $.postFormValues('../ajax/servicios/updateDatosTecnicos.php', '.container-form-datosTecnicos', {}, function(data) {
             if (Number(data) > 0) {
                 var id = $('.containerListDatosTecnicos').attr('idTipoLista');
                 $('.modal').modal('hide')

@@ -192,7 +192,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#guardarIngreso', function () {
 
-        $.postFormValues('../includes/inventario/ingresos/storeIngreso.php', '#storeIngreso', function(response){
+        $.postFormValues('../includes/inventario/ingresos/storeIngreso.php', '#storeIngreso', {}, function(response){
 
             if(response.status == 1){
 
@@ -321,19 +321,19 @@ $(document).ready(function(){
             $('#updateIngreso').find('.input_nuevo').prop('checked',true);
             $('.estado').val(1)
             $('.nuevo').show()
-            $(".fecha_compra").attr('validation','not_null');
-            $('.numero_factura').attr('validation','not_null');
-            $('.proveedor_id').attr('validation','not_null');
-            $('.valor').attr('validation','not_null');
+            $(".fecha_compra").attr('validate','not_null');
+            $('.numero_factura').attr('validate','not_null');
+            $('.proveedor_id').attr('validate','not_null');
+            $('.valor').attr('validate','not_null');
         }else{
             $('.label_estado').removeClass('active')
             $('.label_reacondicionado').addClass('active')
             $('#updateIngreso').find('.input_reacondicionado').prop('checked',true);
             $('.estado').val(2)
-            $(".fecha_compra").removeAttr('validation');
-            $('.numero_factura').removeAttr('validation');
-            $('.proveedor_id').removeAttr('validation');
-            $('.valor').removeAttr('validation');
+            $(".fecha_compra").removeAttr('validate');
+            $('.numero_factura').removeAttr('validate');
+            $('.proveedor_id').removeAttr('validate');
+            $('.valor').removeAttr('validate');
             $('.nuevo').hide() 
         }
 
@@ -357,7 +357,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#actualizarIngreso', function () {
 
-        $.postFormValues('../includes/inventario/ingresos/updateIngreso.php', '#updateIngreso', function(response){
+        $.postFormValues('../includes/inventario/ingresos/updateIngreso.php', '#updateIngreso', {}, function(response){
                     
             if(response.status == 1){
 
@@ -468,9 +468,9 @@ $(document).ready(function(){
 
         if($(this).val() == 1){
             $('.unico').show()
-            $('#storeIngreso').find('input[name="mac_address"]').attr('validation','not_null');
+            $('#storeIngreso').find('input[name="mac_address"]').attr('validate','not_null');
         }else{
-            $('#storeIngreso').find('input[name="mac_address"]').removeAttr('validation');
+            $('#storeIngreso').find('input[name="mac_address"]').removeAttr('validate');
             $('.unico').hide() 
         }
     });
@@ -500,7 +500,7 @@ $(document).ready(function(){
 
                     contenido += '<div class="col-md-12"><div class="form-group">'
                     contenido += '<label class="control-label" for="name">Mac Address</label>'
-                    contenido += '<input id="mac_address" name="mac_address" validation="not_null" placeholder="Ingrese la mac address '+i+'" class="form-control input-sm" data-nombre="Mac Address '+i+'">'
+                    contenido += '<input id="mac_address" name="mac_address" validate="not_null" placeholder="Ingrese la mac address '+i+'" class="form-control input-sm" data-nombre="Mac Address '+i+'">'
                     contenido += '</div></div></div>'
 
                     contenido += '</div>'
@@ -535,7 +535,7 @@ $(document).ready(function(){
             objs.each(function(index, obj) {
                 if (obj.hasAttribute('name')) {
                     countObjs++;
-                    if ($.validation(obj)) {
+                    if ($.validate(obj)) {
                         countValidates++;
                         array_mac_address.push($(obj).val())
                     }else{
@@ -580,10 +580,10 @@ $(document).ready(function(){
         $('.label_nuevo').addClass('active')
         $('.estado').val(1)
         $('.nuevo').show()
-        $(".fecha_compra").attr('validation','not_null');
-        $('.numero_factura').attr('validation','not_null');
-        $('.proveedor_id').attr('validation','not_null');
-        $('.valor').attr('validation','not_null');
+        $(".fecha_compra").attr('validate','not_null');
+        $('.numero_factura').attr('validate','not_null');
+        $('.proveedor_id').attr('validate','not_null');
+        $('.valor').attr('validate','not_null');
 
     });
 
@@ -599,18 +599,18 @@ $(document).ready(function(){
             $('.label_nuevo').addClass('active')
             $('.estado').val(1)
             $('.nuevo').show()
-            $(".fecha_compra").attr('validation','not_null');
-            $('.numero_factura').attr('validation','not_null');
-            $('.proveedor_id').attr('validation','not_null');
-            $('.valor').attr('validation','not_null');
+            $(".fecha_compra").attr('validate','not_null');
+            $('.numero_factura').attr('validate','not_null');
+            $('.proveedor_id').attr('validate','not_null');
+            $('.valor').attr('validate','not_null');
         }else{
             $('.label_estado').removeClass('active')
             $('.label_reacondicionado').addClass('active')
             $('.estado').val(2)
-            $(".fecha_compra").removeAttr('validation');
-            $('.numero_factura').removeAttr('validation');
-            $('.proveedor_id').removeAttr('validation');
-            $('.valor').removeAttr('validation');
+            $(".fecha_compra").removeAttr('validate');
+            $('.numero_factura').removeAttr('validate');
+            $('.proveedor_id').removeAttr('validate');
+            $('.valor').removeAttr('validate');
             $('.nuevo').hide() 
             $('.fecha_ingreso').val('01-01-2012')
         }
@@ -630,7 +630,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#guardarProveedor', function () {
 
-        $.postFormValues('../includes/inventario/proveedores/storeProveedor.php', '#storeProveedor', function(response){
+        $.postFormValues('../includes/inventario/proveedores/storeProveedor.php', '#storeProveedor', {}, function(response){
 
             if(response.status == 1){
 
@@ -676,7 +676,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#guardarBodega', function () {
 
-        $.postFormValues('../includes/inventario/bodegas/storeBodega.php', '#storeBodega', function(response){
+        $.postFormValues('../includes/inventario/bodegas/storeBodega.php', '#storeBodega', {}, function(response){
 
             if(response.status == 1){
 
@@ -722,7 +722,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#guardarModelo', function () {
 
-        $.postFormValues('../includes/inventario/modelo_producto/storeModeloProducto.php', '#storeModelo', function(response){
+        $.postFormValues('../includes/inventario/modelo_producto/storeModeloProducto.php', '#storeModelo', {}, function(response){
 
             if(response.status == 1){
 

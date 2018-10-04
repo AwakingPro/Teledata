@@ -88,7 +88,7 @@ $(document).ready(function() {
 
 
 	$(document).on('click', '.agregarGrupo', function() {
-		$.postFormValues('../ajax/servicios/insertGrupo.php','.containerGrupo',function(data){
+		$.postFormValues('../ajax/servicios/insertGrupo.php','.containerGrupo', {},function(data){
 			if (Number(data) > 0){
 				bootbox.alert('<h3 class="text-center">Se registro con éxito.</h3>');
 				$('.containerGrupo input').val('')

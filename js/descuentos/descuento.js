@@ -108,7 +108,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#guardarDescuento', function () {
 
-        $.postFormValues('../includes/descuentos/storeDescuento.php', '#storeDescuento', function(response){
+        $.postFormValues('../includes/descuentos/storeDescuento.php', '#storeDescuento', {}, function(response){
 
             if(response.status == 1){
 
@@ -210,7 +210,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#actualizarDescuento', function () {
 
-        $.postFormValues('../includes/descuentos/updateDescuento.php', '#updateDescuento', function(response){
+        $.postFormValues('../includes/descuentos/updateDescuento.php', '#updateDescuento', {}, function(response){
        
             if(response.status == 1){
 

@@ -184,7 +184,7 @@
         <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
         <script src="../plugins/moment/moment.js"></script>
         <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-        <script src="../js/global/validations.js"></script>
+        <script src="../js/methods_global/methods.js"></script>
         <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
         <script src="../plugins/numbers/jquery.number.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
@@ -267,7 +267,7 @@
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label" for="name">Fecha de Instalación</label>
-                                <input id="FechaInstalacion" name="FechaInstalacion" validation="not_null"  type="text" placeholder="Seleccione la Fecha de Instalacion" class="form-control date" data-nombre="Fecha de Instalacion">
+                                <input id="FechaInstalacion" name="FechaInstalacion" validate="not_null"  type="text" placeholder="Seleccione la Fecha de Instalacion" class="form-control date" data-nombre="Fecha de Instalacion">
                             </div>
                         </div>
                         <div class="clearfix m-b-10"></div>
@@ -275,7 +275,7 @@
                             <div class="form-group">
                                 <label class="control-label" for="name">Instalado Por</label>
                                 <div class="select">
-                                    <select class="form-control IdUsuarioAsignado" name="InstaladoPor" id="InstaladoPor" data-live-search="true" data-container="body" validation="not_null" data-nombre="Instalado Por">
+                                    <select class="form-control IdUsuarioAsignado" name="InstaladoPor" id="InstaladoPor" data-live-search="true" data-container="body" validate="not_null" data-nombre="Instalado Por">
                                     </select>
                                 </div>
                             </div>
@@ -292,7 +292,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label" for="name">Usuario PPPoE Final</label>
-                                <input id="UsuarioPppoe" name="UsuarioPppoe" type="text" placeholder="Ingrese el Usuario PPPoE" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE">
+                                <input id="UsuarioPppoe" name="UsuarioPppoe" type="text" placeholder="Ingrese el Usuario PPPoE" class="form-control input-sm" validate="not_null" data-nombre="Usuario PPPoE">
                             </div>
                         </div>
                         <div class="clearfix m-b-10"></div>
@@ -305,7 +305,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label" for="name">Señal Final</label>
-                                <input id="SenalFinal" name="SenalFinal" type="text" placeholder="Ingrese la Señal Final" class="form-control input-sm" validation="not_null" data-nombre="Señal Final">
+                                <input id="SenalFinal" name="SenalFinal" type="text" placeholder="Ingrese la Señal Final" class="form-control input-sm" validate="not_null" data-nombre="Señal Final">
                             </div>
                         </div>
                         <div class="clearfix m-b-10"></div>
@@ -318,7 +318,7 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label class="control-label" for="name">Estación Final</label>
-                                <select name="EstacionFinal" id="EstacionFinal" class="form-control selectpicker" data-live-search="true" validation="not_null" data-nombre="Estación Final">
+                                <select name="EstacionFinal" id="EstacionFinal" class="form-control selectpicker" data-live-search="true" validate="not_null" data-nombre="Estación Final">
                                     <option value="">Seleccione...</option>
                                 </select>
                             </div>
@@ -366,39 +366,39 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label" for="name">Posible Usuario PPPoE</label>
-                            <input id="UsuarioPppoeTeorico_update" name="UsuarioPppoeTeorico" type="text" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE" disabled>
+                            <input id="UsuarioPppoeTeorico_update" name="UsuarioPppoeTeorico" type="text" class="form-control input-sm" validate="not_null" data-nombre="Usuario PPPoE" disabled>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label" for="name">Usuario PPPoE Final</label>
-                            <input id="UsuarioPppoeFinal_update" name="UsuarioPppoeTeorico" type="text" class="form-control input-sm" validation="not_null" data-nombre="Usuario PPPoE" disabled>
+                            <input id="UsuarioPppoeFinal_update" name="UsuarioPppoeTeorico" type="text" class="form-control input-sm" validate="not_null" data-nombre="Usuario PPPoE" disabled>
                         </div>
                     </div>
                     <div class="clearfix m-b-10"></div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label" for="name">Señal Teorica</label>
-                            <input id="SenalTeorica_update" name="SenalTeorica" type="text" class="form-control input-sm" validation="not_null" data-nombre="Señal Teorica" disabled>
+                            <input id="SenalTeorica_update" name="SenalTeorica" type="text" class="form-control input-sm" validate="not_null" data-nombre="Señal Teorica" disabled>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label" for="name">Señal Final</label>
-                            <input id="SenalFinal_update" name="SenalFinal" type="text" class="form-control input-sm" validation="not_null" data-nombre="Señal Final" disabled>
+                            <input id="SenalFinal_update" name="SenalFinal" type="text" class="form-control input-sm" validate="not_null" data-nombre="Señal Final" disabled>
                         </div>
                     </div>
                     <div class="clearfix m-b-10"></div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label" for="name">Estaciones de Referencia</label>
-                            <input id="PosibleEstacion_update" name="PosibleEstacion" type="text" class="form-control input-sm" validation="not_null" data-nombre="Estaciones de Referencia" disabled>
+                            <input id="PosibleEstacion_update" name="PosibleEstacion" type="text" class="form-control input-sm" validate="not_null" data-nombre="Estaciones de Referencia" disabled>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label class="control-label" for="name">Estación Final</label>
-                            <input id="EstacionFinal_update" name="EstacionFinal" type="text" class="form-control input-sm" validation="not_null" data-nombre="Estación Final" disabled>
+                            <input id="EstacionFinal_update" name="EstacionFinal" type="text" class="form-control input-sm" validate="not_null" data-nombre="Estación Final" disabled>
                         </div>
                     </div>
                 </div>

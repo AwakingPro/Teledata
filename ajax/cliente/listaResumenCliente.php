@@ -66,7 +66,7 @@
 						foreach($facturas_pagos as $factura_pago) {
 							$fp_monto = $factura_pago['Monto'];
 							if($fp_monto >= $factura_detalle_Total){
-								$contador_vencidos-=1;
+								$contador_vencidos--;
 							}
 							$monto_deuda -= $fp_monto;
 						}

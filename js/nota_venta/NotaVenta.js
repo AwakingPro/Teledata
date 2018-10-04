@@ -218,13 +218,13 @@ $(document).ready(function() {
         if (value == 1) {
             $('#label_manual').removeClass('active')
             $('#label_automatico').addClass('active')
-            append = '<select class="selectpicker form-control" name="concepto_tmp" id="concepto_tmp"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Concepto"></select>'
+            append = '<select class="selectpicker form-control" name="concepto_tmp" id="concepto_tmp"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Concepto"></select>'
             $('#concepto_container').append(append)
             getProductos()
         } else {
             $('#label_automatico').removeClass('active')
             $('#label_manual').addClass('active')
-            append = '<input id="concepto_tmp" name="concepto_tmp" class="form-control input-sm" validation="not_null" data-nombre="Concepto">'
+            append = '<input id="concepto_tmp" name="concepto_tmp" class="form-control input-sm" validate="not_null" data-nombre="Concepto">'
             $('#concepto_container').append(append)
         }
 
@@ -262,9 +262,9 @@ $(document).ready(function() {
 
     $('#numero_oc').change(function(event) {
         if ($(this).val() == '') {
-            $('#fecha_oc').removeAttr('validation')
+            $('#fecha_oc').removeAttr('validate')
         } else {
-            $('#fecha_oc').attr('validation', 'not_null')
+            $('#fecha_oc').attr('validate', 'not_null')
         }
     });
 
@@ -310,7 +310,7 @@ $(document).ready(function() {
     }
 
     $('body').on('click', '#insertDetalleTmp', function() {
-        $.postFormValues('../includes/nota_venta/insertDetalleTmp.php', '#formDetalleTmp', function(response) {
+        $.postFormValues('../includes/nota_venta/insertDetalleTmp.php', '#formDetalleTmp', {}, function(response) {
 
             if (response.status == 1) {
 
@@ -437,7 +437,7 @@ $(document).ready(function() {
 
     $('body').on('click', '#insertNotaVenta', function() {
 
-        $.postFormValues('../includes/nota_venta/insertNotaVenta.php', '#formCliente', function(response) {
+        $.postFormValues('../includes/nota_venta/insertNotaVenta.php', '#formCliente', {}, function(response) {
 
             if (response.status == 1) {
 
@@ -721,9 +721,9 @@ $(document).ready(function() {
 
     $('#numero_oc_update').change(function(event) {
         if ($(this).val() == '') {
-            $('#fecha_oc_update').removeAttr('validation')
+            $('#fecha_oc_update').removeAttr('validate')
         } else {
-            $('#fecha_oc_update').attr('validation', 'not_null')
+            $('#fecha_oc_update').attr('validate', 'not_null')
         }
     });
 
@@ -769,7 +769,7 @@ $(document).ready(function() {
     }
 
     $('body').on('click', '#insertDetalle', function() {
-        $.postFormValues('../includes/nota_venta/insertDetalle.php', '#formDetalle', function(response) {
+        $.postFormValues('../includes/nota_venta/insertDetalle.php', '#formDetalle', {}, function(response) {
 
             if (response.status == 1) {
 
@@ -857,7 +857,7 @@ $(document).ready(function() {
 
     $('body').on('click', '#updateNotaVenta', function() {
 
-        $.postFormValues('../includes/nota_venta/updateNotaVenta.php', '#formNotaVenta', function(response) {
+        $.postFormValues('../includes/nota_venta/updateNotaVenta.php', '#formNotaVenta', {}, function(response) {
 
             if (response.status == 1) {
 
@@ -972,7 +972,7 @@ $(document).ready(function() {
 
     $('body').on('click', '#updateDetalle', function() {
 
-        $.postFormValues('../includes/nota_venta/updateDetalle.php', '#formDetalleUpdate', function(response) {
+        $.postFormValues('../includes/nota_venta/updateDetalle.php', '#formDetalleUpdate', {}, function(response) {
 
             if (response.status == 1) {
 

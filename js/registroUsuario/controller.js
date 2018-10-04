@@ -34,7 +34,7 @@ $(document).ready(function() {
 	});
 
 	$('.insertUsurio').click(function() {
-		$.postFormValues('../ajax/registroUsuario/insertUser.php','.container-form',function(data){
+		$.postFormValues('../ajax/registroUsuario/insertUser.php','.container-form', {},function(data){
 			if (Number(data) > 0){
 				bootbox.alert('<h3 class="text-center">El Usuario se registro con éxito.</h3>');
 				$('.listaUsuarios').load('../ajax/registroUsuario/listaUSuarios.php',function(){
@@ -145,7 +145,7 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.actualizarPerfil', function() {
-		$.postFormValues('../ajax/registroUsuario/updatePerfil.php','.container-form-update',function(data){
+		$.postFormValues('../ajax/registroUsuario/updatePerfil.php','.container-form-update', {},function(data){
 			$('.listaUsuarios').load('../ajax/registroUsuario/listaUSuarios.php',function(){
 				var count = $('.listaUsuarios > .tabeData tr th').length -1;
 				$('.listaUsuarios > .tabeData').dataTable({

@@ -33,14 +33,14 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label h5" for="name">Cliente</label>
-                                        <select class="selectpicker form-control" name="personaempresa_id_update" id="personaempresa_id_update" data-live-search="true" data-container="body" validation="not_null" data-nombre="Cliente">
+                                        <select class="selectpicker form-control" name="personaempresa_id_update" id="personaempresa_id_update" data-live-search="true" data-container="body" validate="not_null" data-nombre="Cliente">
                                         </select>
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha</label>
-                                        <input id="fecha_update" name="fecha_update" validation="not_null" type="text" placeholder="Seleccione la fecha" class="form-control date" data-nombre="Fecha">
+                                        <input id="fecha_update" name="fecha_update" validate="not_null" type="text" placeholder="Seleccione la fecha" class="form-control date" data-nombre="Fecha">
                                     </div>
                                 </div>
                                 <div class="col-md-4">
@@ -58,7 +58,7 @@
                                 <div class="col-md-4">
                                     <div class="form-group">
                                         <label class="control-label" for="solicitado_por">Solicitado Por</label>
-                                        <select class="selectpicker form-control" name="solicitado_por_update" id="solicitado_por_update" data-live-search="true" data-container="body" validation="not_null" data-nombre="Solicitado Por">
+                                        <select class="selectpicker form-control" name="solicitado_por_update" id="solicitado_por_update" data-live-search="true" data-container="body" validate="not_null" data-nombre="Solicitado Por">
                                         </select>
                                     </div>
                                 </div>
@@ -71,7 +71,7 @@
                                             <div class="text-center">
                                                 <label class="control-label h5" for="name">Concepto</label>
                                             </div>
-                                            <input id="concepto" name="concepto" class="form-control input-sm" validation="not_null" data-nombre="Concepto">
+                                            <input id="concepto" name="concepto" class="form-control input-sm" validate="not_null" data-nombre="Concepto">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -79,7 +79,7 @@
                                             <div class="text-center">
                                                 <label class="control-label h5" for="name">Precio</label>
                                             </div>
-                                            <input id="precio" name="precio" class="form-control input-sm number" validation="not_null" data-nombre="Precio">
+                                            <input id="precio" name="precio" class="form-control input-sm number" validate="not_null" data-nombre="Precio">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -87,7 +87,7 @@
                                             <div class="text-center" style="padding-left:20px;padding-right:20px">
                                                 <label class="control-label h5" for="name">Moneda</label>
                                             </div>
-                                            <select class="selectpicker form-control" name="moneda" id="moneda"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Moneda">
+                                            <select class="selectpicker form-control" name="moneda" id="moneda"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Moneda">
                                                 <option value="1">Pesos</option>
                                                 <option value="2">UF</option>
                                             </select>
@@ -98,7 +98,7 @@
                                             <div class="text-center">
                                                 <label class="control-label h5" for="name">Cantidad</label>
                                             </div>
-                                            <input id="cantidad" name="cantidad" class="form-control input-sm" maxlength="6" validation="not_null" data-nombre="Cantidad" value="1">
+                                            <input id="cantidad" name="cantidad" class="form-control input-sm" maxlength="6" validate="not_null" data-nombre="Cantidad" value="1">
                                         </div>
                                     </div>
                                     <div class="col-md-2">
@@ -152,19 +152,19 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label h5" for="name">Concepto</label>
-                                        <input id="concepto_update" name="concepto_update" class="form-control input-sm" validation="not_null" data-nombre="Concepto">
+                                        <input id="concepto_update" name="concepto_update" class="form-control input-sm" validate="not_null" data-nombre="Concepto">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label h5" for="name">Precio</label>
-                                        <input id="precio_update" name="precio_update" class="form-control input-sm number" validation="not_null" data-nombre="Precio">
+                                        <input id="precio_update" name="precio_update" class="form-control input-sm number" validate="not_null" data-nombre="Precio">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label h5" for="name">Moneda</label>
-                                        <select class="selectpicker form-control" name="moneda_update" id="moneda_update"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Moneda">
+                                        <select class="selectpicker form-control" name="moneda_update" id="moneda_update"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Moneda">
                                             <option value="1">Pesos</option>
                                             <option value="2">UF</option>
                                         </select>
@@ -173,7 +173,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label h5" for="name">Cantidad</label>
-                                        <input id="cantidad_update" name="cantidad_update" class="form-control input-sm_update" maxlength="6" validation="not_null" data-nombre="Cantidad" value="1">
+                                        <input id="cantidad_update" name="cantidad_update" class="form-control input-sm_update" maxlength="6" validate="not_null" data-nombre="Cantidad" value="1">
                                     </div>
                                 </div>
                                 <div class="col-md-12">
@@ -230,7 +230,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Cliente</label>
-                                                        <select class="selectpicker form-control" name="personaempresa_id" id="personaempresa_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Cliente">
+                                                        <select class="selectpicker form-control" name="personaempresa_id" id="personaempresa_id"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Cliente">
                                                             <option value="">Seleccione Cliente</option>
                                                         </select>
                                                     </div>
@@ -238,7 +238,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="name">Fecha</label>
-                                                        <input id="fecha" name="fecha" validation="not_null"  type="text" placeholder="Seleccione la fecha" class="form-control date" data-nombre="Fecha">
+                                                        <input id="fecha" name="fecha" validate="not_null"  type="text" placeholder="Seleccione la fecha" class="form-control date" data-nombre="Fecha">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -284,7 +284,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label class="control-label" for="solicitado_por">Solicitado Por</label>
-                                                        <select class="selectpicker form-control" name="solicitado_por" id="solicitado_por" data-live-search="true" data-container="body" validation="not_null" data-nombre="Solicitado Por">
+                                                        <select class="selectpicker form-control" name="solicitado_por" id="solicitado_por" data-live-search="true" data-container="body" validate="not_null" data-nombre="Solicitado Por">
                                                         </select>
                                                     </div>
                                                 </div>
@@ -303,7 +303,7 @@
                                                             <label class="control-label h5" for="name">Concepto</label>
                                                         </div>
                                                         <div id="concepto_container">
-                                                            <select class="selectpicker form-control" name="concepto_tmp" id="concepto_tmp"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Concepto">
+                                                            <select class="selectpicker form-control" name="concepto_tmp" id="concepto_tmp"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Concepto">
                                                             </select>
                                                         </div>
                                                     </div>
@@ -313,7 +313,7 @@
                                                         <div class="text-center">
                                                             <label class="control-label h5" for="name">Precio</label>
                                                         </div>
-                                                        <input id="precio_tmp" name="precio_tmp" class="form-control input-sm number" validation="not_null" data-nombre="Precio">
+                                                        <input id="precio_tmp" name="precio_tmp" class="form-control input-sm number" validate="not_null" data-nombre="Precio">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
@@ -321,7 +321,7 @@
                                                         <div class="text-center">
                                                             <label class="control-label h5" for="name">Moneda</label>
                                                         </div>
-                                                        <select class="selectpicker form-control" name="moneda_tmp" id="moneda_tmp"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Moneda">
+                                                        <select class="selectpicker form-control" name="moneda_tmp" id="moneda_tmp"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Moneda">
                                                             <option value="1">Pesos</option>
                                                             <option value="2">UF</option>
                                                         </select>
@@ -332,7 +332,7 @@
                                                         <div class="text-center">
                                                             <label class="control-label h5" for="name">Cantidad</label>
                                                         </div>
-                                                        <input id="cantidad_tmp" name="cantidad_tmp" class="form-control input-sm" maxlength="6" validation="not_null" data-nombre="Cantidad" value="1">
+                                                        <input id="cantidad_tmp" name="cantidad_tmp" class="form-control input-sm" maxlength="6" validate="not_null" data-nombre="Cantidad" value="1">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">
@@ -467,7 +467,7 @@
 <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 <script src="../plugins/moment/moment.js"></script>
 <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-<script src="../js/global/validations.js"></script>
+<script src="../js/methods_global/methods.js"></script>
 <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 <script src="../plugins/numbers/jquery.number.min.js"></script>
 <script src="../js/nota_venta/NotaVenta.js"></script>

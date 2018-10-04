@@ -66,7 +66,7 @@ $(document).ready(function() {
 		});
 
 	$(document).on('click', '.agregarTipoFacturacion', function() {
-		$.postFormValues('../ajax/servicios/insertTipoFacturacion.php','.containerTipoFactura',function(data){
+		$.postFormValues('../ajax/servicios/insertTipoFacturacion.php','.containerTipoFactura', {},function(data){
 			if (Number(data) > 0){
 				$('.listTipoCobro').load('../ajax/TipoCobroServicio/listaCobroServicio.php',function(){
 					var count = $('.listTipoCobro > .tabeData tr th').length -1;

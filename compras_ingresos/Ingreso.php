@@ -39,7 +39,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Razón Social / Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
+                                            <select class="form-control proveedor_id" id="proveedor_id" name="proveedor_id" validate="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -50,7 +50,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Tipo de documento</label>
                                         <div class="select">
-                                            <select class="form-control tipo_documento_id" id="tipo_documento_id" name="tipo_documento_id" validation="not_null" data-live-search="true" data-nombre="Estado de Pago" data-container="body">
+                                            <select class="form-control tipo_documento_id" id="tipo_documento_id" name="tipo_documento_id" validate="not_null" data-live-search="true" data-nombre="Estado de Pago" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -60,21 +60,21 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">N* de Documento</label>
-                                        <input id="numero_documento" name="numero_documento" validation="not_null" placeholder="Ingrese el numero de documento" class="form-control input-sm number numero_documento" data-nombre="N* de Documento">
+                                        <input id="numero_documento" name="numero_documento" validate="not_null" placeholder="Ingrese el numero de documento" class="form-control input-sm number numero_documento" data-nombre="N* de Documento">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha Emisión</label>
-                                        <input id="fecha_emision" name="fecha_emision" validation="not_null"  type="text" placeholder="Seleccione la fecha de emisión" class="form-control date fecha_emision" data-nombre="Fecha de Emisión">
+                                        <input id="fecha_emision" name="fecha_emision" validate="not_null"  type="text" placeholder="Seleccione la fecha de emisión" class="form-control date fecha_emision" data-nombre="Fecha de Emisión">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha Vencimiento</label>
-                                        <input id="fecha_vencimiento" name="fecha_vencimiento" validation="not_null"  type="text" placeholder="Seleccione la fecha de vencimiento" class="form-control date fecha_vencimiento" data-nombre="Fecha de Vencimiento">
+                                        <input id="fecha_vencimiento" name="fecha_vencimiento" validate="not_null"  type="text" placeholder="Seleccione la fecha de vencimiento" class="form-control date fecha_vencimiento" data-nombre="Fecha de Vencimiento">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -88,7 +88,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Monto</label>
-                                        <input id="total_documento" name="total_documento" validation="not_null" placeholder="Ingrese el monto" class="form-control input-sm money total_documento" data-nombre="Monto">
+                                        <input id="total_documento" name="total_documento" validate="not_null" placeholder="Ingrese el monto" class="form-control input-sm money total_documento" data-nombre="Monto">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -96,7 +96,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Centro de Costos - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalCosto">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="form-control centro_costo_id" id="centro_costo_id" name="centro_costo_id" validation="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
+                                            <select class="form-control centro_costo_id" id="centro_costo_id" name="centro_costo_id" validate="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -127,7 +127,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Razón Social / Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="form-control proveedor_id" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
+                                            <select class="form-control proveedor_id" id="proveedor_id" name="proveedor_id" validate="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -138,7 +138,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Tipo de documento</label>
                                         <div class="select">
-                                            <select class="form-control tipo_documento_id" id="tipo_documento_id" name="tipo_documento_id" validation="not_null" data-live-search="true" data-nombre="Estado de Pago" data-container="body">
+                                            <select class="form-control tipo_documento_id" id="tipo_documento_id" name="tipo_documento_id" validate="not_null" data-live-search="true" data-nombre="Estado de Pago" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -148,21 +148,21 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">N* de Documento</label>
-                                        <input id="numero_documento" name="numero_documento" validation="not_null" placeholder="Ingrese el numero de documento" class="form-control input-sm number numero_documento" data-nombre="N* de Documento">
+                                        <input id="numero_documento" name="numero_documento" validate="not_null" placeholder="Ingrese el numero de documento" class="form-control input-sm number numero_documento" data-nombre="N* de Documento">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha Emisión</label>
-                                        <input id="fecha_emision" name="fecha_emision" validation="not_null"  type="text" placeholder="Seleccione la fecha de emisión" class="form-control date fecha_emision" data-nombre="Fecha de Emisión">
+                                        <input id="fecha_emision" name="fecha_emision" validate="not_null"  type="text" placeholder="Seleccione la fecha de emisión" class="form-control date fecha_emision" data-nombre="Fecha de Emisión">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha Vencimiento</label>
-                                        <input id="fecha_vencimiento" name="fecha_vencimiento" validation="not_null"  type="text" placeholder="Seleccione la fecha de vencimiento" class="form-control date fecha_vencimiento" data-nombre="Fecha de Vencimiento">
+                                        <input id="fecha_vencimiento" name="fecha_vencimiento" validate="not_null"  type="text" placeholder="Seleccione la fecha de vencimiento" class="form-control date fecha_vencimiento" data-nombre="Fecha de Vencimiento">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -176,7 +176,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Monto</label>
-                                        <input id="total_documento" name="total_documento" validation="not_null" placeholder="Ingrese el monto" class="form-control input-sm money total_documento" data-nombre="Monto">
+                                        <input id="total_documento" name="total_documento" validate="not_null" placeholder="Ingrese el monto" class="form-control input-sm money total_documento" data-nombre="Monto">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -184,7 +184,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Centro de Costos - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalCosto">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="form-control centro_costo_id" id="centro_costo_id" name="centro_costo_id" validation="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
+                                            <select class="form-control centro_costo_id" id="centro_costo_id" name="centro_costo_id" validate="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -220,35 +220,35 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Nombre</label>
-                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validation="not_null" data-nombre="Nombre">
+                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validate="not_null" data-nombre="Nombre">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Dirección</label>
-                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validation="not_null" data-nombre="Dirección"></textarea>
+                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validate="not_null" data-nombre="Dirección"></textarea>
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Teléfono</label>
-                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
+                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validate="not_null" data-nombre="Télefono">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Contacto</label>
-                                        <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm" validation="not_null" data-nombre="Contacto">
+                                        <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm" validate="not_null" data-nombre="Contacto">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Correo</label>
-                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
+                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validate="not_null" data-nombre="Correo">
                                     </div>
                                 </div>
                             </form>
@@ -274,21 +274,21 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Nombre</label>
-                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validation="not_null" data-nombre="Nombre">
+                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validate="not_null" data-nombre="Nombre">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Dirección</label>
-                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validation="not_null" data-nombre="Dirección"></textarea>
+                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validate="not_null" data-nombre="Dirección"></textarea>
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Teléfono</label>
-                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
+                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validate="not_null" data-nombre="Télefono">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -296,7 +296,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Responsable</label>
                                         <div class="select">
-                                            <select class="form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
+                                            <select class="form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Responsable">
                                             </select>
                                         </div>
                                     </div>
@@ -305,7 +305,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Correo</label>
-                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
+                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validate="not_null" data-nombre="Correo">
                                     </div>
                                 </div>
                             </form>
@@ -333,14 +333,14 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha de Pago</label>
-                                        <input id="FechaPago" name="FechaPago" validation="not_null"  type="text" placeholder="Seleccione la fecha de pago" class="form-control date FechaPago" data-nombre="Fecha de Pago">
+                                        <input id="FechaPago" name="FechaPago" validate="not_null"  type="text" placeholder="Seleccione la fecha de pago" class="form-control date FechaPago" data-nombre="Fecha de Pago">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Monto</label>
-                                        <input id="Monto" name="Monto" validation="not_null" placeholder="Ingrese el monto" class="form-control input-sm money Monto" data-nombre="Monto">
+                                        <input id="Monto" name="Monto" validate="not_null" placeholder="Ingrese el monto" class="form-control input-sm money Monto" data-nombre="Monto">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -348,7 +348,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Tipo de Pago</label>
                                         <div class="select">
-                                            <select class="form-control TipoPago" id="TipoPago" name="TipoPago" validation="not_null" data-live-search="true" data-nombre="Tipo de Pago" data-container="body">
+                                            <select class="form-control TipoPago" id="TipoPago" name="TipoPago" validate="not_null" data-live-search="true" data-nombre="Tipo de Pago" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -513,7 +513,7 @@
         <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
         <script src="../plugins/moment/moment.js"></script>
         <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-        <script src="../js/global/validations.js"></script>
+        <script src="../js/methods_global/methods.js"></script>
         <script src="../plugins/bootbox/bootbox.min.js"></script>
         <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
         <script src="../plugins/numbers/jquery.number.min.js"></script>

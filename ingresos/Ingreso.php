@@ -50,14 +50,14 @@
                                 <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha de Compra</label>
-                                        <input id="fecha_compra" name="fecha_compra" validation="not_null"  type="text" placeholder="Seleccione la fecha de compra" class="form-control date fecha_compra" data-nombre="Fecha de Compra">
+                                        <input id="fecha_compra" name="fecha_compra" validate="not_null"  type="text" placeholder="Seleccione la fecha de compra" class="form-control date fecha_compra" data-nombre="Fecha de Compra">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha de Ingreso</label>
-                                        <input id="fecha_ingreso" name="fecha_ingreso" validation="not_null" type="text" placeholder="Seleccione la fecha de ingreso" class="form-control date fecha_ingreso" data-nombre="Fecha de Ingreso">
+                                        <input id="fecha_ingreso" name="fecha_ingreso" validate="not_null" type="text" placeholder="Seleccione la fecha de ingreso" class="form-control date fecha_ingreso" data-nombre="Fecha de Ingreso">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -65,7 +65,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="form-control proveedor_id proveedor" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
+                                            <select class="form-control proveedor_id proveedor" id="proveedor_id" name="proveedor_id" validate="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -75,7 +75,7 @@
                                 <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Numero de Factura</label>
-                                        <input id="numero_factura" name="numero_factura" validation="not_null" placeholder="Ingrese el numero de factura" class="form-control input-sm number numero_factura" data-nombre="Numero de Factura">
+                                        <input id="numero_factura" name="numero_factura" validate="not_null" placeholder="Ingrese el numero de factura" class="form-control input-sm number numero_factura" data-nombre="Numero de Factura">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -83,7 +83,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Modelo - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalModelo">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="form-control modelo_producto_id modelo" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
+                                            <select class="form-control modelo_producto_id modelo" id="modelo_producto_id" name="modelo_producto_id" validate="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -102,21 +102,21 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Cantidad</label>
-                                        <input id="cantidad" name="cantidad" validation="not_null" type="text" placeholder="Ingrese la cantidad" class="form-control input-sm number cantidad" data-nombre="Cantidad">
+                                        <input id="cantidad" name="cantidad" validate="not_null" type="text" placeholder="Ingrese la cantidad" class="form-control input-sm number cantidad" data-nombre="Cantidad">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Numero de Serie</label>
-                                        <input id="numero_serie" name="numero_serie" validation="not_null" placeholder="Ingrese el numero de serie" class="form-control input-sm number numero_serie" data-nombre="Numero de Serie">
+                                        <input id="numero_serie" name="numero_serie" validate="not_null" placeholder="Ingrese el numero de serie" class="form-control input-sm number numero_serie" data-nombre="Numero de Serie">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12 unico">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Mac Address</label>
-                                        <input id="mac_address" name="mac_address" validation="not_null" placeholder="Ingrese la mac address" class="form-control input-sm mac_address" data-nombre="Mac Address">
+                                        <input id="mac_address" name="mac_address" validate="not_null" placeholder="Ingrese la mac address" class="form-control input-sm mac_address" data-nombre="Mac Address">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -131,7 +131,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Bodega - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalBodega">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="form-control bodega_id bodega" id="bodega_id" name="bodega_id" validation="not_null" data-live-search="true" data-nombre="Bodega" data-container="body">
+                                            <select class="form-control bodega_id bodega" id="bodega_id" name="bodega_id" validate="not_null" data-live-search="true" data-nombre="Bodega" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -172,14 +172,14 @@
                                 <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha de Compra</label>
-                                        <input id="fecha_compra" name="fecha_compra" validation="not_null"  type="text" placeholder="Seleccione la fecha de compra" class="form-control date fecha_compra" data-nombre="Fecha de Compra">
+                                        <input id="fecha_compra" name="fecha_compra" validate="not_null"  type="text" placeholder="Seleccione la fecha de compra" class="form-control date fecha_compra" data-nombre="Fecha de Compra">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha de Ingreso</label>
-                                        <input id="fecha_ingreso" name="fecha_ingreso" validation="not_null" type="text" placeholder="Seleccione la fecha de ingreso" class="form-control date fecha_ingreso" data-nombre="Fecha de Ingreso">
+                                        <input id="fecha_ingreso" name="fecha_ingreso" validate="not_null" type="text" placeholder="Seleccione la fecha de ingreso" class="form-control date fecha_ingreso" data-nombre="Fecha de Ingreso">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -187,7 +187,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Proveedor</label>
                                         <div class="select">
-                                            <select class="form-control proveedor_id proveedor" id="proveedor_id" name="proveedor_id" validation="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
+                                            <select class="form-control proveedor_id proveedor" id="proveedor_id" name="proveedor_id" validate="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -197,7 +197,7 @@
                                 <div class="col-md-12 nuevo">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Numero de Factura</label>
-                                        <input id="numero_factura" name="numero_factura" validation="not_null" placeholder="Ingrese el numero de factura" class="form-control input-sm number numero_factura" data-nombre="Numero de Factura">
+                                        <input id="numero_factura" name="numero_factura" validate="not_null" placeholder="Ingrese el numero de factura" class="form-control input-sm number numero_factura" data-nombre="Numero de Factura">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -205,7 +205,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Modelo</label>
                                         <div class="select">
-                                            <select class="form-control modelo_producto_id modelo" id="modelo_producto_id" name="modelo_producto_id" validation="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
+                                            <select class="form-control modelo_producto_id modelo" id="modelo_producto_id" name="modelo_producto_id" validate="not_null" data-live-search="true" data-nombre="Modelo" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -215,21 +215,21 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Cantidad</label>
-                                        <input id="cantidad" name="cantidad" validation="not_null" type="text" placeholder="Ingrese la cantidad" class="form-control input-sm number cantidad" data-nombre="Cantidad">
+                                        <input id="cantidad" name="cantidad" validate="not_null" type="text" placeholder="Ingrese la cantidad" class="form-control input-sm number cantidad" data-nombre="Cantidad">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Numero de Serie</label>
-                                        <input id="numero_serie" name="numero_serie" validation="not_null" placeholder="Ingrese el numero de serie" class="form-control input-sm number numero_serie" data-nombre="Numero de Serie">
+                                        <input id="numero_serie" name="numero_serie" validate="not_null" placeholder="Ingrese el numero de serie" class="form-control input-sm number numero_serie" data-nombre="Numero de Serie">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Mac Address</label>
-                                        <input id="mac_address" name="mac_address" validation="not_null" placeholder="Ingrese la mac address" class="form-control input-sm mac_address" data-nombre="Mac Address">
+                                        <input id="mac_address" name="mac_address" validate="not_null" placeholder="Ingrese la mac address" class="form-control input-sm mac_address" data-nombre="Mac Address">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -283,35 +283,35 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Nombre</label>
-                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validation="not_null" data-nombre="Nombre">
+                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validate="not_null" data-nombre="Nombre">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Dirección</label>
-                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validation="not_null" data-nombre="Dirección"></textarea>
+                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validate="not_null" data-nombre="Dirección"></textarea>
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Teléfono</label>
-                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
+                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validate="not_null" data-nombre="Télefono">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Contacto</label>
-                                        <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm" validation="not_null" data-nombre="Contacto">
+                                        <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm" validate="not_null" data-nombre="Contacto">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Correo</label>
-                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
+                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validate="not_null" data-nombre="Correo">
                                     </div>
                                 </div>
                             </form>
@@ -337,7 +337,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Nombre</label>
-                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validation="not_null" data-nombre="Nombre">
+                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validate="not_null" data-nombre="Nombre">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -345,7 +345,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Principal</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control principal" name="principal" id="principal"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Principal">
+                                            <select class="selectpicker form-control principal" name="principal" id="principal"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Principal">
                                                 <option value="1">Si</option>
                                                 <option value="0">No</option>
                                             </select>
@@ -356,21 +356,21 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Dirección</label>
-                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validation="not_null" data-nombre="Dirección"></textarea>
+                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validate="not_null" data-nombre="Dirección"></textarea>
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Teléfono</label>
-                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
+                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validate="not_null" data-nombre="Télefono">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Correo</label>
-                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
+                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validate="not_null" data-nombre="Correo">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -378,7 +378,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Responsable</label>
                                         <div class="select">
-                                            <select class="form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
+                                            <select class="form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Responsable">
                                             </select>
                                         </div>
                                     </div>
@@ -501,7 +501,7 @@
                                                 <div class="clearfix"></div>
                                                 <div class="col-md-4 no-padding-left">
                                                     <div class="select">
-                                                        <select class="selectpicker form-control" name="tipo_busqueda_ingreso" id="tipo_busqueda_ingreso"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Campo de Busqueda">
+                                                        <select class="selectpicker form-control" name="tipo_busqueda_ingreso" id="tipo_busqueda_ingreso"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Campo de Busqueda">
                                                             <option value="">Seleccione</option>
                                                             <option value="1">Modelo</option>
                                                             <option value="2">Marca</option>
@@ -512,7 +512,7 @@
                                                 </div>
                                                 <div class="clearfix mar-btm"></div>
                                                 <div class="col-md-4 no-padding-left">
-                                                    <select class="selectpicker form-control" name="input_registro" id="input_registro"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Campo de Busqueda">
+                                                    <select class="selectpicker form-control" name="input_registro" id="input_registro"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Campo de Busqueda">
                                                         <option value="">Seleccione</option>
                                                     </select>
                                                 </div>
@@ -586,7 +586,7 @@
     <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
     <script src="../plugins/moment/moment.js"></script>
     <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-    <script src="../js/global/validations.js"></script>
+    <script src="../js/methods_global/methods.js"></script>
     <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
     <script src="../plugins/numbers/jquery.number.min.js"></script>
     <script src="../js/inventario/ingresos/Ingreso.js"></script>

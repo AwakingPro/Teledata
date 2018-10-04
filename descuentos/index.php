@@ -39,7 +39,7 @@
 									<div class="form-group">
 										<label class="control-label" for="name">Cliente</label>
                                         <div class="select">
-                                            <select class="form-control Rut" id="Rut" name="Rut" validation="not_null" data-live-search="true" data-nombre="Cliente" data-container="body">
+                                            <select class="form-control Rut" id="Rut" name="Rut" validate="not_null" data-live-search="true" data-nombre="Cliente" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -50,7 +50,7 @@
 									<div class="form-group">
 										<label class="control-label" for="name">Servicio</label>
                                         <div class="select">
-                                            <select class="form-control IdServicio" id="IdServicio" name="IdServicio" validation="not_null" data-live-search="true" data-nombre="Servicio" data-container="body">
+                                            <select class="form-control IdServicio" id="IdServicio" name="IdServicio" validate="not_null" data-live-search="true" data-nombre="Servicio" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -60,14 +60,14 @@
 								<div class="col-md-12">
 									<div class="form-group">
 										<label class="control-label" for="name">Porcentaje</label>
-										<input id="Porcentaje" name="Porcentaje" type="text" placeholder="Ingrese el Porcentaje" class="form-control input-sm number Porcentaje" validation="not_null" data-nombre="Monto">
+										<input id="Porcentaje" name="Porcentaje" type="text" placeholder="Ingrese el Porcentaje" class="form-control input-sm number Porcentaje" validate="not_null" data-nombre="Monto">
 									</div>
 								</div>								
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
 									<div class="form-group">
 										<label class="control-label" for="name">Cantidad de Usos</label>
-										<input id="Cantidad" name="Cantidad" type="text" placeholder="Ingrese la Cantidad" class="form-control input-sm number Cantidad" validation="not_null" data-nombre="Cantidad">
+										<input id="Cantidad" name="Cantidad" type="text" placeholder="Ingrese la Cantidad" class="form-control input-sm number Cantidad" validate="not_null" data-nombre="Cantidad">
 									</div>
 								</div>								
                                 <div class="clearfix m-b-10"></div>
@@ -75,7 +75,7 @@
 									<div class="form-group">
 										<label class="control-label" for="name">Ticket</label>
                                         <div class="select">
-                                            <select class="form-control IdTicket" id="IdTicket" name="IdTicket" data-live-search="true" validation="not_null" data-nombre="Ticket" data-container="body">
+                                            <select class="form-control IdTicket" id="IdTicket" name="IdTicket" data-live-search="true" validate="not_null" data-nombre="Ticket" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -107,7 +107,7 @@
 									<div class="form-group">
 										<label class="control-label" for="name">Cliente</label>
                                         <div class="select">
-                                            <select class="form-control Rut" id="Rut" name="Rut" validation="not_null" data-live-search="true" data-nombre="Cliente" data-container="body">
+                                            <select class="form-control Rut" id="Rut" name="Rut" validate="not_null" data-live-search="true" data-nombre="Cliente" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -118,7 +118,7 @@
 									<div class="form-group">
 										<label class="control-label" for="name">Servicio</label>
                                         <div class="select">
-                                            <select class="form-control IdServicio" id="IdServicio" name="IdServicio" validation="not_null" data-live-search="true" data-nombre="Servicio" data-container="body">
+                                            <select class="form-control IdServicio" id="IdServicio" name="IdServicio" validate="not_null" data-live-search="true" data-nombre="Servicio" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -143,7 +143,7 @@
 									<div class="form-group">
 										<label class="control-label" for="name">Ticket</label>
                                         <div class="select">
-                                            <select class="form-control IdTicket" id="IdTicket" name="IdTicket" validation="not_null" data-live-search="true" data-nombre="Ticket" data-container="body">
+                                            <select class="form-control IdTicket" id="IdTicket" name="IdTicket" validate="not_null" data-live-search="true" data-nombre="Ticket" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -235,7 +235,7 @@
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/moment/moment.js"></script>
 		<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-		<script src="../js/global/validations.js"></script>
+		<script src="../js/methods_global/methods.js"></script>
 		<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.min.js"></script>
 		<script src="../js/descuentos/descuento.js"></script>

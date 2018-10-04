@@ -614,24 +614,24 @@ $(document).ready(function() {
             $('.Detalle').attr('placeholder', "Ingrese el ID de Transferencia")
             $('.Detalle').data('nombre', "ID de Transferencia")
             $('.Detalle').addClass('number')
-            $('.Detalle').attr('validation', 'not_null')
-            $('#FechaEmisionCheque').removeAttr('validation')
+            $('.Detalle').attr('validate', 'not_null')
+            $('#FechaEmisionCheque').removeAttr('validate')
             $('.Cheque').hide()
         } else if (TipoPago == "Cheque al dia") {
             $('.label_Detalle').text('N* de Cheque')
             $('.Detalle').attr('placeholder', "Ingrese el N* de Cheque")
             $('.Detalle').data('nombre', "N* de Cheque")
             $('.Detalle').addClass('number')
-            $('.Detalle').attr('validation', 'not_null')
-            $('#FechaEmisionCheque').attr('validation', 'not_null')
+            $('.Detalle').attr('validate', 'not_null')
+            $('#FechaEmisionCheque').attr('validate', 'not_null')
             $('.Cheque').show()
         } else {
             $('.Cheque').hide()
             $('.label_Detalle').text('Observación')
             $('.Detalle').attr('placeholder', "Ingrese la Observación")
             $('.Detalle').data('nombre', "Observación")
-            $('.Detalle').removeAttr('validation')
-            $('#FechaEmisionCheque').removeAttr('validation')
+            $('.Detalle').removeAttr('validate')
+            $('#FechaEmisionCheque').removeAttr('validate')
             $('.Detalle').removeClass('number')
         }
     });
@@ -659,7 +659,7 @@ $(document).ready(function() {
 
     $('body').on('click', '#guardarPago', function() {
 
-        $.postFormValues('../includes/facturacion/facturas/storePago.php', '#storePago', function(response) {
+        $.postFormValues('../includes/facturacion/facturas/storePago.php', '#storePago', {}, function(response) {
 
             if (response == 1) {
 
@@ -842,7 +842,7 @@ $(document).ready(function() {
     });
     $('body').on('click', '#guardarDevolucion', function() {
 
-        $.postFormValues('../includes/facturacion/facturas/storeDevolucion.php', '#storeDevolucion', function(response) {
+        $.postFormValues('../includes/facturacion/facturas/storeDevolucion.php', '#storeDevolucion', {}, function(response) {
 
             if (response.status == 1) {
 

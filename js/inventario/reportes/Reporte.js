@@ -54,7 +54,7 @@ $(document).ready(function(){
 
     $('body').on('click', '#filtrarReporte', function () {
 
-        $.postFormValues('../includes/inventario/ingresos/showReporte.php', '#showReporte', function(response){
+        $.postFormValues('../includes/inventario/ingresos/showReporte.php', '#showReporte', {}, function(response){
 
             Table.clear().draw();
 

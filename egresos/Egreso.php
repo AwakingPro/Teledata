@@ -39,7 +39,7 @@
 									<div class="form-group">
 										<label class="control-label" for="name">Seleccione Origen</label>
 										<div class="select">
-											<select class="selectpicker form-control" id="origen_tipo" name="origen_tipo" validation="not_null"  data-live-search="true" data-nombre="Origen" data-container="body">
+											<select class="selectpicker form-control" id="origen_tipo" name="origen_tipo" validate="not_null"  data-live-search="true" data-nombre="Origen" data-container="body">
 												<option value="">Seleccione Opción</option>
 												<option value="1">Bodega</option>
 												<option value="2">Cliente</option>
@@ -64,7 +64,7 @@
 									<div class="form-group">
 										<label class="control-label" for="name">Activo a Transferir</label>
 										<div class="select">
-											<select class="selectpicker form-control" id="producto_id" name="producto_id" validation="not_null"  data-live-search="true" data-nombre="Activo a Transferir" data-container="body">
+											<select class="selectpicker form-control" id="producto_id" name="producto_id" validate="not_null"  data-live-search="true" data-nombre="Activo a Transferir" data-container="body">
 												<option value="">Seleccione Opción</option>
 											</select>
 										</div>
@@ -75,7 +75,7 @@
 									<div class="form-group">
 										<label class="control-label" for="name">Seleccione Destino</label>
 										<div class="select">
-											<select class="selectpicker form-control" id="destino_tipo" name="destino_tipo" validation="not_null"  data-live-search="true" data-nombre="Destino" data-container="body">
+											<select class="selectpicker form-control" id="destino_tipo" name="destino_tipo" validate="not_null"  data-live-search="true" data-nombre="Destino" data-container="body">
 												<option value="">Seleccione Opción</option>
 												<option value="1">Bodega</option>
 												<option value="2">Cliente</option>
@@ -89,7 +89,7 @@
 									<div class="form-group">
 										<label class="control-label" for="name">Seleccione <span id="span_destino">Bodega</span></label>
 										<div class="select">
-											<select class="selectpicker form-control" id="destino_id" name="destino_id" validation="not_null" data-live-search="true" data-nombre="Destino" data-container="body">
+											<select class="selectpicker form-control" id="destino_id" name="destino_id" validate="not_null" data-live-search="true" data-nombre="Destino" data-container="body">
 												<option value="">Seleccione Opción</option>
 											</select>
 										</div>
@@ -177,7 +177,7 @@
 						<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 						<script src="../plugins/moment/moment.js"></script>
 						<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-						<script src="../js/global/validations.js"></script>
+						<script src="../js/methods_global/methods.js"></script>
 						<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 						<script src="../plugins/numbers/jquery.number.min.js"></script>
 						<script src="../js/inventario/egresos/Egreso.js"></script>

@@ -715,31 +715,33 @@
             $query = "  SELECT
                             s.*,
                             ( CASE s.IdServicio WHEN 7 THEN s.NombreServicioExtra ELSE ms.servicio END ) AS Servicio,
-                            p.tipo_cliente as TipoDocumento,
-                            mtf.tipo_facturacion as TipoFacturacion
+                            p.tipo_cliente AS TipoDocumento,
+                            mtf.tipo_facturacion AS TipoFacturacion 
                         -- ,CASE
-                                
                         --         WHEN (
                         --             (
                         --             SELECT
-                        --                 COUNT( fd.Id ) 
+                        --                 COUNT( fd.Id )
                         --             FROM
                         --                 facturas_detalle fd
-                        --                 INNER JOIN facturas f ON f.Id = fd.FacturaId 
+                        --                 INNER JOIN facturas f ON f.Id = fd.FacturaId
                         --             WHERE
-                        --                 s.Id = fd.IdServicio 
-                        --                 AND f.TipoFactura = 2 
-                        --                 AND f.EstatusFacturacion = 0 
-                        --             ) >= ( SELECT limite_facturas FROM clase_clientes WHERE id = p.clase_cliente ) 
-                        --             OR ( SELECT limite_facturas FROM clase_clientes WHERE id = p.clase_cliente ) = 0 
+                        --                 s.Id = fd.IdServicio
+                        --                 AND f.TipoFactura = 2
+                        --                 AND f.EstatusFacturacion = 0
+                        --             ) >= ( SELECT limite_facturas FROM clase_clientes WHERE id = p.clase_cliente )
+                        --             OR ( SELECT limite_facturas FROM clase_clientes WHERE id = p.clase_cliente ) = 0
                         --             ) THEN
-                        --             '0' ELSE '1' 
-                        --         END AS PermitirFactura 
-                            FROM
-                                servicios s
+                        --             '0' ELSE '1'
+                        --         END AS PermitirFactura
+                            
+                        FROM
+                            servicios s
                             INNER JOIN personaempresa p ON s.Rut = p.rut
                             INNER JOIN mantenedor_servicios ms ON s.IdServicio = ms.IdServicio
-                            INNER JOIN mantenedor_tipo_factura mtf ON s.TipoFactura = mtf.id";
+                            INNER JOIN mantenedor_tipo_factura mtf ON s.TipoFactura = mtf.id 
+                        WHERE
+                            s.EstatusServicio = 1";
             $Servicios = $run->select($query);
 
             if($Servicios){

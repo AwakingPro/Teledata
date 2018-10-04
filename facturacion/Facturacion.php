@@ -65,14 +65,14 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Numero de OC</label>
-                                        <input id="NumeroOC" name="NumeroOC" type="text" placeholder="Ingrese el numero de la OC" class="form-control input-sm" validation="not_null" data-nombre="Numero de OC">
+                                        <input id="NumeroOC" name="NumeroOC" type="text" placeholder="Ingrese el numero de la OC" class="form-control input-sm" validate="not_null" data-nombre="Numero de OC">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Fecha emisión OC</label>
-                                        <input id="FechaOC" name="FechaOC" type="text" placeholder="Ingrese la fecha de la OC" class="form-control input-sm date" validation="not_null" data-nombre="Fecha emisión OC">
+                                        <input id="FechaOC" name="FechaOC" type="text" placeholder="Ingrese la fecha de la OC" class="form-control input-sm date" validate="not_null" data-nombre="Fecha emisión OC">
                                     </div>
                                 </div>
                             </form>
@@ -314,7 +314,7 @@
 <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 <script src="../plugins/moment/moment.js"></script>
 <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-<script src="../js/global/validations.js"></script>
+<script src="../js/methods_global/methods.js"></script>
 <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 <script src="../plugins/numbers/jquery.number.min.js"></script>
 <script src="../js/facturacion/Facturacion.js"></script>

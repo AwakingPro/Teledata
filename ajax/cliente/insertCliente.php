@@ -18,9 +18,8 @@
 	$Correo = isset($_POST['Correo']) ? strtoupper(trim($_POST['Correo'])) : "";
 	$Comentario = isset($_POST['Comentario']) ? strtoupper(trim($_POST['Comentario'])) : "";
 	$TipoPago = isset($_POST['TipoPago']) ? trim($_POST['TipoPago']) : "";
-	// $Extras = isset($_POST['extras']) ? trim($_POST['extras']) : "";
+	$Extras = isset($_POST['extras']) ? trim($_POST['extras']) : "";
 	$idUsuario = $_SESSION['idUsuario'];
-
 	$query = "INSERT INTO personaempresa
 			(rut, dv, nombre, giro, ciudad, region, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, id_usuario_sistema, clase_cliente, tipo_pago_bsale_id)
 			VALUES
@@ -30,18 +29,26 @@
 
 	if($Id > 0){
 
-		// if($Extras){
-		// 	foreach($Extras as $Extra){
-		// 		$contacto = $Extra['contacto'];
-		// 		$tipo_contacto = $Extra['tipo_contacto'];
-		// 		$correo = $Extra['correo'];
-		// 		$telefono = $Extra['telefono'];
-		// 		$query = "	INSERT INTO contactos ( contacto, tipo_contacto, correo, telefono, id_persona )
-		// 					VALUES
-		// 						( '".$contacto."', '".$tipo_contacto."', '".$correo."', '".$telefono."', '".$Id."' )";
-		// 		$run->insert($query);
-		// 	}
-		// }
+		if($Extras){
+			$Extras = json_decode($Extras);
+			foreach($Extras as $Extra){
+				$contacto = $Extra[0];
+				$tipo_contacto = $Extra[1];
+				$correo = $Extra[2];
+				$telefono = $Extra[3];
+				$query = "	INSERT INTO contactos ( contacto, tipo_contacto, correo, telefono, rut ) SELECT
+							'".$contacto."',
+							( SELECT id FROM mantenedor_tipo_contacto WHERE nombre = '".$tipo_contacto."' ),
+							'".$correo."',
+							'".$telefono."',
+							rut 
+							FROM
+								personaempresa 
+							WHERE
+								id = '".$Id."'";
+				$run->insert($query);
+			}
+		}
 
 		echo $Id;
 

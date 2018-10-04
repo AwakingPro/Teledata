@@ -30,35 +30,35 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Nombre</label>
-                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validation="not_null" data-nombre="Nombre">
+                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validate="not_null" data-nombre="Nombre">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Dirección</label>
-                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validation="not_null" data-nombre="Dirección"></textarea>
+                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validate="not_null" data-nombre="Dirección"></textarea>
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Télefono Estación</label>
-                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
+                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validate="not_null" data-nombre="Télefono">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Contacto Estación</label>
-                                        <input id="contacto" name="contacto" type="text" placeholder="Ingrese el contacto" class="form-control input-sm" validation="not_null" data-nombre="Contacto">
+                                        <input id="contacto" name="contacto" type="text" placeholder="Ingrese el contacto" class="form-control input-sm" validate="not_null" data-nombre="Contacto">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Correo</label>
-                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
+                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validate="not_null" data-nombre="Correo">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -66,7 +66,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Responsable Teledata</label>
                                         <div class="select">
-                                            <select class="form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
+                                            <select class="form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Responsable">
                                             </select>
                                         </div>
                                     </div>
@@ -139,35 +139,35 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Nombre</label>
-                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validation="not_null" data-nombre="Nombre">
+                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validate="not_null" data-nombre="Nombre">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Dirección</label>
-                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validation="not_null" data-nombre="Dirección"></textarea>
+                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validate="not_null" data-nombre="Dirección"></textarea>
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Télefono Estación</label>
-                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validation="not_null" data-nombre="Télefono">
+                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validate="not_null" data-nombre="Télefono">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Contacto Estación</label>
-                                        <input id="contacto" name="contacto" type="text" placeholder="Ingrese el contacto" class="form-control input-sm" validation="not_null" data-nombre="Contacto">
+                                        <input id="contacto" name="contacto" type="text" placeholder="Ingrese el contacto" class="form-control input-sm" validate="not_null" data-nombre="Contacto">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Correo</label>
-                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validation="not_null" data-nombre="Correo">
+                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validate="not_null" data-nombre="Correo">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -175,7 +175,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Responsable Teledata</label>
                                         <div class="select">
-                                            <select class="form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Responsable">
+                                            <select class="form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Responsable">
                                             </select>
                                         </div>
                                     </div>
@@ -249,7 +249,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Estación</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control estacion_id" name="estacion_id" id="estacion_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Estación">
+                                            <select class="selectpicker form-control estacion_id" name="estacion_id" id="estacion_id"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Estación">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -260,7 +260,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Función</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control funcion" id="funcion" name="funcion" validation="not_null" data-live-search="true" data-nombre="Función" data-container="body">
+                                            <select class="selectpicker form-control funcion" id="funcion" name="funcion" validate="not_null" data-live-search="true" data-nombre="Función" data-container="body">
                                                 <option value="PMP">PMP</option>
                                                 <option value="PTP">PTP</option>
                                             </select>
@@ -272,7 +272,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Alarma Activada</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control alarma_activada" id="alarma_activada" name="alarma_activada" validation="not_null" data-live-search="true" data-nombre="Alarma Activada" data-container="body">
+                                            <select class="selectpicker form-control alarma_activada" id="alarma_activada" name="alarma_activada" validate="not_null" data-live-search="true" data-nombre="Alarma Activada" data-container="body">
                                                 <option value="Si">Si</option>
                                                 <option value="No">No</option>
                                             </select>
@@ -283,35 +283,35 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Dirección IP</label>
-                                        <input id="direccion_ip" name="direccion_ip" type="text" placeholder="Ingrese la Dirección IP" class="form-control input-sm direccion_ip" validation="not_null" data-nombre="Dirección IP">
+                                        <input id="direccion_ip" name="direccion_ip" type="text" placeholder="Ingrese la Dirección IP" class="form-control input-sm direccion_ip" validate="not_null" data-nombre="Dirección IP">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Puerto de Acceso</label>
-                                        <input id="puerto_acceso" name="puerto_acceso" type="text" placeholder="Ingrese el Puerto de Acceso" class="form-control input-sm puerto_acceso" validation="not_null" data-nombre="Puerto de Acceso">
+                                        <input id="puerto_acceso" name="puerto_acceso" type="text" placeholder="Ingrese el Puerto de Acceso" class="form-control input-sm puerto_acceso" validate="not_null" data-nombre="Puerto de Acceso">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Ancho de Canal</label>
-                                        <input id="ancho_canal" name="ancho_canal" type="text" placeholder="Ingrese el Ancho de Canal" class="form-control input-sm ancho_canal" validation="not_null" data-nombre="Ancho de Canal">
+                                        <input id="ancho_canal" name="ancho_canal" type="text" placeholder="Ingrese el Ancho de Canal" class="form-control input-sm ancho_canal" validate="not_null" data-nombre="Ancho de Canal">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Frecuencia</label>
-                                        <input id="frecuencia" name="frecuencia" type="text" placeholder="Ingrese la Frecuencia" class="form-control input-sm frecuencia" validation="not_null" data-nombre="Frecuencia">
+                                        <input id="frecuencia" name="frecuencia" type="text" placeholder="Ingrese la Frecuencia" class="form-control input-sm frecuencia" validate="not_null" data-nombre="Frecuencia">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">TX Power</label>
-                                        <input id="tx_power" name="tx_power" type="text" placeholder="Ingrese el TX Power" class="form-control input-sm tx_power" validation="not_null" data-nombre="TX Power">
+                                        <input id="tx_power" name="tx_power" type="text" placeholder="Ingrese el TX Power" class="form-control input-sm tx_power" validate="not_null" data-nombre="TX Power">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -319,7 +319,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Mac Address</label>
                                         <div class="select">
-                                            <select class="form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
+                                            <select class="form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Mac Address">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -350,7 +350,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Estación</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control estacion_id" name="estacion_id" id="estacion_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Estación">
+                                            <select class="selectpicker form-control estacion_id" name="estacion_id" id="estacion_id"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Estación">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -361,7 +361,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Función</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control funcion" id="funcion" name="funcion" validation="not_null" data-live-search="true" data-nombre="Función" data-container="body">
+                                            <select class="selectpicker form-control funcion" id="funcion" name="funcion" validate="not_null" data-live-search="true" data-nombre="Función" data-container="body">
                                                 <option value="PMP">PMP</option>
                                                 <option value="PTP">PTP</option>
                                             </select>
@@ -373,7 +373,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Alarma Activada</label>
                                         <div class="select">
-                                            <select class="selectpicker form-control alarma_activada" id="alarma_activada" name="alarma_activada" validation="not_null" data-live-search="true" data-nombre="Alarma Activada" data-container="body">
+                                            <select class="selectpicker form-control alarma_activada" id="alarma_activada" name="alarma_activada" validate="not_null" data-live-search="true" data-nombre="Alarma Activada" data-container="body">
                                                 <option value="Si">Si</option>
                                                 <option value="No">No</option>
                                             </select>
@@ -384,35 +384,35 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Dirección IP</label>
-                                        <input id="direccion_ip" name="direccion_ip" type="text" placeholder="Ingrese la Dirección IP" class="form-control input-sm direccion_ip" validation="not_null" data-nombre="Dirección IP">
+                                        <input id="direccion_ip" name="direccion_ip" type="text" placeholder="Ingrese la Dirección IP" class="form-control input-sm direccion_ip" validate="not_null" data-nombre="Dirección IP">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Puerto de Acceso</label>
-                                        <input id="puerto_acceso" name="puerto_acceso" type="text" placeholder="Ingrese el Puerto de Acceso" class="form-control input-sm puerto_acceso" validation="not_null" data-nombre="Puerto de Acceso">
+                                        <input id="puerto_acceso" name="puerto_acceso" type="text" placeholder="Ingrese el Puerto de Acceso" class="form-control input-sm puerto_acceso" validate="not_null" data-nombre="Puerto de Acceso">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Ancho de Canal</label>
-                                        <input id="ancho_canal" name="ancho_canal" type="text" placeholder="Ingrese el Ancho de Canal" class="form-control input-sm ancho_canal" validation="not_null" data-nombre="Ancho de Canal">
+                                        <input id="ancho_canal" name="ancho_canal" type="text" placeholder="Ingrese el Ancho de Canal" class="form-control input-sm ancho_canal" validate="not_null" data-nombre="Ancho de Canal">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Frecuencia</label>
-                                        <input id="frecuencia" name="frecuencia" type="text" placeholder="Ingrese la Frecuencia" class="form-control input-sm frecuencia" validation="not_null" data-nombre="Frecuencia">
+                                        <input id="frecuencia" name="frecuencia" type="text" placeholder="Ingrese la Frecuencia" class="form-control input-sm frecuencia" validate="not_null" data-nombre="Frecuencia">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">TX Power</label>
-                                        <input id="tx_power" name="tx_power" type="text" placeholder="Ingrese el TX Power" class="form-control input-sm tx_power" validation="not_null" data-nombre="TX Power">
+                                        <input id="tx_power" name="tx_power" type="text" placeholder="Ingrese el TX Power" class="form-control input-sm tx_power" validate="not_null" data-nombre="TX Power">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -420,7 +420,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Mac Address</label>
                                         <div class="select">
-                                            <select class="form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Mac Address">
+                                            <select class="form-control producto_id" name="producto_id" id="producto_id"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Mac Address">
                                                 <option value="">Seleccione</option>
                                             </select>
                                         </div>
@@ -523,7 +523,7 @@
                                                 <div class="clearfix"></div>
                                                 <div class="col-md-4 no-padding-left">
                                                     <div class="select">
-                                                        <select class="selectpicker form-control" name="tipo_busqueda_ingreso" id="tipo_busqueda_ingreso"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Campo de Busqueda">
+                                                        <select class="selectpicker form-control" name="tipo_busqueda_ingreso" id="tipo_busqueda_ingreso"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Campo de Busqueda">
                                                             <option value="">Seleccione</option>
                                                             <option value="1">Estación | Repetidor</option>
                                                             <option value="2">Dirección IP</option>
@@ -533,7 +533,7 @@
                                                 </div>
                                                 <div class="clearfix mar-btm"></div>
                                                 <div class="col-md-4 no-padding-left">
-                                                    <select class="selectpicker form-control" name="input_registro" id="input_registro"  data-live-search="true" data-container="body" validation="not_null" data-nombre="Campo de Busqueda">
+                                                    <select class="selectpicker form-control" name="input_registro" id="input_registro"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Campo de Busqueda">
                                                         <option value="">Seleccione</option>
                                                     </select>
                                                 </div>
@@ -596,7 +596,7 @@
         <script src="../plugins/sweetalert/sweetalert.min.js"></script>
         <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
         <script src="../plugins/bootbox/bootbox.min.js"></script>
-        <script src="../js/global/validations.js"></script>
+        <script src="../js/methods_global/methods.js"></script>
         <script src="../js/radio/Radio.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
     </body>
