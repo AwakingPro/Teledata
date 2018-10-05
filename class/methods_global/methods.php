@@ -30,19 +30,10 @@
 				if (session_status() != PHP_SESSION_ACTIVE){
 					session_start();
 				}
-				if (!isset($_SESSION['idUsuario']) || empty($_SESSION['idUsuario'])) {
-					$resultado = $mysqli->query('INSERT INTO log_query (IdUsuario, Fecha, Query, TipoOperacion) VALUES (0, "'.date("Y-m-d H:i:s").'", "'.$query.'", "'.$operacion.'")');
-				}else{
+				if (isset($_SESSION['idUsuario'])) {
 					$resultado = $mysqli->query('INSERT INTO log_query (IdUsuario, Fecha, Query, TipoOperacion) VALUES ("'.$_SESSION['idUsuario'].'", "'.date("Y-m-d H:i:s").'", "'.$query.'", "'.$operacion.'")');
 				}
-				if ($resultado) {
-					$return = true;
-					$mysqli->close();
-				}else{
-					$return = false;
-					$mysqli->close();
-				}
-				return $return;
+				$mysqli->close();
 			}else{
 				return 'No hay conexion';
 			}
@@ -72,7 +63,7 @@
 			if ($mysqli) {
 				$resultado = $mysqli->query($query);
 				if ($resultado) {
-					$this->log($query, 'delete', 'delete');
+					$this->log($query, 'delete');
 					$return = true;
 					$mysqli->close();
 				}else{
