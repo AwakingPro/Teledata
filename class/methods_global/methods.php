@@ -24,13 +24,13 @@
 				return $mysqli;
 			}
 		}
-		public function log($query,$operacion){
+		public function log($query,$operacion,$log = true){
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				if (session_status() != PHP_SESSION_ACTIVE){
 					session_start();
 				}
-				if (isset($_SESSION['idUsuario'])) {
+				if (isset($_SESSION['idUsuario']) && $log) {
 					$resultado = $mysqli->query('INSERT INTO log_query (IdUsuario, Fecha, Query, TipoOperacion) VALUES ("'.$_SESSION['idUsuario'].'", "'.date("Y-m-d H:i:s").'", "'.$query.'", "'.$operacion.'")');
 				}
 				$mysqli->close();
@@ -39,12 +39,12 @@
 			}
 		}
 
-		public function insert($query){
+		public function insert($query,$log = true){
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				$resultado = $mysqli->query($query);
 				if ($resultado) {
-					$this->log($query, 'insert');
+					$this->log($query, 'insert', $log);
 					$return = $mysqli->insert_id;
 					$mysqli->close();
 				}else{
@@ -58,12 +58,12 @@
 			}
 		}
 
-		public function delete($query){
+		public function delete($query, $log = true){
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				$resultado = $mysqli->query($query);
 				if ($resultado) {
-					$this->log($query, 'delete');
+					$this->log($query, 'delete', $log);
 					$return = true;
 					$mysqli->close();
 				}else{

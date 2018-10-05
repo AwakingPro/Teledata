@@ -10,7 +10,7 @@
             $Usuario=$_SESSION['idUsuario'];
             $query = "DELETE from nota_venta_tmp where usuario_id = '".$Usuario."'";
             $run = new Method;
-            $data = $run->delete($query);
+            $data = $run->delete($query,false);
         }
 
     	public function insertDetalleTmp($Concepto,$Cantidad,$Precio,$Moneda){
@@ -42,7 +42,7 @@
                 $Total = round($Total,0);
                 
                 $query = "INSERT INTO nota_venta_tmp(concepto, cantidad, precio, total, usuario_id) VALUES ('".$Concepto."','".$Cantidad."','".$Precio."','".$Total."','".$Usuario."')";
-                $id = $run->insert($query);
+                $id = $run->insert($query,false);
 
                 if($id){
 
@@ -195,7 +195,7 @@
 
                     $query = "DELETE from nota_venta_tmp where id = '$Id'";
                     $run = new Method;
-                    $data = $run->delete($query);
+                    $data = $run->delete($query,false);
                     $response_array['status'] = 1; 
                 }else{
                     $response_array['status'] = 3; 

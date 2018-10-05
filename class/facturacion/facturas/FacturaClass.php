@@ -513,9 +513,9 @@
                                         $update = $run->update($query);
                                     }else{
                                         $query = "DELETE FROM facturas WHERE Id = '".$FacturaId."'";
-                                        $delete = $run->delete($query);
+                                        $delete = $run->delete($query,false);
                                         $query = "DELETE FROM facturas_detalle WHERE FacturaId = '".$FacturaId."'";
-                                        $delete = $run->delete($query);
+                                        $delete = $run->delete($query,false);
                                         $response_array['Message'] = 'Error Detalle';
                                         $response_array['status'] = 0;
                                         break;
@@ -528,9 +528,9 @@
                                 foreach($facturas as $factura){
                                     $DeleteId = $factura['Id'];
                                     $query = "DELETE FROM facturas_detalle WHERE FacturaId = '".$DeleteId."'";
-                                    $delete = $run->delete($query);
+                                    $delete = $run->delete($query,false);
                                     $query = "DELETE FROM facturas WHERE Id = '".$DeleteId."'";
-                                    $delete = $run->delete($query);
+                                    $delete = $run->delete($query,false);
                                 }
                             }else if($Tipo == 2){
                                 $query = "SELECT Id FROM facturas WHERE EstatusFacturacion = 0".$Concat;
@@ -538,9 +538,9 @@
                                 foreach($facturas as $factura){
                                     $DeleteId = $factura['Id'];
                                     $query = "DELETE FROM facturas_detalle WHERE FacturaId = '".$DeleteId."'";
-                                    $delete = $run->delete($query);
+                                    $delete = $run->delete($query,false);
                                     $query = "DELETE FROM facturas WHERE Id = '".$DeleteId."'";
-                                    $delete = $run->delete($query);
+                                    $delete = $run->delete($query,false);
                                 }
                             }
 
@@ -680,9 +680,9 @@
                                     foreach($pagadas as $pagada){
                                         $DeleteId = $pagada['Id'];
                                         $query = "DELETE FROM facturas_detalle WHERE FacturaId = '".$DeleteId."'";
-                                        $delete = $run->delete($query);
+                                        $delete = $run->delete($query,false);
                                         $query = "DELETE FROM facturas WHERE Id = '".$DeleteId."'";
-                                        $delete = $run->delete($query);
+                                        $delete = $run->delete($query,false);
                                     }
                                 }else{
                                     $response_array['Message'] = 'Error Factura';

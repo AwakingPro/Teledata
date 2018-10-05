@@ -36,9 +36,7 @@
 				$tipo_contacto = $Extra[1];
 				$correo = $Extra[2];
 				$telefono = $Extra[3];
-				$query = "	INSERT INTO contactos ( contacto, tipo_contacto, correo, telefono, rut )
-							VALUES
-								( '".$contacto."', ( SELECT id FROM mantenedor_tipo_contacto WHERE nombre = '".$tipo_contacto."' ), '".$correo."', '".$telefono."', '".$Rut."' )";
+				$query = "INSERT INTO contactos ( contacto, tipo_contacto, correo, telefono, rut ) VALUES ( '".$contacto."', ( SELECT id FROM mantenedor_tipo_contacto WHERE nombre = '".$tipo_contacto."' ), '".$correo."', '".$telefono."', '".$Rut."' )";
 				$run->insert($query);
 			}
 		}
