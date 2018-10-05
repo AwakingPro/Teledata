@@ -559,5 +559,9 @@
 			$dv = $dv == 11 ? 0 : ($dv == 10 ? "K" : $dv);
 			return $dv;
 		}
+		function respaldarDB(){
+			$result = exec("sudo mysqldump -u root -p teledata --password=".password." --user=".user." > /var/www/html/Teledata/backups/`date +%Y%m%d%H%M`.sql");
+			echo $result;
+		}
 	}
  ?>
