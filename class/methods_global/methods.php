@@ -560,7 +560,7 @@
 			return $dv;
 		}
 		function respaldarDB(){
-			$result = exec("mysqldump -u root -p teledata --password=".$this->password." --user=".$this->user." > /var/www/html/Teledata/backups/`date +%Y%m%d%H%M`.sql");
+			$result = exec("mysqldump -u ".$this->user." --password=".$this->password." teledata > /var/www/html/Teledata/backups/`date +%Y%m%d%H%M`.sql");
 			echo $result;
 		}
 	}
