@@ -83,6 +83,8 @@
 														</select>
 													</div>
 													<br>
+													<div class="containerTipoServicioFormulario"></div>
+													<br>
 													<label class="campo-Valor">Valor</label>
 													<div class="form-group">
 														<input type="text"  name="Valor" class="form-control" validate="not_null" data-nombre="Valor">
@@ -193,10 +195,6 @@
 														</div>
 														<br>
 													</div>
-								
-
-													<div class="containerTipoServicioFormulario"></div>
-
 													<button type="button" class="btn btn-primary guardarServ">Guardar</button>
 												</div>
 											</form>
