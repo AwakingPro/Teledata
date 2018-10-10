@@ -45,7 +45,7 @@
                                                     <label class="control-label" for="name">Seleccione Informe a Emitir</label>
                                                     <div class="select">
                                                         <select class="selectpicker form-control" id="tipo_informe" name="tipo_informe" data-live-search="true" data-container="body">
-                                                            <option value="">Todos</option>
+                                                            <option value="">Seleccione</option>
                                                             <option value="1">Informe Clientes</option>
                                                             <option value="2">Informe de Pagos Mensuales y Anuales</option>
                                                             <option value="3">Informe Cobranza de clientes</option>

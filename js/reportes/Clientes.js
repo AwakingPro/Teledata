@@ -9,24 +9,26 @@ $(document).ready(function(){
     });
     $(document).on('click', '#Download', function () {
         var tipo_informe = $('#tipo_informe').val();
-        
+        var startDate = $("#date-range .input-daterange input[name='start']").val();
+        var endDate = $("#date-range .input-daterange input[name='end']").val();
+
         if (tipo_informe != '') {
             if(tipo_informe == '1'){
-                url = "../ajax/cliente/exportarExcelClienteServicios.php";
+                url = "../ajax/informes/exportarExcelClienteServicios.php";
                 window.open(url, '_blank');
+            }
+            if(tipo_informe == '2'){
+                if (startDate != '' & endDate != '') {
+                    url = "../ajax/informes/exportarExcelPagos.php?startDate="+startDate+"&endDate="+endDate;
+                    window.open(url, '_blank');
+                } else {
+                    bootbox.alert('Debe Seleccionar un rango de fecha')
+                    return false;
+                }
             }  
         } else {
             bootbox.alert('Debe Seleccionar un Informe a Emitir');
             return false;
         }
-        // var startDate = $("#date-range .input-daterange input[name='start']").val();
-        // var endDate = $("#date-range .input-daterange input[name='end']").val();
-        // if (startDate != '' & endDate != '') {
-        //     url = "../ajax/compras_ingresos/generarReporte.php?startDate="+startDate+"&endDate="+endDate;
-        //     window.open(url, '_blank');
-        // } else {
-        //     bootbox.alert('Debe Seleccionar un rango de fecha')
-        //     return false;
-        // }
     });
 });
