@@ -44,7 +44,7 @@
                                                 <div class="form-group">
                                                     <label class="control-label" for="name">Seleccione Informe a Emitir</label>
                                                     <div class="select">
-                                                        <select class="selectpicker form-control" id="bodega_tipo" name="bodega_tipo" data-live-search="true" data-container="body">
+                                                        <select class="selectpicker form-control" id="tipo_informe" name="tipo_informe" data-live-search="true" data-container="body">
                                                             <option value="">Todos</option>
                                                             <option value="1">Informe Clientes</option>
                                                             <option value="2">Informe de Pagos Mensuales y Anuales</option>
@@ -157,7 +157,7 @@
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-		<script src="../js/reportes/Compras.js"></script>
+		<script src="../js/reportes/Clientes.js"></script>
 	</body>
 </html>
 
