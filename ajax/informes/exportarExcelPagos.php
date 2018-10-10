@@ -18,14 +18,15 @@ $objPHPExcel->getProperties()
 
 // Agregar Informacion
 $objPHPExcel->setActiveSheetIndex(0)
-	->setCellValue('A1', 'Numero de Documento')
-	->setCellValue('B1', 'Fecha Emisión Documento')
-	->setCellValue('C1', 'Tipo de Documento')
-	->setCellValue('D1', 'Rut')
-	->setCellValue('E1', 'Grupo')
-	->setCellValue('F1', 'Cliente')
-	->setCellValue('G1', 'Descripción')
-	->setCellValue('H1', 'Valor');
+	->setCellValue('A1', 'Nº')
+	->setCellValue('B1', 'Nombre De Cliente')
+	->setCellValue('C1', 'Documento')
+	->setCellValue('D1', 'Nº Doc')
+	->setCellValue('E1', 'Fecha Doc')
+	->setCellValue('F1', 'Monto')
+	->setCellValue('G1', 'Glosa')
+    ->setCellValue('H1', 'Monto Pagado')
+    ->setCellValue('I1', 'Fecha De Pago');
 
 
 foreach (range(0, 7) as $col) {
@@ -45,21 +46,25 @@ if(isset($_GET['startDate']) && isset($_GET['endDate'])){
 }
 
 $query = "  SELECT
-                facturas_detalle.Valor,
+                facturas_detalle.Total,
                 facturas_detalle.Concepto,
                 facturas.Id,
-                facturas.Rut,
+                facturas.NumeroDocumento,
                 facturas.FechaFacturacion,
-                facturas.TipoDocumento,
                 personaempresa.nombre AS Cliente,
-                COALESCE ( grupo_servicio.Nombre, facturas.Grupo ) AS Grupo 
+                facturas_pagos.FechaPago as FechaPago,
+                facturas_pagos.Monto as Pagado,
+                mt.nombre as tipo_Factura
+                
             FROM
                 facturas_detalle
                 INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id
                 INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
-                LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = facturas.Grupo 
+                INNER JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas_detalle.FacturaId
+                INNER JOIN mantenedor_tipo_cliente mt ON facturas.TipoDocumento = mt.id
+    
             WHERE
-                facturas_detalle.Valor > 0 
+                facturas_detalle.Total > 0 
                 AND facturas.EstatusFacturacion = '1'
                 AND facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'";
 
@@ -70,24 +75,25 @@ $Total = 0;
 
 
 if (count($documentos) > 0) {
-
+    // var_dump($documentos); return;
 	$index = 2;
 
 	foreach($documentos as $documento){
         
         $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$documento['FechaFacturacion'])->format('d-m-Y');
-
+        $FechaPago = \DateTime::createFromFormat('Y-m-d',$documento['FechaPago'])->format('d-m-Y');
 		$objPHPExcel->setActiveSheetIndex(0)
 		->setCellValue('A'.$index, $documento['Id'])
-		->setCellValue('B'.$index, $FechaFacturacion)
-		->setCellValue('C'.$index, $documento['TipoDocumento'])
-		->setCellValue('D'.$index, $documento['Rut'])
-		->setCellValue('E'.$index, $documento['Grupo'])
-		->setCellValue('F'.$index, $documento['Cliente'])
+		->setCellValue('B'.$index, $documento['Cliente'])
+		->setCellValue('C'.$index, $documento['tipo_Factura'])
+		->setCellValue('D'.$index, $documento['NumeroDocumento'])
+		->setCellValue('E'.$index, $FechaFacturacion)
+		->setCellValue('F'.$index, $documento['Total'])
 		->setCellValue('G'.$index, $documento['Concepto'])
-        ->setCellValue('H'.$index, $documento['Valor']);
+        ->setCellValue('H'.$index, $documento['Pagado'])
+        ->setCellValue('I'.$index, $FechaPago);
         
-        $Total += $documento['Valor'];
+        $Total += $documento['Total'];
 
 		$index++;
     }
