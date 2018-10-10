@@ -7,13 +7,13 @@ $objPHPExcel = new PHPExcel();
 
 // Establecer propiedades
 $objPHPExcel->getProperties()
-->setCreator("Cattivo")
-->setLastModifiedBy("Cattivo")
-->setTitle("Documento Excel de Prueba")
-->setSubject("Documento Excel de Prueba")
-->setDescription("Demostracion sobre como crear archivos de Excel desde PHP.")
+->setCreator("Teledata")
+->setLastModifiedBy("Teledata")
+->setTitle("Documento Excel de Clientes Teledata")
+->setSubject("Documento Excel de Clientes Teledata")
+->setDescription("Informe de Clientes y Servicios de Teledata.")
 ->setKeywords("Excel Office 2007 openxml php")
-->setCategory("Pruebas de Excel");
+->setCategory("Informe Clientes");
 
 // Agregar Informacion
 $objPHPExcel->setActiveSheetIndex(0)
