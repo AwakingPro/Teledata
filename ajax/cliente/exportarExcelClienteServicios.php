@@ -62,8 +62,12 @@ if (count($data) > 0) {
 	for ($i=0; $i < count($data) ; $i++) {
         if($data[$i][7] == 1)
         $data[$i][7] = 'Activo';
-        else
+        else if($data[$i][7] == 2)
+        $data[$i][7] = 'Suspendido';
+        else if($data[$i][7] == 0)
         $data[$i][7] = 'Inactivo';
+        else
+        $data[$i][7] = 'Sin estado';
 		$objPHPExcel->setActiveSheetIndex(0)
 		->setCellValue('A'.$index, $data[$i][0])
 		->setCellValue('B'.$index, $data[$i][1])
