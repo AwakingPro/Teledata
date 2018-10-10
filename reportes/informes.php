@@ -67,12 +67,9 @@
                                                 <div class="form-group">
                                                     <label class="control-label" for="name">Selección de Cliente o Proveedor </label>
                                                     <div class="select">
-                                                        <select class="selectpicker form-control" id="bodega_tipo" name="bodega_tipo" data-live-search="true" data-container="body">
-                                                            <option value="">Todos</option>
-                                                            <option value="1">CLiente 1</option>
-                                                            <option value="2">Cliente 2</option>
-                                                            <option value="3">Cliente 3</option>
-                                                        </select>
+														<select name="rutCliente" class="selectpicker form-control" data-live-search="true">
+															<option value="">Seleccione...</option>
+														</select>
                                                     </div>
                                                 </div>
                                             </div>
