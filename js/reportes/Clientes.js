@@ -12,7 +12,7 @@ $(document).ready(function(){
         
         if (tipo_informe != '') {
             if(tipo_informe == '1'){
-                url = "../ajax/cliente/exportarExcelCliente.php";
+                url = "../ajax/cliente/exportarExcelClienteServicios.php";
                 window.open(url, '_blank');
             }  
         } else {
