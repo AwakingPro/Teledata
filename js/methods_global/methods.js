@@ -31,6 +31,7 @@ $.ajax({
 	type: "POST",
 	url: "../includes/facturacion/uf/getValue.php",
 	success: function (response) {
+		response = Math.round(response)
 		$('.ValorUF').text(response)
 		ValorUF = response
 	}
