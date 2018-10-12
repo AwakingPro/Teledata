@@ -1210,8 +1210,9 @@
                 array_push($details,$detail);
                 $Total += $Valor;
             }
-            if(isset($Detalles[0]['Referencia'])){
-                $Referencia = $Detalles[0]['Referencia'];
+            $Detalle = $Detalles[0];
+            if(isset($Detalle['Referencia'])){
+                $Referencia = $Detalle['Referencia'];
                 if($Referencia){
                     $last_index = count($details) - 1;
                     $details[$last_index]['comment'] .= PHP_EOL . ' ' . $Referencia;
@@ -1222,10 +1223,10 @@
             $payment = array("paymentTypeId" => $Cliente['tipo_pago_bsale_id'], "amount" => $Total, "recordDate" => time());
             array_push($payments,$payment);
 
-            if(isset($Detalles[0]['NumeroOC'])){
-                $NumeroOC = $Detalles[0]['NumeroOC'];
+            if(isset($Detalle['NumeroOC'])){
+                $NumeroOC = $Detalle['NumeroOC'];
                 if($NumeroOC){
-                    $FechaOC = $Detalles[0]['FechaOC'];
+                    $FechaOC = $Detalle['FechaOC'];
                     if($FechaOC){
                         $dateTime = new DateTime($FechaOC); 
                     }else{
@@ -1237,12 +1238,16 @@
                     array_push($references,$reference);
                 }
             }
-            $tipo_pago = $Cliente['tipo_pago'];
-            $Explode = explode(' ',$tipo_pago);
-            if(ctype_digit($Explode[0])){
-                $expirationDate = time() + (intval($Explode[0]) * 24 * 60 * 60);
+            if($Detalle['FacturaId'] != 2993){
+                $tipo_pago = $Cliente['tipo_pago'];
+                $Explode = explode(' ',$tipo_pago);
+                if(ctype_digit($Explode[0])){
+                    $expirationDate = time() + (intval($Explode[0]) * 24 * 60 * 60);
+                }else{
+                    $expirationDate = time();
+                }
             }else{
-                $expirationDate = time();
+                $expirationDate = 1539993600;
             }
             
             //FACTURA
