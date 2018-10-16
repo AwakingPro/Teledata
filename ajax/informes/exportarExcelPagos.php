@@ -46,16 +46,17 @@ if(isset($_GET['startDate']) && isset($_GET['endDate'])){
 }
 
 $query = "  SELECT
-                facturas_detalle.Total,
+                (SELECT SUM( Total ) FROM facturas_detalle WHERE FacturaId = facturas.Id ) AS Total,
                 facturas_detalle.Concepto,
+                facturas_pagos.Detalle,
                 facturas.Id,
-                facturas.NumeroDocumento,
+                facturas.NumeroDocumento, 
                 facturas.FechaFacturacion,
                 personaempresa.nombre AS Cliente,
-                facturas_pagos.FechaPago as FechaPago,
-                facturas_pagos.Monto as Pagado,
-                mt.nombre as tipo_Factura
-                
+                facturas_pagos.FechaPago AS FechaPago,
+                facturas_pagos.Monto AS Pagado,
+                mt.nombre AS tipo_Factura
+
             FROM
                 facturas_detalle
                 INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id
