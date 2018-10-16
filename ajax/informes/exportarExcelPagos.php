@@ -47,7 +47,7 @@ if(isset($_GET['startDate']) && isset($_GET['endDate'])){
 
 $query = "  SELECT
                 (SELECT SUM( Total ) FROM facturas_detalle WHERE FacturaId = facturas.Id ) AS Total,
-                facturas_detalle.Concepto,
+                -- facturas_detalle.Concepto,
                 facturas_pagos.Detalle,
                 facturas.Id,
                 facturas.NumeroDocumento, 
@@ -90,9 +90,8 @@ if (count($documentos) > 0) {
 		->setCellValue('D'.$index, $documento['NumeroDocumento'])
 		->setCellValue('E'.$index, $FechaFacturacion)
 		->setCellValue('F'.$index, $documento['Total'])
-		->setCellValue('G'.$index, $documento['Concepto'])
-        ->setCellValue('H'.$index, $documento['Pagado'])
-        ->setCellValue('I'.$index, $FechaPago);
+        ->setCellValue('G'.$index, $documento['Pagado'])
+        ->setCellValue('H'.$index, $FechaPago);
         
         $Total += $documento['Total'];
 
