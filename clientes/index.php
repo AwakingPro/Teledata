@@ -150,7 +150,7 @@
 														<div class="col-md-4 form-group">
 															<label>Contacto</label>
 															<div class="input-group">
-																<input name="Contacto" class="form-control" validate="not_null">
+																<input name="Contacto" class="form-control">
 																<span class="input-group-btn">
 																	<button id="agregarContactos" type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalContactos"><i class="fa fa-plus" aria-hidden="true"></i></button>
 																</span>
@@ -158,7 +158,7 @@
 														</div>
 														<div class="col-md-4 form-group">
 															<label>Teléfono</label>
-															<input name="Telefono" class="form-control" validate="not_null">
+															<input name="Telefono" class="form-control">
 														</div>
 														<div class="col-md-4 form-group">
 															<label>Correo</label>
