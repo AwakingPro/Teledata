@@ -22,91 +22,91 @@
 
 	echo $data;
 
-	if($data){
-		$query = "SELECT token_produccion as access_token FROM variables_globales";
-		$variables_globales = $run->select($query);
-		$access_token = $variables_globales[0]['access_token'];
-		$query = "	SELECT
-						CONCAT(per.rut, '-', per.dv) as codigo, per.cliente_id_bsale, pro.nombre AS provincia, ciu.nombre AS ciudad
-					FROM
-						personaempresa per
-					INNER JOIN ciudades ciu ON per.ciudad = ciu.id
-					INNER JOIN provincias pro ON ciu.provincia_id = pro.id
-					WHERE
-						per.id = '".$IdCliente."'";
-		$Cliente = $run->select($query);
-		$Cliente = $Cliente[0];
-		$Provincia = $Cliente['provincia'];
-		$Ciudad = $Cliente['ciudad'];
-		$array = array(
-			"firstName"     => $Contacto,
-			"lastName"      => "",
-			"email"         => $Correo,
-			"phone"         => $Telefono,
-			"address"       => $DireccionComercial,
-			"company"       => $Nombre,
-			"city"          => $Provincia,
-			"municipality"  => $Ciudad,
-			"activity"      => $Giro
-		);
-		if(!$Cliente['cliente_id_bsale']){
-			$codigo = $Cliente['codigo'];
-			$url = 'https://api.bsale.cl/v1/clients.json?code='.$codigo;
-            $session = curl_init($url);
-            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-            $headers = array(
-                'access_token: ' . $access_token,
-                'Accept: application/json',
-                'Content-Type: application/json'
-            );
-            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-            $response = curl_exec($session);
-            curl_close($session);
-            $client = json_decode($response, true);
-            if($client['count']){
-				$id = $client['items'][0]['id'];
-			}else{
-				$array['code'] = $codigo;
-				$url = 'https://api.bsale.cl/v1/clients.json';
-				$session = curl_init($url);
-				curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-				$headers = array(
-					'access_token: ' . $access_token,
-					'Accept: application/json',
-					'Content-Type: application/json'
-				);
-				curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-				curl_setopt($session, CURLOPT_POST, true);
-				$data = json_encode($array);
-				curl_setopt($session, CURLOPT_POSTFIELDS, $data);
-				$response = curl_exec($session);
-				curl_close($session);
-				$client = json_decode($response, true);
-				$id = $client['id'];
-			}
-			$query = "UPDATE personaempresa SET cliente_id_bsale = '".$id."' WHERE id = '".$IdCliente."'";
-			$update = $run->update($query);
-		}else{
-			$id = $Cliente['cliente_id_bsale'];
-		}
-		$array['id'] = $id;
-		$url = "https://api.bsale.cl/v1/clients/".$id.".json";
-		$session = curl_init($url);
-		curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-		$headers = array(
-			'access_token: ' . $access_token,
-			'Accept: application/json',
-			'Content-Type: application/json'
-		);
-		curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-		curl_setopt($session, CURLOPT_CUSTOMREQUEST, "PUT");
-		$data = json_encode($array);
-		echo $data;
-		curl_setopt($session, CURLOPT_POSTFIELDS, $data);
-		$response = curl_exec($session);
-		curl_close($session);
-		$client = json_decode($response, true);
-	}
+	// if($data){
+	// 	$query = "SELECT token_produccion as access_token FROM variables_globales";
+	// 	$variables_globales = $run->select($query);
+	// 	$access_token = $variables_globales[0]['access_token'];
+	// 	$query = "	SELECT
+	// 					CONCAT(per.rut, '-', per.dv) as codigo, per.cliente_id_bsale, pro.nombre AS provincia, ciu.nombre AS ciudad
+	// 				FROM
+	// 					personaempresa per
+	// 				INNER JOIN ciudades ciu ON per.ciudad = ciu.id
+	// 				INNER JOIN provincias pro ON ciu.provincia_id = pro.id
+	// 				WHERE
+	// 					per.id = '".$IdCliente."'";
+	// 	$Cliente = $run->select($query);
+	// 	$Cliente = $Cliente[0];
+	// 	$Provincia = $Cliente['provincia'];
+	// 	$Ciudad = $Cliente['ciudad'];
+	// 	$array = array(
+	// 		"firstName"     => $Contacto,
+	// 		"lastName"      => "",
+	// 		"email"         => $Correo,
+	// 		"phone"         => $Telefono,
+	// 		"address"       => $DireccionComercial,
+	// 		"company"       => $Nombre,
+	// 		"city"          => $Provincia,
+	// 		"municipality"  => $Ciudad,
+	// 		"activity"      => $Giro
+	// 	);
+	// 	if(!$Cliente['cliente_id_bsale']){
+	// 		$codigo = $Cliente['codigo'];
+	// 		$url = 'https://api.bsale.cl/v1/clients.json?code='.$codigo;
+    //         $session = curl_init($url);
+    //         curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+    //         $headers = array(
+    //             'access_token: ' . $access_token,
+    //             'Accept: application/json',
+    //             'Content-Type: application/json'
+    //         );
+    //         curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+    //         $response = curl_exec($session);
+    //         curl_close($session);
+    //         $client = json_decode($response, true);
+    //         if($client['count']){
+	// 			$id = $client['items'][0]['id'];
+	// 		}else{
+	// 			$array['code'] = $codigo;
+	// 			$url = 'https://api.bsale.cl/v1/clients.json';
+	// 			$session = curl_init($url);
+	// 			curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+	// 			$headers = array(
+	// 				'access_token: ' . $access_token,
+	// 				'Accept: application/json',
+	// 				'Content-Type: application/json'
+	// 			);
+	// 			curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+	// 			curl_setopt($session, CURLOPT_POST, true);
+	// 			$data = json_encode($array);
+	// 			curl_setopt($session, CURLOPT_POSTFIELDS, $data);
+	// 			$response = curl_exec($session);
+	// 			curl_close($session);
+	// 			$client = json_decode($response, true);
+	// 			$id = $client['id'];
+	// 		}
+	// 		$query = "UPDATE personaempresa SET cliente_id_bsale = '".$id."' WHERE id = '".$IdCliente."'";
+	// 		$update = $run->update($query);
+	// 	}else{
+	// 		$id = $Cliente['cliente_id_bsale'];
+	// 	}
+	// 	$array['id'] = $id;
+	// 	$url = "https://api.bsale.cl/v1/clients/".$id.".json";
+	// 	$session = curl_init($url);
+	// 	curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+	// 	$headers = array(
+	// 		'access_token: ' . $access_token,
+	// 		'Accept: application/json',
+	// 		'Content-Type: application/json'
+	// 	);
+	// 	curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+	// 	curl_setopt($session, CURLOPT_CUSTOMREQUEST, "PUT");
+	// 	$data = json_encode($array);
+	// 	echo $data;
+	// 	curl_setopt($session, CURLOPT_POSTFIELDS, $data);
+	// 	$response = curl_exec($session);
+	// 	curl_close($session);
+	// 	$client = json_decode($response, true);
+	// }
 
 
  ?>
