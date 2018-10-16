@@ -18,12 +18,13 @@
 	$Correo = isset($_POST['Correo']) ? strtoupper(trim($_POST['Correo'])) : "";
 	$Comentario = isset($_POST['Comentario']) ? strtoupper(trim($_POST['Comentario'])) : "";
 	$TipoPago = isset($_POST['TipoPago']) ? trim($_POST['TipoPago']) : "";
+	$PoseePac = isset($_POST['PoseePac']) ? trim($_POST['PoseePac']) : "";
 	$Extras = isset($_POST['extras']) ? trim($_POST['extras']) : "";
 	$idUsuario = $_SESSION['idUsuario'];
 	$query = "INSERT INTO personaempresa
-			(rut, dv, nombre, giro, ciudad, region, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, id_usuario_sistema, clase_cliente, tipo_pago_bsale_id)
+			(rut, dv, nombre, giro, ciudad, region, direccion, correo, contacto, comentario, telefono, alias, tipo_cliente, id_usuario_sistema, clase_cliente, tipo_pago_bsale_id, posee_pac)
 			VALUES
-			('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Ciudad."', '".$Region."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$idUsuario."', '".$ClaseCliente."', '".$TipoPago."')";
+			('".$Rut."', '".$Dv."', '".$Nombre."', '".$Giro."', '".$Ciudad."', '".$Region."', '".$DireccionComercial."', '".$Correo."', '".$Contacto."', '".$Comentario."', '".$Telefono."', '".$Alias."', '".$TipoCliente."', '".$idUsuario."', '".$ClaseCliente."', '".$TipoPago."', '".$PoseePac."')";
 
 	$Id = $run->insert($query);
 

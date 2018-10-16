@@ -135,7 +135,16 @@ $.validate = function (form) {
 	objs.each(function (index, obj) {
 		if (obj.hasAttribute('name')) {
 			name = $(obj).attr('name')
-			value = $(obj).val();
+			type = $(obj).attr('type');
+			if(type != 'checkbox'){
+				value = $(obj).val();
+			}else{
+				if ($(obj).is(':checked')){
+					value = 1
+				}else{
+					value = 0
+				}
+			}
 			countObjs++;
 			if (obj.hasAttribute('validate')) {
 				switch ($(obj).attr('validate')) {

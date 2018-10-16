@@ -15,6 +15,7 @@
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 		<link href="../plugins/pace/pace.min.css" rel="stylesheet">
 		<link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
+		<link href="../plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
@@ -75,17 +76,23 @@
 												</div>
 												<form id="insertCliente">
 													<div class="row">
-														<div class="col-md-4 form-group">
+														<div class="col-md-3 form-group">
 															<label>Tipo de Cliente</label>
 															<select name="TipoCliente" class="form-control TipoCliente" data-live-search="true" validate="not_null">
 																<option value="">Seleccione...</option>
 															</select>
 														</div>
-														<div class="col-md-4 form-group">
+														<div class="col-md-3 form-group">
 															<label>Tipo de Pago</label>
 															<select name="TipoPago" class="form-control TipoPago" data-live-search="true" validate="not_null">
 																<option value="">Seleccione...</option>
 															</select>
+														</div>
+														<div class="col-md-2 form-group">
+															<div class="checkbox" style="margin: 18px auto">
+																<input id="PoseePac" name="PoseePac" class="magic-checkbox" type="checkbox">
+																<label for="PoseePac">Posee PAC</label>
+															</div>
 														</div>
 														<div class="col-md-3 form-group">
 															<label>Rut</label>

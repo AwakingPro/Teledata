@@ -13,9 +13,10 @@
 	$Ciudad = isset($_POST['Ciudad_update']) ? trim($_POST['Ciudad_update']) : "";
 	$Region = isset($_POST['Region_update']) ? trim($_POST['Region_update']) : "";
 	$TipoPago = isset($_POST['TipoPago_update']) ? trim($_POST['TipoPago_update']) : "";
+	$PoseePac = isset($_POST['PoseePac_update']) ? trim($_POST['PoseePac_update']) : "";
 	$IdCliente = isset($_POST['IdCliente']) ? trim($_POST['IdCliente']) : "";
 
-	$query = "UPDATE personaempresa SET alias = '".$Alias."', nombre = '".$Nombre."', giro = '".$Giro."', direccion = '".$DireccionComercial."', correo = '".$Correo."', contacto = '".$Contacto."', comentario = '".$Comentario."', telefono = '".$Telefono."', tipo_cliente = '".$TipoCliente."', ciudad = '".$Ciudad."', region = '".$Region."', tipo_pago_bsale_id = '".$TipoPago."' WHERE id = '".$IdCliente."'";
+	$query = "UPDATE personaempresa SET alias = '".$Alias."', nombre = '".$Nombre."', giro = '".$Giro."', direccion = '".$DireccionComercial."', correo = '".$Correo."', contacto = '".$Contacto."', comentario = '".$Comentario."', telefono = '".$Telefono."', tipo_cliente = '".$TipoCliente."', ciudad = '".$Ciudad."', region = '".$Region."', tipo_pago_bsale_id = '".$TipoPago."', posee_pac = '".$PoseePac."' WHERE id = '".$IdCliente."'";
 	$run = new Method;
 	$data = $run->update($query);
 

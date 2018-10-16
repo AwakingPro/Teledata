@@ -16,6 +16,7 @@
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 		<link href="../plugins/pace/pace.min.css" rel="stylesheet">
+   		<link href="../plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
@@ -38,21 +39,31 @@
 					</div>
 					<input type="hidden" name="IdCliente">
 					<div class="row">
-						<div class="col-md-4 form-group">
+						<div class="col-md-3 form-group">
 							<label>Tipo de Cliente</label>
 							<select name="TipoCliente_update" class="form-control TipoCliente" data-live-search="true">
 								<option value="">Seleccione...</option>
 							</select>
 						</div>
-						<div class="col-md-4 form-group">
+						<div class="col-md-3 form-group">
 							<label>Tipo de Pago</label>
 							<select name="TipoPago_update" class="form-control TipoPago" data-live-search="true" validate="not_null">
 								<option value="">Seleccione...</option>
 							</select>
 						</div>
-						<div class="col-md-4 form-group">
+						<div class="col-md-2 form-group">
+							<div class="checkbox" style="margin: 18px auto">
+								<input id="PoseePac_update" name="PoseePac_update" class="magic-checkbox" type="checkbox">
+								<label for="PoseePac_update">Posee PAC</label>
+							</div>
+						</div>
+						<div class="col-md-3 form-group">
 							<label>Rut</label>
 							<input name="Rut_update" class="form-control" disabled>
+						</div>
+						<div class="col-md-1 form-group">
+							<label>Dv</label>
+							<input id="Dv_update" name="Dv_update" class="form-control" disabled>
 						</div>
 					</div>
 					<div class="row">

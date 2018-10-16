@@ -701,6 +701,7 @@ $(document).ready(function() {
             $('.actualizarCliente').hide();
         }
         $('[name="Rut_update"]').prop("disabled", true);
+        $('[name="Dv_update"]').prop("disabled", true);
         getPersonaempresa(id)
     });
 
@@ -708,7 +709,8 @@ $(document).ready(function() {
         $.post('../ajax/cliente/dataClienteUpdate.php', { id: id }, function(data) {
             value = $.parseJSON(data);
             $('[name="Nombre_update"]').val(value[0]['nombre']);
-            $('[name="Rut_update"]').val(value[0]['rut'] + "-" + value[0]['dv']);
+            $('[name="Rut_update"]').val(value[0]['rut']);
+            $('[name="Dv_update"]').val(value[0]['dv']);
             $('[name="DireccionComercial_update"]').val(value[0]['direccion']);
             $('[name="Contacto_update"]').val(value[0]['contacto']);
             $('[name="Telefono_update"]').val(value[0]['telefono']);
@@ -729,6 +731,11 @@ $(document).ready(function() {
             $('[name="TipoCliente_update"]').selectpicker('refresh');
             $('[name="TipoPago_update"]').val(value[0]['tipo_pago_bsale_id']);
             $('[name="TipoPago_update"]').selectpicker('refresh');
+            if(value[0]['posee_pac'] == 1){
+                $('[name="PoseePac_update').prop('checked',true);
+            }else{
+                $('[name="PoseePac_update').prop('checked', false);
+            }
             $('#editarCliente').modal('show');
         });
     }
