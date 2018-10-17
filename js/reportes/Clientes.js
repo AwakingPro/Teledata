@@ -36,7 +36,11 @@ $(document).ready(function(){
                     bootbox.alert('Debe Seleccionar un rango de fecha')
                     return false;
                 }
-            }  
+            }
+            if(tipo_informe == '3'){
+                url = "../ajax/informes/exportarExcelCobranzaCliente.php";
+                window.open(url, '_blank');
+            }
         } else {
             bootbox.alert('Debe Seleccionar un Informe a Emitir');
             return false;
