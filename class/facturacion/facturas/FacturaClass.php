@@ -2004,11 +2004,16 @@
         public function storePago($FacturaId,$FechaPago,$TipoPago,$Detalle,$Monto,$FechaEmisionCheque,$FechaVencimientoCheque){
             $response_array = array();
             session_start();
+            $Detalle = '';
+            if(!isset($_POST['Detalle']))
+            $Detalle = '';
+            else
+            $Detalle = $_POST['Detalle'];
 
             $FacturaId = $_POST['FacturaId'];
             $FechaPago = $_POST['FechaPago'];
             $TipoPago = $_POST['TipoPago'];
-            $Detalle = $_POST['Detalle'];
+            $Detalle = $Detalle;
             $Monto = $_POST['Monto'];
             $FechaEmisionCheque = $_POST['FechaEmisionCheque'];
             $FechaVencimientoCheque = $_POST['FechaVencimientoCheque'];

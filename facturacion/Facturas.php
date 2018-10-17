@@ -304,12 +304,12 @@
 								</div>
 							</div>
 							<div class="clearfix m-b-10"></div>
-							<div class="col-md-12">
+							<!-- <div class="col-md-12">
 								<div class="form-group">
 									<label class="control-label label_Detalle" for="name">Observacion</label>
 									<input id="Detalle" name="Detalle" placeholder="Ingrese la observación" class="form-control input-sm Detalle" data-nombre="Observación">
 								</div>
-							</div>
+							</div> -->
 							<div class="Cheque" style="display:none">
 								<div class="clearfix m-b-10"></div>
 								<div class="col-md-12">
