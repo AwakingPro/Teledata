@@ -48,7 +48,7 @@ if(isset($_GET['startDate']) && isset($_GET['endDate'])){
 $query = "  SELECT
                 (SELECT SUM( Total ) FROM facturas_detalle WHERE FacturaId = facturas.Id ) AS Total,
                 -- facturas_detalle.Concepto,
-                facturas_pagos.Detalle,
+                facturas_pagos.Detalle as Detalle,
                 facturas.Id,
                 facturas.NumeroDocumento, 
                 facturas.FechaFacturacion,
@@ -67,7 +67,13 @@ $query = "  SELECT
             WHERE
                 facturas_detalle.Total > 0 
                 AND facturas.EstatusFacturacion = '1'
-                AND facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'";
+                AND facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."' ";
+                
+$rut = '';
+if(isset($_GET['rut']) && $_GET['rut'] != '') {
+    $rut = $_GET['rut'];
+    $query .= "AND personaempresa.rut = '".$rut."' ";
+}
 
 $run = new Method;
 $documentos = $run->select($query);
@@ -90,8 +96,9 @@ if (count($documentos) > 0) {
 		->setCellValue('D'.$index, $documento['NumeroDocumento'])
 		->setCellValue('E'.$index, $FechaFacturacion)
 		->setCellValue('F'.$index, $documento['Total'])
-        ->setCellValue('G'.$index, $documento['Pagado'])
-        ->setCellValue('H'.$index, $FechaPago);
+        ->setCellValue('G'.$index, $documento['Detalle'])
+        ->setCellValue('H'.$index, $documento['Pagado'])
+        ->setCellValue('I'.$index, $FechaPago);
         
         $Total += $documento['Total'];
 
