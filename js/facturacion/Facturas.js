@@ -412,7 +412,7 @@ $(document).ready(function() {
         });
     }
 
-
+    //por fechas
     function getFacturas() {
         var startDate = $("#date-range .input-daterange input[name='start']").val();
         var endDate = $("#date-range .input-daterange input[name='end']").val();
@@ -675,6 +675,8 @@ $(document).ready(function() {
                 $('.selectpicker').selectpicker('refresh');
                 $('.modal').modal('hide');
                 getFacturas();
+                getFacturasNDocumento();
+                getFacturasCliente();
 
             } else if (response == 2) {
 
