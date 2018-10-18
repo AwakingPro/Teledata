@@ -3,7 +3,7 @@ $(document).ready(function() {
     var neto_nota = 0
     var iva_nota = 0
     var total_nota = 0
-
+    iva_global = 0.19;
     $.ajax({
         type: "POST",
         url: "../includes/inventario/bodegas/showPersonal.php",
@@ -283,10 +283,13 @@ $(document).ready(function() {
 
     function calcularDetalleTmp() {
         cantidad = parseInt($('#cantidad_tmp').val())
+        var calculaIva = '';
+        var totalFinal = '';
         if (!cantidad) {
             cantidad = 0;
         }
-        precio = $('#precio_tmp').val()
+        precio = $('#precio_tmp').val();
+        
         if (precio) {
             precio = precio.replace(',00', '')
             precio = precio.replace('.', '')
@@ -299,14 +302,17 @@ $(document).ready(function() {
             precio = precio * ValorUF
             precio = Math.round(precio)
         }
-        valor = precio * cantidad
+        valor = precio * cantidad;
+        calculaIva = valor * iva_global;
+        totalFinal = valor + calculaIva;
         concepto = $('#concepto_tmp').val()
         if (valor > 0 && concepto) {
             $('#insertDetalleTmp').prop('disabled', false);
         } else {
             $('#insertDetalleTmp').prop('disabled', true);
         }
-        $('#total_tmp').val(formatcurrency(valor))
+        $('#total_tmp').val(formatcurrency(totalFinal))
+        // $('#total_tmp').val(formatcurrency(valor))
     }
 
     $('body').on('click', '#insertDetalleTmp', function() {
