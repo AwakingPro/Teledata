@@ -96,6 +96,7 @@ if (count($FacturasVencidas) > 0) {
                 $factura_detalle_Total += $factura_detalle['Total'];
                 $monto_deuda += $factura_detalle['Total'];
                 
+                // query para consultar si pago
                 $query_facturas_pagos = "SELECT
                 Id,
                 FacturaId,
@@ -120,7 +121,6 @@ if (count($FacturasVencidas) > 0) {
                         } 
                     } //else significa que no ha pagado nada
                 } else {
-
                     $bandera = 0;
                     $fp_monto = 0;
                     $monto_deuda = $factura_detalle_Total;
@@ -129,8 +129,7 @@ if (count($FacturasVencidas) > 0) {
         }
         if($bandera != 1) {
         //    echo $TipoDocumento;
-            
-            
+
 		    $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A'.$index, $id_facturas)
             ->setCellValue('B'.$index, $razonSocial)
@@ -146,7 +145,7 @@ if (count($FacturasVencidas) > 0) {
        
     }
     // return;
-    $index++;
+    // $index++;
     // Establecer la hoja activa, para que cuando se abra el documento se muestre primero.
     $objPHPExcel->setActiveSheetIndex(0);
 
