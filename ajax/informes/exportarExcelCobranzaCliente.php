@@ -25,7 +25,10 @@ $objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('E1', 'Fecha Emisión')
 	->setCellValue('F1', 'Fecha Vencimiento')
 	->setCellValue('G1', 'Monto')
-    ->setCellValue('H1', 'Pagado');
+    ->setCellValue('H1', 'Pagado')
+    ->setCellValue('I1', 'Estado Cliente')
+    ->setCellValue('J1', 'Tipo De Servicio')
+    ->setCellValue('K1', 'Clase Cliente');
 
 
 
@@ -67,6 +70,7 @@ $monto_deuda = 0;
 $fp_monto = 0;
 $pagos = 0;
 $bandera = 0;
+$EstatusServicio = '';
 
 if (count($FacturasVencidas) > 0) {
     
@@ -81,12 +85,12 @@ if (count($FacturasVencidas) > 0) {
         
         $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');
         $fechaVencimiento = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');
-        
         $query_facturas_detalle = "SELECT
-        Id,
         FacturaId,
-        Total
+        Total,
+        servicios.EstatusServicio as EstatusServicio
         FROM facturas_detalle
+        LEFT JOIN servicios ON servicios.Id  = facturas_detalle.IdServicio
         WHERE FacturaId = $id_facturas ";
         $facturas_detalle = $run->select($query_facturas_detalle);
         $total_facturas_detalle = count($facturas_detalle);
@@ -127,20 +131,35 @@ if (count($FacturasVencidas) > 0) {
                 }
             }
         }
+       
         if($bandera != 1) {
-        //    echo $TipoDocumento;
+        foreach($facturas_detalle as $factura_detalle) {
+                $EstatusServicio = $factura_detalle['EstatusServicio'];
+                if($EstatusServicio == 1 || $EstatusServicio == ''){
+                    $EstatusServicio = 'Activo';
+                }else if($EstatusServicio == 0) {
+                    $EstatusServicio = 'Inactivo';
+                } else if($EstatusServicio == 2) {
+                    $EstatusServicio = 'Suspendido';
+                }else if($EstatusServicio == 3) {
+                    $EstatusServicio = 'Sin Asignar';
+                }
 
-		    $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A'.$index, $id_facturas)
+            $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A'.$index, $factura_detalle_FacturaId)
             ->setCellValue('B'.$index, $razonSocial)
             ->setCellValue('C'.$index, $TipoDocumento)
             ->setCellValue('D'.$index, $NumeroDocumento)
             ->setCellValue('E'.$index, $FechaFacturacion)
             ->setCellValue('F'.$index, $fechaVencimiento)
-            ->setCellValue('G'.$index, $factura_detalle_Total)
+            ->setCellValue('G'.$index, $factura_detalle['Total'])
             // ->setCellValue('G'.$index, $fp_monto)
-            ->setCellValue('H'.$index, $fp_monto);
+            ->setCellValue('H'.$index, $fp_monto)
+            ->setCellValue('I'.$index, $EstatusServicio)
+            ->setCellValue('J'.$index, 'Tipo De Servicio')
+            ->setCellValue('K'.$index, 'Clase Cliente');
             $index ++; 
+            }
         }
        
     }
