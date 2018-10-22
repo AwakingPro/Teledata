@@ -49,10 +49,12 @@ facturas.NumeroDocumento,
 facturas.FechaFacturacion,
 mantenedor_tipo_cliente.nombre AS TipoDocumento,
 personaempresa.nombre AS Cliente,
-facturas.FechaVencimiento
+facturas.FechaVencimiento,
+clase_clientes.nombre AS claseCliente
 FROM facturas
 INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id
 LEFT JOIN personaempresa ON personaempresa.rut = facturas.Rut
+INNER JOIN clase_clientes ON personaempresa.clase_cliente = clase_clientes.id
 WHERE EstatusFacturacion = 1 AND FechaVencimiento < '".$fecha_actual."' ";
 $run = new Method;
 $FacturasVencidas = $run->select($query);
@@ -72,9 +74,9 @@ $pagos = 0;
 $bandera = 0;
 $EstatusServicio = '';
 $TipoServicio = '';
+$claseCLiente = '';
 
 if (count($FacturasVencidas) > 0) {
-    
     $index = 2;
     foreach($FacturasVencidas as $factura) {
         $factura_detalle_Total = 0;
@@ -82,7 +84,7 @@ if (count($FacturasVencidas) > 0) {
         $razonSocial = $factura['Cliente'];
         $NumeroDocumento = $factura['NumeroDocumento'];
         $TipoDocumento = $factura['TipoDocumento'];
-
+        $claseCLiente = $factura['claseCliente'];
         
         $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');
         $fechaVencimiento = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');
@@ -99,6 +101,7 @@ if (count($FacturasVencidas) > 0) {
         $facturas_detalle = $run->select($query_facturas_detalle);
         $total_facturas_detalle = count($facturas_detalle);
         if($total_facturas_detalle > 0) {
+            
             foreach($facturas_detalle as $factura_detalle) {
                 $factura_detalle_FacturaId = $factura_detalle['FacturaId'];
                 $factura_detalle_Total += $factura_detalle['Total'];
@@ -166,7 +169,7 @@ if (count($FacturasVencidas) > 0) {
             ->setCellValue('H'.$index, $fp_monto)
             ->setCellValue('I'.$index, $EstatusServicio)
             ->setCellValue('J'.$index, $TipoServicio)
-            ->setCellValue('K'.$index, 'Clase Cliente');
+            ->setCellValue('K'.$index, $claseCLiente);
             $index ++; 
             }
         }
