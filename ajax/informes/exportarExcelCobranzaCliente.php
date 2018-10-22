@@ -32,7 +32,7 @@ $objPHPExcel->setActiveSheetIndex(0)
 
 
 
-foreach (range(0, 7) as $col) {
+foreach (range(0, 10) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 
