@@ -71,6 +71,7 @@ $fp_monto = 0;
 $pagos = 0;
 $bandera = 0;
 $EstatusServicio = '';
+$TipoServicio = '';
 
 if (count($FacturasVencidas) > 0) {
     
@@ -88,9 +89,12 @@ if (count($FacturasVencidas) > 0) {
         $query_facturas_detalle = "SELECT
         FacturaId,
         Total,
-        servicios.EstatusServicio as EstatusServicio
+        servicios.EstatusServicio as EstatusServicio,
+        mantenedor_tipo_facturacion.nombre as TipoServicio
         FROM facturas_detalle
         LEFT JOIN servicios ON servicios.Id  = facturas_detalle.IdServicio
+        LEFT JOIN mantenedor_tipo_factura ON servicios.TipoFactura  = mantenedor_tipo_factura.id  
+        LEFT JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_factura.tipo_facturacion = mantenedor_tipo_facturacion.id
         WHERE FacturaId = $id_facturas ";
         $facturas_detalle = $run->select($query_facturas_detalle);
         $total_facturas_detalle = count($facturas_detalle);
@@ -134,6 +138,11 @@ if (count($FacturasVencidas) > 0) {
        
         if($bandera != 1) {
         foreach($facturas_detalle as $factura_detalle) {
+                $TipoServicio    = $factura_detalle['TipoServicio'];
+                if($TipoServicio == '' || $TipoServicio == null){
+                    $TipoServicio = 'Mensual';
+                }
+
                 $EstatusServicio = $factura_detalle['EstatusServicio'];
                 if($EstatusServicio == 1 || $EstatusServicio == ''){
                     $EstatusServicio = 'Activo';
@@ -156,7 +165,7 @@ if (count($FacturasVencidas) > 0) {
             // ->setCellValue('G'.$index, $fp_monto)
             ->setCellValue('H'.$index, $fp_monto)
             ->setCellValue('I'.$index, $EstatusServicio)
-            ->setCellValue('J'.$index, 'Tipo De Servicio')
+            ->setCellValue('J'.$index, $TipoServicio)
             ->setCellValue('K'.$index, 'Clase Cliente');
             $index ++; 
             }
