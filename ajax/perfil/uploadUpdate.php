@@ -1,5 +1,5 @@
 <?php
-	session_start();
+	
 	if (isset ($_FILES['file'])) {
 		$imagen_p = imagecreatetruecolor(400, 400);
 		$imagen = imagecreatefromjpeg($_FILES['file']['tmp_name']);

@@ -274,7 +274,7 @@
 
                     if($ingreso){
 
-                        session_start();
+                        
 
                         $Usuario=$_SESSION['idUsuario'];
                         $DateTime = new DateTime();

@@ -1,7 +1,4 @@
 <?php
-    if (!isset($_SESSION)){
-        session_start();
-    }
     function include_all_php($folder){
         foreach ((array)glob("{$folder}/*.php") as $filename)
         {

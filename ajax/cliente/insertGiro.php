@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	session_start();
+	
     $run = new Method;
     $array = array();
     $array['status'] = 0;

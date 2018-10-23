@@ -58,7 +58,7 @@
 
             if(!empty($FechaIngreso) && !empty($Bodega) && !empty($Modelo) && !empty($Cantidad) && !empty($Estado) && !empty($NumeroSerie) && $Acceso){
 
-                session_start();
+                
 
                 $this->FechaCompra=$FechaCompra;
                 $this->FechaIngreso=$FechaIngreso;
