@@ -406,6 +406,16 @@ $(document).ready(function() {
         getDataTables(url, valor, contenedor, contenedorTableCampos, contenedorTable );
     };
 
+    // muestra datatable pertenecientes al parametro que se envia para Contactos
+    function tablalistContactos2(valor) {
+        var url = '../ajax/cliente/listContactos2.php';
+        var contenedor = '.dataContactos2';
+        var contenedorTable = '.dataContactos2 > .tabeData';
+        var contenedorTableCampos = '.dataContactos2 > .tabeData tr th';
+        
+        getDataTables(url, valor, contenedor, contenedorTableCampos, contenedorTable );
+    };
+
     //actualizar contacto
     $(document).on('click', '.update-c', function(event) {
         id = $(this).attr('id');
@@ -690,8 +700,17 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.update-personaempresa', function(event) {
-        id = $(this).attr('attr')
+        id = $(this).attr('attr');
         tipo = $(this).attr('id');
+        tablalistContactos2(id);
+        // $('#IdClienteOculto').val(id);
+        // var url = '../ajax/cliente/listContactos.php';
+        // var contenedor = '.dataContactos';
+        // var contenedorTable = '.dataContactos > .tabeData';
+        // var contenedorTableCampos = '.dataContactos > .tabeData tr th';
+        
+        // getDataTables(url, id, contenedor, contenedorTableCampos, contenedorTable );
+
         if (tipo == 'update') {
             $("#editarCliente :input:not(.btn)").prop("disabled", false);
             $('.actualizarCliente').show();

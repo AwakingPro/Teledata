@@ -24,6 +24,7 @@
 		include 'modalContactos.php';
 		include 'modalVerServicios.php';
 	?>
+	<!-- inicio modal editar cliente -->
 	<div class="modal fade" role="dialog" id="editarCliente">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
@@ -118,6 +119,18 @@
 							<textarea name="Comentario_update" class="form-control"></textarea>
 						</div>
 					</div>
+					
+					<div class="panel">
+					
+						<div class="panel-body">
+						<label for="">Otros Contactos</label>
+							<div class="dataContactos2">
+									<h4>No hay información</h4>
+								</div>
+							</div>
+						</div>
+					</div>
+					
 					<div class="row">
 						<div class="col-md-12">
 							<br>
@@ -128,6 +141,7 @@
 			</div>
 		</div>
 	</div>
+	<!-- fin modal editar cliente -->
 	<div class="modal fade" tabindex="-1" role="dialog" id="verServicios" aria-labelledby="verServicios">
 		<div class="modal-dialog modal-lg" role="document">
 			<div class="modal-content">
