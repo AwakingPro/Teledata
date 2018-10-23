@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	session_start();
+	
 	$run = new Method;
 	$Rut = isset($_POST['Rut']) ? trim($_POST['Rut']) : "";
 	$UltimoCodigo = $run->select("SELECT Codigo FROM servicios WHERE Rut = '".$Rut."' ORDER BY Id DESC");

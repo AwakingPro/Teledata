@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	session_start();
+	
 	$query = "SELECT
 	COUNT(IdTickets)
 	FROM

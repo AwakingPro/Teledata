@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	session_start();
+	
     $run = new Method;
     $Id = isset($_POST['Id']) ? trim($_POST['Id']) : "";
 	$Activo = isset($_POST['Activo']) ? trim($_POST['Activo']) : "";

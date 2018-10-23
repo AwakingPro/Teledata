@@ -1,6 +1,6 @@
 <?php
 $run = new Method;
-session_start();
+
 if (!isset($_SESSION['idUsuario']) || !isset($_SESSION['idUsuario'])) {
 	echo "<script> window.location = '../index.php' </script>";
 }

@@ -27,7 +27,7 @@
 	AND
 		(tickets.AsignarA = '' OR usuarios.id IS NULL)";
 	$run = new Method;
-	session_start();
+	
 	if ($_SESSION['idNivel'] != 1) {
 		$lista = $run->listViewTicketsSoporte($query);
 	}else{

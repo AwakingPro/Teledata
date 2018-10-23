@@ -2010,7 +2010,7 @@
         }
         public function storePago($FacturaId,$FechaPago,$TipoPago,$Detalle,$Monto,$FechaEmisionCheque,$FechaVencimientoCheque){
             $response_array = array();
-            session_start();
+            
             $Detalle = '';
             if(!isset($_POST['Detalle']))
             $Detalle = '';

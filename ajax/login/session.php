@@ -5,7 +5,7 @@
 	$data = $run->select($query);
 	if (count($data) > 0) {
 		if (password_verify($_POST['password'], $data[0]['clave'])) {
-			session_start();
+			
 			$_SESSION['idUsuario'] = $data[0]['id'];
 			$_SESSION['idNivel'] = $data[0]['nivel'];
 			$run->insert('INSERT INTO log_login (IdUsuario, Usuario, Fecha, Proceso) VALUES ("'.$data[0]['id'].'", "'.$_POST['usuario'].'", "'.date("Y-m-d H:i:s").'", "CORRECTO");');

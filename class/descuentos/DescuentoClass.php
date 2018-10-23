@@ -63,7 +63,7 @@
             $Id = isset($Id) ? trim($Id) : "";
 
             if(!empty($Id)){
-                session_start();
+                
                 $idUsuario = $_SESSION['idUsuario'];
                 $query = "UPDATE `descuentos` SET `idUsuario` = '".$idUsuario."', FechaAprobacion = NOW() WHERE `id` = '".$Id."'";
                 $run = new Method;

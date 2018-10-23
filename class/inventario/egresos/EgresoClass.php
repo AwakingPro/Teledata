@@ -58,10 +58,6 @@
 
 					if($Acceso){
 
-						if (session_status() == PHP_SESSION_NONE) {
-						    session_start();
-						}
-
 						$Usuario=$_SESSION['idUsuario'];
 						$DateTime = new DateTime();
 						$FechaMovimiento = $DateTime->format('Y-m-d');

@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	session_start();
+	
 	$run = new Method;
 	$query = "SELECT Count(IdTickets) FROM tickets WHERE IdUsuarioSession =".$_SESSION['idUsuario'];
 	$result = $run->select($query);

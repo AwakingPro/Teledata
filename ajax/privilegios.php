@@ -1,5 +1,5 @@
 <?php
-	session_start();
+	
 	switch ($_SESSION['idNivel']) {
 	    case 1:
 	        echo "administrador";

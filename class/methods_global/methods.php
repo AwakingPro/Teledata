@@ -14,6 +14,11 @@
 			$this->user = user;
 			$this->password = password;
 			$this->nameDateBase = nameDataBase;
+			if (session_status() != PHP_SESSION_ACTIVE){
+				ini_set('session.cookie_lifetime', 60 * 60 * 24 * 100);
+				ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 100);
+				session_start();
+			}
 		}
 		public function conexion(){
 			$mysqli = new mysqli(host, user, password, nameDataBase);
@@ -27,9 +32,6 @@
 		public function log($query,$operacion,$log = true){
 			$mysqli = $this->conexion();
 			if ($mysqli) {
-				if (session_status() != PHP_SESSION_ACTIVE){
-					session_start();
-				}
 				if (isset($_SESSION['idUsuario']) && $log) {
 					$resultado = $mysqli->query('INSERT INTO log_query (IdUsuario, Fecha, Query, TipoOperacion) VALUES ("'.$_SESSION['idUsuario'].'", "'.date("Y-m-d H:i:s").'", "'.$query.'", "'.$operacion.'")');
 				}

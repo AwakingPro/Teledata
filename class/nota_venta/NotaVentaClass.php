@@ -6,7 +6,7 @@
     class NotaVenta{
 
         function deleteDetalles(){
-            session_start();
+            
             $Usuario=$_SESSION['idUsuario'];
             $query = "DELETE from nota_venta_tmp where usuario_id = '".$Usuario."'";
             $run = new Method;
@@ -23,7 +23,7 @@
 
             if(!empty($Concepto) && !empty($Cantidad) && !empty($Precio)){
 
-                session_start();
+                
                 $run = new Method;
 
                 $Cantidad = intval($Cantidad);
@@ -74,7 +74,7 @@
 
             if(!empty($Cliente) && !empty($Fecha) && !empty($SolicitadoPor)){
 
-                session_start();
+                
                 $Usuario=$_SESSION['idUsuario'];
 
                 $query = "SELECT * FROM nota_venta_tmp where usuario_id = '$Usuario'";

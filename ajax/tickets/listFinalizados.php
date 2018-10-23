@@ -25,7 +25,7 @@
 	LEFT JOIN clase_tickets ON tickets.Clase = clase_tickets.IdClase
 	WHERE tickets.Estado = '2' OR tickets.Estado = '3'";
 	$run = new Method;
-	session_start();
+	
 	if ($_SESSION['idNivel'] != 1) {
 		$lista = $run->listViewTicketsSoporte($query);
 	}else{

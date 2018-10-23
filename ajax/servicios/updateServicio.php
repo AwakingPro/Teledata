@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	session_start();
+	
     $run = new Method;
     $Id = isset($_POST['Id']) ? trim($_POST['Id']) : "";
 	$TipoFactura = isset($_POST['TipoFactura']) ? trim($_POST['TipoFactura']) : "";
