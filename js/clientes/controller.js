@@ -422,7 +422,6 @@ $(document).ready(function() {
             $('[name="TipoContacto"]').val(value['DataContacto'][0]['tipo_contacto']);
             $('[name="CorreoContacto"]').val(value['DataContacto'][0]['correo']);
             $('[name="TelefonoContacto"]').val(value['DataContacto'][0]['telefono']);
-            $('[name="IdClienteOculto"]').val(value['DataContacto'][0]['id_persona']);
             $('[name="IdContactoOculto"]').val(id);
             $('.selectpicker').selectpicker('refresh')
             
