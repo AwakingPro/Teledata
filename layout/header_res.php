@@ -10,6 +10,7 @@ if (!isset($_SESSION))
 }
 
 // ** Logout the current user. **
+//devuelve la ruta absoluta
 $logoutAction = $_SERVER['PHP_SELF']."?doLogout=true";
 if ((isset($_SERVER['QUERY_STRING'])) && ($_SERVER['QUERY_STRING'] != ""))
 {
@@ -18,6 +19,7 @@ if ((isset($_SERVER['QUERY_STRING'])) && ($_SERVER['QUERY_STRING'] != ""))
 
 if ((isset($_GET['doLogout'])) &&($_GET['doLogout']=="true"))
 {
+    // session_destroy();
   //to fully log out a visitor we need to clear the session varialbles
     $_SESSION['MM_Username'] = NULL;
     $_SESSION['MM_UserGroup'] = NULL;
