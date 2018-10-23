@@ -1743,6 +1743,7 @@
             $factura_detalle_Total = 0;
             $contador_vencidos = 0;
             $monto_deuda = 0;
+            $saldo_positivo = 0;
             $fp_monto = 0;
             $pagos = 0;
             $bandera = 0;
@@ -1785,6 +1786,11 @@
                                     $fp_facturaId = $factura_pago['FacturaId'];    
                                     $fp_monto = $factura_pago['Monto'];
                                     $monto_deuda = $factura_detalle_Total - $fp_monto;
+                                    // para saber si pago de mas
+                                    $saldo_positivo = $factura_pago['Monto'] - $factura_detalle['Total'];
+                                    if($saldo_positivo <= 0) {
+                                        $saldo_positivo = 0;
+                                    }
                                     if($fp_monto < $factura_detalle_Total) {
                                         $factura_detalle_Total;
                                         $data['pagos'] = $fp_monto;
@@ -1810,6 +1816,7 @@
                         $data['deuda'] = $factura_detalle_Total;
                         $data['pagos'] = $fp_monto;
                         $data['deuda_restante'] = $monto_deuda;
+                        $data['saldo_pos'] = $saldo_positivo;
                         array_push($ToReturn, $data ); 
                     }
                    

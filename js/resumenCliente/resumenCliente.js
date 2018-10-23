@@ -215,7 +215,8 @@ $(document).ready(function() {
                     { data: 'FechaFacturacion' },
                     { data: 'FechaVencimiento' },
                     { data: 'deuda' },
-                    { data: 'deuda_restante' }
+                    { data: 'deuda_restante' },
+                    { data: 'saldo_pos'}
                 ],
                 destroy: true,
                 'createdRow': function(row, data, dataIndex) {
