@@ -9,7 +9,7 @@
 		<link href="../css/nifty.min.css" rel="stylesheet">
 		<link href="../css/demo/nifty-demo.min.css" rel="stylesheet">
 		<link href="../css/demo/nifty-demo-icons.min.css" rel="stylesheet">
-		<link href="../plugins/sweetalert2/sweetalert2.min.css" rel="stylesheet">
+		<link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
 		<link href="../plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
 		<link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
@@ -411,7 +411,7 @@
 	<script src="../js/bootstrap.min.js"></script>
 	<script src="../js/nifty.min.js"></script>
 	<script src="../plugins/bootbox/bootbox.min.js"></script>
-	<script src="../plugins/sweetalert2/sweetalert2.min.js"></script>
+	<script src="../plugins/sweetalert/sweetalert.min.js"></script>
 	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 	<script src="../js/methods_global/methods.js"></script>
