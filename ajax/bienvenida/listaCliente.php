@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	
+	$run = new Method;
 	$query = "SELECT
 		id,
 		rut,
@@ -11,7 +11,7 @@
 		personaempresa
 	WHERE
 	id_usuario_sistema = ".$_SESSION['idUsuario'];
-	$run = new Method;
+	
 	$lista = $run->listViewSingle($query);
 	echo $lista;
  ?>

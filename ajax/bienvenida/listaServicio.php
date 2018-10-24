@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	
+	$run = new Method;
 	$query = '	SELECT
 					servicios.Id,
 					servicios.Codigo,
@@ -17,7 +17,7 @@
 				LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo
 				WHERE
 					servicios.IdUsuarioSession = '.$_SESSION['idUsuario'];
-	$run = new Method;
+	
 	$lista = $run->listViewSingle($query);
 	echo $lista;
 
