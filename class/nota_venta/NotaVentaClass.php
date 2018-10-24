@@ -4,12 +4,15 @@
     header('Content-type: application/json');
 
     class NotaVenta{
+        function __construct () {
+            $run = new Method;
+		}
 
         function deleteDetalles(){
-            
+            $run = new Method;
             $Usuario=$_SESSION['idUsuario'];
             $query = "DELETE from nota_venta_tmp where usuario_id = '".$Usuario."'";
-            $run = new Method;
+            
             $data = $run->delete($query,false);
         }
 
@@ -74,11 +77,11 @@
 
             if(!empty($Cliente) && !empty($Fecha) && !empty($SolicitadoPor)){
 
-                
+                $run = new Method;
                 $Usuario=$_SESSION['idUsuario'];
 
                 $query = "SELECT * FROM nota_venta_tmp where usuario_id = '$Usuario'";
-                $run = new Method;
+                
                 $detalle_nota = $run->select($query);
 
                 if($detalle_nota){
@@ -126,6 +129,7 @@
         } 
 
         function getClientes(){
+            $run = new Method;
             $query = "  SELECT
                             p.rut,
                             p.nombre,
@@ -138,7 +142,7 @@
                             p.tipo_cliente = mt.id
                         ORDER BY
                             p.nombre";
-            $run = new Method;
+            
             $data = $run->select($query);
 
             $response_array['array'] = $data;
@@ -148,8 +152,9 @@
         }
 
         function getCliente($rut){
-            $query = "SELECT * FROM personaempresa where Rut = '$rut'";
             $run = new Method;
+            $query = "SELECT * FROM personaempresa where Rut = '$rut'";
+            
             $data = $run->select($query);
 
             $response_array['array'] = $data;
@@ -159,14 +164,14 @@
         }
 
         function getProductos(){
-
+            $run = new Method;
             $query = "  SELECT
                             CONCAT(mantenedor_modelo_producto.nombre,' ',mantenedor_marca_producto.nombre,' ',mantenedor_tipo_producto.nombre) as producto
                         FROM
                             mantenedor_modelo_producto
                         INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id
                         INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id";
-            $run = new Method;
+           
             $data = $run->select($query);
 
             $response_array['array'] = $data;
@@ -184,17 +189,16 @@
             if(!empty($Id)){
 
                 $Id=$Id;
-
-                $query = "SELECT * from nota_venta_tmp where id = '$Id'";
                 $run = new Method;
+                $query = "SELECT * from nota_venta_tmp where id = '$Id'";
                 $data = $run->select($query);
 
                 if($data){
 
                     $response_array['array'] = $data;
-
-                    $query = "DELETE from nota_venta_tmp where id = '$Id'";
                     $run = new Method;
+                    $query = "DELETE from nota_venta_tmp where id = '$Id'";
+                    
                     $data = $run->delete($query,false);
                     $response_array['status'] = 1; 
                 }else{
@@ -208,7 +212,7 @@
         }
 
         function getNotaVentas(){
-
+            $run = new Method;
             $query = "  SELECT
                             nv.*,
                             p.nombre AS cliente,
@@ -219,7 +223,6 @@
                             nota_venta nv
                             INNER JOIN personaempresa p ON p.rut = nv.rut
                             INNER JOIN usuarios u ON u.id = nv.solicitado_por";
-            $run = new Method;
             $data = $run->select($query);
 
             echo json_encode($data);
@@ -227,7 +230,7 @@
         }
 
         function deleteNotaVenta($Id){
-
+            $run = new Method;
             $response_array = array();
 
             $Id = isset($Id) ? trim($Id) : "";
@@ -235,7 +238,7 @@
             if(!empty($Id)){
 
                 $Id=$Id;
-                $run = new Method;
+                
                 $query = "DELETE from nota_venta_detalle where nota_venta_id = '$Id'";
                 $data = $run->delete($query);
                 $query = "DELETE from nota_venta where id = '$Id'";
@@ -251,8 +254,9 @@
         }
 
         function generarFactura($id){
-            $response_array = array();
             $run = new Method;
+            $response_array = array();
+            
             $query = "  SELECT
                             p.rut,
                             p.tipo_cliente,
@@ -330,7 +334,7 @@
             echo json_encode($array);
         }
         public function updateNotaVenta($Cliente,$Fecha,$NumeroOc,$FechaOc,$SolicitadoPor,$Id){
-
+            $run = new Method;
             $response_array = array();
 
             $Cliente = isset($Cliente) ? trim($Cliente) : "";
@@ -346,7 +350,7 @@
                     $FechaOc = '1969-01-31';
                 }
                 $Fecha = DateTime::createFromFormat('d-m-Y', $Fecha)->format('Y-m-d');
-                $run = new Method;
+                
                 $query = "UPDATE nota_venta SET rut = '".$Cliente."', fecha = '".$Fecha."', numero_oc = '".$NumeroOc."', fecha_oc = '".$FechaOc."', solicitado_por = '".$SolicitadoPor."' WHERE id = '".$Id."'";
                 $Id = $run->update($query);
 
@@ -390,7 +394,7 @@
             echo json_encode($detalles);
         }
         public function insertDetalle($Concepto,$Cantidad,$Precio,$Moneda,$NotaVentaId){
-
+            $run = new Method;
             $response_array = array();
 
             $Concepto = isset($Concepto) ? trim($Concepto) : "";
@@ -399,7 +403,7 @@
 
             if(!empty($Concepto) && !empty($Cantidad) && !empty($Precio)){
 
-                $run = new Method;
+                
 
                 $Cantidad = intval($Cantidad);
                 $Precio = str_replace('.','',$Precio);
@@ -452,7 +456,7 @@
             echo json_encode($detalle);
         }
         public function updateDetalle($Concepto,$Cantidad,$Precio,$Moneda,$Id){
-
+            $run = new Method;
             $response_array = array();
 
             $Concepto = isset($Concepto) ? trim($Concepto) : "";
@@ -460,9 +464,6 @@
             $Precio = isset($Precio) ? trim($Precio) : "";
 
             if(!empty($Concepto) && !empty($Cantidad) && !empty($Precio)){
-
-                $run = new Method;
-
                 $Cantidad = intval($Cantidad);
                 $Precio = str_replace('.','',$Precio);
                 $Precio = floatval($Precio);
@@ -498,7 +499,7 @@
 
         }
         function deleteDetalle($Id){
-
+            $run = new Method;
             $response_array = array();
 
             $Id = isset($Id) ? trim($Id) : "";
@@ -508,7 +509,7 @@
                 $Id=$Id;
 
                 $query = "SELECT * from nota_venta_detalle where id = '$Id'";
-                $run = new Method;
+               
                 $data = $run->select($query);
 
                 if($data){
@@ -516,7 +517,6 @@
                     $response_array['array'] = $data;
 
                     $query = "DELETE from nota_venta_detalle where id = '$Id'";
-                    $run = new Method;
                     $data = $run->delete($query);
                     $response_array['status'] = 1; 
                 }else{

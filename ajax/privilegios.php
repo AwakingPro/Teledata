@@ -1,5 +1,6 @@
 <?php
-	
+	require_once('../class/methods_global/methods.php');
+	$run = new Method;
 	switch ($_SESSION['idNivel']) {
 	    case 1:
 	        echo "administrador";

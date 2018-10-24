@@ -1,4 +1,9 @@
 <?php
+
+    include('../../class/methods_global/methods.php'); 
+    
+    $run = new Method;
+    
     function include_all_php($folder){
         foreach ((array)glob("{$folder}/*.php") as $filename)
         {

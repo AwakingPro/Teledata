@@ -1,7 +1,7 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	$query = 'SELECT usuarios.id, usuarios.nombre FROM usuarios';
 	$run = new Method;
+	$query = 'SELECT usuarios.id, usuarios.nombre FROM usuarios';
 	$data = $run->select($query);
 	if (count($data) > 0) {
 		$list ='<option value="">Seleccione...</option>';

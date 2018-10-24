@@ -1,7 +1,8 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	$query = "SELECT IdTickets, Origen FROM tickets WHERE IdCliente = '".$_POST['Rut']."'";
 	$run = new Method;
+	$query = "SELECT IdTickets, Origen FROM tickets WHERE IdCliente = '".$_POST['Rut']."'";
+	
 	$data = $run->select($query);
 	if (count($data) > 0) {
 		$list ='<option value="">Seleccione...</option>';

@@ -1,5 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
+	$run = new Method;
 	$query = 'SELECT
 		IdTipoTicket,
 		Nombre
@@ -7,7 +8,7 @@
 		tipo_ticket
 	WHERE
         IdTipoTicket ='.$_POST['id'];
-	$run = new Method;
+	
 	$data = $run->select($query);
 	if (count($data) > 0) {
 		echo json_encode($data);

@@ -4,7 +4,9 @@
     header('Content-type: application/json');
 
     class Ingreso{
-
+        function __construct () {
+			$run = new Method;
+        }
     	public function storeIngreso($FechaCompra,$FechaIngreso,$NumeroFactura,$NumeroSerie,$Modelo,$Proveedor,$Valor,$Cantidad,$Bodega,$MacAddress,$TipoIngreso,$Estado,$ArrayMacAddress){
 
             $response_array = array();
@@ -95,9 +97,9 @@
                         if($ArrayMacAddress){
 
                             foreach($ArrayMacAddress as $MacAddress){
-
-                                $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','1','$this->Bodega','$this->Usuario','$this->NumeroSerie','$MacAddress','$this->Estado')";
                                 $run = new Method;
+                                $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','1','$this->Bodega','$this->Usuario','$this->NumeroSerie','$MacAddress','$this->Estado')";
+                               
                                 $id = $run->insert($query);
 
                                 if($id){
@@ -123,9 +125,9 @@
                         }
                     }
                 }else{
-
-                    $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','$this->Cantidad','$this->Bodega','$this->Usuario','$this->NumeroSerie','$this->MacAddress','$this->Estado')";
                     $run = new Method;
+                    $query = "INSERT INTO inventario_ingresos(fecha_compra, fecha_ingreso, numero_factura, modelo_producto_id, proveedor_id, valor, cantidad, bodega_id, usuario_id, numero_serie, mac_address, estado) VALUES ('$FechaCompra','$FechaIngreso','$this->NumeroFactura','$this->Modelo','$this->Proveedor','$this->Valor','$this->Cantidad','$this->Bodega','$this->Usuario','$this->NumeroSerie','$this->MacAddress','$this->Estado')";
+                    
                     $id = $run->insert($query);
 
                     if($id){

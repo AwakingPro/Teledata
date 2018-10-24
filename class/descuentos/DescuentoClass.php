@@ -4,8 +4,12 @@
     header('Content-type: application/json');
 
     class Descuento{
+        function __construct () {
+			$run = new Method;
+        }
+        
         function getDescuentos(){
-
+            $run = new Method;
             $query = "  SELECT
                             descuentos.*,
                             servicios.Codigo,
@@ -16,13 +20,13 @@
                             INNER JOIN personaempresa ON personaempresa.rut = descuentos.Rut
                             INNER JOIN servicios ON servicios.Id = descuentos.IdServicio
                             LEFT JOIN usuarios ON usuarios.id = descuentos.idUsuario";
-            $run = new Method;
+            
             $data = $run->select($query);
             echo json_encode($data);
 
         }
         public function storeDescuento($Rut, $IdServicio, $Porcentaje, $Cantidad, $IdTicket){
-
+            $run = new Method;
             $response_array = array();
 
             $Rut = isset($Rut) ? trim($Rut) : "";
@@ -40,7 +44,7 @@
                 }
             
                 $query = "INSERT INTO descuentos(Rut, IdServicio, Porcentaje, Cantidad, IdTicket, CantidadUtilizada, FechaCreacion) VALUES ('".$Rut."','".$IdServicio."','".$Porcentaje."','".$Cantidad."','".$IdTicket."', 0, NOW())";
-                $run = new Method;
+                
                 $id = $run->insert($query);
 
                 if($id){
@@ -57,7 +61,7 @@
         } 
         
         function aprobarDescuento($Id){
-
+            $run = new Method;
             $response_array = array();
 
             $Id = isset($Id) ? trim($Id) : "";
@@ -66,7 +70,7 @@
                 
                 $idUsuario = $_SESSION['idUsuario'];
                 $query = "UPDATE `descuentos` SET `idUsuario` = '".$idUsuario."', FechaAprobacion = NOW() WHERE `id` = '".$Id."'";
-                $run = new Method;
+                
                 $data = $run->update($query);
 
                 if($data){
@@ -82,14 +86,14 @@
         }
 
         function deleteDescuento($Id){
-
+            $run = new Method;
             $response_array = array();
 
             $Id = isset($Id) ? trim($Id) : "";
 
             if(!empty($Id)){
                 $query = "DELETE FROM `descuentos` WHERE `id` = '".$Id."'";
-                $run = new Method;
+                
                 $data = $run->delete($query);
 
                 if($data){

@@ -5,11 +5,11 @@
     header('Content-type: application/json');
 
     class Factura{
-
+        function __construct () {
+			$run = new Method;
+        }
     	public function showInstalaciones(){  
-
             $run = new Method;
-
             $UfClass = new Uf(); 
             $UF = $UfClass->getValue();
 

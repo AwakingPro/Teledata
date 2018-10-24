@@ -1,5 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
+	$run = new Method;
 	$query = "SELECT
 	tickets.IdTickets AS `#`,
 	tickets.FechaCreacion as Fecha,
@@ -26,7 +27,7 @@
 		(NOW() <= DATE_ADD(tickets.FechaCreacion,INTERVAL tiempo_prioridad.TiempoHora HOUR) OR tiempo_prioridad.IdTiempoPrioridad IS NULL)
 	AND
 		(tickets.AsignarA = '' OR usuarios.id IS NULL)";
-	$run = new Method;
+	
 	
 	if ($_SESSION['idNivel'] != 1) {
 		$lista = $run->listViewTicketsSoporte($query);

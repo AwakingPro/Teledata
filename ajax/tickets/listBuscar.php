@@ -1,5 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
+	$run = new Method;
 	$query = "SELECT
 	tickets.IdTickets as '#',
 	tickets.FechaCreacion as Fecha,
@@ -24,7 +25,7 @@
 	LEFT JOIN clase_tickets ON tickets.Clase = clase_tickets.IdClase
 	WHERE
 		tickets.IdTickets LIKE '%".$_POST['NumeroTicket']."%' AND tickets.IdCliente LIKE '%".$_POST['NombreCliente']."%'";
-	$run = new Method;
+	
 	
 	if ($_SESSION['idNivel'] != 1) {
 		$lista = $run->listViewTicketsSoporte($query);

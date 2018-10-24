@@ -1,5 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
+	$run = new Method;
 	$query = "SELECT
 	tickets.IdTickets,
 	tickets.IdCliente,
@@ -24,7 +25,7 @@
 		(NOW() <= DATE_ADD(tickets.FechaCreacion,INTERVAL tiempo_prioridad.TiempoHora HOUR) OR tiempo_prioridad.IdTiempoPrioridad IS NULL)
 	AND
 		(tickets.AsignarA = '' OR usuarios.id IS NULL)";
-	$run = new Method;
+	
 	$data = $run->select($query);
 	echo count($data);
  ?>

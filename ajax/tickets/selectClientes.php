@@ -1,11 +1,12 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
+	$run = new Method;
 	$query = 'SELECT
 		rut,
 		nombre
 	FROM
 		personaempresa';
-	$run = new Method;
+	
 	$data = $run->select($query);
 	if (count($data) > 0) {
 		$list ='<option value="">Seleccione...</option>';

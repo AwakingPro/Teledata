@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	
+	$run = new Method;
 	$query = "SELECT
 	tickets.IdTickets,
 	tickets.IdCliente,
@@ -28,7 +28,7 @@
 	if ($_SESSION['idNivel'] != 1) {
 		$query .= " AND tickets.AsignarA = '".$_SESSION['idUsuario']."'";
 	}
-	$run = new Method;
+	
 	$data = $run->select($query);
 	echo count($data);
  ?>

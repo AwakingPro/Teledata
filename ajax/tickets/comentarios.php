@@ -1,5 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
+	$run = new Method;
 	$query = 'SELECT
 	usuarios.nombre,
 	usuarios.usuario,
@@ -12,7 +13,6 @@
 	WHERE
 	comentarios_tickets.IdTickets = '.$_POST['id'].'
 	ORDER BY comentarios_tickets.Fecha DESC';
-	$run = new Method;
 	$data = $run->select($query);
 	if (count($data) > 0) {
 		$comentarios ="";

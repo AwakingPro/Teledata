@@ -1,7 +1,7 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	$query = 'SELECT clave, id, nivel FROM usuarios WHERE usuario="'.$_POST['usuario'].'"';
 	$run = new Method;
+	$query = 'SELECT clave, id, nivel FROM usuarios WHERE usuario="'.$_POST['usuario'].'"';
 	$data = $run->select($query);
 	if (count($data) > 0) {
 		if (password_verify($_POST['password'], $data[0]['clave'])) {

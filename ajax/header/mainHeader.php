@@ -1,7 +1,8 @@
 <?php
+
 $run = new Method;
 
-if (!isset($_SESSION['idUsuario']) || !isset($_SESSION['idUsuario'])) {
+if (!isset($_SESSION['idUsuario'])) {
 	echo "<script> window.location = '../index.php' </script>";
 }
 $query = 'SELECT nombre, email FROM usuarios WHERE id ='.$_SESSION['idUsuario'];

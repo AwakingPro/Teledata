@@ -1,11 +1,12 @@
 <?php 
 	require_once '../../plugins/PHPExcel-1.8/Classes/PHPExcel/IOFactory.php';
 	require_once('../../class/methods_global/methods.php');
+	$run = new Method;
 	
 	$idUsuario = $_SESSION['idUsuario'];
 
 	$objPHPExcel = PHPExcel_IOFactory::load("excel.xlsx");
-	$run = new Method;
+	
 	$query = "DELETE FROM personaempresa";
 	$delete = $run->delete($query);
 	$query = "DELETE FROM servicios";

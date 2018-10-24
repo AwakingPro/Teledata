@@ -1,5 +1,6 @@
 <?php
-	
+	require_once('../../class/methods_global/methods.php');
+	$run = new Method;
 	if (isset ($_FILES['file'])) {
 		$imagen_p = imagecreatetruecolor(400, 400);
 		$imagen = imagecreatefromjpeg($_FILES['file']['tmp_name']);
@@ -18,10 +19,8 @@
 		imagejpeg($imagen_p,'img-profile/'.$_SESSION['idUsuario'].'.jpg', 100);
 		clearstatcache();
 	}
-
-	require_once('../../class/methods_global/methods.php');
+	
 	$query = "UPDATE usuarios SET usuario='".$_POST['Usuario']."', nombre='".$_POST['Nombre']."', email='".$_POST['Correo']."' WHERE id=".$_SESSION['idUsuario'];
-	$run = new Method;
 	$data = $run->update($query);
 	echo $data;
  ?>

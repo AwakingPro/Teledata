@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	
+	$run = new Method;
 	$query = 'SELECT
 	usuarios.id,
 	usuarios.usuario,
@@ -14,7 +14,7 @@
 	INNER JOIN nivel_privilegio ON usuarios.nivel = nivel_privilegio.IdNivelPrivilegio
 	WHERE
 		id ='.$_SESSION['idUsuario'];
-	$run = new Method;
+	
 	$data = $run->select($query);
 
 	if (file_exists('img-profile/'.$_SESSION['idUsuario'].'.jpg')) {

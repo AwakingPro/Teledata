@@ -1,5 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
+	$run = new Method;
 	$query = "SELECT
 	tickets.IdTickets,
 	tickets.IdCliente,
@@ -19,7 +20,7 @@
 	LEFT JOIN usuarios ON tickets.AsignarA = usuarios.id
 	LEFT JOIN tiempo_prioridad ON tickets.Prioridad = tiempo_prioridad.IdTiempoPrioridad
 	WHERE tickets.Estado = '2' OR tickets.Estado = '3'";
-	$run = new Method;
+	
 	$data = $run->select($query);
 	echo count($data);
  ?>

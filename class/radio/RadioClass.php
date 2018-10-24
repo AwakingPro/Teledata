@@ -5,8 +5,11 @@
 
     class Radio{
 
+        function __construct () {
+            $run = new Method;
+		}
     	public function CrearEstacion($Nombre,$Direccion,$Telefono,$Correo,$Personal,$Contacto,$DuenoCerro,$LatitudCoordenada,$LongitudCoordenada,$LatitudCoordenadaSite,$LongitudCoordenadaSite,$DatosProveedorElectrico){
-
+            $run = new Method;
             $response_array = array();
 
             $Nombre = isset($Nombre) ? trim($Nombre) : "";
@@ -38,7 +41,7 @@
                 $this->DatosProveedorElectrico=$DatosProveedorElectrico;
 
                 $query = "INSERT INTO mantenedor_site(nombre, direccion, telefono, personal_id, correo, contacto, dueno_cerro, latitud_coordenada, longitud_coordenada, latitud_coordenada_site, longitud_coordenada_site, datos_proveedor_electrico) VALUES ('$this->Nombre','$this->Direccion','$this->Telefono','$this->Personal','$this->Correo','$this->Contacto','$this->DuenoCerro','$this->LatitudCoordenada','$this->LongitudCoordenada','$this->LatitudCoordenadaSite','$this->LongitudCoordenadaSite','$this->DatosProveedorElectrico')";
-                $run = new Method;
+                
                 $id = $run->insert($query);
 
                 if($id){
@@ -60,7 +63,7 @@
     	} 
 
         function updateEstacion($Id,$Nombre,$Direccion,$Telefono,$Personal,$Correo,$Contacto,$DuenoCerro,$LatitudCoordenada,$LongitudCoordenada,$LatitudCoordenadaSite,$LongitudCoordenadaSite,$DatosProveedorElectrico){
-
+            $run = new Method;
             $response_array = array();
 
             $Nombre = isset($Nombre) ? trim($Nombre) : "";
@@ -94,7 +97,7 @@
                 $this->DatosProveedorElectrico=$DatosProveedorElectrico;
 
                 $query = "UPDATE `mantenedor_site` set `nombre` = '$this->Nombre', `direccion` = '$this->Direccion', `telefono` = '$this->Telefono', `personal_id` = '$this->Personal', `correo` = '$this->Correo', `contacto` = '$this->Contacto', `dueno_cerro` = '$this->DuenoCerro', `latitud_coordenada` = '$this->LatitudCoordenada', `longitud_coordenada` = '$this->LongitudCoordenada', `latitud_coordenada_site` = '$this->LatitudCoordenadaSite', `longitud_coordenada_site` = '$this->LongitudCoordenadaSite', `datos_proveedor_electrico` = '$this->DatosProveedorElectrico' where `id` = '$this->Id'";
-                $run = new Method;
+                
                 $data = $run->update($query);
 
                 if($data){
@@ -115,7 +118,7 @@
         }
 
         function deleteEstacion($Id){
-
+            $run = new Method;
             $response_array = array();
 
             $Id = isset($Id) ? trim($Id) : "";
@@ -125,23 +128,23 @@
                 $this->Id=$Id;
 
                 $query = "SELECT * from `radio_ingresos` where `estacion_id` = '$this->Id'";
-                $run = new Method;
+                
                 $data = $run->select($query);
 
                 if(!$data){
 
                     $query = "SELECT * from `inventario_ingresos` where `bodega_id` = '$this->Id' and bodega_tipo = '3'";
-                    $run = new Method;
+                    
                     $data = $run->select($query);
 
                     if(!$data){
 
                         $query = "DELETE from `mantenedor_site` where `id` = '$this->Id'";
-                        $run = new Method;
+                       
                         $data = $run->delete($query);
 
                         $query = "DELETE from `inventario_egresos` where `destino_tipo` = '3' and `destino_id` = '$this->Id'";
-                        $run = new Method;
+                        
                         $data = $run->delete($query);
 
                         $response_array['status'] = 1;
@@ -163,21 +166,19 @@
         }
 
         function showEstaciones(){
-
-            $query = 'SELECT mantenedor_site.*, usuarios.nombre as personal FROM mantenedor_site INNER JOIN usuarios ON mantenedor_site.personal_id = usuarios.id';
             $run = new Method;
+            $query = 'SELECT mantenedor_site.*, usuarios.nombre as personal FROM mantenedor_site INNER JOIN usuarios ON mantenedor_site.personal_id = usuarios.id';
+           
             $data = $run->select($query);
 
             $response_array['array'] = $data;
 
             echo json_encode($response_array);
-
         }
 
         function showPersonal(){
-
-            $query = 'SELECT * FROM usuarios';
             $run = new Method;
+            $query = 'SELECT * FROM usuarios';
             $data = $run->select($query);
 
             $response_array['array'] = $data;
@@ -187,7 +188,7 @@
         }
 
         function showInventario(){
-
+            $run = new Method;
             $query = 'SELECT    inventario_ingresos.*, 
                                 mantenedor_modelo_producto.nombre as modelo, 
                                 mantenedor_marca_producto.nombre as marca, 
@@ -200,7 +201,7 @@
                     LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id
                     WHERE (inventario_ingresos.bodega_tipo = 1 OR inventario_ingresos.bodega_tipo IS NULL)';
 
-            $run = new Method;
+            
             $data = $run->select($query);
 
             $response_array['array'] = $data;
@@ -210,7 +211,7 @@
         }
 
         function showIngresos(){
-
+            $run = new Method;
             $query = '  SELECT  radio_ingresos.*, 
                                 inventario_ingresos.mac_address as mac_address,
                                 mantenedor_modelo_producto.nombre as modelo, 
@@ -224,7 +225,7 @@
                         INNER JOIN mantenedor_tipo_producto   ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id 
                         INNER JOIN mantenedor_site            ON radio_ingresos.estacion_id = mantenedor_site.id';
 
-            $run = new Method;
+           
             $data = $run->select($query);
 
             $response_array['array'] = $data;
@@ -234,7 +235,7 @@
         }
 
         public function CrearIngreso($Estacion,$Funcion,$AlarmaActivada,$DireccionIp,$PuertoAcceso,$AnchoCanal,$Frecuencia,$TxPower,$Producto){
-
+            $run = new Method;
             $response_array = array();
 
             $Estacion = isset($Estacion) ? trim($Estacion) : "";
@@ -262,20 +263,16 @@
                 $this->Producto=$Producto;
 
                 $query = "INSERT INTO radio_ingresos(estacion_id, funcion, alarma_activada, direccion_ip, puerto_acceso, ancho_canal, frecuencia, tx_power, producto_id, baseid, apid, ssid) VALUES ('$this->Estacion','$this->Funcion','$this->AlarmaActivada','$this->DireccionIp','$this->PuertoAcceso','$this->AnchoCanal','$this->Frecuencia','$this->TxPower','$this->Producto', '', '', '')";
-                $run = new Method;
+                
                 $id = $run->insert($query);
 
                 if($id){
 
                     $query = "UPDATE inventario_ingresos SET bodega_tipo = '3', bodega_id = '$this->Estacion' where `id` = '$this->Producto'";
 
-                    $run = new Method;
                     $ingreso = $run->update($query);
 
                     if($ingreso){
-
-                        
-
                         $Usuario=$_SESSION['idUsuario'];
                         $DateTime = new DateTime();
                         $FechaMovimiento = $DateTime->format('Y-m-d');
@@ -283,7 +280,6 @@
 
                         $query = "INSERT INTO inventario_egresos(destino_tipo, destino_id, fecha_movimiento, hora_movimiento, usuario_id, producto_id) VALUES ('3','$this->Estacion','$FechaMovimiento','$HoraMovimiento','$Usuario','$this->Producto')";
 
-                        $run = new Method;
                         $egreso = $run->insert($query);
 
                         if($egreso){
@@ -314,9 +310,8 @@
         } 
 
         public function updateIngreso($Estacion,$Funcion,$AlarmaActivada,$DireccionIp,$PuertoAcceso,$AnchoCanal,$Frecuencia,$TxPower,$Producto,$Id){
-
+            $run = new Method;
             $response_array = array();
-
             $Estacion = isset($Estacion) ? trim($Estacion) : "";
             $Funcion = isset($Funcion) ? trim($Funcion) : "";
             $AlarmaActivada = isset($AlarmaActivada) ? trim($AlarmaActivada) : "";
@@ -344,7 +339,7 @@
                 $this->Id=$Id;
 
                 $query = "UPDATE radio_ingresos SET estacion_id = '$this->Estacion', funcion = '$this->Funcion', alarma_activada = '$this->AlarmaActivada', direccion_ip = '$this->DireccionIp', puerto_acceso = '$this->PuertoAcceso', ancho_canal = '$this->AnchoCanal', frecuencia = '$this->Frecuencia', tx_power = '$this->TxPower', producto_id = '$this->Producto' where `id` = '$this->Id'";
-                $run = new Method;
+                
                 $data = $run->update($query);
 
                 if($data){
@@ -365,7 +360,7 @@
         }
 
         function deleteIngreso($Id){
-
+            $run = new Method;
             $response_array = array();
 
             $Id = isset($Id) ? trim($Id) : "";
@@ -375,7 +370,7 @@
                 $this->Id=$Id;
 
                 $query = "SELECT * from `radio_ingresos` where `id` = '$this->Id'";
-                $run = new Method;
+                
                 $data = $run->select($query);
 
                 if($data){
@@ -383,11 +378,11 @@
                     $this->Producto = $data[0]['producto_id'];
 
                     $query = "DELETE from `radio_ingresos` where `id` = '$this->Id'";
-                    $run = new Method;
+                    
                     $data = $run->delete($query);
 
                     $query = "UPDATE inventario_ingresos SET bodega_tipo = '', bodega_id = '' where id = '$this->Producto'";
-                    $run = new Method;
+                    
                     $data = $run->update($query);
 
                     $response_array['status'] = 1; 
@@ -403,7 +398,7 @@
         }
 
         public function showSelectpicker($TipoBusquedaRegistro){
-
+            $run = new Method;
             $response_array = array();
 
             $TipoBusquedaRegistro = isset($TipoBusquedaRegistro) ? trim($TipoBusquedaRegistro) : "";
@@ -425,7 +420,6 @@
                 INNER JOIN mantenedor_tipo_producto   ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id 
                 INNER JOIN mantenedor_site            ON radio_ingresos.estacion_id = mantenedor_site.id';
 
-                $run = new Method;
                 $data = $run->select($query);
 
                 $response_array['array'] = $data;
@@ -441,7 +435,7 @@
         }
 
         public function buscarRegistro($TipoBusquedaRegistro,$InputRegistro){
-
+            $run = new Method;
             $response_array = array();
 
             $TipoBusquedaRegistro = isset($TipoBusquedaRegistro) ? trim($TipoBusquedaRegistro) : "";
@@ -473,7 +467,6 @@
                     $query = $query . " WHERE inventario_ingresos.mac_address = '$InputRegistro'";
                 }
 
-                $run = new Method;
                 $data = $run->select($query);
 
                 if($data){

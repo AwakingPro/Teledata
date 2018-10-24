@@ -1,5 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
+	$run = new Method;
 	$query = "SELECT
 	tickets.IdTickets as '#',
 	tickets.FechaCreacion as Fecha,
@@ -24,7 +25,7 @@
 	LEFT JOIN estado_tickets ON tickets.Estado = estado_tickets.IdEstado
 	LEFT JOIN clase_tickets ON tickets.Clase = clase_tickets.IdClase
 	WHERE tickets.Estado = '2' OR tickets.Estado = '3'";
-	$run = new Method;
+	
 	
 	if ($_SESSION['idNivel'] != 1) {
 		$lista = $run->listViewTicketsSoporte($query);
