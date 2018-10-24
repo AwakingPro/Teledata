@@ -16,19 +16,22 @@
 
 	$Rut = $lista[0]['rut'];
 	$fecha_actual = date("Y-m-d");
-
+	
 	$query_factura = "	SELECT
-							Id,
-							FechaVencimiento 
+							facturas.Id,
+							FechaVencimiento,
+							servicios.FechaInstalacion
 						FROM
 							facturas 
+						INNER JOIN servicios ON servicios.Rut = '".$Rut."'
 						WHERE
-							Rut = '".$Rut."' 
-							AND EstatusFacturacion = 1";
+						facturas.Rut = '".$Rut."' 
+							AND facturas.EstatusFacturacion = 1";
 
 	
 	// echo $Rut;
 	$FacturasVencidas = $run->select($query_factura);
+	
 	$total_facturas =  count($FacturasVencidas);
 	// echo $total_facturas;
 	$fechaVencimiento = '';
@@ -37,10 +40,13 @@
 	$factura_detalle_Total = 0;
 	$contador_vencidos = 0;
 	$monto_deuda = 0;
+	$FechaInstalacion = '';
 
 	if($total_facturas > 0) {
+		
 		foreach($FacturasVencidas as $factura) {
 			$FacturaId = $factura['Id'];
+	
 			$query_facturas_detalle = "	SELECT
 											SUM( Total ) AS Total 
 										FROM
