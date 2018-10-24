@@ -282,7 +282,7 @@
                                     )
                                 )
                             ),0) AS Valor,
-                            ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Nombre,
+                            ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE servicios.Descripcion END ) AS Nombre,
                             mantenedor_tipo_factura.descripcion AS Descripcion
                         FROM
                             servicios
