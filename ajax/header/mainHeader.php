@@ -61,7 +61,8 @@ if (file_exists('../ajax/perfil/img-profile/'.$_SESSION['idUsuario'].'.jpg')) {
 						</ul>
 						<!-- Dropdown footer -->
 						<div class="pad-all text-right">
-							<a href="../index.php?doLogout=true" class="btn btn-primary">
+							<!-- <a href="../index.php?doLogout=true" class="btn btn-primary"> -->
+							<a href="../destruir_sesion.php" class="btn btn-primary">
 								<i class="pli-unlock"></i> Salir
 							</a>
 						</div>
