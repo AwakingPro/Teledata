@@ -22,7 +22,7 @@ $(document).ready(function(){
         console.log(rut);
         if (tipo_informe != '') {
             if(tipo_informe == '1'){
-                url = "../ajax/informes/exportarExcelClienteServicios.php";
+                url = "../ajax/informes/exportarExcelClientes.php";
                 window.open(url, '_blank');
             }
             if(tipo_informe == '2'){
@@ -51,6 +51,10 @@ $(document).ready(function(){
                     return false;
                 }
                 
+            }
+            if(tipo_informe == '5'){
+                url = "../ajax/informes/exportarExcelEstadoClientes.php";
+                window.open(url, '_blank');
             }
         } else {
             bootbox.alert('Debe Seleccionar un Informe a Emitir');
