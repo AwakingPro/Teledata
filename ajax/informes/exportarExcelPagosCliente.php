@@ -23,13 +23,15 @@ $objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('C1', 'Documento')
 	->setCellValue('D1', 'Nº Doc')
 	->setCellValue('E1', 'Fecha Doc')
-	->setCellValue('F1', 'Monto')
-	->setCellValue('G1', 'Glosa')
-    ->setCellValue('H1', 'Monto Pagado')
-    ->setCellValue('I1', 'Fecha De Pago');
+    ->setCellValue('F1', 'Monto')
+    ->setCellValue('G1', 'Saldo')
+    ->setCellValue('H1', 'Modalidad de Pago')
+	->setCellValue('I1', 'Glosa')
+    ->setCellValue('J1', 'Monto Pagado')
+    ->setCellValue('K1', 'Fecha De Pago');
 
 
-foreach (range(0, 7) as $col) {
+foreach (range(0, 10) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 
@@ -78,10 +80,12 @@ if (count($documentos) > 0) {
 		->setCellValue('C'.$index, $documento['tipo_Factura'])
 		->setCellValue('D'.$index, $documento['NumeroDocumento'])
 		->setCellValue('E'.$index, $FechaFacturacion)
-		->setCellValue('F'.$index, $documento['Total'])
-        ->setCellValue('G'.$index, $documento['Detalle'])
-        ->setCellValue('H'.$index, $documento['Pagado'])
-        ->setCellValue('I'.$index, $FechaPago);
+        ->setCellValue('F'.$index, $documento['Total'])
+        ->setCellValue('G'.$index, 'Saldo')
+        ->setCellValue('H'.$index, 'Modalidad Pago')
+        ->setCellValue('I'.$index, $documento['Detalle'])
+        ->setCellValue('J'.$index, $documento['Pagado'])
+        ->setCellValue('K'.$index, $FechaPago);
         
         $Total += $documento['Pagado'];
 
@@ -90,7 +94,7 @@ if (count($documentos) > 0) {
     
     $index++;
     $objPHPExcel->setActiveSheetIndex(0)
-    ->setCellValue('H'.$index, $Total);
+    ->setCellValue('J'.$index, $Total);
 
 }else{
     echo 'No existen datos para esta consulta';
