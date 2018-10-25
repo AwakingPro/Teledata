@@ -51,8 +51,8 @@
                                                             <option value="3">Informe Cobranza de clientes</option>
                                                             <option value="4">Informe de Pagos por Cliente</option>
                                                             <option value="5">Informe Estado de Clientes</option>
-                                                            <option value="6">Libros de Ventas</option>
-                                                            <option value="7">Libros de Compras</option>
+                                                            <option value="6">Libro de Ventas</option>
+                                                            <option value="7">Libro de Compras</option>
                                                             <option value="8">Resumen de Impuesto Mensual. (IVA) | VENTAS | COMPRAS</option>
                                                             <option value="9">Informe de Pago de Proveedores</option>
                                                             <option value="10">Informe otros Egresos</option>

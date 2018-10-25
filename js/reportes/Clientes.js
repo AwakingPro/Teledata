@@ -56,6 +56,10 @@ $(document).ready(function(){
                 url = "../ajax/informes/exportarExcelEstadoClientes.php";
                 window.open(url, '_blank');
             }
+            if(tipo_informe == '6'){
+                url = "../ajax/informes/exportarExcelLibroVentas.php";
+                window.open(url, '_blank');
+            }
         } else {
             bootbox.alert('Debe Seleccionar un Informe a Emitir');
             return false;
