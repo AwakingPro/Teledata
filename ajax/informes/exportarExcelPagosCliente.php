@@ -83,7 +83,7 @@ if (count($documentos) > 0) {
         ->setCellValue('H'.$index, $documento['Pagado'])
         ->setCellValue('I'.$index, $FechaPago);
         
-        $Total += $documento['Total'];
+        $Total += $documento['Pagado'];
 
 		$index++;
     }
