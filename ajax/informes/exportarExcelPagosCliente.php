@@ -1,7 +1,7 @@
 <?php
 /** Incluir la libreria PHPExcel */
 require_once '../../plugins/PHPExcel-1.8/Classes/PHPExcel.php';
-require_once('../../class/methods_global/methods.php');
+require_once ('../../class/methods_global/methods.php');
 
 // Crea un nuevo objeto PHPExcel
 $objPHPExcel = new PHPExcel();
@@ -10,11 +10,11 @@ $objPHPExcel = new PHPExcel();
 $objPHPExcel->getProperties()
 	->setCreator("Teledata")
 	->setLastModifiedBy("Teledata")
-	->setTitle("Informe de Pagos Mensuales y Anuales")
-	->setSubject("Informe de Pagos Mensuales y Anuales")
+	->setTitle("Informe de Pagos por Cliente")
+	->setSubject("Informe de Pagos por Cliente")
 	->setDescription("Informe de Pagos Mensuales y Anuales")
 	->setKeywords("Excel Office 2007 openxml php")
-	->setCategory("Informe de Pagos Mensuales y Anuales");
+	->setCategory("Informe de Pagos por Cliente");
 
 // Agregar Informacion
 $objPHPExcel->setActiveSheetIndex(0)
@@ -33,21 +33,11 @@ foreach (range(0, 7) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 
-if(isset($_GET['startDate']) && isset($_GET['endDate'])){
-    $startDate = $_GET['startDate'];
-    $dt = \DateTime::createFromFormat('d-m-Y',$startDate);
-    $startDate = $dt->format('Y-m-d');
-    $endDate = $_GET['endDate'];
-    $dt = \DateTime::createFromFormat('d-m-Y',$endDate);
-    $endDate = $dt->format('Y-m-d');
-}else{
-    echo 'Debe seleccionar un rango de fecha';
-    return;
-}
+$rut = '';
+
 
 $query = "  SELECT
                 (SELECT SUM( Total ) FROM facturas_detalle WHERE FacturaId = facturas.Id ) AS Total,
-                -- facturas_detalle.Concepto,
                 facturas.Id,
                 facturas.NumeroDocumento, 
                 facturas.FechaFacturacion,
@@ -56,35 +46,30 @@ $query = "  SELECT
                 facturas_pagos.FechaPago AS FechaPago,
                 facturas_pagos.Monto AS Pagado,
                 mt.nombre AS tipo_Factura
-
             FROM
                 facturas
-                -- INNER JOIN facturas ON facturas_detalle.FacturaId = facturas.Id
                 INNER JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
                 LEFT JOIN personaempresa ON personaempresa.rut = facturas.Rut
                 INNER JOIN mantenedor_tipo_cliente mt ON facturas.TipoDocumento = mt.id
             WHERE
-                facturas.EstatusFacturacion = '1'
-                AND facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."' ";
-                
-$rut = '';
+                facturas.EstatusFacturacion = '1' ";
+
 if(isset($_GET['rut']) && $_GET['rut'] != '') {
     $rut = $_GET['rut'];
     $query .= "AND personaempresa.rut = '".$rut."' ";
+}else{
+    echo 'Debe seleccionar un Cliente';
+    return;
 }
-
+                
 $run = new Method;
 $documentos = $run->select($query);
 $Total = 0;
-// echo '<pre>'; print_r($ingresos); echo '</pre>';
-
 
 if (count($documentos) > 0) {
-    // var_dump($documentos); return;
-	$index = 2;
-
+    $index = 2;
+    
 	foreach($documentos as $documento){
-        
         $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$documento['FechaFacturacion'])->format('d-m-Y');
         $FechaPago = \DateTime::createFromFormat('Y-m-d',$documento['FechaPago'])->format('d-m-Y');
 		$objPHPExcel->setActiveSheetIndex(0)
@@ -113,12 +98,12 @@ if (count($documentos) > 0) {
 }
 
 // Renombrar Hoja
-$objPHPExcel->getActiveSheet()->setTitle('Informe de Pagos');
+$objPHPExcel->getActiveSheet()->setTitle('Informe de Pagos por Cliente');
 
 // Establecer la hoja activa, para que cuando se abra el documento se muestre primero.
 $objPHPExcel->setActiveSheetIndex(0);
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header("Content-Disposition: attachment; filename=Informe de Pagos ".$_GET['startDate']." al ".$_GET['endDate'].".xlsx");
+header('Content-Disposition: attachment; filename=Informe de Pagos por Cliente.xlsx');
 header('Cache-Control: max-age=0');
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
