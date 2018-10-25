@@ -47,12 +47,14 @@ $query = "  SELECT
                 personaempresa.nombre AS Cliente,
                 facturas_pagos.FechaPago AS FechaPago,
                 facturas_pagos.Monto AS Pagado,
-                mt.nombre AS tipo_Factura
+                mt.nombre AS tipo_Factura,
+                mtp.nombre AS tipo_pago
             FROM
                 facturas
                 INNER JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
                 LEFT JOIN personaempresa ON personaempresa.rut = facturas.Rut
                 INNER JOIN mantenedor_tipo_cliente mt ON facturas.TipoDocumento = mt.id
+                INNER JOIN mantenedor_tipo_pago mtp ON facturas_pagos.TipoPago = mtp.id
             WHERE
                 facturas.EstatusFacturacion = '1' ";
 
@@ -67,11 +69,12 @@ if(isset($_GET['rut']) && $_GET['rut'] != '') {
 $run = new Method;
 $documentos = $run->select($query);
 $Total = 0;
-
+$saldo = 0;
 if (count($documentos) > 0) {
     $index = 2;
     
 	foreach($documentos as $documento){
+        $saldo = $documento['Total'] - $documento['Pagado'];
         $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$documento['FechaFacturacion'])->format('d-m-Y');
         $FechaPago = \DateTime::createFromFormat('Y-m-d',$documento['FechaPago'])->format('d-m-Y');
 		$objPHPExcel->setActiveSheetIndex(0)
@@ -81,8 +84,8 @@ if (count($documentos) > 0) {
 		->setCellValue('D'.$index, $documento['NumeroDocumento'])
 		->setCellValue('E'.$index, $FechaFacturacion)
         ->setCellValue('F'.$index, $documento['Total'])
-        ->setCellValue('G'.$index, 'Saldo')
-        ->setCellValue('H'.$index, 'Modalidad Pago')
+        ->setCellValue('G'.$index, $saldo)
+        ->setCellValue('H'.$index, $documento['tipo_pago'])
         ->setCellValue('I'.$index, $documento['Detalle'])
         ->setCellValue('J'.$index, $documento['Pagado'])
         ->setCellValue('K'.$index, $FechaPago);
