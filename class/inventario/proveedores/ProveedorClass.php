@@ -5,7 +5,7 @@
 
     class Proveedor{
 
-    	public function CrearProveedor($Nombre,$Direccion,$Telefono,$Contacto,$Correo){
+    	public function CrearProveedor($Nombre,$Direccion,$Telefono,$Contacto,$Correo,$Rut){
 
             $response_array = array();
 
@@ -14,22 +14,24 @@
             $Telefono = isset($Telefono) ? trim($Telefono) : "";
             $Contacto = isset($Contacto) ? trim($Contacto) : "";
             $Correo = isset($Correo) ? trim($Correo) : "";
+            $Rut = isset($Rut) ? trim($Rut) : "";
 
-            if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Contacto) && !empty($Correo)){
+            if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Contacto) && !empty($Correo) && !empty($Rut)){
 
                 $this->Nombre=$Nombre;
                 $this->Direccion=$Direccion;
                 $this->Telefono=$Telefono;
                 $this->Contacto=$Contacto;
                 $this->Correo=$Correo;
+                $this->Rut=$Rut;
 
-                $query = "INSERT INTO mantenedor_proveedores(nombre, direccion, telefono, contacto, correo) VALUES ('$this->Nombre', '$this->Direccion', '$this->Telefono', '$this->Contacto', '$this->Correo')";
+                $query = "INSERT INTO mantenedor_proveedores(nombre, direccion, telefono, contacto, correo, rut) VALUES ('$this->Nombre', '$this->Direccion', '$this->Telefono', '$this->Contacto', '$this->Correo', '$this->Rut')";
                 $run = new Method;
                 $id = $run->insert($query);
 
                 if($id){
 
-                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono,'contacto' => $this->Contacto,'correo' => $this->Correo);
+                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono,'contacto' => $this->Contacto,'correo' => $this->Correo, 'rut' => $this->Rut);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 

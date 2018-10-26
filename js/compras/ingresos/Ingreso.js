@@ -51,7 +51,7 @@ $(document).ready(function() {
 
     $(".number").mask("0000000000");
     $('.money').number(true, 2, ',', '.');
-    $('.tipo_documento_id').load('../ajax/cliente/selectTipoCliente.php', function() {
+    $('.tipo_documento_id').load('../ajax/cliente/selectTipoDocProveedor.php', function() {
         $('.tipo_documento_id').selectpicker('refresh');
     });
     $.ajax({
