@@ -217,11 +217,17 @@ $(document).ready(function() {
         url: "../includes/compras/ingresos/showCentroCosto.php",
         success: function(response) {
 
+            // $.each(response.array, function(index, array) {
+            //     $('.centro_costo_id').append('<option value="' + array.id + '" data-content="' + array.codigo_cuenta +' - '+ array.nombre + '"></option>');
+            // });
+
             $.each(response.array, function(index, array) {
-                $('.centro_costo_id').append('<option value="' + array.id + '" data-content="' + array.nombre + '"></option>');
+                $('#centro_costo_id').append('<option value="' + array.id + '" data-content="' + array.codigo_cuenta +' - '+ array.nombre + '"></option>');
             });
 
-            $('.centro_costo_id').selectpicker('refresh');
+            $('#centro_costo_id').selectpicker('refresh');
+
+            // $('.centro_costo_id').selectpicker('refresh');
         }
     });
 
@@ -505,13 +511,13 @@ $(document).ready(function() {
                     timer: 3000
                 });
 
-                $('.centro_costo_id').append('<option value="' + response.array.id + '" data-content="' + response.array.nombre + '"></option>');
+                $('.centro_costo_id').append('<option value="' + response.array.id + '" data-content="' + response.array.codigo_cuenta +' - '+ response.array.nombre + '"></option>');
                 $('.centro_costo_id').val(response.array.id);
 
                 $('.selectpicker').selectpicker('refresh');
 
                 $('#storeCosto')[0].reset();
-                $('#modalCosto').modal('hide');
+                // $('#modalCosto').modal('hide');
 
             } else if (response.status == 2) {
 

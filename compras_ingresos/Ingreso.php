@@ -24,8 +24,13 @@
         <link href="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
         <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
         <link href="../css/teledata.css" rel="stylesheet">
+        <style type="text/css">
+            
+        </style>
     </head>
+    
     <body>
+    
         <div id="IngresoForm" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -94,9 +99,9 @@
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Centro de Costos - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalCosto">Crear Registro Nuevo</label></label>
+                                        <label class="control-label" for="name">Cuentas Contables - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalCosto">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="form-control selectpicker centro_costo_id" id="centro_costo_id" name="centro_costo_id" validate="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
+                                            <select data-size="5" class="form-control selectpicker centro_costo_id" id="centro_costo_id" name="centro_costo_id" validate="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -266,11 +271,18 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
-                        <h4 class="modal-title c-negro">Agregar Centro de Costo <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                        <h4 class="modal-title c-negro">Agregar Cuentas Contables <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
                     </div>
                     <div class="modal-body">
                         <div class="row" style="padding:20px">
                             <form class="form-horizontal" id = "storeCosto">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="name">Código Cuenta</label>
+                                        <input id="codigo_cuenta" name="codigo_cuenta" type="text" placeholder="Ingrese el Código de la Cuenta" class="form-control input-sm" validate="not_null" data-nombre="Código Cuenta">
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Nombre</label>
@@ -281,14 +293,14 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Dirección</label>
-                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validate="not_null" data-nombre="Dirección"></textarea>
+                                        <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección"  data-nombre="Dirección"></textarea>
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Teléfono</label>
-                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validate="not_null" data-nombre="Télefono">
+                                        <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" data-nombre="Télefono">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -305,7 +317,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Correo</label>
-                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validate="not_null" data-nombre="Correo">
+                                        <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" data-nombre="Correo">
                                     </div>
                                 </div>
                             </form>

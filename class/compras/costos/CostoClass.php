@@ -5,7 +5,7 @@
 
     class Costo{
 
-    	public function CrearCosto($Nombre,$Personal,$Correo,$Direccion, $Telefono){
+    	public function CrearCosto($Nombre,$Personal,$Correo,$Direccion, $Telefono, $Codigo_Cuenta){
 
             $response_array = array();
 
@@ -14,23 +14,24 @@
             $Correo = isset($Correo) ? trim($Correo) : "";
             $Direccion = isset($Direccion) ? trim($Direccion) : "";
             $Telefono = isset($Telefono) ? trim($Telefono) : "";
+            $Codigo_Cuenta = isset($Codigo_Cuenta) ? trim($Codigo_Cuenta) : "";
 
-            if(!empty($Nombre) && !empty($Personal) && !empty($Correo) && !empty($Direccion) && !empty($Telefono)){
+            if(!empty($Nombre) && !empty($Personal)&& !empty($Codigo_Cuenta)){
 
                 $this->Nombre=$Nombre;
                 $this->Personal=$Personal;
                 $this->Correo=$Correo;
                 $this->Direccion=$Direccion;
                 $this->Telefono=$Telefono;
+                $this->Codigo_Cuenta=$Codigo_Cuenta;
 
-
-                $query = "INSERT INTO mantenedor_costos(nombre, direccion, personal_id, correo, telefono) VALUES ('$this->Nombre','$this->Direccion','$this->Personal','$this->Correo', '$this->Telefono')";
+                $query = "INSERT INTO mantenedor_costos(nombre, direccion, personal_id, correo, telefono, codigo_cuenta) VALUES ('$this->Nombre','$this->Direccion','$this->Personal','$this->Correo', '$this->Telefono', '$this->Codigo_Cuenta')";
                 $run = new Method;
                 $id = $run->insert($query);
 
                 if($id){
 
-                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion, 'personal_id' => $this->Personal, 'correo' => $this->Correo);
+                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion, 'personal_id' => $this->Personal, 'correo' => $this->Correo, $this->Personal, 'codigo_cuenta' => $this->Codigo_Cuenta);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
