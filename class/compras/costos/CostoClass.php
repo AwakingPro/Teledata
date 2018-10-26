@@ -5,7 +5,7 @@
 
     class Costo{
 
-    	public function CrearCosto($Nombre,$Personal,$Correo,$Direccion){
+    	public function CrearCosto($Nombre,$Personal,$Correo,$Direccion, $Telefono){
 
             $response_array = array();
 
@@ -13,15 +13,18 @@
             $Personal = isset($Personal) ? trim($Personal) : "";
             $Correo = isset($Correo) ? trim($Correo) : "";
             $Direccion = isset($Direccion) ? trim($Direccion) : "";
+            $Telefono = isset($Telefono) ? trim($Telefono) : "";
 
-            if(!empty($Nombre) && !empty($Personal) && !empty($Correo) && !empty($Direccion)){
+            if(!empty($Nombre) && !empty($Personal) && !empty($Correo) && !empty($Direccion) && !empty($Telefono)){
 
                 $this->Nombre=$Nombre;
                 $this->Personal=$Personal;
                 $this->Correo=$Correo;
                 $this->Direccion=$Direccion;
+                $this->Telefono=$Telefono;
 
-                $query = "INSERT INTO mantenedor_costos(nombre, direccion, personal_id, correo, telefono) VALUES ('$this->Nombre','$this->Direccion','$this->Personal','$this->Correo', '0')";
+
+                $query = "INSERT INTO mantenedor_costos(nombre, direccion, personal_id, correo, telefono) VALUES ('$this->Nombre','$this->Direccion','$this->Personal','$this->Correo', '$this->Telefono')";
                 $run = new Method;
                 $id = $run->insert($query);
 

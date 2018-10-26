@@ -463,7 +463,7 @@ $(document).ready(function() {
                 $('.proveedor_id').append('<option value="' + response.array.id + '" data-content="' + response.array.rut + ' - ' + response.array.nombre + '"></option>');
                 $('.proveedor_id').val(response.array.id);
 
-                $('.selectpicker').selectpicker('refresh')
+                $('.selectpicker').selectpicker('refresh');
 
                 $('#storeProveedor')[0].reset();
                 $('#modalProveedor').modal('hide');
@@ -508,7 +508,7 @@ $(document).ready(function() {
                 $('.centro_costo_id').append('<option value="' + response.array.id + '" data-content="' + response.array.nombre + '"></option>');
                 $('.centro_costo_id').val(response.array.id);
 
-                $('.selectpicker').selectpicker('refresh')
+                $('.selectpicker').selectpicker('refresh');
 
                 $('#storeCosto')[0].reset();
                 $('#modalCosto').modal('hide');

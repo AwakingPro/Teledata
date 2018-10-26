@@ -39,7 +39,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Razón Social / Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="form-control proveedor_id" id="proveedor_id" name="proveedor_id" validate="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
+                                            <select class="form-control selectpicker proveedor_id" id="proveedor_id" name="proveedor_id" validate="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -96,7 +96,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Centro de Costos - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalCosto">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="form-control centro_costo_id" id="centro_costo_id" name="centro_costo_id" validate="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
+                                            <select class="form-control selectpicker centro_costo_id" id="centro_costo_id" name="centro_costo_id" validate="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
