@@ -17,14 +17,13 @@ $objPHPExcel->getProperties()
 
 // Agregar Informacion
 $objPHPExcel->setActiveSheetIndex(0)
-->setCellValue('A1', 'id')
-->setCellValue('B1', 'Rut')
-->setCellValue('C1', 'DV')
-->setCellValue('D1', 'Razon Social')
-->setCellValue('E1', 'Teléfono')
-->setCellValue('F1', 'Tipo de Cliente')
-->setCellValue('G1', 'Fecha de Instalacion')
-->setCellValue('H1', 'Estado De Cliente');
+->setCellValue('A1', 'Rut')
+->setCellValue('B1', 'DV')
+->setCellValue('C1', 'Razon Social')
+->setCellValue('D1', 'Teléfono')
+->setCellValue('E1', 'Tipo de Cliente')
+->setCellValue('F1', 'Fecha de Instalacion')
+->setCellValue('G1', 'Estado De Cliente');
 
 foreach (range(0, 33) as $col) {
         $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -33,7 +32,6 @@ foreach (range(0, 33) as $col) {
 
 require_once('../../class/methods_global/methods.php');
 	$query = '	SELECT
-					p.id,
 					p.rut,
 					p.dv,
 					p.nombre,
@@ -60,14 +58,14 @@ if (count($data) > 0) {
     // echo var_dump($data); return;
 	$index = 2;
 	for ($i=0; $i < count($data) ; $i++) {
-        if($data[$i][7] == 1)
-        $data[$i][7] = 'Activo';
-        else if($data[$i][7] == 2)
-        $data[$i][7] = 'Suspendido';
-        else if($data[$i][7] == 0)
-        $data[$i][7] = 'Inactivo';
+        if($data[$i][6] == 1)
+        $data[$i][6] = 'Activo';
+        else if($data[$i][6] == 2)
+        $data[$i][6] = 'Suspendido';
+        else if($data[$i][6] == 0)
+        $data[$i][6] = 'Inactivo';
         else
-        $data[$i][7] = 'Sin estado';
+        $data[$i][6] = 'Sin estado';
 		$objPHPExcel->setActiveSheetIndex(0)
 		->setCellValue('A'.$index, $data[$i][0])
 		->setCellValue('B'.$index, $data[$i][1])
@@ -75,8 +73,7 @@ if (count($data) > 0) {
 		->setCellValue('D'.$index, $data[$i][3])
 		->setCellValue('E'.$index, $data[$i][4])
 		->setCellValue('F'.$index, $data[$i][5])
-		->setCellValue('G'.$index, $data[$i][6])
-		->setCellValue('H'.$index, $data[$i][7]);
+		->setCellValue('G'.$index, $data[$i][6]);
 		$index ++;
 	}
 }
