@@ -38,7 +38,7 @@ $IVA = 0;
 require_once('../../class/methods_global/methods.php');
 	$query = "	SELECT
 					mt.nombre AS TipoDocumento,
-                    p.id,
+                    f.NumeroDocumento,
 					p.rut,
 					p.nombre,
                     (SELECT SUM( Valor ) FROM facturas_detalle WHERE FacturaId = f.Id ) AS MontoNeto,
@@ -57,6 +57,8 @@ require_once('../../class/methods_global/methods.php');
                     p.rut = f.Rut
                 WHERE
                     f.EstatusFacturacion = '1'
+                -- quitar el group by si quiero mostrar cada factura de cada cliente
+                -- GROUP BY p.rut
 				ORDER BY
 					p.nombre ";
 $run = new Method;
