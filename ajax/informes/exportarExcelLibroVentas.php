@@ -76,7 +76,7 @@ if(isset($_GET['startDate']) && isset($_GET['endDate'])){
     $dt = \DateTime::createFromFormat('d-m-Y',$endDate);
     $endDate = $dt->format('Y-m-d');
 
-    $query .= " AND f.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."' ORDER BY p.nombre ";
+    $query .= " AND f.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."' ORDER BY f.FechaFacturacion ";
 }
 
 $run = new Method;
