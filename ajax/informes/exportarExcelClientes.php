@@ -31,7 +31,7 @@ foreach (range(0, 33) as $col) {
 
 
 require_once('../../class/methods_global/methods.php');
-	$query = '	SELECT
+	$query = '	SELECT DISTINCT
 					p.rut,
 					p.dv,
 					p.nombre,
