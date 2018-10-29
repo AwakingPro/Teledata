@@ -57,7 +57,12 @@ $(document).ready(function(){
                 window.open(url, '_blank');
             }
             if(tipo_informe == '6'){
-                url = "../ajax/informes/exportarExcelLibroVentas.php";
+                if (startDate != '' & endDate != '') {
+                    url = "../ajax/informes/exportarExcelLibroVentas.php?startDate="+startDate+"&endDate="+endDate;
+                } else {
+                    url = "../ajax/informes/exportarExcelLibroVentas.php";
+                }
+                
                 window.open(url, '_blank');
             }
         } else {

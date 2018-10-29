@@ -1,7 +1,7 @@
 <?php
 /** Incluir la libreria PHPExcel */
 require_once '../../plugins/PHPExcel-1.8/Classes/PHPExcel.php';
-
+require_once '../../class/methods_global/methods.php';
 // Crea un nuevo objeto PHPExcel
 $objPHPExcel = new PHPExcel();
 
@@ -35,7 +35,8 @@ foreach (range(0, 10) as $col) {
 
 $FechaEmision = '';
 $IVA = 0;
-require_once('../../class/methods_global/methods.php');
+
+
 	$query = "	SELECT
 					mt.nombre AS TipoDocumento,
                     f.NumeroDocumento,
@@ -56,15 +57,31 @@ require_once('../../class/methods_global/methods.php');
 				ON 
                     p.rut = f.Rut
                 WHERE
-                    f.EstatusFacturacion = '1'
-                -- quitar el group by si quiero mostrar cada factura de cada cliente
-                -- GROUP BY p.rut
-				ORDER BY
-					p.nombre ";
+                    f.EstatusFacturacion = '1' ";
+
+// -- quitar el group by si quiero mostrar cada factura de cada cliente
+//                 -- GROUP BY p.rut
+// 				-- ORDER BY
+//                 --     p.nombre 
+
+if(!isset($_GET['startDate']) && !isset($_GET['endDate'])){
+    $query .= " ORDER BY p.nombre ";
+}
+
+if(isset($_GET['startDate']) && isset($_GET['endDate'])){
+    $startDate = $_GET['startDate'];
+    $dt = \DateTime::createFromFormat('d-m-Y',$startDate);
+    $startDate = $dt->format('Y-m-d');
+    $endDate = $_GET['endDate'];
+    $dt = \DateTime::createFromFormat('d-m-Y',$endDate);
+    $endDate = $dt->format('Y-m-d');
+
+    $query .= " AND f.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."' ORDER BY p.nombre ";
+}
+
 $run = new Method;
 $data = $run->select($query);
-
-if (count($data) > 0) {
+if(count($data) > 0) {
     // echo var_dump($data); return;
 	$index = 2;
 	for ($i=0; $i < count($data) ; $i++) {
@@ -86,7 +103,12 @@ if (count($data) > 0) {
         ->setCellValue('K'.$index, 'En Proceso');
 
 		$index ++;
-	}
+    }
+}
+else
+{
+    echo "No existen datos para esta consulta";
+    return;
 }
 
 // Renombrar Hoja, no tener mas de 35 caracteres.
