@@ -12,7 +12,7 @@ $(document).ready(function(){
         todayHighlight: true,
         language: 'es'
     });
-
+    
     $(document).on('click', '#Download', function () {
         var tipo_informe = $('#tipo_informe').val();
         var startDate = $("#date-range .input-daterange input[name='start']").val();

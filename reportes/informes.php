@@ -78,9 +78,9 @@
                                                     <label class="control-label">Seleccione rango de fecha</label>
                                                     <div id="date-range">
                                                         <div class="input-daterange input-group" id="datepicker">
-                                                            <input type="text" class="form-control" name="start" />
+                                                            <input type="text" class="form-control" id="start" name="start" />
                                                             <span class="input-group-addon">a</span>
-                                                            <input type="text" class="form-control" name="end" />
+                                                            <input type="text" class="form-control" id="end" name="end" />
                                                         </div>
                                                     </div>
                                                     <br>
@@ -154,6 +154,7 @@
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+		<script src="../plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>input-daterange
 		<script src="../js/reportes/Clientes.js"></script>
 	</body>
 </html>
