@@ -235,13 +235,13 @@
                                         <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección" validate="not_null" data-nombre="Dirección"></textarea>
                                     </div>
                                 </div>
-                                <div class="clearfix m-b-10"></div>
+                                <!-- <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Teléfono</label>
                                         <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" validate="not_null" data-nombre="Télefono">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -249,13 +249,13 @@
                                         <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm" validate="not_null" data-nombre="Contacto">
                                     </div>
                                 </div>
-                                <div class="clearfix m-b-10"></div>
+                                <!-- <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Correo</label>
                                         <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" validate="not_null" data-nombre="Correo">
                                     </div>
-                                </div>
+                                </div> -->
                             </form>
                         </div>
                     </div><!-- /.modal-body -->
@@ -286,7 +286,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Nombre</label>
-                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validate="not_null" data-nombre="Nombre">
+                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese Nombre de la cuenta" class="form-control input-sm" validate="not_null" data-nombre="Nombre">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -296,13 +296,13 @@
                                         <textarea id="direccion" name="direccion" rows="4" class="form-control" placeholder="Ingrese su dirección"  data-nombre="Dirección"></textarea>
                                     </div>
                                 </div>
-                                <div class="clearfix m-b-10"></div>
+                                <!-- <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Teléfono</label>
                                         <input id="telefono" name="telefono" type="text" placeholder="Ingrese su télefono" class="form-control input-sm" data-nombre="Télefono">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -313,13 +313,13 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="clearfix m-b-10"></div>
+                                <!-- <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Correo</label>
                                         <input id="nombre" name="correo" type="text" placeholder="Ingrese su correo" class="form-control input-sm" data-nombre="Correo">
                                     </div>
-                                </div>
+                                </div> -->
                             </form>
                         </div>
                     </div><!-- /.modal-body -->

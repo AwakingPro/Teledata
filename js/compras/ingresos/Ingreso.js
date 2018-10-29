@@ -517,7 +517,7 @@ $(document).ready(function() {
                 $('.selectpicker').selectpicker('refresh');
 
                 $('#storeCosto')[0].reset();
-                // $('#modalCosto').modal('hide');
+                $('#modalCosto').modal('hide');
 
             } else if (response.status == 2) {
 
