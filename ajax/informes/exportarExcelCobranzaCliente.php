@@ -90,7 +90,8 @@ if (count($FacturasVencidas) > 0) {
         $fechaVencimiento = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');
         $query_facturas_detalle = "SELECT
         FacturaId,
-        Total,
+        (SELECT SUM( Total ) FROM facturas_detalle WHERE FacturaId = $id_facturas ) AS Total,
+        -- Total,
         servicios.EstatusServicio as EstatusServicio,
         mantenedor_tipo_facturacion.nombre as TipoServicio
         FROM facturas_detalle
@@ -111,7 +112,8 @@ if (count($FacturasVencidas) > 0) {
                 $query_facturas_pagos = "SELECT
                 Id,
                 FacturaId,
-                Monto
+                (SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = $factura_detalle_FacturaId ) AS Monto
+                -- Monto
                 FROM facturas_pagos
                 WHERE FacturaId = $factura_detalle_FacturaId ";
                 
@@ -140,7 +142,9 @@ if (count($FacturasVencidas) > 0) {
         }
        
         if($bandera != 1) {
-        foreach($facturas_detalle as $factura_detalle) {
+        // si quiero que se muestren los detales y montos de cada articulo asociado a x factura
+        // hago el foreach y eliminar el query sum(Total) y sum(Mont), y dejarlo solo como Total y Mont
+        // foreach($facturas_detalle as $factura_detalle) {
                 $TipoServicio    = $factura_detalle['TipoServicio'];
                 if($TipoServicio == '' || $TipoServicio == null){
                     $TipoServicio = 'Mensual';
@@ -171,7 +175,7 @@ if (count($FacturasVencidas) > 0) {
             ->setCellValue('J'.$index, $TipoServicio)
             ->setCellValue('K'.$index, $claseCLiente);
             $index ++; 
-            }
+            // }
         }
        
     }
