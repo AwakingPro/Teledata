@@ -817,6 +817,8 @@ $(document).ready(function() {
                                     .remove()
                                     .draw();
                                 getFacturas();
+                                getFacturasNDocumento();
+                                getFacturasCliente();
                             } else if (response == 3) {
                                 swal('Solicitud no procesada', 'Este registro no puede ser eliminado porque posee otros registros asociados', 'error');
                             } else {
