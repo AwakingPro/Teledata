@@ -2,6 +2,7 @@ $(document).ready(function(){
     
     $('select[name="rutCliente"]').load('../ajax/servicios/selectClientes.php', function() {
         $('select[name="rutCliente"]').selectpicker();
+        $('select[name="rutCliente"]').selectpicker('refresh');
     });
 
     $('.input-daterange').datepicker({
