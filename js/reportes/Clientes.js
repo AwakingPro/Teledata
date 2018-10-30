@@ -20,12 +20,13 @@ $(document).ready(function(){
         var endDate = $("#date-range .input-daterange input[name='end']").val();
         var rut = $('select[name="rutCliente"]').selectpicker('val');
         
-        console.log(rut);
+        // console.log(rut);
         if (tipo_informe != '') {
             if(tipo_informe == '1'){
-                url = "../ajax/informes/exportarExcelClientes.php";
+                url = "../ajax/informes/exportarExcelClientes.php?startDate="+startDate+"&endDate="+endDate+"&rut="+rut;
                 window.open(url, '_blank');
             }
+
             if(tipo_informe == '2'){
                 if (startDate != '' & endDate != '') {
                     
