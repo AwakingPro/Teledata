@@ -230,12 +230,22 @@ $(document).ready(function() {
                         value = formatcurrency(data)
                         return "<div style='text-align: center'>" + value + "</div>";
                     }
-                }, {
+                }, 
+                {
                     "targets": 5,
                     "render": function(data, type, row) {
                         value = formatcurrency(data)
                         return "<div style='text-align: center'>" + value + "</div>";
                     }
+                    
+                },
+                {
+                    "targets": 6,
+                    "render": function(data, type, row) {
+                        value = formatcurrency(data)
+                        return "<div style='text-align: center'>" + value + "</div>";
+                    }
+                    
                 }],
                 language: {
                     processing: "Procesando ...",
