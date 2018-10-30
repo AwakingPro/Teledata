@@ -436,6 +436,7 @@ $(document).ready(function() {
                     { data: 'FechaVencimiento' },
                     { data: 'TotalFactura' },
                     { data: 'TotalSaldo' },
+                    { data: 'SaldoFavor'},
                     { data: 'DocumentoId' }
                 ],
                 destroy: true,
@@ -467,6 +468,13 @@ $(document).ready(function() {
                     },
                     {
                         "targets": 7,
+                        "render": function(data, type, row) {
+                            value = formatcurrency(data)
+                            return "<div style='text-align: center'>" + value + "</div>";
+                        }
+                    },
+                    {
+                        "targets": 8,
                         "render": function(data, type, row) {
                             if (row.EstatusFacturacion == '1') {
                                 Folder = 'facturas';

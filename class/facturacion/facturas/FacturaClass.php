@@ -1828,8 +1828,10 @@
                         $Total -= $Descuento;
                         $TotalFactura += round($Total,0);
                     }
+                    $SaldoFavor = 0;
                     $TotalSaldo = $factura['TotalSaldo'];
                     $TotalSaldo = $TotalFactura - $TotalSaldo;
+                    $SaldoFavor = $factura['TotalSaldo'] - $TotalFactura;
                     if($TotalSaldo < 0){
                         $TotalSaldo = 0;
                     }
@@ -1850,6 +1852,7 @@
                     $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
                     $data['TotalFactura'] = $TotalFactura;
                     $data['TotalSaldo'] = $TotalSaldo;
+                    $data['SaldoFavor'] = $SaldoFavor;
                     $data['UrlPdfBsale'] = $factura['UrlPdfBsale'];
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['Acciones'] = $Acciones;
@@ -1881,6 +1884,7 @@
                             $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                             $data['TotalFactura'] = $TotalFactura;
                             $data['TotalSaldo'] = $TotalSaldoFactura;
+                            $data['SaldoFavor'] = $SaldoFavor;
                             $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
                             $data['TipoDocumento'] = 'Nota de crédito';
                             $data['Acciones'] = $Acciones;
@@ -1901,6 +1905,7 @@
                                     $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
                                     $data['TotalFactura'] = $TotalFactura;
                                     $data['TotalSaldo'] = $TotalSaldoFactura;
+                                    $data['SaldoFavor'] = $SaldoFavor;
                                     $data['UrlPdfBsale'] = $anulacion['UrlPdfBsale'];
                                     $data['TipoDocumento'] = 'Nota de debito';
                                     $data['EstatusFacturacion'] = 3;

@@ -162,6 +162,7 @@
 																		<th class="text-center">Fecha Vencimiento</th>
 																		<th class="text-center">Total Doc.</th>
 																		<th class="text-center">Saldo Doc.</th>
+																		<th class="text-center">Saldo a favor.</th>
 																		<th class="text-center">Acción</th>
 																	</tr>
 																</thead>
