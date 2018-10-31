@@ -28,16 +28,12 @@ $(document).ready(function(){
             }
 
             if(tipo_informe == '2'){
-                if (startDate != '' & endDate != '') {
-                    
-                    url = "../ajax/informes/exportarExcelPagosMensualesAnuales.php?startDate="+startDate+"&endDate="+endDate;
-                    if(rut != '')
-                    url = url+"&rut="+rut;
-                    window.open(url, '_blank');
-                } else {
-                    bootbox.alert('Debe Seleccionar un rango de fecha');
-                    return false;
-                }
+                
+                url = "../ajax/informes/exportarExcelPagosMensualesAnuales.php?startDate="+startDate+"&endDate="+endDate;
+                if(rut != '')
+                url = url+"&rut="+rut;
+                window.open(url, '_blank');
+            
             }
             if(tipo_informe == '3'){
                 url = "../ajax/informes/exportarExcelCobranzaCliente.php";

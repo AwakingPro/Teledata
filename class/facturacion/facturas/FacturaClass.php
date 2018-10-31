@@ -1916,7 +1916,6 @@
                     }
                 }
             }
-
             echo json_encode($ToReturn);
         }
         public function getPagos($id){
