@@ -31,7 +31,7 @@ foreach (range(0, 6) as $col) {
 
 
 require_once('../../class/methods_global/methods.php');
-	$query = '	SELECT
+	$query = '	SELECT DISTINCT
 					p.id,
 					p.rut,
 					p.dv,
@@ -49,15 +49,37 @@ require_once('../../class/methods_global/methods.php');
 				INNER JOIN 
 					servicios s 
 				ON 
-					p.rut = s.Rut
-				ORDER BY
-					p.nombre';
+					p.rut = s.Rut ';
+
+$rut = '';
+if(isset($_GET['rut']) && $_GET['rut'] != '') {
+    $rut = $_GET['rut'];
+	$query .= " WHERE p.rut = '".$rut."' ";
+}
+
+if(isset($_GET['startDate']) && $_GET['startDate'] != '' && isset($_GET['endDate']) && $_GET['endDate'] != ''){
+    $startDate = $_GET['startDate'];
+    $dt = \DateTime::createFromFormat('d-m-Y',$startDate);
+    $startDate = $dt->format('Y-m-d');
+    $endDate = $_GET['endDate'];
+    $dt = \DateTime::createFromFormat('d-m-Y',$endDate);
+	$endDate = $dt->format('Y-m-d');
+	if($rut != '')
+	$query .=" AND s.FechaInstalacion BETWEEN '".$startDate."' AND '".$endDate."' ";
+	else
+	$query .=" WHERE s.FechaInstalacion BETWEEN '".$startDate."' AND '".$endDate."' ";
+}
+
+
+$query .= " ORDER BY p.nombre ";
+
 $run = new Method;
 $data = $run->select($query);
 if (count($data) > 0) {
     // echo var_dump($data); return;
 	$index = 2;
 	for ($i=0; $i < count($data) ; $i++) {
+		$FechaInstalacion = \DateTime::createFromFormat('Y-m-d',$data[$i][5])->format('d-m-Y');
         if($data[$i][6] == 1)
         $data[$i][6] = 'Activo';
         else if($data[$i][6] == 2)
@@ -73,7 +95,7 @@ if (count($data) > 0) {
 		->setCellValue('D'.$index, $data[$i][3])
 		->setCellValue('E'.$index, $data[$i][4])
 		->setCellValue('F'.$index, $data[$i][6])
-		->setCellValue('G'.$index, $data[$i][5]);
+		->setCellValue('G'.$index, $FechaInstalacion);
 		$index ++;
 	}
 }

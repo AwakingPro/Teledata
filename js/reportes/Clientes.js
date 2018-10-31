@@ -51,7 +51,7 @@ $(document).ready(function(){
                 
             }
             if(tipo_informe == '5'){
-                url = "../ajax/informes/exportarExcelEstadoClientes.php";
+                url = "../ajax/informes/exportarExcelEstadoClientes.php?startDate="+startDate+"&endDate="+endDate+"&rut="+rut;
                 window.open(url, '_blank');
             }
             if(tipo_informe == '6'){

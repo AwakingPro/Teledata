@@ -71,7 +71,6 @@ if(isset($_GET['startDate']) && $_GET['startDate'] != '' && isset($_GET['endDate
 }
 
 
-
 $query .= " ORDER BY p.nombre ";
 
 

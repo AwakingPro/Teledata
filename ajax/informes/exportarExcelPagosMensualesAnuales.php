@@ -37,10 +37,6 @@ if(isset($_GET['startDate']) && isset($_GET['endDate'])){
     $startDate = $_GET['startDate'];
     $endDate = $_GET['endDate'];
 }
-// else{
-//     echo 'Debe seleccionar un rango de fecha';
-//     return;
-// }
 $Rut = '';
 if(isset($_GET['rut']) && $_GET['rut'] != '') {
     $Rut = $_GET['rut'];
