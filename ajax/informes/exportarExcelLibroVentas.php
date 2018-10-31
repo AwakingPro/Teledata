@@ -57,18 +57,23 @@ $IVA = 0;
 				ON 
                     p.rut = f.Rut
                 WHERE
-                    f.EstatusFacturacion = '1' ";
+                    f.EstatusFacturacion != '0' ";
 
 // -- quitar el group by si quiero mostrar cada factura de cada cliente
 //                 -- GROUP BY p.rut
 // 				-- ORDER BY
 //                 --     p.nombre 
+$rut = '';
+if(isset($_GET['rut']) && $_GET['rut'] != '') {
+    $rut = $_GET['rut'];
+	$query .= " AND p.rut = '".$rut."' ";
+}
 
-if(!isset($_GET['startDate']) && !isset($_GET['endDate'])){
+if($_GET['startDate'] == '' && $_GET['endDate'] == ''){
     $query .= " ORDER BY p.nombre ";
 }
 
-if(isset($_GET['startDate']) && isset($_GET['endDate'])){
+if(isset($_GET['startDate']) && $_GET['startDate'] != '' && isset($_GET['endDate']) && $_GET['endDate'] != ''){
     $startDate = $_GET['startDate'];
     $dt = \DateTime::createFromFormat('d-m-Y',$startDate);
     $startDate = $dt->format('Y-m-d');
