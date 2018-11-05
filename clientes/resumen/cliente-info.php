@@ -24,6 +24,15 @@
                     $FechaInstalacion = \DateTime::createFromFormat('Y-m-d',$factura[2])->format('d-m-Y');
                 ?>
                 <h5 class="info-cliente"><?php echo $FechaInstalacion; ?></h5>
+            <label class="label-cliente">Posee PAC</label>
+                <?php
+                    $pac = '';
+                    if($lista[0][5] == 0)
+                        $pac = 'No';
+                    else
+                        $pac = 'Si';
+                ?>
+                <h5 class="info-cliente"><?php echo $pac; ?></h5>
            
             </div>
         </div>

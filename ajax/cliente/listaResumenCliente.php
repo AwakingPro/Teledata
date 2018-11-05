@@ -5,7 +5,8 @@
 							rut,
 							nombre,
 							correo,
-							telefono 
+							telefono,
+							posee_pac
 						FROM
 							personaempresa 
 						WHERE
