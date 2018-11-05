@@ -230,7 +230,7 @@ $(document).ready(function() {
                         '' + array.Codigo + '',
                         '' + array.Descripcion + '',
                         '' + array.FechaInstalacion + '',
-                        '' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>' + '',
+                        '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i title="Comparación" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>' + '',
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -245,7 +245,7 @@ $(document).ready(function() {
                         '' + array.Codigo + '',
                         '' + array.Descripcion + '',
                         '' + array.Direccion + '',
-                        '' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
+                        '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign" title="Reasignar"></i> <i title="Editar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -258,7 +258,7 @@ $(document).ready(function() {
                         '' + array.Codigo + '',
                         '' + array.Descripcion + '',
                         '' + array.Direccion + '',
-                        '' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
+                        '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i title="Reasignar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i title="Editar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -273,7 +273,7 @@ $(document).ready(function() {
                         '' + array.Codigo + '',
                         '' + array.Descripcion + '',
                         '' + array.Direccion + '',
-                        '' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
+                        '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i title="Reasignar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i title="Editar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -295,7 +295,7 @@ $(document).ready(function() {
                         '' + array.Descripcion + '',
                         '' + array.Direccion + '',
                         '' + FechaComprometidaInstalacion + '',
-                        '' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>' + ''
+                        '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>' + ''
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -343,7 +343,7 @@ $(document).ready(function() {
                     Codigo = $(Row).find("td").eq(2).html();
                     Descripcion = $(Row).find("td").eq(3).html();
                     Direccion = $(Row).find("td").eq(4).html();
-                    Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>';
+                    Operacion = '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>';
 
                     PorHacerTable.row(Row)
                         .remove()
@@ -565,7 +565,7 @@ $(document).ready(function() {
                                     .draw();
                             }
 
-                            Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>'
+                            Operacion = '<i title="Ver"  style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i title="Comparación" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>'
 
                             var rowNode = FinalizadasTable.row.add([
                                 '' + Usuario + '',
@@ -586,7 +586,7 @@ $(document).ready(function() {
 
                             if ($(nodes).filter('tr#' + response.Id).length == 0) {
 
-                                Operacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>'
+                                Operacion = '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign" title="Reasignar"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" title="Editar" class="fa fa-pencil Edit"></i>'
 
                                 var rowNode = PendientesTable.row.add([
                                     '' + Usuario + '',
