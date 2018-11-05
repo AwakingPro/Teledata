@@ -85,7 +85,8 @@ $(document).ready(function() {
     $('[name="Descuento"]').mask('00');
     $('[name="CostoInstalacion"]').number(true, 2, ',', '.');
     $('[name="CostoInstalacionDescuento"]').mask('00');
-    $('#CostoInstalacionPesos').number(true, 2, ',', '.');
+    
+    $('#CostoInstalacionPesos').number(true, 2, '.', '.');
     
 
     function getServicios() {
@@ -310,13 +311,11 @@ $(document).ready(function() {
 
     $('#CostoInstalacion').on('change', function() {
         // CostoInstalacion = $(this).val();
-        $('#CostoInstalacionPesos').text(calcularDetalleTmp());
-        $('#CostoInstalacionPesos').number(true, 2, ',', '.');
+        $('#CostoInstalacionPesos').text(formatcurrency(calcularDetalleTmp()));
     });
 
     $('#moneda').on('change', function() {
-        $('#CostoInstalacionPesos').text(calcularDetalleTmp());
-        $('#CostoInstalacionPesos').number(true, 2, ',', '.');
+        $('#CostoInstalacionPesos').text(formatcurrency(calcularDetalleTmp()));
     });
 
     function calcularDetalleTmp() {
@@ -335,13 +334,12 @@ $(document).ready(function() {
             }
         calculaIva = CostoInstalacionPesos * iva_global;
         CostoInstalacionPesos = CostoInstalacionPesos + calculaIva;
+        console.log(CostoInstalacionPesos);
         return CostoInstalacionPesos;
     }
-
     function formatcurrency(n) {
         return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
     }
-
     $('body').on('focus', ".date", function() {
         $('.date').datepicker({
             format: "dd-mm-yyyy",
