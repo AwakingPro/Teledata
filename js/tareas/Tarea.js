@@ -684,10 +684,11 @@ $(document).ready(function() {
 
     $('#select_all').on('click', function() {
         var rows = PorHacerTable.rows({ 'search': 'applied' }).nodes();
+        
         $('input[type="checkbox"]', rows).prop('checked', this.checked);
 
         values = getChecked();
-
+        
         if (values.length > 0) {
 
             $("#AsignarModal").removeAttr("disabled");
@@ -705,7 +706,6 @@ $(document).ready(function() {
 
     $('#PorHacerTable tbody').on('click', 'input[type="checkbox"]', function() {
         values = getChecked();
-
         if (values.length > 0) {
 
             $("#AsignarModal").removeAttr("disabled");

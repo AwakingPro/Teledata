@@ -14,20 +14,20 @@
     $run = new Method;
     $tipo = '';
 	$lista = $run->select($query_cliente);
-
+	
 	$Rut = $lista[0]['rut'];
 	$fecha_actual = date("Y-m-d");
 	
 	$query_factura = "	SELECT
 							facturas.Id,
-							FechaVencimiento,
-							servicios.FechaInstalacion
+							FechaVencimiento
+							-- servicios.FechaInstalacion
 						FROM
 							facturas 
-						INNER JOIN servicios ON servicios.Rut = '".$Rut."'
+						-- INNER JOIN servicios ON servicios.Rut = '".$Rut."'
 						WHERE
 						facturas.Rut = '".$Rut."' 
-							AND facturas.EstatusFacturacion = 1";
+							AND facturas.EstatusFacturacion != 1";
 
 	
 	// echo $Rut;
@@ -88,6 +88,8 @@
 			}
 			$monto_deuda += $factura_detalle_Total;
 		}
+	}else {
+		echo 'No existen facturas asociadas a este cliente';
 	}	
 	
 	// echo $FacturasVencidas[0][0];

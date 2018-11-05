@@ -1763,12 +1763,9 @@
                     $data['pagos'] = $saldo_favor;
                     array_push($ToReturn, $data ); 
             
-                }
-                echo json_encode($ToReturn);
-            }else{
-                echo 'No existen datos para esta consulta';
-                return;
+                }   
             }
+            echo json_encode($ToReturn);
 
 
         }
