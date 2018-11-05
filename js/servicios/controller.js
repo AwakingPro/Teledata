@@ -312,10 +312,12 @@ $(document).ready(function() {
     $('#CostoInstalacion').on('change', function() {
         // CostoInstalacion = $(this).val();
         $('#CostoInstalacionPesos').text(formatcurrency(calcularDetalleTmp()));
+        $('#CostoInstalacionIva').val(calcularDetalleTmp());
     });
 
     $('#moneda').on('change', function() {
         $('#CostoInstalacionPesos').text(formatcurrency(calcularDetalleTmp()));
+        $('#CostoInstalacionIva').val(calcularDetalleTmp());
     });
 
     function calcularDetalleTmp() {
@@ -334,7 +336,6 @@ $(document).ready(function() {
             }
         calculaIva = CostoInstalacionPesos * iva_global;
         CostoInstalacionPesos = CostoInstalacionPesos + calculaIva;
-        console.log(CostoInstalacionPesos);
         return CostoInstalacionPesos;
     }
     function formatcurrency(n) {

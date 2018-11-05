@@ -40,7 +40,7 @@
 	$FechaInstalacion = date("Y-m-d");
 	$idUsuario = $_SESSION['idUsuario'];
 	$BooleanCostoInstalacion = isset($_POST['BooleanCostoInstalacion']) ? trim($_POST['BooleanCostoInstalacion']) : "";
-	$CostoInstalacion = isset($_POST['CostoInstalacion']) ? trim($_POST['CostoInstalacion']) : "";
+	$CostoInstalacion = isset($_POST['CostoInstalacionIva']) ? trim($_POST['CostoInstalacionIva']) : "";
 	$CostoInstalacionDescuento = isset($_POST['CostoInstalacionDescuento']) ? trim($_POST['CostoInstalacionDescuento']) : "0";
 	$FechaComprometidaInstalacion = isset($_POST['FechaComprometidaInstalacion']) ? trim($_POST['FechaComprometidaInstalacion']) : "";
 
