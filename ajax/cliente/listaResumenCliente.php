@@ -88,8 +88,6 @@
 			}
 			$monto_deuda += $factura_detalle_Total;
 		}
-	}else {
-		echo 'No existen facturas asociadas a este cliente';
 	}	
 	
 	// echo $FacturasVencidas[0][0];
