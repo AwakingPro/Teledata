@@ -85,6 +85,8 @@ $(document).ready(function() {
     $('[name="Descuento"]').mask('00');
     $('[name="CostoInstalacion"]').number(true, 2, ',', '.');
     $('[name="CostoInstalacionDescuento"]').mask('00');
+    $('#CostoInstalacionPesos').number(true, 2, ',', '.');
+    
 
     function getServicios() {
         $.post('../ajax/cliente/dataCliente.php', { rut: $('select[name="Rut"]').selectpicker('val') }, function(data) {
@@ -304,11 +306,41 @@ $(document).ready(function() {
         }
     });
 
+    iva_global = 0.19;
+
     $('#CostoInstalacion').on('change', function() {
-        CostoInstalacion = $(this).val()
-        CostoInstalacionPesos = CostoInstalacion * ValorUF
-        $('#CostoInstalacionPesos').text(Math.round(CostoInstalacionPesos))
+        // CostoInstalacion = $(this).val();
+        $('#CostoInstalacionPesos').text(calcularDetalleTmp());
+        $('#CostoInstalacionPesos').number(true, 2, ',', '.');
     });
+
+    $('#moneda').on('change', function() {
+        $('#CostoInstalacionPesos').text(calcularDetalleTmp());
+        $('#CostoInstalacionPesos').number(true, 2, ',', '.');
+    });
+
+    function calcularDetalleTmp() {
+        var calculaIva = 0;
+        CostoInstalacionPesos = $('#CostoInstalacion').val();
+        if (CostoInstalacionPesos) {
+            CostoInstalacionPesos = CostoInstalacionPesos.replace(',00', '')
+            CostoInstalacionPesos = CostoInstalacionPesos.replace('.', '')
+            CostoInstalacionPesos = parseFloat(CostoInstalacionPesos)
+        } else {
+            CostoInstalacionPesos = 0;
+        }
+        var moneda = $('#moneda').val();
+        if (moneda == 2) {    
+            CostoInstalacionPesos = CostoInstalacionPesos * ValorUF;
+            }
+        calculaIva = CostoInstalacionPesos * iva_global;
+        CostoInstalacionPesos = CostoInstalacionPesos + calculaIva;
+        return CostoInstalacionPesos;
+    }
+
+    function formatcurrency(n) {
+        return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+    }
 
     $('body').on('focus', ".date", function() {
         $('.date').datepicker({

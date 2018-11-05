@@ -184,9 +184,21 @@
 													<div id="divCostoInstalacion">
 														<label class="campo-CostoInstalacion">Costo de instalación / Habilitación</label>
 														<div class="input-group">
-															<input type="text" id="CostoInstalacion" name="CostoInstalacion" class="form-control" validate="not_null" data-nombre="Costo de Instalacion">
+															<input type="text" id="CostoInstalacion" name="CostoInstalacion" class="form-control number" validate="not_null" data-nombre="Costo de Instalacion">
 															<span class="input-group-addon" id="CostoInstalacionPesos">0</span>
 														</div>
+														
+														<div class="form-group">
+															<div class="text-center" style="padding-left:20px;padding-right:20px">
+																<label class="control-label h5" for="name">Moneda</label>
+															</div>
+															<select class="selectpicker form-control" name="moneda" id="moneda"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Moneda">
+																<option value="1">Pesos</option>
+																<option value="2">UF</option>
+															</select>
+														</div>
+														
+
 														<br>
 														<label>Descuento Instalación</label>
 														<div class="input-group">
@@ -194,7 +206,9 @@
 															<span class="input-group-addon">%</span>
 														</div>
 														<br>
+														
 													</div>
+													
 													<button type="button" class="btn btn-primary guardarServ">Guardar</button>
 												</div>
 											</form>
