@@ -82,6 +82,7 @@ $(document).ready(function() {
                     { data: 'FechaVencimiento' },
                     { data: 'TotalFactura' },
                     { data: 'TotalSaldo' },
+                    { data: 'SaldoFavor'},
                     { data: 'DocumentoId' }
                 ],
                 destroy: true,
@@ -110,8 +111,16 @@ $(document).ready(function() {
                             }
                             return Div + value + "</div>";
                         }
-                    }, {
+                    },
+                    {
                         "targets": 6,
+                        "render": function(data, type, row) {
+                            value = formatcurrency(data)
+                            return "<div style='text-align: center'>" + value + "</div>";
+                        }
+                    },
+                    {
+                        "targets": 7,
                         "render": function(data, type, row) {
                             if (row.EstatusFacturacion == '1') {
                                 Folder = 'facturas';
@@ -279,7 +288,7 @@ $(document).ready(function() {
     $(document).on('change', '#documentTypeNDocumento', function () {
         filtrarPorDocumentoNDocumento();
     });
-
+    // filtrar por N Documento
     function getFacturasNDocumento() {
 
         var NumeroDocumento = $('[name="NumeroDocumento"]').val();
@@ -301,6 +310,7 @@ $(document).ready(function() {
                     { data: 'FechaVencimiento' },
                     { data: 'TotalFactura' },
                     { data: 'TotalSaldo' },
+                    { data: 'SaldoFavor'},
                     { data: 'DocumentoId' }
                 ],
                 destroy: true,
@@ -332,6 +342,13 @@ $(document).ready(function() {
                     },
                     {
                         "targets": 7,
+                        "render": function(data, type, row) {
+                            value = formatcurrency(data)
+                            return "<div style='text-align: center'>" + value + "</div>";
+                        }
+                    },
+                    {
+                        "targets": 8,
                         "render": function(data, type, row) {
                             if (row.EstatusFacturacion == '1') {
                                 Folder = 'facturas';

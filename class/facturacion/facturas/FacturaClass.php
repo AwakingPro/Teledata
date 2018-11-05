@@ -1832,6 +1832,8 @@
                     $TotalSaldo = $factura['TotalSaldo'];
                     $TotalSaldo = $TotalFactura - $TotalSaldo;
                     $SaldoFavor = $factura['TotalSaldo'] - $TotalFactura;
+                    if($SaldoFavor < 0)
+                        $SaldoFavor = 0;
                     if($TotalSaldo < 0){
                         $TotalSaldo = 0;
                     }
