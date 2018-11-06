@@ -14,12 +14,13 @@
             $UF = $UfClass->getValue();
 
             $ToReturn = array();
-
+            // ROUND(( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0) AS Valor,
+                
             $query = "  SELECT
                             servicios.Id,
                             servicios.Rut,
                             servicios.Grupo,
-                            ROUND(( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0) AS Valor,
+                            ROUND(( servicios.CostoInstalacion  - ( ( servicios.CostoInstalacion  ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0) AS Valor,
                             servicios.EstatusFacturacion,
                             servicios.FechaFacturacion,
                             personaempresa.nombre AS Cliente,
