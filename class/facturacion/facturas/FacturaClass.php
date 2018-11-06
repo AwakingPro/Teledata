@@ -50,7 +50,8 @@
                     $data['Cliente'] = $servicio['Cliente'];        
                     $data['UrlPdfBsale'] = ''; 
                     $data['Tipo'] = 1;
-                    $data['Valor'] = $Valor;  
+                    // $data['Valor'] = $Valor;  
+                    $data['Valor'] = $servicio['Valor'];  
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $servicio['TipoDocumento']; 
                     $data['NombreGrupo'] = $servicio['NombreGrupo'];
@@ -270,19 +271,21 @@
 
             $UfClass = new Uf(); 
             $UF = $UfClass->getValue();
-
+            // ROUND((
+            //     servicios.CostoInstalacion * '".$UF."' - (
+            //         (
+            //             servicios.CostoInstalacion * '".$UF."'
+            //         ) * (
+            //             servicios.CostoInstalacionDescuento / 100
+            //         )
+            //     )
+            // ),0) AS Valor,
             $query = "  SELECT
                             servicios.Id,
                             servicios.Codigo,
                             ROUND((
-                                servicios.CostoInstalacion * '".$UF."' - (
-                                    (
-                                        servicios.CostoInstalacion * '".$UF."'
-                                    ) * (
-                                        servicios.CostoInstalacionDescuento / 100
-                                    )
-                                )
-                            ),0) AS Valor,
+                                servicios.CostoInstalacion  - 
+                                (( servicios.CostoInstalacion ) * (  servicios.CostoInstalacionDescuento / 100 ))), 0) AS Valor,
                             -- ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE servicios.Descripcion END ) AS Nombre,
                             ( CASE  WHEN facturas_detalle.Concepto IS NULL THEN servicios.Descripcion ELSE facturas_detalle.Concepto END ) AS Nombre,
                             mantenedor_tipo_factura.descripcion AS Descripcion
@@ -310,7 +313,8 @@
                     $Valor = $servicio['Valor'];
                     $IVA = $servicio['Valor'] * 0.19;
                     $Valor += round($IVA,0);
-                    $data['Valor'] = $Valor;
+                    // $data['Valor'] = $Valor;
+                    $data['Valor'] = $servicio['Valor'];
                     array_push($array,$data);
                 }
 
