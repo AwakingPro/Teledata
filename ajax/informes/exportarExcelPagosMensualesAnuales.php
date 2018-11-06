@@ -25,11 +25,12 @@ $objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('E1', 'Fecha Doc')
 	->setCellValue('F1', 'Monto')
 	->setCellValue('G1', 'Glosa')
-    ->setCellValue('H1', 'Monto Pagado')
-    ->setCellValue('I1', 'Fecha De Pago');
+    ->setCellValue('H1', 'Saldo a favor')
+    ->setCellValue('I1', 'Fecha De Pago')
+    ->setCellValue('J1', 'Nº Relación');
 
 
-foreach (range(0, 7) as $col) {
+foreach (range(0, 10) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 
@@ -79,14 +80,14 @@ $run = new Method;
             //     $query .= " AND facturas.NumeroDocumento = '".$NumeroDocumento."'";
             // }
             $facturas = $run->select($query);
-
+            $NumRelacion = ''; 
             if($facturas){
                 $index = 2;
-                $index2 = 0;
                 foreach($facturas as $factura){
                     $Id = $factura['Id'];
                     $IVA = $factura['IVA'];  
                     $EstatusFacturacion = $factura['EstatusFacturacion'];
+                    $FNumeroDocumento = $factura['NumeroDocumento'];
                     $TotalFactura = 0;
                    
                     $query = "SELECT Total, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
@@ -104,6 +105,9 @@ $run = new Method;
                     $SaldoFavor = $factura['TotalSaldo'] - $TotalFactura;
                     if($TotalSaldo < 0){
                         $TotalSaldo = 0;
+                    }
+                    if($SaldoFavor < 0){
+                        $SaldoFavor = 0;
                     }
                     $TotalSaldoFactura = $TotalSaldo;
                     if($EstatusFacturacion != 2){
@@ -131,6 +135,7 @@ $run = new Method;
                     $data['Detalle'] = $factura['Detalle'];
                     $data['Acciones'] = $Acciones;
                     $data['EstatusFacturacion'] = 1;
+                    $data['NumRelacion'] = $NumRelacion;
                     array_push($ToReturn,$data);
                     if($EstatusFacturacion == 2){
                         $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada FROM devoluciones WHERE FacturaId = '".$Id."'";
@@ -149,6 +154,7 @@ $run = new Method;
                             }else{
                                 $Acciones = 0;
                             }
+                            
                             $data = array();
                             $data['Id'] = $devolucion['Id'];
                             $data['DocumentoId'] = $Id;
@@ -164,6 +170,7 @@ $run = new Method;
                             $data['Detalle'] = $factura['Detalle'];
                             $data['Acciones'] = $Acciones;
                             $data['EstatusFacturacion'] = 2;
+                            $data['NumRelacion'] = $FNumeroDocumento;
                             array_push($ToReturn,$data);
                             if($DevolucionAnulada == 1){
                                 $DevolucionId = $devolucion['Id'];
@@ -184,6 +191,7 @@ $run = new Method;
                                     $data['UrlPdfBsale'] = $anulacion['UrlPdfBsale'];
                                     $data['TipoDocumento'] = 'Nota de debito';
                                     $data['EstatusFacturacion'] = 3;
+                                    $data['NumRelacion'] = $FNumeroDocumento;
                                     array_push($ToReturn,$data);
                                 }
                             }
@@ -202,12 +210,12 @@ $run = new Method;
                     ->setCellValue('F'.$index, $datos['TotalFactura'])
                     ->setCellValue('G'.$index, $datos['Detalle'])
                     ->setCellValue('H'.$index, $datos['SaldoFavor'])
-                    ->setCellValue('I'.$index, $datos['FechaVencimiento']);
-                    
+                    ->setCellValue('I'.$index, $datos['FechaVencimiento'])
+                    ->setCellValue('J'.$index, $datos['NumRelacion']);
+ 
                     // $Total += $data['TotalSaldo'];
             
                     $index++;
-                    $index2++;
                 }
                 // $objPHPExcel->setActiveSheetIndex(0)
                 // ->setCellValue('H'.$index, $Total);
