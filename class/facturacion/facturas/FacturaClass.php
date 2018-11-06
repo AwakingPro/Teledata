@@ -1246,17 +1246,15 @@
                     array_push($references,$reference);
                 }
             }
-            if($Detalle['FacturaId'] != 2993){
-                $tipo_pago = $Cliente['tipo_pago'];
-                $Explode = explode(' ',$tipo_pago);
-                if(ctype_digit($Explode[0])){
-                    $expirationDate = time() + (intval($Explode[0]) * 24 * 60 * 60);
-                }else{
-                    $expirationDate = time();
-                }
+            
+            $tipo_pago = $Cliente['tipo_pago'];
+            $Explode = explode(' ',$tipo_pago);
+            if(ctype_digit($Explode[0])){
+                $expirationDate = time() + (intval($Explode[0]) * 24 * 60 * 60);
             }else{
-                $expirationDate = 1539993600;
+                $expirationDate = time();
             }
+        
             
             //FACTURA
 
