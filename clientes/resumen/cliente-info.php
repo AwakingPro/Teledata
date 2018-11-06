@@ -19,12 +19,6 @@
             <div class="col-md-6">
             <label class="label-cliente">Teléfono Contacto</label>
                 <h5 class="info-cliente"><?php echo $lista[0][4]; ?></h5>
-            <!-- <label class="label-cliente">Fecha Instalación</label> -->
-                <?php
-                    // $FechaInstalacion = \DateTime::createFromFormat('Y-m-d',$factura[2])->format('d-m-Y');
-                ?>
-                <!-- <h5 class="info-cliente"><?php // echo $FechaInstalacion; ?></h5> -->
-            <label class="label-cliente">Posee PAC</label>
                 <?php
                     $pac = '';
                     if($lista[0][5] == 0)
@@ -32,8 +26,8 @@
                     else
                         $pac = 'Si';
                 ?>
-                <h5 class="info-cliente"><?php echo $pac; ?></h5>
-           
+            <label class="label-cliente"><b><?php echo $pac; ?> </b>Posee PAC </label>
+                
             </div>
         </div>
     </div>
