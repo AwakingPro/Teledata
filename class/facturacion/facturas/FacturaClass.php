@@ -1081,7 +1081,7 @@
             }
             $variables_globales = $run->select($query);
             $access_token = $variables_globales[0]['access_token'];
-            $clientId = null;
+            $clientId = '';
             /*
             if($Cliente['cliente_id_bsale']){
                 $clientId = $Cliente['cliente_id_bsale'];
@@ -1134,7 +1134,7 @@
                         $Ciudad = 'Puerto Varas';
                     }
 
-                    $clientId = null;
+                    $clientId = '';
                     $client = array(
                         "code"          => $Cliente['rut'].'-'.$Cliente['dv'],
                         "firstName"     => $Cliente['contacto'],
@@ -2141,12 +2141,14 @@
 
                     if($Detalles){
                         $Detalle = $Detalles[0];
+                        // print_r($Detalles); return;
                         $Rut = $Detalle['Rut'];
                         $Cliente = $this->getCliente($Rut);
                         if($Cliente){
                             $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
                                 $urlPdf = $FacturaBsale['urlPdf'];
+                                // print_r($urlPdf); return;
                                 $PdfContent = file_get_contents($urlPdf);
                                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                 file_put_contents($UrlLocal, $PdfContent);
