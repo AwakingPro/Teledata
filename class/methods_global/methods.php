@@ -464,10 +464,14 @@
 					if (isset($rows)) {
 						for ($i=0; $i < count($rows) ; $i++) {
 							$id = $rows[$i][0];
+							$rows[$i][4] = \DateTime::createFromFormat('Y-m-d', $rows[$i][4])->format('d-m-Y');
 							$tabla.= '<tr>';
 							foreach ($rows[$i] as $clave => $valor) {
+								
 								if($clave != 0){
 									$tabla.="<td>".$valor."</td>";
+									
+									
 								}
 								// if($clave == 3){
 								// 	$explode = explode('.',$valor);

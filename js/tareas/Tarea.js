@@ -313,9 +313,8 @@ $(document).ready(function() {
     $('#AsignarModal').click(function() {
 
         Tareas = getChecked();
-        console.log('1'+Tareas);
         Tareas = Tareas.join();
-        console.log('2'+Tareas);
+        
         $('#Tareas').val(Tareas);
 
         $('#modalAsignar').modal('show');
