@@ -23,11 +23,12 @@ $objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('C1', 'Documento')
 	->setCellValue('D1', 'Nº Doc')
 	->setCellValue('E1', 'Fecha Doc')
-	->setCellValue('F1', 'Monto')
-	->setCellValue('G1', 'Glosa')
+	->setCellValue('F1', 'Total Doc')
+	->setCellValue('G1', 'Saldo Doc')
     ->setCellValue('H1', 'Saldo a favor')
-    ->setCellValue('I1', 'Fecha De Pago')
-    ->setCellValue('J1', 'Nº Relación');
+    ->setCellValue('I1', 'Fecha Vencimiento')
+    ->setCellValue('J1', 'Glosa')
+    ->setCellValue('K1', 'Nº Relación');
 
 
 foreach (range(0, 10) as $col) {
@@ -56,11 +57,13 @@ $run = new Method;
                 facturas.IVA,
                 facturas.EstatusFacturacion,
                 IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalSaldo,
-                ( SELECT Detalle FROM facturas_pagos WHERE FacturaId = facturas.Id ) AS Detalle 
+                facturas_pagos.Detalle as Detalle 
+                -- ( SELECT Detalle FROM facturas_pagos WHERE FacturaId = facturas.Id ) AS Detalle 
             FROM
                 facturas
                 INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id
                 INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
+                LEFT JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
             WHERE
                 facturas.EstatusFacturacion != '0' ";
             if($startDate){
@@ -73,6 +76,9 @@ $run = new Method;
             if($Rut){
                 $query .= " AND facturas.Rut = '".$Rut."'";
             }
+
+            $query .= " ORDER BY Cliente";
+           
             // if($documentType){
             //     $query .= " AND facturas.TipoDocumento = '".$documentType."'";
             // }
@@ -125,6 +131,7 @@ $run = new Method;
                     $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
                     $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
                     $data['TotalFactura'] = $TotalFactura;
+                    //total saldo es el pago total
                     $data['TotalSaldo'] = $TotalSaldo;
                     $data['SaldoFavor'] = $SaldoFavor;
                     $data['UrlPdfBsale'] = $factura['UrlPdfBsale'];
@@ -208,11 +215,11 @@ $run = new Method;
                     ->setCellValue('D'.$index, $datos['NumeroDocumento'])
                     ->setCellValue('E'.$index, $datos['FechaFacturacion'])
                     ->setCellValue('F'.$index, $datos['TotalFactura'])
-                    ->setCellValue('G'.$index, $datos['Detalle'])
+                    ->setCellValue('G'.$index, $datos['TotalSaldo'])
                     ->setCellValue('H'.$index, $datos['SaldoFavor'])
                     ->setCellValue('I'.$index, $datos['FechaVencimiento'])
-                    ->setCellValue('J'.$index, $datos['NumRelacion']);
- 
+                    ->setCellValue('J'.$index, $datos['Detalle'])
+                    ->setCellValue('K'.$index, $datos['NumRelacion']);
                     // $Total += $data['TotalSaldo'];
             
                     $index++;
