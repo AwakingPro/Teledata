@@ -6,7 +6,7 @@
 
     class Factura{
         function __construct () {
-			$run = new Method;
+			
         }
     	public function showInstalaciones(){  
             $run = new Method;
@@ -1073,6 +1073,7 @@
         }
 
         public function sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,$TipoToken){
+            
             $run = new Method;
             if($TipoToken == 1){
                 $query = "SELECT token_produccion as access_token FROM variables_globales";
@@ -1081,7 +1082,7 @@
             }
             $variables_globales = $run->select($query);
             $access_token = $variables_globales[0]['access_token'];
-            $clientId = '';
+            $clientId = null;
             /*
             if($Cliente['cliente_id_bsale']){
                 $clientId = $Cliente['cliente_id_bsale'];
@@ -1134,7 +1135,7 @@
                         $Ciudad = 'Puerto Varas';
                     }
 
-                    $clientId = '';
+                    $clientId = null;
                     $client = array(
                         "code"          => $Cliente['rut'].'-'.$Cliente['dv'],
                         "firstName"     => $Cliente['contacto'],
@@ -1287,6 +1288,7 @@
                 "details"           => $details,
                 "payments"          => $payments
             );
+            
             if(isset($references)){
                 $array['references'] = $references;
             }
@@ -2098,7 +2100,6 @@
             return $update;
         }
         public function showPrefactura($RutId, $Grupo, $Tipo){
-
             if(in_array  ('curl', get_loaded_extensions())) {
 
                 $response_array = array();
@@ -2138,8 +2139,9 @@
                     $Detalles = $run->select($query);
                     $UfClass = new Uf(); 
                     $UF = $UfClass->getValue();
-
+                    
                     if($Detalles){
+                        
                         $Detalle = $Detalles[0];
                         // print_r($Detalles); return;
                         $Rut = $Detalle['Rut'];
@@ -2148,7 +2150,6 @@
                             $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
                                 $urlPdf = $FacturaBsale['urlPdf'];
-                                // print_r($urlPdf); return;
                                 $PdfContent = file_get_contents($urlPdf);
                                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                 file_put_contents($UrlLocal, $PdfContent);
@@ -2176,6 +2177,7 @@
             }
             return $response_array;
         }
+
         public function storeDevolucion($Id, $Motivo){
 
             if(in_array  ('curl', get_loaded_extensions())) {

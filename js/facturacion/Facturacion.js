@@ -735,7 +735,7 @@ $(document).ready(function() {
         var ObjectRutId = ObjectTR.attr("rutid");
         var ObjectGroup = ObjectTR.attr("grupo");
         var ObjectType = ObjectTR.attr("tipo");
-
+       
         swal({
             title: "Deseas visualizar como quedara la factura?",
             text: "Confirmar visualización!",
@@ -756,6 +756,7 @@ $(document).ready(function() {
 
                         if (response.status == 1) {
                             url = "prefacturas/" + response.NombrePdf + ".pdf";
+                            console.log(url);
                             window.open(url, '_blank');
                             swal.close();
 
