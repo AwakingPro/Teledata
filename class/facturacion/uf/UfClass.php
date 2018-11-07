@@ -2,7 +2,7 @@
 class Uf {
 
     public function getValue() {
-        $apiUrl = 'https://mindicador.cl/api/uf/'.date('1-m-Y');
+        $apiUrl = 'https://mindicador.cl/api/uf/'.date('d-m-Y');
         //Es necesario tener habilitada la directiva allow_url_fopen para usar file_get_contents
         if ( ini_get('allow_url_fopen') ) {
             $arrContextOptions=array(
