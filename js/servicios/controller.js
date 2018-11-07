@@ -45,9 +45,9 @@ $(document).ready(function() {
         }
     });
 
-    // $('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
-    // 	$('select[name="TipoFactura"]').selectpicker('refresh');
-    // });
+    $('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
+    	$('select[name="TipoFactura"]').selectpicker('refresh');
+    });
     $('select[name="TipoServicio"]').load('../ajax/servicios/selectTipoServicio.php', function() {
         $('select[name="TipoServicio"]').selectpicker('refresh');
     });
@@ -312,16 +312,16 @@ $(document).ready(function() {
     $('#CostoInstalacion').on('change', function() {
         // CostoInstalacion = $(this).val();
         $('#CostoInstalacionPesos').text(formatcurrency(calcularDetalleTmp()));
-        $('#CostoInstalacionIva').val(calcularDetalleTmp());
+        $('#CostoInstalacionIva').val($('#CostoInstalacion').val());
     });
 
     $('#moneda').on('change', function() {
         $('#CostoInstalacionPesos').text(formatcurrency(calcularDetalleTmp()));
-        $('#CostoInstalacionIva').val(calcularDetalleTmp());
+        $('#CostoInstalacionIva').val($('#CostoInstalacion').val());
     });
 
     function calcularDetalleTmp() {
-        var calculaIva = 0;
+        calculaIva = 0;
         CostoInstalacionPesos = $('#CostoInstalacion').val();
         if (CostoInstalacionPesos) {
             CostoInstalacionPesos = CostoInstalacionPesos.replace(',00', '')

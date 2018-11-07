@@ -20,7 +20,9 @@
                             servicios.Id,
                             servicios.Rut,
                             servicios.Grupo,
-                            ROUND(( servicios.CostoInstalacion  - ( ( servicios.CostoInstalacion  ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0) AS Valor,
+                            ( CASE servicios.tipo_moneda WHEN 2 THEN ROUND(( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0)
+                            ELSE ROUND(( servicios.CostoInstalacion  - ( ( servicios.CostoInstalacion  ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0) END ) AS Valor,
+                            -- ROUND(( servicios.CostoInstalacion  - ( ( servicios.CostoInstalacion  ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0) AS Valor,
                             servicios.EstatusFacturacion,
                             servicios.FechaFacturacion,
                             personaempresa.nombre AS Cliente,
@@ -283,9 +285,11 @@
             $query = "  SELECT
                             servicios.Id,
                             servicios.Codigo,
-                            ROUND((
-                                servicios.CostoInstalacion  - 
-                                (( servicios.CostoInstalacion ) * (  servicios.CostoInstalacionDescuento / 100 ))), 0) AS Valor,
+                            ( CASE servicios.tipo_moneda WHEN 2 THEN ROUND(( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0)
+                            ELSE ROUND(( servicios.CostoInstalacion  - ( ( servicios.CostoInstalacion  ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0) END ) AS Valor,
+                            -- ROUND((
+                            --     servicios.CostoInstalacion  - 
+                            --     (( servicios.CostoInstalacion ) * (  servicios.CostoInstalacionDescuento / 100 ))), 0) AS Valor,
                             -- ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE servicios.Descripcion END ) AS Nombre,
                             ( CASE  WHEN facturas_detalle.Concepto IS NULL THEN servicios.Descripcion ELSE facturas_detalle.Concepto END ) AS Nombre,
                             mantenedor_tipo_factura.descripcion AS Descripcion
@@ -1178,7 +1182,7 @@
 
             $details = array();
             $Total = 0;
-
+            
             foreach($Detalles as $Detalle){
                 $Valor = floatval($Detalle['Valor']);
                 $Concepto = $Detalle["Concepto"];
@@ -1211,7 +1215,10 @@
                         $Concat = '';
                     }
                     $Concepto .= $Concat;
+                    if($Detalle["tipo_moneda"] == '2')
                     $Valor = $Valor * $UF;
+                    else
+                    $Valor = $Valor;
                 }
 
                 $detail = array("netUnitValue" => $Valor, "quantity" => $Cantidad, "taxId" => "[1]", "comment" => $Concepto, "discount" => $Descuento);
@@ -2099,6 +2106,7 @@
             $update = $run->update($query);
             return $update;
         }
+
         public function showPrefactura($RutId, $Grupo, $Tipo){
             if(in_array  ('curl', get_loaded_extensions())) {
 
@@ -2143,13 +2151,14 @@
                     if($Detalles){
                         
                         $Detalle = $Detalles[0];
-                        // print_r($Detalles); return;
+                        // print_r($Detalles); exit;
                         $Rut = $Detalle['Rut'];
                         $Cliente = $this->getCliente($Rut);
                         if($Cliente){
                             $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
                                 $urlPdf = $FacturaBsale['urlPdf'];
+                                // print_r($urlPdf); exit;
                                 $PdfContent = file_get_contents($urlPdf);
                                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                 file_put_contents($UrlLocal, $PdfContent);
