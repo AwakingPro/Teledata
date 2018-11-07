@@ -1971,19 +1971,14 @@
 
             return $ToReturn;
         }
-        public function storePago($FacturaId,$FechaPago,$TipoPago,$Detalle,$Monto,$FechaEmisionCheque,$FechaVencimientoCheque){
+        public function storePago($FacturaId,$FechaPago,$TipoPago,$Monto,$FechaEmisionCheque,$FechaVencimientoCheque){
             $response_array = array();
             
-            $Detalle = '';
-            if(!isset($_POST['Detalle']))
-            $Detalle = '';
-            else
-            $Detalle = $_POST['Detalle'];
 
             $FacturaId = $_POST['FacturaId'];
             $FechaPago = $_POST['FechaPago'];
             $TipoPago = $_POST['TipoPago'];
-            $Detalle = $Detalle;
+            
             $Monto = $_POST['Monto'];
             $FechaEmisionCheque = $_POST['FechaEmisionCheque'];
             $FechaVencimientoCheque = $_POST['FechaVencimientoCheque'];
@@ -1992,7 +1987,7 @@
             $FacturaId = isset($FacturaId) ? trim($FacturaId) : "";
             $FechaPago = isset($FechaPago) ? trim($FechaPago) : "";
             $TipoPago = isset($TipoPago) ? trim($TipoPago) : "";
-            $Detalle = isset($Detalle) ? trim($Detalle) : "";
+            
             $Monto = isset($Monto) ? trim($Monto) : "";
             $FechaEmisionCheque = isset($FechaEmisionCheque) ? trim($FechaEmisionCheque) : "";
             $FechaVencimientoCheque = isset($FechaVencimientoCheque) ? trim($FechaVencimientoCheque) : "";
@@ -2012,7 +2007,7 @@
                 }
                 $array = array();
 
-                $query = "INSERT INTO facturas_pagos(FacturaId, FechaPago, TipoPago, Detalle, Monto, FechaEmisionCheque, FechaVencimientoCheque, IdUsuarioSession) VALUES ('".$FacturaId."','".$FechaPago."','".$TipoPago."','".$Detalle."','".$Monto."','".$FechaEmisionCheque."','".$FechaVencimientoCheque."','".$idUsuario."')";
+                $query = "INSERT INTO facturas_pagos(FacturaId, FechaPago, TipoPago, Detalle, Monto, FechaEmisionCheque, FechaVencimientoCheque, IdUsuarioSession) VALUES ('".$FacturaId."','".$FechaPago."','".$TipoPago."','','".$Monto."','".$FechaEmisionCheque."','".$FechaVencimientoCheque."','".$idUsuario."')";
                 $run = new Method;
                 $id = $run->insert($query);
 
@@ -2158,9 +2153,11 @@
                             $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
                                 $urlPdf = $FacturaBsale['urlPdf'];
-                                // print_r($urlPdf); exit;
+                                
                                 $PdfContent = file_get_contents($urlPdf);
+                                
                                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
+                                // print_r($PdfContent); exit;
                                 file_put_contents($UrlLocal, $PdfContent);
                                 $response_array['NombrePdf'] = $NombrePdf;
                                 $response_array['status'] = 1;
