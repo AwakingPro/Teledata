@@ -86,7 +86,7 @@ $(document).ready(function() {
     $('[name="CostoInstalacion"]').number(true, 2, ',', '.');
     $('[name="CostoInstalacionDescuento"]').mask('00');
     
-    $('#CostoInstalacionPesos').number(true, 2, '.', '.');
+    $('#CostoInstalacionPesos').number(true, 2, '.', ',');
     
 
     function getServicios() {
@@ -307,7 +307,7 @@ $(document).ready(function() {
         }
     });
 
-    iva_global = 0.19;
+    iva_global = 1.19;
 
     $('#CostoInstalacion').on('change', function() {
         // CostoInstalacion = $(this).val();
@@ -316,6 +316,7 @@ $(document).ready(function() {
     });
 
     $('#moneda').on('change', function() {
+        
         $('#CostoInstalacionPesos').text(formatcurrency(calcularDetalleTmp()));
         $('#CostoInstalacionIva').val($('#CostoInstalacion').val());
     });
@@ -333,9 +334,11 @@ $(document).ready(function() {
         var moneda = $('#moneda').val();
         if (moneda == 2) {    
             CostoInstalacionPesos = CostoInstalacionPesos * ValorUF;
-            }
-        calculaIva = CostoInstalacionPesos * iva_global;
-        CostoInstalacionPesos = CostoInstalacionPesos + calculaIva;
+        }else{
+            calculaIva = CostoInstalacionPesos * iva_global;
+            CostoInstalacionPesos = calculaIva;
+        }
+        
         return CostoInstalacionPesos;
     }
     function formatcurrency(n) {
