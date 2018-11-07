@@ -6,7 +6,7 @@
 
     class Factura{
         function __construct () {
-			
+			$run = new Method;
         }
     	public function showInstalaciones(){  
             $run = new Method;
@@ -2007,10 +2007,9 @@
                 }
                 $array = array();
 
-                $query = "INSERT INTO facturas_pagos(FacturaId, FechaPago, TipoPago, Detalle, Monto, FechaEmisionCheque, FechaVencimientoCheque, IdUsuarioSession) VALUES ('".$FacturaId."','".$FechaPago."','".$TipoPago."','','".$Monto."','".$FechaEmisionCheque."','".$FechaVencimientoCheque."','".$idUsuario."')";
+                $query = "INSERT INTO facturas_pagos(FacturaId, FechaPago, TipoPago, Monto, FechaEmisionCheque, FechaVencimientoCheque, IdUsuarioSession) VALUES ('".$FacturaId."','".$FechaPago."','".$TipoPago."','".$Monto."','".$FechaEmisionCheque."','".$FechaVencimientoCheque."','".$idUsuario."')";
                 $run = new Method;
                 $id = $run->insert($query);
-
                 if($id){
                     $ToReturn = 1; 
                 }else{
