@@ -23,7 +23,7 @@ $objPHPExcel->setActiveSheetIndex(0)
 ->setCellValue('D1', 'Teléfono')
 ->setCellValue('E1', 'Tipo de Cliente')
 ->setCellValue('F1', 'Fecha de Instalacion')
-->setCellValue('G1', 'Estado De Cliente');
+->setCellValue('G1', 'Estado Del Servicio');
 
 foreach (range(0, 33) as $col) {
         $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -72,7 +72,6 @@ if(isset($_GET['startDate']) && $_GET['startDate'] != '' && isset($_GET['endDate
 
 
 $query .= " ORDER BY p.nombre ";
-
 
 $run = new Method;
 $data = $run->select($query);

@@ -2152,11 +2152,8 @@
                             $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
                                 $urlPdf = $FacturaBsale['urlPdf'];
-                                
                                 $PdfContent = file_get_contents($urlPdf);
-                                
                                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
-                                // print_r($PdfContent); exit;
                                 file_put_contents($UrlLocal, $PdfContent);
                                 $response_array['NombrePdf'] = $NombrePdf;
                                 $response_array['status'] = 1;
