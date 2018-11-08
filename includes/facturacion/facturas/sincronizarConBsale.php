@@ -4,7 +4,5 @@
 
 	$Factura = new Factura();
 	$generar = $Factura->sincronizarConBsale();
-
-	echo $generar;
 	
 ?>
