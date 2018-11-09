@@ -1320,6 +1320,7 @@
 
             //Esto es sólo para poder visualizar lo que se está retornando
             $FacturaBsale = json_decode($response, true);
+            // print_r($FacturaBsale); exit;
             $UrlPdf = isset($FacturaBsale['urlPublicViewOriginal']) ? trim($FacturaBsale['urlPublicViewOriginal']) : "";
             if($UrlPdf){
                 $FacturaBsale['status'] = 1;
@@ -2149,7 +2150,7 @@
                         $Rut = $Detalle['Rut'];
                         $Cliente = $this->getCliente($Rut);
                         if($Cliente){
-                            $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,1);
+                            $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
                                 $urlPdf = $FacturaBsale['urlPdf'];
                                 $PdfContent = file_get_contents($urlPdf);
