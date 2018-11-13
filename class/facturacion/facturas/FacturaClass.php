@@ -2153,6 +2153,7 @@
                                 AND servicios.CostoInstalacion > 0";
                     $NombrePdf = $RutId.'_'.'2';
                 }
+                $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                 if(!file_exists("/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf") || $Tipo == 2){
                     $run = new Method;
                     $Detalles = $run->select($query);
@@ -2172,10 +2173,8 @@
                                 $urlPdf = $FacturaBsale['urlPdf'];
                                 $PdfContent = file_get_contents($urlPdf);
                                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
-                                // envia correos de prueba con la factura
-                                // el $RutId es la facturas.id
-                                //esto envia correo con la prefactura para ver como se enviaran los correos
-                                $this->enviarDocumentoPrefactura($RutId,  $UrlLocal);    
+                                
+                                
                                 // aqui
                                 // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                 file_put_contents($UrlLocal, $PdfContent);
@@ -2201,6 +2200,10 @@
                 $response_array['Message'] = 'Error curl';
                 $response_array['status'] = 99;
             }
+            // envia correos de prueba con la factura
+            // el $RutId es la facturas.id
+            //esto envia correo con la prefactura para ver como se enviaran los correos
+            $this->enviarDocumentoPrefactura($RutId,  $UrlLocal);
             return $response_array;
         }
 
