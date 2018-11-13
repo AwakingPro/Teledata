@@ -2153,7 +2153,14 @@
                                 AND servicios.CostoInstalacion > 0";
                     $NombrePdf = $RutId.'_'.'2';
                 }
+
                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
+                $run = new Method;
+                $Detalles = $run->select($query);        
+                if($Detalles){
+                    $Detalle = $Detalles[0];
+                    $Rut = $Detalle['Rut'];
+                }
                 if(!file_exists("/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf") || $Tipo == 2){
                     $run = new Method;
                     $Detalles = $run->select($query);
@@ -2203,7 +2210,7 @@
             // envia correos de prueba con la factura
             // el $RutId es la facturas.id
             //esto envia correo con la prefactura para ver como se enviaran los correos
-            $this->enviarDocumentoPrefactura($RutId,  $UrlLocal);
+            echo $this->enviarDocumentoPrefactura($Rut,  $UrlLocal);
             return $response_array;
         }
 
@@ -3060,7 +3067,7 @@
             return $ToReturn;
         }
 
-        public function enviarDocumentoPrefactura($Id, $UrlLocal){
+        public function enviarDocumentoPrefactura($Rut, $UrlLocal){
             $run = new Method;
             $query = "  SELECT
                             p.nombre,
@@ -3072,7 +3079,7 @@
                             INNER JOIN facturas d ON p.Rut = d.Rut
                             -- INNER JOIN contactos c ON c.rut = p.rut 
                         WHERE
-                            d.Id = '".$Id."'
+                            d.Rut = '".$Rut."'
                         GROUP BY
                             p.rut";
             $Documento = $run->select($query);
