@@ -489,7 +489,7 @@
                                 //aqui
                                 $this->almacenarDocumento($FacturaId,1,$UrlPdf);
                                 //envia correos 
-                                $this->enviarDocumento($FacturaId);       
+                                $this->enviarDocumento($FacturaId);
                                 
                                 
                             }
@@ -667,9 +667,9 @@
 
                                 if($FacturaId){
                                     if($UrlPdf){      
-                                        //aqui2                  
+                                        //aqui2
                                         $this->almacenarDocumento($FacturaId,1,$UrlPdf);
-                                        $this->enviarDocumento($FacturaId);
+                                        $this->enviarDocumento($FacturaId); 
                                     }
                                     foreach($Detalles as $Detalle){
                                         $Codigo = $Detalle['Codigo'];
@@ -2207,8 +2207,6 @@
                 $response_array['Message'] = 'Error curl';
                 $response_array['status'] = 99;
             }
-            // envia correos de prueba con la factura
-            // el $RutId es la facturas.id
             //esto envia correo con la prefactura para ver como se enviaran los correos
             $this->enviarDocumentoPrefactura($Rut,  $UrlLocal);
             return $response_array;
@@ -3003,8 +3001,7 @@
             $run = new Method;
             $query = "  SELECT
                             p.nombre,
-                            CONCAT(p.correo,',', GROUP_CONCAT(c.correo )) as correos,
-                            -- GROUP_CONCAT( c.correo ) as correos,
+                            CONCAT(p.correo,'daniel30081990@gmail.com, teledatadte@teledata.cl,', GROUP_CONCAT(c.correo )) as correos,
                             d.NumeroDocumento,
                             d.TipoDocumento 
                         FROM
