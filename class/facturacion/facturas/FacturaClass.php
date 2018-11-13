@@ -3069,31 +3069,34 @@
 
         public function enviarDocumentoPrefactura($Rut, $UrlLocal){
             $run = new Method;
-            $query = "  SELECT
-                            p.nombre,
-                            -- CONCAT(p.correo,',', GROUP_CONCAT(c.correo )) as correos,
-                            d.NumeroDocumento,
-                            d.TipoDocumento 
-                        FROM
-                            personaempresa p
-                            INNER JOIN facturas d ON p.Rut = d.Rut
-                            -- INNER JOIN contactos c ON c.rut = p.rut 
-                        WHERE
-                            d.Rut = '".$Rut."'
-                        GROUP BY
-                            p.rut";
-            $Documento = $run->select($query);
-            if($Documento){
-                $Documento = $Documento[0];
-                $Nombre = $Documento['nombre'];
-                $Correos = 'daniel30081990@gmail.com';
-                $NumeroDocumento = $Documento['NumeroDocumento'];
+            // $query = "  SELECT
+            //                 p.nombre,
+            //                 -- CONCAT(p.correo,',', GROUP_CONCAT(c.correo )) as correos,
+            //                 d.NumeroDocumento,
+            //                 d.TipoDocumento 
+            //             FROM
+            //                 personaempresa p
+            //                 INNER JOIN facturas d ON p.Rut = d.Rut
+            //                 -- INNER JOIN contactos c ON c.rut = p.rut 
+            //             WHERE
+            //                 d.Rut = '".$Rut."'
+            //             GROUP BY
+            //                 p.rut";
+            // $Documento = $run->select($query);
+            $Documento = '';
+            if($Documento == ''){
+                // $Documento = $Documento[0];
+                // $Nombre = $Documento['nombre'];
+                $Nombre = 'Prueba';
+                $Correos = 'daniel30081990@gmail.com, teledatadte@teledata.cl';
+                $NumeroDocumento = 'Num Prueba';
+                // $NumeroDocumento = $Documento['NumeroDocumento'];
 
-                if($Documento['TipoDocumento'] == 1){
-                    $TipoDocumento = 'Boleta';
-                }else{
-                    $TipoDocumento = 'Factura';
-                }
+                // if($Documento['TipoDocumento'] == 1){
+                //     $TipoDocumento = 'Boleta';
+                // }else{
+                //     $TipoDocumento = 'Factura';
+                // }
                 $Asunto = $TipoDocumento . ' #' . $NumeroDocumento . ' Teledata';
 
                 $Html =
