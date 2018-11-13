@@ -445,19 +445,20 @@
                 $Detalles = $run->select($query);
                 $UfClass = new Uf(); 
                 $UF = $UfClass->getValue();
-
+                // $Detalles trae los datos de la tabla servicos asociados al servicios.Id
                 if($Detalles){
 
                     $Detalle = $Detalles[0];
                     $Rut = $Detalle['Rut'];
                     $NumeroOC = $Detalle['NumeroOC'];
                     $FechaOC = $Detalle['FechaOC'];
-
+                    // $Cliente trae los datos de la tabla personaempresa asociados al personaempresa.rut
                     $Cliente = $this->getCliente($Rut);
 
                     if($Cliente){
 
                         $TipoDocumento = $Cliente['tipo_cliente'];
+                        //aqui el parametro 2 es para pueba con la API
                         $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,1);
 
                         if($FacturaBsale['status'] == 1){
@@ -484,9 +485,13 @@
                         $FacturaId = $run->insert($query);
 
                         if($FacturaId){
-                            if($UrlPdf){                        
+                            if($UrlPdf){
+                                //aqui
                                 $this->almacenarDocumento($FacturaId,1,$UrlPdf);
-                                $this->enviarDocumento($FacturaId);
+                                //envia correos 
+                                $this->enviarDocumento($FacturaId);       
+                                
+                                
                             }
                             foreach($Detalles as $Detalle){
                                 $Codigo = $Detalle['Codigo'];
@@ -503,7 +508,10 @@
                                     if($Detalle['Conexion']){
                                         $Concepto .= ' - ' . $Detalle['Conexion'];
                                     }
+                                    if($Detalle["tipo_moneda"] == '2')
                                     $Valor = $Valor * $UF;
+                                    else
+                                    $Valor = $Valor;
                                 }
                                 $Descuento = $Detalle['Descuento'];
                                 // if($Descuento > 0){
@@ -631,6 +639,7 @@
                             if($Cliente){
 
                                 $TipoDocumento = $Cliente['tipo_cliente'];
+                                //aqui2
                                 $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,2,1);
 
                                 if($FacturaBsale['status'] == 1){
@@ -657,7 +666,8 @@
                                 $FacturaId = $run->insert($query);
 
                                 if($FacturaId){
-                                    if($UrlPdf){                        
+                                    if($UrlPdf){      
+                                        //aqui2                  
                                         $this->almacenarDocumento($FacturaId,1,$UrlPdf);
                                         $this->enviarDocumento($FacturaId);
                                     }
@@ -671,6 +681,11 @@
                                             $Concepto .= ' - ' . $Descuento.'% Descuento';
                                         }
                                         $Cantidad = 1;
+                                        //aqui2
+                                        if($Detalle["tipo_moneda"] == '2')
+                                        $Valor = $Valor * $UF;
+                                        else
+                                        $Valor = $Valor;
                                         $Neto = $Valor * $Cantidad;
                                         $DescuentoValor = $Neto * ( $Descuento / 100 );
                                         $Neto -= $DescuentoValor;
@@ -1320,7 +1335,7 @@
 
             //Esto es sólo para poder visualizar lo que se está retornando
             $FacturaBsale = json_decode($response, true);
-            // print_r($FacturaBsale); exit;
+            
             $UrlPdf = isset($FacturaBsale['urlPublicViewOriginal']) ? trim($FacturaBsale['urlPublicViewOriginal']) : "";
             if($UrlPdf){
                 $FacturaBsale['status'] = 1;
@@ -1330,6 +1345,7 @@
                 $FacturaBsale['Message'] = $Message;
                 $FacturaBsale['status'] = 0;
             }
+            // print_r($FacturaBsale); exit;
             return $FacturaBsale;
         }
 
@@ -2155,6 +2171,8 @@
                                 $urlPdf = $FacturaBsale['urlPdf'];
                                 $PdfContent = file_get_contents($urlPdf);
                                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
+                                // aqui
+                                // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                 file_put_contents($UrlLocal, $PdfContent);
                                 $response_array['NombrePdf'] = $NombrePdf;
                                 $response_array['status'] = 1;
@@ -2914,6 +2932,8 @@
                 $Folder = 'notas_debito';
             }
             $UrlLocal = "/var/www/html/Teledata/facturacion/".$Folder."/".$DocumentoId.".pdf";    
+            //aqui url de prueba
+            // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/".$Folder."/".$DocumentoId.".pdf";   
             // $finfo = finfo_open(FILEINFO_MIME_TYPE);
             // OR finfo_file($finfo, $UrlLocal) != 'application/pdf'
             if(!file_exists($UrlLocal)){
@@ -2968,7 +2988,8 @@
             $run = new Method;
             $query = "  SELECT
                             p.nombre,
-                            GROUP_CONCAT( c.correo ) as correos,
+                            CONCAT(p.correo,',', GROUP_CONCAT(c.correo )) as correos,
+                            -- GROUP_CONCAT( c.correo ) as correos,
                             d.NumeroDocumento,
                             d.TipoDocumento 
                         FROM
@@ -2977,7 +2998,7 @@
                             INNER JOIN contactos c ON c.rut = p.rut 
                         WHERE
                             d.Id = '".$Id."' 
-                            AND c.tipo_contacto = 2 
+                            -- AND c.tipo_contacto = 2 
                         GROUP BY
                             p.rut";
             $Documento = $run->select($query);
@@ -3012,7 +3033,9 @@
                     </body>
                 </html>";
                 
-                $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$Id.".pdf";    
+                $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$Id.".pdf";
+                //aqui url de prueba  
+                // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/facturas/".$Id.".pdf";  
                 if(file_exists($UrlLocal)){
                     $Archivos = array();
                     $Archivo = array('url' => $UrlLocal, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');

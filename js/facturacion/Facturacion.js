@@ -139,11 +139,11 @@ $(document).ready(function() {
                         {
                             "targets": 5,
                             "render": function(data, type, row) {
-                                Icono = '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
-                                Icono += '<i title="Detalles servicio" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarInstalacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
-                                Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                                Icono = '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar"  data-container="body"></i>'
+                                Icono += '<i title="Detalles servicio" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarInstalacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar"  data-container="body"></i>'
+                                Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar"  data-container="body"></i>'
                                 if(IdUsuarioSession == 104){
-                                    Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar" title="" data-container="body"></i>'
+                                    Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>'
                                 }
                                 return "<div style='text-align: center'>" + Icono + "</div>";
                             }
@@ -359,7 +359,7 @@ $(document).ready(function() {
         var ObjectRutId = ObjectTR.attr("rutid");
         var ObjectGroup = ObjectTR.attr("grupo");
         var ObjectType = ObjectTR.attr("tipo");
-        // console.log('Rut'+ObjectRutId+' Grupo'+ObjectGroup+' Tipo'+ObjectType);
+        console.log('Rut'+ObjectRutId+' Grupo'+ObjectGroup+' Tipo'+ObjectType);
         swal({
             title: "Deseas facturar este registro?",
             text: "Confirmar facturación!",
@@ -590,7 +590,7 @@ $(document).ready(function() {
     $('body').on('click', '#Facturar', function() {
 
         Facturas = getChecked();
-
+        // console.log(Facturas); return;
         swal({
             title: "Deseas facturar este registro?",
             text: "Confirmar facturación!",

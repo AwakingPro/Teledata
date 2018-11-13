@@ -45,9 +45,9 @@ $(document).ready(function() {
         }
     });
 
-    $('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
-    	$('select[name="TipoFactura"]').selectpicker('refresh');
-    });
+    // $('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
+    // 	$('select[name="TipoFactura"]').selectpicker('refresh');
+    // });
     $('select[name="TipoServicio"]').load('../ajax/servicios/selectTipoServicio.php', function() {
         $('select[name="TipoServicio"]').selectpicker('refresh');
     });
@@ -523,10 +523,11 @@ $(document).ready(function() {
     });
 
     function getCliente(Rut) {
+        console.log(Rut);
         $('#Rut').val(Rut);
         setTimeout(() => {
-            $('#Rut').selectpicker('refresh')
-            if (Rut != '') {
+            $('#Rut').selectpicker('refresh');
+            if(Rut != '') {
                 getServicios();
             }
         }, 1000); 

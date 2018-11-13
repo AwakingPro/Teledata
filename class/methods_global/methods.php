@@ -464,7 +464,9 @@
 					if (isset($rows)) {
 						for ($i=0; $i < count($rows) ; $i++) {
 							$id = $rows[$i][0];
-							$rows[$i][4] = \DateTime::createFromFormat('Y-m-d', $rows[$i][4])->format('d-m-Y');
+							// if($tipo == 1){
+							// 	$rows[$i][4] = \DateTime::createFromFormat('Y-m-d', $rows[$i][4])->format('d-m-Y');
+							// }
 							$tabla.= '<tr>';
 							foreach ($rows[$i] as $clave => $valor) {
 								
