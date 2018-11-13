@@ -2166,11 +2166,16 @@
                         $Rut = $Detalle['Rut'];
                         $Cliente = $this->getCliente($Rut);
                         if($Cliente){
+                            // el parametro 2 en sendFacturaBsale es para la API de prueba
                             $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
                                 $urlPdf = $FacturaBsale['urlPdf'];
                                 $PdfContent = file_get_contents($urlPdf);
                                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
+                                // envia correos de prueba con la factura
+                                // el $RutId es la facturas.id
+                                //esto envia correo con la prefactura para ver como se enviaran los correos
+                                $this->enviarDocumentoPrefactura($RutId,  $UrlLocal);    
                                 // aqui
                                 // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                 file_put_contents($UrlLocal, $PdfContent);
@@ -3034,6 +3039,73 @@
                 </html>";
                 
                 $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$Id.".pdf";
+                //aqui url de prueba  
+                // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/facturas/".$Id.".pdf";  
+                if(file_exists($UrlLocal)){
+                    $Archivos = array();
+                    $Archivo = array('url' => $UrlLocal, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');
+                    array_push($Archivos,$Archivo);
+                    $Email = new Email();
+                    // $Archivos = array();
+                    $ToReturn = $Email->SendMail($Html,$Asunto,$Correos,$Archivos);
+                }else{
+                    $ToReturn = 2;
+                }
+            }else{
+                $ToReturn = 3;
+            }
+            return $ToReturn;
+        }
+
+        public function enviarDocumentoPrefactura($Id, $UrlLocal){
+            $run = new Method;
+            $query = "  SELECT
+                            p.nombre,
+                            -- CONCAT(p.correo,',', GROUP_CONCAT(c.correo )) as correos,
+                            d.NumeroDocumento,
+                            d.TipoDocumento 
+                        FROM
+                            personaempresa p
+                            INNER JOIN facturas d ON p.Rut = d.Rut
+                            -- INNER JOIN contactos c ON c.rut = p.rut 
+                        WHERE
+                            d.Id = '".$Id."'
+                        GROUP BY
+                            p.rut";
+            $Documento = $run->select($query);
+            if($Documento){
+                $Documento = $Documento[0];
+                $Nombre = $Documento['nombre'];
+                $Correos = 'daniel30081990@gmail.com';
+                $NumeroDocumento = $Documento['NumeroDocumento'];
+
+                if($Documento['TipoDocumento'] == 1){
+                    $TipoDocumento = 'Boleta';
+                }else{
+                    $TipoDocumento = 'Factura';
+                }
+                $Asunto = $TipoDocumento . ' #' . $NumeroDocumento . ' Teledata';
+
+                $Html =
+                "<html>
+                    <head>
+                        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+                        <style>
+                        body{font-family:Open Sans;font-size:14px;}
+                        table{font-size:13px;border-collapse:collapse;}
+                        th{padding:8px;text-align:left;color:#595e62;border-bottom: 2px solid rgba(0,0,0,0.14);font-size:14px;}
+                        td{padding:8px;border-bottom: 1px solid rgba(0,0,0,0.05);}
+                        </style>
+                    </head>
+                    <body>
+                    ESTO ES UNA PRUEBA DE PREFACTURA, <br>
+                    ESTIMADO(A) ".$Nombre.",<br>
+                        La ".$TipoDocumento." #".$NumeroDocumento." se genero con exito y ha sido adjuntada en este correo.<br><br>
+                        Saludos.
+                    </body>
+                </html>";
+                
+                // $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$Id.".pdf";
                 //aqui url de prueba  
                 // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/facturas/".$Id.".pdf";  
                 if(file_exists($UrlLocal)){
