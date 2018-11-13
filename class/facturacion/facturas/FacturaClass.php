@@ -2210,7 +2210,7 @@
             // envia correos de prueba con la factura
             // el $RutId es la facturas.id
             //esto envia correo con la prefactura para ver como se enviaran los correos
-            echo $this->enviarDocumentoPrefactura($Rut,  $UrlLocal);
+            $this->enviarDocumentoPrefactura($Rut,  $UrlLocal);
             return $response_array;
         }
 
