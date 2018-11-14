@@ -328,7 +328,7 @@
             }
         }
 
-        public function showLote($Rut,$Grupo){            
+        public function showLote($Rut,$Grupo){           
 
             $run = new Method;
 
@@ -460,7 +460,7 @@
 
                         $TipoDocumento = $Cliente['tipo_cliente'];
                         //aqui el parametro 2 es para prueba con la API
-                        $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,1);
+                        $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
 
                         if($FacturaBsale['status'] == 1){
                             $UrlPdf = $FacturaBsale['urlPdf'];
@@ -488,7 +488,7 @@
                             if($UrlPdf){
                                 //aqui
                                 $this->almacenarDocumento($FacturaId,1,$UrlPdf);
-                                //envia correos 
+                                //aqui envia correos 
                                 $this->enviarDocumento($FacturaId);
                                 
                                 
@@ -524,7 +524,7 @@
                                 $Impuesto = $Neto * 0.19;
                                 $Total = $Neto + $Impuesto;
                                 $Total = round($Total,0);
-
+                                //aqui comienza el cambio en la bd al facturar
                                 $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$IdServicio."', '".$Total."', '".$Codigo."')";
                                 $FacturaDetalleId = $run->insert($query);
                                 if($Tipo == 3){
@@ -3010,7 +3010,7 @@
             $run = new Method;
             $query = "  SELECT
                             p.nombre,
-                            CONCAT(p.correo,'daniel30081990@gmail.com, teledatadte@teledata.cl,', GROUP_CONCAT(c.correo )) as correos,
+                            CONCAT(p.correo,',daniel30081990@gmail.com, teledatadte@teledata.cl,', GROUP_CONCAT(c.correo )) as correos,
                             d.NumeroDocumento,
                             d.TipoDocumento 
                         FROM
