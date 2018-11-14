@@ -300,8 +300,8 @@ $(document).ready(function() {
         }
         moneda = $('#moneda_tmp').val()
         if (moneda == 2) {
-            precio = precio * ValorUF
-            precio = Math.round(precio)
+            precio = precio * ValorUF;
+            precio = Math.round(precio);
         }
         valor = precio * cantidad;
         calculaIva = valor * iva_global;
@@ -312,7 +312,7 @@ $(document).ready(function() {
         } else {
             $('#insertDetalleTmp').prop('disabled', true);
         }
-        $('#total_tmp').val(formatcurrency(totalFinal))
+        $('#total_tmp').val(formatcurrency(totalFinal));
         // $('#total_tmp').val(formatcurrency(valor))
     }
 
