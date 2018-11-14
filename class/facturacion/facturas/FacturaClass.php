@@ -460,7 +460,7 @@
 
                         $TipoDocumento = $Cliente['tipo_cliente'];
                         //aqui el parametro 2 es para prueba con la API
-                        $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
+                        $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,1);
 
                         if($FacturaBsale['status'] == 1){
                             $UrlPdf = $FacturaBsale['urlPdf'];
