@@ -3010,7 +3010,7 @@
             $run = new Method;
             $query = "  SELECT
                             p.nombre,
-                            CONCAT(p.correo,',daniel30081990@gmail.com, teledatadte@teledata.cl,', GROUP_CONCAT(c.correo )) as correos,
+                            CONCAT(p.correo,',', GROUP_CONCAT(c.correo )) as correos,
                             d.NumeroDocumento,
                             d.TipoDocumento 
                         FROM
@@ -3026,7 +3026,7 @@
             if($Documento){
                 $Documento = $Documento[0];
                 $Nombre = $Documento['nombre'];
-                $Correos = $Documento['correos'];
+                $Correos = $Documento['correos'].',daniel30081990@gmail.com, teledatadte@teledata.cl';
                 $NumeroDocumento = $Documento['NumeroDocumento'];
 
                 if($Documento['TipoDocumento'] == 1){
