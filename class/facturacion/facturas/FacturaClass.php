@@ -431,6 +431,7 @@
                     $expirationDate = time() + 1728000;
                     $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else{
+                    //else significa que se creo un servicio
                     $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto, 0 as Referencia
                                 FROM servicios 
                                 LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
@@ -458,7 +459,7 @@
                     if($Cliente){
 
                         $TipoDocumento = $Cliente['tipo_cliente'];
-                        //aqui el parametro 2 es para pueba con la API
+                        //aqui el parametro 2 es para prueba con la API
                         $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,1);
 
                         if($FacturaBsale['status'] == 1){
@@ -479,8 +480,7 @@
                             // $NumeroDocumento = '0';
                         }
                         
-                        //Para actualizar los datos del servicios con los datos de Bsale
-
+                        //Para actualizar los datos del servicio con los datos de Bsale
                         $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, FechaOC) VALUES ('".$Rut."', '".$Grupo."', '".$Tipo."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."')";
                         $FacturaId = $run->insert($query);
 
@@ -815,7 +815,11 @@
                             if($FacturaId){
                                 $Codigo = $Servicio['Codigo'];
                                 $Valor = $Servicio['Valor'];
+                                //aqui2
+                                if($Detalle["tipo_moneda"] == '2')
                                 $Valor = $Valor * $UF;
+                                else
+                                $Valor = $Valor;
                                 $Descuento = $Servicio['Descuento'];
                                 $Cantidad = 1;
                                 $Neto = $Valor * $Cantidad;
@@ -852,15 +856,18 @@
             $cantidadBoletas = 0;
             $cantidadFacturas = 0;
 
+            // esto estaba cuando solo se calculaba UF en el case else del select
+            // SUM( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ) AS Valor           
             $query = "  SELECT 
-                            personaempresa.tipo_cliente as TipoDocumento, 
-                            SUM( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ) AS Valor
+                            ( CASE servicios.tipo_moneda WHEN 2 THEN SUM( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) )
+                            ELSE SUM( servicios.CostoInstalacion  - ( ( servicios.CostoInstalacion  ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ) END ) AS Valor,
+                            personaempresa.tipo_cliente as TipoDocumento
                         FROM 
                             servicios 
                         INNER JOIN 
                             personaempresa 
                         ON 
-                            personaempresa.rut = servicios.Rut 
+                            personaempresa.rut = servicios.Rut
                         WHERE 
                             servicios.EstatusFacturacion = 0 
                         AND 
@@ -868,8 +875,10 @@
                         AND 
                             (servicios.EstatusInstalacion = 1 OR servicios.FacturarSinInstalacion = 1)
                         GROUP BY
-                            servicios.Rut,
-                            servicios.Grupo";
+                                servicios.Id";
+                            // servicios.Rut,
+                            // servicios.Grupo";
+
             $servicios = $run->select($query);
             foreach($servicios as $servicio){
                 $Valor = $servicio['Valor'];
