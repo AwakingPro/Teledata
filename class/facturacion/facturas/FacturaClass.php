@@ -52,8 +52,7 @@
                     $data['Cliente'] = $servicio['Cliente'];        
                     $data['UrlPdfBsale'] = ''; 
                     $data['Tipo'] = 1;
-                    // $data['Valor'] = $Valor;  
-                    $data['Valor'] = $servicio['Valor'];  
+                    $data['Valor'] = $Valor; 
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $servicio['TipoDocumento']; 
                     $data['NombreGrupo'] = $servicio['NombreGrupo'];
