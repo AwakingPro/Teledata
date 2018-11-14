@@ -272,6 +272,7 @@ $(document).ready(function() {
         calcularDetalleTmp()
     });
     $('#precio_tmp').on('change', function() {
+        // $('#precio_tmp').number(true,  ',', '.');
         calcularDetalleTmp()
     });
     $('#moneda_tmp').on('change', function() {

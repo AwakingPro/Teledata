@@ -313,7 +313,7 @@
                                                         <div class="text-center">
                                                             <label class="control-label h5" for="name">Precio</label>
                                                         </div>
-                                                        <input id="precio_tmp" name="precio_tmp" class="form-control input-sm number" validate="not_null" data-nombre="Precio">
+                                                        <input id="precio_tmp" name="precio_tmp" class="form-control input-sm" validate="not_null" data-nombre="Precio">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-2">

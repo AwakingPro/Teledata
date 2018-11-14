@@ -102,7 +102,8 @@
                             facturas.Grupo,
                             facturas.TipoDocumento,
                             facturas.IVA";
-
+            // el 1000 es sin grupo y el 1001 es sin grupo con OC Porque ellos querian que hubieran facturas que no se agruparan
+            // Y la unica manera que consegui para hacerlo fue asignarles un grupo asi
             $facturas = $run->select($query);
 
             if($facturas){
