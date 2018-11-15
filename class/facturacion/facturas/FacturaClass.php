@@ -1029,7 +1029,7 @@
             }
             return $MesFacturacion;
         }
-
+        // no se usa generarFacturacionAutomatica
         public function generarFacturacionAutomatica(){
 
             if(in_array  ('curl', get_loaded_extensions())) {
@@ -1278,7 +1278,15 @@
                     array_push($references,$reference);
                 }
             }
-            
+            // No loco, eso es para generar la fecha de vencimiento
+            // tipo_pago trae por ejemplo 20 dias
+            // El explode agarra el 20
+            // Y lo multiplica por todos esos valores para generar un timestamp
+            // Ese timestamp se le suma al time actual
+            // Y genera una fecha de 20 días después pero en formato timestamñ
+            // osea que si se esta facturando hoy, y el tipo de pago es 20 días, la fecha de vencimiento va a ser el 5 de diciembre
+            //Eso solo se trabaja si el primer explode es un numero, sino es un numero, la fecha de vencimiento es el día de hoy
+            // Eso es para los tipo de pago efectivo, débito, etc
             $tipo_pago = $Cliente['tipo_pago'];
             $Explode = explode(' ',$tipo_pago);
             if(ctype_digit($Explode[0])){
@@ -1398,7 +1406,7 @@
             return $array; 
         }
 
-        //obtiene servicio activos
+        //obtiene servicio inaactivos
         public function getServiciosInactivos($Rut) {
             $run = new Method;
             $data = array();
