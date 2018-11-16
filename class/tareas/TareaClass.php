@@ -212,8 +212,9 @@
 							$Rut = $Servicio['Rut'];
 							$Grupo = $Servicio['Grupo'];
 							$TipoDocumento = $Servicio['tipo_cliente'];
-
-							$query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(), '".$TipoDocumento."', NOW(), 0.19)";
+							$fechaVencimiento = date('Y-m-25');
+							//aqui cambio fecha instalacion para que luego aparezcan en facturas por lotes
+							$query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(),'".$fechaVencimiento."', '".$TipoDocumento."', NOW(), 0.19)";
 							$FacturaId = $run->insert($query);
 
 							if($FacturaId){
@@ -294,7 +295,11 @@
 								if($Conexion){
 									$Concepto .= ' - ' . $Conexion;
 								}
+								//aqui2
+								if($Servicio["tipo_moneda"] == '2')
 								$Valor = $Valor * $UF;
+								else
+								$Valor = $Valor;
 								$Montodiario = $Valor / $Diasdelmes;
 								$Valor = $Diasporfacturar * $Montodiario;
                                 $DescuentoValor = $Valor * ( $Descuento / 100 );
