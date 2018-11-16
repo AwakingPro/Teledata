@@ -1289,13 +1289,13 @@
             // Eso es para los tipo de pago efectivo, débito, etc
             $tipo_pago = $Cliente['tipo_pago'];
             $Explode = explode(' ',$tipo_pago);
-            // if(ctype_digit($Explode[0])){
-            //     $expirationDate = time() + (intval($Explode[0]) * 24 * 60 * 60);
-            // }else{
-            //     $expirationDate = time();
-            // }
+            if(ctype_digit($Explode[0])){
+                $expirationDate = time() + (intval($Explode[0]) * 24 * 60 * 60);
+            }else{
+                $expirationDate = time();
+            }
 
-            $expirationData = 1543186789;
+            // $expirationDate = 1543186789; //2018/11/25
         
             
             //FACTURA
@@ -3037,6 +3037,7 @@
                 $Documento = $Documento[0];
                 $Nombre = $Documento['nombre'];
                 $Correos = $Documento['correos'].',daniel30081990@gmail.com, teledatadte@teledata.cl';
+                // $Correos ='daniel30081990@gmail.com, teledatadte@teledata.cl';
                 $NumeroDocumento = $Documento['NumeroDocumento'];
 
                 if($Documento['TipoDocumento'] == 1){
