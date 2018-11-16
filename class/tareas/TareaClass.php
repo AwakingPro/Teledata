@@ -214,7 +214,7 @@
 							$TipoDocumento = $Servicio['tipo_cliente'];
 							$fechaVencimiento = date('Y-m-25');
 							//aqui cambio fecha instalacion para que luego aparezcan en facturas por lotes
-							$query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(),'".$fechaVencimiento."', '".$TipoDocumento."', NOW(), 0.19)";
+							$query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(),'".$TipoDocumento."', '".$fechaVencimiento."', 0.19)";
 							$FacturaId = $run->insert($query);
 
 							if($FacturaId){
