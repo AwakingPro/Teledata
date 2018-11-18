@@ -298,11 +298,7 @@
 								if($Conexion){
 									$Concepto .= ' - ' . $Conexion;
 								}
-								//aqui2
-								if($Servicio["tipo_moneda"] == '2')
 								$Valor = $Valor * $UF;
-								else
-								$Valor = $Valor;
 								$Montodiario = $Valor / $Diasdelmes;
 								$Valor = $Diasporfacturar * $Montodiario;
                                 $DescuentoValor = $Valor * ( $Descuento / 100 );

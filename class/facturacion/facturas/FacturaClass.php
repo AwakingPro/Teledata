@@ -414,8 +414,8 @@
                                 WHERE facturas.Id = '".$RutId."'
                                 AND facturas.EstatusFacturacion = 0
                                 AND facturas_detalle.Valor > 0";
-                    $expirationDate = time() + 1728000;
-                    $FechaVencimiento = date('Y-m-d', $expirationDate);
+                    // $expirationDate = time() + 1728000;
+                    // $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else if($Tipo == 2){
                     if($Grupo == 1000 OR $Grupo == 1001){
                         $Concat = " AND facturas.Id = '".$RutId."'";
@@ -428,8 +428,8 @@
                                 WHERE facturas.EstatusFacturacion = 0
                                 AND facturas_detalle.Valor > 0"                                 
                                 .$Concat;
-                    $expirationDate = time() + 1728000;
-                    $FechaVencimiento = date('Y-m-d', $expirationDate);
+                    // $expirationDate = time() + 1728000;
+                    // $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else{
                     //else significa que se creo un servicio
                     $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto, 0 as Referencia
@@ -438,8 +438,8 @@
                                 WHERE servicios.Id = '".$RutId."'
                                 AND servicios.EstatusFacturacion = 0
                                 AND servicios.CostoInstalacion > 0";
-                    $expirationDate = time() + 604800;
-                    $FechaVencimiento = date('Y-m-d', $expirationDate);
+                    // $expirationDate = time() + 604800;
+                    // $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }
 
                 $run = new Method;
@@ -468,6 +468,9 @@
                             $informedSii = $FacturaBsale['informedSii'];
                             $responseMsgSii = $FacturaBsale['responseMsgSii'];
                             $NumeroDocumento = $FacturaBsale['number'];
+                            $FechaVencimiento = date('Y-m-d', $FacturaBsale['expirationDate']);
+                           
+                            
                         }else{
                             $response_array['Message'] = $FacturaBsale['Message'];
                             $response_array['status'] = 0;
@@ -594,8 +597,8 @@
                 $Facturas = explode(",", $Facturas);
                 $UfClass = new Uf(); 
                 $UF = $UfClass->getValue();
-                $expirationDate = time() + 1728000;
-                $FechaVencimiento = date('Y-m-d', $expirationDate);
+                // $expirationDate = time() + 1728000;
+                // $FechaVencimiento = date('Y-m-d', $expirationDate);
 
                 foreach($Facturas as $Factura){
 
@@ -648,6 +651,7 @@
                                     $informedSii = $FacturaBsale['informedSii'];
                                     $responseMsgSii = $FacturaBsale['responseMsgSii'];
                                     $NumeroDocumento = $FacturaBsale['number'];
+                                    $expirationDate = date('Y-m-d', $FacturaBsale['expirationDate']);
                                 }else{
                                     $response_array['Message'] = $FacturaBsale['Message'];
                                     $response_array['status'] = 0;
@@ -662,7 +666,7 @@
 
                                 //Para actualizar los datos del servicios con los datos de Bsale
 
-                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento) VALUES ('".$Rut."', '".$Grupo."', '2', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."')";
+                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento) VALUES ('".$Rut."', '".$Grupo."', '2', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$expirationDate."', 0.19, '".$NumeroDocumento."')";
                                 $FacturaId = $run->insert($query);
 
                                 if($FacturaId){
@@ -681,11 +685,6 @@
                                             $Concepto .= ' - ' . $Descuento.'% Descuento';
                                         }
                                         $Cantidad = 1;
-                                        //aqui2
-                                        if($Detalle["tipo_moneda"] == '2')
-                                        $Valor = $Valor * $UF;
-                                        else
-                                        $Valor = $Valor;
                                         $Neto = $Valor * $Cantidad;
                                         $DescuentoValor = $Neto * ( $Descuento / 100 );
                                         $Neto -= $DescuentoValor;
@@ -729,9 +728,9 @@
 
             echo json_encode($response_array);
         }
-
+        // metodo para generar facturas automaticamente el 1ro de cada mes
         public function generarFacturas(){
-
+            
             $run = new Method;
             $Hoy = date('Y-m-d');
             $dt = new DateTime(); 
@@ -795,6 +794,7 @@
                             $FechaUltimoCobro->add(new DateInterval("P6M"));
                         }else{
                             $Concepto .= ' - Año ' . $Anio;
+                            //agregado a la fecha periodo de 1 ano
                             $FechaUltimoCobro->add(new DateInterval("P1Y"));
                         }
                         if($FechaUltimoCobro <= $dt){
@@ -815,11 +815,7 @@
                             if($FacturaId){
                                 $Codigo = $Servicio['Codigo'];
                                 $Valor = $Servicio['Valor'];
-                                //aqui2
-                                if($Detalle["tipo_moneda"] == '2')
                                 $Valor = $Valor * $UF;
-                                else
-                                $Valor = $Valor;
                                 $Descuento = $Servicio['Descuento'];
                                 $Cantidad = 1;
                                 $Neto = $Valor * $Cantidad;
@@ -1101,7 +1097,8 @@
         }
 
         public function sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,$TipoToken){
-            
+            // si se quiere enviar datos de prueba a la api usar el token 2 para pruebas, de lo contrario la cagaras 
+            // $TipoToken = 2;
             $run = new Method;
             if($TipoToken == 1){
                 $query = "SELECT token_produccion as access_token FROM variables_globales";
@@ -1239,7 +1236,7 @@
                         $Concat = '';
                     }
                     $Concepto .= $Concat;
-                    if($Detalle["tipo_moneda"] == '2')
+                    if(isset($Detalle["tipo_moneda"]) && $Detalle["tipo_moneda"] == '2')
                     $Valor = $Valor * $UF;
                     else
                     $Valor = $Valor;
@@ -1278,7 +1275,7 @@
                     array_push($references,$reference);
                 }
             }
-            // No loco, eso es para generar la fecha de vencimiento
+            // para generar la fecha de vencimiento
             // tipo_pago trae por ejemplo 20 dias
             // El explode agarra el 20
             // Y lo multiplica por todos esos valores para generar un timestamp
@@ -2175,11 +2172,7 @@
 
                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                 $run = new Method;
-                $Detalles = $run->select($query);        
-                if($Detalles){
-                    $Detalle = $Detalles[0];
-                    $Rut = $Detalle['Rut'];
-                }
+                $Detalles = $run->select($query);
                 if(!file_exists("/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf") || $Tipo == 2){
                     $run = new Method;
                     $Detalles = $run->select($query);
@@ -2193,7 +2186,7 @@
                         $Rut = $Detalle['Rut'];
                         $Cliente = $this->getCliente($Rut);
                         if($Cliente){
-                            // el parametro 2 en sendFacturaBsale es para la API de prueba
+                            // el parametro 2 es para la API de prueba
                             $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
                                 $urlPdf = $FacturaBsale['urlPdf'];
@@ -2227,7 +2220,7 @@
                 $response_array['status'] = 99;
             }
             //esto envia correo con la prefactura para ver como se enviaran los correos
-            $this->enviarDocumentoPrefactura($Rut,  $UrlLocal);
+            $this->enviarDocumentoPrefactura($RutId, $Tipo, $Grupo,  $UrlLocal);
             return $response_array;
         }
 
@@ -3020,13 +3013,13 @@
             $run = new Method;
             $query = "  SELECT
                             p.nombre,
-                            CONCAT(p.correo,',', GROUP_CONCAT(c.correo )) as correos,
+                            CONCAT(p.correo,',',GROUP_CONCAT(IFNULL(c.correo, '') )) as correos,
                             d.NumeroDocumento,
                             d.TipoDocumento 
                         FROM
                             personaempresa p
-                            INNER JOIN facturas d ON p.Rut = d.Rut
-                            INNER JOIN contactos c ON c.rut = p.rut 
+                            LEFT JOIN facturas d ON p.Rut = d.Rut
+                            LEFT JOIN contactos c ON c.rut = p.rut 
                         WHERE
                             d.Id = '".$Id."' 
                             -- AND c.tipo_contacto = 2 
@@ -3036,8 +3029,8 @@
             if($Documento){
                 $Documento = $Documento[0];
                 $Nombre = $Documento['nombre'];
-                $Correos = $Documento['correos'].',daniel30081990@gmail.com, teledatadte@teledata.cl';
-                // $Correos ='daniel30081990@gmail.com, teledatadte@teledata.cl';
+                $Correos = $Documento['correos'].',teledatadte@teledata.cl';
+                // $Correos ='teledatadte@teledata.cl';
                 $NumeroDocumento = $Documento['NumeroDocumento'];
 
                 if($Documento['TipoDocumento'] == 1){
@@ -3084,38 +3077,43 @@
             return $ToReturn;
         }
 
-        public function enviarDocumentoPrefactura($Rut, $UrlLocal){
+        public function enviarDocumentoPrefactura($id,$Tipo, $Grupo, $UrlLocal){
             $run = new Method;
-            // $query = "  SELECT
-            //                 p.nombre,
-            //                 -- CONCAT(p.correo,',', GROUP_CONCAT(c.correo )) as correos,
-            //                 d.NumeroDocumento,
-            //                 d.TipoDocumento 
-            //             FROM
-            //                 personaempresa p
-            //                 INNER JOIN facturas d ON p.Rut = d.Rut
-            //                 -- INNER JOIN contactos c ON c.rut = p.rut 
-            //             WHERE
-            //                 d.Rut = '".$Rut."'
-            //             GROUP BY
-            //                 p.rut";
-            // $Documento = $run->select($query);
-            $Documento = '';
-            if($Documento == ''){
-                // $Documento = $Documento[0];
-                // $Nombre = $Documento['nombre'];
-                $Nombre = 'Prueba';
-                $Correos = 'daniel30081990@gmail.com, teledatadte@teledata.cl';
-                $NumeroDocumento = 'Num Prueba';
-                // $NumeroDocumento = $Documento['NumeroDocumento'];
+            $query = "  SELECT
+                            p.nombre,
+                            d.NumeroDocumento,
+                            d.TipoDocumento 
+                        FROM
+                            personaempresa p
+                            INNER JOIN facturas d ON p.Rut = d.Rut
+                            INNER JOIN servicios ON servicios.Rut = p.Rut  ";
+            if($Tipo == 1)
+            $query .= " WHERE d.Id = '".$id."' ";
+            else if($Tipo == 2){
+                if($Grupo == 1000 OR $Grupo == 1001){
+                    $query .= " WHERE d.Id = '".$id."' ";
+                }else{
+                    $query .= " WHERE d.Rut = '".$id."' ";
+                }
+            }else{
+                $query .= " WHERE servicios.Id = '".$id."' ";
+            }       
+            $Documento = $run->select($query);
+            // print_r($Documento);
+            if($Documento != ''){
+                $Documento = $Documento[0];
+                
+                $Nombre = $Documento['nombre'];
+                $Correos = 'teledatadte@teledata.cl';
+                $NumeroDocumento = $Documento['NumeroDocumento'];
 
-                // if($Documento['TipoDocumento'] == 1){
-                //     $TipoDocumento = 'Boleta';
-                // }else{
-                //     $TipoDocumento = 'Factura';
-                // }
+                if($Documento['TipoDocumento'] == 1){
+                    $TipoDocumento = 'Boleta';
+                }else{
+                    $TipoDocumento = 'Factura';
+                }
                 $Asunto = $TipoDocumento . ' #' . $NumeroDocumento . ' Teledata';
-
+                
                 $Html =
                 "<html>
                     <head>
