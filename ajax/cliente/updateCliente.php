@@ -102,11 +102,12 @@
 		curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
 		curl_setopt($session, CURLOPT_CUSTOMREQUEST, "PUT");
 		$data = json_encode($array);
-		echo $data;
+		// echo $data;
 		curl_setopt($session, CURLOPT_POSTFIELDS, $data);
 		$response = curl_exec($session);
 		curl_close($session);
 		$client = json_decode($response, true);
+		// print_r($client);
 	}
 
 
