@@ -182,6 +182,7 @@
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="../plugins/sweetalert/sweetalert.min.js"></script>
         <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
+        <script src="../plugins/bootstrap-select/i18n/defaults-es_CL.min.js"></script>
         <script src="../plugins/moment/moment.js"></script>
         <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
         <script src="../js/methods_global/methods.js"></script>

@@ -21,6 +21,9 @@ $(document).ready(function() {
         Map = new google.maps.Map(document.getElementById("Map"), mapOptions);
     }
 
+    $('select').selectpicker({ language: 'ES' });
+    $('select').selectpicker('refresh');
+
     $('[name="Valor"]').number(true, 2, ',', '.');
 
     $('select[name="Rut"]').load('../ajax/servicios/selectClientes.php', function() {
@@ -199,9 +202,10 @@ $(document).ready(function() {
         url: "../includes/inventario/bodegas/showPersonal.php",
         success: function(response) {
             $.each(response.array, function(index, array) {
-                $('.IdUsuarioAsignado').append('<option value="' + array.id + '" data-content="' + array.nombre + '"></option>');
+                if(array.tipo_usuario == '1')
+                    $('.IdUsuarioAsignado').append('<option value="' + array.id + '" data-content="' + array.nombre + '"></option>');
             });
-
+            
             setTimeout(function() {
                 $('.IdUsuarioAsignado').selectpicker('refresh');
             }, 500)
