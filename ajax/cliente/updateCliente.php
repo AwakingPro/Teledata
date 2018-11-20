@@ -107,7 +107,7 @@
 		$response = curl_exec($session);
 		curl_close($session);
 		$client = json_decode($response, true);
-		// print_r($client);
+		print_r($client);
 	}
 
 
