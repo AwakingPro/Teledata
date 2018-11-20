@@ -20,7 +20,7 @@
 	$run = new Method;
 	$data = $run->update($query);
 
-	echo $data;
+	// echo $data;
 
 	if($data){
 		// $query = "SELECT token_prueba as access_token FROM variables_globales";
@@ -90,9 +90,12 @@
 		}else{
 			$id = $Cliente['cliente_id_bsale'];
 		}
+		
 		$array['id'] = $id;
 		$url = "https://api.bsale.cl/v1/clients/".$id.".json";
+		
 		$session = curl_init($url);
+		
 		curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 		$headers = array(
 			'access_token: ' . $access_token,
@@ -105,6 +108,7 @@
 		// echo $data;
 		curl_setopt($session, CURLOPT_POSTFIELDS, $data);
 		$response = curl_exec($session);
+		
 		curl_close($session);
 		$client = json_decode($response, true);
 		print_r($client);
