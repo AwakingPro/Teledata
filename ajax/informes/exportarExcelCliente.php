@@ -70,10 +70,13 @@ if (count($data) > 0) {
 	// print_r($data[10]); exit;
 	$index = 2;
 	for ($i=0; $i < count($data) ; $i++) {
-		if($data[$i][5] == null || $data[$i][5] == '')
-		$data[$i][5] = 'Sin Fecha';
-		else
-		$FechaInstalacion = \DateTime::createFromFormat('Y-m-d', $data[$i][5])->format('d-m-Y');
+		if($data[$i][5] != ''){
+			$FechaInstalacion = \DateTime::createFromFormat('Y-m-d', $data[$i][5])->format('d-m-Y');
+		}
+		else{
+			$data[$i][5] = 'Sin Fecha';
+		}
+		
         // if($data[$i][6] == 1)
         // $data[$i][6] = 'Activo';
         // else if($data[$i][6] == 2)

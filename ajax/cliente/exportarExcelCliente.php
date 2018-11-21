@@ -57,7 +57,6 @@ require_once('../../class/methods_global/methods.php');
 					p.nombre';
 $run = new Method;
 $data = $run->select($query);
-print_r($data); exit;
 if (count($data) > 0) {
 
 	$index = 2;
