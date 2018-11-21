@@ -23,7 +23,7 @@ $(document).ready(function(){
         // console.log(rut);
         if (tipo_informe != '') {
             if(tipo_informe == '1'){
-                url = "../ajax/informes/exportarExcelClientes.php?startDate="+startDate+"&endDate="+endDate+"&rut="+rut;
+                url = "../ajax/informes/exportarExcelCliente.php?startDate="+startDate+"&endDate="+endDate+"&rut="+rut;
                 window.open(url, '_blank');
             }
 
