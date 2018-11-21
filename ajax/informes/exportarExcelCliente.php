@@ -36,7 +36,9 @@ require_once('../../class/methods_global/methods.php');
 				p.nombre AS 'Razón Social',
 				p.telefono,
 				mt.nombre AS tipo_cliente,
-				s.FechaInstalacion AS fechaInstalacion
+				-- s.FechaInstalacion AS fechaInstalacion
+				
+				CASE  WHEN s.FechaInstalacion IS NULL THEN '' ELSE s.FechaInstalacion END AS fechaInstalacion
 			FROM
 				personaempresa p
 				INNER JOIN mantenedor_tipo_cliente mt ON p.tipo_cliente = mt.id
@@ -63,17 +65,17 @@ if(isset($_GET['startDate']) && $_GET['startDate'] != '' && isset($_GET['endDate
 
 
 $query .= " GROUP BY p.rut ORDER BY p.nombre ";
-$FechaInstalacion = '';
+
 $run = new Method;
 $data = $run->select($query);
 if (count($data) > 0) {
 	// print_r($data[10]); exit;
 	$index = 2;
 	for ($i=0; $i < count($data) ; $i++) {
-		if(isset($data[$i][5]))
+		if($data[$i][5] != '')
 			$FechaInstalacion = \DateTime::createFromFormat('Y-m-d', $data[$i][5])->format('d-m-Y');
 		else
-			$FechaInstalacion = '0000-00-00' ;
+			$FechaInstalacion = 'Sin datos';
 		
 		// else{
 		// 	$data[$i][5] = 'Sin Fecha';
