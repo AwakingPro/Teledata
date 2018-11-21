@@ -63,7 +63,7 @@ if(isset($_GET['startDate']) && $_GET['startDate'] != '' && isset($_GET['endDate
 
 
 $query .= " GROUP BY p.rut ORDER BY p.nombre ";
-
+$FechaInstalacion = '';
 $run = new Method;
 $data = $run->select($query);
 if (count($data) > 0) {
@@ -73,7 +73,7 @@ if (count($data) > 0) {
 		if(isset($data[$i][5]))
 			$FechaInstalacion = \DateTime::createFromFormat('Y-m-d', $data[$i][5])->format('d-m-Y');
 		else
-			$FechaInstalacion = 'Sin Fecha';
+			$FechaInstalacion = '0000-00-00' ;
 		
 		// else{
 		// 	$data[$i][5] = 'Sin Fecha';
