@@ -735,6 +735,7 @@
             $Hoy = date('Y-m-d');
             $dt = new DateTime(); 
             $Anio = $dt->format('Y');
+            //  las facturas que se generan cada mes son del mes anterior
             $MesFacturacion = $this->generarMes($dt);
             $Facturas = array();
 
@@ -786,17 +787,20 @@
                         $FechaUltimoCobro = new DateTime($FechaUltimoCobro);                     
                         $Concepto = $Servicio['Servicio'];
                         if($TipoFacturacion == '1'){
+                            // agrego 1 mes a fecha ultimo cobro
                             $Concepto .= ' - Mes ' . $MesFacturacion;
                             $FechaUltimoCobro->add(new DateInterval("P1M"));
                         }elseif($TipoFacturacion == '2'){
+                            // agrego 6 meses a fecha ultimo cobro
                             $MesUltimoCobro = $this->generarMes($FechaUltimoCobro);
                             $Concepto .= ' - Semestre '. $MesUltimoCobro . ' / ' . $MesFacturacion;
                             $FechaUltimoCobro->add(new DateInterval("P6M"));
                         }else{
                             $Concepto .= ' - Año ' . $Anio;
-                            //agregado a la fecha periodo de 1 ano
+                            //agrego 1 ano a fecha ultimo cobro
                             $FechaUltimoCobro->add(new DateInterval("P1Y"));
                         }
+                        // si es menor a hoy toca cobrar
                         if($FechaUltimoCobro <= $dt){
                             $Rut = $Servicio['Rut'];
                             $Grupo = $Servicio['Grupo'];
