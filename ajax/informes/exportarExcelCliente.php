@@ -70,8 +70,10 @@ if (count($data) > 0) {
 	// print_r($data[10]); exit;
 	$index = 2;
 	for ($i=0; $i < count($data) ; $i++) {
-		if(!isset($data[$i][5]))
+		if(isset($data[$i][5]))
 			$FechaInstalacion = \DateTime::createFromFormat('Y-m-d', $data[$i][5])->format('d-m-Y');
+		else
+			$FechaInstalacion = 'Sin Fecha';
 		
 		// else{
 		// 	$data[$i][5] = 'Sin Fecha';
