@@ -30,26 +30,17 @@ foreach (range(0, 33) as $col) {
 }
 
 require_once('../../class/methods_global/methods.php');
-	$query = "	SELECT DISTINCT
-					p.rut,
-					p.dv,
-					p.nombre,
-					p.telefono,
-                    mt.nombre as tipo_cliente,
-                    s.FechaInstalacion as fecha,
-                    s.EstatusServicio as estatus
-                     
-				FROM
-					personaempresa p 
-                INNER JOIN 
-					mantenedor_tipo_cliente mt 
-				ON 
-					p.tipo_cliente = mt.id
-				INNER JOIN 
-					servicios s 
-				ON 
-					p.rut = s.Rut ";
-
+	$query = "SELECT
+				p.rut,
+				p.dv,
+				p.nombre AS 'Razón Social',
+				p.telefono,
+				mt.nombre AS tipo_cliente,
+				s.FechaInstalacion AS fechaInstalacion
+			FROM
+				personaempresa p
+				INNER JOIN mantenedor_tipo_cliente mt ON p.tipo_cliente = mt.id
+				LEFT JOIN servicios s ON s.Rut = p.rut ";
 
 $rut = '';
 if(isset($_GET['rut']) && $_GET['rut'] != '') {
@@ -71,24 +62,26 @@ if(isset($_GET['startDate']) && $_GET['startDate'] != '' && isset($_GET['endDate
 }
 
 
-$query .= " ORDER BY p.nombre ";
+$query .= " GROUP BY p.rut ORDER BY p.nombre ";
 
 $run = new Method;
 $data = $run->select($query);
-// echo '<pre>'.print_r($data); echo '</pre>'; return;
 if (count($data) > 0) {
-    // echo var_dump($data); return;
+	// print_r($data[10]); exit;
 	$index = 2;
 	for ($i=0; $i < count($data) ; $i++) {
+		if($data[$i][5] == null || $data[$i][5] == '')
+		$data[$i][5] = 'Sin Fecha';
+		else
 		$FechaInstalacion = \DateTime::createFromFormat('Y-m-d', $data[$i][5])->format('d-m-Y');
-        if($data[$i][6] == 1)
-        $data[$i][6] = 'Activo';
-        else if($data[$i][6] == 2)
-        $data[$i][6] = 'Suspendido';
-        else if($data[$i][6] == 0)
-        $data[$i][6] = 'Inactivo';
-        else
-        $data[$i][6] = 'Sin estado';
+        // if($data[$i][6] == 1)
+        // $data[$i][6] = 'Activo';
+        // else if($data[$i][6] == 2)
+        // $data[$i][6] = 'Suspendido';
+        // else if($data[$i][6] == 0)
+        // $data[$i][6] = 'Inactivo';
+		// else
+        $data[$i][6] = 'En proceso...';
 		$objPHPExcel->setActiveSheetIndex(0)
 		->setCellValue('A'.$index, $data[$i][0])
 		->setCellValue('B'.$index, $data[$i][1])
@@ -106,7 +99,7 @@ if (count($data) > 0) {
 
 
 // Renombrar Hoja
-$objPHPExcel->getActiveSheet()->setTitle('Lista de clientes y Servicios');
+$objPHPExcel->getActiveSheet()->setTitle('Lista de clientes');
 
 
 
