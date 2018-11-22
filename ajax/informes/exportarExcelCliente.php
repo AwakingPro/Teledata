@@ -33,11 +33,9 @@ require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
 				p.rut,
 				p.dv,
-				p.nombre AS 'RazonSocial',
+				p.nombre AS RazonSocial,
 				p.telefono,
 				mt.nombre AS tipo_cliente,
-				-- s.FechaInstalacion AS fechaInstalacion
-				
 				CASE  WHEN s.FechaInstalacion IS NULL THEN '' ELSE s.FechaInstalacion END AS fechaInstalacion
 			FROM
 				personaempresa p
@@ -69,7 +67,6 @@ $query .= " GROUP BY p.rut ORDER BY p.nombre ";
 $run = new Method;
 $data = $run->select($query);
 if (count($data) > 0) {
-	print_r($data); exit;
 	$index = 2;
 	foreach ($data as $dato) {
 		if($dato['fechaInstalacion'] != '' || $dato['fechaInstalacion'] != NULL)
