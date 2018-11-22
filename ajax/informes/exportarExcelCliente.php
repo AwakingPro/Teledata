@@ -69,7 +69,7 @@ $query .= " GROUP BY p.rut ORDER BY p.nombre ";
 $run = new Method;
 $data = $run->select($query);
 if (count($data) > 0) {
-	// print_r($data[10]); exit;
+	print_r($data); exit;
 	$index = 2;
 	foreach ($data as $dato) {
 		if($dato['fechaInstalacion'] != '' || $dato['fechaInstalacion'] != NULL)
