@@ -36,7 +36,7 @@ require_once('../../class/methods_global/methods.php');
 				p.nombre AS RazonSocial,
 				p.telefono,
 				mt.nombre AS tipo_cliente,
-				CASE  WHEN s.FechaInstalacion IS NULL THEN '' ELSE s.FechaInstalacion END AS fechaInstalacion
+				s.FechaInstalacion  AS fechaInstalacion
 			FROM
 				personaempresa p
 				INNER JOIN mantenedor_tipo_cliente mt ON p.tipo_cliente = mt.id
