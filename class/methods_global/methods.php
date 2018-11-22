@@ -107,7 +107,7 @@
 					$resultado->free();
 					return $rows;
 				}else{
-					return $rows.' Problemas en el query de consulta';
+					return var_dump($rows).' Problemas en el query de consulta';
 				}
 			}else{
 				return 'No hay conexion';
