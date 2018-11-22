@@ -33,7 +33,7 @@ require_once('../../class/methods_global/methods.php');
 	$query = "SELECT
 				p.rut,
 				p.dv,
-				p.nombre AS 'Razón Social',
+				p.nombre AS 'RazonSocial',
 				p.telefono,
 				mt.nombre AS tipo_cliente,
 				-- s.FechaInstalacion AS fechaInstalacion
@@ -71,31 +71,24 @@ $data = $run->select($query);
 if (count($data) > 0) {
 	// print_r($data[10]); exit;
 	$index = 2;
-	for ($i=0; $i < count($data) ; $i++) {
-		if($data[$i][5] != '' || $data[$i][5] != NULL)
-			$data[$i][5] = \DateTime::createFromFormat('Y-m-d', $data[$i][5])->format('d-m-Y');
+	foreach ($data as $dato) {
+		if($dato['fechaInstalacion'] != '' || $dato['fechaInstalacion'] != NULL)
+			$dato['fechaInstalacion'] = \DateTime::createFromFormat('Y-m-d', $dato['fechaInstalacion'])->format('d-m-Y');
 		else {
-			$data[$i][5] = 'Sin datos';
+			$dato['fechaInstalacion'] = 'Sin Datos';
 		}
-		
-        // if($data[$i][6] == 1)
-        // $data[$i][6] = 'Activo';
-        // else if($data[$i][6] == 2)
-        // $data[$i][6] = 'Suspendido';
-        // else if($data[$i][6] == 0)
-        // $data[$i][6] = 'Inactivo';
-		// else
-        $data[$i][6] = 'En proceso...';
-		$objPHPExcel->setActiveSheetIndex(0)
-		->setCellValue('A'.$index, $data[$i][0])
-		->setCellValue('B'.$index, $data[$i][1])
-		->setCellValue('C'.$index, $data[$i][2])
-		->setCellValue('D'.$index, $data[$i][3])
-		->setCellValue('E'.$index, $data[$i][4])
-		->setCellValue('F'.$index, $FechaInstalacion)
-		->setCellValue('G'.$index, $data[$i][6]);
-		$index ++;
+			$dato['EstadoServicio'] = 'En proceso...';
+			$objPHPExcel->setActiveSheetIndex(0)
+			->setCellValue('A'.$index, $dato['rut'])
+			->setCellValue('B'.$index, $dato['dv'])
+			->setCellValue('C'.$index, $dato['RazonSocial'])
+			->setCellValue('D'.$index, $dato['telefono'])
+			->setCellValue('E'.$index, $dato['tipo_cliente'])
+			->setCellValue('F'.$index, $dato['fechaInstalacion'])
+			->setCellValue('G'.$index, $dato['EstadoServicio']);
+			$index ++;
 	}
+
 }else {
 	echo "No existen datos para esta consulta";
 	return;
