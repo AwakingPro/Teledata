@@ -65,8 +65,6 @@ if(isset($_GET['startDate']) && $_GET['startDate'] != '' && isset($_GET['endDate
 
 
 $query .= " GROUP BY p.rut ORDER BY p.nombre ";
-$FechaInstalacion = array();
-$FechaInstalacion = 'Sin datos';
 
 $run = new Method;
 $data = $run->select($query);
@@ -75,11 +73,10 @@ if (count($data) > 0) {
 	$index = 2;
 	for ($i=0; $i < count($data) ; $i++) {
 		if($data[$i][5] != '' || $data[$i][5] != NULL)
-			$FechaInstalacion = \DateTime::createFromFormat('Y-m-d', $data[$i][5])->format('d-m-Y');
-		
-		// else{
-		// 	$data[$i][5] = 'Sin Fecha';
-		// }
+			$data[$i][5] = \DateTime::createFromFormat('Y-m-d', $data[$i][5])->format('d-m-Y');
+		else {
+			$data[$i][5] = 'Sin datos';
+		}
 		
         // if($data[$i][6] == 1)
         // $data[$i][6] = 'Activo';
