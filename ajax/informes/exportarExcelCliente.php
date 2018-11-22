@@ -65,8 +65,10 @@ if(isset($_GET['startDate']) && $_GET['startDate'] != '' && isset($_GET['endDate
 $query .= " GROUP BY p.rut ORDER BY p.nombre ";
 
 $run = new Method;
+echo $query;
 $data = $run->select($query);
 if (count($data) > 0) {
+	print_r($data); exit;
 	$index = 2;
 	foreach ($data as $dato) {
 		if($dato['fechaInstalacion'] != '' || $dato['fechaInstalacion'] != NULL)
