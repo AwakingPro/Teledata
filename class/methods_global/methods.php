@@ -26,6 +26,7 @@
 				return 'Error de Conexión (' . $mysqli->connect_errno . ') '. $mysqli->connect_error;
 			}else{
 				$mysqli->query("SET NAMES 'utf8'");
+				$mysqli->query("SET sql_mode=(SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', '')");
 				return $mysqli;
 			}
 		}
