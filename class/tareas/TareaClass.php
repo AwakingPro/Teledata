@@ -179,11 +179,12 @@
 	        		$FechaInstalacion = '';
 	        	}
 
-	        	$Hoy = new DateTime(); 
-		        $Hoy = $Hoy->format('Y-m-d H:i:s');
+				$Hoy = new DateTime();
+				// $Hoy = $Hoy->format('Y-m-d H:i:s'); 
+		        $Hoy = $Hoy->format('Y-m-d');
 
 	        	if($Estatus == 1){
-	        		if($FechaInstalacion > $Hoy){
+	        		if($FechaInstalacion >= $Hoy){
 	        			$response_array['status'] = 3;
 	        			echo json_encode($response_array);
 	        			exit;
@@ -236,11 +237,12 @@
 								}else{
 									$dt = new DateTime();
 								}
-
+								
+								
 								$Mes =  $dt->format('m');
 								$Ano =  $dt->format('Y');
 								$Dia =  $dt->format('d');
-
+								
 								switch ($Mes) {
 									case 1:
 										$MesFacturacion = "Enero";
@@ -281,9 +283,10 @@
 								}
 		
 								$Diasdelmes = cal_days_in_month (CAL_GREGORIAN, $Mes,$Ano);
-
+								
 								if($Dia != $Diasdelmes){
-									
+									if($Diasdelmes == 31) 
+									$Diasdelmes = 30;
 									if($Dia != 1){
 										$Diasporfacturar = $Diasdelmes - $Dia;
 										$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dias)';
