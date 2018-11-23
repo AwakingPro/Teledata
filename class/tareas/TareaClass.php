@@ -180,11 +180,10 @@
 	        	}
 
 				$Hoy = new DateTime();
-				// $Hoy = $Hoy->format('Y-m-d H:i:s'); 
-		        $Hoy = $Hoy->format('Y-m-d');
+				$Hoy = $Hoy->format('Y-m-d H:i:s'); 
 
 	        	if($Estatus == 1){
-	        		if($FechaInstalacion >= $Hoy){
+	        		if($FechaInstalacion > $Hoy){
 	        			$response_array['status'] = 3;
 	        			echo json_encode($response_array);
 	        			exit;

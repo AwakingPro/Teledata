@@ -626,7 +626,7 @@ $(document).ready(function() {
                         $.niftyNoty({
                             type: 'danger',
                             icon: 'fa fa-check',
-                            message: 'La fecha de instalación no puede ser mayor o igual a hoy',
+                            message: 'La fecha de instalación no puede ser mayor a hoy',
                             container: 'floating',
                             timer: 3000
                         });
