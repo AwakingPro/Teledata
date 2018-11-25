@@ -3144,8 +3144,7 @@
                 // $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$Id.".pdf";
                 //aqui url de prueba  
                 // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/facturas/".$Id.".pdf";  
-                // if(file_exists($UrlLocal)){
-                if($UrlLocal){
+                if(file_exists($UrlLocal)){
                     $Archivos = array();
                     $Archivo = array('url' => $UrlLocal, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');
                     array_push($Archivos,$Archivo);
