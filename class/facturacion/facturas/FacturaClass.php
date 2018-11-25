@@ -2178,6 +2178,7 @@
                 }
 
                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
+                
                 $run = new Method;
                 $Detalles = $run->select($query);
                 if(!file_exists("/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf") || $Tipo == 2){
@@ -2199,8 +2200,6 @@
                                 $urlPdf = $FacturaBsale['urlPdf'];
                                 $PdfContent = file_get_contents($urlPdf);
                                 $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
-                                
-                                
                                 // aqui
                                 // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                 file_put_contents($UrlLocal, $PdfContent);
@@ -3090,6 +3089,7 @@
             $query = "  SELECT
                             p.nombre,
                             d.NumeroDocumento,
+                            d.UrlPdfBsale,
                             d.TipoDocumento 
                         FROM
                             personaempresa p
@@ -3145,6 +3145,13 @@
                 //aqui url de prueba  
                 // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/facturas/".$Id.".pdf";  
                 if(file_exists($UrlLocal)){
+                    $tamano = filesize($UrlLocal);
+                    if( $tamano <= 0){
+                        $PdfContent = file_get_contents($Documento['UrlPdfBsale']);
+                        // aqui
+                        // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
+                        file_put_contents($UrlLocal, $PdfContent);
+                    }
                     $Archivos = array();
                     $Archivo = array('url' => $UrlLocal, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');
                     array_push($Archivos,$Archivo);
