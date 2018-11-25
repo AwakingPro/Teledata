@@ -2228,7 +2228,7 @@
             }
             //esto envia correo con la prefactura para ver como se enviaran los correos
             //urlPdf para pasar la url del documento en bsale, $UrlLocal para la del servidor teledata
-            $this->enviarDocumentoPrefactura($RutId, $Tipo, $Grupo,  $urlPdf);
+            echo $this->enviarDocumentoPrefactura($RutId, $Tipo, $Grupo,  $urlPdf);
             return $response_array;
         }
 
@@ -3144,7 +3144,8 @@
                 // $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$Id.".pdf";
                 //aqui url de prueba  
                 // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/facturas/".$Id.".pdf";  
-                if(file_exists($UrlLocal)){
+                // if(file_exists($UrlLocal)){
+                if($UrlLocal){
                     $Archivos = array();
                     $Archivo = array('url' => $UrlLocal, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');
                     array_push($Archivos,$Archivo);
