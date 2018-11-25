@@ -3147,11 +3147,9 @@
                 if(file_exists($UrlLocal)){
                     
                     $tamano = filesize($UrlLocal);
-                    echo $tamano;
                     if( $tamano <= 0){
                         unlink($UrlLocal);
                         $PdfContent = file_get_contents($Documento['UrlPdfBsale']);
-                        
                         file_put_contents($UrlLocal, $PdfContent);
                     }
                     $Archivos = array();
