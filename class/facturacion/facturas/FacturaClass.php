@@ -738,7 +738,10 @@
             //  las facturas que se generan cada mes son del mes anterior
             $MesFacturacion = $this->generarMes($dt);
             $Facturas = array();
-
+            // el codigo comentado en la query es por una persona no puede tener mas de n facturas pendientes por facturar de jn servicio
+            // Ese n depende del tipo de cliente que sea
+            // La consulta compara la cantidad de facturas pendientes con una columna en tipo cliente
+            // Y si tiene mas facturas que en la columna, no entra al if
             $query = "  SELECT
                             s.*,
                             ( CASE s.IdServicio WHEN 7 THEN s.NombreServicioExtra ELSE ms.servicio END ) AS Servicio,
@@ -2224,7 +2227,8 @@
                 $response_array['status'] = 99;
             }
             //esto envia correo con la prefactura para ver como se enviaran los correos
-            $this->enviarDocumentoPrefactura($RutId, $Tipo, $Grupo,  $UrlLocal);
+            //urlPdf para pasar la url del documento en bsale, $UrlLocal para la del servidor teledata
+            $this->enviarDocumentoPrefactura($RutId, $Tipo, $Grupo,  $urlPdf);
             return $response_array;
         }
 
