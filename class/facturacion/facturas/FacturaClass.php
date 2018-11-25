@@ -2228,6 +2228,7 @@
             }
             //esto envia correo con la prefactura para ver como se enviaran los correos
             //urlPdf para pasar la url del documento en bsale, $UrlLocal para la del servidor teledata
+            $urlPdf = 'http://131.0.108.31/facturacion/prefacturas/6448076_1_2.pdf';
             $this->enviarDocumentoPrefactura($RutId, $Tipo, $Grupo,  $urlPdf);
             return $response_array;
         }
