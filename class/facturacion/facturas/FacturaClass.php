@@ -3145,7 +3145,9 @@
                 //aqui url de prueba  
                 // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/facturas/".$Id.".pdf";  
                 if(file_exists($UrlLocal)){
+                    
                     $tamano = filesize($UrlLocal);
+                    echo $tamano;
                     if( $tamano <= 0){
                         unlink($UrlLocal);
                         $PdfContent = file_get_contents($Documento['UrlPdfBsale']);
