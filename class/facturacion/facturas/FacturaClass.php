@@ -3147,9 +3147,9 @@
                 if(file_exists($UrlLocal)){
                     $tamano = filesize($UrlLocal);
                     if( $tamano <= 0){
+                        unlink($UrlLocal);
                         $PdfContent = file_get_contents($Documento['UrlPdfBsale']);
-                        // aqui
-                        // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
+                        
                         file_put_contents($UrlLocal, $PdfContent);
                     }
                     $Archivos = array();
