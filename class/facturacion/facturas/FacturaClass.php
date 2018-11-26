@@ -3121,7 +3121,7 @@
                     $TipoDocumento = 'Factura';
                 }
                 $Asunto = $TipoDocumento . ' #' . $NumeroDocumento . ' Teledata';
-                $espacios = '&nbsp&nbsp&nbsp&nbsp&nbsp';
+                $espacios = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                 $Html =
                 "<html>
                     <head>
