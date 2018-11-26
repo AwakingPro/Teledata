@@ -3142,7 +3142,8 @@
                         RUT:".$espacios."<b>76.722.248-3</b><br>
                         BANCO:".$espacios."<b>BANCO DE CHILE</b><br>
                         TIPO DE CUENTA:".$espacios."<b>CUENTA CORRIENTE</b><br>
-                        NUMERO DE CUENTA:".$espacios."<b>268-04500-03</b><br><br>
+                        NUMERO DE CUENTA:".$espacios."<b>268-04500-03</b><br>
+                        CORREO:".$espacios."<b><a href='mailto:pagos@teledata.cl'>pagos@teledata.cl</a></b><br><br>
                         Saludos.
                     </body>
                 </html>";
