@@ -3121,7 +3121,7 @@
                     $TipoDocumento = 'Factura';
                 }
                 $Asunto = $TipoDocumento . ' #' . $NumeroDocumento . ' Teledata';
-                
+                $espacios = '&nbsp&nbsp&nbsp&nbsp&nbsp';
                 $Html =
                 "<html>
                     <head>
@@ -3137,6 +3137,12 @@
                     ESTO ES UNA PRUEBA DE PREFACTURA, <br>
                     ESTIMADO(A) ".$Nombre.",<br>
                         La ".$TipoDocumento." #".$NumeroDocumento." se genero con exito y ha sido adjuntada en este correo.<br><br>
+                        <b>Para transferencia o depósitos, los datos de nuestra cuenta son:</b><br><br>
+                        RAZÓN SOCIAL:".$espacios."<b>TELEDATA CHILE SPA.</b><br>
+                        RUT:".$espacios."<b>76.722.248-3</b><br>
+                        BANCO:".$espacios."<b>BANCO DE CHILE</b><br>
+                        TIPO DE CUENTA:".$espacios."<b>CUENTA CORRIENTE</b><br>
+                        NUMERO DE CUENTA:".$espacios."<b>268-04500-03</b><br><br>
                         Saludos.
                     </body>
                 </html>";
