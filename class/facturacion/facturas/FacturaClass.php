@@ -2754,16 +2754,55 @@
             $response_array['status'] = 1;
             echo json_encode($response_array);
         }
+        // metodo para contar el total de documentos segun su tipo
+        public static function countDocumentos($tipo){
+            $run = new Method;
+            $query = "SELECT token_produccion as access_token FROM variables_globales";
+            $variables_globales = $run->select($query);
+            $access_token = $variables_globales[0]['access_token'];
+            //Total DOCUMENTOS
+            if($tipo == 1){
+                $url='https://api.bsale.cl/v1/documents.json';
+            }elseif($tipo == 2){
+                //Total Notas de Creditos
+                $url='https://api.bsale.cl/v1/returns.json';
+            }
+            // elseif($tipo == 3)
+            //Total Notas de Debito
+            //en proceso
+            
+            // Inicia cURL
+            $session = curl_init($url);
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+            // Cierra la sesión cURL
+            curl_close($session);
+            $Documents = json_decode($response, true);
+            return $Documents['count'];
+        }
+
         public function sincronizarConBsale(){
             $run = new Method;
             $query = "SELECT token_produccion as access_token FROM variables_globales";
             $variables_globales = $run->select($query);
             $access_token = $variables_globales[0]['access_token'];
-
+            // para traer todos los documentos se pasa el 1
+            $limitDocumentos = self::countDocumentos(1);
             //DOCUMENTOS
-
-            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]';
-
+            
+            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos;
+            
             // Inicia cURL
             $session = curl_init($url);
 
@@ -2853,9 +2892,9 @@
                 }
             }
 
-            //DEVOLUCIONES
-
-            $url='https://api.bsale.cl/v1/returns.json?expand=[credit_note]';
+            //total DEVOLUCIONES con el parametro 2
+            $limitDevoluciones = self::countDocumentos(2);
+            $url='https://api.bsale.cl/v1/returns.json?expand=[credit_note]&limit='.$limitDevoluciones;
 
             // Inicia cURL
             $session = curl_init($url);
