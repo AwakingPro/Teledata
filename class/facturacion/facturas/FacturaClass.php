@@ -2793,8 +2793,7 @@
         }
 
         public function sincronizarConBsale(){
-            // 10 minutos tiempo maximo de ejecucion del script
-            ini_set('max_execution_time', 600);
+            
             $run = new Method;
             $query = "SELECT token_produccion as access_token FROM variables_globales";
             $variables_globales = $run->select($query);
@@ -2995,7 +2994,6 @@
                 }
             }
             */
-            echo 'llego';
         }
         public function almacenarDocumento($DocumentoId,$Tipo,$UrlPdf){
             if($Tipo == 1){
