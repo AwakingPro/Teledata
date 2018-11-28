@@ -2888,7 +2888,7 @@
                         $UrlPdf = $Factura[0]['UrlPdfBsale'];
                     }
                     if($Id){   
-                        $this->almacenarDocumento($Id,1,$UrlPdf);
+                        // $this->almacenarDocumento($Id,1,$UrlPdf);
                     }
                 }
             }
@@ -2945,7 +2945,7 @@
                     $UrlPdf = $Devolucion[0]['UrlPdfBsale'];
                 }
                 if($FacturaId){   
-                    $this->almacenarDocumento($FacturaId,2,$UrlPdf);
+                    // $this->almacenarDocumento($FacturaId,2,$UrlPdf);
                 }
             }
 
