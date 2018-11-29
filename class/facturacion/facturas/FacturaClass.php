@@ -2822,9 +2822,13 @@
             $response = curl_exec($session);
 
             // Cierra la sesión cURL
+            $contador = 0;
+            $contadorFac = 0;
+            $contadorDet = 0;
             curl_close($session);
             $DocumentosBsale = json_decode($response, true);
             foreach($DocumentosBsale['items'] as $DocumentoBsale){
+                $contador++;
                 $DocumentoId = $DocumentoBsale['id'];
                 $document_type = $DocumentoBsale['document_type'];
                 $TipoDocumento = $document_type['id'];
@@ -2851,7 +2855,7 @@
                         if($references){
                             foreach($references as $reference){
                                 $NumeroOC = $reference['number'];
-                                $FechaOC = date('H:i:s',$reference['referenceDate']);
+                                $FechaOC = date('Y-m-d',$reference['referenceDate']);
                             }
                             $Grupo = 1001;
                         }else{
@@ -2865,7 +2869,11 @@
                         $Rut = $Explode[0];
                         if($Rut){
                             $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, FechaOC) VALUES ('".$Rut."', '".$Grupo."', '4', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', '".$FechaFacturacion."', '".$HoraFacturacion."', '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."')";
+                            $contadorFac++;
+            
                             $Id = $run->insert($query);
+                            echo 'id factura '.$Id.' '.$query;
+                            
                             if($Id){
                                 $details = $DocumentoBsale['details'];
                                 $details = $details['items'];
@@ -2879,19 +2887,24 @@
                                     $Total = $detail['totalAmount'];
                                     $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo, documentDetailIdBsale) VALUES ('".$Id."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '0', '".$Total."', '', '".$documentDetailIdBsale."')";
                                     $FacturaDetalleId = $run->insert($query);
+                                    echo 'FacturaDetalleId '.$FacturaDetalleId.'  query '.$query;
+                                    $contadorDet++;
                                 }
                             }
+                            echo "\n\n";
                         }
                     }else{
                         $Id = $Factura[0]['Id'];
                         $UrlPdf = $Factura[0]['UrlPdfBsale'];
                     }
                     if($Id){   
-                        // $this->almacenarDocumento($Id,1,$UrlPdf);
+                        $this->almacenarDocumento($Id,1,$UrlPdf);
                     }
                 }
             }
-            
+            echo 'COntador Doc[items] '.$contador;
+            echo 'Cont Inser fac '.$contadorFac;
+            echo 'Cont inser dev '.$contadorDet;
             //total DEVOLUCIONES con el parametro 2
             $limitDevoluciones = self::countDocumentos(2);
             $url='https://api.bsale.cl/v1/returns.json?expand=[credit_note]&limit='.$limitDevoluciones;
@@ -2944,7 +2957,7 @@
                     $UrlPdf = $Devolucion[0]['UrlPdfBsale'];
                 }
                 if($FacturaId){   
-                    // $this->almacenarDocumento($FacturaId,2,$UrlPdf);
+                    $this->almacenarDocumento($FacturaId,2,$UrlPdf);
                 }
             }
 
