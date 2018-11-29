@@ -129,9 +129,8 @@ $(document).ready(function() {
             });
         });
     }
-
-    google.maps.event.addDomListener(window, 'load', initialize);
-
+   
+    google.maps.event.addDomListener(window, 'load', initialize)
     function initialize() {
 
         center = new google.maps.LatLng(-41.3214705, -73.0138898);
@@ -141,10 +140,10 @@ $(document).ready(function() {
             center: center,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
-
-        Map = new google.maps.Map(document.getElementById("Map"), mapOptions);
+        
+        Mapa = new google.maps.Map(document.getElementById("Map"), mapOptions)
         var marker = new google.maps.Marker({
-            map: Map,
+            map: Mapa,
             draggable: true,
             position: center
 
@@ -200,9 +199,9 @@ $(document).ready(function() {
             mapCenter = new google.maps.LatLng(latitud, longitud);
 
             setTimeout(function() {
-                google.maps.event.trigger(Map, "resize");
-                Map.setCenter(mapCenter);
-                Map.setZoom(Map.getZoom());
+                google.maps.event.trigger(Mapa, "resize");
+                Mapa.setCenter(mapCenter);
+                Mapa.setZoom(Mapa.getZoom());
             }, 1000)
         }
     })
@@ -267,14 +266,15 @@ $(document).ready(function() {
         $('#Latitud').val(Latitud)
         $('#Longitud').val(Longitud)
 
-        if (Longitud && Longitud) {
+        if (Latitud && Longitud) {
 
-            mapCenter = new google.maps.LatLng(Longitud, Longitud);
+            mapCenter = new google.maps.LatLng(Latitud, Longitud);
 
             setTimeout(function() {
-                google.maps.event.trigger(Map, "resize");
-                Map.setCenter(mapCenter);
-                Map.setZoom(Map.getZoom());
+                console.log(Latitud+''+Longitud)
+                google.maps.event.trigger(Mapa, "resize");
+                Mapa.setCenter(mapCenter);
+                Mapa.setZoom(Mapa.getZoom());
             }, 1000)
         }
 
