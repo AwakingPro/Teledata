@@ -2824,7 +2824,6 @@
             // Cierra la sesión cURL
             curl_close($session);
             $DocumentosBsale = json_decode($response, true);
-
             foreach($DocumentosBsale['items'] as $DocumentoBsale){
                 $DocumentoId = $DocumentoBsale['id'];
                 $document_type = $DocumentoBsale['document_type'];
@@ -2994,6 +2993,7 @@
                 }
             }
             */
+            echo 'llego doc'.$limitDocumentos.'Limite Dev'.$limitDevoluciones;
         }
         public function almacenarDocumento($DocumentoId,$Tipo,$UrlPdf){
             if($Tipo == 1){
