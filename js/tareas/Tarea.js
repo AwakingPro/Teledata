@@ -18,7 +18,7 @@ $(document).ready(function() {
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
-        Map = new google.maps.Map(document.getElementById("Map"), mapOptions);
+        Mapa = new google.maps.Map(document.getElementById("Map"), mapOptions);
     }
 
     $('select').selectpicker({ language: 'ES' });
@@ -804,11 +804,11 @@ $(document).ready(function() {
                     mapCenter = new google.maps.LatLng(latitud, longitud);
 
                     setTimeout(function() {
-                        google.maps.event.trigger(Map, "resize");
-                        Map.setCenter(mapCenter);
-                        Map.setZoom(Map.getZoom());
+                        google.maps.event.trigger(Mapa, "resize");
+                        Mapa.setCenter(mapCenter);
+                        Mapa.setZoom(Mapa.getZoom());
                         var marker = new google.maps.Marker({
-                            map: Map,
+                            map: Mapa,
                             draggable: true,
                             position: mapCenter
                 
