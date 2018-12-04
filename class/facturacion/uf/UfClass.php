@@ -21,7 +21,8 @@ class Uf {
         }
         $dailyIndicators = json_decode($json);
         if(isset($dailyIndicators->serie[0]->valor)){
-            $Value = floatval($dailyIndicators->serie[0]->valor);
+            // $Value = floatval($dailyIndicators->serie[0]->valor);
+            $Value = floatval(27536.46);
         }else{
             $Value = 0;
         }
