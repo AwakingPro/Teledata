@@ -1,5 +1,6 @@
 $(document).ready(function() {
-    IdUsuarioSession = $('IdUsuarioSession').val()
+    IdUsuarioSession = $('#IdUsuarioSession').val()
+    console.log(IdUsuarioSession);
     ModalTable = $('#ModalTable').DataTable({
         paging: false,
         iDisplayLength: 100,
@@ -142,7 +143,7 @@ $(document).ready(function() {
                                 Icono = '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar"  data-container="body"></i>'
                                 Icono += '<i title="Detalles servicio" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarInstalacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar"  data-container="body"></i>'
                                 Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar"  data-container="body"></i>'
-                                if(IdUsuarioSession == 104){
+                                if(IdUsuarioSession == 104 || IdUsuarioSession == 116){
                                     Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>'
                                 }
                                 return "<div style='text-align: center'>" + Icono + "</div>";
@@ -234,7 +235,7 @@ $(document).ready(function() {
                                 if(row.PermitirFactura == 1){
                                     Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                                 }
-                                if(IdUsuarioSession == 104){
+                                if(IdUsuarioSession == 104 || IdUsuarioSession == 116){
                                     Icono += '<i title="Eliminar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar" title="" data-container="body"></i>'
                                 }
                                 return "<div style='text-align: center'>" + Icono + "</div>";
@@ -313,7 +314,7 @@ $(document).ready(function() {
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-list-alt OC" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Orden de Compra" title="" data-container="body"></i>'
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-info-circle Referencia" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Referencia" title="" data-container="body"></i>'
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
-                                if(IdUsuarioSession == 104){
+                                if(IdUsuarioSession == 104 || IdUsuarioSession == 116){
                                     Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar" title="" data-container="body"></i>'
                                 }
                                 return "<div style='text-align: center'>" + Icono + "</div>";
