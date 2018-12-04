@@ -316,7 +316,7 @@
 					}
 				}
 
-				$query = "UPDATE servicios SET FechaInstalacion = '$FechaInstalacion', InstaladoPor = '$InstaladoPor', Comentario = '$Comentario', UsuarioPppoe = '$UsuarioPppoe', EstacionFinal = '$EstacionFinal', SenalFinal = '$SenalFinal', EstatusInstalacion = '$Estatus' where Id = '$Id'";
+				$query = "UPDATE servicios SET FechaInstalacion = '$FechaInstalacion', InstaladoPor = '$InstaladoPor', Comentario = '$Comentario', UsuarioPppoe = '$UsuarioPppoe', EstacionFinal = '$EstacionFinal', SenalFinal = '$SenalFinal', EstatusInstalacion = '$Estatus', FechaUltimoCobro = '$FechaInstalacion' where Id = '$Id'";
 				$data = $run->update($query);
 				
 				$response_array['Estatus'] = $Estatus;

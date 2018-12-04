@@ -71,7 +71,8 @@
     }else{
     	$FechaComprometidaInstalacion = '1969-01-31';
     }
-	$PrimerDiaDelMes = date('Y-m-01');
+	// $PrimerDiaDelMes = date('Y-m-01');
+	$PrimerDiaDelMes = date('Y-m-d');
 	$query = "INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, Codigo, Descripcion, IdUsuarioSession, Conexion, EstatusInstalacion, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, UsuarioPppoeTeorico, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion, FechaUltimoCobro, tipo_moneda) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '".$Valor."', '".$Descuento."', '".$TipoServicio."', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Conexion."', '0', '".$FechaInstalacion."', '', '', '', '".$Direccion."', '".$Latitud."', '".$Longitud."', '".$Referencia."', '".$Contacto."', '".$Fono."', '".$PosibleEstacion."', '".$Equipamiento."', '".$SenalTeorica."', '".$UsuarioPppoeTeorico."', '0', '', '', '0', '".$CostoInstalacion."', '".$CostoInstalacionDescuento."', '0', '".$FechaComprometidaInstalacion."',NOW(),'".$PrimerDiaDelMes."', '".$Moneda."')";
 	$id = $run->insert($query);
 	if($id){

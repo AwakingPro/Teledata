@@ -331,8 +331,8 @@
         public function showLote($Rut,$Grupo){           
 
             $run = new Method;
-
-            $query = "  SELECT
+            if($Grupo == 1000){
+                $query = "  SELECT
                             ROUND((
                                 facturas_detalle.Total
                             ),0) AS Valor,
@@ -346,10 +346,31 @@
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
                         WHERE
                             facturas.TipoFactura = '2'
-                        AND facturas.Rut = '".$Rut."'
+                        AND facturas.id = '".$Rut."'
                         AND facturas.Grupo = '".$Grupo."'
                         AND facturas.EstatusFacturacion = 0
                         AND facturas_detalle.Valor > 0"; 
+            }else{
+                $query = "  SELECT
+                ROUND((
+                    facturas_detalle.Total
+                ),0) AS Valor,
+                personaempresa.nombre AS Nombre,
+                facturas_detalle.Codigo,
+                facturas_detalle.Concepto,
+                facturas.IVA
+            FROM
+                facturas
+            INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id
+            INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
+            WHERE
+                facturas.TipoFactura = '2'
+            AND facturas.Rut = '".$Rut."'
+            AND facturas.Grupo = '".$Grupo."'
+            AND facturas.EstatusFacturacion = 0
+            AND facturas_detalle.Valor > 0"; 
+            }
+            
             $facturas = $run->select($query);
             $array = array();
             if($facturas){
@@ -803,7 +824,7 @@
                             //agrego 1 ano a fecha ultimo cobro
                             $FechaUltimoCobro->add(new DateInterval("P1Y"));
                         }
-                          // luego de agregar un mes a al ultimo cobro, comprueba si es <= a hoy
+                          // luego de agregar un mes al ultimo cobro, comprueba si es <= a hoy
                         // toca cobrar, paso 1 mes
                         if($FechaUltimoCobro <= $dt){
                             $Rut = $Servicio['Rut'];
