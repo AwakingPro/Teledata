@@ -3259,12 +3259,9 @@
             // $directory = "../../../facturacion/facturas";
             $looper = new RecursiveDirectoryIterator($directory);
             foreach (new RecursiveIteratorIterator($looper) as $filename => $cur) {
-                echo '$filename'.$filename."\n";
-                echo '$cur '.$cur."\n";
                 $ext = trim($cur->getExtension());
-                echo '$ext '.$ext."\n";
                 if($ext == "zip"){
-                    echo "unlink($filename); = ". unlink($filename);
+                    unlink($filename);
                 }
             }
         }
