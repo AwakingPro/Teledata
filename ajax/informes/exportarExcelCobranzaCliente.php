@@ -28,9 +28,8 @@
     ->setCellValue('H1', 'Saldo Favor')
     ->setCellValue('I1', 'Estado Cliente')
     ->setCellValue('J1', 'Tipo De Servicio')
-    ->setCellValue('K1', 'Clase Cliente');
-
-
+    ->setCellValue('K1', 'Tipo De Facturación')
+    ->setCellValue('L1', 'Clase Cliente');
 
     foreach (range(0, 10) as $col) {
         $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -49,13 +48,13 @@
     facturas.NumeroDocumento,
     facturas.FechaFacturacion,
     facturas.FechaVencimiento,
-    facturas.UrlPdfBsale,
     mantenedor_tipo_cliente.nombre AS TipoDocumento,
     facturas.IVA,
     facturas.EstatusFacturacion,
     clase_clientes.nombre AS ClaseCliente,
     IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalSaldo,
-    mantenedor_servicios.servicio AS NombreServicio
+    mantenedor_servicios.servicio AS NombreServicio,
+    mantenedor_tipo_facturacion.nombre AS TipoFacturacion
     FROM
     facturas
 	INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id
@@ -63,6 +62,8 @@
     INNER JOIN clase_clientes ON clase_clientes.id = personaempresa.clase_cliente
 	INNER JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
 	LEFT JOIN servicios ON servicios.Rut = facturas.Rut
+    LEFT JOIN mantenedor_tipo_factura ON servicios.TipoFactura = mantenedor_tipo_factura.id
+	LEFT JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_factura.tipo_facturacion = mantenedor_tipo_facturacion.id
 	LEFT JOIN mantenedor_servicios ON mantenedor_servicios.IdServicio = servicios.IdServicio
     WHERE
 	facturas.EstatusFacturacion = 1 ";
@@ -159,6 +160,7 @@
         $data['TipoDocumento'] = $factura['TipoDocumento'];
         $data['ClaseCliente'] = $factura['ClaseCliente'];
         $data['NombreServicio'] = $factura['NombreServicio'];
+        $data['TipoFacturacion'] = $factura['TipoFacturacion'];
         $data['Acciones'] = $Acciones;
         $data['EstatusFacturacion'] = 1;
         array_push($ToReturn,$data);
@@ -236,7 +238,8 @@
     ->setCellValue('H'.$index, $datos['SaldoFavor'])
     ->setCellValue('I'.$index, 'En proceso...')
     ->setCellValue('J'.$index, $datos['NombreServicio'])
-    ->setCellValue('K'.$index, $datos['ClaseCliente']);
+    ->setCellValue('K'.$index, $datos['TipoFacturacion'])
+    ->setCellValue('L'.$index, $datos['ClaseCliente']);
     $index ++; 
     }
 }else{
