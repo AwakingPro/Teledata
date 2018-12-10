@@ -8,6 +8,7 @@
 		<link href="css/nifty.min.css" rel="stylesheet">
 		<link href="plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 		<link href="css/teledata.css" rel="stylesheet">
+		
 	</head>
 	<body>
 		<div id="container" class="cls-container">
