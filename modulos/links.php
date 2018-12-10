@@ -1,5 +1,5 @@
 <?php
 
-echo '<link href="http://localhost/Teledata/img/teledata_ico.ico" rel="shortcut icon" type="image/x-icon" />';
+echo '<link href="131.0.108.31/img/teledata_ico.ico" rel="shortcut icon" type="image/x-icon" />';
 
 ?>

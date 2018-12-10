@@ -14,7 +14,7 @@
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
 		<?php
-			include 'http://localhost/Teledata/modulos/links.php';
+			include '131.0.108.31/modulos/links.php';
 		?>
 	</head>
 	<body>
