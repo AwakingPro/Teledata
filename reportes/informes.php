@@ -51,7 +51,7 @@
                                                             <option value="3">Informe Cobranza de clientes</option>
                                                             <option value="4" disabled="disabled">Informe de Pagos por Cliente</option>
                                                             <option value="5" disabled="disabled">Informe Estado de Clientes</option>
-                                                            <option value="6" disabled="disabled">Libro de Ventas</option>
+                                                            <option value="6" >Libro de Ventas</option>
                                                             <option value="7" disabled="disabled">Libro de Compras</option>
                                                             <option value="8" disabled="disabled">Resumen de Impuesto Mensual. (IVA) | VENTAS | COMPRAS</option>
                                                             <option value="9" disabled="disabled">Informe de Pago de Proveedores</option>
