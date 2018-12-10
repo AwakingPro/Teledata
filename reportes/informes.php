@@ -49,16 +49,16 @@
                                                             <option value="1">Informe Clientes</option>
                                                             <option value="2">Informe de Pagos Mensuales y Anuales</option>
                                                             <option value="3">Informe Cobranza de clientes</option>
-                                                            <option value="4">Informe de Pagos por Cliente</option>
-                                                            <option value="5">Informe Estado de Clientes</option>
-                                                            <option value="6">Libro de Ventas</option>
-                                                            <option value="7">Libro de Compras</option>
-                                                            <option value="8">Resumen de Impuesto Mensual. (IVA) | VENTAS | COMPRAS</option>
-                                                            <option value="9">Informe de Pago de Proveedores</option>
-                                                            <option value="10">Informe otros Egresos</option>
-                                                            <option value="11">Informe graficado de ingresos v/s egreso</option>
-                                                            <option value="12">Comparativo tipo de Egreso</option>
-                                                            <option value="13">Gráficos Comparativos</option>
+                                                            <option value="4" disabled="disabled">Informe de Pagos por Cliente</option>
+                                                            <option value="5" disabled="disabled">Informe Estado de Clientes</option>
+                                                            <option value="6" disabled="disabled">Libro de Ventas</option>
+                                                            <option value="7" disabled="disabled">Libro de Compras</option>
+                                                            <option value="8" disabled="disabled">Resumen de Impuesto Mensual. (IVA) | VENTAS | COMPRAS</option>
+                                                            <option value="9" disabled="disabled">Informe de Pago de Proveedores</option>
+                                                            <option value="10" disabled="disabled">Informe otros Egresos</option>
+                                                            <option value="11" disabled="disabled">Informe graficado de ingresos v/s egreso</option>
+                                                            <option value="12" disabled="disabled">Comparativo tipo de Egreso</option>
+                                                            <option value="13" disabled="disabled">Gráficos Comparativos</option>
                                                         </select>
                                                     </div>
                                                 </div>
