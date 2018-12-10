@@ -36,7 +36,7 @@ $(document).ready(function(){
             
             }
             if(tipo_informe == '3'){
-                url = "../ajax/informes/exportarExcelCobranzaCliente.php";
+                url = "../ajax/informes/exportarExcelCobranzaCliente.php?startDate="+startDate+"&endDate="+endDate+"&rut="+rut;
                 window.open(url, '_blank');
             }
             if(tipo_informe == '4'){

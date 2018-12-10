@@ -1,6 +1,6 @@
 $(document).ready(function() {
     IdUsuarioSession = $('#IdUsuarioSession').val()
-    console.log(IdUsuarioSession);
+    
     ModalTable = $('#ModalTable').DataTable({
         paging: false,
         iDisplayLength: 100,
