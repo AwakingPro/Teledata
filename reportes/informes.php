@@ -75,7 +75,7 @@
                                             </div>
                                             <div class="col-sm-4">
                                                 <div class="form-group">
-                                                    <label class="control-label">Seleccione rango de fecha</label>
+                                                    <label class="control-label">Seleccione rango de fecha De Facturación</label>
                                                     <div id="date-range">
                                                         <div class="input-daterange input-group" id="datepicker">
                                                             <input type="text" class="form-control" id="start" name="start" />
