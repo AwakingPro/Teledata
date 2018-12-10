@@ -26,15 +26,16 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('F1', 'Fecha Vencimiento')
     ->setCellValue('G1', 'Monto Neto')
     ->setCellValue('H1', 'IVA')
-	->setCellValue('I1', 'Total Doc')
+	->setCellValue('I1', 'Monto total')
 	->setCellValue('J1', 'Saldo Doc')
     ->setCellValue('K1', 'Saldo a favor')
     ->setCellValue('L1', 'Glosa')
-    ->setCellValue('M1', 'Nº Relación');
+    ->setCellValue('M1', 'Nº Relación')
+    ->setCellValue('N1', 'Informe SII');
     
 
 
-foreach (range(0, 11) as $col) {
+foreach (range(0, 14) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 
@@ -61,6 +62,7 @@ $query = "  SELECT
     mantenedor_tipo_cliente.nombre AS TipoDocumento,
     facturas.IVA,
     facturas.EstatusFacturacion,
+    facturas.informedSiiBsale AS InformeSII,
     IFNULL( ( SELECT SUM( Valor ) FROM facturas_detalle WHERE FacturaId = facturas.Id ), 0 ) AS MontoNeto,
     IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalSaldo,
     facturas_pagos.Detalle as Detalle
@@ -144,6 +146,13 @@ if($facturas){
         $data['Detalle'] = $factura['Detalle'];
         $data['Acciones'] = $Acciones;
         $data['EstatusFacturacion'] = 1;
+        // informedSii, indica si el documento fue informado al SII, 0 es correcto, 1 es enviado, 2 es rechazado (Integer).
+        if($factura['InformeSII'] == 0)
+        $data['InformeSII'] = 'Correcto';
+        if($factura['InformeSII'] == 1)
+        $data['InformeSII'] = 'Enviado';
+        if($factura['InformeSII'] == 2)
+        $data['InformeSII'] = 'Rechazado';
         $data['NumRelacion'] = $NumRelacion;
         array_push($ToReturn,$data);
         if($EstatusFacturacion == 2){
@@ -182,6 +191,12 @@ if($facturas){
                 $data['Detalle'] = $factura['Detalle'];
                 $data['Acciones'] = $Acciones;
                 $data['EstatusFacturacion'] = 2;
+                if($factura['InformeSII'] == 0)
+                $data['InformeSII'] = 'Correcto';
+                if($factura['InformeSII'] == 1)
+                $data['InformeSII'] = 'Enviado';
+                if($factura['InformeSII'] == 2)
+                $data['InformeSII'] = 'Rechazado';
                 $data['NumRelacion'] = $FNumeroDocumento;
                 array_push($ToReturn,$data);
                 if($DevolucionAnulada == 1){
@@ -206,6 +221,12 @@ if($facturas){
                         $data['UrlPdfBsale'] = $anulacion['UrlPdfBsale'];
                         $data['TipoDocumento'] = 'Nota de debito';
                         $data['EstatusFacturacion'] = 3;
+                        if($factura['InformeSII'] == 0)
+                        $data['InformeSII'] = 'Correcto';
+                        if($factura['InformeSII'] == 1)
+                        $data['InformeSII'] = 'Enviado';
+                        if($factura['InformeSII'] == 2)
+                        $data['InformeSII'] = 'Rechazado';
                         $data['NumRelacion'] = $FNumeroDocumento;
                         array_push($ToReturn, $data);
                     }
@@ -229,7 +250,8 @@ if($facturas){
         ->setCellValue('J'.$index, $datos['TotalSaldo'])
         ->setCellValue('K'.$index, $datos['SaldoFavor'])
         ->setCellValue('L'.$index, $datos['Detalle'])
-        ->setCellValue('M'.$index, $datos['NumRelacion']);
+        ->setCellValue('M'.$index, $datos['NumRelacion'])
+        ->setCellValue('N'.$index, $datos['InformeSII']);
         // $Total += $data['TotalSaldo'];
 
         $index++;
