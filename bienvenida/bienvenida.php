@@ -13,9 +13,6 @@
 		<link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
-		<?php
-			include '131.0.108.31/modulos/links.php';
-		?>
 	</head>
 	<body>
 		<div id="container" class="effect aside-float aside-bright mainnav-sm">
