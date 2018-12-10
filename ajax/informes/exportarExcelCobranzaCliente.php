@@ -89,10 +89,6 @@
 
     $run = new Method;
     $facturas = $run->select($query);
-    // foreach ($facturas as $key) {
-    //     echo $key['NumeroDocumento']."</br>";
-    // }
-    // exit;
     $id_facturas = '';
     $razonSocial = '';
     $NumeroDocumento = '';
@@ -159,7 +155,11 @@
         $data['SaldoFavor'] = $SaldoFavor;
         $data['TipoDocumento'] = $factura['TipoDocumento'];
         $data['ClaseCliente'] = $factura['ClaseCliente'];
+        if($factura['NombreServicio'] == '')
+        $factura['NombreServicio'] = 'Otros Servicios';
         $data['NombreServicio'] = $factura['NombreServicio'];
+        if($factura['TipoFacturacion'] == '')
+        $factura['TipoFacturacion'] = 'Otros Servicios';
         $data['TipoFacturacion'] = $factura['TipoFacturacion'];
         $data['Acciones'] = $Acciones;
         $data['EstatusFacturacion'] = 1;
