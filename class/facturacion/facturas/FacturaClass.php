@@ -2776,7 +2776,7 @@
             echo json_encode($response_array);
         }
         // metodo para contar el total de documentos segun su tipo
-        public static function countDocumentos($tipo){
+        public static function countDocumentos($tipo, $urlbsale){
             $run = new Method;
             $query = "SELECT token_produccion as access_token FROM variables_globales";
             $variables_globales = $run->select($query);
@@ -2787,10 +2787,11 @@
             }elseif($tipo == 2){
                 //Total Notas de Creditos
                 $url='https://api.bsale.cl/v1/returns.json';
+            }elseif($tipo == 3){
+                $url = $urlbsale;
             }
-            // elseif($tipo == 3)
-            //Total Notas de Debito
-            //en proceso
+            // Total Notas de Debito
+            // en proceso
             
             // Inicia cURL
             $session = curl_init($url);
@@ -2810,7 +2811,12 @@
             // Cierra la sesión cURL
             curl_close($session);
             $Documents = json_decode($response, true);
-            return $Documents['count'];
+            if($tipo == 3){
+                return $Documents['state'];
+            }else{
+                return $Documents['count'];
+            }
+            
         }
 
         public function sincronizarConBsale(){
@@ -2820,7 +2826,7 @@
             $variables_globales = $run->select($query);
             $access_token = $variables_globales[0]['access_token'];
             // para traer todos los documentos se pasa el 1
-            $limitDocumentos = self::countDocumentos(1);
+            $limitDocumentos = self::countDocumentos(1, '');
             //DOCUMENTOS
             
             $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos;
@@ -2874,19 +2880,24 @@
                             foreach($references as $reference){
                                 $NumeroOC = $reference['number'];
                                 $FechaOC = date('Y-m-d',$reference['referenceDate']);
+                                $dte_code = $reference['dte_code'];
+                                $dte_code = $dte_code['href'];
+                                // el 3 es para traer datos de https://api.bsale.cl/v1/dte_codes/20.json y obtener el state del dte
+                                $dte_code = self::countDocumentos(3, $dte_code);
                             }
                             $Grupo = 1001;
                         }else{
                             $Grupo = 1000;
                             $NumeroOC = '';
                             $FechaOC = '1970-01-31';
+                            $dte_code = 3;
                         }
                         $client = $DocumentoBsale['client'];
                         $code = $client['code'];
                         $Explode = explode('-',$code);
                         $Rut = $Explode[0];
                         if($Rut){
-                            $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, FechaOC) VALUES ('".$Rut."', '".$Grupo."', '4', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', '".$FechaFacturacion."', '".$HoraFacturacion."', '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."')";
+                            $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, FechaOC, estadoDTE) VALUES ('".$Rut."', '".$Grupo."', '4', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', '".$FechaFacturacion."', '".$HoraFacturacion."', '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."', '".$dte_code."')";
                             $Id = $run->insert($query);
                             if($Id){
                                 $details = $DocumentoBsale['details'];
@@ -2907,6 +2918,34 @@
                     }else{
                         $Id = $Factura[0]['Id'];
                         $UrlPdf = $Factura[0]['UrlPdfBsale'];
+                        //actualizo los datos de las facturas en la bd
+                        
+                        $informedSii = $DocumentoBsale['informedSii'];
+                        $responseMsgSii = $DocumentoBsale['responseMsgSii'];
+                        $references = $DocumentoBsale['references'];
+                        $references = $references['items'];
+                        if($references){
+                            foreach($references as $reference){
+                                $NumeroOC = $reference['number'];
+                                $FechaOC = date('Y-m-d',$reference['referenceDate']);
+                                $dte_code = $reference['dte_code'];
+                                $dte_code = $dte_code['href'];
+                                // el 3 es para traer datos de https://api.bsale.cl/v1/dte_codes/20.json y obtener el state del dte
+                                $dte_code = self::countDocumentos(3, $dte_code);
+                            }
+                        }else{
+                            $NumeroOC = '';
+                            $FechaOC = '1970-01-31';
+                            $dte_code = 3;
+                        }
+                        $client = $DocumentoBsale['client'];
+                        $code = $client['code'];
+                        $Explode = explode('-',$code);
+                        $Rut = $Explode[0];
+                        if($Rut){
+                            $query = "UPDATE facturas set informedSiiBsale = '".$informedSii."' , responseMsgSiiBsale = '".$responseMsgSii."',  NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', estadoDTE = '".$dte_code."' WHERE Id = $Id";
+                            $update = $run->update2($query);
+                        }
                     }
                     if($Id){   
                         $this->almacenarDocumento($Id,1,$UrlPdf);
@@ -2915,7 +2954,7 @@
             }
             
             //total DEVOLUCIONES con el parametro 2
-            $limitDevoluciones = self::countDocumentos(2);
+            $limitDevoluciones = self::countDocumentos(2, '');
             $url='https://api.bsale.cl/v1/returns.json?expand=[credit_note]&limit='.$limitDevoluciones;
 
             // Inicia cURL
