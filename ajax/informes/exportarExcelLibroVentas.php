@@ -31,11 +31,14 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('K1', 'Saldo a favor')
     ->setCellValue('L1', 'Glosa')
     ->setCellValue('M1', 'Nº Relación')
-    ->setCellValue('N1', 'Informe SII');
+    ->setCellValue('N1', 'Informe SII')
+    ->setCellValue('O1', 'DTE Activos')
+    ->setCellValue('P1', 'DTE Inactivos')
+    ->setCellValue('Q1', 'DTE Desconocido');
     
 
 
-foreach (range(0, 14) as $col) {
+foreach (range(0, 17) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 
@@ -55,10 +58,12 @@ $query = "  SELECT
     personaempresa.rut AS RUT,
     personaempresa.dv AS DV,
     facturas.Id,
+    facturas.DocumentoIdBsale,
     facturas.NumeroDocumento,
     facturas.FechaFacturacion,
     facturas.FechaVencimiento,
     facturas.UrlPdfBsale,
+    facturas.CountDTE,
     mantenedor_tipo_cliente.nombre AS TipoDocumento,
     facturas.IVA,
     facturas.EstatusFacturacion,
@@ -87,16 +92,41 @@ if($Rut){
 $query .= " ORDER BY Cliente";
 
 $facturas = $run->select($query);
-$NumRelacion = ''; 
+// echo '<pre>'; print_r($facturas); echo '</pre>';exit;
+$NumRelacion = '';
+$dte_activos = 0;
+$dte_inactivos = 0;
+$dte_otros = 0;
 if($facturas){
     $index = 2;
     foreach($facturas as $factura){
         $Id = $factura['Id'];
+        $CountDTE = $factura['CountDTE'];
+        $DocumentoIdBsale = $factura['DocumentoIdBsale'];
         $IVA = $factura['IVA'];  
         $EstatusFacturacion = $factura['EstatusFacturacion'];
         $FNumeroDocumento = $factura['NumeroDocumento'];
         $TotalFactura = 0;
         
+        if($CountDTE > 0){
+
+            $query = "SELECT state, COUNT(*) as totalDTE FROM dte_code WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' GROUP BY state ";
+            $dte_codes = $run->select($query);
+            $totaldte_codes = count($dte_codes);
+            // echo '<pre>'; print_r($totaldte_codes); echo '</pre>';
+            $estadoDTE = $dte_codes[0]['state'];
+            if($estadoDTE == 0){
+                $dte_activos = $dte_codes[0]['totalDTE'];
+            }
+            if($estadoDTE == 1){
+                $dte_inactivos = $dte_codes[0]['totalDTE'];
+            }
+            // echo '<pre> activos '; print_r($dte_activos); echo '</pre>'.$DocumentoIdBsale; 
+            // echo '<pre> inactivos '; print_r($dte_inactivos); echo '</pre>';
+            // echo '<pre> otro estado '; print_r($dte_otros); echo '</pre>';
+        }
+        
+
         $query = "SELECT Total, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
         $detalles = $run->select($query);
         foreach($detalles as $detalle){
@@ -153,6 +183,9 @@ if($facturas){
         $data['InformeSII'] = 'Enviado';
         if($factura['InformeSII'] == 2)
         $data['InformeSII'] = 'Rechazado';
+        $data['dte_activos'] = $dte_activos;
+        $data['dte_inactivos'] = $dte_inactivos;
+        $data['dte_otros'] = $dte_otros;
         $data['NumRelacion'] = $NumRelacion;
         array_push($ToReturn,$data);
         if($EstatusFacturacion == 2){
@@ -197,6 +230,9 @@ if($facturas){
                 $data['InformeSII'] = 'Enviado';
                 if($factura['InformeSII'] == 2)
                 $data['InformeSII'] = 'Rechazado';
+                $data['dte_activos'] = 0;
+                $data['dte_inactivos'] = 0;
+                $data['dte_otros'] = 0; 
                 $data['NumRelacion'] = $FNumeroDocumento;
                 array_push($ToReturn,$data);
                 if($DevolucionAnulada == 1){
@@ -227,6 +263,9 @@ if($facturas){
                         $data['InformeSII'] = 'Enviado';
                         if($factura['InformeSII'] == 2)
                         $data['InformeSII'] = 'Rechazado';
+                        $data['dte_activos'] = 0;
+                        $data['dte_inactivos'] = 0;
+                        $data['dte_otros'] = 0; 
                         $data['NumRelacion'] = $FNumeroDocumento;
                         array_push($ToReturn, $data);
                     }
@@ -234,9 +273,9 @@ if($facturas){
             }
         }
     }
+    
     // echo '<pre>'; print_r($ToReturn); echo '</pre>';exit;
     foreach($ToReturn as $datos) {
-        
         $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A'.$index, $datos['Cliente'])
         ->setCellValue('B'.$index, $datos['TipoDocumento'])
@@ -251,18 +290,21 @@ if($facturas){
         ->setCellValue('K'.$index, $datos['SaldoFavor'])
         ->setCellValue('L'.$index, $datos['Detalle'])
         ->setCellValue('M'.$index, $datos['NumRelacion'])
-        ->setCellValue('N'.$index, $datos['InformeSII']);
+        ->setCellValue('N'.$index, $datos['InformeSII'])
+        ->setCellValue('O'.$index, $datos['dte_activos'])
+        ->setCellValue('P'.$index, $datos['dte_inactivos'])
+        ->setCellValue('Q'.$index, $datos['dte_otros']);
         // $Total += $data['TotalSaldo'];
 
         $index++;
-    }
+    } 
+    // echo '<pre>'; print_r($ToReturn); echo '</pre>';
     // $objPHPExcel->setActiveSheetIndex(0)
     // ->setCellValue('H'.$index, $Total);
 }else{
     echo 'No existen datos para esta consulta';
     return;
 }
-
 
 // Renombrar Hoja
 $objPHPExcel->getActiveSheet()->setTitle('Informe de Cobranza');
