@@ -114,12 +114,14 @@ if($facturas){
             $dte_codes = $run->select($query);
             $totaldte_codes = count($dte_codes);
             // echo '<pre>'; print_r($totaldte_codes); echo '</pre>';
-            $estadoDTE = $dte_codes[0]['state'];
-            if($estadoDTE == 0){
-                $dte_activos = $dte_codes[0]['totalDTE'];
-            }
-            if($estadoDTE == 1){
-                $dte_inactivos = $dte_codes[0]['totalDTE'];
+            foreach($dte_codes as $dte_code){
+                $estadoDTE = $dte_code['state'];
+                if($estadoDTE == 0){
+                    $dte_activos = $dte_code['totalDTE'];
+                }
+                if($estadoDTE == 1){
+                    $dte_inactivos = $dte_code['totalDTE'];
+                }
             }
             // echo '<pre> activos '; print_r($dte_activos); echo '</pre>'.$DocumentoIdBsale; 
             // echo '<pre> inactivos '; print_r($dte_inactivos); echo '</pre>';
