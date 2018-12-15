@@ -2959,7 +2959,6 @@
                             $TotalDTE = $run->select($query);
                             $totalDTE = $TotalDTE[0]['totalDTE'];
                             if($referencesCount != $totalDTE){
-                                echo 'dife referencesCount = '.$referencesCount.'totalDTE'.$totalDTE;
                                 $query = "DELETE FROM dte_code WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' ";
                                 $delete = $run->delete($query, false);
                                 echo 'delete'.$delete;

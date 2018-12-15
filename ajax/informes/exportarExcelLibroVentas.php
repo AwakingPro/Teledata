@@ -94,12 +94,13 @@ $query .= " ORDER BY Cliente";
 $facturas = $run->select($query);
 // echo '<pre>'; print_r($facturas); echo '</pre>';exit;
 $NumRelacion = '';
-$dte_activos = 0;
-$dte_inactivos = 0;
-$dte_otros = 0;
+
 if($facturas){
     $index = 2;
     foreach($facturas as $factura){
+        $dte_activos = 0;
+        $dte_inactivos = 0;
+        $dte_otros = 0;
         $Id = $factura['Id'];
         $CountDTE = $factura['CountDTE'];
         $DocumentoIdBsale = $factura['DocumentoIdBsale'];
@@ -109,7 +110,6 @@ if($facturas){
         $TotalFactura = 0;
         
         if($CountDTE > 0){
-
             $query = "SELECT state, COUNT(*) as totalDTE FROM dte_code WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' GROUP BY state ";
             $dte_codes = $run->select($query);
             $totaldte_codes = count($dte_codes);
