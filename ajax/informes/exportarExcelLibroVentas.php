@@ -36,7 +36,8 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('P1', 'DTE Inactivos')
     ->setCellValue('Q1', 'DTE Desconocido');
     
-
+    // filtros
+    $objPHPExcel->getActiveSheet()->setAutoFilter("A1:Q1");
 
 foreach (range(0, 17) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -275,7 +276,11 @@ if($facturas){
             }
         }
     }
-    
+    $TotalNeto = 0;
+    $TotalIVA = 0;
+    $TotalTotal = 0;
+    $TotalSaldo = 0;
+    $TotalSaldoFavor = 0;
     // echo '<pre>'; print_r($ToReturn); echo '</pre>';exit;
     foreach($ToReturn as $datos) {
         $objPHPExcel->setActiveSheetIndex(0)
@@ -296,13 +301,29 @@ if($facturas){
         ->setCellValue('O'.$index, $datos['dte_activos'])
         ->setCellValue('P'.$index, $datos['dte_inactivos'])
         ->setCellValue('Q'.$index, $datos['dte_otros']);
-        // $Total += $data['TotalSaldo'];
-
+        $TotalNeto += $datos['MontoNeto'];
+        $TotalIVA += $datos['MontoNeto'] * $datos['IVA'];
+        $TotalTotal += $datos['TotalFactura'];
+        $TotalSaldo += $datos['TotalSaldo'];
+        $TotalSaldoFavor += $datos['SaldoFavor'];
         $index++;
     } 
-    // echo '<pre>'; print_r($ToReturn); echo '</pre>';
-    // $objPHPExcel->setActiveSheetIndex(0)
-    // ->setCellValue('H'.$index, $Total);
+    // echo '<pre>'; print_r($ToReturn); echo '</pre>';exit;
+    // Agregar Informacion
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('G'.$index, 'Total Neto')
+    ->setCellValue('H'.$index, 'Total IVA')
+    ->setCellValue('I'.$index, 'Total')
+    ->setCellValue('J'.$index, 'Total Doc')
+    ->setCellValue('K'.$index, 'Total Saldo Favor');
+    $index++;
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('G'.$index, $TotalNeto)
+    ->setCellValue('H'.$index, $TotalIVA)
+    ->setCellValue('I'.$index, $TotalTotal)
+    ->setCellValue('J'.$index, $TotalSaldo)
+    ->setCellValue('K'.$index, $TotalSaldoFavor);
+    
 }else{
     echo 'No existen datos para esta consulta';
     return;
