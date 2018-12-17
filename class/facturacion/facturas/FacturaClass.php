@@ -754,12 +754,13 @@
             
             $run = new Method;
             $Hoy = date('Y-m-d');
-            $dt = new DateTime(); 
+            // $dt = new DateTime('2019-01-01');
+            $dt = new DateTime();
             $Anio = $dt->format('Y');
-            //  las facturas que se generan cada mes son del mes anterior
+            //  las facturas que se generan cada mes son del mes anterior con el metodo generarMes disminuye 1 mes
             $MesFacturacion = $this->generarMes($dt);
             $Facturas = array();
-            // el codigo comentado en la query es por una persona no puede tener mas de n facturas pendientes por facturar de jn servicio
+            // el codigo comentado en la query es por una persona no puede tener mas de n facturas pendientes por facturar de n servicio
             // Ese n depende del tipo de cliente que sea
             // La consulta compara la cantidad de facturas pendientes con una columna en tipo cliente
             // Y si tiene mas facturas que en la columna, no entra al if
@@ -806,12 +807,13 @@
                     // $PermitirFactura = $Servicio['PermitirFactura'];
                     $PermitirFactura = 1;
                     $TipoFacturacion = $Servicio['TipoFacturacion'];
+                    // FechaInicioDesactivacion y FechaFinalDesactivacion es por si tiene inactivo el servicio
                     if(($FechaInicioDesactivacion > $Hoy OR $FechaFinalDesactivacion < $Hoy) && $PermitirFactura && $TipoFacturacion){
                         $FechaUltimoCobro = $Servicio['FechaUltimoCobro'];
-                        $FechaUltimoCobro = new DateTime($FechaUltimoCobro);                     
+                        $FechaUltimoCobro = new DateTime($FechaUltimoCobro);                        
                         $Concepto = $Servicio['Servicio'];
                         if($TipoFacturacion == '1'){
-                            // agrego 1 mes a fecha ultimo cobro
+                            // agrego 1 mes a fecha ultimo cobro para que no genere la factura nuevamente si le cobro el servicio por 1ra vez al finalizar tarea
                             $Concepto .= ' - Mes ' . $MesFacturacion;
                             $FechaUltimoCobro->add(new DateInterval("P1M"));
                         }elseif($TipoFacturacion == '2'){
@@ -858,6 +860,7 @@
                                 $detalle = $run->insert($query);
                                 if($detalle){
                                     $PrimerDiaDelMes = date('Y-m-01');
+                                    // $PrimerDiaDelMes = date('2019-01-01');
                                     $query = "UPDATE servicios SET FechaUltimoCobro = '".$PrimerDiaDelMes."' WHERE Id = '".$Id."'";
                                     $data = $run->update($query);
                                 }
@@ -1012,6 +1015,9 @@
 
         function generarMes($dt){
             $Mes = $dt->format('m');
+            if($Mes == 1)
+            $Mes = 12;
+            else
             $Mes--;
 
             switch ($Mes) {
@@ -2961,7 +2967,6 @@
                             if($referencesCount != $totalDTE){
                                 $query = "DELETE FROM dte_code WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' ";
                                 $delete = $run->delete($query, false);
-                                echo 'delete'.$delete;
                                 if($delete && $referencesCount > 0 ){
                                     //si existen references, exiten dte_code y los inserta
                                     if($references){
