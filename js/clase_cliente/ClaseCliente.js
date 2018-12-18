@@ -127,6 +127,8 @@ $(document).ready(function(){
 
     $('body').on('click', '#actualizarClase', function () {
 
+        $('#actualizarClase').attr('disabled', 'disabled');
+
         $.postFormValues('../includes/clase_cliente/updateClase.php', '#updateClase', {}, function(response){
        
             if(response.status == 1){
@@ -162,13 +164,13 @@ $(document).ready(function(){
                     timer : 3000
                 });
             }
-                   
+            $('#actualizarClase').removeAttr('disabled');      
       
         });  
     });
 
     $('body').on('click', '.Remove', function () {
-
+        
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectId = ObjectTR.attr("id");
