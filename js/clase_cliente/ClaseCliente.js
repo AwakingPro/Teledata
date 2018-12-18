@@ -56,6 +56,8 @@ $(document).ready(function(){
 
     $('body').on('click', '#guardarClase', function () {
 
+        $("#guardarClase").attr("disabled", "disabled");
+        
         $.postFormValues('../includes/clase_cliente/storeClase.php', '#storeClase', {}, function(response){
 
             if(response.status == 1){
@@ -102,6 +104,7 @@ $(document).ready(function(){
                 });
 
             }
+            $("#guardarClase").removeAttr("disabled");      
         });     
     });
 
