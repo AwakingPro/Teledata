@@ -65,8 +65,30 @@ $(document).ready(function() {
 			});
 		});
 
+	$('.ClaseCliente').load('../ajax/cliente/selectClaseCliente.php', function() {
+		$('.ClaseCliente').selectpicker('refresh');
+	});
 	$(document).on('click', '.agregarTipoFacturacion', function() {
+		$(this).attr('disabled', 'disabled');
+		if($('input[name=TipoFacCodigo]').val() == ''){
+			bootbox.alert('<h3 class="text-center">Escriba Tipo Fac Código</h3>');
+			$(this).removeAttr('disabled');
+			return;
+		}
+		if($('input[name=TipoFacDescripcion]').val() == ''){
+			bootbox.alert('<h3 class="text-center">Escriba Tipo Fac Descripción</h3>');
+			$(this).removeAttr('disabled');
+			return;
+		}
+		if($('input[name=ClaseCliente]').val() == ''){
+			console.log($('input[name=ClaseCliente]').val());
+			bootbox.alert('<h3 class="text-center">Seleccione Clase de Cliente</h3>');
+			$(this).removeAttr('disabled');
+			return;
+		}
+
 		$.postFormValues('../ajax/servicios/insertTipoFacturacion.php','.containerTipoFactura', {},function(data){
+
 			if (Number(data) > 0){
 				$('.listTipoCobro').load('../ajax/TipoCobroServicio/listaCobroServicio.php',function(){
 					var count = $('.listTipoCobro > .tabeData tr th').length -1;
@@ -102,10 +124,18 @@ $(document).ready(function() {
 
 				$('.containerTipoFactura input').val('');
 				bootbox.alert('<h3 class="text-center">Se registro con éxito.</h3>');
-			}else{
-				console.log(data);
-				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
-			}
+				
+			}else
+				if(Number(data) == 0){
+					bootbox.alert('<h3 class="text-center">Ingrese el Tipo Fac Código</h3>');
+				}else
+					if(Number(data) == -1){
+						bootbox.alert('<h3 class="text-center">Ingrese el Tipo Fac Descripción</h3>');
+					}
+					else{
+						bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
+					}
 		});
+		$(this).removeAttr('disabled');
 	});
 });

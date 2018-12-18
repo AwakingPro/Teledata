@@ -41,17 +41,21 @@
 										<div class="tab-content">
 											<h3>Agregar tipo de cobro</h3><br>
 												<div class="row containerTipoFactura">
-													<div class="col-md-4">
-														<input type="text" class="form-control" name="TipoFacCodigo">
+													<div class="col-md-3">
+														<input type="text" class="form-control" name="TipoFacCodigo" placeholder="Tipo Fac Código">
 													</div>
-													<div class="col-md-4">
-														<input type="text" class="form-control" name="TipoFacDescripcion">
+													<div class="col-md-3">
+														<input type="text" class="form-control" name="TipoFacDescripcion" placeholder="Tipo Fac Descricción">
 													</div>
-													<div class="col-md-4">
+													<div class="col-md-3">
 														<select id="TipoFacturacion" name="TipoFacturacion" class="form-control selectpicker" data-live-search="true">
 															<option value="1">Mensual</option>
 															<option value="2">Semestral</option>
 															<option value="3">Anual</option>
+														</select>
+													</div>
+													<div class="col-md-3 form-group">
+														<select name="ClaseCliente" class="form-control selectpicker ClaseCliente" data-live-search="true" validate="not_null" data-nombre="Clase Cliente">
 														</select>
 													</div>
 													<div class="col-md-2">
