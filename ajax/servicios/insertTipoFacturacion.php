@@ -3,21 +3,21 @@
 
 	$TipoFacCodigo = $_POST['TipoFacCodigo'];
 	$TipoFacDescripcion = $_POST['TipoFacDescripcion'];
-	$ClaseCliente = isset($_POST['ClaseCliente']) ? strtoupper(trim($_POST['ClaseCliente'])) : "";
+	// $ClaseCliente = isset($_POST['ClaseCliente']) ? strtoupper(trim($_POST['ClaseCliente'])) : "";
 
 	$TipoFacCodigo = isset($TipoFacCodigo) ? trim($TipoFacCodigo) : "";
 	$TipoFacDescripcion = isset($TipoFacDescripcion) ? trim($TipoFacDescripcion) : "";
 
 	if($TipoFacCodigo != ''){
 		if($TipoFacDescripcion != ''){
-			if($ClaseCliente != ''){
+			// if($ClaseCliente != ''){
 				$run = new Method;
-				$query = "INSERT INTO mantenedor_tipo_factura (codigo, descripcion, tipo_facturacion, tipo_documento) VALUES ('".$_POST['TipoFacCodigo']."', '".$_POST['TipoFacDescripcion']."', '".$_POST['TipoFacturacion']."', '".$_POST['ClaseCliente']."')";
+				$query = "INSERT INTO mantenedor_tipo_factura (codigo, descripcion, tipo_facturacion) VALUES ('".$_POST['TipoFacCodigo']."', '".$_POST['TipoFacDescripcion']."', '".$_POST['TipoFacturacion']."')";
 				$data = $run->insert($query);
 				echo $data;
-			}else{
-				return -2;
-			}
+			// }else{
+			// 	return -2;
+			// }
 		}else{
 			echo -1;
 			return;
