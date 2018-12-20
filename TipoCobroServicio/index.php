@@ -42,12 +42,15 @@
 											<h3>Agregar tipo de cobro</h3><br>
 												<div class="row containerTipoFactura">
 													<div class="col-md-3">
+													<label>Código</label>
 														<input type="text" class="form-control" name="TipoFacCodigo" placeholder="Tipo Fac Código">
 													</div>
 													<div class="col-md-3">
+													<label>Descricción</label>
 														<input type="text" class="form-control" name="TipoFacDescripcion" placeholder="Tipo Fac Descricción">
 													</div>
 													<div class="col-md-3">
+													<label>Tipo de Factura</label>
 														<select id="TipoFacturacion" name="TipoFacturacion" class="form-control selectpicker" data-live-search="true">
 															<option value="1">Mensual</option>
 															<option value="2">Semestral</option>
@@ -55,7 +58,9 @@
 														</select>
 													</div>
 													<div class="col-md-3 form-group">
-														<select name="ClaseCliente" class="form-control selectpicker ClaseCliente" data-live-search="true" validate="not_null" data-nombre="Clase Cliente">
+														<label>Tipo Doc de Cliente</label>
+														<select name="TipoCliente" class="form-control TipoCliente" data-live-search="true" validate="not_null">
+															<option value="">Seleccione...</option>
 														</select>
 													</div>
 													<div class="col-md-2">

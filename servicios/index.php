@@ -622,6 +622,7 @@
 					<div class="col-md-4 form-group">
 						<label>Descripción</label>
 						<input name="TipoFacDescripcion" class="form-control">
+						<input type="hidden" name="TipoCliente" id="getTipoDoc" class="form-control">
 					</div>
 					<div class="col-md-4 form-group">
 						<label>Tiempo de Facturación</label>
