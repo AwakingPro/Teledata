@@ -65,9 +65,10 @@ $(document).ready(function() {
 			});
 		});
 
-	$('.ClaseCliente').load('../ajax/cliente/selectClaseCliente.php', function() {
-		$('.ClaseCliente').selectpicker('refresh');
+	$('.TipoCliente').load('../ajax/cliente/selectTipoCliente.php', function() {
+		$('.TipoCliente').selectpicker('refresh');
 	});
+
 	$(document).on('click', '.agregarTipoFacturacion', function() {
 		$(this).attr('disabled', 'disabled');
 		if($('input[name=TipoFacCodigo]').val() == ''){
@@ -80,9 +81,8 @@ $(document).ready(function() {
 			$(this).removeAttr('disabled');
 			return;
 		}
-		if($('input[name=ClaseCliente]').val() == ''){
-			console.log($('input[name=ClaseCliente]').val());
-			bootbox.alert('<h3 class="text-center">Seleccione Clase de Cliente</h3>');
+		if($('input[name=TipoCliente]').val() == ''){
+			bootbox.alert('<h3 class="text-center">Seleccione Tipo de Cliente</h3>');
 			$(this).removeAttr('disabled');
 			return;
 		}

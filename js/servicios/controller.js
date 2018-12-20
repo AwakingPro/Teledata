@@ -478,6 +478,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.agregarTipoFacturacion', function() {
+        $('.agregarTipoFacturacion').attr('disabled', 'disabled');
         $.postFormValues('../ajax/servicios/insertTipoFacturacion.php', '.containerTipoFactura', {}, function(data) {
             if (Number(data) > 0) {
                 $('select[name="TipoFactura"]').load('../ajax/servicios/selectTipoFactura.php', function() {
@@ -490,6 +491,7 @@ $(document).ready(function() {
                 bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
             }
         });
+        $('.agregarTipoFacturacion').removeAttr('disabled');
     });
 
     $(document).on('click', '.agregarGrupo', function() {
@@ -521,6 +523,25 @@ $(document).ready(function() {
             }
         });
     });
+    // refresh el id oculto de tipo Doc
+    function getTipoDoc(Rut) {
+        $.ajax({
+            type: "GET",
+            url: "../ajax/servicios/getTipoDoc.php",
+            dataType: "json",
+            data: "Rut=" + Rut,
+            success: function(response) {
+                if(response.tipo_cliente != ''){
+                    $('#getTipoDoc').val(response.tipo_cliente);
+                    setTimeout(() => {
+                        $('#getTipoDoc').selectpicker('refresh');
+                    }, 1000); 
+                }else{
+                    bootbox.alert('<h3 class="text-center">No existe el id de tipo Cliente.</h3>');
+                }
+            }
+        });
+    }
 
     function getCliente(Rut) {
         console.log(Rut);
@@ -534,6 +555,7 @@ $(document).ready(function() {
     }
     $(document).on('change', 'select[name="Rut"]', function() {
         getCliente($(this).val())
+        getTipoDoc($(this).val())
     });
 
     $(document).on('click', '.listDatosTecnicos', function() {
