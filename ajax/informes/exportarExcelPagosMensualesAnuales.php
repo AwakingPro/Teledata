@@ -30,6 +30,8 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('J1', 'Glosa')
     ->setCellValue('K1', 'Nº Relación');
 
+// filtros
+$objPHPExcel->getActiveSheet()->setAutoFilter("A1:K1");
 
 foreach (range(0, 10) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -77,7 +79,7 @@ $run = new Method;
                 $query .= " AND facturas.Rut = '".$Rut."'";
             }
 
-            $query .= " ORDER BY Cliente";
+            $query .= " ORDER BY Cliente, FechaFacturacion";
            
             // if($documentType){
             //     $query .= " AND facturas.TipoDocumento = '".$documentType."'";
