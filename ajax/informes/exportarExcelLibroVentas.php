@@ -166,7 +166,7 @@ if($facturas){
         $data['TotalFactura'] = $TotalFactura;
         //total saldo es el pago total
         $data['MontoNeto'] = $factura['MontoNeto'];
-        $data['IVA'] = $IVA;
+        $data['IVA'] = $factura['MontoNeto'] * $IVA;
         $data['TotalSaldo'] = $TotalSaldo;
         $data['SaldoFavor'] = $SaldoFavor;
         $data['UrlPdfBsale'] = $factura['UrlPdfBsale'];
@@ -218,7 +218,7 @@ if($facturas){
                 $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                 $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                 $data['MontoNeto'] = $factura['MontoNeto'];
-                $data['IVA'] = $IVA;
+                $data['IVA'] = $factura['MontoNeto'] * $IVA;
                 $data['TotalFactura'] = $TotalFactura;
                 $data['TotalSaldo'] = $TotalSaldoFactura;
                 $data['SaldoFavor'] = $SaldoFavor;
@@ -253,7 +253,7 @@ if($facturas){
                         $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
                         $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
                         $data['MontoNeto'] = $factura['MontoNeto'];
-                        $data['IVA'] = $IVA;
+                        $data['IVA'] = $factura['MontoNeto'] * $IVA;
                         $data['TotalFactura'] = $TotalFactura;
                         $data['TotalSaldo'] = $TotalSaldoFactura;
                         $data['SaldoFavor'] = $SaldoFavor;
@@ -302,7 +302,7 @@ if($facturas){
         ->setCellValue('P'.$index, $datos['dte_inactivos'])
         ->setCellValue('Q'.$index, $datos['dte_otros']);
         $TotalNeto += $datos['MontoNeto'];
-        $TotalIVA += $datos['MontoNeto'] * $datos['IVA'];
+        $TotalIVA += $datos['IVA'];
         $TotalTotal += $datos['TotalFactura'];
         $TotalSaldo += $datos['TotalSaldo'];
         $TotalSaldoFavor += $datos['SaldoFavor'];
