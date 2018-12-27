@@ -90,6 +90,7 @@
 															<table id="FacturasTableCliente" class="table table-striped table-bordered">
 																<thead>
 																	<tr>
+																		<th class="text-center"><input class="select-checkbox" name="select_all" id="select_all" type="checkbox"></th>
 																		<th class="text-center">N* de Documento</th>
 																		<th class="text-center">Tipo de Documento</th>
 																		<th class="text-center">Fecha Emisión</th>
@@ -103,6 +104,11 @@
 																<tbody>
 																</tbody>
 															</table>
+														</div>
+													</div>
+													<div class="col-md-12" style="margin-top:20px">
+														<div class="pull-right">
+															<b><span style="font-size:14px">Total Doc: <span id="TotalDoc">0</span></span></b><br>
 														</div>
 													</div>
 												</div>

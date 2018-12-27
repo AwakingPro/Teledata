@@ -62,13 +62,62 @@ $(document).ready(function() {
 
     $(document).on('change', 'select[name="rutCliente"]', function() {
         getFacturasCliente();
+        $('#TotalDoc').text(0);
+        $("#select_all").prop('checked', false);
+    });
+
+    function getChecked() {
+
+        var checked = [];
+
+        $('#FacturasTableCliente tr').each(function(i, row) {
+            var actualrow = $(row);
+            checkbox = actualrow.find('input:checked').val();
+            if (checkbox == 'on') {
+                var id = $(actualrow).attr('id');
+                var TotalFactura = $(actualrow).attr('TotalFactura');
+                checked[i] = TotalFactura;
+            }
+        });
+
+        return checked;
+    }
+
+    function sumarTotalDoc(SaldoDoc) {
+        var TotalDoc = 0;
+        $(SaldoDoc).each(function(i, row) {
+            if(row != undefined){   
+                TotalDoc += parseInt(row);
+            }
+        });
+        return TotalDoc;
+    }
+
+    $('#select_all').on('click', function() {
+        var rows = FacturasTableCliente.rows({ 'search': 'applied' }).nodes();
+        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        values = getChecked();
+        if(values.length) {
+            $('#TotalDoc').text(formatcurrency(sumarTotalDoc(values)));
+        }else{
+            $('#TotalDoc').text(0);
+        }
+    });
+
+    $('#FacturasTableCliente tbody').on('click', 'input[type="checkbox"]', function() {
+        values = getChecked();
+        if(values.length) {
+            $('#TotalDoc').text(formatcurrency(sumarTotalDoc(values)));
+        }else{
+            $('#TotalDoc').text(0);
+        }
     });
 
     function getFacturasCliente() {
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { Rut: $('select[name="rutCliente"]').selectpicker('val') }, function(data) {
             FacturasTableCliente = $('#FacturasTableCliente').DataTable({
                 order: [
-                    [0, 'desc']
+                    [2, 'asc']
                 ],
                 "columnDefs": [{
                     "targets": [0],
@@ -76,6 +125,7 @@ $(document).ready(function() {
                 }],
                 data: data,
                 columns: [
+                    { data: 'Id' },
                     { data: 'NumeroDocumento' },
                     { data: 'TipoDocumento' },
                     { data: 'FechaFacturacion' },
@@ -89,17 +139,26 @@ $(document).ready(function() {
                 'createdRow': function(row, data, dataIndex) {
                     $(row)
                         .attr('id', data.Id)
+                        .attr('TotalFactura', data.TotalFactura)
                         .addClass('text-center')
                 },
-                "columnDefs": [{
-                        "targets": 4,
+                "columnDefs": [
+                    {
+                        "targets": 0,
+                        "render": function(data, type, row) {
+                            Check = '<input name="select_check" id="select_check_' + data + '" type="checkbox" />'
+                            return "<div style='text-align: center'>" + Check + "</div>";
+                        }
+                    },
+                    {
+                        "targets": 5,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             return "<div style='text-align: center'>" + value + "</div>";
                         }
                     },
                     {
-                        "targets": 5,
+                        "targets": 6,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             if (row.TipoDocumento == 'Nota de crédito') {
@@ -113,14 +172,14 @@ $(document).ready(function() {
                         }
                     },
                     {
-                        "targets": 6,
+                        "targets": 7,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             return "<div style='text-align: center'>" + value + "</div>";
                         }
                     },
                     {
-                        "targets": 7,
+                        "targets": 8,
                         "render": function(data, type, row) {
                             if (row.EstatusFacturacion == '1') {
                                 Folder = 'facturas';
@@ -259,7 +318,7 @@ $(document).ready(function() {
             documentType = '';
         }
         FacturasTableCliente
-            .columns(1)
+            .columns(2)
             .search(documentType)
             .draw();
     }
