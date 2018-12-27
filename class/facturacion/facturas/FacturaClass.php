@@ -81,6 +81,7 @@
                             mantenedor_tipo_cliente.nombre AS TipoDocumento,
                             facturas.IVA,
                             personaempresa.nombre AS Cliente,
+                            -- devuelve el primero que encuentre que no sea nulo.
                             COALESCE (
                                 grupo_servicio.Nombre,
                                 facturas.Grupo
