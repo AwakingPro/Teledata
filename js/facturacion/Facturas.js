@@ -43,18 +43,25 @@ $(document).ready(function() {
     $('.row-por-NFactura').hide();
 
     $(document).on('click', '.select-por-fecha', function() {
+        $('.TotalSaldoDoc').text(0);
+        $(".select_all").prop('checked', false);
+       
         $('.row-por-clientes').slideUp('slow');
         $('.row-por-NFactura').slideUp('slow');
         $('.row-por-fechas').slideDown('slow');
     });
 
     $(document).on('click', '.select-por-cliente', function() {
+        $('.TotalSaldoDoc').text(0);
+        $(".select_all").prop('checked', false);
         $('.row-por-fechas').slideUp('slow');
         $('.row-por-NFactura').slideUp('slow');
         $('.row-por-clientes').slideDown('slow');
     });
 
     $(document).on('click', '.select-por-NFactura', function() {
+        $('.TotalSaldoDoc').text(0);
+        $(".select_all").prop('checked', false);
         $('.row-por-fechas').slideUp('slow');
         $('.row-por-clientes').slideUp('slow');
         $('.row-por-NFactura').slideDown('slow');
@@ -62,20 +69,18 @@ $(document).ready(function() {
 
     $(document).on('change', 'select[name="rutCliente"]', function() {
         getFacturasCliente();
-        $('#TotalDoc').text(0);
+        $('.TotalSaldoDoc').text(0);
         $("#select_all").prop('checked', false);
     });
 
-    function getChecked() {
-
+    function getChecked(idtabla) {
         var checked = [];
-
-        $('#FacturasTableCliente tr').each(function(i, row) {
+        $(idtabla+' tr').each(function(i, row) {
             var actualrow = $(row);
             checkbox = actualrow.find('input:checked').val();
             if (checkbox == 'on') {
                 var id = $(actualrow).attr('id');
-                var TotalFactura = $(actualrow).attr('TotalFactura');
+                var TotalFactura = $(actualrow).attr('totalsaldo');
                 checked[i] = TotalFactura;
             }
         });
@@ -83,33 +88,49 @@ $(document).ready(function() {
         return checked;
     }
 
-    function sumarTotalDoc(SaldoDoc) {
-        var TotalDoc = 0;
+    function sumarSaldoDoc(SaldoDoc) {
+        var TotalSaldoDoc = 0;
         $(SaldoDoc).each(function(i, row) {
             if(row != undefined){   
-                TotalDoc += parseInt(row);
+                TotalSaldoDoc += parseInt(row);
             }
         });
-        return TotalDoc;
+        return TotalSaldoDoc;
     }
 
     $('#select_all').on('click', function() {
         var rows = FacturasTableCliente.rows({ 'search': 'applied' }).nodes();
         $('input[type="checkbox"]', rows).prop('checked', this.checked);
-        values = getChecked();
+        values = getChecked('#FacturasTableCliente');
         if(values.length) {
-            $('#TotalDoc').text(formatcurrency(sumarTotalDoc(values)));
+            $('.TotalSaldoDoc').text(formatcurrency(sumarSaldoDoc(values)));
         }else{
-            $('#TotalDoc').text(0);
+            $('.TotalSaldoDoc').text(0);
         }
     });
 
     $('#FacturasTableCliente tbody').on('click', 'input[type="checkbox"]', function() {
-        values = getChecked();
+        values = getChecked('#FacturasTableCliente');
         if(values.length) {
-            $('#TotalDoc').text(formatcurrency(sumarTotalDoc(values)));
+            $('.TotalSaldoDoc').text(formatcurrency(sumarSaldoDoc(values)));
         }else{
-            $('#TotalDoc').text(0);
+            $('.TotalSaldoDoc').text(0);
+        }
+    });
+    $('#FacturasTableFechas tbody').on('click', 'input[type="checkbox"]', function() {
+        values = getChecked('#FacturasTableFechas');
+        if(values.length) {
+            $('.TotalSaldoDoc').text(formatcurrency(sumarSaldoDoc(values)));
+        }else{
+            $('.TotalSaldoDoc').text(0);
+        }
+    });
+    $('#FacturasTableNDocumento tbody').on('click', 'input[type="checkbox"]', function() {
+        values = getChecked('#FacturasTableNDocumento');
+        if(values.length) {
+            $('.TotalSaldoDoc').text(formatcurrency(sumarSaldoDoc(values)));
+        }else{
+            $('.TotalSaldoDoc').text(0);
         }
     });
 
@@ -139,7 +160,7 @@ $(document).ready(function() {
                 'createdRow': function(row, data, dataIndex) {
                     $(row)
                         .attr('id', data.Id)
-                        .attr('TotalFactura', data.TotalFactura)
+                        .attr('TotalSaldo', data.TotalSaldo)
                         .addClass('text-center')
                 },
                 "columnDefs": [
@@ -264,7 +285,6 @@ $(document).ready(function() {
         $('[name="NumeroDocumento"]').mask("000000");
         var NumeroDocumento = $('[name="NumeroDocumento"]').val();
         if (NumeroDocumento != '') {
-            console.log(NumeroDocumento);
             getFacturasNDocumento();
         } else {
             bootbox.alert('Debe Ingresar un Número de Documento')
@@ -303,6 +323,7 @@ $(document).ready(function() {
     }
     $(document).on('change', '#documentTypeFecha', function() {
         filtrarPorDocumentoFecha();
+        $('.TotalSaldoDoc').text(0);
     });
     function filtrarPorDocumentoCliente(){
         var documentType = $('#documentTypeRut').val();
@@ -354,7 +375,7 @@ $(document).ready(function() {
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { NumeroDocumento: NumeroDocumento }, function(data) {
             FacturasTableNDocumento = $('#FacturasTableNDocumento').DataTable({
                 order: [
-                    [0, 'desc']
+                    [8, 'asc']
                 ],
                 "columnDefs": [{
                     "targets": [0],
@@ -362,7 +383,7 @@ $(document).ready(function() {
                 }],
                 data: data,
                 columns: [
-                    { data: 'Cliente' },
+                    { data: 'Id' },
                     { data: 'NumeroDocumento' },
                     { data: 'TipoDocumento' },
                     { data: 'FechaFacturacion' },
@@ -370,15 +391,24 @@ $(document).ready(function() {
                     { data: 'TotalFactura' },
                     { data: 'TotalSaldo' },
                     { data: 'SaldoFavor'},
+                    { data: 'Cliente' },
                     { data: 'DocumentoId' }
                 ],
                 destroy: true,
                 'createdRow': function(row, data, dataIndex) {
                     $(row)
                         .attr('id', data.Id)
+                        .attr('TotalSaldo', data.TotalSaldo)
                         .addClass('text-center')
                 },
                 "columnDefs": [{
+                    "targets": 0,
+                    "render": function(data, type, row) {
+                        Check = '<input name="select_check" id="select_check_' + data + '" type="checkbox" />'
+                        return "<div style='text-align: center'>" + Check + "</div>";
+                        }
+                    },
+                    {
                         "targets": 5,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
@@ -407,7 +437,7 @@ $(document).ready(function() {
                         }
                     },
                     {
-                        "targets": 8,
+                        "targets": 9,
                         "render": function(data, type, row) {
                             if (row.EstatusFacturacion == '1') {
                                 Folder = 'facturas';
@@ -487,6 +517,18 @@ $(document).ready(function() {
             filtrarPorDocumentoNDocumento();
         });
     }
+    //para seleccionar todos los docs de la tabla por fechas
+    $('#select_all_docs').on('click', function() {
+        var rows = FacturasTableNDocumento.rows({ 'search': 'applied' }).nodes();
+        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        values = getChecked('#FacturasTableNDocumento');
+        if(values.length) {
+            $('.TotalSaldoDoc').text(formatcurrency(sumarSaldoDoc(values)));
+        }else{
+            $('.TotalSaldoDoc').text(0);
+        }
+    });
+
 
     //por fechas
     function getFacturas() {
@@ -497,7 +539,7 @@ $(document).ready(function() {
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { startDate: startDate, endDate: endDate, documentType: documentType }, function(data) {
             FacturasTableFechas = $('#FacturasTableFechas').DataTable({
                 order: [
-                    [0, 'desc']
+                    [8, 'asc']
                 ],
                 "columnDefs": [{
                     "targets": [0],
@@ -505,7 +547,7 @@ $(document).ready(function() {
                 }],
                 data: data,
                 columns: [
-                    { data: 'Cliente' },
+                    { data: 'Id' },
                     { data: 'NumeroDocumento' },
                     { data: 'TipoDocumento' },
                     { data: 'FechaFacturacion' },
@@ -513,15 +555,25 @@ $(document).ready(function() {
                     { data: 'TotalFactura' },
                     { data: 'TotalSaldo' },
                     { data: 'SaldoFavor'},
+                    { data: 'Cliente' },
                     { data: 'DocumentoId' }
-                ],
+                ]
+                ,
                 destroy: true,
                 'createdRow': function(row, data, dataIndex) {
                     $(row)
                         .attr('id', data.Id)
+                        .attr('TotalSaldo', data.TotalSaldo)
                         .addClass('text-center')
                 },
                 "columnDefs": [{
+                    "targets": 0,
+                    "render": function(data, type, row) {
+                        Check = '<input name="select_check" id="select_check_' + data + '" type="checkbox" />'
+                        return "<div style='text-align: center'>" + Check + "</div>";
+                        }
+                    },
+                    {
                         "targets": 5,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
@@ -550,7 +602,7 @@ $(document).ready(function() {
                         }
                     },
                     {
-                        "targets": 8,
+                        "targets": 9,
                         "render": function(data, type, row) {
                             if (row.EstatusFacturacion == '1') {
                                 Folder = 'facturas';
@@ -631,6 +683,19 @@ $(document).ready(function() {
         });
     }
 
+    //para seleccionar todos los docs de la tabla por fechas
+    $('#select_all_fechas').on('click', function() {
+        var rows = FacturasTableFechas.rows({ 'search': 'applied' }).nodes();
+        $('input[type="checkbox"]', rows).prop('checked', this.checked);
+        values = getChecked('#FacturasTableFechas');
+        if(values.length) {
+            $('.TotalSaldoDoc').text(formatcurrency(sumarSaldoDoc(values)));
+        }else{
+            $('.TotalSaldoDoc').text(0);
+        }
+    });
+    
+
     $(document).on('click', '.descargar', function() {
         Tipo = $('#select-por').val();
         if(Tipo == 1){
@@ -683,8 +748,13 @@ $(document).ready(function() {
     $('body').on('click', '.Abonar', function() {
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
-        Monto = $(ObjectTR).find("td").eq(5).text();
+        Monto = $(ObjectTR).find("td").eq(6).text();
+        Monto = Monto.split();
+        //formatea el monto hasta miles de mollones
+        Monto = Monto[0].replace(".", "");
         Monto = Monto.replace(".", "");
+        Monto = Monto.replace(".", "");
+        
         $('#Monto').val(Monto)
         var id = ObjectTR.attr("id");
         $('#FacturaId').val(id)
