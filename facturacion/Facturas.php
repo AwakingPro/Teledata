@@ -87,10 +87,10 @@
 												<div class="col-md-12">
 													<div class="table-responsive">
 														<div class="col-md-12">
-															<table id="FacturasTableCliente" class="table table-striped table-bordered">
+															<table id="FacturasTableCliente" class="table table-striped table-bordered FacturasTableAll">
 																<thead>
 																	<tr>
-																		<th class="text-center"><input class="select-checkbox" name="select_all" id="select_all" type="checkbox"></th>
+																		<th class="text-center"><input class="select-checkbox select_all" name="select_all" id="select_all" type="checkbox"></th>
 																		<th class="text-center">N* de Documento</th>
 																		<th class="text-center">Tipo de Documento</th>
 																		<th class="text-center">Fecha Emisión</th>
@@ -106,11 +106,7 @@
 															</table>
 														</div>
 													</div>
-													<div class="col-md-12" style="margin-top:20px">
-														<div class="pull-right">
-															<b><span style="font-size:14px">Total Doc: <span id="TotalDoc">0</span></span></b><br>
-														</div>
-													</div>
+													<?php include 'plantilla_saldoDoc.php'; ?>
 												</div>
 											</div>
 										</div>
@@ -159,10 +155,10 @@
 												<div class="col-md-12">
 													<div class="table-responsive">
 														<div class="col-md-12">
-															<table id="FacturasTableFechas" class="table table-striped table-bordered">
+															<table id="FacturasTableFechas" class="table table-striped table-bordered FacturasTableAll">
 																<thead>
 																	<tr>
-                                                                        <th class="text-center">Cliente</th>
+																		<th class="text-center"><input class="select-checkbox select_all" name="select_all_fechas" id="select_all_fechas" type="checkbox"></th>
 																		<th class="text-center">N* de Documento</th>
 																		<th class="text-center">Tipo de Documento</th>
 																		<th class="text-center">Fecha Emisión</th>
@@ -170,6 +166,7 @@
 																		<th class="text-center">Total Doc.</th>
 																		<th class="text-center">Saldo Doc.</th>
 																		<th class="text-center">Saldo a favor.</th>
+																		<th class="text-center">Cliente</th>
 																		<th class="text-center">Acción</th>
 																	</tr>
 																</thead>
@@ -178,6 +175,7 @@
 															</table>
 														</div>
 													</div>
+													<?php include 'plantilla_saldoDoc.php'; ?>
 												</div>
 											</div>
 										</div>
@@ -227,7 +225,7 @@
 															<table id="FacturasTableNDocumento" class="table table-striped table-bordered">
 																<thead>
 																	<tr>
-                                                                        <th class="text-center">Cliente</th>
+																	<th class="text-center"><input class="select-checkbox select_all" name="select_all_docs" id="select_all_docs" type="checkbox"></th>
 																		<th class="text-center">N* de Documento</th>
 																		<th class="text-center">Tipo de Documento</th>
 																		<th class="text-center">Fecha Emisión</th>
@@ -235,6 +233,7 @@
 																		<th class="text-center">Total Doc.</th>
 																		<th class="text-center">Saldo Doc.</th>
 																		<th class="text-center">Saldo a favor.</th>
+																		<th class="text-center">Cliente</th>
 																		<th class="text-center">Acción</th>
 																	</tr>
 																</thead>
@@ -243,6 +242,7 @@
 															</table>
 														</div>
 													</div>
+													<?php include 'plantilla_saldoDoc.php'; ?>
 												</div>
 											</div>
 										</div>
