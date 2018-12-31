@@ -24,7 +24,7 @@ class Uf {
         if(isset($dailyIndicators->UFs[0]->Valor)){
             // $Value = floatval($dailyIndicators->UFs[0]->Valor);
             $Value = $dailyIndicators->UFs[0]->Valor;
-            $Value = floatval(27566.79);
+            $Value = floatval(27565.79);
             // $findme   = ',';
             // $coma = strpos($Value, $findme);
             // if($coma == true){
@@ -37,7 +37,7 @@ class Uf {
             // $Value = $this->redondeado($Value, 6);
         }else{
             // $Value = floatval(27.565,79);
-            $Value = floatval(27566.79);
+            $Value = floatval(27565.79);
         }
         return $Value;
     }
