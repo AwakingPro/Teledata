@@ -633,5 +633,22 @@
 			$result = exec("mysqldump -u ".$this->user." --password=".$this->password." teledata > /var/www/html/Teledata/backups/`date +%Y%m%d%H%M`.sql");
 			echo $result;
 		}
+
+		// metodo para buscar dentro de una variable 
+		function encontrar($Value, $findme){
+			//busco $findme dentro de $Value
+			$encontrado = strpos($Value, $findme);
+			if($encontrado == true){
+				$Value = explode($findme, $Value);
+				$data = array('Value' => $Value,
+						  'verificacion' => true
+						);
+			}else{
+				$data = array('Value' => $Value,
+						  'verificacion' => false
+						);
+			}
+			return $data;
+		}
 	}
  ?>
