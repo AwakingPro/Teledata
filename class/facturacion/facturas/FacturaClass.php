@@ -2782,7 +2782,7 @@
             $response_array['status'] = 1;
             echo json_encode($response_array);
         }
-        // metodo para contar el total de documentos segun su tipo
+        // funcion para contar el total de documentos segun su tipo
         public static function countDocumentos($tipo, $urlbsale){
             $run = new Method;
             $query = "SELECT token_produccion as access_token FROM variables_globales";
