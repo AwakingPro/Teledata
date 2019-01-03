@@ -42,7 +42,7 @@
             $ClientesBsale = json_decode($response, true);
             // echo '<pre>'; print_r($ClientesBsale); echo '</pre>'; exit;
             foreach($ClientesBsale['items'] as $ClienteBsale){
-                
+                $ClienteHref             = $ClienteBsale['href'];
                 $ClienteId               = $ClienteBsale['id'];
                 $ClienteFirstName        = $ClienteBsale['firstName'];
                 $ClienteLastName         = $ClienteBsale['lastName'];
@@ -85,8 +85,8 @@
                     }
 
                 }
-                $ClienteCityId = '';
 
+                $ClienteCityId = '';
                 if($ClienteCity != ''){
                     $query = "SELECT id FROM ciudades WHERE nombre = '".$ClienteCity."' limit 1 ";
                     $ClienteCity   = $this->metodo->select($query);
@@ -97,116 +97,69 @@
                     }
 
                 }
-                echo $ClienteCiudadId."\n".$ProvinciaId."\n".$ClienteRegionId."\n".$ClienteCityId; exit;
+                // echo $ClienteCiudadId."\n".$ProvinciaId."\n".$ClienteRegionId."\n".$ClienteCityId; exit;
                 
                 $ClienteAddress          = $ClienteBsale['address'];
                 $ClienteCompanyOrPerson  = $ClienteBsale['companyOrPerson'];
                 $ClienteAccumulatePoints = $ClienteBsale['accumulatePoints'];
                 $ClientePoints           = $ClienteBsale['points'];
                 $ClientePointsUpdated    = $ClienteBsale['pointsUpdated'];
-                $ClienteSendDte          = $ClienteBsale['SendDte'];
+                $ClienteSendDte          = $ClienteBsale['sendDte'];
                 $ClienteIsForeigner      = $ClienteBsale['isForeigner'];
                 $ClienteCreatedAt        = $ClienteBsale['createdAt'];
                 $ClienteUpdatedAt        = $ClienteBsale['updatedAt'];
-
-                if($TipoDocumento == 1 OR $TipoDocumento == 2){
-                    $query = "SELECT Id, UrlPdfBsale, CountDTE, DocumentoIdBsale FROM facturas WHERE DocumentoIdBsale = '".$ClienteId."'";
-                    $Factura = $run->select($query);
-                    // echo '<pre>'; print_r($Factura); echo '</pre>';exit;
-                    if(!$Factura){
-                        $UrlPdf = $ClienteBsale['urlPdf'];
-                        $informedSii = $ClienteBsale['informedSii'];
-                        $responseMsgSii = $ClienteBsale['responseMsgSii'];
-                        $NumeroDocumento = $ClienteBsale['number'];
-                        $FechaFacturacion = date('Y-m-d', $ClienteBsale['emissionDate']);
-                        $HoraFacturacion = date('H:i:s', $ClienteBsale['emissionDate']);
-                        $FechaVencimiento = date('Y-m-d', $ClienteBsale['expirationDate']);
-                        $references = $ClienteBsale['references'];
-                        $references = $references['items'];
-                        $referencesCount = count($references);
-                        if($references){
-                            foreach($references as $reference){
-                                $NumeroOC = $reference['number'];
-                                $FechaOC = date('Y-m-d',$reference['referenceDate']);
-                            }
-                            $Grupo = 1001;
-                        }else{
-                            $Grupo = 1000;
-                            $NumeroOC = '';
-                            $FechaOC = '1970-01-31';
-                        }
-                        $client = $ClienteBsale['client'];
-                        $code = $client['code'];
-                        $Explode = explode('-',$code);
-                        $Rut = $Explode[0];
-                        if($Rut){
-                            $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, FechaOC, CountDTE) VALUES ('".$Rut."', '".$Grupo."', '4', '1', '".$ClienteId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', '".$FechaFacturacion."', '".$HoraFacturacion."', '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."', '".$referencesCount."')";
-                            $Id = $run->insert($query);
-                            if($Id){
-                                $details = $ClienteBsale['details'];
-                                $details = $details['items'];
-                                foreach($details as $detail){
-                                    $documentDetailIdBsale = $detail['id'];
-                                    $Valor = $detail['netUnitValue'];
-                                    $Cantidad = $detail['quantity'];
-                                    $variant = $detail['variant'];
-                                    $Concepto = $variant['description'];
-                                    $Descuento = 0;
-                                    $Total = $detail['totalAmount'];
-                                    $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo, documentDetailIdBsale) VALUES ('".$Id."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '0', '".$Total."', '', '".$documentDetailIdBsale."')";
-                                    $FacturaDetalleId = $run->insert($query);
-                                }
-                                //si existen references, exiten dte_code y los inserta
-                                if($references){
-                                    foreach($references as $reference){
-                                        $dte_code = $reference['dte_code'];
-                                        $dte_code = $dte_code['href'];
-                                        // el 3 es para traer datos de https://api.bsale.cl/v1/dte_codes/20.json y obtener info del dte_code
-                                        $dte_code = self::countClientes(3, $dte_code);
-                                        $url = $dte_code['href'];
-                                        $dtecodeID = $dte_code['id'];
-                                        $name = $dte_code['name'];
-                                        $codeSii = $dte_code['codeSii'];
-                                        $state = $dte_code['state'];
-                                        $query = "INSERT INTO dte_code(url, dte_code_id, name, codeSii, state, FacturaId, DocumentoIdBsale) VALUES ('".$url."', '".$dtecodeID."', '".$name."', '".$codeSii."', '".$state."', '".$Id."', '".$ClienteId."')";
-                                        $FacturaDTEId = $run->insert($query);
-                                    }
-                                }
-                            }
-                        }
-                    }else{
-                        $Id = $Factura[0]['Id'];
-                        $UrlPdf = $Factura[0]['UrlPdfBsale'];
-                        $DocumentoIdBsale = $Factura[0]['DocumentoIdBsale'];
-                        //actualizo los datos de las facturas en la bd
-                        
-                        $informedSii = $ClienteBsale['informedSii'];
-                        $responseMsgSii = $ClienteBsale['responseMsgSii'];
-                        $references = $ClienteBsale['references'];
-                        $references = $references['items'];
-                        $referencesCount = count($references);
-                        if($references){
-                            foreach($references as $reference){
-                                $NumeroOC = $reference['number'];
-                                $FechaOC = date('Y-m-d',$reference['referenceDate']);
-                            }
-                        }else{
-                            $NumeroOC = '';
-                            $FechaOC = '1970-01-31';
-                        }
-                        $client = $ClienteBsale['client'];
-                        $code = $client['code'];
-                        $Explode = explode('-',$code);
-                        $Rut = $Explode[0];
-                        if($Rut){
-                            $query = "UPDATE facturas set informedSiiBsale = '".$informedSii."' , responseMsgSiiBsale = '".$responseMsgSii."',  NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', CountDTE = '".$referencesCount."' WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' ";
-                            $update = $run->update2($query);
-                        }
-                    }
-                    if($Id){   
-                        // $this->almacenarDocumento($Id,1,$UrlPdf);
-                    }
+                if($ClienteCreatedAt != ''){
+                    $ClienteCreatedAt = date('Y-m-d H:i:s',$ClienteCreatedAt);
                 }
+                if($ClienteUpdatedAt != ''){
+                    $ClienteUpdatedAt = date('Y-m-d H:i:s',$ClienteUpdatedAt);
+                }
+                $RutExplode = $this->metodo->encontrar($ClienteRut, "-");
+                if($RutExplode['verificacion'] == true){
+                    $Rut = $RutExplode['Value'][0];
+                    $DV = $RutExplode['Value'][1];
+                }
+                else{
+                    $Rut = $ClienteRut;
+                    $DV  = '';
+                }
+                if($Rut != ''){
+                    $query = "SELECT rut, dv, nombre, cliente_id_bsale FROM personaempresa WHERE rut = '".$Rut."' ";
+                }
+                if($DV != ''){
+                    $query.= "AND dv = '".$DV."' ";
+                }
+                if($Rut == '' && $DV == ''){
+                    $query = "SELECT rut, dv, nombre, cliente_id_bsale FROM personaempresa WHERE cliente_id_bsale = '".$ClienteId."' ";
+                }
+                
+                $Cliente = $this->metodo->select($query);
+                // echo '<pre>'; print_r($Cliente); echo '</pre>';exit;
+                if(!$Cliente){
+                    echo 'No existe cliente'; echo "\n";
+                    $query = "INSERT INTO personaempresa(rut, dv, nombre, giro, direccion, correo, contacto, telefono, region, ciudad,
+                              cliente_id_bsale, state, fecha_creacion, fecha_actualizacion, href, firstName, lastName, hasCredit, maxCredit,
+                              city, companyOrPerson, accumulatePoints, points, pointsUpdated, sendDte, isForeigner ) 
+                              VALUES ('".$Rut."', '".$DV."', '".$ClienteNombre."', '".$ClienteActivity."', '".$ClienteAddress."', 
+                                    '".$ClienteEmail."', '".$ClienteFirstName."', '".$ClientePhone."', '".$ClienteRegionId."', '".$ClienteCiudadId."',
+                                    '".$ClienteId."', '".$ClienteEstate."', '".$ClienteCreatedAt."', '".$ClienteUpdatedAt."', '".$ClienteHref."',
+                                    '".$ClienteFirstName."', '".$ClienteLastName."', '".$ClienteHasCredit."', '".$ClienteMaxCredit."',
+                                    '".$ClienteCityId."','".$ClienteCompanyOrPerson."', '".$ClienteAccumulatePoints."', '".$ClientePoints."',
+                                    '".$ClientePointsUpdated."', '".$ClienteSendDte."','".$ClienteIsForeigner."')";
+                    $Id = $this->metodo->insert($query, false);
+                    echo $Id;
+                    echo "\n";
+                }
+                // else{
+                //     $Id = $Cliente[0]['Id'];
+                //     $UrlPdf = $Cliente[0]['UrlPdfBsale'];
+                //     $DocumentoIdBsale = $Cliente[0]['DocumentoIdBsale'];
+                //     //actualizo los datos de las facturas en la bd
+                //     if($Rut){
+                //         $query = "UPDATE facturas set informedSiiBsale = '".$informedSii."' , responseMsgSiiBsale = '".$responseMsgSii."',  NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', CountDTE = '".$referencesCount."' WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' ";
+                //         $update = $run->update2($query);
+                //     }
+                // }
             }
 
         }
