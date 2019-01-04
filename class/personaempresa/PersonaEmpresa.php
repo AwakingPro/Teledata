@@ -146,7 +146,7 @@
                                     '".$ClienteFirstName."', '".$ClienteLastName."', '".$ClienteHasCredit."', '".$ClienteMaxCredit."',
                                     '".$ClienteCityId."','".$ClienteCompanyOrPerson."', '".$ClienteAccumulatePoints."', '".$ClientePoints."',
                                     '".$ClientePointsUpdated."', '".$ClienteSendDte."','".$ClienteIsForeigner."')";
-                    $Id = $this->metodo->insert($query, false);
+                    $Id = $this->metodo->insert($query, true);
                     echo $Id;
                     echo "\n";
                 }

@@ -30,10 +30,20 @@
 			}
 		}
 		public function log($query,$operacion,$log = true){
+			if($operacion == 'insert')
+				$operacion = 'Insertar';
+			if($operacion == 'delete')
+				$operacion = 'Borrar';
+			if($operacion == 'update')
+				$operacion = 'Actualizar';
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				if (isset($_SESSION['idUsuario']) && $log) {
 					$resultado = $mysqli->query('INSERT INTO log_query (IdUsuario, Fecha, Query, TipoOperacion) VALUES ("'.$_SESSION['idUsuario'].'", "'.date("Y-m-d H:i:s").'", "'.$query.'", "'.$operacion.'")');
+				}
+				if (!isset($_SESSION['idUsuario']) && $log) {
+					// el IdUsuario 118 sera usado cuando se hagan insert desde la api de bsale para sincronizar
+					$resultado = $mysqli->query('INSERT INTO log_query (IdUsuario, Fecha, Query, TipoOperacion) VALUES (118, "'.date("Y-m-d H:i:s").'", "'.$query.'", "'.$operacion.'")');
 				}
 				$mysqli->close();
 			}else{
@@ -41,7 +51,7 @@
 			}
 		}
 
-		public function insert($query,$log = true){
+		public function insert($query, $log = true){
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				$resultado = $mysqli->query($query);
