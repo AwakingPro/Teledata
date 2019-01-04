@@ -9,37 +9,15 @@
         function __construct () {
 			$this->metodo = new Method;
         }
+
     	// metodo para sincronizar clientes de bsale con la bd
         function SincronizarConBsale(){
 
-            $query = "SELECT token_produccion as access_token FROM variables_globales";
-            $variables_globales = $this->metodo->select($query);
-            $access_token = $variables_globales[0]['access_token'];
-            // para traer todos los documentos se pasa el 1
-            $limiteClientes = self::countClientes(1, '');
+            // para traer todos los count paso el 1 y la url correcta
+            $limiteClientes = self::contador(1, 'https://api.bsale.cl/v1/clients.json');
+            $urlCliets='https://api.bsale.cl/v1/clients.json?expand=[contacts,attributes,addresses]&limit='.$limiteClientes;
+            $ClientesBsale = self::conectarAPI($urlCliets);
             
-            $url='https://api.bsale.cl/v1/clients.json?expand=[contacts,attributes,addresses]&limit='.$limiteClientes;
-            
-            // Inicia cURL
-            $session = curl_init($url);
-
-            // Indica a cURL que retorne data
-            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-
-            // Configura cabeceras
-            $headers = array(
-                'access_token: ' . $access_token,
-                'Accept: application/json',
-                'Content-Type: application/json'
-            );
-            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-
-            // Ejecuta cURL
-            $response = curl_exec($session);
-            
-            // Cierra la sesión cURL
-            curl_close($session);
-            $ClientesBsale = json_decode($response, true);
             // echo '<pre>'; print_r($ClientesBsale); echo '</pre>'; exit;
             foreach($ClientesBsale['items'] as $ClienteBsale){
                 $ClienteHref             = $ClienteBsale['href'];
@@ -136,19 +114,42 @@
                 $Cliente = $this->metodo->select($query);
                 // echo '<pre>'; print_r($Cliente); echo '</pre>';exit;
                 if(!$Cliente){
-                    echo 'No existe cliente'; echo "\n";
-                    $query = "INSERT INTO personaempresa(rut, dv, nombre, giro, direccion, correo, contacto, telefono, region, ciudad,
-                              cliente_id_bsale, state, fecha_creacion, fecha_actualizacion, href, firstName, lastName, hasCredit, maxCredit,
+                    // para traer todos los count paso el 1 y la url correcta
+                    
+                    $limitDocumentos = self::contador(1, 'https://api.bsale.cl/v1/documents.json?clientid='.$ClienteId);
+                    
+                    if($limitDocumentos > 0){
+                        
+                        $urlDocs='https://api.bsale.cl/v1/documents.json?expand=[client]&clientid='.$ClienteId.'&limit='.$limitDocumentos;
+                        $DocsBsale = self::conectarAPI($urlDocs);
+                        // echo '<pre>'; print_r($DocsBsale); echo '</pre>'; exit;
+                        foreach($DocsBsale['items'] as $DocBsale){
+                            $document_type = $DocBsale['document_type'];
+                            $TipoDocumento = $document_type['id'];
+                            if($TipoDocumento == 22){
+                                $TipoDocumento = 1;
+                            }else if($TipoDocumento == 5){
+                                $TipoDocumento = 2;
+                            }else{
+                                $TipoDocumento = 3;
+                            }
+                        }
+                    }else{
+                        $TipoDocumento = '';
+                    }
+                   
+                    $query = "INSERT INTO personaempresa(rut, dv, nombre, giro, direccion, correo, contacto, telefono, region, ciudad, tipo_cliente,
+                              cliente_id_bsale, tipo_pago_bsale_id, state, fecha_creacion, fecha_actualizacion, href, firstName, lastName, hasCredit, maxCredit,
                               city, companyOrPerson, accumulatePoints, points, pointsUpdated, sendDte, isForeigner ) 
                               VALUES ('".$Rut."', '".$DV."', '".$ClienteNombre."', '".$ClienteActivity."', '".$ClienteAddress."', 
                                     '".$ClienteEmail."', '".$ClienteFirstName."', '".$ClientePhone."', '".$ClienteRegionId."', '".$ClienteCiudadId."',
-                                    '".$ClienteId."', '".$ClienteEstate."', '".$ClienteCreatedAt."', '".$ClienteUpdatedAt."', '".$ClienteHref."',
-                                    '".$ClienteFirstName."', '".$ClienteLastName."', '".$ClienteHasCredit."', '".$ClienteMaxCredit."',
+                                    '".$TipoDocumento."', '".$ClienteId."','15', '".$ClienteEstate."', '".$ClienteCreatedAt."', '".$ClienteUpdatedAt."',
+                                    '".$ClienteHref."', '".$ClienteFirstName."', '".$ClienteLastName."', '".$ClienteHasCredit."', '".$ClienteMaxCredit."',
                                     '".$ClienteCityId."','".$ClienteCompanyOrPerson."', '".$ClienteAccumulatePoints."', '".$ClientePoints."',
                                     '".$ClientePointsUpdated."', '".$ClienteSendDte."','".$ClienteIsForeigner."')";
                     $Id = $this->metodo->insert($query, true);
-                    echo $Id;
-                    echo "\n";
+                    // echo $Id;
+                    // echo "\n";
                 }
                 // else{
                 //     $Id = $Cliente[0]['Id'];
@@ -164,15 +165,45 @@
 
         }
 
+        // funcion para conectar con la api
+        function conectarAPI($url){
+            $query = "SELECT token_produccion as access_token FROM variables_globales";
+            $variables_globales = $this->metodo->select($query);
+            $access_token = $variables_globales[0]['access_token'];
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+            
+            // Cierra la sesión cURL
+            curl_close($session);
+            return $response = json_decode($response, true);
+        }
+
         // funcion para obtener el total de clientes de bsale
-        function countClientes($tipo, $urlbsale){
+        function contador($tipo, $urlbsale){
             $query = "SELECT token_produccion as access_token FROM variables_globales";
             $variables_globales = $this->metodo->select($query);
             $access_token = $variables_globales[0]['access_token'];
             //Total Clientes
             if($tipo == 1){
-                $url='https://api.bsale.cl/v1/clients.json';
+                $url = $urlbsale;
             }
+            // if($tipo == 2){
+            //     $url='https://api.bsale.cl/v1/documents.json';
+            // }
             
             // Inicia cURL
             $session = curl_init($url);
@@ -191,11 +222,11 @@
             $response = curl_exec($session);
             // Cierra la sesión cURL
             curl_close($session);
-            $Clients = json_decode($response, true);
+            $response = json_decode($response, true);
             if($tipo == 3){
-                return $Clients;
+                return $response;
             }else{
-                return $Clients['count'];
+                return $response['count'];
             }
             
         }
