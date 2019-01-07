@@ -643,7 +643,70 @@
 			$result = exec("mysqldump -u ".$this->user." --password=".$this->password." teledata > /var/www/html/Teledata/backups/`date +%Y%m%d%H%M`.sql");
 			echo $result;
 		}
+		 // metodo para obtener el total de clientes, documentos, etc de bsale
+		 function contador($tipo, $urlbsale){
+            $query = "SELECT token_produccion as access_token FROM variables_globales";
+            $variables_globales = self::select($query);
+            $access_token = $variables_globales[0]['access_token'];
+            //Total Clientes
+            if($tipo == 1){
+                $url = $urlbsale;
+            }
+            // if($tipo == 2){
+            //     $url='https://api.bsale.cl/v1/documents.json';
+            // }
+            
+            // Inicia cURL
+            $session = curl_init($url);
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+            // Cierra la sesión cURL
+            curl_close($session);
+            $response = json_decode($response, true);
+            if($tipo == 3){
+                return $response;
+            }else{
+                return $response['count'];
+            }
+            
+		}
+		// metodo para conectar con la api de bsale
+        function conectarAPI($url){
+            $query = "SELECT token_produccion as access_token FROM variables_globales";
+            $variables_globales = self::select($query);
+            $access_token = $variables_globales[0]['access_token'];
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+            
+            // Cierra la sesión cURL
+            curl_close($session);
+            return $response = json_decode($response, true);
+        }
 		// metodo para buscar dentro de una variable 
 		function encontrar($Value, $findme){
 			//busco $findme dentro de $Value
