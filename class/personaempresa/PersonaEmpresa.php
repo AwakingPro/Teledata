@@ -15,8 +15,8 @@
 
             // para traer todos los count paso el 1 y la url correcta
             $limiteClientes = $this->metodo->contador(1, 'https://api.bsale.cl/v1/clients.json');
-            $urlCliets='https://api.bsale.cl/v1/clients.json?expand=[contacts,attributes,addresses]&limit='.$limiteClientes;
-            $ClientesBsale = $this->metodo->conectarAPI($urlCliets);
+            $urlClients='https://api.bsale.cl/v1/clients.json?expand=[contacts,attributes,addresses]&limit='.$limiteClientes;
+            $ClientesBsale = $this->metodo->conectarAPI($urlClients);
             
             // echo '<pre>'; print_r($ClientesBsale); echo '</pre>'; exit;
             foreach($ClientesBsale['items'] as $ClienteBsale){
@@ -114,6 +114,9 @@
                 $Cliente = $this->metodo->select($query);
                 // echo '<pre>'; print_r($Cliente); echo '</pre>';exit;
                 if(!$Cliente){
+                    $dataClient = array();
+                    $dataClient['Rut'] = $Rut.$DV;
+                    $dataClient['ClienteNombre'] = $ClienteNombre;
                     // para traer todos los count paso el 1 y la url correcta
                     $limitDocumentos = $this->metodo->contador(1, 'https://api.bsale.cl/v1/documents.json?clientid='.$ClienteId);
                     if($limitDocumentos > 0){
@@ -146,21 +149,28 @@
                                     '".$ClienteCityId."','".$ClienteCompanyOrPerson."', '".$ClienteAccumulatePoints."', '".$ClientePoints."',
                                     '".$ClientePointsUpdated."', '".$ClienteSendDte."','".$ClienteIsForeigner."')";
                     $Id = $this->metodo->insert($query, true);
+                    if($Id){
+                        echo '<pre>'; print_r($dataClient); echo '</pre>';
+                        // $this->metodo->enviarCorreo(1, $Cliente)
+                    }
                     // echo $Id;
                     // echo "\n";
                 }
                 else{
                     //actualizo los datos de las facturas en la bd
                     if($Rut){
+                        //esto es para que actualise solo clientes actios, ya que pueden existir varios clientes con mismo rut y estados inactivos
+                        if($ClienteEstate == 0){
+                            $query = "UPDATE personaempresa set cliente_id_bsale = '".$ClienteId."' , state = '".$ClienteEstate."',  
+                            fecha_creacion = '".$ClienteCreatedAt."', fecha_actualizacion = '".$ClienteUpdatedAt."', href = '".$ClienteHref."',
+                            firstName  = '".$ClienteFirstName."', lastName  = '".$ClienteLastName."', hasCredit  = '".$ClienteHasCredit."',
+                            maxCredit  = '".$ClienteMaxCredit."', city = '".$ClienteCityId."', companyOrPerson = '".$ClienteCompanyOrPerson."',
+                            accumulatePoints = '".$ClienteAccumulatePoints."', points = '".$ClientePoints."', pointsUpdated = '".$ClientePointsUpdated."',
+                            sendDte = '".$ClienteSendDte."', isForeigner = '".$ClienteIsForeigner."'
+                            WHERE rut = '".$Rut."' ";
+                            $update = $this->metodo->update2($query);
+                        }
                         
-                        $query = "UPDATE personaempresa set cliente_id_bsale = '".$ClienteId."' , state = '".$ClienteEstate."',  
-                        fecha_creacion = '".$ClienteCreatedAt."', fecha_actualizacion = '".$ClienteUpdatedAt."', href = '".$ClienteHref."',
-                        firstName  = '".$ClienteFirstName."', lastName  = '".$ClienteLastName."', hasCredit  = '".$ClienteHasCredit."',
-                        maxCredit  = '".$ClienteMaxCredit."', city = '".$ClienteCityId."', companyOrPerson = '".$ClienteCompanyOrPerson."',
-                        accumulatePoints = '".$ClienteAccumulatePoints."', points = '".$ClientePoints."', pointsUpdated = '".$ClientePointsUpdated."',
-                        sendDte = '".$ClienteSendDte."', isForeigner = '".$ClienteIsForeigner."'
-                        WHERE rut = '".$Rut."' ";
-                        $update = $this->metodo->update($query);
                     }
                 }
             }
