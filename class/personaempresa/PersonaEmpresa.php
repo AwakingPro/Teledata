@@ -149,16 +149,20 @@
                     // echo $Id;
                     // echo "\n";
                 }
-                // else{
-                //     $Id = $Cliente[0]['Id'];
-                //     $UrlPdf = $Cliente[0]['UrlPdfBsale'];
-                //     $DocumentoIdBsale = $Cliente[0]['DocumentoIdBsale'];
-                //     //actualizo los datos de las facturas en la bd
-                //     if($Rut){
-                //         $query = "UPDATE facturas set informedSiiBsale = '".$informedSii."' , responseMsgSiiBsale = '".$responseMsgSii."',  NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', CountDTE = '".$referencesCount."' WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' ";
-                //         $update = $run->update2($query);
-                //     }
-                // }
+                else{
+                    //actualizo los datos de las facturas en la bd
+                    if($Rut){
+                        
+                        $query = "UPDATE personaempresa set cliente_id_bsale = '".$ClienteId."' , state = '".$ClienteEstate."',  
+                        fecha_creacion = '".$ClienteCreatedAt."', fecha_actualizacion = '".$ClienteUpdatedAt."', href = '".$ClienteHref."',
+                        firstName  = '".$ClienteFirstName."', lastName  = '".$ClienteLastName."', hasCredit  = '".$ClienteHasCredit."',
+                        maxCredit  = '".$ClienteMaxCredit."', city = '".$ClienteCityId."', companyOrPerson = '".$ClienteCompanyOrPerson."',
+                        accumulatePoints = '".$ClienteAccumulatePoints."', points = '".$ClientePoints."', pointsUpdated = '".$ClientePointsUpdated."',
+                        sendDte = '".$ClienteSendDte."', isForeigner = '".$ClienteIsForeigner."'
+                        WHERE rut = '".$Rut."' ";
+                        $update = $this->metodo->update($query);
+                    }
+                }
             }
 
         }
