@@ -82,6 +82,9 @@
                 $ClienteAccumulatePoints = $ClienteBsale['accumulatePoints'];
                 $ClientePoints           = $ClienteBsale['points'];
                 $ClientePointsUpdated    = $ClienteBsale['pointsUpdated'];
+                if($ClientePointsUpdated == ''){
+                    $ClientePointsUpdated = 0;
+                }
                 $ClienteSendDte          = $ClienteBsale['sendDte'];
                 $ClienteIsForeigner      = $ClienteBsale['isForeigner'];
                 $ClienteCreatedAt        = $ClienteBsale['createdAt'];
