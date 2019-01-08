@@ -120,8 +120,8 @@
                     $dataClient = array();
                     $dataClient['RutExplode'] = $RutExplode;
                     $dataClient['ClienteNombre'] = $ClienteNombre;
-                    $dataClient['correos'] = 'teledatadte@teledata.cl, preinoso@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, sergio@teledata.cl';
-                    // $dataClient['correos'] = 'daniel30081990@gmail.com';
+                    // $dataClient['correos'] = 'teledatadte@teledata.cl, preinoso@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, sergio@teledata.cl';
+                    $dataClient['correos'] = 'daniel30081990@gmail.com';
                     $dataClient['asunto'] = 'Ingreso del Cliente: '.$ClienteNombre.' Rut: '.$ClienteRut.' de Bsale a la BD del ERP';
                     // para traer todos los count paso el 1 y la url correcta
                     $limitDocumentos = $this->metodo->contador(1, 'https://api.bsale.cl/v1/documents.json?clientid='.$ClienteId);
