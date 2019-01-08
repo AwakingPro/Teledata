@@ -754,11 +754,11 @@
 					ESTIMADO(A)S, <br>
 						El Cliente: <b>".$Data['ClienteNombre']."</b> RUT: <b>".$RUTDV."</b> se Ingreso con éxito a la base de datos del ERP desde Bsale.<br><br>
 						<b>Queda en su responsabilidad si es necesario crear el servicio asociado al cliente y verificar que los datos del cliente
-						sean los correctos</b><br>
+						sean los correctos.</b><br>
 						<b>Es necesario que creen el servicio correspondiente si aplica para el funcionamiento de las facturas mensuales automáticas.</b><br>
 						<b>Verificar que los datos del cliente sean los correctos.</b><br><br>
-						URL Pública para crear servicio: http://131.0.108.31/servicios/?Rut=".$RUT."
-						<br> URL Privada para crear servicios: http://172.30.222.76/servicios/?Rut=".$RUT."
+						URL Privada para crear servicios: http://172.30.222.76/servicios/?Rut=".$RUT."
+						<br> URL Pública para crear servicio: http://131.0.108.31/servicios/?Rut=".$RUT."
 						</b><br><br>
 						Saludos.
 					</body>
