@@ -106,18 +106,20 @@
                     $ClienteIsForeigner = 0;
                 }
                 $ClienteCreatedAt        = $ClienteBsale['createdAt'];
-                if($ClienteCreatedAt == ''){
-                    $ClienteCreatedAt = date('Y-m-d H:i:s');
-                }
+                
                 $ClienteUpdatedAt        = $ClienteBsale['updatedAt'];
-                if($ClienteUpdatedAt == ''){
-                    $ClienteUpdatedAt = date('Y-m-d H:i:s');
-                }
+                
                 if($ClienteCreatedAt != ''){
                     $ClienteCreatedAt = date('Y-m-d H:i:s',$ClienteCreatedAt);
                 }
+                if($ClienteCreatedAt == ''){
+                    $ClienteCreatedAt = date('Y-m-d H:i:s');
+                }
                 if($ClienteUpdatedAt != ''){
                     $ClienteUpdatedAt = date('Y-m-d H:i:s',$ClienteUpdatedAt);
+                }
+                if($ClienteUpdatedAt == ''){
+                    $ClienteUpdatedAt = date('Y-m-d H:i:s');
                 }
                 $RutExplode = $this->metodo->encontrar($ClienteRut, "-");
                 if($RutExplode['verificacion'] == true){
@@ -168,7 +170,6 @@
                     }else{
                         $TipoDocumento = '';
                     }
-                   echo " Entro en insert per"; echo "\n";
                     $query = "INSERT INTO personaempresa(rut, dv, nombre, giro, direccion, correo, contacto, telefono, region, ciudad, tipo_cliente,
                               cliente_id_bsale, tipo_pago_bsale_id, state, fecha_creacion, fecha_actualizacion, href, firstName, lastName, hasCredit, maxCredit,
                               city, companyOrPerson, accumulatePoints, points, pointsUpdated, sendDte, isForeigner ) 
@@ -179,12 +180,9 @@
                                     '".$ClienteCityId."','".$ClienteCompanyOrPerson."', '".$ClienteAccumulatePoints."', '".$ClientePoints."',
                                     '".$ClientePointsUpdated."', '".$ClienteSendDte."','".$ClienteIsForeigner."')";
                     $Id = $this->metodo->insert($query, true);
-                    echo $query; echo "\n";
-                    echo 'Id es ' . $Id; echo "\n";
                     if($Id){
                         // echo '<pre>'; print_r($dataClient); echo '</pre>';
                         $respCorreo = $this->metodo->enviarCorreo(1, $dataClient);
-                        echo $respCorreo;
                     }
                 }
                 else{
