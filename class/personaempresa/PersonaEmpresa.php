@@ -26,10 +26,19 @@
                 $ClienteLastName         = $ClienteBsale['lastName'];
                 $ClienteEmail            = $ClienteBsale['email'];
                 $ClienteRut              = $ClienteBsale['code'];
+                if($ClienteRut == ''){
+                    $ClienteRut = 0;
+                }
                 $ClientePhone            = $ClienteBsale['phone'];
                 $ClienteNombre           = $ClienteBsale['company'];
                 $ClienteHasCredit        = $ClienteBsale['hasCredit'];
+                if($ClienteHasCredit == ''){
+                    $ClienteHasCredit = 0;
+                }
                 $ClienteMaxCredit        = $ClienteBsale['maxCredit'];
+                if($ClienteMaxCredit == ''){
+                    $ClienteMaxCredit = 0;
+                }
                 $ClienteEstate           = $ClienteBsale['state'];
                 $ClienteActivity         = $ClienteBsale['activity'];
                 //municipality = ciudades de la tabla busco el campo nombre = ClienteMunicipality y obtengo su id y el provincia_id y guardo
@@ -37,6 +46,9 @@
                 // el region_id de la tabla y lo guardo en el campo region de la tabla personaempresa
                 $ClienteMunicipality = $ClienteBsale['municipality'];
                 $ClienteCity         = $ClienteBsale['city'];
+                if($ClienteCity == ''){
+                    $ClienteCity = 0;
+                }
 
                 $ClienteCiudadId = '';
                 $ProvinciaId = '';
@@ -88,7 +100,13 @@
                 $ClienteSendDte          = $ClienteBsale['sendDte'];
                 $ClienteIsForeigner      = $ClienteBsale['isForeigner'];
                 $ClienteCreatedAt        = $ClienteBsale['createdAt'];
+                if($ClienteCreatedAt == ''){
+                    $ClienteCreatedAt = date('Y-m-d H:i:s');
+                }
                 $ClienteUpdatedAt        = $ClienteBsale['updatedAt'];
+                if($ClienteUpdatedAt == ''){
+                    $ClienteUpdatedAt = date('Y-m-d H:i:s');
+                }
                 if($ClienteCreatedAt != ''){
                     $ClienteCreatedAt = date('Y-m-d H:i:s',$ClienteCreatedAt);
                 }
