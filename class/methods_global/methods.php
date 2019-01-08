@@ -37,7 +37,7 @@
 				$operacion = 'Borrar';
 			if($operacion == 'update')
 				$operacion = 'Actualizar';
-			echo 'operacion es '.$operacion;
+
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				if (isset($_SESSION['idUsuario']) && $log) {
@@ -47,7 +47,6 @@
 					// el IdUsuario 118 sera usado cuando se hagan insert desde la api de bsale para sincronizar
 					$idUsuario = 118;
 					$resultado = $mysqli->query('INSERT INTO log_query(IdUsuario, Fecha, Query, TipoOperacion) VALUES ("'.$idUsuario.'", "'.date("Y-m-d H:i:s").'", "'.$query.'", "'.$operacion.'")');
-					echo 'log es'. $resultado.'id user '. $idUsuario;
 				}
 				$mysqli->close();
 			}else{
