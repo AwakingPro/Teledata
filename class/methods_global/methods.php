@@ -709,6 +709,8 @@
         }
 		// metodo para buscar dentro de una variable 
 		function encontrar($Value, $findme){
+			//limpio puntos de rut si es necesario
+			$Value= str_replace('.', '', $Value);
 			//busco $findme dentro de $Value
 			$encontrado = strpos($Value, $findme);
 			if($encontrado == true){
@@ -724,79 +726,47 @@
 			return $data;
 		}
 		// metodo para enviar correos
-		function enviarCorreo($TipoCorreo, $OtroDato){
-            $run = new Method;
-            $query = "  SELECT
-                            p.nombre,
-                            CONCAT(p.correo,',',GROUP_CONCAT(IFNULL(c.correo, '') )) as correos,
-                            d.NumeroDocumento,
-                            d.TipoDocumento 
-                        FROM
-                            personaempresa p
-                            LEFT JOIN facturas d ON p.Rut = d.Rut
-                            LEFT JOIN contactos c ON c.rut = p.rut 
-                        WHERE
-                            d.Id = '".$Id."' 
-                            -- AND c.tipo_contacto = 2 
-                        GROUP BY
-                            p.rut";
-            $Documento = $run->select($query);
-            if($Documento){
-                $Documento = $Documento[0];
-                $Nombre = $Documento['nombre'];
-                $Correos = $Documento['correos'].',teledatadte@teledata.cl';
-                // $Correos ='teledatadte@teledata.cl';
-                $NumeroDocumento = $Documento['NumeroDocumento'];
-
-                if($Documento['TipoDocumento'] == 1){
-                    $TipoDocumento = 'Boleta';
-                }else{
-                    $TipoDocumento = 'Factura';
-                }
-                $Asunto = $TipoDocumento . ' #' . $NumeroDocumento . ' Teledata';
-                $espacios2 = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-                $espacios = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
-                $Html =
-                "<html>
-                    <head>
-                        <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-                        <style>
-                        body{font-family:Open Sans;font-size:14px;}
-                        table{font-size:13px;border-collapse:collapse;}
-                        th{padding:8px;text-align:left;color:#595e62;border-bottom: 2px solid rgba(0,0,0,0.14);font-size:14px;}
-                        td{padding:8px;border-bottom: 1px solid rgba(0,0,0,0.05);}
-                        </style>
-                    </head>
-                    <body>
-                    ESTIMADO(A) ".$Nombre.",<br>
-                        La ".$TipoDocumento." #".$NumeroDocumento." se genero con exito y ha sido adjuntada en este correo.<br><br>
-                        <b>Para transferencia o depósitos, los datos de nuestra cuenta son:</b><br><br>
-                        RAZÓN SOCIAL:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>TELEDATA CHILE SPA.</b><br>
-                        RUT:".$espacios."<b>76.722.248-3</b><br>
-                        BANCO:".$espacios2."<b>BANCO DE CHILE</b><br>
-                        TIPO DE CUENTA:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>CUENTA CORRIENTE</b><br>
-                        NUMERO DE CUENTA:&nbsp;<b>268-04500-03</b><br>
-                        CORREO:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><a href='mailto:pagos@teledata.cl'>pagos@teledata.cl</a></b><br><br>
-                        Saludos.
-                    </body>
-                </html>";
-                
-                $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$Id.".pdf";
-                //aqui url de prueba  
-                // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/facturas/".$Id.".pdf";  
-                if(file_exists($UrlLocal)){
-                    $Archivos = array();
-                    $Archivo = array('url' => $UrlLocal, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');
-                    array_push($Archivos,$Archivo);
-                    $Email = new Email();
-                    // $Archivos = array();
-                    $ToReturn = $Email->SendMail($Html,$Asunto,$Correos,$Archivos);
-                }else{
-                    $ToReturn = 2;
-                }
-            }else{
-                $ToReturn = 3;
-            }
+		function enviarCorreo($TipoCorreo, $Data){
+			if($TipoCorreo == 1){
+				$Asunto = $Data['asunto'];
+				//esta validacion es porque el rut puede ser sin "-"
+				if( isset($Data['RutExplode']['verificacion']) && $Data['RutExplode']['verificacion']){
+					$RUTDV = $Data['RutExplode']['Value'][0].'-'.$Data['RutExplode']['Value'][1];
+					$RUT = $Data['RutExplode']['Value'][0];
+				}else{
+					$RUTDV = $Data['RutExplode']['Value'];
+					$RUT = $RUTDV;
+				}
+				// echo "\n"; echo 'RUT DV '.$RUT;
+				// echo "\n"; echo '<pre>'; print_r($Data['RutExplode']['Value']); echo '</pre>';
+				$Html =
+				"<html>
+					<head>
+						<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+						<style>
+						body{font-family:Open Sans;font-size:14px;}
+						table{font-size:13px;border-collapse:collapse;}
+						th{padding:8px;text-align:left;color:#595e62;border-bottom: 2px solid rgba(0,0,0,0.14);font-size:14px;}
+						td{padding:8px;border-bottom: 1px solid rgba(0,0,0,0.05);}
+						</style>
+					</head>
+					<body>
+					ESTIMADO(A)S, <br>
+						El Cliente: <b>".$Data['ClienteNombre']."</b> RUT: <b>".$RUTDV."</b> se Ingreso con éxito a la base de datos del ERP desde Bsale.<br><br>
+						<b>Queda en su responsabilidad si es necesario crear el servicio asociado al cliente y verificar que los datos del cliente
+						sean los correctos</b><br>
+						<b>Es necesario que creen el servicio correspondiente si aplica para el funcionamiento de las facturas mensuales automáticas.</b><br>
+						<b>Verificar que los datos del cliente sean los correctos.</b><br><br>
+						URL Pública para crear servicio: http://131.0.108.31/servicios/?Rut=".$RUT."
+						<br> URL Privada para crear servicios: http://172.30.222.76/servicios/?Rut=".$RUT."
+						</b><br><br>
+						Saludos.
+					</body>
+				</html>";
+				$Email = new Email();
+				$correos = $Data['correos'];
+				$ToReturn = $Email->SendMail($Html, $Asunto, $correos);
+			}
             return $ToReturn;
         }
 	}

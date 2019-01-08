@@ -4,7 +4,7 @@ class Email
 {
 	//Versión 2
 	public function SendMail($html,$subject,$emails,$attachments = false){ 
-
+		$subject = utf8_decode($subject);
 		$mail = new PHPMailer();  
 		
 		$mail->IsSMTP();
