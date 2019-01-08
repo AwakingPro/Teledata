@@ -87,6 +87,9 @@
                     }
 
                 }
+                if($ClienteCityId == ''){
+                    $ClienteCityId = 0;
+                }
                 // echo $ClienteCiudadId."\n".$ProvinciaId."\n".$ClienteRegionId."\n".$ClienteCityId; exit;
                 
                 $ClienteAddress          = $ClienteBsale['address'];
