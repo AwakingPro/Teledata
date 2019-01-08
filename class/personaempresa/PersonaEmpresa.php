@@ -102,6 +102,9 @@
                 }
                 $ClienteSendDte          = $ClienteBsale['sendDte'];
                 $ClienteIsForeigner      = $ClienteBsale['isForeigner'];
+                if($ClienteIsForeigner == ''){
+                    $ClienteIsForeigner = 0;
+                }
                 $ClienteCreatedAt        = $ClienteBsale['createdAt'];
                 if($ClienteCreatedAt == ''){
                     $ClienteCreatedAt = date('Y-m-d H:i:s');
