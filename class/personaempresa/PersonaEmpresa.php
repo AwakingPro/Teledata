@@ -154,6 +154,7 @@
                     if($Id){
                         // echo '<pre>'; print_r($dataClient); echo '</pre>';
                         $respCorreo = $this->metodo->enviarCorreo(1, $dataClient);
+                        echo $respCorreo;
                     }
                 }
                 else{
