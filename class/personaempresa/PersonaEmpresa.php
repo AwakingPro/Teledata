@@ -140,7 +140,7 @@
                     }else{
                         $TipoDocumento = '';
                     }
-                   
+                   echo " Entro en insert per"; echo "\n";
                     $query = "INSERT INTO personaempresa(rut, dv, nombre, giro, direccion, correo, contacto, telefono, region, ciudad, tipo_cliente,
                               cliente_id_bsale, tipo_pago_bsale_id, state, fecha_creacion, fecha_actualizacion, href, firstName, lastName, hasCredit, maxCredit,
                               city, companyOrPerson, accumulatePoints, points, pointsUpdated, sendDte, isForeigner ) 
