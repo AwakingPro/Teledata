@@ -152,6 +152,7 @@
                                     '".$ClienteCityId."','".$ClienteCompanyOrPerson."', '".$ClienteAccumulatePoints."', '".$ClientePoints."',
                                     '".$ClientePointsUpdated."', '".$ClienteSendDte."','".$ClienteIsForeigner."')";
                     $Id = $this->metodo->insert($query, true);
+                    echo $query; echo "\n";
                     echo 'Id es ' . $Id; echo "\n";
                     if($Id){
                         // echo '<pre>'; print_r($dataClient); echo '</pre>';
