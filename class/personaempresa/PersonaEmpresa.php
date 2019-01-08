@@ -115,8 +115,11 @@
                 // echo '<pre>'; print_r($Cliente); echo '</pre>';exit;
                 if(!$Cliente){
                     $dataClient = array();
-                    $dataClient['Rut'] = $Rut.$DV;
+                    $dataClient['RutExplode'] = $RutExplode;
                     $dataClient['ClienteNombre'] = $ClienteNombre;
+                    $dataClient['correos'] = 'daniel30081990@gmail.com, teledatadte@teledata.cl';
+                    // $dataClient['correos'] = 'daniel30081990@gmail.com';
+                    $dataClient['asunto'] = 'Ingreso del Cliente: '.$ClienteNombre.' Rut: '.$ClienteRut.' de Bsale a la BD del ERP';
                     // para traer todos los count paso el 1 y la url correcta
                     $limitDocumentos = $this->metodo->contador(1, 'https://api.bsale.cl/v1/documents.json?clientid='.$ClienteId);
                     if($limitDocumentos > 0){
@@ -150,11 +153,9 @@
                                     '".$ClientePointsUpdated."', '".$ClienteSendDte."','".$ClienteIsForeigner."')";
                     $Id = $this->metodo->insert($query, true);
                     if($Id){
-                        echo '<pre>'; print_r($dataClient); echo '</pre>';
-                        // $this->metodo->enviarCorreo(1, $Cliente)
+                        // echo '<pre>'; print_r($dataClient); echo '</pre>';
+                        $respCorreo = $this->metodo->enviarCorreo(1, $dataClient);
                     }
-                    // echo $Id;
-                    // echo "\n";
                 }
                 else{
                     //actualizo los datos de las facturas en la bd
