@@ -11,7 +11,7 @@
 						servicios.Valor,
 						servicios.FechaInstalacion AS 'Fecha Instalación',
 						COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS Grupo,
-						( CASE WHEN FechaFinalDesactivacion IS NULL THEN 'Activo' WHEN FechaFinalDesactivacion = '2999-01-31' THEN 'Inactivo' ELSE 'Suspendido' END ) AS Estatus,
+						( CASE WHEN FechaFinalDesactivacion IS NULL THEN 'Activo' WHEN FechaFinalDesactivacion = '2999-01-31' THEN 'Cortado' ELSE 'Suspendido' END ) AS Estatus,
 						( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS 'Tipo de Servicio' 
 					FROM
 						servicios
