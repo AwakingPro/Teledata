@@ -6,7 +6,7 @@
     $Activo = isset($_POST['Activo']) ? trim($_POST['Activo']) : "";
     $FechaInicioDesactivacion = isset($_POST['FechaInicioDesactivacion']) ? trim($_POST['FechaInicioDesactivacion']) : "";
     $FechaFinalDesactivacion = isset($_POST['FechaFinalDesactivacion']) ? trim($_POST['FechaFinalDesactivacion']) : "";
-    //inactivo 0, suspendido 2, activo 1
+    //Cortado 0, suspendido 2, activo 1
     if(!$Activo || $Activo == 2){
         if($FechaInicioDesactivacion && $FechaFinalDesactivacion){
             $FechaInicioDesactivacion = DateTime::createFromFormat('Y/m/d', $FechaInicioDesactivacion);
