@@ -18,7 +18,8 @@
 						INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
 						LEFT JOIN usuarios ON servicios.IdUsuarioAsignado = usuarios.id
 						WHERE
-							servicios.FechaInstalacion != '1970-01-01'";
+							servicios.FechaInstalacion != '1970-01-01'
+						AND servicios.EstatusServicio = 1";
 
             $run = new Method;
             $data = $run->select($query);
