@@ -1918,9 +1918,29 @@
                     $TotalSaldoFactura = $TotalSaldo;
                     if($EstatusFacturacion != 2){
                         $Acciones = 1;
-                    }else{
+                    }
+                    else{
                         $TotalSaldo = 0;
                         $Acciones = 0;
+                        $query = "SELECT  DevolucionAmount FROM devoluciones WHERE FacturaId = '".$Id."'";
+                        $devoluciones = $run->select($query);
+                        if($devoluciones){
+                            $devolucion = $devoluciones[0];
+                            $TotalSaldo = $TotalFactura - $devolucion['DevolucionAmount'];
+                            $query = "SELECT  Monto FROM facturas_pagos WHERE FacturaId = '".$Id."'";
+                            $pagos = $run->select($query);
+                            $TotalPagado = 0;
+                            if($pagos){
+                                foreach ($pagos as $pago) {
+                                    $TotalPagado += $pago['Monto'];
+                                }
+                            }
+                            $TotalSaldo = $TotalSaldo - $TotalPagado;
+                            if($TotalSaldo < 0){
+                                $TotalSaldo = 0;
+                            }
+                            $Acciones = 2;
+                        }
                     }
                     $Id = $factura['Id'];
                     $data = array();
@@ -1939,7 +1959,7 @@
                     $data['EstatusFacturacion'] = 1;
                     array_push($ToReturn,$data);
                     if($EstatusFacturacion == 2){
-                        $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada FROM devoluciones WHERE FacturaId = '".$Id."'";
+                        $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount FROM devoluciones WHERE FacturaId = '".$Id."'";
                         if($startDate){
                             $query .= " AND FechaDevolucion BETWEEN '".$startDate."' AND '".$endDate."'";
                         }
@@ -1962,8 +1982,8 @@
                             $data['NumeroDocumento'] = $devolucion['NumeroDocumento'];
                             $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                             $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
-                            $data['TotalFactura'] = $TotalFactura;
-                            $data['TotalSaldo'] = $TotalSaldoFactura;
+                            $data['TotalFactura'] = $devolucion['DevolucionAmount'];
+                            $data['TotalSaldo'] = $devolucion['DevolucionAmount'];
                             $data['SaldoFavor'] = $SaldoFavor;
                             $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
                             $data['TipoDocumento'] = 'Nota de crédito';
@@ -2039,6 +2059,27 @@
             }
 
             return $ToReturn;
+        }
+        public function getPagoNotaCredito($id){
+            $run = new Method;
+            $ToReturn = array();
+
+            $query = "  SELECT
+                            DevolucionAmount
+                        FROM
+                            devoluciones
+                        WHERE
+                            FacturaId = '".$id."'";
+            $DevolucionAmount = $run->select($query);
+            $data = array();
+            $TotalDevolucion = 0;
+            if($DevolucionAmount){
+                foreach($DevolucionAmount as $Devolucion){
+                    $TotalDevolucion = $Devolucion['DevolucionAmount'];   
+                }
+            }
+            $data['TotalDevolucion'] = doubleval($TotalDevolucion);
+            return $data;
         }
         public function storePago($FacturaId,$FechaPago,$TipoPago,$Monto,$FechaEmisionCheque,$FechaVencimientoCheque){
             $response_array = array();
@@ -3022,6 +3063,7 @@
             $DevolucionesBsale = json_decode($response, true);
             foreach($DevolucionesBsale['items'] as $DevolucionBsale){
                 $DevolucionIdBsale = $DevolucionBsale['id'];
+                $DevolucionAmount = $DevolucionBsale['amount'];
                 $query = "SELECT FacturaId, UrlPdfBsale FROM devoluciones WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
                 $Devolucion = $run->select($query);
                 if(!$Devolucion){
@@ -3036,7 +3078,7 @@
                         $FechaDevolucion = date('Y-m-d', $DevolucionBsale['returnDate']);
                         $HoraDevolucion = date('H:i:s', $DevolucionBsale['returnDate']);
                         $NumeroDocumento = $credit_note['number'];
-                        $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento) VALUES ('".$FacturaId."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', '".$FechaDevolucion."', '".$HoraDevolucion."','".$NumeroDocumento."')";
+                        $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento, DevolucionAmount) VALUES ('".$FacturaId."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', '".$FechaDevolucion."', '".$HoraDevolucion."','".$NumeroDocumento."', '".$DevolucionAmount."')";
                         $DevolucionId = $run->insert($query);
                         if($DevolucionId){
                             $query = "UPDATE facturas SET EstatusFacturacion = 2 WHERE Id = '".$FacturaId."'";

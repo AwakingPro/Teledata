@@ -220,6 +220,36 @@ $(document).ready(function() {
                                     Devolucion = ''
                                     Abonar = ''
                                     Pagos = ''
+                                    if(row.Acciones == 2){
+                                        
+                                        if (row.TotalSaldo != '0') {
+                                            Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'   
+                                        }
+                                        if (row.TotalSaldo == '0') {
+                                            Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-copy mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
+                                        }else{
+                                            console.log()
+                                            $.ajax({
+                                                type: "POST",
+                                                url: "../includes/facturacion/facturas/getPagoNotaCredito.php",
+                                                data: "id=" + row.Id,
+                                                success: function(response) {
+                                                    TotalDevolucion = response.TotalDevolucion
+                                                    TotalSaldo = row.TotalSaldo
+                                                    diferencia =  TotalSaldo - TotalDevolucion;
+                                                    console.log(diferencia+' Total saldo es '+TotalSaldo);
+                                                    if(diferencia < TotalSaldo ){
+                                                        console.log('Menor');
+                                                        Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-copy mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
+                                                    }else{
+                                                        console.log('Mayor');
+                                                    }
+                                                    
+                                                }
+                                            });
+                                            
+                                        }
+                                    }
                                 }
                                 Anulacion = '';
                                 Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
