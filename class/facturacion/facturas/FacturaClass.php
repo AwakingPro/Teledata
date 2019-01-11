@@ -3094,8 +3094,9 @@
                 }else{
                     $FacturaId = $Devolucion[0]['FacturaId'];
                     $UrlPdf = $Devolucion[0]['UrlPdfBsale'];
-                    $query = "UPDATE devoluciones SET DevolucionAmount = '".$DevolucionAmount."' WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
-                    $run->update($query);
+                    // si se necesitare actualizar un monto de devolucion, descomentar la query de abajo
+                    // $query = "UPDATE devoluciones SET DevolucionAmount = '".$DevolucionAmount."' WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
+                    // $run->update($query);
                     
                 }
                 if($FacturaId){   
