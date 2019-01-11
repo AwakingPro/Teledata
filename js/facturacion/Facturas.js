@@ -220,6 +220,16 @@ $(document).ready(function() {
                                     Devolucion = ''
                                     Abonar = ''
                                     Pagos = ''
+                                    //Acciones 2, es por nota de credito parcial
+                                    if(row.Acciones == 2){
+                                        if(row.TotalSaldo != '0') {
+                                            Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'   
+                                        }
+                                        if(row.SaldoConNotaCredito != row.TotalSaldo) {
+                                            Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-copy mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
+                                        }
+                                        
+                                    }
                                 }
                                 Anulacion = '';
                                 Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
@@ -457,6 +467,16 @@ $(document).ready(function() {
                                     Devolucion = ''
                                     Abonar = ''
                                     Pagos = ''
+                                    //Acciones 2, es por nota de credito parcial
+                                    if(row.Acciones == 2){
+                                        if(row.TotalSaldo != '0') {
+                                            Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'   
+                                        }
+                                        if(row.SaldoConNotaCredito != row.TotalSaldo) {
+                                            Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-copy mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
+                                        }
+                                        
+                                    }
                                 }
                                 Anulacion = '';
                                 Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
@@ -622,6 +642,16 @@ $(document).ready(function() {
                                     Devolucion = ''
                                     Abonar = ''
                                     Pagos = ''
+                                     //Acciones 2, es por nota de credito parcial
+                                     if(row.Acciones == 2){
+                                        if(row.TotalSaldo != '0') {
+                                            Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'   
+                                        }
+                                        if(row.SaldoConNotaCredito != row.TotalSaldo) {
+                                            Pagos = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-copy mostrarPagos" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Pagos" title="" data-container="body"></i>'
+                                        }
+                                        
+                                    }
                                 }
                                 Anulacion = '';
                                 Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
@@ -812,11 +842,10 @@ $(document).ready(function() {
 
 
     $('body').on('click', '#guardarPago', function() {
-
+        $('#guardarPago').attr('disabled', 'disabled');
         $.postFormValues('../includes/facturacion/facturas/storePago.php', '#storePago', {}, function(response) {
 
             if (response == 1) {
-
                 $.niftyNoty({
                     type: 'success',
                     icon: 'fa fa-check',
@@ -854,6 +883,7 @@ $(document).ready(function() {
 
             }
         });
+        $('#guardarPago').attr('disabled', false);
     });
     $('body').on('click', '.mostrarPagos', function() {
 

@@ -37,6 +37,22 @@ $.ajax({
 	}
 });
 
+// obtiene el monto de una nota de credito asociada al id de la factura
+function getTotalNotaCredito(idFactura){
+	// console.log(idFactura)
+	$.ajax({
+		type: "POST",
+		url: "../includes/facturacion/facturas/getPagoNotaCredito.php",
+		data: "id=" + idFactura,
+		success: function(response) {
+			var TotalDevolucion;
+			TotalDevolucion = parseFloat(response.TotalDevolucion);
+			console.log(TotalDevolucion);
+			return TotalDevolucion;
+		}
+	});
+}
+
 function ValidarCorreo(Correo) {
 	var sw1 = 0;
 	var emailreg = /^[a-zA-Z0-9_\.\-]+@[a-zA-Z0-9\-]+\.[a-zA-Z0-9\-\.]+$/;
