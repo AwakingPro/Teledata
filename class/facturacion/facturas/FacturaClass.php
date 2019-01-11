@@ -1893,6 +1893,7 @@
 
             if($facturas){
                 foreach($facturas as $factura){
+                    $SaldoConNotaCredito = 0;
                     $Id = $factura['Id'];
                     $IVA = $factura['IVA'];  
                     $EstatusFacturacion = $factura['EstatusFacturacion'];
@@ -1926,7 +1927,8 @@
                         $devoluciones = $run->select($query);
                         if($devoluciones){
                             $devolucion = $devoluciones[0];
-                            $TotalSaldo = $TotalFactura - $devolucion['DevolucionAmount'];
+                            $SaldoConNotaCredito = $TotalFactura - $devolucion['DevolucionAmount'];
+                            $TotalSaldo = $TotalFactura - (double)$devolucion['DevolucionAmount'];
                             $query = "SELECT  Monto FROM facturas_pagos WHERE FacturaId = '".$Id."'";
                             $pagos = $run->select($query);
                             $TotalPagado = 0;
@@ -1957,6 +1959,7 @@
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['Acciones'] = $Acciones;
                     $data['EstatusFacturacion'] = 1;
+                    $data['SaldoConNotaCredito'] = $SaldoConNotaCredito;
                     array_push($ToReturn,$data);
                     if($EstatusFacturacion == 2){
                         $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount FROM devoluciones WHERE FacturaId = '".$Id."'";
@@ -1981,7 +1984,8 @@
                             $data['Cliente'] = $factura['Cliente'];
                             $data['NumeroDocumento'] = $devolucion['NumeroDocumento'];
                             $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
-                            $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
+                            $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');
+                            $devolucion['DevolucionAmount'] = (double)$devolucion['DevolucionAmount']; 
                             $data['TotalFactura'] = $devolucion['DevolucionAmount'];
                             $data['TotalSaldo'] = $devolucion['DevolucionAmount'];
                             $data['SaldoFavor'] = $SaldoFavor;
@@ -1989,6 +1993,7 @@
                             $data['TipoDocumento'] = 'Nota de crédito';
                             $data['Acciones'] = $Acciones;
                             $data['EstatusFacturacion'] = 2;
+                            $data['SaldoConNotaCredito'] = $TotalFactura - $devolucion['DevolucionAmount'];
                             array_push($ToReturn,$data);
                             if($DevolucionAnulada == 1){
                                 $DevolucionId = $devolucion['Id'];
@@ -2009,6 +2014,7 @@
                                     $data['UrlPdfBsale'] = $anulacion['UrlPdfBsale'];
                                     $data['TipoDocumento'] = 'Nota de debito';
                                     $data['EstatusFacturacion'] = 3;
+                                    $data['SaldoConNotaCredito'] = 0;
                                     array_push($ToReturn,$data);
                                 }
                             }
@@ -2078,7 +2084,7 @@
                     $TotalDevolucion = $Devolucion['DevolucionAmount'];   
                 }
             }
-            $data['TotalDevolucion'] = doubleval($TotalDevolucion);
+            $data['TotalDevolucion'] = (double)($TotalDevolucion);
             return $data;
         }
         public function storePago($FacturaId,$FechaPago,$TipoPago,$Monto,$FechaEmisionCheque,$FechaVencimientoCheque){
@@ -3063,7 +3069,7 @@
             $DevolucionesBsale = json_decode($response, true);
             foreach($DevolucionesBsale['items'] as $DevolucionBsale){
                 $DevolucionIdBsale = $DevolucionBsale['id'];
-                $DevolucionAmount = $DevolucionBsale['amount'];
+                $DevolucionAmount = (double)$DevolucionBsale['amount'];
                 $query = "SELECT FacturaId, UrlPdfBsale FROM devoluciones WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
                 $Devolucion = $run->select($query);
                 if(!$Devolucion){
@@ -3088,6 +3094,9 @@
                 }else{
                     $FacturaId = $Devolucion[0]['FacturaId'];
                     $UrlPdf = $Devolucion[0]['UrlPdfBsale'];
+                    $query = "UPDATE devoluciones SET DevolucionAmount = '".$DevolucionAmount."' WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
+                    $run->update($query);
+                    
                 }
                 if($FacturaId){   
                     $this->almacenarDocumento($FacturaId,2,$UrlPdf);
