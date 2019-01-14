@@ -487,12 +487,12 @@ $(document).ready(function() {
 
     //ver servicios del modulo /clientes/listaCliente.php
     $(document).on('click', '.verServiciosCliente', function() {
-
         $('#modalVerServicios').modal('show');
-
         // parametros para armar la data table
         var id = $(this).attr('attr');
-        var nombre_cliente = $(this).attr('data-nombre');
+        $("#servicio_rut_dv").val(id);
+        var nombre_cliente = $(this).attr('data-nombre'); 
+        $("#servicio_nombre_cliente").val(nombre_cliente);
         $('.modal-title-servicio').html(nombre_cliente);
         var url = '../ajax/cliente/dataServicios.php';
         var contenedor = '.dataServicios';
@@ -1113,6 +1113,7 @@ $(document).ready(function() {
         var ObjectCode = ObjectTR.find("td").eq(0).text();
         $('.Codigo').text(ObjectCode);
         $('.Id').val(ObjectId);
+        $('.servicio_codigo_cliente').val(ObjectCode);
 
         $.ajax({
             type: "POST",
