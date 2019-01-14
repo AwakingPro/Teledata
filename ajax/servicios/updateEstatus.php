@@ -3,7 +3,8 @@
     $run = new Method;
     $servicio_rut_dv = isset($_POST['servicio_rut_dv']) ? trim($_POST['servicio_rut_dv']) : "";
     $servicio_nombre_cliente = isset($_POST['servicio_nombre_cliente']) ? trim($_POST['servicio_nombre_cliente']) : "";
-     
+    $servicio_codigo_cliente = isset($_POST['servicio_codigo_cliente']) ? trim($_POST['servicio_codigo_cliente']) : "";
+    // echo $servicio_rut_dv .' - ' . $servicio_nombre_cliente . ' code '.$servicio_codigo_cliente; exit; 
     $Id = isset($_POST['Id']) ? trim($_POST['Id']) : "";
     $Activo = isset($_POST['Activo']) ? trim($_POST['Activo']) : "";
     $FechaInicioDesactivacion = isset($_POST['FechaInicioDesactivacion']) ? trim($_POST['FechaInicioDesactivacion']) : "";

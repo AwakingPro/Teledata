@@ -271,7 +271,6 @@ $(document).ready(function() {
             mapCenter = new google.maps.LatLng(Latitud, Longitud);
 
             setTimeout(function() {
-                console.log(Latitud+''+Longitud)
                 google.maps.event.trigger(Mapa, "resize");
                 Mapa.setCenter(mapCenter);
                 Mapa.setZoom(Mapa.getZoom());
@@ -471,7 +470,6 @@ $(document).ready(function() {
                 bootbox.alert('<h3 class="text-center">El servicio se actualizo con éxito.</h3>');
                 getServicios();
             } else {
-                console.log(data);
                 bootbox.alert('<h3 class="text-center">Se produjo un error al actualizar</h3>');
             }
         });
@@ -487,7 +485,6 @@ $(document).ready(function() {
                 bootbox.alert('<h3 class="text-center">El registro se realizo con éxito.</h3>');
                 $('.modal').modal('hide')
             } else {
-                console.log(data);
                 bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
             }
         });
@@ -502,7 +499,6 @@ $(document).ready(function() {
                 });
                 bootbox.alert('<h3 class="text-center">Se registro con éxito.</h3>');
             } else {
-                console.log(data);
                 bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
             }
         });
@@ -518,7 +514,6 @@ $(document).ready(function() {
                     getCliente(data)
                 });
             } else {
-                console.log(data);
                 bootbox.alert('<h3 class="text-center">Se produjo un error al guardar el cliente.</h3>');
             }
         });
@@ -544,7 +539,6 @@ $(document).ready(function() {
     }
 
     function getCliente(Rut) {
-        console.log(Rut);
         $('#Rut').val(Rut);
         setTimeout(() => {
             $('#Rut').selectpicker('refresh');
@@ -554,6 +548,12 @@ $(document).ready(function() {
         }, 1000); 
     }
     $(document).on('change', 'select[name="Rut"]', function() {
+        servicio_rut_dv = $(this).find('option:selected').data('rut');
+        $("#servicio_rut_dv").val(servicio_rut_dv);
+        
+        servicio_nombre_cliente = $(this).find('option:selected').data('nombre-cliente');
+        $("#servicio_nombre_cliente").val(servicio_nombre_cliente);
+            
         getCliente($(this).val())
         getTipoDoc($(this).val())
     });
@@ -801,7 +801,6 @@ $(document).ready(function() {
                 url: "../includes/inventario/egresos/getProducto.php",
                 data: "&origen_tipo=" + origen_tipo + "&origen_id=" + origen_id,
                 success: function(response) {
-                    console.log(response);
                     $.each(response.array, function(index, array) {
                         $('#producto_id').append('<option value="' + array.id + '" data-content="' + array.tipo + ' ' + array.marca + ' ' + array.modelo + ' - ' + array.numero_serie + '"></option>');
                     });
@@ -852,14 +851,15 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.estatusServicio', function() {
-
+        
         $('body').removeClass('loaded');
-
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectId = $(this).attr('attr');
         var ObjectCode = ObjectTR.find("td").eq(0).text();
         $('.Codigo').text(ObjectCode);
+        $('.servicio_codigo_cliente').val(ObjectCode);
+        
         $('.Id').val(ObjectId);
 
         $.ajax({
@@ -870,7 +870,6 @@ $(document).ready(function() {
                 response = JSON.parse(response)
                 $('#FechaInicioDesactivacion').val('')
                 $('#FechaFinalDesactivacion').val('')
-                console.log(response.FechaFinalDesactivacion)
                 if (response.FechaFinalDesactivacion == '2999/01/31') {
                     $('#Activo').val(0)
                     $('#divFechaActivacion').hide()
