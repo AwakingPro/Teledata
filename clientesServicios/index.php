@@ -289,8 +289,11 @@
 						<h4 class="modal-title c-negro">Código: <span class="Codigo"></span> <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
 					</div>
 					<div class="modal-body">
-						<form id = "formEstatus">
-							<input type="hidden" class="Id" name="Id" id="Id">
+					<?php
+					include '../componentes/componentes_servicios/form_activa_servicios.php';
+					?>
+						<!-- <form id = "formEstatus">
+							<input type="hidden" class="Id" name="Id" id="Id">							
 							<div class="row" style="padding:20px">
 								<div class="col-md-12">
 									<div class="form-group">
@@ -319,7 +322,7 @@
 									</div>
 								</div>
 							</div>
-						</form>
+						</form> -->
 					</div><!-- /.modal-body -->
 					<div class="modal-footer p-b-20 m-b-20">
 						<div class="col-sm-12">

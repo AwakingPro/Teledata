@@ -20,7 +20,7 @@
 	if (count($clientes) > 0) {
 		$list ='<option value="">Seleccione...</option>';
 		foreach($clientes as $cliente){
-			$list.= '<option value="'.$cliente['rut'].'">'.$cliente['rut'].'-'.$cliente['dv'].'  '.$cliente['nombre'].' - '.$cliente['tipo_cliente'].'</option>';
+			$list.= '<option data-rut="'.$cliente['rut'].'-'.$cliente['dv'].'" data-nombre-cliente="'.$cliente['nombre'].'" value="'.$cliente['rut'].'">'.$cliente['rut'].'-'.$cliente['dv'].'  '.$cliente['nombre'].' - '.$cliente['tipo_cliente'].'</option>';
 		}
 		echo $list;
 	}else{

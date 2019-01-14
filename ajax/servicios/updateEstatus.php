@@ -1,7 +1,9 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	
     $run = new Method;
+    $servicio_rut_dv = isset($_POST['servicio_rut_dv']) ? trim($_POST['servicio_rut_dv']) : "";
+    $servicio_nombre_cliente = isset($_POST['servicio_nombre_cliente']) ? trim($_POST['servicio_nombre_cliente']) : "";
+     
     $Id = isset($_POST['Id']) ? trim($_POST['Id']) : "";
     $Activo = isset($_POST['Activo']) ? trim($_POST['Activo']) : "";
     $FechaInicioDesactivacion = isset($_POST['FechaInicioDesactivacion']) ? trim($_POST['FechaInicioDesactivacion']) : "";
