@@ -250,7 +250,6 @@ $(document).ready(function() {
                     window.location = "../servicios?Rut=" + rut;
                 }
             } else {
-                // console.log(data);
                 if (data != "Dv") {
                     bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
                 } else {
@@ -281,6 +280,11 @@ $(document).ready(function() {
 
     $(document).on('change', 'select[name="rutCliente"]', function() {
         if ($(this).selectpicker('val') != '') {
+            servicio_rut_dv = $(this).find('option:selected').data('rut');
+            $("#servicio_rut_dv").val(servicio_rut_dv);
+            
+            servicio_nombre_cliente = $(this).find('option:selected').data('nombre-cliente');
+            $("#servicio_nombre_cliente").val(servicio_nombre_cliente);
             getServicios();
         }
     });
@@ -300,7 +304,6 @@ $(document).ready(function() {
         var valor = $(this).attr('attr');
         var nombre_cliente = $(this).attr('data-nombre');
         $('.modal-title-contacto').html(nombre_cliente);
-        // console.log('id desde la apartura del moda es'+valor);
         $('#IdClienteOculto').val(valor);
         var url = '../ajax/cliente/listContactos.php';
         var contenedor = '.dataContactos';
@@ -308,7 +311,6 @@ $(document).ready(function() {
         var contenedorTableCampos = '.dataContactos > .tabeData tr th';
         
         getDataTables(url, valor, contenedor, contenedorTableCampos, contenedorTable );
-        // console.log(valor+' valor en el input hidden '+$('#IdClienteOculto').val());
         
     });
 
@@ -1096,7 +1098,6 @@ $(document).ready(function() {
                 }, 500)
                 getServicios();
             } else {
-                // console.log(data);
                 bootbox.alert('<h3 class="text-center">Se produjo un error al actualizar</h3>');
             }
         });
