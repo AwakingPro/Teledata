@@ -858,7 +858,7 @@ $(document).ready(function() {
         var ObjectId = $(this).attr('attr');
         var ObjectCode = ObjectTR.find("td").eq(0).text();
         $('.Codigo').text(ObjectCode);
-        $('.servicio_codigo_cliente').val(ObjectCode);
+        $('#servicio_codigo_cliente').val(ObjectCode);
         
         $('.Id').val(ObjectId);
 

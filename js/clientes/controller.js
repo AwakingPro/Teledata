@@ -194,8 +194,17 @@ $(document).ready(function() {
         });
     }
     function getServicios(){
-        $.post('../ajax/cliente/dataCliente.php', { rut: $('select[name="rutCliente"]').selectpicker('val') }, function(data) {
+        
+        var RUT = $('#servicio_rut_dv').val();
+        var rut = RUT.split('-');
+        
+        $.post('../ajax/cliente/dataCliente.php', { rut: rut[0] }, function(data) {
+            $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Guardando Contacto...</div><div class="spinner loading"></div>');
+            
             values = $.parseJSON(data);
+            if(values){
+
+            }
             $('.dataServicios').html(values[1]);
             var count = $('.dataServicios > .tabeData tr th').length - 1;
             $('.dataServicios > .tabeData').DataTable({
@@ -1113,7 +1122,7 @@ $(document).ready(function() {
         var ObjectCode = ObjectTR.find("td").eq(0).text();
         $('.Codigo').text(ObjectCode);
         $('.Id').val(ObjectId);
-        $('.servicio_codigo_cliente').val(ObjectCode);
+        $('#servicio_codigo_cliente').val(ObjectCode);
 
         $.ajax({
             type: "POST",
@@ -1164,9 +1173,13 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '#updateEstatus', function() {
+        $("#updateEstatus").attr('disabled', 'disabled');
+        if ($('#updateEstatus').is(':disabled')) {
+            $('.dataServicios').html('<div style="text-align:center; font-size:15px;">Guardando Servicio...</div><div class="spinner loading"></div>');
+        }
         $.postFormValues('../ajax/servicios/updateEstatus.php', '#formEstatus', {}, function(data) {
             if (data == 1) {
-                $('.modal').modal('hide')
+                $('#modalEstatus').modal('hide');
                 setTimeout(function() {
                     bootbox.alert('<h3 class="text-center">Registro Guardado Exitosamente.</h3>');
                 }, 500)
@@ -1179,6 +1192,7 @@ $(document).ready(function() {
                 bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
             }
         });
+        $("#updateEstatus").attr('disabled', false);
     });
 
     $('body').on('click', '#guardarGiro', function() {
