@@ -730,8 +730,12 @@
 		}
 		// metodo para enviar correos
 		function enviarCorreos($TipoCorreo, $Data){
+			$MensajeCorreo = '';
+			$Asunto = $Data['asunto'];
+			$correos = $Data['correos'];
+			//descomentar abajo para pruebas
+			// $correos = 'daniel30081990@gmail.com, dangel@teledata.cl';
 			if($TipoCorreo == 1){
-				$Asunto = $Data['asunto'];
 				//esta validacion es porque el rut puede ser sin "-"
 				if( isset($Data['RutExplode']['verificacion']) && $Data['RutExplode']['verificacion']){
 					$RUTDV = $Data['RutExplode']['Value'][0].'-'.$Data['RutExplode']['Value'][1];
@@ -740,36 +744,38 @@
 					$RUTDV = $Data['RutExplode']['Value'];
 					$RUT = $RUTDV;
 				}
-				// echo "\n"; echo 'RUT DV '.$RUT;
-				// echo "\n"; echo '<pre>'; print_r($Data['RutExplode']['Value']); echo '</pre>';
-				$Html =
-				"<html>
-					<head>
-						<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
-						<style>
-						body{font-family:Open Sans;font-size:14px;}
-						table{font-size:13px;border-collapse:collapse;}
-						th{padding:8px;text-align:left;color:#595e62;border-bottom: 2px solid rgba(0,0,0,0.14);font-size:14px;}
-						td{padding:8px;border-bottom: 1px solid rgba(0,0,0,0.05);}
-						</style>
-					</head>
-					<body>
-					ESTIMADO(A)S, <br>
-						El Cliente: <b>".$Data['ClienteNombre']."</b> RUT: <b>".$RUTDV."</b> se Ingreso con éxito a la base de datos del ERP desde Bsale.<br><br>
-						<b>Queda en su responsabilidad si es necesario crear el servicio asociado al cliente y verificar que los datos del cliente
-						sean los correctos.</b><br>
-						<b>Es necesario que creen el servicio correspondiente si aplica para el funcionamiento de las facturas mensuales automáticas.</b><br>
-						<b>Verificar que los datos del cliente sean los correctos.</b><br><br>
-						URL Privada para crear servicios: http://172.30.222.76/servicios/?Rut=".$RUT."
-						<br> URL Pública para crear servicio: http://131.0.108.31/servicios/?Rut=".$RUT."
-						</b><br><br>
-						Saludos.
-					</body>
-				</html>";
-				$Email = new Email();
-				$correos = $Data['correos'];
-				$ToReturn = $Email->SendMail($Html, $Asunto, $correos);
+				$MensajeCorreo = "ESTIMADO(A)S, <br>
+				El Cliente: <b>".$Data['ClienteNombre']."</b> RUT: <b>".$RUTDV."</b> se Ingreso con éxito a la base de datos del ERP desde Bsale.<br><br>
+				<b>Queda en su responsabilidad si es necesario crear el servicio asociado al cliente y verificar que los datos del cliente
+				sean los correctos.</b><br>
+				<b>Es necesario que creen el servicio correspondiente si aplica para el funcionamiento de las facturas mensuales automáticas.</b><br>
+				<b>Verificar que los datos del cliente sean los correctos.</b><br><br>
+				URL Privada para crear servicios: http://172.30.222.76/servicios/?Rut=".$RUT."
+				<br> URL Pública para crear servicio: http://131.0.108.31/servicios/?Rut=".$RUT."
+				</b><br><br>
+				Saludos.";
 			}
+			if($TipoCorreo == 2){
+				$MensajeCorreo = $Data['MensajeCorreo'];
+			}
+
+			$Html =
+			"<html>
+				<head>
+					<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+					<style>
+					body{font-family:Open Sans;font-size:14px;}
+					table{font-size:13px;border-collapse:collapse;}
+					th{padding:8px;text-align:left;color:#595e62;border-bottom: 2px solid rgba(0,0,0,0.14);font-size:14px;}
+					td{padding:8px;border-bottom: 1px solid rgba(0,0,0,0.05);}
+					</style>
+				</head>
+				<body>
+				".$MensajeCorreo."
+				</body>
+			</html>";
+			$Email = new Email();
+			$ToReturn = $Email->SendMail($Html, $Asunto, $correos);
             return $ToReturn;
         }
 	}

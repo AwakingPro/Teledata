@@ -1,6 +1,10 @@
 <?php
+    require("../../plugins/PHPMailer-master/class.phpmailer.php");
+    require("../../plugins/PHPMailer-master/class.smtp.php");
+    include('../../class/email/EmailClass.php');
 	require_once('../../class/methods_global/methods.php');
     $run = new Method;
+
     $servicio_rut_dv = isset($_POST['servicio_rut_dv']) ? trim($_POST['servicio_rut_dv']) : "";
     $servicio_nombre_cliente = isset($_POST['servicio_nombre_cliente']) ? trim($_POST['servicio_nombre_cliente']) : "";
     $servicio_codigo_cliente = isset($_POST['servicio_codigo_cliente']) ? trim($_POST['servicio_codigo_cliente']) : "";
@@ -9,8 +13,31 @@
     $Activo = isset($_POST['Activo']) ? trim($_POST['Activo']) : "";
     $FechaInicioDesactivacion = isset($_POST['FechaInicioDesactivacion']) ? trim($_POST['FechaInicioDesactivacion']) : "";
     $FechaFinalDesactivacion = isset($_POST['FechaFinalDesactivacion']) ? trim($_POST['FechaFinalDesactivacion']) : "";
+
+    $FechaInicioDesactivacionES = date("d-m-Y",  strtotime($FechaInicioDesactivacion));
+    $FechaFinalDesactivacionES = date("d-m-Y",  strtotime($FechaFinalDesactivacion));
+
+    $dataClient = array();
+    // $dataClient['RUT'] = $servicio_rut_dv;
+    $dataClient['ClienteNombre'] = $servicio_nombre_cliente;
+    $dataClient['ServicioCodigo'] = $servicio_codigo_cliente;
+    $dataClient['correos'] = 'dangel@teledata.cl, jcarrillo@teledata.cl, atrismartelo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl';
+    // $dataClient['correos'] = 'daniel30081990@gmail.com, dangel@teledata.cl';
+    $dataClient['asunto'] = 'Actualizar Servicio '.$servicio_codigo_cliente;
+    
+    
+    $Mensaje = 'Estimados por favor ';
     //Cortado 0, suspendido 2, activo 1
     if(!$Activo || $Activo == 2){
+        
+        if($Activo == 0){
+            $Mensaje .= '<b>Cortar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
+        }else{
+            $FechaInicioDesactivacionES = date("d-m-Y",  strtotime($FechaInicioDesactivacion));
+            $FechaFinalDesactivacionES = date("d-m-Y",  strtotime($FechaFinalDesactivacion));
+            $Mensaje .= '<b>Suspender</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. 
+            $servicio_codigo_cliente.'</b> Desde <b>'.$FechaInicioDesactivacionES .'</b> Hasta <b>'. $FechaFinalDesactivacionES.'</b>';
+        }
         if($FechaInicioDesactivacion && $FechaFinalDesactivacion){
             $FechaInicioDesactivacion = DateTime::createFromFormat('Y/m/d', $FechaInicioDesactivacion);
             $FechaFinalDesactivacion = DateTime::createFromFormat('Y/m/d', $FechaFinalDesactivacion);
@@ -30,11 +57,23 @@
         $FechaInicioDesactivacion = 'NULL';
         $FechaFinalDesactivacion = 'NULL';
     }
+    if($Activo == 1){
+        $Mensaje .= '<b>Activar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
+    }
 
+    $dataClient['MensajeCorreo'] = $Mensaje;
 	$query = "UPDATE servicios SET FechaInicioDesactivacion = $FechaInicioDesactivacion, 
               FechaFinalDesactivacion = $FechaFinalDesactivacion, EstatusServicio = $Activo
               WHERE Id = '".$Id."'";
-	$update = $run->update($query);
+    $update = $run->update($query);
+    
+    if($update > 0){
+        $respCorreo = $run->enviarCorreos(2, $dataClient);
+        if($respCorreo != 1){
+            echo 4;
+            return;
+        }
+    }
 
 	echo 1;
 
