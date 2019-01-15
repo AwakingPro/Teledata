@@ -1173,26 +1173,41 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '#updateEstatus', function() {
+        
+        // if ($('#updateEstatus').is(':disabled')) {   
+        // }
         $("#updateEstatus").attr('disabled', 'disabled');
-        if ($('#updateEstatus').is(':disabled')) {
-            $('.dataServicios').html('<div style="text-align:center; font-size:15px;">Guardando Servicio...</div><div class="spinner loading"></div>');
-        }
+        $('#loader_servicios').html('<div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div>');
         $.postFormValues('../ajax/servicios/updateEstatus.php', '#formEstatus', {}, function(data) {
+            
             if (data == 1) {
-                $('#modalEstatus').modal('hide');
-                setTimeout(function() {
-                    bootbox.alert('<h3 class="text-center">Registro Actualizado Exitosamente.</h3>');
-                }, 500)
-                getServicios();
+                 alertas('success', 'Registro Actualizado Exitosamente.');
+                // setTimeout(function() {
+                //     bootbox.alert('<h3 class="text-center">Registro Actualizado Exitosamente.</h3>');
+                // }, 500)
             } else if (data == 2) {
-                bootbox.alert('<h3 class="text-center">La fecha de activación debe ser mayor al dia de hoy.</h3>');
+                alertas('danger', 'La fecha de activación debe ser mayor al dia de hoy.');
+                // bootbox.alert('<h3 class="text-center">La fecha de activación debe ser mayor al dia de hoy.</h3>');
             } else if (data == 3) {
-                bootbox.alert('<h3 class="text-center">La fecha de activación es requerida.</h3>');
+                alertas('danger', 'La fecha de activación es requerida.');
+                // bootbox.alert('<h3 class="text-center">La fecha de activación es requerida.</h3>');
+            } else if (data == 4) {
+                alertas('danger', 'Se Actualizo, pero ocurrio un error al enviar el correo a los encargados del servicio.');
+                // bootbox.alert('<h3 class="text-center">Se Actualizo, pero ocurrio un error al enviar el correo a los encargados del servicio.</h3>');
             } else {
-                bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
+                alertas('danger', 'Se produjo un error al guardar.');
+                // bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
             }
+            $('#loader_servicios').html('');
+            $('.dataServicios').html('<div style="text-align:center; font-size:15px;">Cargando Servicios...</div><div class="spinner loading"></div>');
+            if(data == 1 || data == 4){
+                $('#modalEstatus').modal('hide');
+                getServicios();
+            }
+            $("#updateEstatus").attr('disabled', false);
         });
-        $("#updateEstatus").attr('disabled', false);
+        
+        
     });
 
     $('body').on('click', '#guardarGiro', function() {

@@ -1,4 +1,5 @@
-<form id = "formEstatus">
+<div id="loader_servicios"></div>
+<form id="formEstatus">
     <input type="hidden" class="Id" name="Id" id="Id">
     <input type="hidden" class="" name="servicio_rut_dv" id="servicio_rut_dv">
     <input type="hidden" class="" name="servicio_nombre_cliente" id="servicio_nombre_cliente">
