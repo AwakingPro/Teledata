@@ -1181,7 +1181,7 @@ $(document).ready(function() {
             if (data == 1) {
                 $('#modalEstatus').modal('hide');
                 setTimeout(function() {
-                    bootbox.alert('<h3 class="text-center">Registro Guardado Exitosamente.</h3>');
+                    bootbox.alert('<h3 class="text-center">Registro Actualizado Exitosamente.</h3>');
                 }, 500)
                 getServicios();
             } else if (data == 2) {

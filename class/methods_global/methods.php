@@ -684,7 +684,7 @@
             }
             
 		}
-		// metodo para conectar con la api de bsale
+		// metodo para conectar con la api de bsale y traer los datos para usarlos
         function conectarAPI($url){
             $query = "SELECT token_produccion as access_token FROM variables_globales";
             $variables_globales = self::select($query);
@@ -729,7 +729,7 @@
 			return $data;
 		}
 		// metodo para enviar correos
-		function enviarCorreo($TipoCorreo, $Data){
+		function enviarCorreos($TipoCorreo, $Data){
 			if($TipoCorreo == 1){
 				$Asunto = $Data['asunto'];
 				//esta validacion es porque el rut puede ser sin "-"
