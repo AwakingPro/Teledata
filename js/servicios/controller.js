@@ -918,7 +918,7 @@ $(document).ready(function() {
                 $.niftyNoty({
                     type: 'success',
                     icon: 'fa fa-check',
-                    message: 'Registro Guardado Exitosamente',
+                    message: 'Registro Actualizado Exitosamente',
                     container: 'floating',
                     timer: 3000
                 });

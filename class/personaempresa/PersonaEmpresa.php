@@ -182,7 +182,7 @@
                     $Id = $this->metodo->insert($query, true);
                     if($Id){
                         // echo '<pre>'; print_r($dataClient); echo '</pre>';
-                        $respCorreo = $this->metodo->enviarCorreo(1, $dataClient);
+                        $respCorreo = $this->metodo->enviarCorreos(1, $dataClient);
                     }
                 }
                 else{
