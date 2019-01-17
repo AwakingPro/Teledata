@@ -651,14 +651,8 @@
             $query = "SELECT token_produccion as access_token FROM variables_globales";
             $variables_globales = self::select($query);
             $access_token = $variables_globales[0]['access_token'];
-            //Total Clientes
-            if($tipo == 1){
-                $url = $urlbsale;
-            }
-            // if($tipo == 2){
-            //     $url='https://api.bsale.cl/v1/documents.json';
-            // }
-            
+			//Total Clientes
+			$url = $urlbsale;
             // Inicia cURL
             $session = curl_init($url);
             // Indica a cURL que retorne data

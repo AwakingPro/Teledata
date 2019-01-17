@@ -142,7 +142,10 @@ $(document).ready(function() {
                             "render": function(data, type, row) {
                                 Icono = '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar"  data-container="body"></i>'
                                 Icono += '<i title="Detalles servicio" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarInstalacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar"  data-container="body"></i>'
-                                Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar"  data-container="body"></i>'
+                                //temporal
+                                //comentar el prop y sustituir el not-allowed por cursor-pointer de Facturar luego de que se puedan enviar correos 
+                                $('.Facturar').prop('disabled', true);
+                                Icono += '<i title="Facturar" style="cursor: not-allowed; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar"  data-container="body"></i>'
                                 if(IdUsuarioSession == 104 || IdUsuarioSession == 116){
                                     Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>'
                                 }
@@ -228,12 +231,15 @@ $(document).ready(function() {
                         {
                             "targets": 6,
                             "render": function(data, type, row) {
-                                Icono = '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
+                                Icono = '<i title="Ver en PDF" style="cursor: not-allowed;  cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
                                 Icono += '<i title="Detalles servicios" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarLote" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
                                 Icono += '<i title="Orden de compra" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-list-alt OC" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Orden de Compra" title="" data-container="body"></i>'
                                 Icono += '<i title="Agregar Referencia" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-info-circle Referencia" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Referencia" title="" data-container="body"></i>'
                                 if(row.PermitirFactura == 1){
-                                    Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                                    //temporal
+                                    //comentar el prop y sustituir el not-allowed por cursor-pointer de Facturar luego de que se puedan enviar correos 
+                                    $('.Facturar').prop('disabled', true);
+                                    Icono += '<i title="Facturar" style="cursor: not-allowed; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                                 }
                                 if(IdUsuarioSession == 104 || IdUsuarioSession == 116){
                                     Icono += '<i title="Eliminar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar" title="" data-container="body"></i>'
@@ -313,7 +319,10 @@ $(document).ready(function() {
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarIndividual" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-list-alt OC" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Orden de Compra" title="" data-container="body"></i>'
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-info-circle Referencia" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Referencia" title="" data-container="body"></i>'
-                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                                //temporal
+                                //comentar el prop y sustituir el not-allowed por cursor-pointer de Facturar luego de que se puedan enviar correos 
+                                $('.Facturar').prop('disabled', true);
+                                Icono += '<i style="cursor: not-allowed; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                                 if(IdUsuarioSession == 104 || IdUsuarioSession == 116){
                                     Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar" title="" data-container="body"></i>'
                                 }
@@ -556,11 +565,11 @@ $(document).ready(function() {
         values = getChecked();
 
         if (values.length > 0) {
-
-            $("#Facturar").removeAttr("disabled");
-            $("#Facturar").css({
-                "opacity": ("1")
-            });
+            //descomentar luego de que funcione el envio de correo
+            // $("#Facturar").removeAttr("disabled");
+            // $("#Facturar").css({
+            //     "opacity": ("1")
+            // });
 
         } else {
             $("#Facturar").attr("disabled", "disabled");
@@ -767,6 +776,8 @@ $(document).ready(function() {
                             swal('Solicitud no procesada', 'El servicio no existe, por favor actualizar la pagina', 'error');
                         } else if (response.status == 4) {
                             swal('Solicitud no procesada', 'El cliente no existe, por favor actualizar la pagina', 'error');
+                        }else if (response.status == 55) {
+                            swal('Error Envío de Correo', 'Se alcanzo el limite de 100 correos por día de gmail, espere 24 horas', 'error');
                         } else if (response.status == 99) {
                             swal('Solicitud no procesada', 'El servicio cUrl no esta disponible en el servidor, por favor contactar al administrador', 'error');
                         } else {
