@@ -30,8 +30,9 @@ class Email
 		// $mail->Port = 25;  
 		$mail->Port = 587;  
 		$mail->Username = "teledatadte@teledata.cl";  
-		$mail->Password = "erp-mail.tldt.";
+		$mail->Password = "%zForDkbV\KZNz%~@cb3";
 		$mail->From = "teledatadte@teledata.cl";
+		
 		// $mail->Username = "pruebaamarok@gmail.com";
 		// $mail->Password = "amarok123"; 
 		// $mail->From = "pruebaamarok@gmail.com";
