@@ -2919,10 +2919,13 @@
             $DocumentosBsale = json_decode($response, true);
             $dataClient = array();
             // $dataClient['correos'] = 'torres@teledata.cl, dangel@teledata.cl';
-            $dataClient['correos'] = 'dangel@teledata.cl';
-            // $dataClient['correos'] = 'torres@teledata.cl, teledatadte@teledata.cl, preinoso@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, sergio@teledata.cl';
+            // $dataClient['correos'] = 'dangel@teledata.cl';
+            $dataClient['asunto'] = '';
+            $dataClient['MensajeCorreo'] = '';
+            $ContadorFacActualiza = 0;
+            $ContadorFacInserta = 0;
+            $dataClient['correos'] = 'teledatadte@teledata.cl, torres@teledata.cl, preinoso@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl';
             foreach($DocumentosBsale['items'] as $DocumentoBsale){
-                
                 $DocumentoId = $DocumentoBsale['id'];
                 $document_type = $DocumentoBsale['document_type'];
                 $TipoDocumento = $document_type['id'];
@@ -2972,6 +2975,9 @@
                              FechaOC, CountDTE) VALUES ('".$Rut."', '".$Grupo."', '4', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', '".$FechaFacturacion."', '".$HoraFacturacion."', '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."', '".$referencesCount."')";
                             $Id = $run->insert($query);
                             if($Id){
+                                $ContadorFacInserta += 1;
+                                $dataClient['asunto'] = 'Sincronización de Documento desde bsale a la BD del ERP ';
+                                $dataClient['MensajeCorreo'] .= 'Se ha insertado el Doc Rut: <b>'.$code.'</b> N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.<br><br><br>';
                                 $details = $DocumentoBsale['details'];
                                 $details = $details['items'];
                                 foreach($details as $detail){
@@ -3002,14 +3008,7 @@
                                         $FacturaDTEId = $run->insert($query);
                                     }
                                 }
-                                
-                                $dataClient['asunto'] = 'Insertado | Sincronización de Doc del Cliente Rut: '.$code.' N Doc:'.$NumeroDocumento;
-                                $dataClient['MensajeCorreo'] = 'Se ha sincronizado el Doc Rut: <b>'.$code.'</b> N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.';
                             }
-                        }
-                        if($Id){
-                            // $respCorreo = $run->enviarCorreos(2, $dataClient);
-                            // echo 'Insert Fac '.$respCorreo; echo "\n";
                         }
                     }else{
                         $Id = $Factura[0]['Id'];
@@ -3043,11 +3042,11 @@
                                     FechaVencimiento = '".$FechaVencimiento."', NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', CountDTE = '".$referencesCount."'
                                     WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' ";
                             $update = $run->update($query);
-                             $dataClient['asunto'] = 'Actualizado | Sincronización de Doc del Cliente Rut: '.$code.' N Doc:'.$NumeroDocumento;
-                             $dataClient['MensajeCorreo'] = 'Se ha sincronizado el Doc Rut: <b>'.$code.'</b> N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.';
+                            
                             if($update){
-                                // $respCorreo = $run->enviarCorreos(2, $dataClient);
-                                // echo 'Update  Fac '.$respCorreo; echo "\n";
+                                $ContadorFacActualiza += 1;
+                                $dataClient['asunto'] = 'Sincronización de Documento desde bsale a la BD del ERP ';
+                                $dataClient['MensajeCorreo'] .= 'Se ha actualizado el Doc Rut: <b>'.$code.'</b> N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.<br><br><br>';
                             }
                             $query = "SELECT COUNT(*) AS `totalDTE` FROM dte_code WHERE DocumentoIdBsale = '".$DocumentoId."' ";
                             $TotalDTE = $run->select($query);
@@ -3078,12 +3077,22 @@
                             }
                         }
                     }
+                    
                     if($Id){   
                         $this->almacenarDocumento($Id,1,$UrlPdf);
                     }
                 }
             }
-            
+
+            if($ContadorFacActualiza || $ContadorFacInserta){
+                $respCorreo = $run->enviarCorreos(2, $dataClient);
+                echo 'Insert Fac O Upd '.$respCorreo; echo "\n";
+            }
+
+
+            $contadorDevolucion = 0;
+            $contadorErrorDevolucion = 0;
+            $contadorActulizaDevolucion = 0;
             //total DEVOLUCIONES con el parametro 2
             $url='https://api.bsale.cl/v1/returns.json';
             // $limitDevoluciones = self::countDocumentos(2, '');
@@ -3110,6 +3119,7 @@
             // Cierra la sesión cURL
             curl_close($session);
             $DevolucionesBsale = json_decode($response, true);
+            $dataClient['asunto'] = 'Nota de Crédito | Sincronización de Documento';
             foreach($DevolucionesBsale['items'] as $DevolucionBsale){
                 $DevolucionIdBsale = $DevolucionBsale['id'];
                 $DevolucionAmount = (double)$DevolucionBsale['amount'];
@@ -3124,41 +3134,46 @@
                         $credit_note = $DevolucionBsale['credit_note'];
                         $UrlPdf = $credit_note['urlPdf'];
                         $Motivo = $DevolucionBsale['motive'];
-                        $FechaDevolucion = date('Y-m-d', $DevolucionBsale['returnDate']);
-                        $HoraDevolucion = date('H:i:s', $DevolucionBsale['returnDate']);
+                        $FechaDevolucion = gmdate('Y-m-d', $DevolucionBsale['returnDate']);
+                        $HoraDevolucion = $FechaDevolucion;
                         $NumeroDocumento = $credit_note['number'];
                         $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento, DevolucionAmount) VALUES ('".$FacturaId."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', '".$FechaDevolucion."', '".$HoraDevolucion."','".$NumeroDocumento."', '".$DevolucionAmount."')";
                         $DevolucionId = $run->insert($query);
                         if($DevolucionId){  
-                            $dataClient['asunto'] = 'Devolución Insertada | Sincronización de Documento N Doc:'.$NumeroDocumento;
-                            $dataClient['MensajeCorreo'] = 'Se ha sincronizado la Devolución N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.';
+                            $contadorDevolucion += 1;
+                            $dataClient['MensajeCorreo'] .= 'Insertada | Se ha sincronizado la Nota de Crédito N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.<br><br><br>';
     
                             $query = "UPDATE facturas SET EstatusFacturacion = 2 WHERE Id = '".$FacturaId."'";
                             $update = $run->update($query);
                         }else{
-                            $dataClient['asunto'] = 'Error Devolución Insertada | Sincronización de Documento N Doc:'.$NumeroDocumento;
-                            $dataClient['MensajeCorreo'] = 'Ocurrio un Error al tratar de insertar la Devolución N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor Notificar el inconveniente.</b> <br> Gracias.';
-                            // $respCorreo = $run->enviarCorreos(2, $dataClient);
-                            // echo 'Error Devolución Insertada  '.$respCorreo; echo "\n";
+                            $contadorErrorDevolucion += 1;
+                            $dataClient['MensajeCorreo'] .= 'Ocurrio un Error al tratar de insertar la Nota de Crédito N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor Notificar el inconveniente.</b> <br> Gracias.<br><br><br>';
+                            
                         }
                     }
                 }else{
                     $FacturaId = $Devolucion[0]['FacturaId'];
                     $UrlPdf = $Devolucion[0]['UrlPdfBsale'];
+                    $FechaDevolucion = gmdate('Y-m-d', $DevolucionBsale['returnDate']);
+                    $credit_note = $DevolucionBsale['credit_note'];
+                    $NumeroDocumento = $credit_note['number'];
                     // si se necesitare actualizar un monto de devolucion, descomentar la query de abajo
-                    // $query = "UPDATE devoluciones SET DevolucionAmount = '".$DevolucionAmount."' WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
-                    // $update = $run->update($query);
-                    // if($update){
-                    //     $dataClient['asunto'] = 'Actualización Monto de Devolución';
-                    //     $dataClient['MensajeCorreo'] = 'Se actualizo el Monto ha <b>'.$DevolucionAmount.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos son correctos.</b> <br> Gracias.';
-                    //     // $respCorreo = $run->enviarCorreos(2, $dataClient);
-                    //     // echo 'Devolucion Update correo  '.$respCorreo; echo "\n";
-                    // }
+                    $query = "UPDATE devoluciones SET DevolucionAmount = '".$DevolucionAmount."', FechaDevolucion = '".$FechaDevolucion."' WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
+                    $update = $run->update($query);
+                    if($update){
+                        $contadorActulizaDevolucion += 1;
+                        $dataClient['MensajeCorreo'] .= 'Actualizada | Nota de Crédito N Doc:<b>'.$NumeroDocumento.'</b> se ha actualizo el Monto <b>'.$DevolucionAmount.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos son correctos.</b> <br> Gracias.<br><br><br>';
+                    }
                 }
                 if($FacturaId){   
                     $this->almacenarDocumento($FacturaId,2,$UrlPdf);
                 }
             }
+            if($contadorDevolucion || $contadorErrorDevolucion || $contadorActulizaDevolucion){
+                $respCorreo = $run->enviarCorreos(2, $dataClient);
+                echo '$contadorDevolucion || $contadorErrorDevolucion || $contadorActulizaDevolucion '.$respCorreo; echo "\n";
+            }
+            
 
             //NOTAS DE DEBITO
             /*
