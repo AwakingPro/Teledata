@@ -2305,7 +2305,7 @@
                 $response_array['status'] = 99;
             }
             //esto envia correo con la prefactura para ver como se enviaran los correos
-            $respCorreo = $this->enviarDocumentoPrefactura($RutId, $Tipo, $Grupo,  $UrlLocal);
+            // $respCorreo = $this->enviarDocumentoPrefactura($RutId, $Tipo, $Grupo,  $UrlLocal);
             return $response_array;
         }
 
