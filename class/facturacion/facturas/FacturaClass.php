@@ -2286,13 +2286,6 @@
                                 $response_array['status'] = 1;
                                 //esto envia correo con la prefactura para ver como se enviaran los correos
                                 $respCorreo = $this->enviarDocumentoPrefactura($RutId, $Tipo, $Grupo,  $UrlLocal);
-                                if($respCorreo == 1){
-                                    $response_array['NombrePdf'] = $NombrePdf;
-                                    $response_array['status'] = 1;
-                                }else{
-                                    $response_array['Message'] = $respCorreo;
-                                    $response_array['status'] = 55;
-                                }
                             }else{
                                 $response_array['Message'] = $FacturaBsale['Message'];
                                 $response_array['status'] = 0;
