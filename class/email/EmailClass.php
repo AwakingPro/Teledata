@@ -4,6 +4,7 @@ class Email
 {
 	//Versión 2
 	public function SendMail($html,$subject,$emails,$attachments = false){ 
+		$html = utf8_decode($html);
 		$subject = utf8_decode($subject);
 		$mail = new PHPMailer();  
 		
@@ -29,8 +30,11 @@ class Email
 		// $mail->Port = 25;  
 		$mail->Port = 587;  
 		$mail->Username = "teledatadte@teledata.cl";  
-		$mail->Password = "erp-mail.tldt.";  
+		$mail->Password = "erp-mail.tldt.";
 		$mail->From = "teledatadte@teledata.cl";
+		// $mail->Username = "pruebaamarok@gmail.com";
+		// $mail->Password = "amarok123"; 
+		// $mail->From = "pruebaamarok@gmail.com";
 		$mail->FromName = "Teledata DTE";  
 		$mail->Subject = $subject;  
 		$mail->IsHTML(true);  
