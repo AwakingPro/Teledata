@@ -3033,13 +3033,13 @@
                             $query = "UPDATE facturas set informedSiiBsale = '".$informedSii."', responseMsgSiiBsale = '".$responseMsgSii."',  FechaFacturacion = '".$FechaFacturacion."',
                                     FechaVencimiento = '".$FechaVencimiento."', NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', CountDTE = '".$referencesCount."'
                                     WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' ";
-                            $update = $run->update($query);
-                            
-                            if($update){
-                                $ContadorFacActualiza += 1;
-                                $dataClient['asunto'] = 'Sincronización de Documento desde bsale a la BD del ERP ';
-                                $dataClient['MensajeCorreo'] .= 'Se ha actualizado el Doc Rut: <b>'.$code.'</b> N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.<br><br><br>';
-                            }
+                            $update = $run->update2($query);
+                            //envia correo al actualizar facturas
+                            // if($update){
+                            //     $ContadorFacActualiza += 1;
+                            //     $dataClient['asunto'] = 'Sincronización de Documento desde bsale a la BD del ERP ';
+                            //     $dataClient['MensajeCorreo'] .= 'Se ha actualizado el Doc Rut: <b>'.$code.'</b> N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.<br><br><br>';
+                            // }
                             $query = "SELECT COUNT(*) AS `totalDTE` FROM dte_code WHERE DocumentoIdBsale = '".$DocumentoId."' ";
                             $TotalDTE = $run->select($query);
                             $totalDTE = $TotalDTE[0]['totalDTE'];
@@ -3151,12 +3151,12 @@
                     $credit_note = $DevolucionBsale['credit_note'];
                     $NumeroDocumento = $credit_note['number'];
                     // si se necesitare actualizar un monto de devolucion, descomentar la query de abajo
-                    $query = "UPDATE devoluciones SET DevolucionAmount = '".$DevolucionAmount."', FechaDevolucion = '".$FechaDevolucion."' WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
-                    $update = $run->update($query);
-                    if($update){
-                        $contadorActulizaDevolucion += 1;
-                        $dataClient['MensajeCorreo'] .= 'Actualizada | Nota de Crédito N Doc:<b>'.$NumeroDocumento.'</b> se ha actualizo el Monto <b>'.$DevolucionAmount.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos son correctos.</b> <br> Gracias.<br><br><br>';
-                    }
+                    $query = "UPDATE devoluciones SET DevolucionAmount = '".$DevolucionAmount."' WHERE DevolucionIdBsale = '".$DevolucionIdBsale."'";
+                    // $update = $run->update2($query);
+                    // if($update){
+                    //     $contadorActulizaDevolucion += 1;
+                    //     $dataClient['MensajeCorreo'] .= 'Actualizada | Nota de Crédito N Doc:<b>'.$NumeroDocumento.'</b> se ha actualizo el Monto <b>'.$DevolucionAmount.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos son correctos.</b> <br> Gracias.<br><br><br>';
+                    // }
                 }
                 if($FacturaId){   
                     $this->almacenarDocumento($FacturaId,2,$UrlPdf);
