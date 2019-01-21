@@ -232,9 +232,8 @@ $(document).ready(function() {
                                     }
                                 }
                                 Anulacion = '';
-                                Enviar = '';
                                 //descomentar y borrar el Enviar arriba
-                                // Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
+                                Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
                             } else if (row.EstatusFacturacion == 2) {
                                 Folder = 'notas_credito';
                                 Devolucion = ''
@@ -481,9 +480,8 @@ $(document).ready(function() {
                                     }
                                 }
                                 Anulacion = '';
-                                Enviar = '';
                                 //descomentar y borrar el Enviar arriba
-                                // Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
+                                Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
                             } else if (row.EstatusFacturacion == 2) {
                                 Folder = 'notas_credito';
                                 Devolucion = ''
@@ -658,9 +656,8 @@ $(document).ready(function() {
                                     }
                                 }
                                 Anulacion = '';
-                                Enviar = '';
                                 //descomentar y borrar el Enviar arriba
-                                // Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
+                                Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
                             } else if (row.EstatusFacturacion == 2) {
                                 Folder = 'notas_credito';
                                 Devolucion = ''
