@@ -3089,7 +3089,8 @@
                 echo 'Insert Fac O Upd '.$respCorreo; echo "\n";
             }
 
-
+            $dataClient['asunto'] = '';
+            $dataClient['MensajeCorreo'] = '';
             $contadorDevolucion = 0;
             $contadorErrorDevolucion = 0;
             $contadorActulizaDevolucion = 0;
