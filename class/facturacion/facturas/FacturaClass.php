@@ -2284,8 +2284,6 @@
                                 file_put_contents($UrlLocal, $PdfContent);
                                 $response_array['NombrePdf'] = $NombrePdf;
                                 $response_array['status'] = 1;
-                                //esto envia correo con la prefactura para ver como se enviaran los correos
-                                $respCorreo = $this->enviarDocumentoPrefactura($RutId, $Tipo, $Grupo,  $UrlLocal);
                             }else{
                                 $response_array['Message'] = $FacturaBsale['Message'];
                                 $response_array['status'] = 0;
@@ -2306,7 +2304,8 @@
                 $response_array['Message'] = 'Error curl';
                 $response_array['status'] = 99;
             }
-            
+            //esto envia correo con la prefactura para ver como se enviaran los correos
+            $respCorreo = $this->enviarDocumentoPrefactura($RutId, $Tipo, $Grupo,  $UrlLocal);
             return $response_array;
         }
 
