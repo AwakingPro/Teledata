@@ -1,7 +1,39 @@
-<?php 
+<?php
+
+include('../../class/methods_global/methods.php'); 
 
 class Email
 {
+	private $metodo;
+	private $correo;
+	private $clave;
+	private $email_from;
+
+	function __construct () {
+
+		$this->metodo = new Method;
+		$query = "SELECT correo, clave, email_from FROM teledata_correos";
+		// $query = "SELECT correo_prueba, clave_prueba, email_from_prueba FROM teledata_correos";
+		$remitente = $this->metodo->select($query);
+		if(count($remitente)){
+			$this->correo = $remitente[0]['correo'];
+			$this->clave = $remitente[0]['clave'];
+			$this->email_from = $remitente[0]['email_from'];
+		}else{
+			echo 'Error al seleccionar el remitente de la bd';
+		}
+	}
+
+	// metodo para verificar que trae los datos del remitente
+	// public function pruebaCorreo(){
+	// 	$this->correo;
+	// 	$this->clave;
+	// 	$this->email_from;
+	// 	echo 'correo '.$this->correo; echo "\n";
+	// 	echo 'email '.$this->clave; echo "\n";
+	// 	echo 'email_from '.$this->email_from;
+	// }
+
 	//Versión 2
 	public function SendMail($html,$subject,$emails,$attachments = false){ 
 		$html = utf8_decode($html);
@@ -23,19 +55,14 @@ class Email
 				$mail->addAttachment($attachment['url'],$attachment['name']);  
 			}
 		}
-		
 		// $mail->SMTPSecure = "ssl";
 		$mail->SMTPSecure = "TLS";
 		$mail->Host = "smtp.gmail.com"; 
 		// $mail->Port = 25;  
-		$mail->Port = 587;  
-		$mail->Username = "teledatadte@teledata.cl";  
-		$mail->Password = "%zForDkbV\KZNz%~@cb3";
-		$mail->From = "teledatadte@teledata.cl";
-		
-		// $mail->Username = "pruebaamarok@gmail.com";
-		// $mail->Password = "amarok123"; 
-		// $mail->From = "pruebaamarok@gmail.com";
+		$mail->Port = 587;
+		$mail->Username = $this->correo;  
+		$mail->Password = $this->clave;
+		$mail->From = $this->email_from;
 		$mail->FromName = "Teledata DTE";  
 		$mail->Subject = $subject;  
 		$mail->IsHTML(true);  
