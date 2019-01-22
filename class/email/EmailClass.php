@@ -1,7 +1,4 @@
 <?php
-
-include('../../class/methods_global/methods.php'); 
-
 class Email
 {
 	private $metodo;
@@ -19,20 +16,23 @@ class Email
 			$this->correo = $remitente[0]['correo'];
 			$this->clave = $remitente[0]['clave'];
 			$this->email_from = $remitente[0]['email_from'];
+			// $this->correo = $remitente[0]['correo_prueba'];
+			// $this->clave = $remitente[0]['clave_prueba'];
+			// $this->email_from = $remitente[0]['email_from_prueba'];
 		}else{
 			echo 'Error al seleccionar el remitente de la bd';
 		}
 	}
 
 	// metodo para verificar que trae los datos del remitente
-	// public function pruebaCorreo(){
-	// 	$this->correo;
-	// 	$this->clave;
-	// 	$this->email_from;
-	// 	echo 'correo '.$this->correo; echo "\n";
-	// 	echo 'email '.$this->clave; echo "\n";
-	// 	echo 'email_from '.$this->email_from;
-	// }
+	public function pruebaCorreo(){
+		$this->correo;
+		$this->clave;
+		$this->email_from;
+		echo 'correo '.$this->correo; echo "\n";
+		echo 'email '.$this->clave; echo "\n";
+		echo 'email_from '.$this->email_from;
+	}
 
 	//Versión 2
 	public function SendMail($html,$subject,$emails,$attachments = false){ 
