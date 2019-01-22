@@ -2286,7 +2286,7 @@
                                     $response_array['NombrePdf'] = $NombrePdf;
                                     $response_array['status'] = 1;
                                 }else{
-                                    $response_array['Message'] = 'Error al obtener los datos '.$urlPdf;
+                                    $response_array['Message'] = 'Error al obtener los datos '.$urlPdf. ' PdfContent '.$PdfContent;
                                     $response_array['status'] = 99;
                                 }
                                 
