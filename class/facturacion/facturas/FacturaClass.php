@@ -2275,6 +2275,7 @@
                             // el parametro 2 es para la API de prueba
                             $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
+                                print_r($FacturaBsale); exit;
                                 $urlPdf = $FacturaBsale['urlPdf'];
                                 $PdfContent = file_get_contents($urlPdf);
                                 if($PdfContent){
@@ -2285,7 +2286,7 @@
                                     $response_array['NombrePdf'] = $NombrePdf;
                                     $response_array['status'] = 1;
                                 }else{
-                                    $response_array['Message'] = 'Error al obtener los datos'.$urlPdf;
+                                    $response_array['Message'] = 'Error al obtener los datos '.$urlPdf;
                                     $response_array['status'] = 99;
                                 }
                                 
