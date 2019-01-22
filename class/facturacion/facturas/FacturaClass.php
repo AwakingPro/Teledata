@@ -470,7 +470,6 @@
                 $UF = $UfClass->getValue();
                 // $Detalles trae los datos de la tabla servicos asociados al servicios.Id
                 if($Detalles){
-
                     $Detalle = $Detalles[0];
                     $Rut = $Detalle['Rut'];
                     $NumeroOC = $Detalle['NumeroOC'];
@@ -2910,13 +2909,12 @@
             curl_close($session);
             $DocumentosBsale = json_decode($response, true);
             $dataClient = array();
-            // $dataClient['correos'] = 'torres@teledata.cl, dangel@teledata.cl';
             // $dataClient['correos'] = 'dangel@teledata.cl';
+            $dataClient['correos'] = 'teledatadte@teledata.cl, torres@teledata.cl, preinoso@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl';
             $dataClient['asunto'] = '';
             $dataClient['MensajeCorreo'] = '';
             $ContadorFacActualiza = 0;
             $ContadorFacInserta = 0;
-            $dataClient['correos'] = 'teledatadte@teledata.cl, torres@teledata.cl, preinoso@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl';
             foreach($DocumentosBsale['items'] as $DocumentoBsale){
                 $DocumentoId = $DocumentoBsale['id'];
                 $document_type = $DocumentoBsale['document_type'];
@@ -3420,14 +3418,10 @@
                 // $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$Id.".pdf";
                 //aqui url de prueba  
                 // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/facturas/".$Id.".pdf";  
-                if(file_exists($UrlLocal)){
-                    
-                    $tamano = filesize($UrlLocal);
-                    if( $tamano <= 0){
-                        unlink($UrlLocal);
-                        $PdfContent = file_get_contents($Documento['UrlPdfBsale']);
-                        file_put_contents($UrlLocal, $PdfContent);
-                    }
+                if(!file_exists($UrlLocal) || filesize($UrlLocal) <= 0){
+                    unlink($UrlLocal);
+                    $PdfContent = file_get_contents($Documento['UrlPdfBsale']);
+                    file_put_contents($UrlLocal, $PdfContent);
                     $Archivos = array();
                     $Archivo = array('url' => $UrlLocal, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');
                     array_push($Archivos,$Archivo);
