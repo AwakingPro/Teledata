@@ -3373,7 +3373,7 @@
                 $query .= " WHERE servicios.Id = '".$id."' ";
             }       
             $Documento = $run->select($query);
-            // print_r($Documento);
+            print_r($Documento);
             if($Documento != ''){
                 $Documento = $Documento[0];
                 
