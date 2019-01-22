@@ -514,7 +514,7 @@
                                 //aqui
                                 $this->almacenarDocumento($FacturaId,1,$UrlPdf);
                                 //aqui envia correos 
-                                $this->enviarDocumento($FacturaId);
+                                // $this->enviarDocumento($FacturaId);
                                 
                                 
                             }
@@ -696,7 +696,7 @@
                                     if($UrlPdf){      
                                         //aqui2
                                         $this->almacenarDocumento($FacturaId,1,$UrlPdf);
-                                        $this->enviarDocumento($FacturaId); 
+                                        // $this->enviarDocumento($FacturaId); 
                                     }
                                     foreach($Detalles as $Detalle){
                                         $Codigo = $Detalle['Codigo'];
