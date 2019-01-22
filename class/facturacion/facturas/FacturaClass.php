@@ -2417,20 +2417,22 @@
             curl_close($session);
             $DetallesBsale = json_decode($response, true);
             $details = array();
-            foreach($DetallesBsale['items'] as $Detalle){
-                $documentDetailId = $Detalle['id'];
-                if($type == 1 OR $type == 3){
-                    $unitValue = 0;
-                }else{
-                    $unitValue = $Detalle['unitValue'];
+            if(isset($DetallesBsale['items'])){
+                foreach($DetallesBsale['items'] as $Detalle){
+                    $documentDetailId = $Detalle['id'];
+                    if($type == 1 OR $type == 3){
+                        $unitValue = 0;
+                    }else{
+                        $unitValue = $Detalle['unitValue'];
+                    }
+                    if($type == 2 OR $type == 3){
+                        $quantity = 0;
+                    }else{
+                        $quantity = $Detalle['quantity'];
+                    }
+                    $detail = array("documentDetailId" => $documentDetailId, "unitValue" => $unitValue, "quantity" => $quantity);
+                    array_push($details,$detail);
                 }
-                if($type == 2 OR $type == 3){
-                    $quantity = 0;
-                }else{
-                    $quantity = $Detalle['quantity'];
-                }
-                $detail = array("documentDetailId" => $documentDetailId, "unitValue" => $unitValue, "quantity" => $quantity);
-                array_push($details,$detail);
             }
             return $details;
         }

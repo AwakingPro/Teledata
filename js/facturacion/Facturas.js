@@ -1031,8 +1031,9 @@ $(document).ready(function() {
         $('#FacturaIdDevolucion').val(id)
         $('#modalDevolucion').modal('show')
     });
-    $('body').on('click', '#guardarDevolucion', function() {
 
+    $('body').on('click', '#guardarDevolucion', function() {
+        $('#guardarDevolucion').prop('disabled', true);
         $.postFormValues('../includes/facturacion/facturas/storeDevolucion.php', '#storeDevolucion', {}, function(response) {
 
             if (response.status == 1) {
@@ -1072,7 +1073,11 @@ $(document).ready(function() {
 
             }
         });
+        setTimeout(function() {
+            $('#guardarDevolucion').prop('disabled', false);
+        }, 3000);
     });
+
     $('#modalDevolucion').on('hidden.bs.modal', function() {
 
         $('#storeDevolucion')[0].reset();
