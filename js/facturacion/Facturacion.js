@@ -776,6 +776,8 @@ $(document).ready(function() {
                             swal('Solicitud no procesada', 'El servicio no existe, por favor actualizar la pagina', 'error');
                         } else if (response.status == 4) {
                             swal('Solicitud no procesada', 'El cliente no existe, por favor actualizar la pagina', 'error');
+                        }else if (response.status == 5) {
+                            swal('Solicitud no procesada', response.Message, 'error');
                         }else if (response.status == 99) {
                             swal('Solicitud no procesada', 'El servicio cUrl no esta disponible en el servidor, por favor contactar al administrador', 'error');
                         } else {

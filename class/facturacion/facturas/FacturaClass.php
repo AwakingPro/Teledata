@@ -2221,8 +2221,8 @@
         }
 
         public function showPrefactura($RutId, $Grupo, $Tipo){
-            $response_array = array();
             if(in_array  ('curl', get_loaded_extensions())) {
+                $response_array = array();
                 if($Tipo == 1){
                     $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.Referencia
                                 FROM facturas 
@@ -2287,7 +2287,7 @@
                                     $response_array['status'] = 1;
                                 }else{
                                     $response_array['Message'] = 'Error al obtener los datos '.$urlPdf. ' PdfContent '.$PdfContent;
-                                    $response_array['status'] = 99;
+                                    $response_array['status'] = 5;
                                 }
                                 
                             }else{
