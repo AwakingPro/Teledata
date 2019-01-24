@@ -2278,17 +2278,17 @@
                                 // print_r($FacturaBsale); exit;
                                 $urlPdf = $FacturaBsale['urlPdf'];
                                 $PdfContent = file_get_contents($urlPdf);
-                                if($PdfContent){
+                                // if($PdfContent){
                                     $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                     // aqui
                                     // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                     file_put_contents($UrlLocal, $PdfContent);
                                     $response_array['NombrePdf'] = $NombrePdf;
                                     $response_array['status'] = 1;
-                                }else{
-                                    $response_array['Message'] = 'Error al obtener los datos '.$urlPdf. ' PdfContent '.$PdfContent;
-                                    $response_array['status'] = 5;
-                                }
+                                // }else{
+                                //     $response_array['Message'] = 'Error al obtener los datos '.$urlPdf. ' PdfContent '.$PdfContent;
+                                //     $response_array['status'] = 5;
+                                // }
                                 
                             }else{
                                 $response_array['Message'] = $FacturaBsale['Message'];
