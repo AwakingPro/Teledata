@@ -2276,16 +2276,16 @@
                             $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
                                 // print_r($FacturaBsale); exit;
-                                $urlPdf = $FacturaBsale['urlPublicView'];
-                                if(ini_get('allow_url_fopen')){
-                                $response_array['allow_url_fopen'] = "allow_url_fopen activa";
-                                }
-                                $PdfContent = file_get_contents($urlPdf);
-                                // echo 'urlPublicView '.$PdfContent;
+                                $urlPdf = $FacturaBsale['urlPdf'];
+                                // $urlPdf = $FacturaBsale['urlPublicView'];
+
+                                $PdfContent = $run->obtenerPDF($urlPdf);
+                                // $PdfContent = file_get_contents($urlPdf);
                                 // if($PdfContent){
                                     $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                     // aqui
                                     // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
+                                    
                                     file_put_contents($UrlLocal, $PdfContent);
                                     $response_array['NombrePdf'] = $NombrePdf;
                                     $response_array['status'] = 1;
