@@ -62,10 +62,8 @@ class Email
 		$mail->Port = 587;
 		if($emisor){
 			$query2 = "SELECT correo, clave, email_from FROM teledata_correos";
-			// $query = "SELECT correo_prueba, clave_prueba, email_from_prueba FROM teledata_correos";
 			$remitente = $this->metodo->select($query2);
 			if(count($remitente)){
-				
 				$mail->Username = $remitente[2]['correo'];
 				$mail->Password = $remitente[2]['clave'];
 				$mail->From = $remitente[2]['email_from'];
