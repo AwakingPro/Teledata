@@ -2275,9 +2275,8 @@
                             // el parametro 2 es para la API de prueba
                             $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
-                                // print_r($FacturaBsale); exit;
-                                $urlPdf = $FacturaBsale['urlPdf'];
-                                // $urlPdf = $FacturaBsale['urlPublicView'];
+                                // $urlPdf = $FacturaBsale['urlPdf'];
+                                $urlPdf = $FacturaBsale['urlPublicView'];
 
                                 $PdfContent = $run->obtenerPDF($urlPdf);
                                 // $PdfContent = file_get_contents($urlPdf);
