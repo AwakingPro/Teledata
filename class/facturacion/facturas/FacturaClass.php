@@ -2276,7 +2276,7 @@
                             $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
                                 // print_r($FacturaBsale); exit;
-                                $urlPdf = $FacturaBsale['urlPdf'];
+                                $urlPdf = $FacturaBsale['urlPublicView'];
                                 $PdfContent = file_get_contents($urlPdf);
                                 echo 'PdfContent '.$PdfContent;
                                 // if($PdfContent){
