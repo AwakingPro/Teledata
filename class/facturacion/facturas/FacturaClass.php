@@ -3306,7 +3306,6 @@
                 $Documento = $Documento[0];
                 $Nombre = $Documento['nombre'];
                 $Correos = $Documento['correos'].',teledatadte@teledata.cl';
-                // $Correos ='teledatadte@teledata.cl';
                 $NumeroDocumento = $Documento['NumeroDocumento'];
 
                 if($Documento['TipoDocumento'] == 1){
@@ -3338,6 +3337,7 @@
                         TIPO DE CUENTA:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>CUENTA CORRIENTE</b><br>
                         NUMERO DE CUENTA:&nbsp;<b>268-04500-03</b><br>
                         CORREO:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><a href='mailto:pagos@teledata.cl'>pagos@teledata.cl</a></b><br><br>
+                        Para comunicarse con nosotros <b>pagos@teledata.cl</b><br><br>
                         Saludos.
                     </body>
                 </html>";
@@ -3351,7 +3351,7 @@
                     array_push($Archivos,$Archivo);
                     $Email = new Email();
                     // $Archivos = array();
-                    $ToReturn = $Email->SendMail($Html,$Asunto,$Correos,$Archivos);
+                    $ToReturn = $Email->SendMail($Html,$Asunto,$Correos,$Archivos, $emisor = true);
                 }else{
                     $ToReturn = 2;
                 }
