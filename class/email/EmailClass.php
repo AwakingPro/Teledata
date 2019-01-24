@@ -66,9 +66,9 @@ class Email
 			$remitente = $this->metodo->select($query2);
 			if(count($remitente)){
 				
-				$mail->Username = $remitente[3]['correo'];
-				$mail->Password = $remitente[3]['clave'];
-				$mail->From = $remitente[3]['email_from'];
+				$mail->Username = $remitente[2]['correo'];
+				$mail->Password = $remitente[2]['clave'];
+				$mail->From = $remitente[2]['email_from'];
 			}else{
 				echo 'Error al seleccionar el remitente de la bd';
 			}
