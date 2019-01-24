@@ -68,7 +68,7 @@ class Email
 				
 				$this->correo = $remitente[0]['correo'];
 				$this->clave = $remitente[0]['clave'];
-				$this->email_from = $remitente[1]['email_from'];
+				$this->email_from = $remitente[0]['email_from'];
 			}else{
 				echo 'Error al seleccionar el remitente de la bd';
 			}
