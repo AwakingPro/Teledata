@@ -35,7 +35,7 @@ class Email
 	}
 
 	//Versión 2
-	public function SendMail($html,$subject,$emails,$attachments = false){ 
+	public function SendMail($html,$subject,$emails,$attachments = false, $emisor = false){ 
 		$html = utf8_decode($html);
 		$subject = utf8_decode($subject);
 		$mail = new PHPMailer();  
@@ -60,9 +60,23 @@ class Email
 		$mail->Host = "smtp.gmail.com"; 
 		// $mail->Port = 25;  
 		$mail->Port = 587;
-		$mail->Username = $this->correo;  
-		$mail->Password = $this->clave;
-		$mail->From = $this->email_from;
+		if($emisor){
+			$query2 = "SELECT correo, clave, email_from FROM teledata_correos";
+			// $query = "SELECT correo_prueba, clave_prueba, email_from_prueba FROM teledata_correos";
+			$remitente = $this->metodo->select($query2);
+			if(count($remitente)){
+				
+				$this->correo = $remitente[0]['correo'];
+				$this->clave = $remitente[0]['clave'];
+				$this->email_from = $remitente[1]['email_from'];
+			}else{
+				echo 'Error al seleccionar el remitente de la bd';
+			}
+		}else{
+			$mail->Username = $this->correo;  
+			$mail->Password = $this->clave;
+			$mail->From = $this->email_from;
+		}
 		$mail->FromName = "Teledata DTE";  
 		$mail->Subject = $subject;  
 		$mail->IsHTML(true);  
