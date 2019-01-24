@@ -2278,6 +2278,7 @@
                                 // print_r($FacturaBsale); exit;
                                 $urlPdf = $FacturaBsale['urlPdf'];
                                 $PdfContent = file_get_contents($urlPdf);
+                                echo 'PdfContent '.$PdfContent;
                                 // if($PdfContent){
                                     $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                     // aqui
