@@ -678,9 +678,25 @@
             }
             
 		}
+		public function obtenerPDF($urlPDF){
+			
+			// Inicia cURL
+            $session = curl_init($urlPDF);
+
+            // Indica a cURL que retorne data
+			curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+			
+            // Ejecuta cURL
+            $response = curl_exec($session);
+            
+            // Cierra la sesión cURL
+            curl_close($session);
+            return $response;
+		}
+		
 		// metodo para conectar con la api de bsale y traer los datos para usarlos
         function conectarAPI($url){
-            $query = "SELECT token_produccion as access_token FROM variables_globales";
+			$query = "SELECT token_produccion as access_token FROM variables_globales";
             $variables_globales = self::select($query);
             $access_token = $variables_globales[0]['access_token'];
             // Inicia cURL
