@@ -3351,7 +3351,7 @@
                     array_push($Archivos,$Archivo);
                     $Email = new Email();
                     // $Archivos = array();
-                    $ToReturn = $Email->SendMail($Html,$Asunto,$Correos,$Archivos);
+                    $ToReturn = $Email->SendMail($Html,$Asunto,$Correos,$Archivos, true);
                 }else{
                     $ToReturn = 2;
                 }
