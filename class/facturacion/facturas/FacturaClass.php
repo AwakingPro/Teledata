@@ -3337,7 +3337,7 @@
                         TIPO DE CUENTA:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>CUENTA CORRIENTE</b><br>
                         NUMERO DE CUENTA:&nbsp;<b>268-04500-03</b><br>
                         CORREO:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><a href='mailto:pagos@teledata.cl'>pagos@teledata.cl</a></b><br><br>
-                        Para comunicarse con nosotros <b>pagos@teledata.cl</b><br><br>
+                        Este e-mail fue generado por un sistema automático, por favor no responder. Para dudas o consultas escribir a <b><a href='mailto:pagos@teledata.cl'>pagos@teledata.cl</a></b><br><br>
                         Saludos.
                     </body>
                 </html>";
