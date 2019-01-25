@@ -3291,7 +3291,8 @@
                             p.nombre,
                             CONCAT(p.correo,',',GROUP_CONCAT(IFNULL(c.correo, '') )) as correos,
                             d.NumeroDocumento,
-                            d.TipoDocumento 
+                            d.TipoDocumento,
+                            d.UrlPdfBsale
                         FROM
                             personaempresa p
                             LEFT JOIN facturas d ON p.Rut = d.Rut
@@ -3307,7 +3308,7 @@
                 $Nombre = $Documento['nombre'];
                 $Correos = $Documento['correos'].',teledatadte@teledata.cl';
                 $NumeroDocumento = $Documento['NumeroDocumento'];
-
+                $UrlPdfBsale = $Documento['UrlPdfBsale'];
                 if($Documento['TipoDocumento'] == 1){
                     $TipoDocumento = 'Boleta';
                 }else{
@@ -3349,6 +3350,10 @@
                     $Archivos = array();
                     $Archivo = array('url' => $UrlLocal, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');
                     array_push($Archivos,$Archivo);
+                    if($UrlPdfBsale){
+                        $Archivo = array('url' => $UrlPdfBsale, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');
+                        array_push($Archivos,$Archivo);
+                    }
                     $Email = new Email();
                     // $Archivos = array();
                     $ToReturn = $Email->SendMail($Html,$Asunto,$Correos,$Archivos, true);
