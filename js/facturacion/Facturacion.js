@@ -765,8 +765,8 @@ $(document).ready(function() {
                     success: function(response) {
 
                         if (response.status == 1) {
-                            url = "prefacturas/" + response.NombrePdf + ".pdf";
-                            console.log(url);
+                            // url = "prefacturas/" + response.NombrePdf + ".pdf";
+                            url = response.NombrePdf;
                             window.open(url, '_blank');
                             swal.close();
 

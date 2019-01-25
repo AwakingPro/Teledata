@@ -2259,7 +2259,8 @@
                 
                 $run = new Method;
                 $Detalles = $run->select($query);
-                if(!file_exists("/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf") || $Tipo == 2){
+                // if(!file_exists("/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf") || $Tipo == 2){
+                if($NombrePdf || $Tipo == 2){
                     $run = new Method;
                     $Detalles = $run->select($query);
                     $UfClass = new Uf(); 
@@ -2275,18 +2276,19 @@
                             // el parametro 2 es para la API de prueba
                             $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,2);
                             if($FacturaBsale['status'] == 1){
-                                // $urlPdf = $FacturaBsale['urlPdf'];
-                                $urlPdf = $FacturaBsale['urlPublicView'];
-
-                                $PdfContent = $run->obtenerPDF($urlPdf);
+                                $urlPdf = $FacturaBsale['urlPdf'];
+                                // version 2 para grabar los datos del pdf
+                                // $PdfContent = $run->obtenerPDF($urlPdf);
+                                // version 1 para grabar los datos del pdf
                                 // $PdfContent = file_get_contents($urlPdf);
                                 // if($PdfContent){
-                                    $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
+                                    // $UrlLocal = "/var/www/html/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                     // aqui
                                     // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/prefacturas/".$NombrePdf.".pdf";
                                     
-                                    file_put_contents($UrlLocal, $PdfContent);
-                                    $response_array['NombrePdf'] = $NombrePdf;
+                                    // file_put_contents($UrlLocal, $PdfContent);
+                                    // $response_array['NombrePdf'] = $NombrePdf;
+                                    $response_array['NombrePdf'] = $urlPdf;
                                     $response_array['status'] = 1;
                                 // }else{
                                 //     $response_array['Message'] = 'Error al obtener los datos '.$urlPdf. ' PdfContent '.$PdfContent;
