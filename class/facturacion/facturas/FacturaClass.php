@@ -3331,6 +3331,8 @@
                     <body>
                     ESTIMADO(A) ".$Nombre.",<br>
                         La ".$TipoDocumento." #".$NumeroDocumento." se genero con exito y ha sido adjuntada en este correo.<br><br>
+                        Puede visualizar o descargar el documento accediendo a la siguiente URL<br>
+                        <br>".$UrlPdfBsale."</b><br><br>
                         <b>Para transferencia o depósitos, los datos de nuestra cuenta son:</b><br><br>
                         RAZÓN SOCIAL:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>TELEDATA CHILE SPA.</b><br>
                         RUT:".$espacios."<b>76.722.248-3</b><br>
@@ -3343,21 +3345,20 @@
                     </body>
                 </html>";
                 
-                $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$Id.".pdf";
-                //aqui url de prueba  
-                // $UrlLocal = "http://localhost/LUIS/Teledata/facturacion/facturas/".$Id.".pdf";  
-                if(file_exists($UrlLocal)){
-                    $Archivos = array();
-                    $Archivo = array('url' => $UrlLocal, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');
-                    array_push($Archivos,$Archivo);
-                    if($UrlPdfBsale){
-                        $Archivo = array('url' => $UrlPdfBsale, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');
-                        array_push($Archivos,$Archivo);
-                    }
-                    $Email = new Email();
-                    // $Archivos = array();
-                    $ToReturn = $Email->SendMail($Html,$Asunto,$Correos,$Archivos, true);
-                }else{
+                // $UrlLocal = "/var/www/html/Teledata/facturacion/facturas/".$Id.".pdf";
+                // if(!file_exists($UrlLocal)){
+                //     $Archivos = array();
+                //     $Archivo = array('url' => $UrlPdfBsale, 'name' => $TipoDocumento.'_'.$NumeroDocumento.'.pdf');
+                //     array_push($Archivos,$Archivo);
+                //     $Email = new Email();
+                //     // $Archivos = array();
+                //     $ToReturn = $Email->SendMail($Html,$Asunto,$Correos,$Archivos, true);
+                // }
+                $Email = new Email();
+                $ToReturn = $Email->SendMail($Html,$Asunto,$Correos, false , false);
+                if($ToReturn == 1){
+                }
+                else{
                     $ToReturn = 2;
                 }
             }else{
