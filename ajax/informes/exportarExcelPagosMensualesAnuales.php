@@ -36,14 +36,20 @@ $objPHPExcel->getActiveSheet()->setAutoFilter("A1:K1");
 foreach (range(0, 10) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
-
-if(isset($_GET['startDate']) && isset($_GET['endDate'])){
+$FechaExcel = '';
+$startDate = '';
+$endDate = '';
+if(isset($_GET['startDate']) && $_GET['startDate'] != '' && isset($_GET['endDate']) && $_GET['endDate'] != ''){
     $startDate = $_GET['startDate'];
     $endDate = $_GET['endDate'];
+    $FechaExcel .= $startDate.' al '.$endDate;
+}else{
+    $FechaExcel = 'Al '.date('d/m/Y');
 }
 $Rut = '';
 if(isset($_GET['rut']) && $_GET['rut'] != '') {
     $Rut = $_GET['rut'];
+
 }
 
 $run = new Method;
@@ -59,13 +65,15 @@ $run = new Method;
                 facturas.IVA,
                 facturas.EstatusFacturacion,
                 IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalSaldo,
-                facturas_pagos.Detalle as Detalle 
+                -- facturas_pagos.Detalle as Detalle 
+                mantenedor_tipo_pago.nombre as Detalle 
                 -- ( SELECT Detalle FROM facturas_pagos WHERE FacturaId = facturas.Id ) AS Detalle 
             FROM
                 facturas
                 INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id
                 INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
                 LEFT JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
+                LEFT JOIN mantenedor_tipo_pago ON mantenedor_tipo_pago.id = facturas_pagos.TipoPago
             WHERE
                 facturas.EstatusFacturacion != '0' ";
             if($startDate){
@@ -240,7 +248,7 @@ $run = new Method;
             // Establecer la hoja activa, para que cuando se abra el documento se muestre primero.
             $objPHPExcel->setActiveSheetIndex(0);
             header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            header("Content-Disposition: attachment; filename=Informe de Pagos Mensuales y Anuales ".$_GET['startDate']." al ".$_GET['endDate'].".xlsx");
+            header("Content-Disposition: attachment; filename=Informe de Pagos Mensuales y Anuales ".$FechaExcel.' '.$Rut.".xlsx");
             header('Cache-Control: max-age=0');
 
             $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
