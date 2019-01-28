@@ -26,7 +26,7 @@ $objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('F1', 'Total Doc')
 	->setCellValue('G1', 'Saldo Doc')
     ->setCellValue('H1', 'Saldo a favor')
-    ->setCellValue('I1', 'Fecha Vencimiento')
+    ->setCellValue('I1', 'Fecha de Pago')
     ->setCellValue('J1', 'Glosa')
     ->setCellValue('K1', 'Nº Relación');
 
