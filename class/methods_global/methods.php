@@ -743,8 +743,6 @@
 			$MensajeCorreo = '';
 			$Asunto = $Data['asunto'];
 			$correos = $Data['correos'];
-			//descomentar abajo para pruebas
-			// $correos = 'daniel30081990@gmail.com, dangel@teledata.cl';
 			if($TipoCorreo == 1){
 				//esta validacion es porque el rut puede ser sin "-"
 				if( isset($Data['RutExplode']['verificacion']) && $Data['RutExplode']['verificacion']){

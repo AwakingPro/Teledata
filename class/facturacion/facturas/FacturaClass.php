@@ -511,10 +511,9 @@
 
                         if($FacturaId){
                             if($UrlPdf){
-                                //aqui
-                                $this->almacenarDocumento($FacturaId,1,$UrlPdf);
+                                // $this->almacenarDocumento($FacturaId,1,$UrlPdf);
                                 //aqui envia correos 
-                                // $this->enviarDocumento($FacturaId);
+                                $this->enviarDocumento($FacturaId);
                                 
                                 
                             }
@@ -693,10 +692,9 @@
                                 $FacturaId = $run->insert($query);
 
                                 if($FacturaId){
-                                    if($UrlPdf){      
-                                        //aqui2
-                                        $this->almacenarDocumento($FacturaId,1,$UrlPdf);
-                                        // $this->enviarDocumento($FacturaId); 
+                                    if($UrlPdf){
+                                        // $this->almacenarDocumento($FacturaId,1,$UrlPdf);
+                                        $this->enviarDocumento($FacturaId); 
                                     }
                                     foreach($Detalles as $Detalle){
                                         $Codigo = $Detalle['Codigo'];
@@ -2092,8 +2090,6 @@
         }
         public function storePago($FacturaId,$FechaPago,$TipoPago,$Monto,$FechaEmisionCheque,$FechaVencimientoCheque){
             $response_array = array();
-            
-
             $FacturaId = $_POST['FacturaId'];
             $FechaPago = $_POST['FechaPago'];
             $TipoPago = $_POST['TipoPago'];
@@ -2367,7 +2363,9 @@
                             return;
                         }
                         if($UrlPdf){                        
-                            $this->almacenarDocumento($Id,2,$UrlPdf);
+                            // $this->almacenarDocumento($Id,2,$UrlPdf);
+                            // $respCorreo = $run->enviarCorreos(2, $dataClient);
+                            // echo 'Insert Nota de Credito '.$respCorreo; echo "\n";
                         }
 
                         $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento, DevolucionAnulada) VALUES ('".$Id."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', NOW(), NOW(),'".$NumeroDocumento."', '0')";
@@ -2661,7 +2659,9 @@
                     }
                     if($UrlPdf){     
                         $FacturaId = $Devolucion['FacturaId'];                   
-                        $this->almacenarDocumento($FacturaId,3,$UrlPdf);
+                        // $this->almacenarDocumento($FacturaId,3,$UrlPdf);
+                        // $this->enviarDocumento($FacturaId);
+                        
                     }
 
                     $query = "INSERT INTO anulaciones(DevolucionId, AnulacionIdBsale, DocumentoIdBsale, UrlPdfBsale, FechaAnulacion, HoraAnulacion, NumeroDocumento) VALUES ('".$Id."', '".$AnulacionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."', NOW(), NOW(),'".$NumeroDocumento."')";
@@ -3083,7 +3083,7 @@
                     }
                     
                     if($Id){   
-                        $this->almacenarDocumento($Id,1,$UrlPdf);
+                        // $this->almacenarDocumento($Id,1,$UrlPdf);
                     }
                 }
             }
@@ -3171,7 +3171,7 @@
                     // }
                 }
                 if($FacturaId){   
-                    $this->almacenarDocumento($FacturaId,2,$UrlPdf);
+                    // $this->almacenarDocumento($FacturaId,2,$UrlPdf);
                 }
             }
             if($contadorDevolucion || $contadorErrorDevolucion || $contadorActulizaDevolucion){
@@ -3287,7 +3287,7 @@
             }
         }
 
-        public function enviarDocumento($Id){
+        public function enviarDocumento($Id, $Tipo = false){
             $run = new Method;
             $query = "  SELECT
                             p.nombre,
