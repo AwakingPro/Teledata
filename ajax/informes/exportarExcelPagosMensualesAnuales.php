@@ -87,7 +87,7 @@ $run = new Method;
                 $query .= " AND facturas.Rut = '".$Rut."'";
             }
 
-            $query .= " ORDER BY Cliente, FechaFacturacion";
+            $query .= "GROUP BY facturas.Id ORDER BY Cliente, FechaFacturacion";
            
             // if($documentType){
             //     $query .= " AND facturas.TipoDocumento = '".$documentType."'";
