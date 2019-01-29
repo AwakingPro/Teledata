@@ -155,7 +155,7 @@ $run = new Method;
                     $data['NumRelacion'] = $NumRelacion;
                     array_push($ToReturn,$data);
                     if($EstatusFacturacion == 2){
-                        $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada FROM devoluciones WHERE FacturaId = '".$Id."'";
+                        $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, priceAdjustment, editTexts FROM devoluciones WHERE FacturaId = '".$Id."'";
                         if($startDate){
                             $query .= " AND FechaDevolucion BETWEEN '".$startDate."' AND '".$endDate."'";
                         }
@@ -184,6 +184,12 @@ $run = new Method;
                             $data['SaldoFavor'] = $SaldoFavor;
                             $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
                             $data['TipoDocumento'] = 'Nota de crédito';
+                            if($devolucion['priceAdjustment'] == 1){
+                                $data['TipoDocumento'] = 'Nota de crédito por ajuste de precio';
+                            }
+                            if($devolucion['editTexts'] == 1){
+                                $data['TipoDocumento'] = 'Nota de crédito por corrección de texto';
+                            }
                             $data['Detalle'] = $factura['Detalle'];
                             $data['Acciones'] = $Acciones;
                             $data['EstatusFacturacion'] = 2;

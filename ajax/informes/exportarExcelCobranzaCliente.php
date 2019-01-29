@@ -22,7 +22,7 @@
 	->setCellValue('B1', 'Tipo Documento')
 	->setCellValue('C1', 'Nº Doc')
 	->setCellValue('D1', 'Fecha Emisión')
-	->setCellValue('E1', 'Fecha Vencimiento')
+	->setCellValue('E1', 'Fecha de Pago')
 	->setCellValue('F1', 'Total Doc')
     ->setCellValue('G1', 'Saldo Doc')
     ->setCellValue('H1', 'Saldo Favor')
@@ -60,15 +60,17 @@
 	INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id
 	INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut
     INNER JOIN clase_clientes ON clase_clientes.id = personaempresa.clase_cliente
-	INNER JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
+	LEFT JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
 	LEFT JOIN servicios ON servicios.Rut = facturas.Rut
     LEFT JOIN mantenedor_tipo_factura ON servicios.TipoFactura = mantenedor_tipo_factura.id
 	LEFT JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_factura.tipo_facturacion = mantenedor_tipo_facturacion.id
 	LEFT JOIN mantenedor_servicios ON mantenedor_servicios.IdServicio = servicios.IdServicio
     WHERE
-	facturas.EstatusFacturacion = 1 ";
+	facturas.EstatusFacturacion != '0'";
 
     $rut = '';
+    $startDate = '';
+    $endDate = '';
     if(isset($_GET['rut']) && $_GET['rut'] != '') {
         $rut = $_GET['rut'];
         $query .= " AND personaempresa.rut = '".$rut."' ";
@@ -105,7 +107,7 @@
     $EstatusServicio = '';
     $TipoServicio = '';
     $claseCLiente = '';
-
+ 
  if(count($facturas) > 0) {
     $index = 2;
     foreach($facturas as $factura){
@@ -165,7 +167,7 @@
         $data['EstatusFacturacion'] = 1;
         array_push($ToReturn,$data);
         if($EstatusFacturacion == 2){
-            $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada FROM devoluciones WHERE FacturaId = '".$Id."'";
+            $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, priceAdjustment, editTexts FROM devoluciones WHERE FacturaId = '".$Id."'";
             if($startDate){
                 $query .= " AND FechaDevolucion BETWEEN '".$startDate."' AND '".$endDate."'";
             }
@@ -194,7 +196,15 @@
                 $data['SaldoFavor'] = $SaldoFavor;
                 $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
                 $data['TipoDocumento'] = 'Nota de crédito';
-               
+                if($devolucion['priceAdjustment'] == 1){
+                    $data['TipoDocumento'] = 'Nota de crédito por ajuste de precio';
+                }
+                if($devolucion['editTexts'] == 1){
+                    $data['TipoDocumento'] = 'Nota de crédito por corrección de texto';
+                }
+                $data['ClaseCliente'] = $factura['ClaseCliente'];
+                $data['NombreServicio'] = $factura['NombreServicio'];
+                $data['TipoFacturacion'] = $factura['TipoFacturacion'];
                 $data['Acciones'] = $Acciones;
                 $data['EstatusFacturacion'] = 2;
                 array_push($ToReturn,$data);
@@ -216,6 +226,9 @@
                         $data['SaldoFavor'] = $SaldoFavor;
                         $data['UrlPdfBsale'] = $anulacion['UrlPdfBsale'];
                         $data['TipoDocumento'] = 'Nota de debito';
+                        $data['ClaseCliente'] = $factura['ClaseCliente'];
+                        $data['NombreServicio'] = $factura['NombreServicio'];
+                        $data['TipoFacturacion'] = $factura['TipoFacturacion'];
                         $data['EstatusFacturacion'] = 3;
                         array_push($ToReturn,$data);
                     }
@@ -247,7 +260,7 @@
     return;
 }
 
-
+// print_r($facturas);exit;
 // Renombrar Hoja
 $objPHPExcel->getActiveSheet()->setTitle('Cobranza Clientes');
 
