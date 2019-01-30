@@ -324,7 +324,7 @@ $(document).ready(function() {
                 $.niftyNoty({
                     type: 'success',
                     icon: 'fa fa-check',
-                    message: 'Registro Guardado Exitosamente',
+                    message: 'Registro Guardado Temporalmente',
                     container: 'floating',
                     timer: 3000
                 });
