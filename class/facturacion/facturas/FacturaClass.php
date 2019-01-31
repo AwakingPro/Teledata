@@ -3297,6 +3297,10 @@
         }
 
         public function enviarDocumento($Id, $Data = false){
+            if(isset($Data['notacreditoid'])){
+                $Id = $Data['notacreditoid'];
+
+            }
             $run = new Method;
             $query = "  SELECT
                             p.nombre,
@@ -3326,6 +3330,13 @@
                 }else{
                     $TipoDocumento = 'Factura';
                 }
+
+                if(isset($Data['notacreditoid'])){
+                    $TipoDocumento = 'Nota de Crédito';
+                    $UrlPdfBsale = $Data['UrlPdfBsale'];
+                    $NumeroDocumento = $Data['NumeroDocumento'];
+                }
+
                 if(isset($Data['asunto'])){
                     $Asunto = $Data['asunto'];
                     $MensajeCorreo = 'La '.$Data['asunto'];

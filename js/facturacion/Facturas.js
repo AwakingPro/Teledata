@@ -161,6 +161,9 @@ $(document).ready(function() {
                     $(row)
                         .attr('id', data.Id)
                         .attr('TotalSaldo', data.TotalSaldo)
+                        .attr('DocumentoId', data.DocumentoId)
+                        .attr('UrlPdfBsale', data.UrlPdfBsale)
+                        .attr('NumeroDocumento', data.NumeroDocumento)
                         .addClass('text-center')
                 },
                 "columnDefs": [
@@ -239,7 +242,7 @@ $(document).ready(function() {
                                 Devolucion = ''
                                 Abonar = ''
                                 Pagos = ''
-                                Enviar = ''
+                                Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarNotaCredito" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
                                 if (row.Acciones == 1) {
                                     Anulacion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times-circle Anulacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Generar Nota de Debito" title="" data-container="body"></i>'
                                 } else {
@@ -660,7 +663,6 @@ $(document).ready(function() {
                                     }
                                 }
                                 Anulacion = '';
-                                //descomentar y borrar el Enviar arriba
                                 Enviar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-envelope enviarDocumento" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Reenviar Documento" title="" data-container="body"></i>'
                             } else if (row.EstatusFacturacion == 2) {
                                 Folder = 'notas_credito';
@@ -1156,6 +1158,50 @@ $(document).ready(function() {
                     url: "../includes/facturacion/facturas/enviarDocumento.php",
                     type: 'POST',
                     data: "&id=" + ObjectId,
+                    success: function (response) {
+                        setTimeout(function () {
+                            if (response == 1) {
+                                swal("Éxito!", "El documento ha sido reenviado!", "success");
+                            } else if (response == 2) {
+                                swal('Solicitud no procesada', 'Este documento no puede ser enviado, por favor contactar al administrador', 'error');
+                            } else if (response == 3) {
+                                swal('Solicitud no procesada', 'Este cliente no posee contacto de facturación', 'error');
+                            }else {
+                                swal('Solicitud no procesada', 'Ha ocurrido un error, intente nuevamente por favor', 'error');
+                            }
+                        }, 1000);
+                    },
+                    error: function () {
+                        swal('Solicitud no procesada', 'Ha ocurrido un error, intente nuevamente por favor', 'error');
+                    }
+                });
+            }
+        });
+    });
+    $(document).on('click', '.enviarNotaCredito', function () {
+
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectId = ObjectTR.attr("documentoid");
+        var ObjectUrlPdfBsale = ObjectTR.attr("UrlPdfBsale");
+        var ObjectNumeroDocumento = ObjectTR.attr("NumeroDocumento");
+
+        swal({
+            title: "Desea reenviar el documento?",
+            text: "Confirmar reenvio!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            confirmButtonText: "Enviar!",
+            cancelButtonText: "Cancelar",
+            showLoaderOnConfirm: true
+        }, function (isConfirm) {
+            if (isConfirm) {
+
+                $.ajax({
+                    url: "../includes/facturacion/facturas/enviarDocumento.php",
+                    type: 'POST',
+                    data: "&notacreditoid=" + ObjectId+"&UrlPdfBsale="+ObjectUrlPdfBsale + "&NumeroDocumento="+ObjectNumeroDocumento,
                     success: function (response) {
                         setTimeout(function () {
                             if (response == 1) {

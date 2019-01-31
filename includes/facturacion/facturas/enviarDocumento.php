@@ -5,6 +5,15 @@
     include('../../../class/facturacion/facturas/FacturaClass.php');
 
     $Factura = new Factura();
-    $ToReturn = $Factura->enviarDocumento($_POST['id']);
+    $Data = array();
+    if(isset($_POST['notacreditoid'])){
+        $Data['notacreditoid'] = $_POST['notacreditoid'];
+        $Data['UrlPdfBsale'] = $_POST['UrlPdfBsale'];
+        $Data['NumeroDocumento'] = $_POST['NumeroDocumento'];
+        $_POST['id'] = false;
+    }
+    $ToReturn = $Factura->enviarDocumento($_POST['id'], $Data);
+    
+    
     echo $ToReturn;
 ?>
