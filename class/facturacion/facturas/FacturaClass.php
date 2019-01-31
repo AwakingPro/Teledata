@@ -2343,6 +2343,9 @@
 
                         if($DevolucionBsale['status'] == 1){
                             $DevolucionIdBsale = $DevolucionBsale['id'];
+                            $priceAdjustment = $DevolucionBsale['priceAdjustment'];
+                            $editTexts = $DevolucionBsale['editTexts'];
+                            $DevolucionAmount = (double)$DevolucionBsale['amount'];
                             $NotaCredito = $DevolucionBsale['credit_note'];
                             $DocumentoIdBsale = $NotaCredito['id'];
                         }else{
@@ -2368,14 +2371,20 @@
                             // echo 'Insert Nota de Credito '.$respCorreo; echo "\n";
                         }
 
-                        $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento, DevolucionAnulada) VALUES ('".$Id."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', NOW(), NOW(),'".$NumeroDocumento."', '0')";
+                        $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento, DevolucionAnulada, DevolucionAmount, priceAdjustment, editTexts) VALUES ('".$Id."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', NOW(), NOW(),'".$NumeroDocumento."', '0', '".$DevolucionAmount."', '".$priceAdjustment."', '".$editTexts."' )";
                         $DevolucionId = $run->insert($query);
 
                         if($DevolucionId){
               
                             $query = "UPDATE facturas SET EstatusFacturacion = '2', FechaFacturacion = NOW() WHERE Id = '".$Id."'";
                             $update = $run->update($query);
-                                    
+                            $dataClient = array();
+                            // $dataClient['correos'] = 'dangel@teledata.cl';
+                            $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl';
+                            $dataClient['asunto'] = 'Nota de Crédito #'.$NumeroDocumento .' Doc. Referencia ';
+                            $dataClient['UrlPdf'] = $UrlPdf;
+                            $dataClient['TipoDoc'] = 'Nota de Crédito';
+                            $this->enviarDocumento($Id, $dataClient);
                             $response_array['Id'] = $Id;
                             $response_array['UrlPdf'] = $UrlPdf;
                             $response_array['status'] = 1; 
@@ -2924,7 +2933,7 @@
             $DocumentosBsale = json_decode($response, true);
             $dataClient = array();
             // $dataClient['correos'] = 'dangel@teledata.cl';
-            $dataClient['correos'] = 'teledatadte@teledata.cl, torres@teledata.cl, preinoso@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl';
+            $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl';
             $dataClient['asunto'] = '';
             $dataClient['MensajeCorreo'] = '';
             $ContadorFacActualiza = 0;
@@ -3287,7 +3296,7 @@
             }
         }
 
-        public function enviarDocumento($Id, $Tipo = false){
+        public function enviarDocumento($Id, $Data = false){
             $run = new Method;
             $query = "  SELECT
                             p.nombre,
@@ -3305,6 +3314,7 @@
                         GROUP BY
                             p.rut";
             $Documento = $run->select($query);
+            $Asunto = '';
             if($Documento){
                 $Documento = $Documento[0];
                 $Nombre = $Documento['nombre'];
@@ -3316,7 +3326,11 @@
                 }else{
                     $TipoDocumento = 'Factura';
                 }
-                $Asunto = $TipoDocumento . ' #' . $NumeroDocumento . ' Teledata';
+                if(isset($Data['asunto'])){
+                    $Asunto = $Data['asunto'];
+                    $MensajeCorreo = 'La '.$Data['asunto'];
+                }
+                $Asunto .= $TipoDocumento . ' #' . $NumeroDocumento . ' Teledata';
                 $espacios2 = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                 $espacios = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;';
                 $Html =
@@ -3331,11 +3345,22 @@
                         </style>
                     </head>
                     <body>
-                    ESTIMADO(A) ".$Nombre.",<br>
-                        La ".$TipoDocumento." #".$NumeroDocumento." se genero con exito y ha sido adjuntada en este correo.<br><br>
-                        Puede visualizar o descargar el documento accediendo a la siguiente URL<br>
-                        <br>".$UrlPdfBsale."</b><br><br>
-                        <b>Para transferencia o depósitos, los datos de nuestra cuenta son:</b><br><br>
+                    ESTIMADO(A) ".$Nombre.",<br>";
+                        if( isset($MensajeCorreo) ){
+                            $Html .= $MensajeCorreo . $TipoDocumento." #".$NumeroDocumento." se genero con exito y ha sido adjuntada en este correo.<br><br>
+                            Puede visualizar o descargar los documento accediendo a la siguiente URL<br>
+                            ".$Data['TipoDoc']."
+                            <br>".$Data['UrlPdf']."</b><br><br>"
+                            .$TipoDocumento."
+                            <br>".$UrlPdfBsale."</b><br><br>";
+                        }else{
+                            $Html .= "La ".$TipoDocumento." #".$NumeroDocumento." se genero con exito y ha sido adjuntada en este correo.
+                            <br><br>
+                            Puede visualizar o descargar el documento accediendo a la siguiente URL<br>
+                            <br>".$UrlPdfBsale."</b><br><br>";
+                        }
+                        
+                        $Html .= "<b>Para transferencia o depósitos, los datos de nuestra cuenta son:</b><br><br>
                         RAZÓN SOCIAL:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <b>TELEDATA CHILE SPA.</b><br>
                         RUT:".$espacios."<b>76.722.248-3</b><br>
                         BANCO:".$espacios2."<b>BANCO DE CHILE</b><br>
