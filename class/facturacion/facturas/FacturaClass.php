@@ -1967,9 +1967,6 @@
                         if($startDate){
                             $query .= " AND FechaDevolucion BETWEEN '".$startDate."' AND '".$endDate."'";
                         }
-                        if($NumeroDocumento){
-                            $query .= " AND NumeroDocumento = '".$NumeroDocumento."'";
-                        }
                         $devoluciones = $run->select($query);
                         if($devoluciones){
                             $devolucion = $devoluciones[0];
@@ -2021,6 +2018,10 @@
                             }
                         }
                     }
+                    // por num doc para ver n de credito
+                    // if($NumeroDocumento){
+                    //     $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount FROM devoluciones WHERE NumeroDocumento = '".$NumeroDocumento."'";
+                    // }
                 }
             }
             echo json_encode($ToReturn);
