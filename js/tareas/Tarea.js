@@ -202,7 +202,7 @@ $(document).ready(function() {
         url: "../includes/inventario/bodegas/showPersonal.php",
         success: function(response) {
             $.each(response.array, function(index, array) {
-                if(array.tipo_usuario == '1')
+                if(array.tipo_usuario == '1' || array.tipo_usuario == '3')
                     $('.IdUsuarioAsignado').append('<option value="' + array.id + '" data-content="' + array.nombre + '"></option>');
             });
             
