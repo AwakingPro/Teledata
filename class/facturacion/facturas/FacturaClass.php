@@ -399,6 +399,8 @@
                             ),0) AS Valor,
                             personaempresa.nombre AS Nombre,
                             facturas_detalle.Concepto AS Concepto,
+                            facturas_detalle.Codigo,
+                            facturas_detalle.documentDetailIdBsale,
                             facturas.IVA
                         FROM
                             facturas
@@ -2317,10 +2319,12 @@
             return $response_array;
         }
 
-        public function storeDevolucion($Id, $Motivo){
+        public function storeDevolucion($Id, $Motivo, $tipoNotaCredito = false, $DetallesSeleccionados = false){
 
             if(in_array  ('curl', get_loaded_extensions())) {
-
+                if($DetallesSeleccionados){
+                    $DetallesSeleccionados = explode(",", $DetallesSeleccionados);
+                }
                 $response_array = array();
                 $query = "  SELECT
                                 Rut,
@@ -2340,7 +2344,8 @@
                     $DocumentoIdBsale = $Factura['DocumentoIdBsale'];
                     $Cliente = $this->getCliente($Rut);
                     if($Cliente){
-                        $DevolucionBsale = $this->sendDevolucionBsale($Cliente,$DocumentoIdBsale,$Motivo,1);
+                        // echo 'Dentro de storeDevolucion DetallesSeleccionados es '.$DetallesSeleccionados; echo "\n";
+                        $DevolucionBsale = $this->sendDevolucionBsale($Cliente,$DocumentoIdBsale,$Motivo,1, $tipoNotaCredito, $DetallesSeleccionados);
 
                         if($DevolucionBsale['status'] == 1){
                             $DevolucionIdBsale = $DevolucionBsale['id'];
@@ -2406,9 +2411,9 @@
 
             echo json_encode($response_array);
         }
-        public function getDetallesDocumentoBsale($referenceDocumentId,$access_token, $type = 1){
+        public function getDetallesDocumentoBsale($referenceDocumentId,$access_token, $type = 1, $DetallesSeleccionados = false){
             $url='https://api.bsale.cl/v1/documents/'.$referenceDocumentId.'/details.json';
-
+            // echo 'Dentro de getDetallesDocumentoBsale getDetallesDocumentoBsale es '.print_r($getDetallesDocumentoBsale); echo "\n"; exit;
             // Inicia cURL
             $session = curl_init($url);
 
@@ -2436,15 +2441,31 @@
                     if($type == 1 OR $type == 3){
                         $unitValue = 0;
                     }else{
-                        $unitValue = $Detalle['unitValue'];
+                        // devolución para ajustar el precio de los productos
+                        $unitValue = $Detalle['netUnitValue'];
+                        
                     }
                     if($type == 2 OR $type == 3){
                         $quantity = 0;
                     }else{
                         $quantity = $Detalle['quantity'];
                     }
-                    $detail = array("documentDetailId" => $documentDetailId, "unitValue" => $unitValue, "quantity" => $quantity);
-                    array_push($details,$detail);
+                    if($type == 2){
+                        $run = new Method;
+                        // print_r($DetallesSeleccionados);exit;
+                        $encontrado = $run->encontrarEnArray($DetallesSeleccionados, $documentDetailId);
+                        // echo "documentDetailId ".$documentDetailId." documentDetailId".$documentDetailId; echo "\n";
+                        if($encontrado){
+                            // echo "entro"; echo "\n";
+                            $detail = array("documentDetailId" => $documentDetailId, "unitValue" => $unitValue, "quantity" => $quantity);
+                            array_push($details,$detail);
+                        }
+                    }else{
+                        // echo "Entro en otro tipo"; "\n";
+                        $detail = array("documentDetailId" => $documentDetailId, "unitValue" => $unitValue, "quantity" => $quantity);
+                        array_push($details,$detail);
+                    }
+                    
                 }
             }
             return $details;
@@ -2481,7 +2502,8 @@
             }
             return $references;
         }
-        public function sendDevolucionBsale($Cliente,$referenceDocumentId,$motive,$TipoToken){
+        public function sendDevolucionBsale($Cliente,$referenceDocumentId,$motive,$TipoToken, $tipoNotaCredito = false, $DetallesSeleccionados = false){
+            // echo 'Dentro de sendDevolucionBsale DetallesSeleccionados es '.$DetallesSeleccionados; echo "\n";
             $run = new Method;
             if($TipoToken == 1){
                 $query = "SELECT token_produccion as access_token FROM variables_globales";
@@ -2490,7 +2512,8 @@
             }
             $variables_globales = $run->select($query);
             $access_token = $variables_globales[0]['access_token'];
-            $details = $this->getDetallesDocumentoBsale($referenceDocumentId,$access_token);
+            $details = $this->getDetallesDocumentoBsale($referenceDocumentId,$access_token, $tipoNotaCredito, $DetallesSeleccionados);
+            // print_r($details);
             if($Cliente['provincia']){
                 $Provincia = $Cliente['provincia'];
             }else{
@@ -2537,7 +2560,14 @@
 
             // Indica que se va ser una petición POST
             curl_setopt($session, CURLOPT_POST, true);
-
+            $priceAdjustment = 0;
+            $editTexts = 0;
+            if($tipoNotaCredito == 2){
+                $priceAdjustment = 1;
+            }
+            if($tipoNotaCredito == 3){
+                $editTexts = 1;
+            }
             //CONSTRUCCION DEL ARRAY DE DEVOLUCION
 
             $array = array(
@@ -2548,8 +2578,8 @@
                 "expirationDate"        => time(),
                 "motive"                => $motive,
                 "declareSii"            => 1,
-                "priceAdjustment"       => 0,
-                "editTexts"             => 0,
+                "priceAdjustment"       => $priceAdjustment,
+                "editTexts"             => $editTexts,
                 "type"                  => 0,
                 "details"               => $details,
                 "client"                => $client

@@ -1038,15 +1038,134 @@ $(document).ready(function() {
     function formatcurrency(n) {
         return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
     }
+
     $('body').on('click', '.Devolucion', function() {
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var id = ObjectTR.attr("id");
         $('#FacturaIdDevolucion').val(id)
         $('#modalDevolucion').modal('show')
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/showIndividual.php",
+            data: "id=" + id,
+            success: function(response) {
+                TablaFacturaDetalle.clear().draw()
+
+                $.each(response.array, function(index, array) {
+                    var rowNode = TablaFacturaDetalle.row.add([
+                        '' + '<div><input class="select-checkbox" name="select_check" id="select_check_' + array.documentDetailIdBsale + '" type="checkbox" /></div>' +'',
+                        
+                        '' + array.Codigo + '',
+                        '' + array.Concepto + '',
+                        '' + formatcurrency(array.Valor) + '',
+                    ]).draw(false).node();
+
+                    $(rowNode)
+                        .attr('documentDetailIdBsale', array.documentDetailIdBsale)
+                        .addClass('text-center')
+                });
+            },
+            error: function(xhr, status, error) {
+                setTimeout(function() {
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada', err.Message, 'error');
+                }, 1000);
+            }
+        });
     });
 
+    $('#componenteNotaCreditoParcial').hide();
+    $('.div-modal-motivo').hide();
+    TablaFacturaDetalle = $('#TablaFacturaDetalle').DataTable({
+        paging: false,
+        iDisplayLength: 100,
+        processing: true,
+        serverSide: false,
+        bInfo: false,
+        bFilter: false,
+        order: [
+            [0, 'asc']
+        ],
+        language: {
+            processing: "Procesando ...",
+            search: 'Buscar',
+            lengthMenu: "Mostrar _MENU_ Registros",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+            infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+            infoFiltered: "(filtrada de _MAX_ registros en total)",
+            infoPostFix: "",
+            loadingRecords: "...",
+            zeroRecords: "No se encontraron registros coincidentes",
+            emptyTable: "No hay datos disponibles en la tabla",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                sortDescending: ": habilitado para ordenar la columna en orden descendente"
+            }
+        }
+    });
+    $(document).on('change', '#SelectNotaCredito', function() {
+        TipoNotaCredito = $(this).find('option:selected').val()
+        if (TipoNotaCredito == 1) {
+            $('.div-modal-motivo').slideDown('slow');
+            $('#componenteNotaCreditoParcial').slideUp('slow');
+            $('#tipoNotaCredito').val(TipoNotaCredito);
+            console.log(' es nota credito normal ')
+        }else if(TipoNotaCredito == 2){
+            $('.div-modal-motivo').slideDown('slow');
+            $('#tipoNotaCredito').val(TipoNotaCredito);
+            $('#componenteNotaCreditoParcial').slideDown('slow');
+            console.log(' es nota credito parcial ')
+        }else if(TipoNotaCredito == 3){
+            $('.div-modal-motivo').slideDown('slow');
+            $('#tipoNotaCredito').val(TipoNotaCredito);
+            $('#componenteNotaCreditoParcial').slideUp('slow');
+            console.log(' es nota credito por correcion de texto ')
+        }else if(TipoNotaCredito == ''){
+            $('#tipoNotaCredito').val(TipoNotaCredito);
+            console.log(' es vacio ...')
+            $('#Motivo').val('').blur();
+            $('.div-modal-motivo').slideUp('slow');
+            $('#componenteNotaCreditoParcial').slideUp('slow');
+
+        }
+    });
+
+    function getCheckedDetalles(idtabla) {
+        var checked = [];
+        $(idtabla+' tr ').each(function(i, row) {
+            var actualrow = $(row);
+            checkbox = actualrow.find('input:checked').val();
+            if (checkbox == 'on') {
+                var id = $(actualrow).attr('documentDetailIdBsale');
+                checked[i] = id;
+            }
+        });
+
+        return checked;
+    }
+
+    $(document).on('change', 'select[name="rutCliente"]', function() {
+        getFacturasCliente();
+        $('.TotalSaldoDoc').text(0);
+        $("#select_all").prop('checked', false);
+    });
     $('body').on('click', '#guardarDevolucion', function() {
+        if(TipoNotaCredito == 2){
+            FacturaDetalle = getCheckedDetalles('#TablaFacturaDetalle');
+            $('#DetallesSeleccionados').val(FacturaDetalle);
+            if (!FacturaDetalle.length > 0) {
+                alertas('danger', '<h5>Debe Seleccionar un Detalle de la factura</h5>');
+                return;
+            }
+        }
         $('#guardarDevolucion').prop('disabled', true);
         $.postFormValues('../includes/facturacion/facturas/storeDevolucion.php', '#storeDevolucion', {}, function(response) {
 

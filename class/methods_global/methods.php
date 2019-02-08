@@ -720,7 +720,7 @@
             curl_close($session);
             return $response = json_decode($response, true);
         }
-		// metodo para buscar dentro de una variable 
+		// metodo para buscar dentro de una variable string
 		function encontrar($Value, $findme){
 			//limpio puntos de rut si es necesario
 			$Value= str_replace('.', '', $Value);
@@ -737,6 +737,14 @@
 						);
 			}
 			return $data;
+		}
+
+		// metodo para buscar dentro de un array 
+		function encontrarEnArray($Value, $findme){
+			if (!in_array($findme, $Value)) {
+				$findme = false;
+			}
+			return $findme;
 		}
 		// metodo para enviar correos
 		function enviarCorreos($TipoCorreo, $Data){
