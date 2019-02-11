@@ -98,7 +98,7 @@
 													<br >
 													<br>
 													<label > Descripción</label>
-													<textarea name="Descripcion" class="form-control" rows="5"></textarea>
+													<textarea name="Descripcion" class="form-control" rows="5" placeholder="Descripción del Doc enviado al sii"></textarea>
 
 													<div id="otrosServicios" style="display:none">
 														<br>
@@ -264,6 +264,7 @@
 		<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 		<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 		<script src="../js/methods_global/methods.js"></script>
+		<script src="../js/methods_global/mapa.js"></script>
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>

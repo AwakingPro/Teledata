@@ -4,8 +4,9 @@ var mapOptions
 var map
 var mapCenter
 
-$(document).ready(function() {
 
+$(document).ready(function() {
+    
     if (($('#demo-dp-component .input-group.date').size() > 0) || ($('.input-daterange').size() > 0)) {
         $.fn.datepicker.dates['es'] = {
             days: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
@@ -130,30 +131,30 @@ $(document).ready(function() {
         });
     }
    
-    google.maps.event.addDomListener(window, 'load', initialize)
-    function initialize() {
+    // google.maps.event.addDomListener(window, 'load', initialize)
+    // function initialize() {
 
-        center = new google.maps.LatLng(-41.3214705, -73.0138898);
+    //     center = new google.maps.LatLng(-41.3214705, -73.0138898);
 
-        mapOptions = {
-            zoom: 14,
-            center: center,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
+    //     mapOptions = {
+    //         zoom: 14,
+    //         center: center,
+    //         mapTypeId: google.maps.MapTypeId.ROADMAP
+    //     };
         
-        Mapa = new google.maps.Map(document.getElementById("Map"), mapOptions)
-        var marker = new google.maps.Marker({
-            map: Mapa,
-            draggable: true,
-            position: center
+    //     Mapa = new google.maps.Map(document.getElementById("Map"), mapOptions)
+    //     var marker = new google.maps.Marker({
+    //         map: Mapa,
+    //         draggable: true,
+    //         position: center
 
-        });
+    //     });
 
-        google.maps.event.addListener(marker, 'dragend', function(evt) {
-            $('#Latitud').val(evt.latLng.lat())
-            $('#Longitud').val(evt.latLng.lng())
-        });
-    }
+    //     google.maps.event.addListener(marker, 'dragend', function(evt) {
+    //         $('#Latitud').val(evt.latLng.lat())
+    //         $('#Longitud').val(evt.latLng.lng())
+    //     });
+    // }
 
     function isNumber(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
@@ -167,44 +168,44 @@ $(document).ready(function() {
         return Math.min(Math.max(parseInt(n), -180), 180);
     }
 
-    function validLatitude(lat) {
-        return isFinite(lat) && Math.abs(lat) <= 90;
-    }
+    // function validLatitude(lat) {
+    //     return isFinite(lat) && Math.abs(lat) <= 90;
+    // }
 
-    function validLongitude(lng) {
-        return isFinite(lng) && Math.abs(lng) <= 180;
-    }
+    // function validLongitude(lng) {
+    //     return isFinite(lng) && Math.abs(lng) <= 180;
+    // }
 
-    $(".coordenadas").on('blur', function() {
+    // $(".coordenadas").on('blur', function() {
 
-        latitud = $('#Latitud').val();
-        longitud = $('#Longitud').val();
+    //     latitud = $('#Latitud').val();
+    //     longitud = $('#Longitud').val();
 
-        if ($(this).attr('id') == 'Latitud' && latitud) {
-            if (latitud) {
-                if (!validLatitude(latitud)) {
-                    bootbox.alert("Ups! Debe ingresar una latitud valida");
-                    $(this).val('')
-                }
-            }
-        } else if ($(this).attr('id') == 'Longitud' && longitud) {
-            if (!validLongitude(longitud)) {
-                bootbox.alert("Ups! Debe ingresar una longitud valida");
-                $(this).val('')
-            }
-        }
+    //     if ($(this).attr('id') == 'Latitud' && latitud) {
+    //         if (latitud) {
+    //             if (!validLatitude(latitud)) {
+    //                 bootbox.alert("Ups! Debe ingresar una latitud valida");
+    //                 $(this).val('')
+    //             }
+    //         }
+    //     } else if ($(this).attr('id') == 'Longitud' && longitud) {
+    //         if (!validLongitude(longitud)) {
+    //             bootbox.alert("Ups! Debe ingresar una longitud valida");
+    //             $(this).val('')
+    //         }
+    //     }
 
-        if (latitud && longitud) {
+    //     if (latitud && longitud) {
 
-            mapCenter = new google.maps.LatLng(latitud, longitud);
+    //         mapCenter = new google.maps.LatLng(latitud, longitud);
 
-            setTimeout(function() {
-                google.maps.event.trigger(Mapa, "resize");
-                Mapa.setCenter(mapCenter);
-                Mapa.setZoom(Mapa.getZoom());
-            }, 1000)
-        }
-    })
+    //         setTimeout(function() {
+    //             google.maps.event.trigger(Mapa, "resize");
+    //             Mapa.setCenter(mapCenter);
+    //             Mapa.setZoom(Mapa.getZoom());
+    //         }, 1000)
+    //     }
+    // })
 
     $('[name="UsuarioPppoeTeorico"]').on('blur', function(event) {
         var camo = this;
@@ -268,13 +269,14 @@ $(document).ready(function() {
 
         if (Latitud && Longitud) {
 
-            mapCenter = new google.maps.LatLng(Latitud, Longitud);
+            // mapCenter = new google.maps.LatLng(Latitud, Longitud);
 
-            setTimeout(function() {
-                google.maps.event.trigger(Mapa, "resize");
-                Mapa.setCenter(mapCenter);
-                Mapa.setZoom(Mapa.getZoom());
-            }, 1000)
+            Resize(Latitud, Longitud)
+            // setTimeout(function() {
+            //     google.maps.event.trigger(Mapa, "resize");
+            //     Mapa.setCenter(mapCenter);
+            //     Mapa.setZoom(Mapa.getZoom());
+            // }, 1000)
         }
 
         $('.containerTipoServicioFormulario').load('../clientesServicios/viewTipoServicio/' + url, function() {

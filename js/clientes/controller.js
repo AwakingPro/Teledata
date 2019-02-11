@@ -49,20 +49,81 @@ $(document).ready(function() {
         }
     }
 
+
+    
+
     if (typeof google !== "undefined") {
-        google.maps.event.addDomListener(window, 'load', initialize);
 
-        function initialize() {
-
-            center = new google.maps.LatLng(-41.3214705, -73.0138898);
-
-            mapOptions = {
-                zoom: 13,
-                center: center,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
-            };
+        if (Latitud && Longitud) {
+            Resize(Latitud, Longitud)
         }
+
+        // google.maps.event.addDomListener(window, 'load', initialize);
+        // function initialize() {
+
+        //     center = new google.maps.LatLng(-41.3214705, -73.0138898);
+
+        //     mapOptions = {
+        //         zoom: 13,
+        //         center: center,
+        //         mapTypeId: google.maps.MapTypeId.ROADMAP
+        //     };
+
+        //     Mapa = new google.maps.Map(document.getElementById("Map"), mapOptions)
+        //     var marker = new google.maps.Marker({
+        //     map: Mapa,
+        //     draggable: true,
+        //     position: center
+
+        //     });
+
+        //     google.maps.event.addListener(marker, 'dragend', function(evt) {
+        //     $('#Latitud').val(evt.latLng.lat())
+        //     $('#Longitud').val(evt.latLng.lng())
+
+        //     });
+
+        // }
     }
+
+    // function validLatitude(lat) {
+    //     return isFinite(lat) && Math.abs(lat) <= 90;
+    // }
+
+    // function validLongitude(lng) {
+    //     return isFinite(lng) && Math.abs(lng) <= 180;
+    // }
+
+    // $(".coordenadas").on('blur', function() {
+
+    //     latitud = $('#Latitud').val();
+    //     longitud = $('#Longitud').val();
+
+    //     if ($(this).attr('id') == 'Latitud' && latitud) {
+    //         if (latitud) {
+    //             if (!validLatitude(latitud)) {
+    //                 bootbox.alert("Ups! Debe ingresar una latitud valida");
+    //                 $(this).val('')
+    //             }
+    //         }
+    //     } else if ($(this).attr('id') == 'Longitud' && longitud) {
+    //         if (!validLongitude(longitud)) {
+    //             bootbox.alert("Ups! Debe ingresar una longitud valida");
+    //             $(this).val('')
+    //         }
+    //     }
+
+    //     if (latitud && longitud) {
+
+    //         mapCenter = new google.maps.LatLng(latitud, longitud);
+
+    //         setTimeout(function() {
+    //             google.maps.event.trigger(Mapa, "resize");
+    //             Mapa.setCenter(mapCenter);
+    //             Mapa.setZoom(Mapa.getZoom());
+    //         }, 1000)
+    //     }
+    // })
 
     function isNumber(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
@@ -76,44 +137,7 @@ $(document).ready(function() {
         return Math.min(Math.max(parseInt(n), -180), 180);
     }
 
-    function validLatitude(lat) {
-        return isFinite(lat) && Math.abs(lat) <= 90;
-    }
-
-    function validLongitude(lng) {
-        return isFinite(lng) && Math.abs(lng) <= 180;
-    }
-
-    $(".coordenadas").on('blur', function() {
-
-        latitud = $('#Latitud').val();
-        longitud = $('#Longitud').val();
-
-        if ($(this).attr('id') == 'Latitud' && latitud) {
-            if (latitud) {
-                if (!validLatitude(latitud)) {
-                    bootbox.alert("Ups! Debe ingresar una latitud valida");
-                    $(this).val('')
-                }
-            }
-        } else if ($(this).attr('id') == 'Longitud' && longitud) {
-            if (!validLongitude(longitud)) {
-                bootbox.alert("Ups! Debe ingresar una longitud valida");
-                $(this).val('')
-            }
-        }
-
-        if (latitud && longitud) {
-
-            mapCenter = new google.maps.LatLng(latitud, longitud);
-
-            setTimeout(function() {
-                google.maps.event.trigger(Map, "resize");
-                Map.setCenter(mapCenter);
-                Map.setZoom(Map.getZoom());
-            }, 1000)
-        }
-    })
+    
 
     $('[name="Rut"]').mask("00000000");
 
