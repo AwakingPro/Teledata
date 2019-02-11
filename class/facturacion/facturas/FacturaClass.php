@@ -340,11 +340,13 @@
                             personaempresa.nombre AS Nombre,
                             facturas_detalle.Codigo,
                             facturas_detalle.Concepto,
-                            facturas.IVA
+                            facturas.IVA,
+                            servicios.Descripcion
                         FROM
                             facturas
                         INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
+                        INNER JOIN servicios ON servicios.Id = facturas_detalle.IdServicio
                         WHERE
                             facturas.TipoFactura = '2'
                         AND facturas.id = '".$Rut."'
@@ -359,11 +361,13 @@
                 personaempresa.nombre AS Nombre,
                 facturas_detalle.Codigo,
                 facturas_detalle.Concepto,
-                facturas.IVA
+                facturas.IVA,
+                servicios.Descripcion
             FROM
                 facturas
             INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id
             INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
+            INNER JOIN servicios ON servicios.Id = facturas_detalle.IdServicio
             WHERE
                 facturas.TipoFactura = '2'
             AND facturas.Rut = '".$Rut."'
@@ -379,6 +383,9 @@
                     $data = $factura;
                     $Valor = $factura['Valor'];
                     $data['Codigo'] = $data['Codigo'];
+                    if($data['Descripcion']){
+                        $data['Concepto'] .=  ' - '.$data['Descripcion'];
+                    }
                     $data['Concepto'] = $data['Concepto'];
                     $data['Valor'] = $Valor;
                     array_push($array,$data);
@@ -1243,6 +1250,11 @@
             
             foreach($Detalles as $Detalle){
                 $Valor = floatval($Detalle['Valor']);
+                if(isset($Detalle['Descripcion'])){
+                    if($Detalle['Descripcion']){
+                        $Detalle['Concepto'] .=  ' - '.$Detalle['Descripcion'];
+                    }
+                }
                 $Concepto = $Detalle["Concepto"];
                 $Cantidad = $Detalle['Cantidad'];
                 if($Tipo == 1){
@@ -2223,9 +2235,10 @@
             if(in_array  ('curl', get_loaded_extensions())) {
                 $response_array = array();
                 if($Tipo == 1){
-                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.Referencia
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.Referencia, servicios.Descripcion
                                 FROM facturas 
-                                INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
+                                INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id
+                                INNER JOIN servicios ON servicios.Id = facturas_detalle.IdServicio
                                 WHERE facturas.Id = '".$RutId."'
                                 AND facturas.EstatusFacturacion = 0
                                 AND facturas_detalle.Valor > 0";
@@ -2236,9 +2249,10 @@
                     }else{
                         $Concat = " AND facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'";
                     }
-                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.Referencia
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.Referencia, servicios.Descripcion
                                 FROM facturas 
-                                INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
+                                INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id
+                                INNER JOIN servicios ON servicios.Id = facturas_detalle.IdServicio
                                 WHERE facturas.TipoFactura = '".$Tipo."'
                                 AND facturas.EstatusFacturacion = 0
                                 AND facturas_detalle.Valor > 0"
