@@ -14,6 +14,9 @@
 	$Direccion = isset($_POST['Direccion']) ? trim($_POST['Direccion']) : "";
 	$Latitud = isset($_POST['Latitud']) ? trim($_POST['Latitud']) : "";
 	$Longitud = isset($_POST['Longitud']) ? trim($_POST['Longitud']) : "";
+	
+	$Latitud = isset($_POST['LatitudEdit']) ? trim($_POST['LatitudEdit']) : $Latitud;
+	$Longitud = isset($_POST['LongitudEdit']) ? trim($_POST['LongitudEdit']) : $Longitud;
 	$Referencia = isset($_POST['Referencia']) ? trim($_POST['Referencia']) : "";
 	$Contacto = isset($_POST['Contacto']) ? trim($_POST['Contacto']) : "";
 	$Fono = isset($_POST['Fono']) ? trim($_POST['Fono']) : "";

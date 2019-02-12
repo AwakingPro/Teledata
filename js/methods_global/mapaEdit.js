@@ -2,10 +2,10 @@ $(document).ready(function() {
 
     google.maps.event.addDomListener(window, 'load', initialize)
     function initialize() {
-        var latitudEdit = -41.3214705;
-        var longitudEdit = -73.0138898;
+        var latitudEdit = $('#LatitudEdit').val()
+        var longitudEdit = $('#LongitudEdit').val();
         ResizeEdit(latitudEdit, longitudEdit)
-        var centerEdit = new google.maps.LatLng(-41.3214705, -73.0138898);
+        var centerEdit = new google.maps.LatLng(latitudEdit, longitudEdit);
 
         mapOptions = {
             zoom: 14,
