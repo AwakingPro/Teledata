@@ -95,11 +95,7 @@
 														<input type="text" name="Descuento" class="form-control" min="0" max="100" step="1">
 														<span class="input-group-addon">%</span>
 													</div>
-													<br >
-													<br>
-													<label > Descripción</label>
-													<textarea name="Descripcion" class="form-control" rows="5" placeholder="Descripción del Doc enviado al sii"></textarea>
-
+													
 													<div id="otrosServicios" style="display:none">
 														<br>
 
@@ -199,7 +195,6 @@
 															</select>
 														</div>
 														
-
 														<br>
 														<label>Descuento Instalación</label>
 														<div class="input-group">
@@ -210,6 +205,9 @@
 														
 													</div>
 													
+													<label> Descripción</label>
+													<textarea name="Descripcion" class="form-control" rows="5" placeholder="Descripción del Servicio Doc enviado al sii"></textarea>
+													<br>
 													<button type="button" class="btn btn-primary guardarServ">Guardar</button>
 												</div>
 											</form>
