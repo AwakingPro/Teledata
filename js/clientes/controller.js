@@ -960,7 +960,6 @@ $(document).ready(function() {
 
                 array = response.array
                 var IdServicio
-
                 for (var name in array) {
                     var value = array[name];
                     if (name == "Descripcion" || name == "Direccion") {
@@ -988,7 +987,7 @@ $(document).ready(function() {
 
                 var LatitudEdit = $('#showServicio').find('input[name="LatitudEdit"]').val();
                 var LongitudEdit = $('#showServicio').find('input[name="LongitudEdit"]').val();
-
+                
                 switch (IdServicio) {
                     case '1':
                         $('#otrosServiciosEditar').show()
@@ -1012,9 +1011,11 @@ $(document).ready(function() {
                         $('#otrosServiciosEditar').hide()
                 }
 
-                if (LatitudEdit && LongitudEdit) {
-                    ResizeEdit(LatitudEdit, LongitudEdit)
-                    
+                //agrega las coordenadas desde la bd
+                $('#LatitudEdit').val(array.Latitud)
+                $('#LongitudEdit').val(array.Longitud)
+                if (array.Latitud && array.Longitud) {
+                    ResizeEdit(array.Latitud, array.Longitud)
                 }
 
                 $('body').addClass('loaded');
