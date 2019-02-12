@@ -206,7 +206,7 @@
 													</div>
 													
 													<label> Descripción</label>
-													<textarea name="Descripcion" class="form-control" rows="5" placeholder="Descripción del Servicio Doc enviado al sii"></textarea>
+													<textarea name="Descripcion" class="form-control" rows="5" placeholder="Descripción del Servicio | Adjunto en el Doc enviado al sii"></textarea>
 													<br>
 													<button type="button" class="btn btn-primary guardarServ">Guardar</button>
 												</div>
