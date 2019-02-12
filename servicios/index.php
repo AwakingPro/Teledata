@@ -265,6 +265,7 @@
 		<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 		<script src="../js/methods_global/methods.js"></script>
 		<script src="../js/methods_global/mapa.js"></script>
+		<script src="../js/methods_global/mapaEdit.js"></script>
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>
@@ -334,13 +335,13 @@
 									<div class="col-md-6 campo-cordenadas">
 										<div class="form-group">
 											<label class="control-label" for="Latitud">Coordenadas</label>
-											<input id="Latitud" name="Latitud" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas">
+											<input id="LatitudEdit" name="LatitudEdit" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadasEdit" value="-41.3214705">
 										</div>
 									</div>
 									<div class="col-md-6 campo-cordenadas">
 										<div class="form-group">
 											<label class="control-label" for="name">&nbsp;</label>
-											<input id="Longitud" name="Longitud" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas">
+											<input id="LongitudEdit" name="LongitudEdit" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadasEdit" value="-73.0138898">
 										</div>
 									</div>
 									<br class="campo-cordenadas">

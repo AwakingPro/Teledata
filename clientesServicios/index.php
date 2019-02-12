@@ -205,7 +205,7 @@
 											</div>
 											<br class="campo-cordenadas">
 
-											<div id="MapEdit" style="height:350px; width:100%;" class="campo-cordenadas"></div>
+											<div id="Map" style="height:350px; width:100%;" class="campo-cordenadas"></div>
 
 											<br class="campo-cordenadas">
 											<label class="campo-referencia">Referencia</label>
@@ -340,7 +340,7 @@
 		<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 		<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 		<script src="../js/methods_global/methods.js"></script>
-		<script src="../js/methods_global/mapaEdit.js"></script>
+		<script src="../js/methods_global/mapa.js"></script>
 		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/moment/moment.js"></script>

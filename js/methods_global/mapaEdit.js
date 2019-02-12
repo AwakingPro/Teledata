@@ -2,29 +2,30 @@ $(document).ready(function() {
 
     google.maps.event.addDomListener(window, 'load', initialize)
     function initialize() {
-
-        center = new google.maps.LatLng(-41.3214705, -73.0138898);
+        var latitudEdit = -41.3214705;
+        var longitudEdit = -73.0138898;
+        ResizeEdit(latitudEdit, longitudEdit)
+        var centerEdit = new google.maps.LatLng(-41.3214705, -73.0138898);
 
         mapOptions = {
             zoom: 14,
-            center: center,
+            center: centerEdit,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
         
-        Mapa = new google.maps.Map(document.getElementById("MapEdit"), mapOptions)
-        marker = new google.maps.Marker({
-            map: Mapa,
+        MapaEdit = new google.maps.Map(document.getElementById("MapEdit"), mapOptions)
+        markerEdit = new google.maps.Marker({
+            map: MapaEdit,
             draggable: true,
-            position: center
+            position: centerEdit
 
         });
 
-        google.maps.event.addListener(marker, 'dragend', function(evt) {
-            $('#Latitud').val(evt.latLng.lat())
-            $('#Longitud').val(evt.latLng.lng())
+        google.maps.event.addListener(markerEdit, 'dragend', function(evt) {
+            $('#LatitudEdit').val(evt.latLng.lat())
+            $('#LongitudEdit').val(evt.latLng.lng())
         });
     }
-
 
     function validLatitude(lat) {
         return isFinite(lat) && Math.abs(lat) <= 90;
@@ -34,54 +35,56 @@ $(document).ready(function() {
         return isFinite(lng) && Math.abs(lng) <= 180;
     }
 
-    $(".coordenadas").on('blur', function() {
+    $(".coordenadasEdit").on('blur', function() {
 
-        latitud = $('#Latitud').val();
-        longitud = $('#Longitud').val();
+        var latitudEdit = $('#LatitudEdit').val();
+        var longitudEdit = $('#LongitudEdit').val();
 
-        if ($(this).attr('id') == 'Latitud' && latitud) {
-            if (latitud) {
-                if (!validLatitude(latitud)) {
+        if ($(this).attr('id') == 'LatitudEdit' && latitudEdit) {
+            if (latitudEdit) {
+                if (!validLatitude(latitudEdit)) {
                     bootbox.alert("Ups! Debe ingresar una latitud valida");
                     $(this).val('')
                 }
             }
-        } else if ($(this).attr('id') == 'Longitud' && longitud) {
-            if (!validLongitude(longitud)) {
+        } else if ($(this).attr('id') == 'LongitudEdit' && longitudEdit) {
+            if (!validLongitude(longitudEdit)) {
                 bootbox.alert("Ups! Debe ingresar una longitud valida");
                 $(this).val('')
             }
         }
 
-        if (latitud && longitud) {
-            Resize(latitud, longitud, Mapa)
+        if (latitudEdit && longitudEdit) {
             
-            // mapCenter = new google.maps.LatLng(latitud, longitud);
-
-            // setTimeout(function() {
-            //     google.maps.event.trigger(Mapa, "resize");
-            //     Mapa.setCenter(mapCenter);
-            //     Mapa.setZoom(Mapa.getZoom());
-            // }, 1000)
+            ResizeEdit(latitudEdit, longitudEdit)
         }
     })
 
-    // console.log("Mapa iniciado");
+    ResizeEdit = function (latitudEdit, longitudEdit){
+            MapaEdit = new google.maps.Map(document.getElementById("MapEdit"), mapOptions)
+            mapCenterEdit = new google.maps.LatLng(latitudEdit, longitudEdit);
 
-Resize = function (Latitud, Longitud){
-        // console.log("Mapa Zoom iniciado");
+            markerEdit = new google.maps.Marker({
+                map: MapaEdit,
+                draggable: true,
+                position: mapCenterEdit
+    
+            });
+    
+            google.maps.event.addListener(markerEdit, 'dragend', function(evt) {
+                $('#LatitudEdit').val(evt.latLng.lat())
+                $('#LongitudEdit').val(evt.latLng.lng())
+            });
 
-        mapCenter = new google.maps.LatLng(Latitud, Longitud);
+            setTimeout(function() {
+                google.maps.event.trigger(MapaEdit, "resize");
+                MapaEdit.setCenter(mapCenterEdit);
+                MapaEdit.setZoom(MapaEdit.getZoom());
 
-        setTimeout(function() {
-            google.maps.event.trigger(Mapa, "resize");
-            Mapa.setCenter(mapCenter);
-            Mapa.setZoom(Mapa.getZoom());
+                markerEdit.setOptions({position: mapCenterEdit});
+                
+            }, 1000)
 
-            marker.setOptions({position: mapCenter});
             
-        }, 1000)
-
-        
-    }
+        }
 });
