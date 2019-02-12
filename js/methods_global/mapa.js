@@ -36,41 +36,29 @@ $(document).ready(function() {
 
     $(".coordenadas").on('blur', function() {
 
-        latitud = $('#Latitud').val();
-        longitud = $('#Longitud').val();
-
-        if ($(this).attr('id') == 'Latitud' && latitud) {
-            if (latitud) {
-                if (!validLatitude(latitud)) {
-                    bootbox.alert("Ups! Debe ingresar una latitud valida");
+        Latitud = $('#Latitud').val();
+        Longitud = $('#Longitud').val();
+        if ($(this).attr('id') == 'Latitud' && Latitud) {
+            if (Latitud) {
+                if (!validLatitude(Latitud)) {
+                    bootbox.alert("Ups! Debe ingresar una Latitud valida");
                     $(this).val('')
                 }
             }
-        } else if ($(this).attr('id') == 'Longitud' && longitud) {
-            if (!validLongitude(longitud)) {
-                bootbox.alert("Ups! Debe ingresar una longitud valida");
+        } else if ($(this).attr('id') == 'Longitud' && Longitud) {
+            if (!validLongitude(Longitud)) {
+                bootbox.alert("Ups! Debe ingresar una Longitud valida");
                 $(this).val('')
             }
         }
 
-        if (latitud && longitud) {
-            Resize(latitud, longitud, Mapa)
-            
-            // mapCenter = new google.maps.LatLng(latitud, longitud);
-
-            // setTimeout(function() {
-            //     google.maps.event.trigger(Mapa, "resize");
-            //     Mapa.setCenter(mapCenter);
-            //     Mapa.setZoom(Mapa.getZoom());
-            // }, 1000)
+        if (Latitud && Longitud) {
+            Resize(Latitud, Longitud)
         }
     })
 
-    // console.log("Mapa iniciado");
-
 Resize = function (Latitud, Longitud){
-        // console.log("Mapa Zoom iniciado");
-
+        Mapa = new google.maps.Map(document.getElementById("Map"), mapOptions)
         mapCenter = new google.maps.LatLng(Latitud, Longitud);
 
         setTimeout(function() {
@@ -81,6 +69,18 @@ Resize = function (Latitud, Longitud){
             marker.setOptions({position: mapCenter});
             
         }, 1000)
+
+        marker = new google.maps.Marker({
+            map: Mapa,
+            draggable: true,
+            position: center
+
+        });
+
+        google.maps.event.addListener(marker, 'dragend', function(evt) {
+            $('#Latitud').val(evt.latLng.lat())
+            $('#Longitud').val(evt.latLng.lng())
+        });
 
         
     }

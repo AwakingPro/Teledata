@@ -49,82 +49,6 @@ $(document).ready(function() {
         }
     }
 
-
-    
-
-    if (typeof google !== "undefined") {
-
-        if (Latitud && Longitud) {
-            Resize(Latitud, Longitud)
-        }
-
-        // google.maps.event.addDomListener(window, 'load', initialize);
-        // function initialize() {
-
-        //     center = new google.maps.LatLng(-41.3214705, -73.0138898);
-
-        //     mapOptions = {
-        //         zoom: 13,
-        //         center: center,
-        //         mapTypeId: google.maps.MapTypeId.ROADMAP
-        //     };
-
-        //     Mapa = new google.maps.Map(document.getElementById("Map"), mapOptions)
-        //     var marker = new google.maps.Marker({
-        //     map: Mapa,
-        //     draggable: true,
-        //     position: center
-
-        //     });
-
-        //     google.maps.event.addListener(marker, 'dragend', function(evt) {
-        //     $('#Latitud').val(evt.latLng.lat())
-        //     $('#Longitud').val(evt.latLng.lng())
-
-        //     });
-
-        // }
-    }
-
-    // function validLatitude(lat) {
-    //     return isFinite(lat) && Math.abs(lat) <= 90;
-    // }
-
-    // function validLongitude(lng) {
-    //     return isFinite(lng) && Math.abs(lng) <= 180;
-    // }
-
-    // $(".coordenadas").on('blur', function() {
-
-    //     latitud = $('#Latitud').val();
-    //     longitud = $('#Longitud').val();
-
-    //     if ($(this).attr('id') == 'Latitud' && latitud) {
-    //         if (latitud) {
-    //             if (!validLatitude(latitud)) {
-    //                 bootbox.alert("Ups! Debe ingresar una latitud valida");
-    //                 $(this).val('')
-    //             }
-    //         }
-    //     } else if ($(this).attr('id') == 'Longitud' && longitud) {
-    //         if (!validLongitude(longitud)) {
-    //             bootbox.alert("Ups! Debe ingresar una longitud valida");
-    //             $(this).val('')
-    //         }
-    //     }
-
-    //     if (latitud && longitud) {
-
-    //         mapCenter = new google.maps.LatLng(latitud, longitud);
-
-    //         setTimeout(function() {
-    //             google.maps.event.trigger(Mapa, "resize");
-    //             Mapa.setCenter(mapCenter);
-    //             Mapa.setZoom(Mapa.getZoom());
-    //         }, 1000)
-    //     }
-    // })
-
     function isNumber(n) {
         return !isNaN(parseFloat(n)) && isFinite(n);
     }
@@ -1062,8 +986,8 @@ $(document).ready(function() {
 
                 $('.selectpicker').selectpicker('refresh')
 
-                latitud = $('#showServicio').find('input[name="Latitud"]').val();
-                longitud = $('#showServicio').find('input[name="Longitud"]').val();
+                var LatitudEdit = $('#showServicio').find('input[name="LatitudEdit"]').val();
+                var LongitudEdit = $('#showServicio').find('input[name="LongitudEdit"]').val();
 
                 switch (IdServicio) {
                     case '1':
@@ -1088,15 +1012,9 @@ $(document).ready(function() {
                         $('#otrosServiciosEditar').hide()
                 }
 
-                if (latitud && longitud) {
-                    MapEdit = new google.maps.Map(document.getElementById("MapEdit"), mapOptions);
-                    mapCenter = new google.maps.LatLng(latitud, longitud);
-
-                    setTimeout(function() {
-                        google.maps.event.trigger(MapEdit, "resize");
-                        MapEdit.setCenter(mapCenter);
-                        MapEdit.setZoom(MapEdit.getZoom());
-                    }, 1000)
+                if (LatitudEdit && LongitudEdit) {
+                    ResizeEdit(LatitudEdit, LongitudEdit)
+                    
                 }
 
                 $('body').addClass('loaded');

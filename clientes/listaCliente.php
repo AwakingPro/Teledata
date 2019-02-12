@@ -228,14 +228,14 @@
 
 										<div class="col-md-6 campo-cordenadas">
 											<div class="form-group">
-												<label class="control-label" for="Latitud">Coordenadas</label>
-												<input id="Latitud" name="Latitud" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadas">
+												<label class="control-label" for="LatitudEdit">Coordenadas</label>
+												<input id="LatitudEdit" name="LatitudEdit" type="text" placeholder="Ingrese la latitud" class="form-control input-sm coordenadasEdit" value="-41.3214705">
 											</div>
 										</div>
 										<div class="col-md-6 campo-cordenadas">
 											<div class="form-group">
-												<label class="control-label" for="name">&nbsp;</label>
-												<input id="Longitud" name="Longitud" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadas">
+												<label class="control-label" for="LongitudEdit">&nbsp;</label>
+												<input id="LongitudEdit" name="LongitudEdit" type="text" placeholder="Ingrese la longitud" class="form-control input-sm coordenadasEdit" value="-73.0138898">
 											</div>
 										</div>
 										<br class="campo-cordenadas">
