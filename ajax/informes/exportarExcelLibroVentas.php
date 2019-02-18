@@ -23,23 +23,23 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('C1', 'RUT Receptor')
 	->setCellValue('D1', 'Nº Doc')
     ->setCellValue('E1', 'Fecha Doc')
-    ->setCellValue('F1', 'Fecha Vencimiento')
-    ->setCellValue('G1', 'Monto Neto')
-    ->setCellValue('H1', 'IVA')
-	->setCellValue('I1', 'Monto total')
-	->setCellValue('J1', 'Saldo Doc')
-    ->setCellValue('K1', 'Saldo a favor')
-    ->setCellValue('L1', 'Glosa')
-    ->setCellValue('M1', 'Nº Relación')
-    ->setCellValue('N1', 'Informe SII')
-    ->setCellValue('O1', 'DTE Activos')
-    ->setCellValue('P1', 'DTE Inactivos')
-    ->setCellValue('Q1', 'DTE Desconocido');
+    // ->setCellValue('F1', 'Fecha Vencimiento')
+    ->setCellValue('F1', 'Monto Neto')
+    ->setCellValue('G1', 'IVA')
+	->setCellValue('H1', 'Monto total')
+	// ->setCellValue('H1', 'Saldo Doc')
+    // ->setCellValue('I1', 'Saldo a favor')
+    // ->setCellValue('J1', 'Glosa')
+    ->setCellValue('I1', 'Nº Relación')
+    ->setCellValue('J1', 'Informe SII')
+    ->setCellValue('K1', 'DTE Activos')
+    ->setCellValue('L1', 'DTE Inactivos')
+    ->setCellValue('M1', 'DTE Desconocido');
     
     // filtros
     $objPHPExcel->getActiveSheet()->setAutoFilter("A1:Q1");
 
-foreach (range(0, 17) as $col) {
+foreach (range(0, 16) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 
@@ -162,7 +162,7 @@ if($facturas){
         $data['DocumentoId'] = $Id;
         $data['NumeroDocumento'] = $factura['NumeroDocumento'];
         $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
-        $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
+        // $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
         $data['TotalFactura'] = $TotalFactura;
         //total saldo es el pago total
         $data['MontoNeto'] = $factura['MontoNeto'];
@@ -216,7 +216,7 @@ if($facturas){
                 $data['RUT'] = $factura['RUT'].'-'.$factura['DV'];
                 $data['NumeroDocumento'] = $devolucion['NumeroDocumento'];
                 $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
-                $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
+                // $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                 $data['MontoNeto'] = $factura['MontoNeto'];
                 $data['IVA'] = $factura['MontoNeto'] * $IVA;
                 $data['TotalFactura'] = $TotalFactura;
@@ -251,7 +251,7 @@ if($facturas){
                         $data['RUT'] = $factura['RUT'].'-'.$factura['DV'];
                         $data['NumeroDocumento'] = $anulacion['NumeroDocumento'];
                         $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
-                        $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
+                        // $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
                         $data['MontoNeto'] = $factura['MontoNeto'];
                         $data['IVA'] = $factura['MontoNeto'] * $IVA;
                         $data['TotalFactura'] = $TotalFactura;
@@ -289,40 +289,40 @@ if($facturas){
         ->setCellValue('C'.$index, $datos['RUT'])
         ->setCellValue('D'.$index, $datos['NumeroDocumento'])
         ->setCellValue('E'.$index, $datos['FechaFacturacion'])
-        ->setCellValue('F'.$index, $datos['FechaVencimiento'])
-        ->setCellValue('G'.$index, $datos['MontoNeto'])
-        ->setCellValue('H'.$index, $datos['IVA'])
-        ->setCellValue('I'.$index, $datos['TotalFactura'])
-        ->setCellValue('J'.$index, $datos['TotalSaldo'])
-        ->setCellValue('K'.$index, $datos['SaldoFavor'])
-        ->setCellValue('L'.$index, $datos['Detalle'])
-        ->setCellValue('M'.$index, $datos['NumRelacion'])
-        ->setCellValue('N'.$index, $datos['InformeSII'])
-        ->setCellValue('O'.$index, $datos['dte_activos'])
-        ->setCellValue('P'.$index, $datos['dte_inactivos'])
-        ->setCellValue('Q'.$index, $datos['dte_otros']);
+        // ->setCellValue('F'.$index, '$datos['FechaVencimiento']')
+        ->setCellValue('F'.$index, $datos['MontoNeto'])
+        ->setCellValue('G'.$index, $datos['IVA'])
+        ->setCellValue('H'.$index, $datos['TotalFactura'])
+        // ->setCellValue('I'.$index, $datos['TotalSaldo'])
+        // ->setCellValue('J'.$index, $datos['SaldoFavor'])
+        // ->setCellValue('K'.$index, $datos['Detalle'])
+        ->setCellValue('I'.$index, $datos['NumRelacion'])
+        ->setCellValue('J'.$index, $datos['InformeSII'])
+        ->setCellValue('K'.$index, $datos['dte_activos'])
+        ->setCellValue('L'.$index, $datos['dte_inactivos'])
+        ->setCellValue('M'.$index, $datos['dte_otros']);
         $TotalNeto += $datos['MontoNeto'];
         $TotalIVA += $datos['IVA'];
         $TotalTotal += $datos['TotalFactura'];
-        $TotalSaldo += $datos['TotalSaldo'];
-        $TotalSaldoFavor += $datos['SaldoFavor'];
+        // $TotalSaldo += $datos['TotalSaldo'];
+        // $TotalSaldoFavor += $datos['SaldoFavor'];
         $index++;
     } 
     // echo '<pre>'; print_r($ToReturn); echo '</pre>';exit;
     // Agregar Informacion
     $objPHPExcel->setActiveSheetIndex(0)
-    ->setCellValue('G'.$index, 'Total Neto')
-    ->setCellValue('H'.$index, 'Total IVA')
-    ->setCellValue('I'.$index, 'Total')
-    ->setCellValue('J'.$index, 'Total Doc')
-    ->setCellValue('K'.$index, 'Total Saldo Favor');
+    ->setCellValue('F'.$index, 'Total Neto')
+    ->setCellValue('G'.$index, 'Total IVA')
+    ->setCellValue('H'.$index, 'Total');
+    // ->setCellValue('J'.$index, 'Total Doc')
+    // ->setCellValue('K'.$index, 'Total Saldo Favor');
     $index++;
     $objPHPExcel->setActiveSheetIndex(0)
-    ->setCellValue('G'.$index, $TotalNeto)
-    ->setCellValue('H'.$index, $TotalIVA)
-    ->setCellValue('I'.$index, $TotalTotal)
-    ->setCellValue('J'.$index, $TotalSaldo)
-    ->setCellValue('K'.$index, $TotalSaldoFavor);
+    ->setCellValue('F'.$index, $TotalNeto)
+    ->setCellValue('G'.$index, $TotalIVA)
+    ->setCellValue('H'.$index, $TotalTotal);
+    // ->setCellValue('J'.$index, $TotalSaldo)
+    // ->setCellValue('K'.$index, $TotalSaldoFavor);
     
 }else{
     echo 'No existen datos para esta consulta';
