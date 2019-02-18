@@ -11,6 +11,7 @@
     // echo $servicio_rut_dv .' - ' . $servicio_nombre_cliente . ' code '.$servicio_codigo_cliente; exit; 
     $Id = isset($_POST['Id']) ? trim($_POST['Id']) : "";
     $Activo = isset($_POST['Activo']) ? trim($_POST['Activo']) : "";
+    $selectEnviaCorreo = isset($_POST['selectEnviaCorreo']) ? trim($_POST['selectEnviaCorreo']) : "";
     $FechaInicioDesactivacion = isset($_POST['FechaInicioDesactivacion']) ? trim($_POST['FechaInicioDesactivacion']) : "";
     $FechaFinalDesactivacion = isset($_POST['FechaFinalDesactivacion']) ? trim($_POST['FechaFinalDesactivacion']) : "";
 
@@ -68,13 +69,15 @@
     $update = $run->update($query);
     
     if($update > 0){
-        $respCorreo = $run->enviarCorreos(2, $dataClient);
-        if($respCorreo != 1){
-            echo 4;
-            return;
+        if($selectEnviaCorreo == 1){
+            $respCorreo = $run->enviarCorreos(2, $dataClient);
+            if($respCorreo != 1){
+                echo 4;
+                return;
+            }
         }
+        
     }
-
 	echo 1;
 
 
