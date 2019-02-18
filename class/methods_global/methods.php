@@ -694,6 +694,40 @@
             return $response;
 		}
 		
+		public function EditClientApiBsale($datos, $url){
+			$metodo = $datos['metodo'];
+			$datosEnvio = array(
+				"id"			=> $datos['id'],
+				"state"			=> $datos['state']
+			);
+			$query = "SELECT token_produccion as access_token FROM variables_globales";
+            $variables_globales = self::select($query);
+            $access_token = $variables_globales[0]['access_token'];
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+			curl_setopt($session, CURLOPT_CUSTOMREQUEST, $metodo);
+			$datosEnvioEncode = json_encode($datosEnvio);
+			
+			curl_setopt($session, CURLOPT_POSTFIELDS, $datosEnvioEncode);
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+            
+            // Cierra la sesión cURL
+            curl_close($session);
+            return $response = json_decode($response, true);
+		}
 		// metodo para conectar con la api de bsale y traer los datos para usarlos
         function conectarAPI($url){
 			$query = "SELECT token_produccion as access_token FROM variables_globales";
