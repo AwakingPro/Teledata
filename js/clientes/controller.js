@@ -73,6 +73,10 @@ $(document).ready(function() {
         $('.TipoCliente').selectpicker('refresh');
     });
 
+    $('.stateCliente').load('../ajax/cliente/selectEstadoCliente.php', function() {
+        $('.stateCliente').selectpicker('refresh');
+    });
+
     $('.Giro').load('../ajax/cliente/selectGiros.php', function() {
         $('.Giro').selectpicker('refresh');
     });
@@ -712,6 +716,16 @@ $(document).ready(function() {
                 $('[name="PoseePac_update').prop('checked',true);
             }else{
                 $('[name="PoseePac_update').prop('checked', false);
+            }
+            if(value[0]['state'] == null){
+                $('[name="stateCliente"]').val('Activo sin emitir docs');
+            }
+            $('[name="stateCliente"]').val(value[0]['state']);
+            $('[name="stateCliente"]').selectpicker('refresh');
+            $('[name="stateOculto"]').val(value[0]['state']);
+
+            if(value[0]['cliente_id_bsale']){
+                $('[name="cliente_id_bsale"').val(value[0]['cliente_id_bsale'])
             }
             $('#editarCliente').modal('show');
         });

@@ -40,6 +40,12 @@
 					</div>
 					<input type="hidden" name="IdCliente">
 					<div class="row">
+						<div class="col-md-2 form-group">
+							<label>Estado Cliente</label>
+							<select id="stateCliente" name="stateCliente" class="form-control stateCliente selectpicker" data-live-search="true" validate="not_null">
+								<option class="seleccione" value="">Seleccione...</option>
+							</select>
+						</div>
 						<div class="col-md-3 form-group">
 							<label>Tipo de Cliente</label>
 							<select name="TipoCliente_update" class="form-control TipoCliente" data-live-search="true">
@@ -52,13 +58,13 @@
 								<option value="">Seleccione...</option>
 							</select>
 						</div>
-						<div class="col-md-2 form-group">
+						<div class="col-md-1 form-group">
 							<div class="checkbox" style="margin: 18px auto">
 								<input id="PoseePac_update" name="PoseePac_update" class="magic-checkbox" type="checkbox">
 								<label for="PoseePac_update">Posee PAC</label>
 							</div>
 						</div>
-						<div class="col-md-3 form-group">
+						<div class="col-md-2 form-group">
 							<label>Rut</label>
 							<input name="Rut_update" class="form-control" disabled>
 						</div>
@@ -71,6 +77,8 @@
 						<div class="col-md-6 form-group">
 							<label> Razón social / Cliente</label>
 							<input name="Nombre_update" class="form-control">
+							<input type="hidden" name="cliente_id_bsale" class="form-control">
+							<input type="hidden" name="stateOculto" class="form-control">
 						</div>
 						<div class="col-md-6 form-group">
 							<label>Alias</label>

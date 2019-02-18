@@ -15,11 +15,34 @@
 	$TipoPago = isset($_POST['TipoPago_update']) ? trim($_POST['TipoPago_update']) : "";
 	$PoseePac = isset($_POST['PoseePac_update']) ? trim($_POST['PoseePac_update']) : "";
 	$IdCliente = isset($_POST['IdCliente']) ? trim($_POST['IdCliente']) : "";
-
-	$query = "UPDATE personaempresa SET alias = '".$Alias."', nombre = '".$Nombre."', giro = '".$Giro."', direccion = '".$DireccionComercial."', correo = '".$Correo."', contacto = '".$Contacto."', comentario = '".$Comentario."', telefono = '".$Telefono."', tipo_cliente = '".$TipoCliente."', ciudad = '".$Ciudad."', region = '".$Region."', tipo_pago_bsale_id = '".$TipoPago."', posee_pac = '".$PoseePac."' WHERE id = '".$IdCliente."'";
+	$cliente_id_bsale = isset($_POST['cliente_id_bsale']) ? trim($_POST['cliente_id_bsale']) : "";
+	$stateOculto = isset($_POST['stateOculto']) ? trim($_POST['stateOculto']) : "";
+	$stateCliente = isset($_POST['stateCliente']) ? trim($_POST['stateCliente']) : "";
+	$query = "UPDATE personaempresa SET alias = '".$Alias."', nombre = '".$Nombre."', giro = '".$Giro."', direccion = '".$DireccionComercial."', correo = '".$Correo."', contacto = '".$Contacto."', comentario = '".$Comentario."', telefono = '".$Telefono."', tipo_cliente = '".$TipoCliente."', ciudad = '".$Ciudad."', region = '".$Region."', tipo_pago_bsale_id = '".$TipoPago."', posee_pac = '".$PoseePac."', state = '".$stateCliente."' WHERE id = '".$IdCliente."'";
 	$run = new Method;
 	$data = $run->update($query);
-
+	if($stateCliente != $stateOculto){
+		if($cliente_id_bsale){
+			switch ($stateCliente) {
+				case 0:
+					$metodo = 'PUT';
+					break;
+				case 1:
+					$metodo = 'DELETE';
+					break;
+				case 2:
+					exit;
+			}
+			$DatosCliente = array(
+				"id"			=> $cliente_id_bsale,
+				"state"			=> $stateCliente,
+				"metodo"		=> $metodo
+			);
+			$url = "https://api.bsale.cl/v1/clients/".$cliente_id_bsale.".json";
+			print_r($run->EditClientApiBsale($DatosCliente, $url));
+		}
+	}
+	
 
 	// if($data){
 	// 	$query = "SELECT token_produccion as access_token FROM variables_globales";
