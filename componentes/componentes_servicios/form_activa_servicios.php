@@ -30,6 +30,15 @@
                     </div>
                 </div>
             </div>
+            <div class="form-group">
+                <label class="compo-grupo">Enviar correo a Técnicos</label>
+                <div class="compo-grupo">
+                    <select id="selectEnviaCorreo" name="selectEnviaCorreo" class="form-control selectpicker" data-live-search="true">
+                        <option value="1">Si</option>
+                        <option value="2">No</option>
+                    </select>
+                </div>
+            </div>
         </div>
     </div>
 </form>
