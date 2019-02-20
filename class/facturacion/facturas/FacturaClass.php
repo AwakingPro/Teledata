@@ -3197,7 +3197,7 @@
                         $HoraDevolucion = gmdate('H:i:s', $DevolucionBsale['returnDate']);
                         $NumeroDocumento = $credit_note['number'];
                         $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento, DevolucionAmount) VALUES ('".$FacturaId."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', '".$FechaDevolucion."', '".$HoraDevolucion."','".$NumeroDocumento."', '".$DevolucionAmount."')";
-                        echo $query; echo "\n";
+                        // echo $query; echo "\n";
                         $DevolucionId = $run->insert($query);
                         if($DevolucionId){  
                             $contadorDevolucion += 1;
