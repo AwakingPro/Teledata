@@ -282,11 +282,9 @@
 										break;
 								}
 		
-								$Diasdelmes = cal_days_in_month (CAL_GREGORIAN, $Mes,$Ano);
-								
+								// $Diasdelmes = cal_days_in_month (CAL_GREGORIAN, $Mes,$Ano);
+								$Diasdelmes = 30;
 								if($Dia != $Diasdelmes){
-									if($Diasdelmes == 31) 
-									$Diasdelmes = 30;
 									if($Dia != 1){
 										$Diasporfacturar = $Diasdelmes - $Dia;
 										$Concepto .= ' - Proporcional ' . $MesFacturacion . ' ('.$Diasporfacturar.' Dias)';
