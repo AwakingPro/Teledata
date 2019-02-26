@@ -101,7 +101,277 @@ $(document).ready(function() {
             }
         });
     }
+    function getLotes(){
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/showLotes.php",
+            success: function(response) {
 
+                LoteTable = $('#LoteTable').DataTable({
+                    order: [
+                        [2, 'desc']
+                    ],
+                    "columnDefs": [{
+                        "targets": [0],
+                        "orderable": false
+                    }],
+                    data: response.array,
+                    columns: [
+                        { data: 'Id' },
+                        { data: 'TipoDocumento' },
+                        { data: 'Cliente' },
+                        { data: 'Rut' },
+                        { data: 'NombreGrupo' },
+                        { data: 'Valor' },
+                        { data: 'EstatusFacturacion' }
+                    ],
+                    destroy: true,
+                    'createdRow': function(row, data, dataIndex) {
+                        $(row)
+                            .attr('rutid', data.Id)
+                            .attr('grupo', data.Grupo)
+                            .attr('tipo', 2)
+                            .attr('DocumentoIdBsale', data.DocumentoIdBsale)
+                            .addClass('text-center')
+                    },
+                    "columnDefs": [{
+                            "targets": 0,
+                            "render": function(data, type, row) {
+                                if(row.PermitirFactura == 1){
+                                    Check = '<input name="select_check" id="select_check_' + data + '" type="checkbox" />'
+                                }else{
+                                    Check = ''
+                                }
+                                return "<div style='text-align: center'>" + Check + "</div>";
+                            }
+                        },
+                        {
+                            "targets": 5,
+                            "render": function(data, type, row) {
+                                value = formatcurrency(data)
+                                return "<div style='text-align: center'>" + value + "</div>";
+                            }
+                        },
+                        {
+                            "targets": 6,
+                            "render": function(data, type, row) {
+                                Icono = '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
+                                Icono += '<i title="Detalles servicios" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarLote" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
+                                Icono += '<i title="Orden de compra" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-list-alt OC" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Orden de Compra" title="" data-container="body"></i>'
+                                Icono += '<i title="Agregar Referencia" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-info-circle Referencia" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Referencia" title="" data-container="body"></i>'
+                                if(row.PermitirFactura == 1){
+                                    //temporal
+                                    //comentar el prop y sustituir el not-allowed por pointer de Facturar luego de que se puedan enviar correos 
+                                    // $('.Facturar').prop('disabled', true);
+                                    Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                                }
+                                if(IdUsuarioSession == 104 || IdUsuarioSession == 116){
+                                    Icono += '<i title="Eliminar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar" title="" data-container="body"></i>'
+                                }
+                                return "<div style='text-align: center'>" + Icono + "</div>";
+                            }
+                        },
+                    ],
+                    language: {
+                        processing: "Procesando ...",
+                        search: 'Buscar',
+                        lengthMenu: "Mostrar _MENU_ Registros",
+                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                        infoFiltered: "(filtrada de _MAX_ registros en total)",
+                        infoPostFix: "",
+                        loadingRecords: "...",
+                        zeroRecords: "No se encontraron registros coincidentes",
+                        emptyTable: "No hay datos disponibles en la tabla",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                            last: "Ultimo"
+                        },
+                        aria: {
+                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                        }
+                    }
+                });
+            }
+        });
+        setTimeout(() => {
+            $('[data-toggle="popover"]').popover();
+        }, 1000);
+        $('body').addClass('loaded');
+        $('table').css('width', '100%');
+    }
+    function getInstalaciones(){
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/showInstalaciones.php",
+            success: function(response) {
+
+                InstalacionTable = $('#InstalacionTable').DataTable({
+                    order: [
+                        [1, 'desc']
+                    ],
+                    data: response.array,
+                    columns: [
+                        { data: 'TipoDocumento' },
+                        { data: 'Cliente' },
+                        { data: 'Rut' },
+                        { data: 'NombreGrupo' },
+                        { data: 'Valor' },
+                        { data: 'Tipo' },
+                    ],
+                    destroy: true,
+                    'createdRow': function(row, data, dataIndex) {
+                        $(row)
+                            .attr('rutid', data.Id)
+                            .attr('grupo', data.Grupo)
+                            .attr('tipo', 3)
+                            .addClass('text-center')
+                    },
+                    "columnDefs": [{
+                            "targets": 4,
+                            "render": function(data, type, row) {
+                                value = formatcurrency(data)
+                                return "<div style='text-align: center'>" + value + "</div>";
+                            }
+                        },
+                        {
+                            "targets": 5,
+                            "render": function(data, type, row) {
+                                Icono = '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar"  data-container="body"></i>'
+                                Icono += '<i title="Detalles servicio" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarInstalacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar"  data-container="body"></i>'
+                                //temporal
+                                //comentar el prop y sustituir el not-allowed por pointer de Facturar luego de que se puedan enviar correos 
+                                // $('.Facturar').prop('disabled', true);
+                                Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar"  data-container="body"></i>'
+                                if(IdUsuarioSession == 104 || IdUsuarioSession == 116){
+                                    Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>'
+                                }
+                                return "<div style='text-align: center'>" + Icono + "</div>";
+                            }
+                        },
+                    ],
+                    language: {
+                        processing: "Procesando ...",
+                        search: 'Buscar',
+                        lengthMenu: "Mostrar _MENU_ Registros",
+                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                        infoFiltered: "(filtrada de _MAX_ registros en total)",
+                        infoPostFix: "",
+                        loadingRecords: "...",
+                        zeroRecords: "No se encontraron registros coincidentes",
+                        emptyTable: "No hay datos disponibles en la tabla",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                            last: "Ultimo"
+                        },
+                        aria: {
+                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                        }
+                    }
+                });
+            }
+        });
+        setTimeout(() => {
+            $('[data-toggle="popover"]').popover();
+        }, 1000);
+        $('body').addClass('loaded');
+        $('table').css('width', '100%');
+    }
+    function getIndividuales(){
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/showIndividuales.php",
+            success: function(response) {
+
+                IndividualTable = $('#IndividualTable').DataTable({
+                    order: [
+                        [1, 'desc']
+                    ],
+                    "columnDefs": [{
+                        "targets": [0],
+                        "orderable": false
+                    }],
+                    data: response.array,
+                    columns: [
+                        { data: 'TipoDocumento' },
+                        { data: 'Cliente' },
+                        { data: 'Rut' },
+                        { data: 'NombreGrupo' },
+                        { data: 'Valor' },
+                        { data: 'EstatusFacturacion' }
+                    ],
+                    destroy: true,
+                    'createdRow': function(row, data, dataIndex) {
+                        $(row)
+                            .attr('rutid', data.Id)
+                            .attr('grupo', data.Grupo)
+                            .attr('tipo', 1)
+                            .addClass('text-center')
+                    },
+                    "columnDefs": [{
+                            "targets": 4,
+                            "render": function(data, type, row) {
+                                value = formatcurrency(data)
+                                return "<div style='text-align: center'>" + value + "</div>";
+                            }
+                        },
+                        {
+
+                            "targets": 5,
+                            "render": function(data, type, row) {
+                                Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
+                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarIndividual" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
+                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-list-alt OC" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Orden de Compra" title="" data-container="body"></i>'
+                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-info-circle Referencia" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Referencia" title="" data-container="body"></i>'
+                                //temporal
+                                //comentar el prop y sustituir el not-allowed por pointer de Facturar luego de que se puedan enviar correos 
+                                // $('.Facturar').prop('disabled', true);
+                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
+                                if(IdUsuarioSession == 104 || IdUsuarioSession == 116){
+                                    Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar" title="" data-container="body"></i>'
+                                }
+                                return "<div style='text-align: center'>" + Icono + "</div>";
+                            }
+                        },
+                    ],
+                    language: {
+                        processing: "Procesando ...",
+                        search: 'Buscar',
+                        lengthMenu: "Mostrar _MENU_ Registros",
+                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                        infoFiltered: "(filtrada de _MAX_ registros en total)",
+                        infoPostFix: "",
+                        loadingRecords: "...",
+                        zeroRecords: "No se encontraron registros coincidentes",
+                        emptyTable: "No hay datos disponibles en la tabla",
+                        paginate: {
+                            first: "Primero",
+                            previous: "Anterior",
+                            next: "Siguiente",
+                            last: "Ultimo"
+                        },
+                        aria: {
+                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                        }
+                    }
+                });
+            }
+        });
+        setTimeout(() => {
+            $('[data-toggle="popover"]').popover();
+        }, 1000);
+        $('body').addClass('loaded');
+        $('table').css('width', '100%');
+    }
     function getTables() {
 
         $.ajax({
@@ -444,10 +714,23 @@ $(document).ready(function() {
                 ModalTable.clear().draw()
 
                 $.each(response.array, function(index, array) {
+                    var StyleEliminarDetalle;
+                    var desabilitar;
+                    var EliminarDetalle;
+                    if(!array.detalleIdBsale && array.totalDetalles > 1){
+                        StyleEliminarDetalle = 'style="cursor: pointer; margin: 0 10px; font-size:15px;" ';
+                        desabilitar = '';
+                        EliminarDetalle = 'EliminarDetalle';
+                    }else{
+                        StyleEliminarDetalle = 'style="cursor: not-allowed;  margin: 0 10px; font-size:15px; opacity: 0.2; "';
+                        desabilitar = 'disabled';
+                        EliminarDetalle = '';
+                    }
                     var rowNode = ModalTable.row.add([
                         '' + array.Codigo + '',
                         '' + array.Nombre + '',
                         '' + formatcurrency(array.Valor) + '',
+                        '' + '<i  id='+array.detalleId+' '+StyleEliminarDetalle+' '+desabilitar+' tipo='+3+' facturaId='+array.facturaId+' class="fa fa-trash '+EliminarDetalle+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + ''
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -470,6 +753,8 @@ $(document).ready(function() {
 
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
+         // globalObjectTRLote para usarla al eliminar un detalle
+        // globalObjectTRLote = ObjectTR;
         var ObjectRutId = ObjectTR.attr("rutid");
         var ObjectGroup = ObjectTR.attr("grupo");
 
@@ -478,14 +763,27 @@ $(document).ready(function() {
             url: "../includes/facturacion/facturas/showLote.php",
             data: "rut=" + ObjectRutId + "&grupo=" + ObjectGroup,
             success: function(response) {
-
                 ModalTable.clear().draw()
-
                 $.each(response.array, function(index, array) {
+                   
+                    var StyleEliminarDetalle;
+                    var desabilitar;
+                    var EliminarDetalle;
+                    if(!array.detalleIdBsale && array.totalDetalles > 1){
+                        StyleEliminarDetalle = 'style="cursor: pointer; margin: 0 10px; font-size:15px;" ';
+                        desabilitar = '';
+                        EliminarDetalle = 'EliminarDetalle';
+                    }else{
+                        StyleEliminarDetalle = 'style="cursor: not-allowed;  margin: 0 10px; font-size:15px; opacity: 0.2; "';
+                        desabilitar = 'disabled';
+                        EliminarDetalle = '';
+                    }
                     var rowNode = ModalTable.row.add([
                         '' + array.Codigo + '',
                         '' + array.Concepto + '',
                         '' + formatcurrency(array.Valor) + '',
+                        '' + '<i  id='+array.detalleId+' '+StyleEliminarDetalle+' '+desabilitar+' tipo='+2+' facturaId='+array.facturaId+' class="fa fa-trash '+EliminarDetalle+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + ''
+                        
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -519,10 +817,23 @@ $(document).ready(function() {
                 ModalTable.clear().draw()
 
                 $.each(response.array, function(index, array) {
+                    var StyleEliminarDetalle;
+                    var desabilitar;
+                    var EliminarDetalle;
+                    if(!array.detalleIdBsale && array.totalDetalles > 1){
+                        StyleEliminarDetalle = 'style="cursor: pointer; margin: 0 10px; font-size:15px;" ';
+                        desabilitar = '';
+                        EliminarDetalle = 'EliminarDetalle';
+                    }else{
+                        StyleEliminarDetalle = 'style="cursor: not-allowed;  margin: 0 10px; font-size:15px; opacity: 0.2; "';
+                        desabilitar = 'disabled';
+                        EliminarDetalle = '';
+                    }
                     var rowNode = ModalTable.row.add([
                         '' + array.Nombre + '',
                         '' + array.Concepto + '',
                         '' + formatcurrency(array.Valor) + '',
+                        '' + '<i  id='+array.detalleId+' '+StyleEliminarDetalle+' '+desabilitar+' tipo='+1+' facturaId='+array.facturaId+' class="fa fa-trash '+EliminarDetalle+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + ''
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -847,8 +1158,75 @@ $(document).ready(function() {
             }
         });
     });
-    $('body').on('click', '.Eliminar', function() {
+    $('body').on('click', '.EliminarDetalle', function() {
+        alertas('danger', '<h5>Disculpe acción inhabilida temporalmente!</h5>');
+        return;
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectidDetalle = $(this).attr("id");
+        var idFactura = $(this).attr("facturaId");
+        // var ObjectGroup = ObjectTR.attr("grupo");
+        var ObjectType = $(this).attr("tipo");
+        console.log('Detalle ID'+ObjectidDetalle);
+        console.log('TIpo '+ ObjectType);
+        console.log('row del detalle '+ObjectTR);
 
+        swal({
+            title: "Seguro quieres eliminar este registro?",
+            text: "Confirmar eliminación!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            confirmButtonText: "Eliminar!",
+            cancelButtonText: "Cancelar",
+            showLoaderOnConfirm: true,
+            closeOnConfirm: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    type: "POST",
+                    url: "../includes/facturacion/facturas/borrarFacturasDetalle.php",
+                    data: "idDetalle=" + ObjectidDetalle +"&idFactura="+ idFactura+"&TipoFactura="+ObjectType,
+                    success: function(response) {
+                        // console.log(response); return;
+                        if (response.status == 1) {
+                            ModalTable.row($(ObjectTR))
+                                    .remove()
+                                    .draw();
+                            if (ObjectType == 1) {
+                                console.log('tipo es '+ ObjectType)
+                                getIndividuales();
+                            } 
+                            else if (ObjectType == 2) {
+                                console.log('tipo es '+ ObjectType)
+                                getLotes();
+                            } else {
+                                console.log('tipo es '+ ObjectType)
+                                getInstalaciones();
+                            }
+                            
+                            getTotales();
+                            $('[data-toggle="popover"]').popover();
+                            swal("Éxito!", "El registro ha sido eliminado!", "success");
+
+                        }else {
+                            swal('Solicitud no procesada', response.Message, 'error');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        setTimeout(function() {
+                            var err = JSON.parse(xhr.responseText);
+                            swal('Solicitud no procesada', err.Message, 'error');
+                        }, 1000);
+                    }
+                });
+            }
+        });
+    });
+
+    $('body').on('click', '.Eliminar', function() {
+        alertas('danger', '<h5>Disculpe acción inhabilida temporalmente!</h5>');
+        return;
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectRutId = ObjectTR.attr("rutid");

@@ -8,14 +8,13 @@
         function __construct () {
 			$run = new Method;
         }
-    	public function showInstalaciones(){  
+    	public function showInstalaciones(){
             $run = new Method;
             $UfClass = new Uf(); 
             $UF = $UfClass->getValue();
 
             $ToReturn = array();
             // ROUND(( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0) AS Valor,
-                
             $query = "  SELECT
                             servicios.Id,
                             servicios.Rut,
@@ -32,7 +31,7 @@
                             servicios
                             INNER JOIN personaempresa ON personaempresa.rut = servicios.Rut
                             LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = servicios.Grupo
-                            INNER JOIN mantenedor_tipo_cliente ON personaempresa.tipo_Cliente = mantenedor_tipo_cliente.id 
+                            INNER JOIN mantenedor_tipo_cliente ON personaempresa.tipo_Cliente = mantenedor_tipo_cliente.id
                         WHERE
                             servicios.EstatusFacturacion = 0 
                             AND servicios.CostoInstalacion > 0 
@@ -78,6 +77,7 @@
                             facturas.Rut,
                             facturas.Grupo,
                             facturas.EstatusFacturacion,
+                            facturas.DocumentoIdBsale,
                             mantenedor_tipo_cliente.nombre AS TipoDocumento,
                             facturas.IVA,
                             personaempresa.nombre AS Cliente,
@@ -98,6 +98,7 @@
                         AND facturas.TipoFactura = '2'
                         AND facturas.EstatusFacturacion = '0'
                         AND (facturas.Grupo != 1000 && facturas.Grupo != 1001)
+                        AND facturas.deleted_at IS NULL
                         GROUP BY
                             facturas.Rut,
                             facturas.Grupo,
@@ -122,6 +123,7 @@
                     $data['Valor'] = $factura['Valor'];
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['NombreGrupo'] = $factura['NombreGrupo'];
+                    $data['DocumentoIdBsale'] = $factura['DocumentoIdBsale'];
                     if($factura['EsOC']){
                         $query = "SELECT NumeroOC FROM facturas WHERE Rut = '".$Rut."' AND Grupo = '".$Grupo."' AND EstatusFacturacion = '0' LIMIT 1";
                         $OC = $run->select($query);
@@ -151,6 +153,7 @@
                             facturas.Rut,
                             facturas.Grupo,
                             facturas.EstatusFacturacion,
+                            facturas.DocumentoIdBsale,
                             facturas.NumeroOC,
                             mantenedor_tipo_cliente.nombre AS TipoDocumento,
                             facturas.IVA,
@@ -170,6 +173,7 @@
                             facturas.TipoFactura = '2'
                         AND (facturas.Grupo = 1000 OR facturas.Grupo = 1001)
                         AND facturas.EstatusFacturacion = '0'
+                        AND facturas.deleted_at IS NULL
                         GROUP BY
                             facturas.Id";
 
@@ -189,6 +193,7 @@
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['NombreGrupo'] = $factura['NombreGrupo'];
+                    $data['DocumentoIdBsale'] = $factura['DocumentoIdBsale'];
                     if($factura['EsOC']){
                         if($factura['NumeroOC']){
                             $data['PermitirFactura'] = 1;
@@ -221,6 +226,7 @@
                             facturas.Rut,
                             facturas.Grupo,
                             facturas.EstatusFacturacion,
+                            facturas.DocumentoIdBsale,
                             mantenedor_tipo_cliente.nombre AS TipoDocumento,
                             facturas.IVA,
                             personaempresa.nombre AS Cliente,
@@ -238,6 +244,7 @@
                             facturas_detalle.Valor > 0
                         AND facturas.TipoFactura = '1'
                         AND facturas.EstatusFacturacion = '0'
+                        AND facturas.deleted_at IS NULL
                         GROUP BY
                             facturas.Id";
 
@@ -258,7 +265,7 @@
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['NombreGrupo'] = $factura['NombreGrupo'];
-
+                    $data['DocumentoIdBsale'] = $factura['DocumentoIdBsale'];
                     array_push($ToReturn,$data);
                 }
             }
@@ -284,6 +291,9 @@
             //     )
             // ),0) AS Valor,
             $query = "  SELECT
+                            facturas_detalle.Id AS detalleId,
+                            facturas_detalle.FacturaId AS facturaId,
+                            facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
                             servicios.Id,
                             servicios.Codigo,
                             ( CASE servicios.tipo_moneda WHEN 2 THEN ROUND(( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0)
@@ -307,12 +317,15 @@
                             OR servicios.FacturarSinInstalacion = 1
                         )
                         AND servicios.EstatusFacturacion = 0
-                        AND servicios.CostoInstalacion > 0";
+                        AND servicios.CostoInstalacion > 0
+                        AND facturas_detalle.delete_at IS NULL
+                        AND facturas_detalle.documentDetailIdBsale IS NULL";
 
             $servicios = $run->select($query);
             $array = array();
 
             if($servicios){
+                $totalDetalles = count($servicios);
                 foreach($servicios as $servicio){
                     $data = $servicio;
                     $Valor = $servicio['Valor'];
@@ -320,6 +333,10 @@
                     $Valor += round($IVA,0);
                     // $data['Valor'] = $Valor;
                     $data['Valor'] = $servicio['Valor'];
+                    $data['facturaId'] = $servicio['facturaId'];
+                    $data['detalleId'] = $servicio['detalleId'];
+                    $data['detalleIdBsale'] = $servicio['detalleIdBsale'];
+                    $data['totalDetalles'] = $totalDetalles;
                     array_push($array,$data);
                 }
 
@@ -334,12 +351,15 @@
             $run = new Method;
             if($Grupo == 1000){
                 $query = "  SELECT
+                            facturas_detalle.Id AS detalleId,
                             ROUND((
                                 facturas_detalle.Total
                             ),0) AS Valor,
+                            facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
                             personaempresa.nombre AS Nombre,
                             facturas_detalle.Codigo,
                             facturas_detalle.Concepto,
+                            facturas.Id AS facturaId,
                             facturas.IVA,
                             servicios.Descripcion
                         FROM
@@ -355,12 +375,15 @@
                         AND facturas_detalle.Valor > 0"; 
             }else{
                 $query = "  SELECT
+                facturas_detalle.Id AS detalleId,
                 ROUND((
                     facturas_detalle.Total
                 ),0) AS Valor,
+                facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
                 personaempresa.nombre AS Nombre,
                 facturas_detalle.Codigo,
                 facturas_detalle.Concepto,
+                facturas.Id AS facturaId,
                 facturas.IVA,
                 servicios.Descripcion
             FROM
@@ -379,6 +402,7 @@
             $facturas = $run->select($query);
             $array = array();
             if($facturas){
+                $totalDetalles = count($facturas);
                 foreach($facturas as $factura){
                     $data = $factura;
                     $Valor = $factura['Valor'];
@@ -388,6 +412,9 @@
                     }
                     $data['Concepto'] = $data['Concepto'];
                     $data['Valor'] = $Valor;
+                    $data['facturaId'] = $factura['facturaId'];
+                    $data['detalleId'] = $factura['detalleId'];
+                    $data['totalDetalles'] = $totalDetalles;
                     array_push($array,$data);
                 }
 
@@ -401,6 +428,7 @@
             $run = new Method;
 
             $query = "  SELECT
+                            facturas_detalle.Id AS detalleId,
                             ROUND((
                                 facturas_detalle.Total
                             ),0) AS Valor,
@@ -408,6 +436,7 @@
                             facturas_detalle.Concepto AS Concepto,
                             facturas_detalle.Codigo,
                             facturas_detalle.documentDetailIdBsale,
+                            facturas.Id AS facturaId,
                             facturas.IVA
                         FROM
                             facturas
@@ -420,10 +449,14 @@
             $array = array();
 
             if($facturas){
+                $totalDetalles = count($facturas);
                 foreach($facturas as $factura){
                     $data = $factura;
                     $Valor = $factura['Valor'];
                     $data['Valor'] = $Valor;
+                    $data['facturaId'] = $factura['facturaId'];
+                    $data['detalleId'] = $data['detalleId'];
+                    $data['totalDetalles'] = $totalDetalles;
                     array_push($array,$data);
                 }
 
@@ -959,6 +992,7 @@
                             facturas.TipoFactura = 2
                         AND 
                             facturas_detalle.Valor > 0
+                        AND facturas.deleted_at IS NULL
                         GROUP BY
                             facturas.Rut,
                             facturas.Grupo,
@@ -1004,6 +1038,7 @@
                             facturas.TipoFactura = 1
                         AND 
                             facturas_detalle.Valor > 0
+                        AND facturas.deleted_at IS NULL
                         GROUP BY
                             facturas.Id";
             $facturas = $run->select($query);
@@ -1139,7 +1174,7 @@
 
             echo json_encode($response_array);
         }
-
+        //metodo usado para facturacion y facturacion por lotes
         public function sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,$TipoToken){
             // si se quiere enviar datos de prueba a la api usar el token 2 para pruebas, de lo contrario la cagaras 
             // $TipoToken = 2;
@@ -2891,11 +2926,10 @@
                     $query = "UPDATE facturas SET deleted_at = NOW() WHERE Id = '".$Id."'";
                     $delete = $run->delete($query);
                 }else{
-                    $query = "UPDATE servicios SET CostoInstalacion = 0 WHERE Id = '".$Id."'";
+                    $query = "UPDATE servicios SET CostoInstalacionBackup = servicios.CostoInstalacion, CostoInstalacion = 0 WHERE Id = '".$Id."'";
                     $delete = $run->update($query);
                 }
             }
-
             $response_array['status'] = 1;
             echo json_encode($response_array);
         }
