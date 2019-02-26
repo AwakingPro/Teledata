@@ -38,6 +38,7 @@
                                                 <th class="text-center">Nombre</th>
                                                 <th class="text-center">Descripción</th>
                                                 <th class="text-center">Valor</th>
+                                                <th class="text-center">Acción</th>
                                             </tr>
                                         </thead>
                                         <tbody>
