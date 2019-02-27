@@ -1159,8 +1159,6 @@ $(document).ready(function() {
         });
     });
     $('body').on('click', '.EliminarDetalle', function() {
-        alertas('danger', '<h5>Disculpe acción inhabilida temporalmente!</h5>');
-        return;
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectidDetalle = $(this).attr("id");
@@ -1225,8 +1223,6 @@ $(document).ready(function() {
     });
 
     $('body').on('click', '.Eliminar', function() {
-        alertas('danger', '<h5>Disculpe acción inhabilida temporalmente!</h5>');
-        return;
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectRutId = ObjectTR.attr("rutid");
