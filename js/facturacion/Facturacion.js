@@ -165,7 +165,7 @@ $(document).ready(function() {
                                     // $('.Facturar').prop('disabled', true);
                                     Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                                 }
-                                if(IdUsuarioSession == 104 || IdUsuarioSession == 116){
+                                if(IdUsuarioSession == 109 || IdUsuarioSession == 116){
                                     Icono += '<i title="Eliminar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar" title="" data-container="body"></i>'
                                 }
                                 return "<div style='text-align: center'>" + Icono + "</div>";
