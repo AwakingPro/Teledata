@@ -868,7 +868,7 @@
                             //agrego 1 ano a fecha ultimo cobro
                             $FechaUltimoCobro->add(new DateInterval("P1Y"));
                         }
-                          // luego de agregar un mes al ultimo cobro, comprueba si es <= a hoy
+                          // luego de agregar un mes, 6 meses o 1 año al ultimo cobro, comprueba si es <= a hoy
                         // toca cobrar, paso 1 mes
                         if($FechaUltimoCobro <= $dt){
                             $Rut = $Servicio['Rut'];
