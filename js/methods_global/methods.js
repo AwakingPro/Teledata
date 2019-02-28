@@ -281,7 +281,7 @@ function alertas(type, message) {
 		icon: 'fa fa-check',
 		message: '<h5>' + message + '</h5>',
 		container: 'floating',
-		timer: 3000
+		timer: 6000
 	});
 };
 

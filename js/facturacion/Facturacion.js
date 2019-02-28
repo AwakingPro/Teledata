@@ -1163,6 +1163,8 @@ $(document).ready(function() {
         });
     });
     $('body').on('click', '.fa-undo', function() {
+        alertas('warning', '<h5>En proceso de desarrollo...</h5>');
+        return;
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectidServicio = $(this).attr("id");
@@ -1179,7 +1181,7 @@ $(document).ready(function() {
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#28a745",
-            confirmButtonText: "Eliminar!",
+            confirmButtonText: "Devolver Servicio!",
             cancelButtonText: "Cancelar",
             showLoaderOnConfirm: true,
             closeOnConfirm: false
