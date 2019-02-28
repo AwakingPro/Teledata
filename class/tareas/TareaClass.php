@@ -159,7 +159,7 @@
 
 	    }
 
-	    function storeTarea($Id,$FechaInstalacion,$InstaladoPor,$Comentario,$UsuarioPppoe,$SenalFinal,$EstacionFinal,$Estatus){
+	    function storeTarea($Id,$FechaInstalacion,$InstaladoPor,$Comentario,$UsuarioPppoe,$SenalFinal,$EstacionFinal,$Estatus,$actualizaFechaUltimoCobro){
 
 			$response_array = array();
 			$run = new Method;
@@ -171,7 +171,8 @@
 	        $EstacionFinal = isset($EstacionFinal) ? trim($EstacionFinal) : "";
 	        $SenalFinal = isset($SenalFinal) ? trim($SenalFinal) : "";
 	        $Estatus = isset($Estatus) ? trim($Estatus) : "";
-
+			$actualizaFechaUltimoCobro = isset($actualizaFechaUltimoCobro) ? trim($actualizaFechaUltimoCobro) : "";
+			
 	        if(!empty($FechaInstalacion) && !empty($InstaladoPor) && !empty($UsuarioPppoe) && !empty($EstacionFinal) && !empty($SenalFinal) && !empty($Estatus)){
 
 	        	if($FechaInstalacion){
@@ -314,8 +315,14 @@
 						}
 					}
 				}
-
-				$query = "UPDATE servicios SET FechaInstalacion = '$FechaInstalacion', InstaladoPor = '$InstaladoPor', Comentario = '$Comentario', UsuarioPppoe = '$UsuarioPppoe', EstacionFinal = '$EstacionFinal', SenalFinal = '$SenalFinal', EstatusInstalacion = '$Estatus', FechaUltimoCobro = '$FechaInstalacion' where Id = '$Id'";
+				if($actualizaFechaUltimoCobro == 1){
+					$actualizaFechaUltimoCobro = ", FechaUltimoCobro = '$FechaInstalacion' ";
+				}else{
+					$actualizaFechaUltimoCobro = "";
+				}
+				$query = "UPDATE servicios SET FechaInstalacion = '$FechaInstalacion', InstaladoPor = '$InstaladoPor',
+						Comentario = '$Comentario', UsuarioPppoe = '$UsuarioPppoe', EstacionFinal = '$EstacionFinal',
+						SenalFinal = '$SenalFinal', EstatusInstalacion = '$Estatus' ".$actualizaFechaUltimoCobro."   where Id = '$Id'";
 				$data = $run->update($query);
 				
 				$response_array['Estatus'] = $Estatus;

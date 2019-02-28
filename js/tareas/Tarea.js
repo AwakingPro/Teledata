@@ -479,7 +479,7 @@ $(document).ready(function() {
         var ObjectId = ObjectTR.attr("id");
         var ObjectCode = ObjectTR.find("td").eq(2).text();
         $('#storeTarea').find('input[name="Id"]').val(ObjectId);
-        $('#Codigo').text(ObjectCode);
+        $('.Codigo').text(ObjectCode);
 
         $.ajax({
             type: "POST",
