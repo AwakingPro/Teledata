@@ -267,7 +267,7 @@
                         <input type="hidden" id="Id" name="Id">
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label" for="name">Fecha de Instalación</label>
+                                <label class="control-label" for="name">Fecha de Instalación (Fecha usada para cálculo de los propocionales o mes completo)</label>
                                 <input id="FechaInstalacion" name="FechaInstalacion" validate="not_null"  type="text" placeholder="Seleccione la Fecha de Instalacion" class="form-control date" data-nombre="Fecha de Instalacion">
                             </div>
                         </div>

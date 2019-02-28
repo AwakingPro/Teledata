@@ -765,7 +765,10 @@ $(document).ready(function() {
             success: function(response) {
                 ModalTable.clear().draw()
                 $.each(response.array, function(index, array) {
-                   
+                    
+                    var StyleUndoServicio = 'style="cursor: pointer; margin: 0 10px; font-size:15px;" ';
+                    var UndoServicio = '';
+
                     var StyleEliminarDetalle;
                     var desabilitar;
                     var EliminarDetalle;
@@ -782,7 +785,8 @@ $(document).ready(function() {
                         '' + array.Codigo + '',
                         '' + array.Concepto + '',
                         '' + formatcurrency(array.Valor) + '',
-                        '' + '<i  id='+array.detalleId+' '+StyleEliminarDetalle+' '+desabilitar+' tipo='+2+' facturaId='+array.facturaId+' class="fa fa-trash '+EliminarDetalle+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + ''
+                        '' + '<i  id='+array.detalleId+' '+StyleEliminarDetalle+' '+desabilitar+' tipo='+2+' facturaId='+array.facturaId+' class="fa fa-trash '+EliminarDetalle+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + 
+                             '<i  id='+array.idServicio+' '+StyleUndoServicio+' '+' tipo='+2+' facturaId='+array.facturaId+' class="fa fa-undo '+UndoServicio+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + ''
                         
                     ]).draw(false).node();
 
@@ -1158,6 +1162,69 @@ $(document).ready(function() {
             }
         });
     });
+    $('body').on('click', '.fa-undo', function() {
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectidServicio = $(this).attr("id");
+        var idFactura = $(this).attr("facturaId");
+        // var ObjectGroup = ObjectTR.attr("grupo");
+        var ObjectType = $(this).attr("tipo");
+        console.log(' ID Servicio'+ObjectidServicio);
+        console.log('TIpo '+ ObjectType);
+        console.log('row del detalle '+ObjectTR);
+
+        swal({
+            title: "Seguro quieres Devolver este Servicio?",
+            text: "Confirmar!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            confirmButtonText: "Eliminar!",
+            cancelButtonText: "Cancelar",
+            showLoaderOnConfirm: true,
+            closeOnConfirm: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    type: "POST",
+                    url: "../includes/serviciosControlador/devolverTareaServicioControlador.php",
+                    data: "idServicio=" + ObjectidServicio +"&idFactura="+ idFactura+"&TipoFactura="+ObjectType,
+                    success: function(response) {
+                        // console.log(response); return;
+                        if (response.status == 1) {
+                            ModalTable.row($(ObjectTR))
+                                    .draw();
+                            if (ObjectType == 1) {
+                                console.log('tipo es '+ ObjectType)
+                                getIndividuales();
+                            } 
+                            else if (ObjectType == 2) {
+                                console.log('tipo es '+ ObjectType)
+                                getLotes();
+                            } else {
+                                console.log('tipo es '+ ObjectType)
+                                getInstalaciones();
+                            }
+                            
+                            getTotales();
+                            $('[data-toggle="popover"]').popover();
+                            swal("Éxito!", "El Servicio ha sido Restituido a Tareas Pendientes!", "success");
+
+                        }else {
+                            swal('Solicitud no procesada', response.Message, 'error');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        setTimeout(function() {
+                            var err = JSON.parse(xhr.responseText);
+                            swal('Solicitud no procesada', err.Message, 'error');
+                        }, 1000);
+                    }
+                });
+            }
+        });
+    });
+
     $('body').on('click', '.EliminarDetalle', function() {
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");

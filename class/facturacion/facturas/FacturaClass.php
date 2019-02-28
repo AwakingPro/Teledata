@@ -355,6 +355,7 @@
                             ROUND((
                                 facturas_detalle.Total
                             ),0) AS Valor,
+                            facturas_detalle.IdServicio as idServicio,
                             facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
                             personaempresa.nombre AS Nombre,
                             facturas_detalle.Codigo,
@@ -379,6 +380,7 @@
                 ROUND((
                     facturas_detalle.Total
                 ),0) AS Valor,
+                facturas_detalle.IdServicio as idServicio,
                 facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
                 personaempresa.nombre AS Nombre,
                 facturas_detalle.Codigo,
@@ -406,6 +408,7 @@
                 foreach($facturas as $factura){
                     $data = $factura;
                     $Valor = $factura['Valor'];
+                    $data['idServicio'] = $factura['idServicio'];
                     $data['Codigo'] = $data['Codigo'];
                     if($data['Descripcion']){
                         $data['Concepto'] .=  ' - '.$data['Descripcion'];
@@ -415,6 +418,7 @@
                     $data['facturaId'] = $factura['facturaId'];
                     $data['detalleId'] = $factura['detalleId'];
                     $data['totalDetalles'] = $totalDetalles;
+                    
                     array_push($array,$data);
                 }
 
