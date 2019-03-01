@@ -1934,7 +1934,7 @@
                 $endDate = $dt->format('Y-m-d');
                 $query .= " AND facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'";
             }
-            if($Rut){
+            if($Rut || $Rut == 0){
                 $query .= " AND facturas.Rut = '".$Rut."'";
             }
             if($documentType){
