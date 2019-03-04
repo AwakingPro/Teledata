@@ -91,7 +91,9 @@ $(document).ready(function() {
     
 
     function getServicios() {
+        $('.dataServicios').html('<div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div>');
         $.post('../ajax/cliente/dataCliente.php', { rut: $('select[name="Rut"]').selectpicker('val') }, function(data) {
+            $('.dataServicios').html('');
             values = $.parseJSON(data);
             $('.dataServicios').html(values[1]);
             $('select[name="TipoFactura"]').empty()

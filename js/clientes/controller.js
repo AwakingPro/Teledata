@@ -149,14 +149,11 @@ $(document).ready(function() {
         
         var RUT = $('#servicio_rut_dv').val();
         var rut = RUT.split('-');
-        
+        $('.dataServicios').html('<div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div>');
         $.post('../ajax/cliente/dataCliente.php', { rut: rut[0] }, function(data) {
             $('.dataContactos').html('<div style="text-align:center; font-size:15px;">Guardando Contacto...</div><div class="spinner loading"></div>');
-            
+            $('.dataServicios').html('');
             values = $.parseJSON(data);
-            if(values){
-
-            }
             $('.dataServicios').html(values[1]);
             var count = $('.dataServicios > .tabeData tr th').length - 1;
             $('.dataServicios > .tabeData').DataTable({
