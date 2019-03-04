@@ -177,7 +177,7 @@
                                                         <th class="text-center">Acción</th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
+                                                <tbody class="LoteTableLoader">
                                                 </tbody>
                                             </table>
                                         </div>
@@ -216,7 +216,7 @@
                                                             <th class="text-center">Acción</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody class="IndividualTableLoader">
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -256,7 +256,7 @@
                                                             <th class="text-center">Acción</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody class="InstalacionTableLoader">
                                                     </tbody>
                                                 </table>
                                             </div>

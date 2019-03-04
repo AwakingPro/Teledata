@@ -105,8 +105,11 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "../includes/facturacion/facturas/showLotes.php",
+            beforeSend: function( ) {
+                $('.LoteTableLoader').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+              },
             success: function(response) {
-
+                $('.LoteTableLoader').html('');
                 LoteTable = $('#LoteTable').DataTable({
                     order: [
                         [2, 'desc']
@@ -196,19 +199,23 @@ $(document).ready(function() {
                     }
                 });
             }
-        });
-        setTimeout(() => {
-            $('[data-toggle="popover"]').popover();
-        }, 1000);
-        $('body').addClass('loaded');
-        $('table').css('width', '100%');
+        }).done(function( data ) {
+            setTimeout(() => {
+                $('[data-toggle="popover"]').popover();
+            }, 1000);
+            $('body').addClass('loaded');
+            $('table').css('width', '100%');
+          });
     }
     function getInstalaciones(){
         $.ajax({
             type: "POST",
             url: "../includes/facturacion/facturas/showInstalaciones.php",
+            beforeSend: function( ) {
+                $('.InstalacionTableLoader').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+              },
             success: function(response) {
-
+                $('.InstalacionTableLoader').html('');
                 InstalacionTable = $('#InstalacionTable').DataTable({
                     order: [
                         [1, 'desc']
@@ -277,19 +284,23 @@ $(document).ready(function() {
                     }
                 });
             }
-        });
-        setTimeout(() => {
-            $('[data-toggle="popover"]').popover();
-        }, 1000);
-        $('body').addClass('loaded');
-        $('table').css('width', '100%');
+        }).done(function( data ) {
+            setTimeout(() => {
+                $('[data-toggle="popover"]').popover();
+            }, 1000);
+            $('body').addClass('loaded');
+            $('table').css('width', '100%');
+          });
     }
     function getIndividuales(){
         $.ajax({
             type: "POST",
             url: "../includes/facturacion/facturas/showIndividuales.php",
+            beforeSend: function( ) {
+                $('.IndividualTableLoader').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+              },
             success: function(response) {
-
+                $('.IndividualTableLoader').html('');
                 IndividualTable = $('#IndividualTable').DataTable({
                     order: [
                         [1, 'desc']
@@ -365,266 +376,18 @@ $(document).ready(function() {
                     }
                 });
             }
-        });
-        setTimeout(() => {
-            $('[data-toggle="popover"]').popover();
-        }, 1000);
-        $('body').addClass('loaded');
-        $('table').css('width', '100%');
+        }).done(function( data ) {
+            setTimeout(() => {
+                $('[data-toggle="popover"]').popover();
+            }, 1000);
+            $('body').addClass('loaded');
+            $('table').css('width', '100%');
+          });
     }
     function getTables() {
-
-        $.ajax({
-            type: "POST",
-            url: "../includes/facturacion/facturas/showInstalaciones.php",
-            success: function(response) {
-
-                InstalacionTable = $('#InstalacionTable').DataTable({
-                    order: [
-                        [1, 'desc']
-                    ],
-                    data: response.array,
-                    columns: [
-                        { data: 'TipoDocumento' },
-                        { data: 'Cliente' },
-                        { data: 'Rut' },
-                        { data: 'NombreGrupo' },
-                        { data: 'Valor' },
-                        { data: 'Tipo' },
-                    ],
-                    destroy: true,
-                    'createdRow': function(row, data, dataIndex) {
-                        $(row)
-                            .attr('rutid', data.Id)
-                            .attr('grupo', data.Grupo)
-                            .attr('tipo', 3)
-                            .addClass('text-center')
-                    },
-                    "columnDefs": [{
-                            "targets": 4,
-                            "render": function(data, type, row) {
-                                value = formatcurrency(data)
-                                return "<div style='text-align: center'>" + value + "</div>";
-                            }
-                        },
-                        {
-                            "targets": 5,
-                            "render": function(data, type, row) {
-                                Icono = '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar"  data-container="body"></i>'
-                                Icono += '<i title="Detalles servicio" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarInstalacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar"  data-container="body"></i>'
-                                //temporal
-                                //comentar el prop y sustituir el not-allowed por pointer de Facturar luego de que se puedan enviar correos 
-                                // $('.Facturar').prop('disabled', true);
-                                Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar"  data-container="body"></i>'
-                                if(IdUsuarioSession == 109 || IdUsuarioSession == 116){
-                                    Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>'
-                                }
-                                return "<div style='text-align: center'>" + Icono + "</div>";
-                            }
-                        },
-                    ],
-                    language: {
-                        processing: "Procesando ...",
-                        search: 'Buscar',
-                        lengthMenu: "Mostrar _MENU_ Registros",
-                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
-                        infoFiltered: "(filtrada de _MAX_ registros en total)",
-                        infoPostFix: "",
-                        loadingRecords: "...",
-                        zeroRecords: "No se encontraron registros coincidentes",
-                        emptyTable: "No hay datos disponibles en la tabla",
-                        paginate: {
-                            first: "Primero",
-                            previous: "Anterior",
-                            next: "Siguiente",
-                            last: "Ultimo"
-                        },
-                        aria: {
-                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
-                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
-                        }
-                    }
-                });
-            }
-        });
-
-        $.ajax({
-            type: "POST",
-            url: "../includes/facturacion/facturas/showLotes.php",
-            success: function(response) {
-
-                LoteTable = $('#LoteTable').DataTable({
-                    order: [
-                        [2, 'desc']
-                    ],
-                    "columnDefs": [{
-                        "targets": [0],
-                        "orderable": false
-                    }],
-                    data: response.array,
-                    columns: [
-                        { data: 'Id' },
-                        { data: 'TipoDocumento' },
-                        { data: 'Cliente' },
-                        { data: 'Rut' },
-                        { data: 'NombreGrupo' },
-                        { data: 'Valor' },
-                        { data: 'EstatusFacturacion' }
-                    ],
-                    destroy: true,
-                    'createdRow': function(row, data, dataIndex) {
-                        $(row)
-                            .attr('rutid', data.Id)
-                            .attr('grupo', data.Grupo)
-                            .attr('tipo', 2)
-                            .addClass('text-center')
-                    },
-                    "columnDefs": [{
-                            "targets": 0,
-                            "render": function(data, type, row) {
-                                if(row.PermitirFactura == 1){
-                                    Check = '<input name="select_check" id="select_check_' + data + '" type="checkbox" />'
-                                }else{
-                                    Check = ''
-                                }
-                                return "<div style='text-align: center'>" + Check + "</div>";
-                            }
-                        },
-                        {
-                            "targets": 5,
-                            "render": function(data, type, row) {
-                                value = formatcurrency(data)
-                                return "<div style='text-align: center'>" + value + "</div>";
-                            }
-                        },
-                        {
-                            "targets": 6,
-                            "render": function(data, type, row) {
-                                Icono = '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
-                                Icono += '<i title="Detalles servicios" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarLote" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
-                                Icono += '<i title="Orden de compra" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-list-alt OC" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Orden de Compra" title="" data-container="body"></i>'
-                                Icono += '<i title="Agregar Referencia" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-info-circle Referencia" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Referencia" title="" data-container="body"></i>'
-                                if(row.PermitirFactura == 1){
-                                    //temporal
-                                    //comentar el prop y sustituir el not-allowed por pointer de Facturar luego de que se puedan enviar correos 
-                                    // $('.Facturar').prop('disabled', true);
-                                    Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
-                                }
-                                if(IdUsuarioSession == 109 || IdUsuarioSession == 116){
-                                    Icono += '<i title="Eliminar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar" title="" data-container="body"></i>'
-                                }
-                                return "<div style='text-align: center'>" + Icono + "</div>";
-                            }
-                        },
-                    ],
-                    language: {
-                        processing: "Procesando ...",
-                        search: 'Buscar',
-                        lengthMenu: "Mostrar _MENU_ Registros",
-                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
-                        infoFiltered: "(filtrada de _MAX_ registros en total)",
-                        infoPostFix: "",
-                        loadingRecords: "...",
-                        zeroRecords: "No se encontraron registros coincidentes",
-                        emptyTable: "No hay datos disponibles en la tabla",
-                        paginate: {
-                            first: "Primero",
-                            previous: "Anterior",
-                            next: "Siguiente",
-                            last: "Ultimo"
-                        },
-                        aria: {
-                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
-                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
-                        }
-                    }
-                });
-            }
-        });
-
-        $.ajax({
-            type: "POST",
-            url: "../includes/facturacion/facturas/showIndividuales.php",
-            success: function(response) {
-
-                IndividualTable = $('#IndividualTable').DataTable({
-                    order: [
-                        [1, 'desc']
-                    ],
-                    "columnDefs": [{
-                        "targets": [0],
-                        "orderable": false
-                    }],
-                    data: response.array,
-                    columns: [
-                        { data: 'TipoDocumento' },
-                        { data: 'Cliente' },
-                        { data: 'Rut' },
-                        { data: 'NombreGrupo' },
-                        { data: 'Valor' },
-                        { data: 'EstatusFacturacion' }
-                    ],
-                    destroy: true,
-                    'createdRow': function(row, data, dataIndex) {
-                        $(row)
-                            .attr('rutid', data.Id)
-                            .attr('grupo', data.Grupo)
-                            .attr('tipo', 1)
-                            .addClass('text-center')
-                    },
-                    "columnDefs": [{
-                            "targets": 4,
-                            "render": function(data, type, row) {
-                                value = formatcurrency(data)
-                                return "<div style='text-align: center'>" + value + "</div>";
-                            }
-                        },
-                        {
-
-                            "targets": 5,
-                            "render": function(data, type, row) {
-                                Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
-                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarIndividual" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
-                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-list-alt OC" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Orden de Compra" title="" data-container="body"></i>'
-                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-info-circle Referencia" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Referencia" title="" data-container="body"></i>'
-                                //temporal
-                                //comentar el prop y sustituir el not-allowed por pointer de Facturar luego de que se puedan enviar correos 
-                                // $('.Facturar').prop('disabled', true);
-                                Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
-                                if(IdUsuarioSession == 109 || IdUsuarioSession == 116){
-                                    Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar" title="" data-container="body"></i>'
-                                }
-                                return "<div style='text-align: center'>" + Icono + "</div>";
-                            }
-                        },
-                    ],
-                    language: {
-                        processing: "Procesando ...",
-                        search: 'Buscar',
-                        lengthMenu: "Mostrar _MENU_ Registros",
-                        info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
-                        infoEmpty: "Mostrando 0 a 0 de 0 Registros",
-                        infoFiltered: "(filtrada de _MAX_ registros en total)",
-                        infoPostFix: "",
-                        loadingRecords: "...",
-                        zeroRecords: "No se encontraron registros coincidentes",
-                        emptyTable: "No hay datos disponibles en la tabla",
-                        paginate: {
-                            first: "Primero",
-                            previous: "Anterior",
-                            next: "Siguiente",
-                            last: "Ultimo"
-                        },
-                        aria: {
-                            sortAscending: ": habilitado para ordenar la columna en orden ascendente",
-                            sortDescending: ": habilitado para ordenar la columna en orden descendente"
-                        }
-                    }
-                });
-            }
-        });
+        getLotes();
+        getIndividuales();
+        getInstalaciones();
         setTimeout(() => {
             $('[data-toggle="popover"]').popover();
         }, 1000);
