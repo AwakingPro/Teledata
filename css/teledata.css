@@ -150,6 +150,25 @@ div.bg-img{
   border-radius: 100%;
   animation: rotation .7s infinite linear;
 }
+.spinner.loading-min {
+	/* padding: 50px; */
+	position: relative;
+	text-align: center;
+}
+.spinner.loading-min:before {
+	content: "";
+	/* height: 80px; */
+	/* width: 80px; */
+	margin: -18px auto auto 68px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	border-width: 8px;
+	border-style: solid;
+	border-color: #2180c0 #ccc #ccc;
+	border-radius: 100%;
+	animation: rotation .7s infinite linear;
+}
 
 @keyframes rotation {
   from {
