@@ -481,7 +481,7 @@ $(document).ready(function() {
     });
 
     $('body').on('click', '.VisualizarInstalacion', function() {
-
+        $('#modalShow').modal('show')
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectRutId = ObjectTR.attr("rutid");
@@ -489,9 +489,12 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "../includes/facturacion/facturas/showInstalacion.php",
+            beforeSend: function( ) {
+                $('.ModalTableBody').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+              },
             data: "id=" + ObjectRutId,
             success: function(response) {
-
+                $('.ModalTableBody').html('');
                 ModalTable.clear().draw()
 
                 $.each(response.array, function(index, array) {
@@ -531,7 +534,7 @@ $(document).ready(function() {
     });
 
     $('body').on('click', '.VisualizarLote', function() {
-
+        $('#modalShow').modal('show')
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
          // globalObjectTRLote para usarla al eliminar un detalle
@@ -542,9 +545,13 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "../includes/facturacion/facturas/showLote.php",
+            beforeSend: function( ) {
+                $('.ModalTableBody').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+              },
             data: "rut=" + ObjectRutId + "&grupo=" + ObjectGroup,
             success: function(response) {
-                ModalTable.clear().draw()
+            $('.ModalTableBody').html('');
+            ModalTable.clear().draw()
                 $.each(response.array, function(index, array) {
                     
                     var StyleUndoServicio = 'style="cursor: pointer; margin: 0 10px; font-size:15px;" ';
@@ -588,7 +595,7 @@ $(document).ready(function() {
     });
 
     $('body').on('click', '.VisualizarIndividual', function() {
-
+        $('#modalShow').modal('show')
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         var ObjectId = ObjectTR.attr("rutid");
@@ -596,11 +603,13 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "../includes/facturacion/facturas/showIndividual.php",
+            beforeSend: function( ) {
+                $('.ModalTableBody').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+              },
             data: "id=" + ObjectId,
             success: function(response) {
-
+                $('.ModalTableBody').html('');
                 ModalTable.clear().draw()
-
                 $.each(response.array, function(index, array) {
                     var StyleEliminarDetalle;
                     var desabilitar;

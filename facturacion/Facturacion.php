@@ -41,7 +41,7 @@
                                                 <th class="text-center">Acción</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="ModalTableBody">
                                         </tbody>
                                     </table>
                                 </div>
