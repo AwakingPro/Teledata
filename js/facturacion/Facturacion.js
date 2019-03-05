@@ -95,6 +95,12 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "../includes/facturacion/facturas/getTotalesIndividual.php",
+            beforeSend: function( ) {
+                $('#totalFacturasIndividual').html('<div class="spinner loading-min"></div>');
+                $('#cantidadFacturasIndividual').html('<div class="spinner loading-min"></div>');
+                $('#totalBoletasIndividual').html('<div class="spinner loading-min"></div>');
+                $('#cantidadBoletasIndividual').html('<div class="spinner loading-min"></div>');
+              },
             success: function(response) {
                 totalFacturas = response.totalFacturas
                 cantidadFacturas = response.cantidadFacturas
