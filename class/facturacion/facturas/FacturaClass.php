@@ -1934,7 +1934,7 @@
                 $endDate = $dt->format('Y-m-d');
                 $query .= " AND facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'";
             }
-            if($Rut || $Rut == 0){
+            if($Rut || $Rut == 0 && !$startDate && !$NumeroDocumento){
                 $query .= " AND facturas.Rut = '".$Rut."'";
             }
             if($documentType){
@@ -1944,7 +1944,6 @@
                 $query .= " AND facturas.NumeroDocumento = '".$NumeroDocumento."'";
             }
             $facturas = $run->select($query);
-
             if($facturas){
                 foreach($facturas as $factura){
                     $SaldoConNotaCredito = 0;
