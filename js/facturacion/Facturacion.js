@@ -74,6 +74,12 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "../includes/facturacion/facturas/getTotalesLote.php",
+            beforeSend: function( ) {
+                $('#totalFacturasLote').html('<div class="spinner loading-min"></div>');
+                $('#cantidadFacturasLote').html('<div class="spinner loading-min"></div>');
+                $('#totalBoletasLote').html('<div class="spinner loading-min"></div>');
+                $('#cantidadBoletasLote').html('<div class="spinner loading-min"></div>');
+              },
             success: function(response) {
                 totalFacturas = response.totalFacturas
                 cantidadFacturas = response.cantidadFacturas
