@@ -79,27 +79,6 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "../includes/facturacion/facturas/getTotalesLote.php",
-            beforeSend: function( ) {
-                $('#totalFacturasLote').html('<div class="spinner loading-min"></div>');
-                $('#cantidadFacturasLote').html('<div class="spinner loading-min"></div>');
-                $('#totalBoletasLote').html('<div class="spinner loading-min"></div>');
-                $('#cantidadBoletasLote').html('<div class="spinner loading-min"></div>');
-              },
-            success: function(response) {
-                totalFacturas = response.totalFacturas
-                cantidadFacturas = response.cantidadFacturas
-                totalBoletas = response.totalBoletas
-                cantidadBoletas = response.cantidadBoletas
-                $('#totalFacturasLote').text(formatcurrency(totalFacturas))
-                $('#cantidadFacturasLote').text(cantidadFacturas)
-                $('#totalBoletasLote').text(formatcurrency(totalBoletas))
-                $('#cantidadBoletasLote').text(cantidadBoletas)
-            }
-        });
-
-        $.ajax({
-            type: "POST",
             url: "../includes/facturacion/facturas/getTotalesIndividual.php",
             beforeSend: function( ) {
                 $('#totalFacturasIndividual').html('<div class="spinner loading-min"></div>');
@@ -116,6 +95,27 @@ $(document).ready(function() {
                 $('#cantidadFacturasIndividual').text(cantidadFacturas)
                 $('#totalBoletasIndividual').text(formatcurrency(totalBoletas))
                 $('#cantidadBoletasIndividual').text(cantidadBoletas)
+            }
+        });
+        
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/getTotalesLote.php",
+            beforeSend: function( ) {
+                $('#totalFacturasLote').html('<div class="spinner loading-min"></div>');
+                $('#cantidadFacturasLote').html('<div class="spinner loading-min"></div>');
+                $('#totalBoletasLote').html('<div class="spinner loading-min"></div>');
+                $('#cantidadBoletasLote').html('<div class="spinner loading-min"></div>');
+              },
+            success: function(response) {
+                totalFacturas = response.totalFacturas
+                cantidadFacturas = response.cantidadFacturas
+                totalBoletas = response.totalBoletas
+                cantidadBoletas = response.cantidadBoletas
+                $('#totalFacturasLote').text(formatcurrency(totalFacturas))
+                $('#cantidadFacturasLote').text(cantidadFacturas)
+                $('#totalBoletasLote').text(formatcurrency(totalBoletas))
+                $('#cantidadBoletasLote').text(cantidadBoletas)
             }
         });
     }
