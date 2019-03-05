@@ -59,6 +59,12 @@ $(document).ready(function() {
         $.ajax({
             type: "POST",
             url: "../includes/facturacion/facturas/getTotalesInstalacion.php",
+            beforeSend: function( ) {
+                $('#totalFacturasInstalacion').html('<div class="spinner loading-min"></div>');
+                $('#cantidadFacturasInstalacion').html('<div class="spinner loading-min"></div>');
+                $('#totalBoletasInstalacion').html('<div class="spinner loading-min"></div>');
+                $('#cantidadBoletasInstalacion').html('<div class="spinner loading-min"></div>');
+              },
             success: function(response) {
                 totalFacturas = response.totalFacturas
                 cantidadFacturas = response.cantidadFacturas
