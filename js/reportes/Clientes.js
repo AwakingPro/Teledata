@@ -20,8 +20,13 @@ $(document).ready(function(){
         var endDate = $("#date-range .input-daterange input[name='end']").val();
         var rut = $('select[name="rutCliente"]').selectpicker('val');
         
-        // console.log(rut);
+        console.log(tipo_informe);
         if (tipo_informe != '') {
+            if(tipo_informe == '0'){
+                url = "../ajax/informes/exportarExcelClientesServicios.php?startDate="+startDate+"&endDate="+endDate+"&rut="+rut;
+                window.open(url, '_blank');
+            }
+
             if(tipo_informe == '1'){
                 url = "../ajax/informes/exportarExcelCliente.php?startDate="+startDate+"&endDate="+endDate+"&rut="+rut;
                 window.open(url, '_blank');
