@@ -46,18 +46,19 @@
                                                     <div class="select">
                                                         <select class="selectpicker form-control" id="tipo_informe" name="tipo_informe" data-live-search="true" data-container="body">
                                                             <option value="">Seleccione</option>
-                                                            <option value="1">Informe Clientes</option>
-                                                            <option value="2">Informe de Pagos Mensuales y Anuales</option>
-                                                            <option value="3">Informe Cobranza de clientes</option>
-                                                            <option value="4" disabled="disabled">Informe de Pagos por Cliente</option>
-                                                            <option value="5" disabled="disabled">Informe Estado de Clientes</option>
-                                                            <option value="6" >Libro de Ventas</option>
-                                                            <option value="7" disabled="disabled">Libro de Compras</option>
-                                                            <option value="8" disabled="disabled">Informe de Pago de Proveedores</option>
-                                                            <option value="9" disabled="disabled">Informe otros Egresos</option>
+															<option value="0" disabled="disabled">Informe clientes con servicios</option>
+                                                            <option value="1">Informe clientes</option>
+                                                            <option value="2">Informe pagos mensuales y anuales</option>
+                                                            <option value="3">Informe cobranza de clientes</option>
+                                                            <option value="4" disabled="disabled">Informe pagos por cliente</option>
+                                                            <option value="5" disabled="disabled">Informe estado de clientes</option>
+                                                            <option value="6" >Libro de ventas</option>
+                                                            <option value="7" disabled="disabled">Libro de compras</option>
+                                                            <option value="8" disabled="disabled">Informe pago de proveedores</option>
+                                                            <option value="9" disabled="disabled">Informe otros egresos</option>
                                                             <option value="10" disabled="disabled">Informe graficado de ingresos v/s egreso</option>
-                                                            <option value="11" disabled="disabled">Comparativo tipo de Egreso</option>
-                                                            <option value="12" disabled="disabled">Gráficos Comparativos</option>
+                                                            <option value="11" disabled="disabled">Comparativo tipo de egreso</option>
+                                                            <option value="12" disabled="disabled">Gráficos comparativos</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -118,34 +119,30 @@
 
 
 		<!-- Modal -->
-<div class="modal fade" id="MontoTotal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Monto total a Facturar</h4>
-      </div>
-      <div class="modal-body">
-        <h3>Total de Facturas:</h3>
-        <span style="font-size: 25px" class="cantFacturas"></span><span style="font-size: 25px"> Facturas</span>
-        <h3>Monto total a facturar :</h3>
-        <span style="font-size: 25px" class="montoTotal"></span><span style="font-size: 25px"> $</span>
+		<div class="modal fade" id="MontoTotal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel">Monto total a Facturar</h4>
+				</div>
+				<div class="modal-body">
+					<h3>Total de Facturas:</h3>
+					<span style="font-size: 25px" class="cantFacturas"></span><span style="font-size: 25px"> Facturas</span>
+					<h3>Monto total a facturar :</h3>
+					<span style="font-size: 25px" class="montoTotal"></span><span style="font-size: 25px"> $</span>
 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary">Save changes</button>
+				</div>
+				</div>
+			</div>
+		</div>
 
 		<script src="../js/jquery-2.2.1.min.js"></script>
 		<script src="../js/bootstrap.min.js"></script>
-
 		<script src="../plugins/bootbox/bootbox.min.js"></script>
 		<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 		<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
@@ -153,7 +150,7 @@
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/numbers/jquery.number.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-		<script src="../plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>input-daterange
+		<script src="../plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js"></script>
 		<script src="../js/reportes/Clientes.js"></script>
 	</body>
 </html>

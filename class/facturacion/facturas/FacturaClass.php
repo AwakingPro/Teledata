@@ -274,7 +274,6 @@
 
             echo json_encode($response_array);
         }
-
         public function showInstalacion($Id){            
 
             $run = new Method;
@@ -302,7 +301,7 @@
                             --     servicios.CostoInstalacion  - 
                             --     (( servicios.CostoInstalacion ) * (  servicios.CostoInstalacionDescuento / 100 ))), 0) AS Valor,
                             -- ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE servicios.Descripcion END ) AS Nombre,
-                            ( CASE  WHEN facturas_detalle.Concepto IS NULL THEN servicios.Descripcion ELSE facturas_detalle.Concepto END ) AS Nombre,
+                            ( CASE  WHEN servicios.Descripcion = '' THEN 'Costo de instalación / Habilitación' ELSE servicios.Descripcion END ) AS Nombre,
                             mantenedor_tipo_factura.descripcion AS Descripcion
                         FROM
                             servicios
@@ -1291,6 +1290,7 @@
                 $Valor = floatval($Detalle['Valor']);
                 if(isset($Detalle['Descripcion'])){
                     if($Detalle['Descripcion']){
+                        if($Tipo == 1 || $Tipo == 2)
                         $Detalle['Concepto'] .=  ' - '.$Detalle['Descripcion'];
                     }
                 }
@@ -2276,7 +2276,7 @@
                     $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.Referencia, servicios.Descripcion
                                 FROM facturas 
                                 INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id
-                                INNER JOIN servicios ON servicios.Id = facturas_detalle.IdServicio
+                                LEFT JOIN servicios ON servicios.Id = facturas_detalle.IdServicio
                                 WHERE facturas.Id = '".$RutId."'
                                 AND facturas.EstatusFacturacion = 0
                                 AND facturas_detalle.Valor > 0";
@@ -2297,7 +2297,7 @@
                                 .$Concat;
                     $NombrePdf = $RutId.'_'.$Grupo.'_'.$Tipo;
                 }else{
-                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto, 0 as Referencia
+                    $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, ( CASE  WHEN  servicios.Descripcion = '' THEN 'Costo de instalación / Habilitación' ELSE servicios.Descripcion END ) AS Concepto, 0 as Referencia
                                 FROM servicios 
                                 LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
                                 WHERE servicios.Id = '".$RutId."'
