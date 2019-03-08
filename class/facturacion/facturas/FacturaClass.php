@@ -274,6 +274,7 @@
 
             echo json_encode($response_array);
         }
+        // muestra detalles de las instalaciones
         public function showInstalacion($Id){            
 
             $run = new Method;
@@ -2438,7 +2439,7 @@
                             $update = $run->update($query);
                             $dataClient = array();
                             // $dataClient['correos'] = 'dangel@teledata.cl';
-                            $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl';
+                            $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, dangel@teledata.cl';
                             $dataClient['asunto'] = 'Nota de Crédito #'.$NumeroDocumento .' Doc. Referencia ';
                             $dataClient['UrlPdf'] = $UrlPdf;
                             $dataClient['TipoDoc'] = 'Nota de Crédito';
@@ -2979,7 +2980,7 @@
             }
             
         }
-
+        // metodo para sincronizar fac de bsale al ERP
         public function sincronizarConBsale(){
             $run = new Method;
             $query = "SELECT token_produccion as access_token FROM variables_globales";
@@ -3014,8 +3015,7 @@
             curl_close($session);
             $DocumentosBsale = json_decode($response, true);
             $dataClient = array();
-            // $dataClient['correos'] = 'dangel@teledata.cl';
-            $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl';
+            $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, dangel@teledata.cl';
             $dataClient['asunto'] = '';
             $dataClient['MensajeCorreo'] = '';
             $ContadorFacActualiza = 0;
@@ -3181,9 +3181,34 @@
 
             if($ContadorFacActualiza || $ContadorFacInserta){
                 $respCorreo = $run->enviarCorreos(2, $dataClient);
-                echo 'Insert Fac O Upd '.$respCorreo; echo "\n";
+                // echo 'Insert Fac O Upd '.$respCorreo; echo "\n";
             }
 
+            // para saber si existen facturas desde bsale con TipoFactura = 4 significa que deben actualizar ese campo
+            // a TipoFactura = 1 es para facturas de servicios individuales, 2 es para facturas de servicios que pueden ser con grupo, 
+            // grupo con oc, sin grupo, estas saldran en por facturacion por lotes o TipoFactura = 3 es para facturas de Instalacion individuales
+            // esto es necesario para analizar de manera mas comoda los informes facturas de servicios 
+            $queryTipoFac = "SELECT * FROM facturas WHERE TipoFactura = 4";
+            $FacturaTipo = $run->select($queryTipoFac);
+            if($FacturaTipo){
+                $TotalFacs = count($FacturaTipo);
+                $dataClient['TotalTipoFac'] = $TotalFacs;
+                $dataClient['asunto'] = 'Cambiar Campo TipoFactura = 4 en la BD';
+                $dataClient['MensajeCorreo'] = 'Se encontraron '.$TotalFacs;
+                $dataClient['MensajeCorreo'] .= ' Facturas con el campo TipoFactura = 4, esto ocurre por defecto al sincronizar las facturas de bsale que no se encuentran en la BD del ERP, por favor pongase en contacto con el administrador de la BD para que modifique el valor, gracias.';
+                $dataClient['Subtitulo'] = 'Cambiar Campo(s) TipoFactura = 4 en la BD.';
+                $dataClient['Subtitulo2'] = '<h4>Uso del campo TipoFactura</h4>';
+                $dataClient['Parrafo'][0] = '<p>1 - En la tabla de facturas el TipoFactura = 1 es para facturas de servicios individuales generados por nota de venta, estas saldran en facturacion individual</p>';
+                $dataClient['Parrafo'][1] = '<p>2 - En la tabla de facturas el TipoFactura = 2 es para facturas de servicios que pueden ser con grupo, grupo con oc, sin grupo, estas saldran en facturacion por lotes</p>';
+                $dataClient['Parrafo'][2] = '<p>3 - En la tabla de facturas el TipoFactura = 3 es para facturas de Instalacion individuales generados por nota de venta, estas saldran en facturacion individual</p>';
+                $dataClient['Parrafo'][3] = '<p>4 - En la tabla de facturas el TipoFactura = 4 fue encontrada en bsale pero no en el ERP y por lo tanto fue sincronizada.</p>';	
+                $dataClient['Parrafo'][4] = '<p style="text-align:center !important;"><a href="http://teledata.cl/" target="_blank"><img style="display:center !important; float:center !important;" src="http://teledata.cl/images_web/logo-teledata-200.png" /></a></p>';
+                // echo '<pre>'; print_r($dataClient); echo '</pre>';
+                // exit;
+                $html = $run->plantillaCorreo($dataClient);
+                $dataClient['HTML'] = $html;
+                $respCorreo = $run->enviarCorreos(3, $dataClient);
+            }
             $dataClient['asunto'] = '';
             $dataClient['MensajeCorreo'] = '';
             $contadorDevolucion = 0;
@@ -3268,7 +3293,7 @@
             }
             if($contadorDevolucion || $contadorErrorDevolucion || $contadorActulizaDevolucion){
                 $respCorreo = $run->enviarCorreos(2, $dataClient);
-                echo '$contadorDevolucion || $contadorErrorDevolucion || $contadorActulizaDevolucion '.$respCorreo; echo "\n";
+                // echo '$contadorDevolucion || $contadorErrorDevolucion || $contadorActulizaDevolucion '.$respCorreo; echo "\n";
             }
             
 
