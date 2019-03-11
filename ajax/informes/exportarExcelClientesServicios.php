@@ -19,21 +19,22 @@ $objPHPExcel->getProperties()
 // Agregar Informacion
 $objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('A1', 'Nº')
-	->setCellValue('B1', 'Nombre De Cliente')
-	->setCellValue('C1', 'Documento')
-	->setCellValue('D1', 'Nº Doc')
-	->setCellValue('E1', 'Fecha Doc')
-	->setCellValue('F1', 'Total Doc')
-	->setCellValue('G1', 'Saldo Doc')
-    ->setCellValue('H1', 'Saldo a favor')
-    ->setCellValue('I1', 'Fecha de Pago')
-    ->setCellValue('J1', 'Glosa')
-    ->setCellValue('K1', 'Nº Relación');
+	->setCellValue('B1', 'Razón social')
+	->setCellValue('C1', 'Rut')
+	->setCellValue('D1', 'DV')
+	->setCellValue('E1', 'Documento')
+	->setCellValue('F1', 'Nº doc')
+	->setCellValue('G1', 'Fecha doc')
+	->setCellValue('H1', 'Total doc')
+	->setCellValue('I1', 'Saldo doc')
+    ->setCellValue('J1', 'Saldo a favor')
+    ->setCellValue('K1', 'Fecha de pago')
+    ->setCellValue('L1', 'Detalle del documento');
 
 // filtros
-$objPHPExcel->getActiveSheet()->setAutoFilter("A1:K1");
+$objPHPExcel->getActiveSheet()->setAutoFilter("A1:M1");
 
-foreach (range(0, 10) as $col) {
+foreach (range(0, 11) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 $FechaExcel = '';
@@ -56,7 +57,9 @@ $run = new Method;
             $ToReturn = array();
             $query = "  SELECT
                 personaempresa.nombre AS Cliente,
+                personaempresa.dv as DV,
                 facturas.Id,
+                facturas.Rut,
                 facturas.NumeroDocumento,
                 facturas.FechaFacturacion,
                 facturas.FechaVencimiento,
@@ -65,9 +68,7 @@ $run = new Method;
                 facturas.IVA,
                 facturas.EstatusFacturacion,
                 IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalSaldo,
-                -- facturas_pagos.Detalle as Detalle 
                 mantenedor_tipo_pago.nombre as Detalle 
-                -- ( SELECT Detalle FROM facturas_pagos WHERE FacturaId = facturas.Id ) AS Detalle 
             FROM
                 facturas
                 INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id
@@ -75,7 +76,8 @@ $run = new Method;
                 LEFT JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
                 LEFT JOIN mantenedor_tipo_pago ON mantenedor_tipo_pago.id = facturas_pagos.TipoPago
             WHERE
-                facturas.EstatusFacturacion != '0' ";
+                facturas.TipoFactura != '3' AND EstatusFacturacion != '2'
+                AND facturas.EstatusFacturacion != '0' ";
             if($startDate){
                 $dt = \DateTime::createFromFormat('d-m-Y',$startDate);
                 $startDate = $dt->format('Y-m-d'); 
@@ -137,6 +139,8 @@ $run = new Method;
                     $data['Id'] = $Id;
                     $data['DocumentoId'] = $Id;
                     $data['Cliente'] = $factura['Cliente'];
+                    $data['RUT'] = $factura['Rut'];
+                    $data['DV'] =  $factura['DV'];
                     $data['NumeroDocumento'] = $factura['NumeroDocumento'];
                     $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
                     $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
@@ -176,6 +180,8 @@ $run = new Method;
                             $data['Id'] = $devolucion['Id'];
                             $data['DocumentoId'] = $Id;
                             $data['Cliente'] = $factura['Cliente'];
+                            $data['RUT'] = $factura['Rut'];
+                            $data['DV'] =  $factura['DV'];
                             $data['NumeroDocumento'] = $devolucion['NumeroDocumento'];
                             $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                             $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
@@ -205,6 +211,8 @@ $run = new Method;
                                     $data['Id'] = $anulacion['Id'];
                                     $data['DocumentoId'] = $Id;
                                     $data['Cliente'] = $factura['Cliente'];
+                                    $data['RUT'] = $factura['Rut'];
+                                    $data['DV'] =  $factura['DV'];
                                     $data['NumeroDocumento'] = $anulacion['NumeroDocumento'];
                                     $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
                                     $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
@@ -221,24 +229,27 @@ $run = new Method;
                         }
                     }
                 }
-                
+                $contador = 0;
                 foreach($ToReturn as $datos) {
-                    
+                    $contador++;
                     $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('A'.$index, $datos['Id'])
+                    ->setCellValue('A'.$index, $contador)
                     ->setCellValue('B'.$index, $datos['Cliente'])
-                    ->setCellValue('C'.$index, $datos['TipoDocumento'])
-                    ->setCellValue('D'.$index, $datos['NumeroDocumento'])
-                    ->setCellValue('E'.$index, $datos['FechaFacturacion'])
-                    ->setCellValue('F'.$index, $datos['TotalFactura'])
-                    ->setCellValue('G'.$index, $datos['TotalSaldo'])
-                    ->setCellValue('H'.$index, $datos['SaldoFavor'])
-                    ->setCellValue('I'.$index, $datos['FechaVencimiento'])
-                    ->setCellValue('J'.$index, $datos['Detalle'])
-                    ->setCellValue('K'.$index, $datos['NumRelacion']);
+                    ->setCellValue('C'.$index, $datos['RUT'])
+                    ->setCellValue('D'.$index, $datos['DV'])
+                    ->setCellValue('E'.$index, $datos['TipoDocumento'])
+                    ->setCellValue('F'.$index, $datos['NumeroDocumento'])
+                    ->setCellValue('G'.$index, $datos['FechaFacturacion'])
+                    ->setCellValue('H'.$index, $datos['TotalFactura'])
+                    ->setCellValue('I'.$index, $datos['TotalSaldo'])
+                    ->setCellValue('J'.$index, $datos['SaldoFavor'])
+                    ->setCellValue('K'.$index, $datos['FechaVencimiento']);
                     // $Total += $data['TotalSaldo'];
-            
-                    $index++;
+                    
+                    for($contadorDetalles = 0; $contadorDetalles <= 10; $contadorDetalles++) {
+                        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('L'.$index, $contadorDetalles);
+                        $index++;
+                    }
                 }
                 // $objPHPExcel->setActiveSheetIndex(0)
                 // ->setCellValue('H'.$index, $Total);
@@ -249,7 +260,7 @@ $run = new Method;
             
 
             // Renombrar Hoja
-            $objPHPExcel->getActiveSheet()->setTitle('Informe de Pagos');
+            $objPHPExcel->getActiveSheet()->setTitle('Informe de clientes y servicios');
 
             // Establecer la hoja activa, para que cuando se abra el documento se muestre primero.
             $objPHPExcel->setActiveSheetIndex(0);
