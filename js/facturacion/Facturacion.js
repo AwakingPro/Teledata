@@ -964,12 +964,12 @@ $(document).ready(function() {
         console.log('row del detalle '+ObjectTR);
 
         swal({
-            title: "Seguro quieres Devolver este Servicio?",
+            title: "Seguro quieres Devolver este Servicio a Tareas?",
             text: "Confirmar!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#28a745",
-            confirmButtonText: "Devolver Servicio!",
+            confirmButtonText: "Devolver a Tareas Pendientes!",
             cancelButtonText: "Cancelar",
             showLoaderOnConfirm: true,
             closeOnConfirm: false
