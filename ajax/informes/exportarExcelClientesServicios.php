@@ -239,6 +239,11 @@ $run = new Method;
                     }
                 }
                 $contador = 0;
+                if(!count($ToReturn)){
+                    echo 'No existen datos' . count($ToReturn);
+                    exit;
+                }
+                
                 foreach($ToReturn as $datos) {
                     $contador++;
                     
