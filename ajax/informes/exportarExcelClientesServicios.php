@@ -32,7 +32,7 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('L1', 'Fecha instalación');
 
 // filtros
-$objPHPExcel->getActiveSheet()->setAutoFilter("A1:L1");
+$objPHPExcel->getActiveSheet()->setAutoFilter("K1:L1");
 
 foreach (range(0, 11) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -241,6 +241,7 @@ $run = new Method;
                 $contador = 0;
                 foreach($ToReturn as $datos) {
                     $contador++;
+                    
                     $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('A'.$index, $contador)
                     ->setCellValue('B'.$index, $datos['Cliente'])
@@ -253,13 +254,20 @@ $run = new Method;
                     ->setCellValue('I'.$index, $datos['SaldoFavor'])
                     ->setCellValue('J'.$index, $datos['FechaVencimiento']);
                     // $Total += $data['TotalSaldo'];
-                    
+                    $run->cellColor('A'.$index.':J'.$index, 'A6A6FF');
+                    if($datos['TotalSaldo'] > 0){
+                        $run->cellColor('H'.$index, 'F28A8C');
+                    }else{
+                        $run->cellColor('H'.$index, '92D050');
+                    }
                     foreach($datos['facturas_detalle'] as $detalle) {
                         $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d',$detalle['FechaInstalacion'])->format('d-m-Y');   ;
                         $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('K'.$index, $detalle['Codigo'])
                         ->setCellValue('L'.$index, $detalle['FechaInstalacion']);
+                        $run->cellColor('K'.$index.':L'.$index, '7474FF');
                         $index++;
+                        
                     }
                     $index++;
                 }

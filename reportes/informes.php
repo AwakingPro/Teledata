@@ -46,7 +46,7 @@
                                                     <div class="select">
                                                         <select class="selectpicker form-control" id="tipo_informe" name="tipo_informe" data-live-search="true" data-container="body">
                                                             <option value="">Seleccione</option>
-															<option value="0" disabled="disabled">Informe clientes con servicios</option>
+															<option value="0">Informe clientes con servicios</option>
                                                             <option value="1">Informe clientes</option>
                                                             <option value="2">Informe pagos mensuales y anuales</option>
                                                             <option value="3">Informe cobranza de clientes</option>
