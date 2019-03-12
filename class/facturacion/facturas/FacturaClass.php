@@ -524,7 +524,6 @@
                     $Cliente = $this->getCliente($Rut);
 
                     if($Cliente){
-
                         $TipoDocumento = $Cliente['tipo_cliente'];
                         //aqui el parametro 2 es para prueba con la API
                         $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,1);
@@ -1244,6 +1243,9 @@
                     }
 
                     $clientId = null;
+                    if($Cliente['tipo_cliente'] == "1"){
+                        $Cliente['contacto'] = $Cliente['nombre'];
+                    }
                     $client = array(
                         "code"          => $Cliente['rut'].'-'.$Cliente['dv'],
                         "firstName"     => $Cliente['contacto'],
@@ -1427,7 +1429,6 @@
             }else{
                 $array['client'] = $client;
             }
-
             // Parsea a JSON
             $data = json_encode($array);
 
