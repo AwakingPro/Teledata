@@ -1027,5 +1027,16 @@
 			</html>";
 			return $Html;
 		}
+
+		public function cellColor($cells,$color){
+			global $objPHPExcel;
+		
+			$objPHPExcel->getActiveSheet()->getStyle($cells)->getFill()->applyFromArray(array(
+				'type' => PHPExcel_Style_Fill::FILL_SOLID,
+				'startcolor' => array(
+					 'rgb' => $color
+				)
+			));
+		}
 	}
  ?>
