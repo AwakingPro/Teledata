@@ -132,6 +132,9 @@
 
 							</div>
 						</div>
+						<?php 
+                            include '../componentes/componentes_tareas/tareas_servicios.php';
+                        ?>
 						<div class="row">
 							<div class="col-md-6">
 								<div class="panel">
@@ -180,5 +183,7 @@
 	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 	<script src="../js/bienvenida/controller.js"></script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
+	<script src="../js/tareas/Tarea.js"></script>
 </body>
 </html>
