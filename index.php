@@ -1,3 +1,6 @@
+<?php require_once('class/methods_global/methods.php'); 
+$iniciar = new Method();
+?>
 <!DOCTYPE html>
 <html lang="es">
 	<head>
@@ -25,6 +28,12 @@
 					<div class="panel-body">
 						<div class="pad-btm">
 							<h3>Acceso al Sistema</h3>
+							<h2><?php
+							if(isset($_SESSION['idUsuario'])){
+								header('Location: bienvenida/bienvenida.php');
+								exit;
+							}
+							 ?></h2>
 						</div>
 						<form class="cont-form">
 							<div class="form-group">
