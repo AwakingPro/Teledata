@@ -12,6 +12,9 @@
 		<link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
 		<link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
 		<link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
+		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
+		<link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
+        <link href="../plugins/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
@@ -178,12 +181,47 @@
 		</div>
 		<?php include("../layout/footer.php"); ?>
 	</div>
+
+	<?php
+        // Muestra Modal con select de usuarios al cual asignarle una tarea
+        include '../componentes/componentes_tareas/modal_Asignar.php';
+        // Muestra Modal con select de usuarios al cual Reasignarle una tarea
+        include '../componentes/componentes_tareas/modal_Reasignar.php';
+
+        // Muestra Modal para editar una tarea
+        include '../componentes/componentes_tareas/modal_EditarTarea.php';
+
+        // Muestra Modal para comparar una tarea
+        include '../componentes/componentes_tareas/modal_CompararTarea.php';
+
+        // Muestra Modal para Editar Servicio
+        include '../componentes/componentes_servicios/modal_EditarServicio.php';
+
+        // Muestra Modal con info del cliente
+        include '../componentes/componentes_servicios/modal_InfoCliente.php';
+    ?>
+
 	<script src="../js/jquery-2.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
+	<script src="../plugins/bootstrap-dataTables/jquery.dataTables.js"></script>
+	<script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+
+	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
+
+	<script src="../plugins/bootstrap-select/i18n/defaults-es_CL.min.js"></script>
+
+	<script src="../plugins/moment/moment.js"></script>
+
+	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+	<script src="../plugins/sweetalert/sweetalert.min.js"></script>
 	<script src="../js/methods_global/methods.js"></script>
+	<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
+	<script src="../plugins/numbers/jquery.number.min.js"></script>
+
 	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 	<script src="../js/bienvenida/controller.js"></script>
+	
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
 	<script src="../js/tareas/Tarea.js"></script>
 </body>
