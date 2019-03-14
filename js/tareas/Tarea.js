@@ -552,7 +552,6 @@ $(document).ready(function() {
                         Codigo = $(Row).find("td").eq(2).html();
                         Descripcion = $(Row).find("td").eq(3).html();
                         FechaInstalacion = $(Row).find("td").eq(4).html();
-                        console.log('Row '+ response.Id[0])
                         if (response.Estatus == 1) {
 
                             var nodes = AsignadasTable.rows().nodes()
@@ -579,16 +578,12 @@ $(document).ready(function() {
                                 '' + FechaInstalacion + '',
                                 '' + Operacion + '',
                             ]).draw(false).node();
-                            console.log('row '+Row);
                             $(rowNode)
                                 .attr('id', response.Id)
                                 .addClass('text-center')
 
                         } else {
-                            console.log('Direccion antes '+Direccion)
                             var Direccion = $(Row).find("td").eq(4).html();
-                            console.log('Direccion despues '+Direccion)
-                            console.log('response.Estatus else es '+ response.Estatus)
                             var nodesPendientesTable = PendientesTable.rows().nodes()
                             if ($(nodesPendientesTable).filter('tr#' + response.Id).length == 0) {
 
@@ -844,7 +839,6 @@ $(document).ready(function() {
     });
 
     $('#Estatus').change(function(event) {
-        console.log($(this).val());
         if ($(this).val() == 1) {
             $('#Comentario').removeAttr('validate')
         } else {
