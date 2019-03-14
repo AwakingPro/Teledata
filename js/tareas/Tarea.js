@@ -552,7 +552,7 @@ $(document).ready(function() {
                         Codigo = $(Row).find("td").eq(2).html();
                         Descripcion = $(Row).find("td").eq(3).html();
                         FechaInstalacion = $(Row).find("td").eq(4).html();
-
+                        console.log('Row '+ response.Id[0])
                         if (response.Estatus == 1) {
 
                             var nodes = AsignadasTable.rows().nodes()
@@ -562,9 +562,8 @@ $(document).ready(function() {
                                     .draw();
                             }
 
-                            var nodes = PendientesTable.rows().nodes()
-
-                            if ($(nodes).filter('tr#' + response.Id).length == 1) {
+                            var nodesPendientesTable = PendientesTable.rows().nodes()
+                            if ($(nodesPendientesTable).filter('tr#' + response.Id).length == 1) {
                                 PendientesTable.row(Row)
                                     .remove()
                                     .draw();
@@ -580,19 +579,21 @@ $(document).ready(function() {
                                 '' + FechaInstalacion + '',
                                 '' + Operacion + '',
                             ]).draw(false).node();
-
+                            console.log('row '+Row);
                             $(rowNode)
                                 .attr('id', response.Id)
                                 .addClass('text-center')
 
                         } else {
-
-                            var nodes = PendientesTable.rows().nodes()
-
-                            if ($(nodes).filter('tr#' + response.Id).length == 0) {
+                            console.log('Direccion antes '+Direccion)
+                            var Direccion = $(Row).find("td").eq(4).html();
+                            console.log('Direccion despues '+Direccion)
+                            console.log('response.Estatus else es '+ response.Estatus)
+                            var nodesPendientesTable = PendientesTable.rows().nodes()
+                            if ($(nodesPendientesTable).filter('tr#' + response.Id).length == 0) {
 
                                 Operacion = '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign" title="Reasignar"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" title="Editar" class="fa fa-pencil Edit"></i>'
-
+                                
                                 var rowNode = PendientesTable.row.add([
                                     '' + Usuario + '',
                                     '' + Cliente + '',
@@ -601,7 +602,7 @@ $(document).ready(function() {
                                     '' + Direccion + '',
                                     '' + Operacion + '',
                                 ]).draw(false).node();
-
+                                
                                 $(rowNode)
                                     .attr('id', response.Id)
                                     .addClass('text-center')
@@ -843,6 +844,7 @@ $(document).ready(function() {
     });
 
     $('#Estatus').change(function(event) {
+        console.log($(this).val());
         if ($(this).val() == 1) {
             $('#Comentario').removeAttr('validate')
         } else {
