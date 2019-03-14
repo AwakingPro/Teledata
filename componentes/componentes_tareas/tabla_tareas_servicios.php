@@ -14,7 +14,14 @@
                 </li>
             </ul>
         </div>
-        <h3 class="panel-title">Modulo Tareas</h3>
+        <h3 class="panel-title">
+        <?php
+        if(isset($Titulo))
+        echo $Titulo;
+        else
+        echo 'Modulo'; 
+        ?>
+        Tareas</h3>
     </div>
     <!--Panel body-->
     <div class="panel-body">
