@@ -132,8 +132,9 @@
 
 							</div>
 						</div>
-						<?php 
-                            include '../componentes/componentes_tareas/tareas_servicios.php';
+						<?php
+							$Titulo = 'Mis';
+                            include '../componentes/componentes_tareas/tabla_tareas_servicios.php';
                         ?>
 						<div class="row">
 							<div class="col-md-6">
@@ -147,7 +148,7 @@
 							<div class="col-md-6">
 								<div class="panel">
 									<div class="panel-body">
-										<h3 style="margin-top: 0">Lista de servicios asignados</h3>
+										<h3 style="margin-top: 0">Mis servicios contratados</h3>
 										<div class="listaServicio"></div>
 									</div>
 								</div>

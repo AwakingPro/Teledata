@@ -33,7 +33,7 @@
                     </ol>
                     <div id="page-content">
                         <?php 
-                            include '../componentes/componentes_tareas/tareas_servicios.php';
+                            include '../componentes/componentes_tareas/tabla_tareas_servicios.php';
                         ?>
                     </div>
                 </div>
