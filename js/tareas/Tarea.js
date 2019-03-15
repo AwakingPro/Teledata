@@ -62,7 +62,7 @@ $(document).ready(function() {
             "targets": [0],
             "orderable": false
         }],
-        paging: false,
+        paging: true,
         iDisplayLength: 100,
         processing: true,
         serverSide: false,
@@ -96,7 +96,7 @@ $(document).ready(function() {
     });
 
     AsignadasTable = $('#AsignadasTable').DataTable({
-        paging: false,
+        paging: true,
         iDisplayLength: 100,
         processing: true,
         serverSide: false,
@@ -130,7 +130,7 @@ $(document).ready(function() {
     });
 
     PendientesTable = $('#PendientesTable').DataTable({
-        paging: false,
+        paging: true,
         iDisplayLength: 100,
         processing: true,
         serverSide: false,
@@ -164,7 +164,7 @@ $(document).ready(function() {
     });
 
     FinalizadasTable = $('#FinalizadasTable').DataTable({
-        paging: false,
+        paging: true,
         iDisplayLength: 100,
         processing: true,
         serverSide: false,
