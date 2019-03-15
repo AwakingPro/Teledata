@@ -68,6 +68,7 @@ $(document).ready(function() {
         serverSide: false,
         bInfo: false,
         // bFilter:false,
+        bStateSave: true,
         order: [
             [1, 'asc']
         ],
@@ -102,6 +103,7 @@ $(document).ready(function() {
         serverSide: false,
         bInfo: false,
         // bFilter:false,
+        bStateSave: true,
         order: [
             [1, 'asc']
         ],
@@ -136,6 +138,7 @@ $(document).ready(function() {
         serverSide: false,
         bInfo: false,
         // bFilter:false,
+        bStateSave: true,
         order: [
             [1, 'asc']
         ],
@@ -170,6 +173,7 @@ $(document).ready(function() {
         serverSide: false,
         bInfo: false,
         // bFilter:false,
+        bStateSave: true,
         order: [
             [0, 'asc']
         ],
