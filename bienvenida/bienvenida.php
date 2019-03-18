@@ -136,6 +136,7 @@
 							</div>
 						</div>
 						<?php
+							$OcultarTareasPorHacer = true;
 							$Titulo = 'Mis';
                             include '../componentes/componentes_tareas/tabla_tareas_servicios.php';
                         ?>
@@ -184,7 +185,7 @@
 
 	<?php
         // Muestra Modal con select de usuarios al cual asignarle una tarea
-        include '../componentes/componentes_tareas/modal_Asignar.php';
+        // include '../componentes/componentes_tareas/modal_Asignar.php';
         // Muestra Modal con select de usuarios al cual Reasignarle una tarea
         include '../componentes/componentes_tareas/modal_Reasignar.php';
 
