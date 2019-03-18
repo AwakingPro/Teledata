@@ -7,8 +7,15 @@
                 <div class="panel-control">
                     <!--Nav tabs-->
                     <ul class="nav nav-tabs">
-                    <li class="active"><a data-toggle="tab" href="#porhacer" aria-expanded="true">Por hacer</a></li>
-                    <li class=""><a data-toggle="tab" href="#asignadas" aria-expanded="true">Asignadas</a></li>
+                    <?php
+                    
+                    if(!isset($OcultarTareasPorHacer)){
+                        echo '<li class="active"><a data-toggle="tab" href="#porhacer" aria-expanded="true">Por hacer</a></li>';
+                        echo '<li class=""><a data-toggle="tab" href="#asignadas" aria-expanded="true">Asignadas</a></li>';
+                    }else{
+                        echo '<li class="active"><a data-toggle="tab" href="#asignadas" aria-expanded="true">Asignadas</a></li>';
+                    }
+                    ?>
                     <li class=""><a data-toggle="tab" href="#pendientes" aria-expanded="true">Pendientes</a></li>
                     <li class=""><a data-toggle="tab" href="#finalizadas" aria-expanded="true">Finalizadas</a></li>
                 </li>
@@ -26,7 +33,10 @@
     <!--Panel body-->
     <div class="panel-body">
         <div class="tab-content">
-            <div id="porhacer" class="tab-pane fade active in">
+        <?php
+            if(!isset($OcultarTareasPorHacer)){
+                ?>
+                <div id="porhacer" class="tab-pane fade active in">
                 <div class="col-md-12" style="margin-bottom:10px">
                     <button id="AsignarModal" class="btn btn-success pull-right" style="opacity: 0.2;" disabled>Asignar</button>
                 </div>
@@ -46,7 +56,18 @@
                     </tbody>
                 </table>
             </div>
-            <div id="asignadas" class="tab-pane fade">
+            <?php
+            }
+            ?>
+
+            <?php
+            if(!isset($OcultarTareasPorHacer)){
+            echo '<div id="asignadas" class="tab-pane fade">';
+            }
+            else{
+            echo '<div id="asignadas" class="tab-pane fade active in">';
+            }
+            ?>
                 <div class="row" style="margin-top: 10px">
                     <div class="table-responsive">
                         <div class="col-md-12">
