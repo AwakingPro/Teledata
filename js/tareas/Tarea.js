@@ -63,10 +63,10 @@ $(document).ready(function() {
             "orderable": false
         }],
         paging: true,
-        iDisplayLength: 100,
+        iDisplayLength: 10,
         processing: true,
         serverSide: false,
-        bInfo: false,
+        bInfo: true,
         // bFilter:false,
         bStateSave: true,
         order: [
@@ -80,7 +80,7 @@ $(document).ready(function() {
             infoEmpty: "Mostrando 0 a 0 de 0 Registros",
             infoFiltered: "(filtrada de _MAX_ registros en total)",
             infoPostFix: "",
-            loadingRecords: "...",
+            loadingRecords: "Cargando ...",
             zeroRecords: "No se encontraron registros coincidentes",
             emptyTable: "No hay datos disponibles en la tabla",
             paginate: {
@@ -98,10 +98,10 @@ $(document).ready(function() {
 
     AsignadasTable = $('#AsignadasTable').DataTable({
         paging: true,
-        iDisplayLength: 100,
+        iDisplayLength: 10,
         processing: true,
         serverSide: false,
-        bInfo: false,
+        bInfo: true,
         // bFilter:false,
         bStateSave: true,
         order: [
@@ -115,7 +115,7 @@ $(document).ready(function() {
             infoEmpty: "Mostrando 0 a 0 de 0 Registros",
             infoFiltered: "(filtrada de _MAX_ registros en total)",
             infoPostFix: "",
-            loadingRecords: "...",
+            loadingRecords: "Cargando ...",
             zeroRecords: "No se encontraron registros coincidentes",
             emptyTable: "No hay datos disponibles en la tabla",
             paginate: {
@@ -133,13 +133,12 @@ $(document).ready(function() {
 
     PendientesTable = $('#PendientesTable').DataTable({
         paging: true,
-        iDisplayLength: 100,
+        iDisplayLength: 10,
         processing: true,
         serverSide: false,
-        bInfo: false,
+        bInfo: true,
         // bFilter:false,
         bStateSave: true,
-        stateSave: true,
         order: [
             [1, 'asc']
         ],
@@ -151,7 +150,7 @@ $(document).ready(function() {
             infoEmpty: "Mostrando 0 a 0 de 0 Registros",
             infoFiltered: "(filtrada de _MAX_ registros en total)",
             infoPostFix: "",
-            loadingRecords: "...",
+            loadingRecords: "Cargando ...",
             zeroRecords: "No se encontraron registros coincidentes",
             emptyTable: "No hay datos disponibles en la tabla",
             paginate: {
@@ -169,13 +168,13 @@ $(document).ready(function() {
 
     FinalizadasTable = $('#FinalizadasTable').DataTable({
         paging: true,
-        iDisplayLength: 100,
+        iDisplayLength: 10,
         processing: true,
         serverSide: false,
-        bInfo: false,
+        bInfo: true,
         // bFilter:false,
         bStateSave: true,
-        
+        stateSave: true,
         order: [
             [0, 'asc']
         ],
@@ -187,7 +186,7 @@ $(document).ready(function() {
             infoEmpty: "Mostrando 0 a 0 de 0 Registros",
             infoFiltered: "(filtrada de _MAX_ registros en total)",
             infoPostFix: "",
-            loadingRecords: "...",
+            loadingRecords: "Cargando ...",
             zeroRecords: "No se encontraron registros coincidentes",
             emptyTable: "No hay datos disponibles en la tabla",
             paginate: {
