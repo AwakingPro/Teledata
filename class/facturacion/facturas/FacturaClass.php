@@ -1960,8 +1960,10 @@
                         $Descuento = floatval($detalle['Descuento']) / 100;
                         $Descuento = $Total * $Descuento;
                         $Total -= $Descuento;
-                        $TotalFactura += round($Total,0);
+                        // $TotalFactura += round($Total,0);
+                        $TotalFactura += $Total;
                     }
+                    $TotalFactura = round($TotalFactura,0);
                     $SaldoFavor = 0;
                     $TotalSaldo = $factura['TotalSaldo'];
                     $TotalSaldo = $TotalFactura - $TotalSaldo;
