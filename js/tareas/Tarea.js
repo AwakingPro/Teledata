@@ -139,6 +139,7 @@ $(document).ready(function() {
         bInfo: false,
         // bFilter:false,
         bStateSave: true,
+        stateSave: true,
         order: [
             [1, 'asc']
         ],
@@ -174,6 +175,7 @@ $(document).ready(function() {
         bInfo: false,
         // bFilter:false,
         bStateSave: true,
+        
         order: [
             [0, 'asc']
         ],
