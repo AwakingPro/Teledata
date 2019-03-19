@@ -52,7 +52,7 @@
                             <th class="text-center">Acción</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="PorHacerTableBody">
                     </tbody>
                 </table>
             </div>
@@ -82,7 +82,7 @@
                                         <th class="text-center">Acción</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="AsignadasTableBody">
                                 </tbody>
                             </table>
                         </div>
@@ -104,7 +104,7 @@
                                         <th class="text-center">Acción</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="PendientesTableBody">
                                 </tbody>
                             </table>
                         </div>
@@ -126,7 +126,7 @@
                                         <th class="text-center">Acción</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody class="FinalizadasTableBody">
                                 </tbody>
                             </table>
                         </div>
