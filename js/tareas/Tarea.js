@@ -65,6 +65,10 @@ $(document).ready(function() {
         paging: true,
         iDisplayLength: 10,
         processing: true,
+        'language':{ 
+        "loadingRecords": "&nbsp;",
+        "processing": "Cargando..."
+        },
         serverSide: false,
         bInfo: true,
         // bFilter:false,
@@ -100,6 +104,10 @@ $(document).ready(function() {
         paging: true,
         iDisplayLength: 10,
         processing: true,
+        'language':{ 
+        "loadingRecords": "&nbsp;",
+        "processing": "Cargando..."
+        },
         serverSide: false,
         bInfo: true,
         // bFilter:false,
@@ -135,6 +143,10 @@ $(document).ready(function() {
         paging: true,
         iDisplayLength: 10,
         processing: true,
+        'language':{ 
+        "loadingRecords": "&nbsp;",
+        "processing": "Cargando..."
+        },
         serverSide: false,
         bInfo: true,
         // bFilter:false,
@@ -170,6 +182,10 @@ $(document).ready(function() {
         paging: true,
         iDisplayLength: 10,
         processing: true,
+        'language':{ 
+        "loadingRecords": "&nbsp;",
+        "processing": "Cargando..."
+        },
         serverSide: false,
         bInfo: true,
         // bFilter:false,
