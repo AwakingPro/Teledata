@@ -1007,7 +1007,7 @@
                 if($factura['TipoDocumento'] == '2'){
                     $totalFacturas += $Valor;
                     $cantidadFacturas++;
-                }else{
+                }else if($factura['TipoDocumento'] == '1'){
                     $totalBoletas += $Valor;
                     $cantidadBoletas++;
                 }
