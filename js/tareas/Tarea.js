@@ -234,8 +234,14 @@ $(document).ready(function() {
         }
     });
 
+    if($('#idUsuario')){
+        idUsuario = $('#idUsuario').val();
+    }else{
+        idUsuario = 0
+    }
     $.ajax({
         type: "POST",
+        data:{idUsuario:idUsuario},
         url: "../includes/tareas/showServicios.php",
         beforeSend: function( ) {
             $('.PorHacerTableBody').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Cargando datos ...</div><div class="spinner loading"></div></td></tr>');

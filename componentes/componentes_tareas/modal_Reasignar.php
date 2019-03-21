@@ -8,6 +8,13 @@
                 <div class="row" style="padding:20px">
                     <form class="form-horizontal" id = "reasignarTarea">
                         <input type="hidden" id="Id" name="Id">
+                        <?php
+                        //esto es para saber si esta en el home y mostrar solo las tareas de ese usuario logeado
+                        if(isset($Titulo)){
+                            $idUsuario = $_SESSION['idUsuario'];
+                            echo "<input type='hidden' id='UserLogin' name='UserLogin' value=".$idUsuario."> ";
+                        }
+                        ?>
                         <div class="col-md-12">
                             <div class="form-group">
                                 <label class="control-label" for="name">Usuario</label>
