@@ -356,7 +356,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '#Asignar', function() {
-
+        $("#Asignar").attr("disabled", "disabled");
         $.postFormValues('../includes/tareas/asignarTareas.php', '#asignarTareas', {}, function(response) {
 
             if (response.status == 1) {
@@ -440,6 +440,9 @@ $(document).ready(function() {
                 });
 
             }
+            setTimeout(function(){
+                $("#Asignar").attr("disabled", false);
+            }, 3000);
         });
     });
 
@@ -448,7 +451,6 @@ $(document).ready(function() {
         $.postFormValues('../includes/tareas/reasignarTarea.php', '#reasignarTarea', {}, function(response) {
 
             if (response.status == 1) {
-
                 $.niftyNoty({
                     type: 'success',
                     icon: 'fa fa-check',
