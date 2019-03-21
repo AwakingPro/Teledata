@@ -224,7 +224,7 @@
 											</div>
 											<label>Fecha Comprometida de Instalación</label>
 											<div class="form-group campo-FechaComprometidaInstalacion">
-												<input name="FechaComprometidaInstalacion" class="form-control date">
+												<input id="FechaComprometidaInstalacion" name="FechaComprometidaInstalacion" class="form-control date">
 											</div>
 											<br class="campo-telefonoContacto">
 											<label class="campo-estacionReferencia">Estaciones de Referencia</label>
