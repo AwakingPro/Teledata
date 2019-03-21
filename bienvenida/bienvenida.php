@@ -198,8 +198,8 @@
         // Muestra Modal para comparar una tarea
         include '../componentes/componentes_tareas/modal_CompararTarea.php';
 
-        // Muestra Modal para Editar Servicio
-        include '../componentes/componentes_servicios/modal_EditarServicio.php';
+        // Muestra Modal para Ver Detalles del Servicio
+        include '../componentes/componentes_servicios/modal_DetalleServicio.php';
 
         // Muestra Modal con info del cliente
         include '../componentes/componentes_servicios/modal_InfoCliente.php';
