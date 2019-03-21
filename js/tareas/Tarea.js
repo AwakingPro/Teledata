@@ -444,7 +444,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '#Reasignar', function() {
-
+        $("#Reasignar").attr("disabled", "disabled");
         $.postFormValues('../includes/tareas/reasignarTarea.php', '#reasignarTarea', {}, function(response) {
 
             if (response.status == 1) {
@@ -496,6 +496,9 @@ $(document).ready(function() {
                 });
 
             }
+            setTimeout(function(){
+                $("#Reasignar").attr("disabled", false);
+            }, 3000);
         });
     });
 
