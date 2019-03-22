@@ -43,6 +43,16 @@ $(document).ready(function() {
             language: 'es'
         });
     }
+    $('body').on('focus', ".date", function() {
+        $('.date').datepicker({
+            format: "dd-mm-yyyy",
+            weekStart: 1,
+            todayBtn: "linked",
+            autoclose: true,
+            todayHighlight: true,
+            language: 'es'
+        });
+    });
     var Parametros = window.location.search.substr(1);
     if (Parametros != "") {
         var ParametrosArray = Parametros.split("&");
@@ -238,12 +248,12 @@ $(document).ready(function() {
         });
     });
 
-    $('body').on('focus', ".date", function() {
-        $('.date').datetimepicker({
-            locale: 'es',
-            format: 'DD-MM-YYYY'
-        });
-    });
+    // $('body').on('focus', ".date", function() {
+    //     $('.date').datetimepicker({
+    //         locale: 'es',
+    //         format: 'DD-MM-YYYY'
+    //     });
+    // });
 
     $(document).on('change', '.tipoBusqueda', function() {
         if ($('.tipoBusqueda').selectpicker('val') == '1') {
