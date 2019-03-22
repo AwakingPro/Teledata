@@ -17,6 +17,7 @@
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 		<link href="../plugins/pace/pace.min.css" rel="stylesheet">
    		<link href="../plugins/magic-check/css/magic-check.min.css" rel="stylesheet">
+		<link href="../plugins/bootstrap-datepicker/bootstrap-datepicker.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
 	</head>
 	<body>
@@ -335,37 +336,6 @@
 				<?php
 				include '../componentes/componentes_servicios/form_activa_servicios.php';
 				?>
-					<!-- <form id = "formEstatus">
-						<input type="hidden" class="Id" name="Id" id="Id">
-						<div class="row" style="padding:20px">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label class="compo-grupo">Estado del Servicio</label>
-									<div class="compo-grupo">
-										<select id="Activo" name="Activo" class="form-control selectpicker" data-live-search="true">
-											<option value="">Seleccione...</option>
-											<option value="1">Activo</option>
-											<option value="2">Suspendido</option>
-											<option value="0">Cortado</option>
-										</select>
-									</div>
-									<br>
-									<div id="divFechaActivacion" style="display:none">
-										<label>Fecha de Activación</label>
-										<div class="form-group">
-											<div id="date-range">
-												<div class="input-daterange input-group" id="datepicker">
-													<input type="text" class="form-control" id="FechaInicioDesactivacion" name="FechaInicioDesactivacion" data-nombre="Fecha de Activación" />
-													<span class="input-group-addon">a</span>
-													<input type="text" class="form-control" id="FechaFinalDesactivacion" name="FechaFinalDesactivacion" data-nombre="Fecha de Activación" />
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</form> -->
 				</div><!-- /.modal-body -->
 				<div class="modal-footer p-b-20 m-b-20">
 					<div class="col-sm-12">
@@ -443,6 +413,7 @@
 	<script src="../js/methods_global/mapaEdit.js"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
 	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
+	<script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 	<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 	<script src="../plugins/numbers/jquery.number.js"></script>
 	<script src="../plugins/pace/pace.min.js"></script>
