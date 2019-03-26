@@ -18,14 +18,15 @@ $objPHPExcel->getProperties()
 
 // Agregar Informacion
 $objPHPExcel->setActiveSheetIndex(0)
-	->setCellValue('A1', 'Nº')
-	->setCellValue('B1', 'CENTRO')
-	->setCellValue('C1', 'DESCRIPCIÓN')
-	->setCellValue('D1', 'VALOR PLAN UF')
-    ->setCellValue('E1', 'VALOR UF')
-    ->setCellValue('F1', 'Total Neto');
+    ->setCellValue('A13', ' ')
+	->setCellValue('B13', 'Nº')
+	->setCellValue('C13', 'CENTRO')
+	->setCellValue('D13', 'DESCRIPCIÓN')
+	->setCellValue('E13', 'VALOR PLAN UF')
+    ->setCellValue('F13', 'VALOR UF')
+    ->setCellValue('G13', 'Total Neto');
 
-foreach (range(0, 4) as $col) {
+foreach (range(0, 8) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 $FechaExcel = '';
@@ -100,10 +101,11 @@ $run = new Method;
 $facturas = $run->select($query);
 $ToReturn = array();
 if($facturas){
+    $run->cellColor('B13:G13', '318691');
+    $index = 14;
+    $contador = 0;
     $totalDetalles = count($facturas);
     foreach($facturas as $factura){
-        $index = 2;
-        $contador = 0;
         $data = $factura;
         if($data['Descripcion']){
             // $data['Concepto'] .=  ' - '.$data['Descripcion'];
@@ -116,13 +118,13 @@ if($facturas){
         $contador++;
         
         $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('A'.$index, $contador)
-        ->setCellValue('B'.$index, $datos['Conexion'])
-        ->setCellValue('C'.$index, $datos['Concepto'])
-        ->setCellValue('D'.$index, $datos['ValorPlanUf'])
-        ->setCellValue('E'.$index, $datos['Valor_Uf']/$datos['ValorPlanUf'])
-        ->setCellValue('F'.$index, "$ ".$datos['Valor_Uf']);
-        $run->cellColor('A'.$index.':E'.$index, 'A6A6FF');
+        ->setCellValue('B'.$index, $contador)
+        ->setCellValue('C'.$index, $datos['Conexion'])
+        ->setCellValue('D'.$index, $datos['Concepto'])
+        ->setCellValue('E'.$index, $datos['ValorPlanUf'])
+        ->setCellValue('F'.$index, $datos['Valor_Uf']/$datos['ValorPlanUf'])
+        ->setCellValue('G'.$index, "$ ".$datos['Valor_Uf']);
+        // $run->cellColor('A'.$index.':E'.$index, 'A6A6FF');
         $index++;
     }
 }else{
