@@ -121,12 +121,12 @@ if($facturas){
         ->setCellValue('C'.$index, $datos['Concepto'])
         ->setCellValue('D'.$index, $datos['ValorPlanUf'])
         ->setCellValue('E'.$index, $datos['Valor_Uf']/$datos['ValorPlanUf'])
-        ->setCellValue('F'.$index, $datos['Valor_Uf']);
+        ->setCellValue('F'.$index, "$ ".$datos['Valor_Uf']);
         $run->cellColor('A'.$index.':E'.$index, 'A6A6FF');
         $index++;
     }
 }else{
-    echo 'No existen datos para esta consulta';
+    echo 'Disculpe, no existen datos para esta consulta';
     return;
 }           
 
