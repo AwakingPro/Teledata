@@ -146,7 +146,7 @@ if($facturas){
         ->setCellValue('D'.$index, $datos['Concepto'])
         ->setCellValue('E'.$index, $datos['ValorPlanUf'])
         ->setCellValue('F'.$index, $datos['Valor_Uf']/$datos['ValorPlanUf'])
-        ->setCellValue('G'.$index, "$ ".$datos['Valor_Uf']);
+        ->setCellValue('G'.$index, "$ ".$datos['Valor']);
         // $run->cellColor('A'.$index.':E'.$index, 'A6A6FF');
         $index++;
     }
