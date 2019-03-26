@@ -535,7 +535,6 @@ $(document).ready(function() {
     });
 
     $('body').on('click', '.fa-newspaper-o', function() {
-        $('#modalShow').modal('show')
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
          // globalObjectTRLote para usarla al eliminar un detalle
