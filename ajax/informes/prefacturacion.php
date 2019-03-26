@@ -120,7 +120,7 @@ if($facturas){
         ->setCellValue('B'.$index, $datos['Conexion'])
         ->setCellValue('C'.$index, $datos['Concepto'])
         ->setCellValue('D'.$index, $datos['ValorPlanUf'])
-        ->setCellValue('E'.$index, $datos['Valor_Uf'])
+        ->setCellValue('E'.$index, $datos['Valor_Uf']/$datos['ValorPlanUf'])
         ->setCellValue('F'.$index, $datos['Valor']);
         $run->cellColor('A'.$index.':E'.$index, 'A6A6FF');
         $index++;
