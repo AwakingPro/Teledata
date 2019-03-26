@@ -18,6 +18,25 @@ $objPHPExcel->getProperties()
 
 // Agregar Informacion
 $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('B3', 'Razón Social:')
+    ->setCellValue('B4', 'Rut:')
+    ->setCellValue('B5', 'Giro:')
+
+    ->setCellValue('C3', 'Teledata Chile SpA')
+    ->setCellValue('C4', '76.722.248-3')
+    ->setCellValue('C5', 'Proveedores de internet')
+
+    ->setCellValue('C7', 'DATOS CLIENTE')
+
+    ->setCellValue('B8', 'Razón Social:')
+    ->setCellValue('B9', 'Rut:')
+    ->setCellValue('B10', 'Dirección:')
+    ->setCellValue('B11', 'Teléfono:')
+
+    ->setCellValue('E1', 'PREFACTURACIÓN SERVICIOS MENSUALES')
+    ->setCellValue('E2', 'N°')
+    ->setCellValue('F2', time())
+
     ->setCellValue('A13', ' ')
 	->setCellValue('B13', 'Nº')
 	->setCellValue('C13', 'CENTRO')
@@ -116,7 +135,11 @@ if($facturas){
 
     foreach($ToReturn as $datos) {
         $contador++;
-        
+        // ->setCellValue('C8', 'Razón Social:')
+        // ->setCellValue('C9', 'Rut:')
+        // ->setCellValue('C10', 'Dirección:')
+        // ->setCellValue('C11', 'Teléfono:')
+
         $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('B'.$index, $contador)
         ->setCellValue('C'.$index, $datos['Conexion'])
