@@ -534,6 +534,20 @@ $(document).ready(function() {
 
     });
 
+    $('body').on('click', '.fa-newspaper-o', function() {
+        $('#modalShow').modal('show')
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+         // globalObjectTRLote para usarla al eliminar un detalle
+        // globalObjectTRLote = ObjectTR;
+        var ObjectRutId = ObjectTR.attr("rutid");
+        var ObjectGroup = ObjectTR.attr("grupo");
+        var url = '';
+        url = "../ajax/informes/prefacturacion.php?rut="+ObjectRutId+"&grupo="+ObjectGroup;
+        window.open(url, '_blank');
+
+    });
+    
     $('body').on('click', '.VisualizarLote', function() {
         $('#modalShow').modal('show')
         var ObjectMe = $(this);
