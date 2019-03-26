@@ -37,6 +37,12 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('E2', 'N°')
     ->setCellValue('F2', time())
 
+    ->setCellValue('E4', 'Fono:')
+    ->setCellValue('E5', 'Mail:')
+
+    ->setCellValue('F4', '652566600:')
+    ->setCellValue('F5', 'pagos@teledata.cl')
+
     ->setCellValue('A13', ' ')
 	->setCellValue('B13', 'Nº')
 	->setCellValue('C13', 'CENTRO')
@@ -69,6 +75,8 @@ if($Grupo == 1000){
                 facturas_detalle.IdServicio as idServicio,
                 facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
                 personaempresa.nombre AS Nombre,
+                personaempresa.dv AS DV,
+                personaempresa.telefono,
                 facturas_detalle.Codigo,
                 facturas_detalle.Concepto,
                 facturas.Id AS facturaId,
@@ -97,6 +105,8 @@ if($Grupo == 1000){
     facturas_detalle.IdServicio as idServicio,
     facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
     personaempresa.nombre AS Nombre,
+    personaempresa.dv AS DV,
+    personaempresa.telefono,
     facturas_detalle.Codigo,
     facturas_detalle.Concepto,
     facturas.Id AS facturaId,
@@ -132,14 +142,14 @@ if($facturas){
         $data['totalDetalles'] = $totalDetalles;
         array_push($ToReturn,$data);
     }
+        $objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue('C8', $data['Nombre'])
+        ->setCellValue('C9', $Rut)
+        ->setCellValue('C10', $data['DV'])
+        ->setCellValue('C11', $data['telefono']);
 
     foreach($ToReturn as $datos) {
         $contador++;
-        // ->setCellValue('C8', 'Razón Social:')
-        // ->setCellValue('C9', 'Rut:')
-        // ->setCellValue('C10', 'Dirección:')
-        // ->setCellValue('C11', 'Teléfono:')
-
         $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('B'.$index, $contador)
         ->setCellValue('C'.$index, $datos['Conexion'])
