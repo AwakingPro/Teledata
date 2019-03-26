@@ -126,7 +126,7 @@ if($facturas){
         $index++;
     }
 }else{
-    echo 'No existen datos para esta consulta';
+    echo 'Disculpe, no existen datos para esta consulta';
     return;
 }           
 
