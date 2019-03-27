@@ -1038,5 +1038,11 @@
 				)
 			));
 		}
+
+		public function fechaApiSbif($FechaFacturacion){
+			$FechaFacturacion = explode('/', $FechaFacturacion);
+			$FechaFacturacion = $FechaFacturacion[0].'/'.$FechaFacturacion[1].'/dias/'.$FechaFacturacion[2];
+			return $FechaFacturacion;
+		}
 	}
  ?>

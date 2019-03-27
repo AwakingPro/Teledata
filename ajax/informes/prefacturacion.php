@@ -2,7 +2,7 @@
 /** Incluir la libreria PHPExcel */
 require_once '../../plugins/PHPExcel-1.8/Classes/PHPExcel.php';
 require_once '../../class/methods_global/methods.php';
-
+require_once '../../class/facturacion/uf/UfClass.php';
 // Crea un nuevo objeto PHPExcel
 $objPHPExcel = new PHPExcel();
 
@@ -50,6 +50,7 @@ $objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('E13', 'VALOR PLAN UF')
     ->setCellValue('F13', 'VALOR UF')
     ->setCellValue('G13', 'Total Neto');
+    // ->setCellValue('D19', 'Notas:');
 
 foreach (range(0, 3) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -81,6 +82,7 @@ if($Grupo == 1000){
                 facturas_detalle.Concepto,
                 facturas.Id AS facturaId,
                 facturas.IVA,
+                facturas.FechaFacturacion,
                 servicios.Valor AS ValorPlanUf,
                 servicios.Descripcion,
                 servicios.Conexion,
@@ -112,6 +114,7 @@ if($Grupo == 1000){
     facturas_detalle.Concepto,
     facturas.Id AS facturaId,
     facturas.IVA,
+    facturas.FechaFacturacion,
     servicios.Valor AS ValorPlanUf,
     servicios.Descripcion,
     servicios.Conexion,
@@ -136,33 +139,43 @@ if($facturas){
     $index = 14;
     $contador = 0;
     $totalDetalles = count($facturas);
+    $UfClass = new Uf();
     foreach($facturas as $factura){
         $data = $factura;
         if($data['Descripcion']){
             // $data['Concepto'] .=  ' - '.$data['Descripcion'];
         }
+        $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$data['FechaFacturacion'])->format('Y/m/d');
+        $FechaUfApi = $run->fechaApiSbif($FechaFacturacion);
+        $valorUF = $UfClass->getValue($FechaUfApi);
+        $data['valorUF'] = $valorUF;
         $data['totalDetalles'] = $totalDetalles;
         array_push($ToReturn,$data);
     }
-        //datos cliente
-        $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('C9', $data['Nombre'])
-        ->setCellValue('C10', $Rut.'-'.$data['DV'])
-        ->setCellValue('C11',$data['Direccion'])
-        ->setCellValue('C12', $data['telefono']);
 
+    // echo "<pre>"; print_r($ToReturn); echo "</pre>"; exit;
+    
     foreach($ToReturn as $datos) {
         $contador++;
+        // $valorUF = $datos['Valor_Uf']/$datos['ValorPlanUf'];
         $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('B'.$index, $contador)
         ->setCellValue('C'.$index, $datos['Conexion'])
         ->setCellValue('D'.$index, $datos['Concepto'])
         ->setCellValue('E'.$index, $datos['ValorPlanUf'])
-        ->setCellValue('F'.$index, $datos['Valor_Uf']/$datos['ValorPlanUf'])
+        ->setCellValue('F'.$index, $datos['valorUF'])
         ->setCellValue('G'.$index, "$ ".$datos['Valor']);
         // $run->cellColor('A'.$index.':E'.$index, 'A6A6FF');
         $index++;
     }
+    //datos cliente
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('C9', $data['Nombre'])
+    ->setCellValue('C10', $Rut.'-'.$data['DV'])
+    ->setCellValue('C11',$data['Direccion'])
+    ->setCellValue('C12', $data['telefono']);
+    // ->setCellValue('D20', 'Valor UF del '.$data['FechaFacturacion'].' - '.$valorUF);
+
 }else{
     echo 'Disculpe, no existen datos para esta consulta';
     return;

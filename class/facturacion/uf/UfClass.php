@@ -1,9 +1,13 @@
 <?php
 class Uf {
 
-    public function getValue() {
-        // $apiUrl = 'https://mindicador.cl/api/uf/'.date('d-m-Y');
-        $apiUrl = 'https://api.sbif.cl/api-sbifv3/recursos_api/uf?apikey=186ad210733f0a0c07e91db7f59bd976a255d01e&formato=json';
+    public function getValue($FechaFacturacion = false) {
+        if($FechaFacturacion){
+            $apiUrl = 'https://api.sbif.cl/api-sbifv3/recursos_api/uf/'.$FechaFacturacion.'?apikey=186ad210733f0a0c07e91db7f59bd976a255d01e&formato=json';
+        }else{
+            $apiUrl = 'https://api.sbif.cl/api-sbifv3/recursos_api/uf?apikey=186ad210733f0a0c07e91db7f59bd976a255d01e&formato=json';
+        }
+        
         //Es necesario tener habilitada la directiva allow_url_fopen para usar file_get_contents
         if ( ini_get('allow_url_fopen') ) {
             $arrContextOptions=array(
