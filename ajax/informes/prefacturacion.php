@@ -83,7 +83,8 @@ if($Grupo == 1000){
                 facturas.IVA,
                 servicios.Valor AS ValorPlanUf,
                 servicios.Descripcion,
-                servicios.Conexion
+                servicios.Conexion,
+                servicios.Direccion
             FROM
                 facturas
             INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id
@@ -113,7 +114,8 @@ if($Grupo == 1000){
     facturas.IVA,
     servicios.Valor AS ValorPlanUf,
     servicios.Descripcion,
-    servicios.Conexion
+    servicios.Conexion,
+    servicios.Direccion
 FROM
     facturas
 INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id
@@ -144,8 +146,8 @@ if($facturas){
     }
         $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('C8', $data['Nombre'])
-        ->setCellValue('C9', $Rut)
-        ->setCellValue('C10', $data['DV'])
+        ->setCellValue('C9', $Rut.'-'.$data['DV'])
+        ->setCellValue('C10',$data['Direccion'])
         ->setCellValue('C11', $data['telefono']);
 
     foreach($ToReturn as $datos) {
