@@ -18,20 +18,20 @@ $objPHPExcel->getProperties()
 
 // Agregar Informacion
 $objPHPExcel->setActiveSheetIndex(0)
-    ->setCellValue('B3', 'Razón Social:')
-    ->setCellValue('B4', 'Rut:')
-    ->setCellValue('B5', 'Giro:')
+    ->setCellValue('B5', 'Razón Social:')
+    ->setCellValue('B6', 'Rut:')
+    ->setCellValue('B7', 'Giro:')
 
-    ->setCellValue('C3', 'Teledata Chile SpA')
-    ->setCellValue('C4', '76.722.248-3')
-    ->setCellValue('C5', 'Proveedores de internet')
+    ->setCellValue('C5', 'Teledata Chile SpA')
+    ->setCellValue('C6', '76.722.248-3')
+    ->setCellValue('C7', 'Proveedores de internet')
 
-    ->setCellValue('C7', 'DATOS CLIENTE')
+    ->setCellValue('B8', 'DATOS CLIENTE')
 
-    ->setCellValue('B8', 'Razón Social:')
-    ->setCellValue('B9', 'Rut:')
-    ->setCellValue('B10', 'Dirección:')
-    ->setCellValue('B11', 'Teléfono:')
+    ->setCellValue('B9', 'Razón Social:')
+    ->setCellValue('B10', 'Rut:')
+    ->setCellValue('B11', 'Dirección:')
+    ->setCellValue('B12', 'Teléfono:')
 
     ->setCellValue('E1', 'PREFACTURACIÓN SERVICIOS MENSUALES')
     ->setCellValue('E2', 'N°')
@@ -51,7 +51,7 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('F13', 'VALOR UF')
     ->setCellValue('G13', 'Total Neto');
 
-foreach (range(0, 8) as $col) {
+foreach (range(0, 3) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 $FechaExcel = '';
@@ -144,11 +144,12 @@ if($facturas){
         $data['totalDetalles'] = $totalDetalles;
         array_push($ToReturn,$data);
     }
+        //datos cliente
         $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('C8', $data['Nombre'])
-        ->setCellValue('C9', $Rut.'-'.$data['DV'])
-        ->setCellValue('C10',$data['Direccion'])
-        ->setCellValue('C11', $data['telefono']);
+        ->setCellValue('C9', $data['Nombre'])
+        ->setCellValue('C10', $Rut.'-'.$data['DV'])
+        ->setCellValue('C11',$data['Direccion'])
+        ->setCellValue('C12', $data['telefono']);
 
     foreach($ToReturn as $datos) {
         $contador++;
@@ -169,14 +170,34 @@ if($facturas){
 
 // Renombrar Hoja
 $objPHPExcel->getActiveSheet()->setTitle('Prefacturación');
-
+$objDrawing = new PHPExcel_Worksheet_Drawing();
+// create object for Worksheet drawing 
+$objDrawing->setName('Logo Teledata'); 
+// set name to image 
+$objDrawing->setDescription('Logo de Teledata para prefacturas');
+// set description to image 
+$signature = '../../img/logo-teledata-200.png'; 
+// Path to signature .jpg file 
+$objDrawing->setPath($signature); 
+$objDrawing->setOffsetX(20);
+// setOffsetX works properly 
+$objDrawing->setOffsetY(0);
+// setOffsetY works properly 
+$objDrawing->setCoordinates('B1');
+// set image to cell 
+$objDrawing->setWidth(62); 
+// set width, height 
+$objDrawing->setHeight(62); 
+$objDrawing->setWorksheet($objPHPExcel->getActiveSheet()); 
+// save 
+// echo "<pre>"; print_r($objDrawing); echo "</pre>"; exit;
 // Establecer la hoja activa, para que cuando se abra el documento se muestre primero.
 $objPHPExcel->setActiveSheetIndex(0);
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment; filename=Prefacturación ".$FechaExcel.' RUT '.$Rut.".xlsx");
 header('Cache-Control: max-age=0');
-
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
+
 $objWriter->save('php://output');
 exit;
 ?>
