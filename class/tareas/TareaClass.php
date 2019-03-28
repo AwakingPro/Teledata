@@ -349,11 +349,12 @@
             $data = $run->select($query);
 
             if($data){
-            	$ToReturn = $data[0];
-            }
-
+				$ToReturn = $data[0];
+			}
+			// convierto la fecha a formato ES para el date picker ES
+			$ToReturn['FechaComprometidaInstalacion'] = DateTime::createFromFormat('Y-m-d', $ToReturn['FechaComprometidaInstalacion'])->format('d-m-Y');
             $response_array['array'] = $ToReturn;
-
+			// echo "<pre>"; print_r($ToReturn); echo "</pre>"; exit;
             echo json_encode($response_array);
     	}
     }
