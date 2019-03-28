@@ -13,6 +13,7 @@
                                 <label class="control-label" for="name">Usuario</label>
                                 <div class="select">
                                     <select class="form-control IdUsuarioAsignado" name="IdUsuarioAsignado" id="IdUsuarioAsignado"  data-live-search="true" data-container="body">
+                                        <option value="0" data-content="Asigne un técnico"></option>
                                     </select>
                                 </div>
                             </div>
