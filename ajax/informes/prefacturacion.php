@@ -40,7 +40,7 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('E4', 'Fono:')
     ->setCellValue('E5', 'Mail:')
 
-    ->setCellValue('F4', '652566600:')
+    ->setCellValue('F4', '652566600')
     ->setCellValue('F5', 'pagos@teledata.cl')
 
     ->setCellValue('A13', ' ')
