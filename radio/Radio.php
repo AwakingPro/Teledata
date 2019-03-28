@@ -481,8 +481,8 @@
                                                                 <th class="text-center">Dirección</th>
                                                                 <th class="text-center">Teléfono</th>
                                                                 <th class="text-center">Contacto</th>
-                                                                <th class="text-center">Correo</th>
                                                                 <th class="text-center">Responsable</th>
+                                                                <th class="text-center">Correo</th>
                                                                 <th class="text-center">Acción</th>
                                                             </tr>
                                                         </thead>
