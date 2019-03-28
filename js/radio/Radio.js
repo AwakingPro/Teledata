@@ -444,7 +444,7 @@ $(document).ready(function(){
         var ObjectAddress = ObjectTR.find("td").eq(1).text();
         var ObjectTelephone = ObjectTR.find("td").eq(2).text();
         var ObjectContact = ObjectTR.find("td").eq(3).text();
-        var ObjectEmail = ObjectTR.find("td").eq(4).text();
+        var ObjectEmail = ObjectTR.find("td").eq(5).text();
         var ObjectPersonal = ObjectTR.data("personal_id");
 
         var ObjectOwner = ObjectTR.data("dueno_cerro");
