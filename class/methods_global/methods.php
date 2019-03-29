@@ -894,7 +894,7 @@
 														<table class='six columns'>
 															<tr>
 																<td class='text-right valign-middle'>
-																	<span class='template-label'>Sincronización con Bsale en la BD del ERP</span>
+																	<span class='template-label'>Teledata ERP</span>
 																</td>
 																<td class='expander'></td>
 															</tr>
@@ -990,7 +990,6 @@
 														<table class='six columns'>
 															<tr>
 																<td>
-																	&copy; Teledata". date('Y')
 																."</td>
 																<td class='expander'></td>
 															</tr>
