@@ -799,7 +799,7 @@
             
             $run = new Method;
             $Hoy = date('Y-m-d');
-            // $dt = new DateTime('2019-01-01');
+            // $dt = new DateTime('2019-04-01');
             $dt = new DateTime();
             $Anio = $dt->format('Y');
             //  las facturas que se generan cada mes son del mes anterior con el metodo generarMes disminuye 1 mes
@@ -844,7 +844,14 @@
             if($Servicios){
                 $UfClass = new Uf(); 
                 $UF = $UfClass->getValue();
-                
+                $totalBoletas = 0;
+                $totalFacturas = 0;
+                $cantidadBoletas = 0;
+                $cantidadFacturas = 0;
+                $dataClient = array();
+                // $dataClient['correos'] = 'dangel@teledata.cl';
+                $dataClient['correos'] = 'dangel@teledata.cl, teledatadte@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, kcardenas@teledata.cl';
+
                 foreach($Servicios as $Servicio){
                     $Id = $Servicio['Id'];
                     $FechaInicioDesactivacion = $Servicio['FechaInicioDesactivacion'];
@@ -900,7 +907,6 @@
                                 $Impuesto = $Neto * 0.19;
                                 $Total = $Neto + $Impuesto;
                                 $Total = round($Total,0);
-                                
                                 $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$Id."', '".$Total."', '".$Codigo."')";
                                 $detalle = $run->insert($query);
                                 if($detalle){
@@ -908,14 +914,34 @@
                                     // $PrimerDiaDelMes = date('2019-01-01');
                                     $query = "UPDATE servicios SET FechaUltimoCobro = '".$PrimerDiaDelMes."' WHERE Id = '".$Id."'";
                                     $data = $run->update($query);
+                                    if($TipoDocumento == '2'){
+                                        $totalFacturas += $Total;
+                                        $cantidadFacturas++;
+                                    }else if($TipoDocumento == '1'){
+                                        $totalBoletas += $Total;
+                                        $cantidadBoletas++;
+                                    }
                                 }
                             }
                         }
                     }
                 }
+                $dataClient['asunto'] = 'Resumen de tarea automática para generar docs por lotes - Fecha '.date('d-m-Y');
+                $dataClient['MensajeCorreo'] = ' Si existe alguna anomalía en los datos contacte al equipo encargado, gracias.';
+                $dataClient['Subtitulo'] = 'Se encontraron '.$cantidadFacturas.' Facturas por un total de $'.$totalFacturas;
+                $dataClient['Subtitulo'] .= ' y '.$cantidadBoletas.' Boletas por un total de $'.$totalBoletas;
+                $dataClient['Subtitulo2'] = '';
+                $dataClient['Parrafo'][0] = '';
+                $dataClient['Parrafo'][1] = '';
+                $dataClient['Parrafo'][2] = '';
+                $dataClient['Parrafo'][3] = '';               
+                $dataClient['Parrafo'][4] = '<p style="text-align:center !important;"><a href="http://teledata.cl/" target="_blank"><img style="display:center !important; float:center !important;" src="http://teledata.cl/images_web/logo-teledata-200.png" /></a></p>';
+                $html = $run->plantillaCorreo($dataClient);
+                $dataClient['HTML'] = $html;
+                echo $respCorreo = $run->enviarCorreos(3, $dataClient);
             }
 
-            $response_array['status'] = 1; 
+            $response_array['status'] = 1;
 
             echo json_encode($response_array);
 
