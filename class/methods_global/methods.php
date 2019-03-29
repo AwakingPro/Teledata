@@ -990,6 +990,7 @@
 														<table class='six columns'>
 															<tr>
 																<td>
+																	&copy; Teledata ". date('Y')
 																."</td>
 																<td class='expander'></td>
 															</tr>
