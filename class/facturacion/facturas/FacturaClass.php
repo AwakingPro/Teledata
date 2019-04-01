@@ -850,7 +850,7 @@
                 $cantidadFacturas = 0;
                 $dataClient = array();
                 // $dataClient['correos'] = 'dangel@teledata.cl';
-                $dataClient['correos'] = 'dangel@teledata.cl, teledatadte@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, kcardenas@teledata.cl';
+                $dataClient['correos'] = 'sergio@teledata.cl, dangel@teledata.cl, teledatadte@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl';
 
                 foreach($Servicios as $Servicio){
                     $Id = $Servicio['Id'];
@@ -938,7 +938,7 @@
                 $dataClient['Parrafo'][4] = '<p style="text-align:center !important;"><a href="http://teledata.cl/" target="_blank"><img style="display:center !important; float:center !important;" src="http://teledata.cl/images_web/logo-teledata-200.png" /></a></p>';
                 $html = $run->plantillaCorreo($dataClient);
                 $dataClient['HTML'] = $html;
-                echo $respCorreo = $run->enviarCorreos(3, $dataClient);
+                $respCorreo = $run->enviarCorreos(3, $dataClient);
             }
 
             $response_array['status'] = 1;
