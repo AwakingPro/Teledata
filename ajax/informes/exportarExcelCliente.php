@@ -24,7 +24,7 @@ $objPHPExcel->setActiveSheetIndex(0)
 ->setCellValue('E1', 'Tipo de Cliente')
 ->setCellValue('F1', 'correo')
 ->setCellValue('G1', 'Fecha de Instalacion')
-->setCellValue('H1', 'Estado Del Servicio');
+->setCellValue('H1', 'Estado Del Cliente');
 
 foreach (range(0, 33) as $col) {
         $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -79,13 +79,13 @@ if (count($data) > 0) {
 		}
 		
 		if($dato['state'] == NULL || $dato['state'] == '')
-			$dato['EstadoServicio'] = 'Sin estado en la BD...';
+			$dato['EstadoCliente'] = 'Sin estado en la BD...';
 		else if($dato['state'] == 0){
-			$dato['EstadoServicio'] = 'Activo';
+			$dato['EstadoCliente'] = 'Activo';
 		}else if($dato['state'] == 1){
-			$dato['EstadoServicio'] = 'Inactivo';
+			$dato['EstadoCliente'] = 'Inactivo';
 		}else{
-			$dato['EstadoServicio'] = 'Otro';
+			$dato['EstadoCliente'] = 'Otro';
 		}
 			$objPHPExcel->setActiveSheetIndex(0)
 			->setCellValue('A'.$index, $dato['rut'])
@@ -95,7 +95,7 @@ if (count($data) > 0) {
 			->setCellValue('E'.$index, $dato['tipo_cliente'])
 			->setCellValue('F'.$index, $dato['correo'])
 			->setCellValue('G'.$index, $dato['fechaInstalacion'])
-			->setCellValue('H'.$index, $dato['EstadoServicio']);
+			->setCellValue('H'.$index, $dato['EstadoCliente']);
 			$index ++;
 	}
 
