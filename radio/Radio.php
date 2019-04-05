@@ -13,6 +13,7 @@
         <link href="../css/themes/type-a/theme-dark.min.css" rel="stylesheet">
         <link href="../plugins/datatables/media/css/dataTables.bootstrap.css" rel="stylesheet">
         <link href="../plugins/datatables/extensions/Responsive/css/dataTables.responsive.css" rel="stylesheet">
+        <link href="../plugins/bootstrap-dataTables/jquery.dataTables.css" rel="stylesheet"  media="screen">
         <link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
         <link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
         <link href="../css/teledata.css" rel="stylesheet">
