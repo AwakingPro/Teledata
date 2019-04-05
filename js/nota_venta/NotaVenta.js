@@ -26,7 +26,7 @@ $(document).ready(function() {
         iDisplayLength: 100,
         processing: true,
         serverSide: false,
-        bInfo: false,
+        bInfo: true,
         bFilter: false,
         order: [
             [0, 'asc']
