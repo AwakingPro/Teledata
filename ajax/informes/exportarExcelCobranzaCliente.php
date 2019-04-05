@@ -237,16 +237,18 @@
     foreach($ToReturn as $datos) {
     // $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$datos['FechaFacturacion'])->format('d-m-Y');
     // $fechaVencimiento = \DateTime::createFromFormat('Y-m-d',$datos['FechaVencimiento'])->format('d-m-Y');
-    $objPHPExcel->setActiveSheetIndex(0)
-	->setCellValue('A'.$index, $datos['Cliente'])
-    ->setCellValue('B'.$index, $datos['TipoDocumento'])
-    ->setCellValue('C'.$index, $datos['NumeroDocumento'])
-    ->setCellValue('D'.$index, $datos['FechaFacturacion'])
-    ->setCellValue('E'.$index, $datos['FechaVencimiento'])
-    ->setCellValue('F'.$index, $datos['TotalFactura'])
-    ->setCellValue('G'.$index, $datos['TipoFacturacion'])
-    ->setCellValue('H'.$index, $datos['ClaseCliente']);
-    $index ++; 
+    if($datos['TotalSaldo'] != $datos['TotalFactura']){
+        $objPHPExcel->setActiveSheetIndex(0)
+        ->setCellValue('A'.$index, $datos['Cliente'])
+        ->setCellValue('B'.$index, $datos['TipoDocumento'])
+        ->setCellValue('C'.$index, $datos['NumeroDocumento'])
+        ->setCellValue('D'.$index, $datos['FechaFacturacion'])
+        ->setCellValue('E'.$index, $datos['FechaVencimiento'])
+        ->setCellValue('F'.$index, $datos['TotalFactura'])
+        ->setCellValue('G'.$index, $datos['TipoFacturacion'])
+        ->setCellValue('H'.$index, $datos['ClaseCliente']);
+        $index ++; 
+        }
     }
 }else{
     echo 'No existen datos para esta consulta';
