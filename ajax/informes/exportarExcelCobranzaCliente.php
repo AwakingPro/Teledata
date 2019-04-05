@@ -22,14 +22,10 @@
 	->setCellValue('B1', 'Tipo Documento')
 	->setCellValue('C1', 'Nº Doc')
 	->setCellValue('D1', 'Fecha Emisión')
-	->setCellValue('E1', 'Fecha de Pago')
+	->setCellValue('E1', 'Fecha de Vencimiento')
 	->setCellValue('F1', 'Total Doc')
-    ->setCellValue('G1', 'Saldo Doc')
-    ->setCellValue('H1', 'Saldo Favor')
-    ->setCellValue('I1', 'Estado Cliente')
-    ->setCellValue('J1', 'Tipo De Servicio')
-    ->setCellValue('K1', 'Tipo De Facturación')
-    ->setCellValue('L1', 'Clase Cliente');
+    ->setCellValue('G1', 'Tipo De Facturación')
+    ->setCellValue('H1', 'Clase Cliente');
 
     foreach (range(0, 10) as $col) {
         $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -247,12 +243,8 @@
     ->setCellValue('D'.$index, $datos['FechaFacturacion'])
     ->setCellValue('E'.$index, $datos['FechaVencimiento'])
     ->setCellValue('F'.$index, $datos['TotalFactura'])
-    ->setCellValue('G'.$index, $datos['TotalSaldo'])
-    ->setCellValue('H'.$index, $datos['SaldoFavor'])
-    ->setCellValue('I'.$index, 'En proceso...')
-    ->setCellValue('J'.$index, $datos['NombreServicio'])
-    ->setCellValue('K'.$index, $datos['TipoFacturacion'])
-    ->setCellValue('L'.$index, $datos['ClaseCliente']);
+    ->setCellValue('G'.$index, $datos['TipoFacturacion'])
+    ->setCellValue('H'.$index, $datos['ClaseCliente']);
     $index ++; 
     }
 }else{
