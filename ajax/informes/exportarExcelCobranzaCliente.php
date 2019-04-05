@@ -62,6 +62,7 @@
 	LEFT JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_factura.tipo_facturacion = mantenedor_tipo_facturacion.id
 	LEFT JOIN mantenedor_servicios ON mantenedor_servicios.IdServicio = servicios.IdServicio
     WHERE
+    facturas.EstatusFacturacion != '2' AND
 	facturas.EstatusFacturacion != '0'";
 
     $rut = '';
