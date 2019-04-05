@@ -248,8 +248,8 @@ $(document).ready(function(){
     })
 
     EstacionTable = $('#EstacionTable').DataTable({
-        paging: false,
-        iDisplayLength: 100,
+        paging: true,
+        iDisplayLength: 10,
         processing: true,
         serverSide: false,  
         bInfo:false,
@@ -594,8 +594,8 @@ $(document).ready(function(){
     });
 
     IngresoTable = $('#IngresoTable').DataTable({
-        paging: false,
-        iDisplayLength: 100,
+        paging: true,
+        iDisplayLength: 10,
         processing: true,
         serverSide: false,  
         bInfo:false,
@@ -870,8 +870,8 @@ $(document).ready(function(){
     });
 
     BusquedaIngresoTable = $('#BusquedaIngresoTable').DataTable({
-        paging: false,
-        iDisplayLength: 100,
+        paging: true,
+        iDisplayLength: 10,
         processing: true,
         serverSide: false,  
         bInfo:false,
