@@ -252,7 +252,7 @@ $(document).ready(function(){
         iDisplayLength: 10,
         processing: true,
         serverSide: false,  
-        bInfo:false,
+        bInfo:true,
         order: [[0, 'asc']],
         language: {
             processing:     "Procesando ...",
@@ -598,7 +598,7 @@ $(document).ready(function(){
         iDisplayLength: 10,
         processing: true,
         serverSide: false,  
-        bInfo:false,
+        bInfo:true,
         order: [[0, 'asc']],
         language: {
             processing:     "Procesando ...",
@@ -874,7 +874,7 @@ $(document).ready(function(){
         iDisplayLength: 10,
         processing: true,
         serverSide: false,  
-        bInfo:false,
+        bInfo:true,
         order: [[0, 'asc']],
         language: {
             processing:     "Procesando ...",

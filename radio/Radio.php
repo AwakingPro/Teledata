@@ -593,7 +593,6 @@
         <script src="../js/bootstrap.min.js"></script>
         <script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 	    <script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
-        <script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
         <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
         <script src="../plugins/sweetalert/sweetalert.min.js"></script>
         <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
