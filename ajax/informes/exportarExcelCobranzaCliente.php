@@ -23,9 +23,10 @@
 	->setCellValue('C1', 'Nº Doc')
 	->setCellValue('D1', 'Fecha Emisión')
 	->setCellValue('E1', 'Fecha de Vencimiento')
-	->setCellValue('F1', 'Total Doc')
-    ->setCellValue('G1', 'Tipo De Facturación')
-    ->setCellValue('H1', 'Clase Cliente');
+    ->setCellValue('F1', 'Total Doc')
+    ->setCellValue('G1', 'Deuda')
+    ->setCellValue('H1', 'Tipo De Facturación')
+    ->setCellValue('I1', 'Clase Cliente');
 
     foreach (range(0, 10) as $col) {
         $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -85,28 +86,13 @@
 
     $query .= " GROUP BY facturas.Id
                 ORDER BY Cliente";
-
+    // print_r($query);exit;
     $run = new Method;
     $facturas = $run->select($query);
-    $id_facturas = '';
-    $razonSocial = '';
-    $NumeroDocumento = '';
-    $FechaFacturacion = '';
-    $TipoDocumento = '';
-    $fechaVencimiento = '';
-    $factura_detalle_FacturaId = '';
-    $factura_detalle_Total = 0;
-    $contador_vencidos = 0;
-    $monto_deuda = 0;
-    $fp_monto = 0;
-    $pagos = 0;
-    $bandera = 0;
-    $EstatusServicio = '';
-    $TipoServicio = '';
-    $claseCLiente = '';
  
  if(count($facturas) > 0) {
     $index = 2;
+    // echo "<pre>"; print_r($facturas); echo "</pre>"; exit;
     foreach($facturas as $factura){
         $Id = $factura['Id'];
         $IVA = $factura['IVA'];  
@@ -123,23 +109,9 @@
             $Total -= $Descuento;
             $TotalFactura += round($Total,0);
         }
-        $SaldoFavor = 0;
         $TotalSaldo = $factura['TotalSaldo'];
-        $TotalSaldo = $TotalFactura - $TotalSaldo;
-        $SaldoFavor = $factura['TotalSaldo'] - $TotalFactura;
-        if($TotalSaldo < 0){
-            $TotalSaldo = 0;
-        }
-        if($SaldoFavor < 0){
-            $SaldoFavor = 0;
-        }
-        $TotalSaldoFactura = $TotalSaldo;
-        if($EstatusFacturacion != 2){
-            $Acciones = 1;
-        }else{
-            $TotalSaldo = 0;
-            $Acciones = 0;
-        }
+        $Deuda = $TotalFactura - $TotalSaldo;
+        
         $Id = $factura['Id'];
         $data = array();
         $data['Id'] = $Id;
@@ -149,9 +121,8 @@
         $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
         $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
         $data['TotalFactura'] = $TotalFactura;
-        //total saldo es el pago total
-        $data['TotalSaldo'] = $TotalSaldo;
-        $data['SaldoFavor'] = $SaldoFavor;
+        //total saldo es el pago total - el saldo del doc
+        $data['Deuda'] = $Deuda;
         $data['TipoDocumento'] = $factura['TipoDocumento'];
         $data['ClaseCliente'] = $factura['ClaseCliente'];
         // if($factura['NombreServicio'] == '')
@@ -160,7 +131,6 @@
         // if($factura['TipoFacturacion'] == '')
         // $factura['TipoFacturacion'] = 'Otros Servicios';
         $data['TipoFacturacion'] = $factura['TipoFacturacion'];
-        $data['Acciones'] = $Acciones;
         $data['EstatusFacturacion'] = 1;
         array_push($ToReturn,$data);
         if($EstatusFacturacion == 2){
@@ -175,11 +145,6 @@
             if($devoluciones){
                 $devolucion = $devoluciones[0];
                 $DevolucionAnulada = $devolucion['DevolucionAnulada'];
-                if($DevolucionAnulada == 0){
-                    $Acciones = 1;
-                }else{
-                    $Acciones = 0;
-                }
                 
                 $data = array();
                 $data['Id'] = $devolucion['Id'];
@@ -189,8 +154,7 @@
                 $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                 $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                 $data['TotalFactura'] = $TotalFactura;
-                $data['TotalSaldo'] = $TotalSaldoFactura;
-                $data['SaldoFavor'] = $SaldoFavor;
+                $data['Deuda'] = $Deuda;
                 $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
                 $data['TipoDocumento'] = 'Nota de crédito';
                 if($devolucion['priceAdjustment'] == 1){
@@ -202,7 +166,6 @@
                 $data['ClaseCliente'] = $factura['ClaseCliente'];
                 $data['NombreServicio'] = $factura['NombreServicio'];
                 $data['TipoFacturacion'] = $factura['TipoFacturacion'];
-                $data['Acciones'] = $Acciones;
                 $data['EstatusFacturacion'] = 2;
                 array_push($ToReturn,$data);
                 if($DevolucionAnulada == 1){
@@ -219,8 +182,7 @@
                         $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
                         $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
                         $data['TotalFactura'] = $TotalFactura;
-                        $data['TotalSaldo'] = $TotalSaldoFactura;
-                        $data['SaldoFavor'] = $SaldoFavor;
+                        $data['Deuda'] = $Deuda;
                         $data['UrlPdfBsale'] = $anulacion['UrlPdfBsale'];
                         $data['TipoDocumento'] = 'Nota de debito';
                         $data['ClaseCliente'] = $factura['ClaseCliente'];
@@ -233,11 +195,11 @@
             }
         }
     }
-    // print_r($facturas);exit;
+    $TotalDocAcumulado = 0;
+    $TotalDeudaAcumulada = 0;
+    // echo "<pre>"; print_r($ToReturn); echo "</pre>"; exit;
     foreach($ToReturn as $datos) {
-    // $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$datos['FechaFacturacion'])->format('d-m-Y');
-    // $fechaVencimiento = \DateTime::createFromFormat('Y-m-d',$datos['FechaVencimiento'])->format('d-m-Y');
-    if($datos['TotalSaldo'] != $datos['TotalFactura']){
+    if($datos['Deuda'] > 0){
         $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A'.$index, $datos['Cliente'])
         ->setCellValue('B'.$index, $datos['TipoDocumento'])
@@ -245,11 +207,26 @@
         ->setCellValue('D'.$index, $datos['FechaFacturacion'])
         ->setCellValue('E'.$index, $datos['FechaVencimiento'])
         ->setCellValue('F'.$index, $datos['TotalFactura'])
-        ->setCellValue('G'.$index, $datos['TipoFacturacion'])
-        ->setCellValue('H'.$index, $datos['ClaseCliente']);
+        ->setCellValue('G'.$index, $datos['Deuda'])
+        ->setCellValue('H'.$index, $datos['TipoFacturacion'])
+        ->setCellValue('I'.$index, $datos['ClaseCliente']);
+        $TotalDocAcumulado += $datos['TotalFactura'];
+        $TotalDeudaAcumulada += $datos['Deuda'];
         $index ++; 
         }
     }
+    if($index == 2){
+        echo "No existen deudas para este cliente";
+        exit;
+    }
+    
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('F'.++$index, 'Total doc acumulado')
+    ->setCellValue('G'.$index, 'Deuda acumulada')
+    ->setCellValue('F'.++$index, $TotalDocAcumulado)
+    ->setCellValue('G'.$index, $TotalDeudaAcumulada);
+
+    
 }else{
     echo 'No existen datos para esta consulta';
     return;
