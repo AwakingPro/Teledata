@@ -26,6 +26,45 @@ if (($('#demo-dp-component .input-group.date').size() > 0) || ($('.input-dateran
 		});
 	}
 }
+$(document).on('change', '#verificarCorreo', function () {
+	 var CorreoVerificador = $('#verificarCorreo').val();
+	if(  CorreoVerificador) {
+		// console.log('tiene valores...');
+		if( ValidarCorreo(CorreoVerificador)){
+			$.ajax({
+				type: "POST",
+				dataType: 'json',
+				url: "../includes/global/verificarCorreo.php",
+				data:'CorreoVerificador='+CorreoVerificador,
+				beforeSend: function() {
+					alertas('info', 'Consultando '+ CorreoVerificador + ' espere...');
+				},
+				success: function(result){
+				console.log(result.mensaje.status)
+				if(result.codigo){
+					if(result.mensaje.status == 1){
+					// console.log('paso ')
+					alertas('success', 'Exito '+ CorreoVerificador +' '+ result.mensaje.status_description + ' paso la prueba...');
+					}
+					if(result.mensaje.status == 0){
+						alertas('danger', result.mensaje.smtp_log +' '+ CorreoVerificador + ' '+ result.mensaje.status_description + ' No paso la prueba...');
+					}
+					if(result.mensaje.status == -1){
+						alertas('danger', result.mensaje.smtp_log +' '+ CorreoVerificador + ' '+ result.mensaje.status_description + ' No paso la prueba...');
+					}
+					
+				}else{
+					// console.log('no paso ')
+					alertas('warning', 'Error ' + CorreoVerificador +' no paso la prueba...');
+				}
+			  }});
+		}else{
+			// console.log(' No es valido');
+		}
+    }else{
+		// console.log('No tiene valores');
+	}
+});
 var ValorUF = 0
 $.ajax({
 	type: "POST",
@@ -281,7 +320,7 @@ function alertas(type, message) {
 		icon: 'fa fa-check',
 		message: '<h5>' + message + '</h5>',
 		container: 'floating',
-		timer: 6000
+		timer: 12000
 	});
 };
 

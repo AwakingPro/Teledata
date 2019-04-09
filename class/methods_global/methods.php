@@ -1044,5 +1044,72 @@
 			$FechaFacturacion = $FechaFacturacion[0].'/'.$FechaFacturacion[1].'/dias/'.$FechaFacturacion[2];
 			return $FechaFacturacion;
 		}
+
+		public function verificarCorreo($correo){
+			header('Content-type: application/json');
+			$codigo = 0;
+			$mensaje = '';
+			$is_valid_email = $this->is_valid_email($correo);
+			if($is_valid_email){
+				$mysqli = $this->conexion();
+				if ($mysqli) {
+					$resultado = $mysqli->query('SELECT * FROM api_verify_email');
+					if(count($resultado)){
+						$resultado = $resultado->fetch_array();
+						$key = $resultado['key'];
+						$endpoint = 'https://app.verify-email.org/api/v1/'.$key.'/verify/'.$correo;
+						header('Content-Type: application/json');
+						
+						//  Initiate curl
+						$ch = curl_init();
+
+						// Set The Response Format to Json
+						curl_setopt($ch, CURLOPT_HTTPHEADER, array( 'Content-Type: application/json'));
+
+						// Disable SSL verification
+						curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+						// Will return the response, if false it print the response
+						curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+
+						// Set the url
+						curl_setopt($ch, CURLOPT_URL,$endpoint);
+
+						// Execute
+						$result=curl_exec($ch);
+
+						// Closing
+						curl_close($ch);
+
+						$mensaje = json_decode($result);
+						$codigo = 1;
+					}else{
+						$mensaje = "No existe key para la API en la bd";
+					}
+				}else{
+					$mensaje = 'Error en la consulta'; 
+				}
+			}else{
+				$mensaje = 'El email no es valido';
+			}
+
+			$data = array('codigo' => $codigo,
+						  'mensaje'  => $mensaje
+			);
+			return $data;
+		}
+		//validar dominio de correos
+		function is_valid_email($str){
+			$result = (false !== filter_var($str, FILTER_VALIDATE_EMAIL));
+			if ($result)
+			{
+				list($user, $domain) = explode('@', $str);
+				
+				$result = checkdnsrr($domain, 'MX');
+			}
+			
+			return $result;
+		}
+
 	}
  ?>
