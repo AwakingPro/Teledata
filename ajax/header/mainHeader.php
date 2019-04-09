@@ -33,6 +33,10 @@ if (file_exists('../ajax/perfil/img-profile/'.$_SESSION['idUsuario'].'.jpg')) {
 				</li>
 			</ul>
 			<ul class="nav navbar-top-links pull-right">
+				<li style="padding-top:8px;">
+					<label style="color:white">Verificar correo: </label>
+					<input type="email" id="verificarCorreo" name="verificarCorreo" class="verificarCorreo">
+				</li>
 				<li class="username" style="color:white">
 					UF: <span class="ValorUF">0</span>
 				</li>
