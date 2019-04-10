@@ -167,6 +167,9 @@
 									if($clave == 5) {
 										$tabla.="<td class='campo-servicios'>".$valor."<i attr='".$rows[$i][1]."' data-nombre='".$rows[$i][2]."' class='verServiciosCliente fa fa-eye' title='Ver Servicios'></i></td>";
 									} else {
+										if($clave == 2) {
+											$valor = $this->eliminarTildes($valor);
+										}
 										$tabla.="<td>".$valor."</td>";
 									}
 									
