@@ -1103,5 +1103,16 @@
 			return $result;
 		}
 
+		//eliminar tildes
+		function eliminarTildes ($cadena){
+			$originales = 'ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝÞ
+		ßàáâãäåæçèéêëìíîïðòóôõöøùúûýýþÿŔŕ';
+			$modificadas = 'aaaaaaaceeeeiiiidnoooooouuuuy
+		bsaaaaaaaceeeeiiiidoooooouuuyybyRr';
+			$cadena = utf8_decode($cadena);
+			$cadena = strtr($cadena, utf8_decode($originales), $modificadas);
+			$cadena = strtoupper($cadena);
+			return utf8_encode($cadena);
+		}
 	}
  ?>

@@ -20,6 +20,7 @@
 	if (count($clientes) > 0) {
 		$list ='<option value="">Seleccione...</option>';
 		foreach($clientes as $cliente){
+			$cliente['nombre'] = $run->eliminarTildes($cliente['nombre']);
 			$list.= '<option data-rut="'.$cliente['rut'].'-'.$cliente['dv'].'" data-nombre-cliente="'.$cliente['nombre'].'" value="'.$cliente['rut'].'">'.$cliente['rut'].'-'.$cliente['dv'].'  '.$cliente['nombre'].' - '.$cliente['tipo_cliente'].'</option>';
 		}
 		echo $list;
