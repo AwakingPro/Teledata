@@ -86,7 +86,7 @@ $(document).ready(function() {
             infoPostFix: "",
             loadingRecords: "Cargando ...",
             zeroRecords: "No se encontraron registros coincidentes",
-            emptyTable: "No hay datos disponibles en la tabla",
+            // emptyTable: "No hay datos disponibles en la tabla",
             paginate: {
                 first: "Primero",
                 previous: "Anterior",
@@ -125,7 +125,7 @@ $(document).ready(function() {
             infoPostFix: "",
             loadingRecords: "Cargando ...",
             zeroRecords: "No se encontraron registros coincidentes",
-            emptyTable: "No hay datos disponibles en la tabla",
+            // emptyTable: "No hay datos disponibles en la tabla",
             paginate: {
                 first: "Primero",
                 previous: "Anterior",
@@ -164,7 +164,7 @@ $(document).ready(function() {
             infoPostFix: "",
             loadingRecords: "Cargando ...",
             zeroRecords: "No se encontraron registros coincidentes",
-            emptyTable: "No hay datos disponibles en la tabla",
+            // emptyTable: "No hay datos disponibles en la tabla",
             paginate: {
                 first: "Primero",
                 previous: "Anterior",
@@ -204,7 +204,7 @@ $(document).ready(function() {
             infoPostFix: "",
             loadingRecords: "Cargando ...",
             zeroRecords: "No se encontraron registros coincidentes",
-            emptyTable: "No hay datos disponibles en la tabla",
+            // emptyTable: "No hay datos disponibles en la tabla",
             paginate: {
                 first: "Primero",
                 previous: "Anterior",
