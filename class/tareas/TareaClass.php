@@ -163,7 +163,7 @@
 
 	    }
 
-	    function storeTarea($Id,$FechaInstalacion,$InstaladoPor,$Comentario,$UsuarioPppoe,$SenalFinal,$EstacionFinal,$Estatus,$actualizaFechaUltimoCobro){
+	    function storeTarea($Id, $FechaInstalacion, $InstaladoPor, $Comentario, $UsuarioPppoe, $SenalFinal, $EstacionFinal, $habilitarFacturacion, $Estatus, $actualizaFechaUltimoCobro){
 
 			$response_array = array();
 			$run = new Method;
@@ -215,12 +215,13 @@
 						$EstatusTarea = $Servicio['EstatusInstalacion'];
 						
 						if($EstatusTarea != 1){
+							//esto es para que cuando se finaliza la tarea el doc aparezca en por lotes al instante o 1 ro del mes siguiente
 							$Rut = $Servicio['Rut'];
 							$Grupo = $Servicio['Grupo'];
 							$TipoDocumento = $Servicio['tipo_cliente'];
 							
 							//aqui cambio fecha instalacion para que luego aparezcan en facturas por lotes
-							$query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(),'".$TipoDocumento."', NOW(), 0.19)";
+							$query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '2', '".$habilitarFacturacion."', '0', '', '0', '', NOW(), NOW(),'".$TipoDocumento."', NOW(), 0.19)";
 							//para modificar fecha la de abajo
 							// $fechaVencimiento = 1543186789;
 							// $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA) VALUES ('".$Rut."', '".$Grupo."', '2', '0', '0', '', '0', '', NOW(), NOW(),'".$TipoDocumento."', '".$fechaVencimiento."', 0.19)";
