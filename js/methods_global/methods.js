@@ -349,7 +349,7 @@ $.extend( $.fn.dataTable.defaults, {
 		infoPostFix: "",
 		loadingRecords: "Cargando ...",
 		zeroRecords: "No se encontraron registros coincidentes",
-		emptyTable: "No hay datos disponibles en la tabla",
+		emptyTable: "<div style='text-align:center; font-weight:bold;'> No hay datos disponibles en la tabla</div>",
 		paginate: {
 			first: "Primero",
 			previous: "Anterior",
