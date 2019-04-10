@@ -26,8 +26,11 @@
 				$query .= " AND servicios.IdUsuarioAsignado = $idUsuario ";
 			}
             $run = new Method;
-            $data = $run->select($query);
-
+			$data = $run->select($query);
+			foreach($data as $key => $tarea ){
+				$data[$key]['Cliente'] = $run->eliminarTildes($tarea['Cliente']);
+			}
+			
             $response_array['array'] = $data;
 
             echo json_encode($response_array);

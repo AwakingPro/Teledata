@@ -144,7 +144,9 @@
                             p.nombre";
             
             $data = $run->select($query);
-
+			foreach($data as $key => $tarea ){
+				$data[$key]['nombre'] = $run->eliminarTildes($tarea['nombre']);
+			}
             $response_array['array'] = $data;
 
             echo json_encode($response_array);
