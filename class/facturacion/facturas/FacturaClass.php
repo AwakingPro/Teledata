@@ -798,6 +798,10 @@
         public function generarFacturas(){
             
             $run = new Method;
+            
+            $queryEstatusFacturacion = "UPDATE facturas SET EstatusFacturacion = '0' WHERE EstatusFacturacion = '3' ";
+            $run->update($queryEstatusFacturacion);
+           
             $Hoy = date('Y-m-d');
             // $dt = new DateTime('2019-04-01');
             $dt = new DateTime();
