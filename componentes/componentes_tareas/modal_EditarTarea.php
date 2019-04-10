@@ -85,8 +85,8 @@
                                 <label class="control-label" for="habilitarFacturacion">¿Aparecer en facturación por lotes al finalizar la tarea o al mes siguiente?</label>
                                 <div class="select">
                                     <select class="form-control habilitarFacturacion" name="habilitarFacturacion" id="habilitarFacturacion" data-live-search="true" data-container="body" validate="not_null" data-nombre="habilitar Facturacion">
-                                    <option value = "0">Aparecer al finalizar</option>
                                     <option value = "3">Aparecer el 1 del mes siguiente</option>
+                                    <option value = "0">Aparecer al finalizar la tarea</option>
                                     </select>
                                 </div>
                             </div>
