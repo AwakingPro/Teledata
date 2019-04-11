@@ -1958,7 +1958,7 @@
                             INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
                             INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
                         WHERE
-                            facturas.EstatusFacturacion != '0'";
+                            facturas.EstatusFacturacion != '0' AND facturas.EstatusFacturacion != '3' ";
             if($startDate){
                 $dt = \DateTime::createFromFormat('Y/m/d',$startDate);
                 $startDate = $dt->format('Y-m-d');
