@@ -187,7 +187,7 @@ $(document).ready(function() {
                                     // $('.Facturar').prop('disabled', true);
                                     Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar hacia la API de Bsale" title="" data-container="body"></i>'
                                 }
-                                if(IdUsuarioSession == 109 || IdUsuarioSession == 116){
+                                if(IdUsuarioSession == 109 || IdUsuarioSession == 116 || IdUsuarioSession == 104){
                                     Icono += '<i title="Eliminar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar la factura" title="" data-container="body"></i>'
                                 }
                                 return "<div style='text-align: center'>" + Icono + "</div>";
@@ -272,7 +272,7 @@ $(document).ready(function() {
                                 //comentar el prop y sustituir el not-allowed por pointer de Facturar luego de que se puedan enviar correos 
                                 // $('.Facturar').prop('disabled', true);
                                 Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar"  data-container="body"></i>'
-                                if(IdUsuarioSession == 109 || IdUsuarioSession == 116){
+                                if(IdUsuarioSession == 109 || IdUsuarioSession == 116 || IdUsuarioSession == 104){
                                     Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>'
                                 }
                                 return "<div style='text-align: center'>" + Icono + "</div>";
@@ -364,7 +364,7 @@ $(document).ready(function() {
                                 //comentar el prop y sustituir el not-allowed por pointer de Facturar luego de que se puedan enviar correos 
                                 // $('.Facturar').prop('disabled', true);
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
-                                if(IdUsuarioSession == 109 || IdUsuarioSession == 116){
+                                if(IdUsuarioSession == 109 || IdUsuarioSession == 116 || IdUsuarioSession == 104){
                                     Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar" title="" data-container="body"></i>'
                                 }
                                 return "<div style='text-align: center'>" + Icono + "</div>";
