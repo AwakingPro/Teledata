@@ -54,6 +54,7 @@ $(document).ready(function() {
                 $('#EstacionFinal').append('<option value="' + array.id + '" data-content="' + array.nombre + '"></option>');
             });
             $('#EstacionFinal').selectpicker('refresh');
+            
         }
     });
 
@@ -538,12 +539,14 @@ $(document).ready(function() {
 
                     $('#modalTarea').find('input[name="FechaInstalacion"]').val(FechaInstalacion)
                     $('#modalTarea').find('select[name="InstaladoPor"]').val(response.array.IdUsuarioAsignado)
-                    $('#modalTarea').find('input[name="UsuarioPppoe"]').val(response.array.UsuarioPppoe)
+                    $('#modalTarea').find('input[name="UsuarioPppoe"]').val(response.array.UsuarioPppoeTeorico)
                     $('#modalTarea').find('input[name="UsuarioPppoeTeorico"]').val(response.array.UsuarioPppoeTeorico)
                     $('#modalTarea').find('input[name="SenalTeorica"]').val(response.array.SenalTeorica)
-                    $('#modalTarea').find('input[name="SenalFinal"]').val(response.array.SenalFinal)
+                    $('#modalTarea').find('input[name="SenalFinal"]').val(response.array.SenalTeorica)
                     $('#modalTarea').find('input[name="PosibleEstacion"]').val(response.array.PosibleEstacion)
-                    $('#modalTarea').find('input[name="EstacionFinal"]').val(response.array.EstacionFinal)
+                    if(response.array.EstacionFinalNombre == '' || response.array.EstacionFinalNombre == null){
+                        $('#modalTarea').find('input[name="EstacionFinal"]').val('response.array.EstacionFinalNombre')
+                    }
                     $('#modalTarea').find('textarea[name="Comentario"]').text(response.array.Comentario)
 
                 }
