@@ -75,7 +75,6 @@
                             <div class="form-group">
                                 <label class="control-label" for="EstacionFinal">Estación Final</label>
                                 <select name="EstacionFinal" id="EstacionFinal" class="form-control selectpicker" data-live-search="true" validate="not_null" data-nombre="Estación Final">
-                                    <option value="">Seleccione...</option>
                                 </select>
                             </div>
                         </div>
