@@ -34,12 +34,13 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('J1', 'Informe SII')
     ->setCellValue('K1', 'DTE Activos')
     ->setCellValue('L1', 'DTE Inactivos')
-    ->setCellValue('M1', 'DTE Desconocido');
+    ->setCellValue('M1', 'DTE Desconocido')
+    ->setCellValue('N1', 'PAC');
     
     // filtros
-    $objPHPExcel->getActiveSheet()->setAutoFilter("A1:Q1");
+    $objPHPExcel->getActiveSheet()->setAutoFilter("A1:N1");
 
-foreach (range(0, 16) as $col) {
+foreach (range(0, 12) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 
@@ -58,6 +59,7 @@ $query = "  SELECT
     personaempresa.nombre AS Cliente,
     personaempresa.rut AS RUT,
     personaempresa.dv AS DV,
+    personaempresa.posee_pac AS PAC,
     facturas.Id,
     facturas.DocumentoIdBsale,
     facturas.NumeroDocumento,
@@ -173,6 +175,7 @@ if($facturas){
         $data['TipoDocumento'] = $factura['TipoDocumento'];
         $data['Cliente'] = $factura['Cliente'];
         $data['RUT'] = $factura['RUT'].'-'.$factura['DV'];
+        $data['PAC'] = $factura['PAC'];
         if($factura['Detalle'] == '' || $factura['Detalle'] == null)
         $factura['Detalle'] = 'Sin Detalle';
 
@@ -214,6 +217,7 @@ if($facturas){
                 $data['DocumentoId'] = $Id;
                 $data['Cliente'] = $factura['Cliente'];
                 $data['RUT'] = $factura['RUT'].'-'.$factura['DV'];
+                $data['PAC'] = $factura['PAC'];
                 $data['NumeroDocumento'] = $devolucion['NumeroDocumento'];
                 $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                 // $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
@@ -249,6 +253,7 @@ if($facturas){
                         $data['DocumentoId'] = $Id;
                         $data['Cliente'] = $factura['Cliente'];
                         $data['RUT'] = $factura['RUT'].'-'.$factura['DV'];
+                        $data['PAC'] = $factura['PAC'];
                         $data['NumeroDocumento'] = $anulacion['NumeroDocumento'];
                         $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
                         // $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
@@ -283,6 +288,11 @@ if($facturas){
     $TotalSaldoFavor = 0;
     // echo '<pre>'; print_r($ToReturn); echo '</pre>';exit;
     foreach($ToReturn as $datos) {
+        if($datos['PAC'] == '1')
+        $datos['PAC'] = 'Si';
+        else
+        $datos['PAC'] = 'No';
+
         $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A'.$index, $datos['Cliente'])
         ->setCellValue('B'.$index, $datos['TipoDocumento'])
@@ -300,7 +310,8 @@ if($facturas){
         ->setCellValue('J'.$index, $datos['InformeSII'])
         ->setCellValue('K'.$index, $datos['dte_activos'])
         ->setCellValue('L'.$index, $datos['dte_inactivos'])
-        ->setCellValue('M'.$index, $datos['dte_otros']);
+        ->setCellValue('M'.$index, $datos['dte_otros'])
+        ->setCellValue('N'.$index, $datos['PAC']);
         $TotalNeto += $datos['MontoNeto'];
         $TotalIVA += $datos['IVA'];
         $TotalTotal += $datos['TotalFactura'];
