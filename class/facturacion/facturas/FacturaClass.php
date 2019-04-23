@@ -81,6 +81,7 @@
                             mantenedor_tipo_cliente.nombre AS TipoDocumento,
                             facturas.IVA,
                             personaempresa.nombre AS Cliente,
+                            personaempresa.dv as DV,
                             -- devuelve el primero que encuentre que no sea nulo.
                             COALESCE (
                                 grupo_servicio.Nombre,
@@ -115,7 +116,7 @@
                     $Grupo = $factura['Grupo'];
                     $data = array();
                     $data['Id'] = $Rut;
-                    $data['Rut'] = $Rut;          
+                    $data['Rut'] = $Rut . '.' . $factura['DV'];
                     $data['Grupo'] = $Grupo;   
                     $data['Cliente'] = $factura['Cliente'];   
                     $data['UrlPdfBsale'] = '';
@@ -158,6 +159,7 @@
                             mantenedor_tipo_cliente.nombre AS TipoDocumento,
                             facturas.IVA,
                             personaempresa.nombre AS Cliente,
+                            personaempresa.dv as DV,
                             COALESCE (
                                 grupo_servicio.Nombre,
                                 facturas.Grupo
@@ -184,11 +186,10 @@
                     $Valor = $factura['Valor'];
                     $data = array();
                     $data['Id'] = $factura['Id'];
-                    $data['Rut'] = $factura['Rut'];          
+                    $data['Rut'] = $factura['Rut'] . '.' . $factura['DV'];          
                     $data['Grupo'] = $factura['Grupo'];   
-                    $data['Cliente'] = $factura['Cliente'];   
+                    $data['Cliente'] = $factura['Cliente'];
                     $data['UrlPdfBsale'] = '';
-                    // $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
                     $data['Valor'] = $Valor;
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
