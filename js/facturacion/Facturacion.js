@@ -184,7 +184,7 @@ $(document).ready(function() {
                                 if(row.PermitirFactura == 1){
                                     //temporal
                                     //comentar el prop y sustituir el not-allowed por pointer de Facturar luego de que se puedan enviar correos 
-                                    $('.Facturar').prop('disabled', true);
+                                    // $('.Facturar').prop('disabled', true);
                                     Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar hacia la API de Bsale" title="" data-container="body"></i>'
                                 }
                                 if(IdUsuarioSession == 109 || IdUsuarioSession == 116 || IdUsuarioSession == 104){
