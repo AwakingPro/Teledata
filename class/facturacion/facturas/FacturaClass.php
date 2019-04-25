@@ -116,7 +116,7 @@
                     $Grupo = $factura['Grupo'];
                     $data = array();
                     $data['Id'] = $Rut;
-                    $data['Rut'] = $Rut . '.' . $factura['DV'];
+                    $data['Rut'] = $Rut . '-' . $factura['DV'];
                     $data['Grupo'] = $Grupo;   
                     $data['Cliente'] = $factura['Cliente'];   
                     $data['UrlPdfBsale'] = '';
@@ -186,7 +186,7 @@
                     $Valor = $factura['Valor'];
                     $data = array();
                     $data['Id'] = $factura['Id'];
-                    $data['Rut'] = $factura['Rut'] . '.' . $factura['DV'];          
+                    $data['Rut'] = $factura['Rut'] . '-' . $factura['DV'];          
                     $data['Grupo'] = $factura['Grupo'];   
                     $data['Cliente'] = $factura['Cliente'];
                     $data['UrlPdfBsale'] = '';
