@@ -171,7 +171,7 @@
                                                         <th class="text-center"><input class="select-checkbox" name="select_all" id="select_all" type="checkbox"></th>
                                                         <th class="text-center">Tipo</th>
                                                         <th class="text-center">Cliente</th>
-                                                        <th class="text-center">Rut - DV</th>
+                                                        <th class="text-center">RUT - DV</th>
                                                         <th class="text-center">Grupo Factura</th>
                                                         <th class="text-center">Monto</th>
                                                         <th class="text-center">Acción</th>
