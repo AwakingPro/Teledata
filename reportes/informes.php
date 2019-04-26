@@ -46,13 +46,26 @@
                                                     <div class="select">
                                                         <select class="selectpicker form-control" id="tipo_informe" name="tipo_informe" data-live-search="true" data-container="body">
                                                             <option value="">Seleccione</option>
-															<option value="0">Informe clientes con servicios</option>
-                                                            <option value="1">Informe clientes</option>
-                                                            <option value="2">Informe pagos mensuales y anuales</option>
-                                                            <option value="3">Informe cobranza de clientes</option>
+
+															<!-- inhabilitado -->
+															<option value="0" disabled="disabled">Informe clientes con servicios</option>
+                                                            <option value="1" disabled="disabled">Informe clientes</option>
+                                                            <option value="2" disabled="disabled">Informe pagos mensuales y anuales</option>
+                                                            <option value="3" disabled="disabled">Informe cobranza de clientes</option>
+															<!-- inhabilitado -->
+
+
+
                                                             <option value="4" disabled="disabled">Informe pagos por cliente</option>
                                                             <option value="5" disabled="disabled">Informe estado de clientes</option>
-                                                            <option value="6" >Libro de ventas</option>
+                                                            
+
+
+															<!-- inhabilitado -->
+															<option value="6" disabled="disabled">Libro de ventas</option>
+															<!-- inhabilitado -->
+
+
                                                             <option value="7" disabled="disabled">Libro de compras</option>
                                                             <option value="8" disabled="disabled">Informe pago de proveedores</option>
                                                             <option value="9" disabled="disabled">Informe otros egresos</option>
