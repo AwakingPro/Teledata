@@ -134,6 +134,67 @@ $(document).ready(function() {
         }
     });
 
+    $('body').on('click', '.VisualizarLote', function() {
+        $('#modalDetalleShow').modal('show')
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+         // globalObjectTRLote para usarla al eliminar un detalle
+        // globalObjectTRLote = ObjectTR;
+        var ObjectRutId = ObjectTR.attr("rutid");
+        var ObjectGroup = ObjectTR.attr("grupo");
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/showLote.php",
+            beforeSend: function( ) {
+                $('.ModalTableBody').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+              },
+            data: "rut=" + ObjectRutId + "&grupo=" + ObjectGroup,
+            success: function(response) {
+            $('.ModalTableBody').html('');
+            ModalTable.clear().draw()
+                $.each(response.array, function(index, array) {
+                    
+                    var StyleUndoServicio = 'style="cursor: pointer; margin: 0 10px; font-size:15px;" ';
+                    var UndoServicio = '';
+
+                    var StyleEliminarDetalle;
+                    var desabilitar;
+                    var EliminarDetalle;
+                    if(!array.detalleIdBsale && array.totalDetalles > 1){
+                        StyleEliminarDetalle = 'style="cursor: pointer; margin: 0 10px; font-size:15px;" ';
+                        desabilitar = '';
+                        EliminarDetalle = 'EliminarDetalle';
+                    }else{
+                        StyleEliminarDetalle = 'style="cursor: not-allowed;  margin: 0 10px; font-size:15px; opacity: 0.2; "';
+                        desabilitar = 'disabled';
+                        EliminarDetalle = '';
+                    }
+                    var rowNode = ModalTable.row.add([
+                        '' + array.Codigo + '',
+                        '' + array.Concepto + '',
+                        '' + formatcurrency(array.Valor) + '',
+                        '' + '<i  id='+array.detalleId+' '+StyleEliminarDetalle+' '+desabilitar+' tipo='+2+' facturaId='+array.facturaId+' class="fa fa-trash '+EliminarDetalle+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + 
+                             '<i  id='+array.idServicio+' '+StyleUndoServicio+' '+' tipo='+2+' facturaId='+array.facturaId+' class="fa fa-undo '+UndoServicio+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + ''
+                        
+                    ]).draw(false).node();
+
+                    $(rowNode)
+                        .addClass('text-center')
+                });
+
+                $('#modalShow').modal('show')
+            },
+            error: function(xhr, status, error) {
+                setTimeout(function() {
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada', err.Message, 'error');
+                }, 1000);
+            }
+        });
+
+    });
+
     function getFacturasCliente() {
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { Rut: $('select[name="rutCliente"]').selectpicker('val') }, function(data) {
             FacturasTableCliente = $('#FacturasTableCliente').DataTable({
@@ -208,6 +269,7 @@ $(document).ready(function() {
                             if (row.EstatusFacturacion == '1') {
                                 Folder = 'facturas';
                                 if (row.Acciones == 1) {
+                                    Detalle = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-book Detalle VisualizarLote" aria-hidden="true" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Detalle del documento" title="" data-container="body"></i>';
                                     Devolucion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-undo Devolucion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Generar Nota de Crédito" title="" data-container="body"></i>'
                                     if (row.TotalSaldo != '0') {
                                         Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'
@@ -220,6 +282,7 @@ $(document).ready(function() {
                                         Pagos = ''
                                     }
                                 } else {
+                                    Detalle = '';
                                     Devolucion = ''
                                     Abonar = ''
                                     Pagos = ''
@@ -263,7 +326,8 @@ $(document).ready(function() {
                             } else {
                                 Pdf = '';
                             }
-                            return "<div style='text-align: center'>" + Devolucion + " " + Anulacion + " " + Abonar + " " + Pagos + " " + Pdf + " " + Enviar + "</div>";
+                            
+                            return "<div style='text-align: center'>" + Devolucion + " " + Anulacion + " " + Abonar + " " + Pagos + " " + Pdf + " " + Enviar + " " + Detalle +"</div>";
                         }
                     },
                 ],

@@ -106,7 +106,10 @@
 															</table>
 														</div>
 													</div>
-													<?php include 'plantilla_saldoDoc.php'; ?>
+													<?php 
+													include 'plantilla_saldoDoc.php';
+													include '../componentes/componentes_documentos/modalDetalle.php';
+													?>
 												</div>
 											</div>
 										</div>
