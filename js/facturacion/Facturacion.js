@@ -555,7 +555,7 @@ $(document).ready(function() {
     });
     
     $('body').on('click', '.VisualizarLote', function() {
-        $('#modalShow').modal('show')
+        $('#modalDetalleShow').modal('show')
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
          // globalObjectTRLote para usarla al eliminar un detalle
