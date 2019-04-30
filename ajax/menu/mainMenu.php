@@ -16,7 +16,7 @@
 				if (in_array($_SESSION['idNivel'], $permiso)) {
 					$arrow = "";
 					$subMenu = "";
-					$query2 = 'SELECT Nombre, Enlace FROM submenu WHERE submenu.Id_menu = '.$data[$i]['id_menu'];
+					$query2 = 'SELECT Nombre, Enlace FROM submenu WHERE submenu.Id_menu = '.$data[$i]['id_menu'].' AND  IdSubMenu != 23 ';
 					$data2 = $run->select($query2);
 					if (count($data2) > 0) {
 						$arrow = "<i class='arrow'></i>";
