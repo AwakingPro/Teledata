@@ -18,7 +18,7 @@
                 </div>
                 <br>
                 <div id="divFechaActivacion" style="display:none">
-                    <label>Fecha de Activación</label>
+                    <label>Fecha de suspensión</label>
                     <div class="form-group">
                         <div id="date-range">
                             <div class="input-daterange input-group" id="datepicker">

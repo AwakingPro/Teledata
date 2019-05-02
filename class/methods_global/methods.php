@@ -1117,5 +1117,15 @@
 			$cadena = strtoupper($cadena);
 			return utf8_encode($cadena);
 		}
+
+		// metodo para buscar un caracter o una palabra dentro de una cadena de texto
+		function buscaTexto($cadena_de_texto, $cadena_buscada){
+			// $cadena_de_texto = 'Esta es la frase donde haremos la búsqueda';
+			// $cadena_buscada   = 'La';
+			$posicion_coincidencia = strripos($cadena_de_texto, $cadena_buscada);
+			
+			//se puede hacer la comparacion con 'false' o 'true' y los comparadores '===' o '!=='
+			return $posicion_coincidencia;
+		}
 	}
  ?>
