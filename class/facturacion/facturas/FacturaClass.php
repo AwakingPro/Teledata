@@ -178,7 +178,6 @@
                         AND facturas.deleted_at IS NULL
                         GROUP BY
                             facturas.Id";
-
             $facturas = $run->select($query);
             if($facturas){
 
@@ -210,7 +209,6 @@
             }
 
             $response_array['array'] = $ToReturn;
-
             echo json_encode($response_array);
         }
 
@@ -403,6 +401,7 @@
             }
             
             $facturas = $run->select($query);
+            
             $array = array();
             if($facturas){
                 $totalDetalles = count($facturas);
@@ -1950,6 +1949,7 @@
                             facturas.FechaFacturacion,
                             facturas.FechaVencimiento,
                             facturas.UrlPdfBsale,
+                            facturas.Grupo,
                             mantenedor_tipo_cliente.nombre AS TipoDocumento,
                             facturas.IVA,
                             facturas.EstatusFacturacion,
@@ -2044,6 +2044,7 @@
                     $data['TotalSaldo'] = $TotalSaldo;
                     $data['SaldoFavor'] = $SaldoFavor;
                     $data['UrlPdfBsale'] = $factura['UrlPdfBsale'];
+                    $data['Grupo'] = $factura['Grupo'];
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['Acciones'] = $Acciones;
                     $data['EstatusFacturacion'] = 1;
@@ -2075,6 +2076,7 @@
                             $data['TotalSaldo'] = $devolucion['DevolucionAmount'];
                             $data['SaldoFavor'] = $SaldoFavor;
                             $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
+                            $data['Grupo'] = $factura['Grupo'];
                             $data['TipoDocumento'] = 'Nota de crédito';
                             $data['Acciones'] = $Acciones;
                             $data['EstatusFacturacion'] = 2;
@@ -2097,6 +2099,7 @@
                                     $data['TotalSaldo'] = $TotalSaldoFactura;
                                     $data['SaldoFavor'] = $SaldoFavor;
                                     $data['UrlPdfBsale'] = $anulacion['UrlPdfBsale'];
+                                    $data['Grupo'] = $factura['Grupo'];
                                     $data['TipoDocumento'] = 'Nota de debito';
                                     $data['EstatusFacturacion'] = 3;
                                     $data['SaldoConNotaCredito'] = 0;

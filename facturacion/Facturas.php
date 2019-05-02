@@ -108,7 +108,6 @@
 													</div>
 													<?php 
 													include 'plantilla_saldoDoc.php';
-													include '../componentes/componentes_documentos/modalDetalle.php';
 													?>
 												</div>
 											</div>
