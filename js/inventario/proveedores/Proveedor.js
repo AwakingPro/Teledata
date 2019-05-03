@@ -59,7 +59,7 @@ $(document).ready(function(){
         var data = $('#storeProveedor').serialize();
         var array = $('#storeProveedor').serializeArray();
 
-        if(ValidarString(array[0].value, 'Nombre') && ValidarString(array[1].value, 'Dirección') && ValidarString(array[2].value, 'Télefono') && ValidarString(array[3].value, 'Contacto') && ValidarCorreo(array[4].value)){
+        if(ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Dirección') && ValidarString(array[3].value, 'Télefono') && ValidarString(array[4].value, 'Contacto') && ValidarCorreo(array[5].value)){
 
             $.ajax({
                 type: "POST",
