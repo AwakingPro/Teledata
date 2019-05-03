@@ -38,6 +38,13 @@
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label class="control-label" for="rut">RUT</label>
+                                        <input id="rut" name="rut" type="text" placeholder="Ingrese el rut" class="form-control input-sm">
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label class="control-label" for="name">Nombre</label>
                                         <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm">
                                     </div>
