@@ -1,5 +1,5 @@
 <?php 
-
+    include('../../../class/methods_global/methods.php');
 	include("../../../class/facturacion/facturas/FacturasDetalleClass.php");
 
     $FacturasDetalle = new FacturasDetalle();
@@ -8,7 +8,6 @@
         'idFactura' => $_POST['idFactura'],
         'TipoFactura' => $_POST['TipoFactura']
     );
-    // print_r($DatosDetalle); exit;
 	echo $FacturasDetalle->BorrarDetalle($DatosDetalle);
 	
 ?>

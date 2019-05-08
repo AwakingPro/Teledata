@@ -151,6 +151,7 @@ $(document).ready(function() {
                     { data: 'TipoDocumento' },
                     { data: 'FechaFacturacion' },
                     { data: 'FechaVencimiento' },
+                    { data: 'Detalle' },
                     { data: 'TotalFactura' },
                     { data: 'TotalSaldo' },
                     { data: 'SaldoFavor'},
@@ -175,14 +176,14 @@ $(document).ready(function() {
                         }
                     },
                     {
-                        "targets": 5,
+                        "targets": 6,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             return "<div style='text-align: center'>" + value + "</div>";
                         }
                     },
                     {
-                        "targets": 6,
+                        "targets": 7,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             if (row.TipoDocumento == 'Nota de crédito') {
@@ -196,14 +197,14 @@ $(document).ready(function() {
                         }
                     },
                     {
-                        "targets": 7,
+                        "targets": 8,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             return "<div style='text-align: center'>" + value + "</div>";
                         }
                     },
                     {
-                        "targets": 8,
+                        "targets": 9,
                         "render": function(data, type, row) {
                             if (row.EstatusFacturacion == '1') {
                                 Folder = 'facturas';
@@ -405,6 +406,7 @@ $(document).ready(function() {
                     { data: 'TipoDocumento' },
                     { data: 'FechaFacturacion' },
                     { data: 'FechaVencimiento' },
+                    { data: 'Detalle' },
                     { data: 'TotalFactura' },
                     { data: 'TotalSaldo' },
                     { data: 'SaldoFavor'},
@@ -429,14 +431,14 @@ $(document).ready(function() {
                         }
                     },
                     {
-                        "targets": 5,
+                        "targets": 6,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             return "<div style='text-align: center'>" + value + "</div>";
                         }
                     },
                     {
-                        "targets": 6,
+                        "targets": 7,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             if (row.TipoDocumento == 'Nota de crédito') {
@@ -450,14 +452,14 @@ $(document).ready(function() {
                         }
                     },
                     {
-                        "targets": 7,
+                        "targets": 8,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             return "<div style='text-align: center'>" + value + "</div>";
                         }
                     },
                     {
-                        "targets": 9,
+                        "targets": 10,
                         "render": function(data, type, row) {
                             if (row.EstatusFacturacion == '1') {
                                 Folder = 'facturas';
@@ -585,6 +587,7 @@ $(document).ready(function() {
                     { data: 'TipoDocumento' },
                     { data: 'FechaFacturacion' },
                     { data: 'FechaVencimiento' },
+                    { data: 'Detalle' },
                     { data: 'TotalFactura' },
                     { data: 'TotalSaldo' },
                     { data: 'SaldoFavor'},
@@ -610,14 +613,14 @@ $(document).ready(function() {
                         }
                     },
                     {
-                        "targets": 5,
+                        "targets": 6,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             return "<div style='text-align: center'>" + value + "</div>";
                         }
                     },
                     {
-                        "targets": 6,
+                        "targets": 7,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             if (row.TipoDocumento == 'Nota de crédito') {
@@ -631,14 +634,14 @@ $(document).ready(function() {
                         }
                     },
                     {
-                        "targets": 7,
+                        "targets": 8,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             return "<div style='text-align: center'>" + value + "</div>";
                         }
                     },
                     {
-                        "targets": 9,
+                        "targets": 10,
                         "render": function(data, type, row) {
                             if (row.EstatusFacturacion == '1') {
                                 Folder = 'facturas';

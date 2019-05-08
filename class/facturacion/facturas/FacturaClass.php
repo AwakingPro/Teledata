@@ -345,7 +345,7 @@
             }
         }
 
-        public function showLote($Rut,$Grupo){           
+        public function showLote($Rut,$Grupo, $DocEmitidos = false){
 
             $run = new Method;
             if($Grupo == 1000){
@@ -371,7 +371,7 @@
                             facturas.TipoFactura = '2'
                         AND facturas.id = '".$Rut."'
                         AND facturas.Grupo = '".$Grupo."'
-                        AND facturas.EstatusFacturacion = 0
+                        -- AND facturas.EstatusFacturacion = 0
                         AND facturas_detalle.Valor > 0"; 
             }else{
                 $query = "  SELECT
@@ -396,10 +396,18 @@
                 facturas.TipoFactura = '2'
             AND facturas.Rut = '".$Rut."'
             AND facturas.Grupo = '".$Grupo."'
-            AND facturas.EstatusFacturacion = 0
-            AND facturas_detalle.Valor > 0"; 
+            -- AND facturas.EstatusFacturacion = 0
+            AND facturas_detalle.Valor > 0 "; 
             }
             
+            if($DocEmitidos){
+                // echo ' para ver docs emitidos rut es '. $Rut.' Grupo es '.$Grupo;
+                $query .= " AND facturas.EstatusFacturacion = 1 ";
+                // OR facturas.EstatusFacturacion = 2
+            }else{
+                // echo ' para ver docs por emitir ';
+                $query .= " AND facturas.EstatusFacturacion = 0 ";
+            }
             $facturas = $run->select($query);
             
             $array = array();
@@ -1939,7 +1947,6 @@
 
 
         public function filtrarFacturas($startDate,$endDate,$Rut,$documentType,$NumeroDocumento){
-
             $run = new Method;
             $ToReturn = array();
             $query = "  SELECT
@@ -1950,6 +1957,7 @@
                             facturas.FechaVencimiento,
                             facturas.UrlPdfBsale,
                             facturas.Grupo,
+                            facturas.TipoFactura,
                             mantenedor_tipo_cliente.nombre AS TipoDocumento,
                             facturas.IVA,
                             facturas.EstatusFacturacion,
@@ -1968,6 +1976,7 @@
                 $query .= " AND facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'";
             }
             if($Rut || $Rut == 0 && !$startDate && !$NumeroDocumento){
+
                 $query .= " AND facturas.Rut = '".$Rut."'";
             }
             if($documentType){
@@ -1978,6 +1987,8 @@
             }
             $facturas = $run->select($query);
             if($facturas){
+                include("FacturasDetalleClass.php");
+                $FacturasDetalle = new FacturasDetalle();
                 foreach($facturas as $factura){
                     $SaldoConNotaCredito = 0;
                     $Id = $factura['Id'];
@@ -2032,14 +2043,22 @@
                             $Acciones = 2;
                         }
                     }
+                    
                     $Id = $factura['Id'];
                     $data = array();
+                    $Detalle = '*';
+                    if($Rut || $Rut == 0 ){
+                        $Detalle = $FacturasDetalle->GetDetalle($Id);
+                        $Detalle = $Detalle[0]['Concepto'];
+                    }
+                   
                     $data['Id'] = $Id;
                     $data['DocumentoId'] = $Id;
                     $data['Cliente'] = $factura['Cliente'];
                     $data['NumeroDocumento'] = $factura['NumeroDocumento'];
                     $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
-                    $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
+                    $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');
+                    $data['Detalle'] = $Detalle;  
                     $data['TotalFactura'] = $TotalFactura;
                     $data['TotalSaldo'] = $TotalSaldo;
                     $data['SaldoFavor'] = $SaldoFavor;
@@ -2071,6 +2090,7 @@
                             $data['NumeroDocumento'] = $devolucion['NumeroDocumento'];
                             $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                             $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');
+                            $data['Detalle'] = '*';
                             $devolucion['DevolucionAmount'] = (double)$devolucion['DevolucionAmount']; 
                             $data['TotalFactura'] = $devolucion['DevolucionAmount'];
                             $data['TotalSaldo'] = $devolucion['DevolucionAmount'];

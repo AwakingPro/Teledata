@@ -95,6 +95,7 @@
 																		<th class="text-center">Tipo de Documento</th>
 																		<th class="text-center">Fecha Emisión</th>
 																		<th class="text-center">Fecha Vencimiento</th>
+																		<th class="text-center">Detalles del Doc</th>
 																		<th class="text-center">Total Doc.</th>
 																		<th class="text-center">Saldo Doc.</th>
 																		<th class="text-center">Saldo a favor.</th>
@@ -165,6 +166,7 @@
 																		<th class="text-center">Tipo de Documento</th>
 																		<th class="text-center">Fecha Emisión</th>
 																		<th class="text-center">Fecha Vencimiento</th>
+																		<th class="text-center">Detalles del Doc</th>
 																		<th class="text-center">Total Doc.</th>
 																		<th class="text-center">Saldo Doc.</th>
 																		<th class="text-center">Saldo a favor.</th>
@@ -232,6 +234,7 @@
 																		<th class="text-center">Tipo de Documento</th>
 																		<th class="text-center">Fecha Emisión</th>
 																		<th class="text-center">Fecha Vencimiento</th>
+																		<th class="text-center">Detalles del Doc</th>
 																		<th class="text-center">Total Doc.</th>
 																		<th class="text-center">Saldo Doc.</th>
 																		<th class="text-center">Saldo a favor.</th>
