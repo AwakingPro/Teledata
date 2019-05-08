@@ -1,6 +1,5 @@
 <?php
 
-    include('../../../class/methods_global/methods.php');
     header('Content-type: application/json');
 
     class FacturasDetalle {
@@ -27,6 +26,16 @@
                 );
             }
             return json_encode($respuesta);
+        }
+
+        public function GetDetalle($idFactura){
+            $query = "SELECT * FROM facturas_detalle WHERE FacturaId = '".$idFactura."' ";
+            $detalles = $this->methods->select($query);
+            if($detalles){
+                return $detalles;
+            }else{
+                return false;
+            }
         }
     }
 ?>
