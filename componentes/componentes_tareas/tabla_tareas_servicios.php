@@ -11,13 +11,13 @@
                     
                     if(!isset($OcultarTareasPorHacer)){
                         echo '<li class="active"><a data-toggle="tab" href="#porhacer" aria-expanded="true">Por hacer</a></li>';
-                        echo '<li class=""><a data-toggle="tab" href="#asignadas" aria-expanded="true">Asignadas</a></li>';
+                        echo '<li class=""><a data-toggle="tab" href="#asignadas" aria-expanded="true">Asignados</a></li>';
                     }else{
-                        echo '<li class="active"><a data-toggle="tab" href="#asignadas" aria-expanded="true">Asignadas</a></li>';
+                        echo '<li class="active"><a data-toggle="tab" href="#asignadas" aria-expanded="true">Asignados</a></li>';
                     }
                     ?>
                     <li class=""><a data-toggle="tab" href="#pendientes" aria-expanded="true">Pendientes</a></li>
-                    <li class=""><a data-toggle="tab" href="#finalizadas" aria-expanded="true">Finalizadas</a></li>
+                    <li class=""><a data-toggle="tab" href="#finalizadas" aria-expanded="true">Finalizados</a></li>
                 </li>
             </ul>
         </div>
@@ -28,7 +28,7 @@
         else
         echo 'Modulo'; 
         ?>
-        Tareas</h3>
+        Procesos de activación</h3>
     </div>
     <!--Panel body-->
     <div class="panel-body">

@@ -986,12 +986,12 @@ $(document).ready(function() {
         console.log('row del detalle '+ObjectTR);
 
         swal({
-            title: "Seguro quieres Devolver este Servicio a Tareas?",
+            title: "Seguro quieres devolver este servicio a proceso de activación?",
             text: "Confirmar!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#28a745",
-            confirmButtonText: "Devolver a Tareas Pendientes!",
+            confirmButtonText: "Devolver a proceso pendientes!",
             cancelButtonText: "Cancelar",
             showLoaderOnConfirm: true,
             closeOnConfirm: false
@@ -1020,7 +1020,7 @@ $(document).ready(function() {
                             
                             getTotales();
                             $('[data-toggle="popover"]').popover();
-                            swal("Éxito!", "El Servicio ha sido Restituido a Tareas Pendientes!", "success");
+                            swal("Éxito!", "El Servicio ha sido Restituido a procesos pendientes!", "success");
 
                         }else {
                             swal('Solicitud no procesada', response.Message, 'error');
