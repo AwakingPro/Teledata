@@ -29,7 +29,7 @@
                     <br>
                     <ol class="breadcrumb">
                         <li><a href="#">Inicio</a></li>
-                        <li class="active">Tareas</li>
+                        <li class="active">Procesos de activación</li>
                     </ol>
                     <div id="page-content">
                         <?php 
