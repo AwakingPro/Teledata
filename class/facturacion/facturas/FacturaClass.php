@@ -8,6 +8,10 @@
         function __construct () {
 			$run = new Method;
         }
+
+        public function verificarDocumentosEmitidos(){
+
+        }
     	public function showInstalaciones(){
             $run = new Method;
             $UfClass = new Uf(); 
@@ -1535,7 +1539,7 @@
             return $array; 
         }
 
-        //obtiene servicio inaactivos
+        //obtiene servicios inactivos
         public function getServiciosInactivos($Rut) {
             $run = new Method;
             $data = array();
