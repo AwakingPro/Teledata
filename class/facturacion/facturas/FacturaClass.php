@@ -10,7 +10,7 @@
         }
 
         public function verificarDocumentosEmitidos(){
-
+            return 'Hola mundo, funciona!';
         }
     	public function showInstalaciones(){
             $run = new Method;
