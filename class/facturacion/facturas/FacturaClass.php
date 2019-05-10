@@ -22,6 +22,7 @@
             $dataClient['asunto'] = 'Actualizar Servicio '.$servicio_codigo_cliente;
             $dataClient['MensajeCorreo'] = $Mensaje;
             $respCorreo = $this->$run->enviarCorreos(2, $dataClient);
+            echo $respCorreo;
         }
     	public function showInstalaciones(){
             $run = new Method;
