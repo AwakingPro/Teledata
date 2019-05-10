@@ -10,7 +10,18 @@
         }
 
         public function verificarDocumentosEmitidos(){
-            return 'Hola mundo, funciona!';
+            $dataClient = array();
+            $servicio_nombre_cliente = 'PRUEBA SISTEMA NO BORRAR';
+            $servicio_codigo_cliente = '26339939-0FSAI03';
+            $Mensaje .= '<b>Cortar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
+
+            $dataClient['ClienteNombre'] = $servicio_nombre_cliente;
+            $dataClient['ServicioCodigo'] = $servicio_codigo_cliente;
+            // $dataClient['correos'] = 'atrismartelo@teledata.cl, jcarrillo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl, pagos@teledata.cl';
+            $dataClient['correos'] = 'daniel30081990@gmail.com, dangel@teledata.cl';
+            $dataClient['asunto'] = 'Actualizar Servicio '.$servicio_codigo_cliente;
+            $dataClient['MensajeCorreo'] = $Mensaje;
+            $respCorreo = $this->$run->enviarCorreos(2, $dataClient);
         }
     	public function showInstalaciones(){
             $run = new Method;
