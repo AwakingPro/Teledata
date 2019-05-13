@@ -13,7 +13,7 @@
             $dataClient = array();
             $servicio_nombre_cliente = 'PRUEBA SISTEMA NO BORRAR';
             $servicio_codigo_cliente = '26339939-0FSAI03';
-            $Mensaje .= '<b>Cortar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
+            $Mensaje = '<b>Cortar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
 
             $dataClient['ClienteNombre'] = $servicio_nombre_cliente;
             $dataClient['ServicioCodigo'] = $servicio_codigo_cliente;
@@ -21,7 +21,8 @@
             $dataClient['correos'] = 'daniel30081990@gmail.com, dangel@teledata.cl';
             $dataClient['asunto'] = 'Actualizar Servicio '.$servicio_codigo_cliente;
             $dataClient['MensajeCorreo'] = $Mensaje;
-            $respCorreo = $this->$run->enviarCorreos(2, $dataClient);
+            $run = new Method;
+            $respCorreo = $run->enviarCorreos(2, $dataClient);
             echo $respCorreo;
         }
     	public function showInstalaciones(){
