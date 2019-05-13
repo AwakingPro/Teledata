@@ -74,19 +74,21 @@ $run = new Method;
                 INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id
                 INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
                 LEFT JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
-                LEFT JOIN mantenedor_tipo_pago ON mantenedor_tipo_pago.id = facturas_pagos.TipoPago
-            WHERE
-                facturas.TipoFactura != '3' AND facturas.EstatusFacturacion != '2'
-                AND facturas.EstatusFacturacion != '0' ";
+                LEFT JOIN mantenedor_tipo_pago ON mantenedor_tipo_pago.id = facturas_pagos.TipoPago ";
+                // facturas.TipoFactura != '3' AND facturas.EstatusFacturacion != '2'
+                // AND facturas.EstatusFacturacion != '0' ";
             if($startDate){
                 $dt = \DateTime::createFromFormat('d-m-Y',$startDate);
                 $startDate = $dt->format('Y-m-d'); 
                 $dt = \DateTime::createFromFormat('d-m-Y',$endDate);
                 $endDate = $dt->format('Y-m-d');
-                $query .= " AND facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'";
+                $query .= " WHERE facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'";
             }
             if($Rut){
+                if($startDate)
                 $query .= " AND facturas.Rut = '".$Rut."'";
+                else
+                $query .= " WHERE facturas.Rut = '".$Rut."'";
             }
 
             $query .= "GROUP BY facturas.Id ORDER BY Cliente, FechaFacturacion";
