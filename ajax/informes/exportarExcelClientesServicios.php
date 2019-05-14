@@ -148,6 +148,11 @@ $run = new Method;
                         $data['Cliente'] = $factura['Cliente'];
                         $data['RUT'] = $factura['Rut'];
                         $data['DV'] =  $factura['DV'];
+                        if($factura['NumeroDocumento'] == ''){
+                            $factura['NumeroDocumento'] = 'No generado';
+                        }else{
+                            $factura['NumeroDocumento'] = $FNumeroDocumento;
+                        }
                         $data['NumeroDocumento'] = $factura['NumeroDocumento'];
                         $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
                         $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
@@ -191,19 +196,19 @@ $run = new Method;
                                 $data['Cliente'] = $factura['Cliente'];
                                 $data['RUT'] = $factura['Rut'];
                                 $data['DV'] =  $factura['DV'];
-                                $data['NumeroDocumento'] = $devolucion['NumeroDocumento'];
+                                $data['NumeroDocumento'] = $FNumeroDocumento;
                                 $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                                 $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                                 $data['TotalFactura'] = $TotalFactura;
                                 $data['TotalSaldo'] = $TotalSaldoFactura;
                                 $data['SaldoFavor'] = $SaldoFavor;
                                 $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
-                                $data['TipoDocumento'] = 'Nota de crédito';
+                                $data['TipoDocumento'] = 'Nota de crédito Nº '.$devolucion['NumeroDocumento'];
                                 if($devolucion['priceAdjustment'] == 1){
-                                    $data['TipoDocumento'] = 'Nota de crédito por ajuste de precio';
+                                    $data['TipoDocumento'] = 'Nota de crédito por ajuste de precio Nº '.$devolucion['NumeroDocumento'];
                                 }
                                 if($devolucion['editTexts'] == 1){
-                                    $data['TipoDocumento'] = 'Nota de crédito por corrección de texto';
+                                    $data['TipoDocumento'] = 'Nota de crédito por corrección de texto Nº '.$devolucion['NumeroDocumento'];
                                 }
                                 $data['Detalle'] = $factura['Detalle'];
                                 $data['Acciones'] = $Acciones;
@@ -245,7 +250,8 @@ $run = new Method;
                     echo 'No existen datos' . count($ToReturn);
                     exit;
                 }
-                
+                // echo '<pre>'; print_r($ToReturn); echo '</pre>';
+                // exit;
                 foreach($ToReturn as $datos) {
                     $contador++;
                     
