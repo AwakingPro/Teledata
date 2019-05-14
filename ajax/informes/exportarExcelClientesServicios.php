@@ -265,7 +265,8 @@ $run = new Method;
                     ->setCellValue('G'.$index, $datos['TotalFactura'])
                     ->setCellValue('H'.$index, $datos['TotalSaldo'])
                     ->setCellValue('I'.$index, $datos['SaldoFavor'])
-                    ->setCellValue('J'.$index, $datos['FechaVencimiento']);
+                    ->setCellValue('J'.$index, date('d-F-Y', strtotime($datos['FechaVencimiento'])));
+                    
                     // $Total += $data['TotalSaldo'];
                     $run->cellColor('A'.$index.':J'.$index, 'A6A6FF');
                     if($datos['TotalSaldo'] > 0){
@@ -278,7 +279,7 @@ $run = new Method;
                         $run->cellColor('H'.$index, '92D050');
                     }
                     foreach($datos['facturas_detalle'] as $detalle) {
-                        $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d',$detalle['FechaInstalacion'])->format('d-m-Y');   ;
+                        $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d',$detalle['FechaInstalacion'])->format('d-m-Y');
                         $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('K'.$index, $detalle['Codigo'])
                         ->setCellValue('L'.$index, $detalle['FechaInstalacion']);
