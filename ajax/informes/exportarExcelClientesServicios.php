@@ -270,7 +270,11 @@ $run = new Method;
                     $run->cellColor('A'.$index.':J'.$index, 'A6A6FF');
                     if($datos['TotalSaldo'] > 0){
                         $run->cellColor('H'.$index, 'F28A8C');
-                    }else{
+                    }
+                    if($datos['TotalSaldo'] > 0 && $datos['TotalSaldo'] < $datos['TotalFactura']){
+                        $run->cellColor('H'.$index, 'FFFF00');
+                    }
+                    if($datos['TotalSaldo'] == 0){
                         $run->cellColor('H'.$index, '92D050');
                     }
                     foreach($datos['facturas_detalle'] as $detalle) {
