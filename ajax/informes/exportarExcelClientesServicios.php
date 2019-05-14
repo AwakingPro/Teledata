@@ -20,21 +20,20 @@ $objPHPExcel->getProperties()
 $objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('A1', 'Nº')
 	->setCellValue('B1', 'Razón social')
-	->setCellValue('C1', 'Rut')
-	->setCellValue('D1', 'DV')
-	->setCellValue('E1', 'Documento')
-	->setCellValue('F1', 'Nº doc')
-	->setCellValue('G1', 'Total doc')
-	->setCellValue('H1', 'Deuda')
-    ->setCellValue('I1', 'Saldo a favor')
-    ->setCellValue('J1', 'Vencimiento del doc')
-    ->setCellValue('K1', 'Código servicio')
-    ->setCellValue('L1', 'Fecha instalación');
+	->setCellValue('C1', 'Rut-DV')
+	->setCellValue('D1', 'Documento')
+	->setCellValue('E1', 'Nº doc')
+	->setCellValue('F1', 'Total doc')
+	->setCellValue('G1', 'Deuda')
+    ->setCellValue('H1', 'Saldo a favor')
+    ->setCellValue('I1', 'Vencimiento del doc')
+    ->setCellValue('J1', 'Código servicio')
+    ->setCellValue('K1', 'Fecha instalación');
 
 // filtros
-$objPHPExcel->getActiveSheet()->setAutoFilter("K1:L1");
+$objPHPExcel->getActiveSheet()->setAutoFilter("J1:K1");
 
-foreach (range(0, 11) as $col) {
+foreach (range(0, 10) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 $FechaExcel = '';
@@ -258,32 +257,31 @@ $run = new Method;
                     $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('A'.$index, $contador)
                     ->setCellValue('B'.$index, $datos['Cliente'])
-                    ->setCellValue('C'.$index, $datos['RUT'])
-                    ->setCellValue('D'.$index, $datos['DV'])
-                    ->setCellValue('E'.$index, $datos['TipoDocumento'])
-                    ->setCellValue('F'.$index, $datos['NumeroDocumento'])
-                    ->setCellValue('G'.$index, $datos['TotalFactura'])
-                    ->setCellValue('H'.$index, $datos['TotalSaldo'])
-                    ->setCellValue('I'.$index, $datos['SaldoFavor'])
-                    ->setCellValue('J'.$index, date('d-F-Y', strtotime($datos['FechaVencimiento'])));
+                    ->setCellValue('C'.$index, $datos['RUT'].'-'.$datos['DV'])
+                    ->setCellValue('D'.$index, $datos['TipoDocumento'])
+                    ->setCellValue('E'.$index, $datos['NumeroDocumento'])
+                    ->setCellValue('F'.$index, $datos['TotalFactura'])
+                    ->setCellValue('G'.$index, $datos['TotalSaldo'])
+                    ->setCellValue('H'.$index, $datos['SaldoFavor'])
+                    ->setCellValue('I'.$index, date('d-F-Y', strtotime($datos['FechaVencimiento'])));
                     
                     // $Total += $data['TotalSaldo'];
                     $run->cellColor('A'.$index.':J'.$index, 'A6A6FF');
                     if($datos['TotalSaldo'] > 0){
-                        $run->cellColor('H'.$index, 'F28A8C');
+                        $run->cellColor('G'.$index, 'F28A8C');
                     }
                     if($datos['TotalSaldo'] > 0 && $datos['TotalSaldo'] < $datos['TotalFactura']){
-                        $run->cellColor('H'.$index, 'FFFF00');
+                        $run->cellColor('G'.$index, 'FFFF00');
                     }
                     if($datos['TotalSaldo'] == 0){
-                        $run->cellColor('H'.$index, '92D050');
+                        $run->cellColor('G'.$index, '92D050');
                     }
                     foreach($datos['facturas_detalle'] as $detalle) {
                         $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d',$detalle['FechaInstalacion'])->format('d-m-Y');
                         $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue('K'.$index, $detalle['Codigo'])
-                        ->setCellValue('L'.$index, $detalle['FechaInstalacion']);
-                        $run->cellColor('K'.$index.':L'.$index, '7474FF');
+                        ->setCellValue('J'.$index, $detalle['Codigo'])
+                        ->setCellValue('K'.$index, date('d-F-Y', strtotime($detalle['FechaInstalacion'])));
+                        $run->cellColor('J'.$index.':K'.$index, '7474FF');
                         $index++;
                         
                     }
