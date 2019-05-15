@@ -147,7 +147,7 @@ $run = new Method;
                         $data['RUT'] = $factura['Rut'];
                         $data['DV'] =  $factura['DV'];
                         if($factura['NumeroDocumento'] == ''){
-                            $factura['NumeroDocumento'] = 'No generado';
+                            $factura['NumeroDocumento'] = 'No emitida';
                         }else{
                             $factura['NumeroDocumento'] = $FNumeroDocumento;
                         }
