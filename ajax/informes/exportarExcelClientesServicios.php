@@ -20,18 +20,17 @@ $objPHPExcel->getProperties()
 $objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('A1', 'Nº')
 	->setCellValue('B1', 'Razón social')
-	->setCellValue('C1', 'Rut-DV')
-	->setCellValue('D1', 'Documento')
-	->setCellValue('E1', 'Nº doc')
-	->setCellValue('F1', 'Total doc')
-	->setCellValue('G1', 'Deuda')
-    ->setCellValue('H1', 'Saldo a favor')
-    ->setCellValue('I1', 'Vencimiento del doc')
-    ->setCellValue('J1', 'Código servicio')
-    ->setCellValue('K1', 'Fecha instalación');
+    ->setCellValue('C1', 'RUT')
+    ->setCellValue('D1', 'Código servicio')
+    ->setCellValue('E1', 'Fecha instalación')
+	->setCellValue('F1', 'Tipo y Nº. Doc')
+	->setCellValue('G1', 'Total doc')
+	->setCellValue('H1', 'Deuda')
+    ->setCellValue('I1', 'Saldo a favor')
+    ->setCellValue('J1', 'Vencimiento del doc');
 
 // filtros
-$objPHPExcel->getActiveSheet()->setAutoFilter("J1:K1");
+$objPHPExcel->getActiveSheet()->setAutoFilter("D1:E1");
 
 foreach (range(0, 10) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -202,12 +201,12 @@ $run = new Method;
                                 $data['TotalSaldo'] = $TotalSaldoFactura;
                                 $data['SaldoFavor'] = $SaldoFavor;
                                 $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
-                                $data['TipoDocumento'] = 'Nota de crédito Nº '.$devolucion['NumeroDocumento'];
+                                $data['TipoDocumento'] = 'NC-'.$devolucion['NumeroDocumento'].' | Doc. Ref';
                                 if($devolucion['priceAdjustment'] == 1){
-                                    $data['TipoDocumento'] = 'Nota de crédito por ajuste de precio Nº '.$devolucion['NumeroDocumento'];
+                                    $data['TipoDocumento'] = 'NC por ajuste de precio-'.$devolucion['NumeroDocumento'];
                                 }
                                 if($devolucion['editTexts'] == 1){
-                                    $data['TipoDocumento'] = 'Nota de crédito por corrección de texto Nº '.$devolucion['NumeroDocumento'];
+                                    $data['TipoDocumento'] = 'NC por corrección de texto-'.$devolucion['NumeroDocumento'];
                                 }
                                 $data['Detalle'] = $factura['Detalle'];
                                 $data['Acciones'] = $Acciones;
@@ -253,35 +252,40 @@ $run = new Method;
                 // exit;
                 foreach($ToReturn as $datos) {
                     $contador++;
+                    if($datos['TipoDocumento'] == 'Boleta')
+                    $datos['TipoDocumento'] = 'B';
+                    if($datos['TipoDocumento'] == 'Factura')
+                    $datos['TipoDocumento'] = 'F';
+                    if($datos['TipoDocumento'] == 'Canje')
+                    $datos['TipoDocumento'] = 'C';
                     
                     $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('A'.$index, $contador)
                     ->setCellValue('B'.$index, $datos['Cliente'])
                     ->setCellValue('C'.$index, $datos['RUT'].'-'.$datos['DV'])
-                    ->setCellValue('D'.$index, $datos['TipoDocumento'])
-                    ->setCellValue('E'.$index, $datos['NumeroDocumento'])
-                    ->setCellValue('F'.$index, $datos['TotalFactura'])
-                    ->setCellValue('G'.$index, $datos['TotalSaldo'])
-                    ->setCellValue('H'.$index, $datos['SaldoFavor'])
-                    ->setCellValue('I'.$index, date('d-F-Y', strtotime($datos['FechaVencimiento'])));
+                    ->setCellValue('F'.$index, $datos['TipoDocumento'].'-'.$datos['NumeroDocumento'])
+                    ->setCellValue('G'.$index, $datos['TotalFactura'])
+                    ->setCellValue('H'.$index, $datos['TotalSaldo'])
+                    ->setCellValue('I'.$index, $datos['SaldoFavor'])
+                    ->setCellValue('J'.$index, date('d-F-Y', strtotime($datos['FechaVencimiento'])));
                     
                     // $Total += $data['TotalSaldo'];
                     $run->cellColor('A'.$index.':J'.$index, 'A6A6FF');
                     if($datos['TotalSaldo'] > 0){
-                        $run->cellColor('G'.$index, 'F28A8C');
+                        $run->cellColor('H'.$index, 'F28A8C');
                     }
                     if($datos['TotalSaldo'] > 0 && $datos['TotalSaldo'] < $datos['TotalFactura']){
-                        $run->cellColor('G'.$index, 'FFFF00');
+                        $run->cellColor('H'.$index, 'FFFF00');
                     }
                     if($datos['TotalSaldo'] == 0){
-                        $run->cellColor('G'.$index, '92D050');
+                        $run->cellColor('H'.$index, '92D050');
                     }
                     foreach($datos['facturas_detalle'] as $detalle) {
                         $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d',$detalle['FechaInstalacion'])->format('d-m-Y');
                         $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue('J'.$index, $detalle['Codigo'])
-                        ->setCellValue('K'.$index, date('d-F-Y', strtotime($detalle['FechaInstalacion'])));
-                        $run->cellColor('J'.$index.':K'.$index, '7474FF');
+                        ->setCellValue('D'.$index, $detalle['Codigo'])
+                        ->setCellValue('E'.$index, date('d-F-Y', strtotime($detalle['FechaInstalacion'])));
+                        $run->cellColor('D'.$index.':E'.$index, '7474FF');
                         $index++;
                         
                     }
