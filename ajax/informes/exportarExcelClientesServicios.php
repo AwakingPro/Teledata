@@ -18,21 +18,128 @@ $objPHPExcel->getProperties()
 
 // Agregar Informacion
 $objPHPExcel->setActiveSheetIndex(0)
-	->setCellValue('A1', 'Nº')
-	->setCellValue('B1', 'Razón social')
-    ->setCellValue('C1', 'RUT')
-    ->setCellValue('D1', 'Código servicio')
-    ->setCellValue('E1', 'Fecha instalación')
-	->setCellValue('F1', 'Tipo y Nº. Doc')
-	->setCellValue('G1', 'Total doc')
-	->setCellValue('H1', 'Deuda')
-    ->setCellValue('I1', 'Saldo a favor')
-    ->setCellValue('J1', 'Facturación del doc');
+    ->setCellValue('F1', 'ENERO')
+	->setCellValue('A2', 'Nº')
+	->setCellValue('B2', 'Razón social')
+    ->setCellValue('C2', 'RUT')
+    ->setCellValue('D2', 'Código servicio')
+    ->setCellValue('E2', 'Fecha instalación')
+	->setCellValue('F2', 'Tipo y Nº. Doc')
+	->setCellValue('G2', 'Total doc')
+	->setCellValue('H2', 'Deuda')
+    ->setCellValue('I2', 'Saldo a favor')
+    ->setCellValue('J2', 'Facturación del doc')
 
-// filtros
-$objPHPExcel->getActiveSheet()->setAutoFilter("D1:E1");
+    ->setCellValue('P1', 'FEBRERO')
+	->setCellValue('K2', 'Nº')
+	->setCellValue('L2', 'Razón social')
+    ->setCellValue('M2', 'RUT')
+    ->setCellValue('N2', 'Código servicio')
+    ->setCellValue('O2', 'Fecha instalación')
+	->setCellValue('P2', 'Tipo y Nº. Doc')
+	->setCellValue('Q2', 'Total doc')
+	->setCellValue('R2', 'Deuda')
+    ->setCellValue('S2', 'Saldo a favor')
+    ->setCellValue('T2', 'Facturación del doc')
 
-foreach (range(0, 10) as $col) {
+    ->setCellValue('Z1', 'MARZO')
+	->setCellValue('U2', 'Nº')
+	->setCellValue('V2', 'Razón social')
+    ->setCellValue('W2', 'RUT')
+    ->setCellValue('X2', 'Código servicio')
+    ->setCellValue('Y2', 'Fecha instalación')
+	->setCellValue('Z2', 'Tipo y Nº. Doc')
+	->setCellValue('AA2', 'Total doc')
+	->setCellValue('AB2', 'Deuda')
+    ->setCellValue('AC2', 'Saldo a favor')
+    ->setCellValue('AD2', 'Facturación del doc')
+
+    ->setCellValue('AJ1', 'ABRIL')
+	->setCellValue('AE2', 'Nº')
+	->setCellValue('AF2', 'Razón social')
+    ->setCellValue('AG2', 'RUT')
+    ->setCellValue('AH2', 'Código servicio')
+    ->setCellValue('AI2', 'Fecha instalación')
+	->setCellValue('AJ2', 'Tipo y Nº. Doc')
+	->setCellValue('AK2', 'Total doc')
+	->setCellValue('AL2', 'Deuda')
+    ->setCellValue('AM2', 'Saldo a favor')
+    ->setCellValue('AN2', 'Facturación del doc')
+
+    ->setCellValue('AT1', 'MAYO')
+	->setCellValue('AO2', 'Nº')
+	->setCellValue('AP2', 'Razón social')
+    ->setCellValue('AQ2', 'RUT')
+    ->setCellValue('AR2', 'Código servicio')
+    ->setCellValue('AS2', 'Fecha instalación')
+	->setCellValue('AT2', 'Tipo y Nº. Doc')
+	->setCellValue('AU2', 'Total doc')
+	->setCellValue('AV2', 'Deuda')
+    ->setCellValue('AW2', 'Saldo a favor')
+    ->setCellValue('AX2', 'Facturación del doc')
+
+    ->setCellValue('BE1', 'JUNIO')
+	->setCellValue('AZ2', 'Nº')
+	->setCellValue('BA2', 'Razón social')
+    ->setCellValue('BB2', 'RUT')
+    ->setCellValue('BC2', 'Código servicio')
+    ->setCellValue('BD2', 'Fecha instalación')
+	->setCellValue('BE2', 'Tipo y Nº. Doc')
+	->setCellValue('BF2', 'Total doc')
+	->setCellValue('BG2', 'Deuda')
+    ->setCellValue('BH2', 'Saldo a favor')
+    ->setCellValue('BI2', 'Facturación del doc')
+
+    ->setCellValue('BP1', 'JULIO')
+	->setCellValue('BK2', 'Nº')
+	->setCellValue('BL2', 'Razón social')
+    ->setCellValue('BM2', 'RUT')
+    ->setCellValue('BN2', 'Código servicio')
+    ->setCellValue('BO2', 'Fecha instalación')
+	->setCellValue('BP2', 'Tipo y Nº. Doc')
+	->setCellValue('BQ2', 'Total doc')
+	->setCellValue('BR2', 'Deuda')
+    ->setCellValue('BS2', 'Saldo a favor')
+    ->setCellValue('BT2', 'Facturación del doc');
+
+// filtros Y estilo centrado ENERO
+$objPHPExcel->getActiveSheet()->mergeCells('F1:G1');
+$objPHPExcel->getActiveSheet()->getStyle('F1:G1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+// $objPHPExcel->getActiveSheet()->setAutoFilter("D2:E2,N2:O2");
+// $objPHPExcel->getActiveSheet()->setAutoFilter(
+//     $objPHPExcel->getActiveSheet()
+//         ->calculateWorksheetDimension()
+// );
+// filtros Y estilo centrado FEBRERO
+$objPHPExcel->getActiveSheet()->mergeCells('P1:Q1');
+$objPHPExcel->getActiveSheet()->getStyle('P1:Q1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+// $objPHPExcel->getActiveSheet()->setAutoFilter("N2:O2");
+// // filtros Y estilo centrado MARZO
+$objPHPExcel->getActiveSheet()->mergeCells('Z1:AA1');
+$objPHPExcel->getActiveSheet()->getStyle('Z1:AA1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+// $objPHPExcel->getActiveSheet()->setAutoFilter("X2:Y2");
+// // filtros Y estilo centrado ABRIL
+$objPHPExcel->getActiveSheet()->mergeCells('AJ1:AK1');
+$objPHPExcel->getActiveSheet()->getStyle('AJ1:AK1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+// $objPHPExcel->getActiveSheet()->setAutoFilter("AH2:AI2");
+// // filtros Y estilo centrado MAYO
+$objPHPExcel->getActiveSheet()->mergeCells('AT1:AU1');
+$objPHPExcel->getActiveSheet()->getStyle('AT1:AU1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+// $objPHPExcel->getActiveSheet()->setAutoFilter("AR2:AS2");
+// // filtros Y estilo centrado JUNIO
+$objPHPExcel->getActiveSheet()->mergeCells('BE1:BF1');
+$objPHPExcel->getActiveSheet()->getStyle('BE1:BF1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+// // filtros Y estilo centrado JULIO
+$objPHPExcel->getActiveSheet()->mergeCells('BP1:BQ1');
+$objPHPExcel->getActiveSheet()->getStyle('BP1:BQ1')->getAlignment()->setHorizontal(PHPExcel_Style_Alignment::HORIZONTAL_CENTER);
+
+
+
+
+
+
+
+foreach (range(0, 40) as $col) {
 	$objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
 }
 $FechaExcel = '';
@@ -99,7 +206,7 @@ $run = new Method;
             $NumRelacion = ''; 
             if($facturas){
                 // echo '<pre>'; print_r($facturas); echo '</pre>'; exit;
-                $index = 2;
+                $index = 3;
                 foreach($facturas as $factura){
                     $data = array();
                     $Id = $factura['Id'];
