@@ -614,6 +614,40 @@ if ($facturas) {
                 $indexMayo++;
                 break;
             }
+            case 06: {
+                $contadorJunio++;
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('AZ' . $indexJunio, $contadorJunio)
+                    ->setCellValue('BA' . $indexJunio, $datos['Cliente'])
+                    ->setCellValue('BB' . $indexJunio, $datos['RUT'] . '-' . $datos['DV'])
+                    ->setCellValue('BE' . $indexJunio, $datos['TipoDocumento'] . '-' . $datos['NumeroDocumento'])
+                    ->setCellValue('BF' . $indexJunio, $datos['TotalFactura'])
+                    ->setCellValue('BG' . $indexJunio, $datos['TotalSaldo'])
+                    ->setCellValue('BH' . $indexJunio, $datos['SaldoFavor'])
+                    ->setCellValue('BI' . $indexJunio, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
+
+                // $Total += $data['TotalSaldo'];
+                $run->cellColor('AZ' . $indexJunio . ':BI' . $indexJunio, 'A6A6FF');
+                if ($datos['TotalSaldo'] > 0) {
+                    $run->cellColor('BG' . $indexJunio, 'F28A8C');
+                }
+                if ($datos['TotalSaldo'] > 0 && $datos['TotalSaldo'] < $datos['TotalFactura']) {
+                    $run->cellColor('BG' . $indexJunio, 'FFFF00');
+                }
+                if ($datos['TotalSaldo'] == 0) {
+                    $run->cellColor('BG' . $indexJunio, '92D050');
+                }
+                foreach ($datos['facturas_detalle'] as $detalle) {
+                    $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d', $detalle['FechaInstalacion'])->format('d-m-Y');
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('BC' . $indexJunio, $detalle['Codigo'])
+                        ->setCellValue('BD' . $indexJunio, date('d-F-Y', strtotime($detalle['FechaInstalacion'])));
+                    $run->cellColor('BC' . $indexJunio . ':BD' . $indexJunio, '7474FF');
+                    $indexJunio++;
+                }
+                $indexJunio++;
+                break;
+            }
         }
     }
     // $objPHPExcel->setActiveSheetIndex(0)
