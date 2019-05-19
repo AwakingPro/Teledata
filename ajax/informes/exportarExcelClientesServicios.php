@@ -512,6 +512,108 @@ if ($facturas) {
                     $indexFebrero++;
                     break;
                 }
+            case 03: {
+                $contadorMarzo++;
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('U' . $indexMarzo, $contadorMarzo)
+                    ->setCellValue('V' . $indexMarzo, $datos['Cliente'])
+                    ->setCellValue('W' . $indexMarzo, $datos['RUT'] . '-' . $datos['DV'])
+                    ->setCellValue('Z' . $indexMarzo, $datos['TipoDocumento'] . '-' . $datos['NumeroDocumento'])
+                    ->setCellValue('AA' . $indexMarzo, $datos['TotalFactura'])
+                    ->setCellValue('AB' . $indexMarzo, $datos['TotalSaldo'])
+                    ->setCellValue('AC' . $indexMarzo, $datos['SaldoFavor'])
+                    ->setCellValue('AD' . $indexMarzo, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
+
+                // $Total += $data['TotalSaldo'];
+                $run->cellColor('U' . $indexMarzo . ':AD' . $indexMarzo, 'A6A6FF');
+                if ($datos['TotalSaldo'] > 0) {
+                    $run->cellColor('AB' . $indexMarzo, 'F28A8C');
+                }
+                if ($datos['TotalSaldo'] > 0 && $datos['TotalSaldo'] < $datos['TotalFactura']) {
+                    $run->cellColor('AB' . $indexMarzo, 'FFFF00');
+                }
+                if ($datos['TotalSaldo'] == 0) {
+                    $run->cellColor('AB' . $indexMarzo, '92D050');
+                }
+                foreach ($datos['facturas_detalle'] as $detalle) {
+                    $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d', $detalle['FechaInstalacion'])->format('d-m-Y');
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('X' . $indexMarzo, $detalle['Codigo'])
+                        ->setCellValue('Y' . $indexMarzo, date('d-F-Y', strtotime($detalle['FechaInstalacion'])));
+                    $run->cellColor('X' . $indexMarzo . ':Y' . $indexMarzo, '7474FF');
+                    $indexMarzo++;
+                }
+                $indexMarzo++;
+                break;
+            }
+            case 04: {
+                $contadorAbril++;
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('AE' . $indexAbril, $contadorAbril)
+                    ->setCellValue('AF' . $indexAbril, $datos['Cliente'])
+                    ->setCellValue('AG' . $indexAbril, $datos['RUT'] . '-' . $datos['DV'])
+                    ->setCellValue('AJ' . $indexAbril, $datos['TipoDocumento'] . '-' . $datos['NumeroDocumento'])
+                    ->setCellValue('AK' . $indexAbril, $datos['TotalFactura'])
+                    ->setCellValue('AL' . $indexAbril, $datos['TotalSaldo'])
+                    ->setCellValue('AM' . $indexAbril, $datos['SaldoFavor'])
+                    ->setCellValue('AN' . $indexAbril, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
+
+                // $Total += $data['TotalSaldo'];
+                $run->cellColor('AE' . $indexAbril . ':AN' . $indexAbril, 'A6A6FF');
+                if ($datos['TotalSaldo'] > 0) {
+                    $run->cellColor('AL' . $indexAbril, 'F28A8C');
+                }
+                if ($datos['TotalSaldo'] > 0 && $datos['TotalSaldo'] < $datos['TotalFactura']) {
+                    $run->cellColor('AL' . $indexAbril, 'FFFF00');
+                }
+                if ($datos['TotalSaldo'] == 0) {
+                    $run->cellColor('AL' . $indexAbril, '92D050');
+                }
+                foreach ($datos['facturas_detalle'] as $detalle) {
+                    $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d', $detalle['FechaInstalacion'])->format('d-m-Y');
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('AH' . $indexAbril, $detalle['Codigo'])
+                        ->setCellValue('AI' . $indexAbril, date('d-F-Y', strtotime($detalle['FechaInstalacion'])));
+                    $run->cellColor('AH' . $indexAbril . ':AI' . $indexAbril, '7474FF');
+                    $indexAbril++;
+                }
+                $indexAbril++;
+                break;
+            }
+            case 05: {
+                $contadorMayo++;
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('AO' . $indexMayo, $contadorMayo)
+                    ->setCellValue('AP' . $indexMayo, $datos['Cliente'])
+                    ->setCellValue('AQ' . $indexMayo, $datos['RUT'] . '-' . $datos['DV'])
+                    ->setCellValue('AT' . $indexMayo, $datos['TipoDocumento'] . '-' . $datos['NumeroDocumento'])
+                    ->setCellValue('AU' . $indexMayo, $datos['TotalFactura'])
+                    ->setCellValue('AV' . $indexMayo, $datos['TotalSaldo'])
+                    ->setCellValue('AW' . $indexMayo, $datos['SaldoFavor'])
+                    ->setCellValue('AX' . $indexMayo, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
+
+                // $Total += $data['TotalSaldo'];
+                $run->cellColor('AO' . $indexMayo . ':AX' . $indexMayo, 'A6A6FF');
+                if ($datos['TotalSaldo'] > 0) {
+                    $run->cellColor('AV' . $indexMayo, 'F28A8C');
+                }
+                if ($datos['TotalSaldo'] > 0 && $datos['TotalSaldo'] < $datos['TotalFactura']) {
+                    $run->cellColor('AV' . $indexMayo, 'FFFF00');
+                }
+                if ($datos['TotalSaldo'] == 0) {
+                    $run->cellColor('AV' . $indexMayo, '92D050');
+                }
+                foreach ($datos['facturas_detalle'] as $detalle) {
+                    $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d', $detalle['FechaInstalacion'])->format('d-m-Y');
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('AR' . $indexMayo, $detalle['Codigo'])
+                        ->setCellValue('AS' . $indexMayo, date('d-F-Y', strtotime($detalle['FechaInstalacion'])));
+                    $run->cellColor('AR' . $indexMayo . ':AS' . $indexMayo, '7474FF');
+                    $indexMayo++;
+                }
+                $indexMayo++;
+                break;
+            }
         }
     }
     // $objPHPExcel->setActiveSheetIndex(0)
