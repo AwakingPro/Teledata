@@ -379,10 +379,10 @@ if ($facturas) {
                     $data['SaldoFavor'] = $SaldoFavor;
                     $data['TipoDocumento'] = 'NC-' . $devolucion['NumeroDocumento'] . ' | Doc. Ref';
                     if ($devolucion['priceAdjustment'] == 1) {
-                        $data['TipoDocumento'] = 'NC por ajuste de precio-' . $devolucion['NumeroDocumento'];
+                        $data['TipoDocumento'] = 'NC por ajuste de precio-' . $devolucion['NumeroDocumento']. ' | Doc. Ref';
                     }
                     if ($devolucion['editTexts'] == 1) {
-                        $data['TipoDocumento'] = 'NC por corrección de texto-' . $devolucion['NumeroDocumento'];
+                        $data['TipoDocumento'] = 'NC por corrección de texto-' . $devolucion['NumeroDocumento']. ' | Doc. Ref';
                     }
                     $data['Detalle'] = $factura['Detalle'];
                     $data['EstatusFacturacion'] = 2;
@@ -614,7 +614,7 @@ if ($facturas) {
                 $indexMayo++;
                 break;
             }
-            case 06: {
+            case '06': {
                 $contadorJunio++;
                 $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('AZ' . $indexJunio, $contadorJunio)
@@ -646,6 +646,210 @@ if ($facturas) {
                     $indexJunio++;
                 }
                 $indexJunio++;
+                break;
+            }
+            case '07': {
+                $contadorJulio++;
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('BK' . $indexJulio, $contadorJulio)
+                    ->setCellValue('BL' . $indexJulio, $datos['Cliente'])
+                    ->setCellValue('BM' . $indexJulio, $datos['RUT'] . '-' . $datos['DV'])
+                    ->setCellValue('BP' . $indexJulio, $datos['TipoDocumento'] . '-' . $datos['NumeroDocumento'])
+                    ->setCellValue('BQ' . $indexJulio, $datos['TotalFactura'])
+                    ->setCellValue('BR' . $indexJulio, $datos['TotalSaldo'])
+                    ->setCellValue('BS' . $indexJulio, $datos['SaldoFavor'])
+                    ->setCellValue('BT' . $indexJulio, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
+
+                // $Total += $data['TotalSaldo'];
+                $run->cellColor('BK' . $indexJulio . ':BT' . $indexJulio, 'A6A6FF');
+                if ($datos['TotalSaldo'] > 0) {
+                    $run->cellColor('BR' . $indexJulio, 'F28A8C');
+                }
+                if ($datos['TotalSaldo'] > 0 && $datos['TotalSaldo'] < $datos['TotalFactura']) {
+                    $run->cellColor('BR' . $indexJulio, 'FFFF00');
+                }
+                if ($datos['TotalSaldo'] == 0) {
+                    $run->cellColor('BR' . $indexJulio, '92D050');
+                }
+                foreach ($datos['facturas_detalle'] as $detalle) {
+                    $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d', $detalle['FechaInstalacion'])->format('d-m-Y');
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('BN' . $indexJulio, $detalle['Codigo'])
+                        ->setCellValue('BO' . $indexJulio, date('d-F-Y', strtotime($detalle['FechaInstalacion'])));
+                    $run->cellColor('BN' . $indexJulio . ':BO' . $indexJulio, '7474FF');
+                    $indexJulio++;
+                }
+                $indexJulio++;
+                break;
+            }
+            case '08': {
+                $contadorAgosto++;
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('BV' . $indexAgosto, $contadorAgosto)
+                    ->setCellValue('BW' . $indexAgosto, $datos['Cliente'])
+                    ->setCellValue('BX' . $indexAgosto, $datos['RUT'] . '-' . $datos['DV'])
+                    ->setCellValue('CA' . $indexAgosto, $datos['TipoDocumento'] . '-' . $datos['NumeroDocumento'])
+                    ->setCellValue('CB' . $indexAgosto, $datos['TotalFactura'])
+                    ->setCellValue('CC' . $indexAgosto, $datos['TotalSaldo'])
+                    ->setCellValue('CD' . $indexAgosto, $datos['SaldoFavor'])
+                    ->setCellValue('CE' . $indexAgosto, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
+
+                // $Total += $data['TotalSaldo'];
+                $run->cellColor('BV' . $indexAgosto . ':CE' . $indexAgosto, 'A6A6FF');
+                if ($datos['TotalSaldo'] > 0) {
+                    $run->cellColor('CC' . $indexAgosto, 'F28A8C');
+                }
+                if ($datos['TotalSaldo'] > 0 && $datos['TotalSaldo'] < $datos['TotalFactura']) {
+                    $run->cellColor('CC' . $indexAgosto, 'FFFF00');
+                }
+                if ($datos['TotalSaldo'] == 0) {
+                    $run->cellColor('CC' . $indexAgosto, '92D050');
+                }
+                foreach ($datos['facturas_detalle'] as $detalle) {
+                    $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d', $detalle['FechaInstalacion'])->format('d-m-Y');
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('BY' . $indexAgosto, $detalle['Codigo'])
+                        ->setCellValue('BZ' . $indexAgosto, date('d-F-Y', strtotime($detalle['FechaInstalacion'])));
+                    $run->cellColor('BY' . $indexAgosto . ':BZ' . $indexAgosto, '7474FF');
+                    $indexAgosto++;
+                }
+                $indexAgosto++;
+                break;
+            }
+            case '09': {
+                $contadorSeptiembre++;
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('CG' . $indexSeptiembre, $contadorSeptiembre)
+                    ->setCellValue('CH' . $indexSeptiembre, $datos['Cliente'])
+                    ->setCellValue('CI' . $indexSeptiembre, $datos['RUT'] . '-' . $datos['DV'])
+                    ->setCellValue('CL' . $indexSeptiembre, $datos['TipoDocumento'] . '-' . $datos['NumeroDocumento'])
+                    ->setCellValue('CM' . $indexSeptiembre, $datos['TotalFactura'])
+                    ->setCellValue('CN' . $indexSeptiembre, $datos['TotalSaldo'])
+                    ->setCellValue('CO' . $indexSeptiembre, $datos['SaldoFavor'])
+                    ->setCellValue('CP' . $indexSeptiembre, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
+
+                // $Total += $data['TotalSaldo'];
+                $run->cellColor('CG' . $indexSeptiembre . ':CP' . $indexSeptiembre, 'A6A6FF');
+                if ($datos['TotalSaldo'] > 0) {
+                    $run->cellColor('CN' . $indexSeptiembre, 'F28A8C');
+                }
+                if ($datos['TotalSaldo'] > 0 && $datos['TotalSaldo'] < $datos['TotalFactura']) {
+                    $run->cellColor('CN' . $indexSeptiembre, 'FFFF00');
+                }
+                if ($datos['TotalSaldo'] == 0) {
+                    $run->cellColor('CN' . $indexSeptiembre, '92D050');
+                }
+                foreach ($datos['facturas_detalle'] as $detalle) {
+                    $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d', $detalle['FechaInstalacion'])->format('d-m-Y');
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('CJ' . $indexSeptiembre, $detalle['Codigo'])
+                        ->setCellValue('CK' . $indexSeptiembre, date('d-F-Y', strtotime($detalle['FechaInstalacion'])));
+                    $run->cellColor('CJ' . $indexSeptiembre . ':CK' . $indexSeptiembre, '7474FF');
+                    $indexSeptiembre++;
+                }
+                $indexSeptiembre++;
+                break;
+            }
+            case 10: {
+                $contadorOctubre++;
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('CR' . $indexOctubre, $contadorOctubre)
+                    ->setCellValue('CS' . $indexOctubre, $datos['Cliente'])
+                    ->setCellValue('CT' . $indexOctubre, $datos['RUT'] . '-' . $datos['DV'])
+                    ->setCellValue('CW' . $indexOctubre, $datos['TipoDocumento'] . '-' . $datos['NumeroDocumento'])
+                    ->setCellValue('CX' . $indexOctubre, $datos['TotalFactura'])
+                    ->setCellValue('CY' . $indexOctubre, $datos['TotalSaldo'])
+                    ->setCellValue('CZ' . $indexOctubre, $datos['SaldoFavor'])
+                    ->setCellValue('DA' . $indexOctubre, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
+
+                // $Total += $data['TotalSaldo'];
+                $run->cellColor('CR' . $indexOctubre . ':DA' . $indexOctubre, 'A6A6FF');
+                if ($datos['TotalSaldo'] > 0) {
+                    $run->cellColor('CY' . $indexOctubre, 'F28A8C');
+                }
+                if ($datos['TotalSaldo'] > 0 && $datos['TotalSaldo'] < $datos['TotalFactura']) {
+                    $run->cellColor('CY' . $indexOctubre, 'FFFF00');
+                }
+                if ($datos['TotalSaldo'] == 0) {
+                    $run->cellColor('CY' . $indexOctubre, '92D050');
+                }
+                foreach ($datos['facturas_detalle'] as $detalle) {
+                    $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d', $detalle['FechaInstalacion'])->format('d-m-Y');
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('CU' . $indexOctubre, $detalle['Codigo'])
+                        ->setCellValue('CV' . $indexOctubre, date('d-F-Y', strtotime($detalle['FechaInstalacion'])));
+                    $run->cellColor('CU' . $indexOctubre . ':CV' . $indexOctubre, '7474FF');
+                    $indexOctubre++;
+                }
+                $indexOctubre++;
+                break;
+            }
+            case 11: {
+                $contadorNoviembre++;
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('DC' . $indexNoviembre, $contadorNoviembre)
+                    ->setCellValue('DD' . $indexNoviembre, $datos['Cliente'])
+                    ->setCellValue('DE' . $indexNoviembre, $datos['RUT'] . '-' . $datos['DV'])
+                    ->setCellValue('DH' . $indexNoviembre, $datos['TipoDocumento'] . '-' . $datos['NumeroDocumento'])
+                    ->setCellValue('DI' . $indexNoviembre, $datos['TotalFactura'])
+                    ->setCellValue('DJ' . $indexNoviembre, $datos['TotalSaldo'])
+                    ->setCellValue('DK' . $indexNoviembre, $datos['SaldoFavor'])
+                    ->setCellValue('DL' . $indexNoviembre, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
+
+                // $Total += $data['TotalSaldo'];
+                $run->cellColor('DC' . $indexNoviembre . ':DL' . $indexNoviembre, 'A6A6FF');
+                if ($datos['TotalSaldo'] > 0) {
+                    $run->cellColor('DJ' . $indexNoviembre, 'F28A8C');
+                }
+                if ($datos['TotalSaldo'] > 0 && $datos['TotalSaldo'] < $datos['TotalFactura']) {
+                    $run->cellColor('DJ' . $indexNoviembre, 'FFFF00');
+                }
+                if ($datos['TotalSaldo'] == 0) {
+                    $run->cellColor('DJ' . $indexNoviembre, '92D050');
+                }
+                foreach ($datos['facturas_detalle'] as $detalle) {
+                    $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d', $detalle['FechaInstalacion'])->format('d-m-Y');
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('DF' . $indexNoviembre, $detalle['Codigo'])
+                        ->setCellValue('DG' . $indexNoviembre, date('d-F-Y', strtotime($detalle['FechaInstalacion'])));
+                    $run->cellColor('DF' . $indexNoviembre . ':DG' . $indexNoviembre, '7474FF');
+                    $indexNoviembre++;
+                }
+                $indexNoviembre++;
+                break;
+            }
+            case 12: {
+                $contadorDiciembre++;
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('DN' . $indexDiciembre, $contadorDiciembre)
+                    ->setCellValue('DO' . $indexDiciembre, $datos['Cliente'])
+                    ->setCellValue('DP' . $indexDiciembre, $datos['RUT'] . '-' . $datos['DV'])
+                    ->setCellValue('DS' . $indexDiciembre, $datos['TipoDocumento'] . '-' . $datos['NumeroDocumento'])
+                    ->setCellValue('DT' . $indexDiciembre, $datos['TotalFactura'])
+                    ->setCellValue('DU' . $indexDiciembre, $datos['TotalSaldo'])
+                    ->setCellValue('DV' . $indexDiciembre, $datos['SaldoFavor'])
+                    ->setCellValue('DW' . $indexDiciembre, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
+
+                // $Total += $data['TotalSaldo'];
+                $run->cellColor('DN' . $indexDiciembre . ':DW' . $indexDiciembre, 'A6A6FF');
+                if ($datos['TotalSaldo'] > 0) {
+                    $run->cellColor('DU' . $indexDiciembre, 'F28A8C');
+                }
+                if ($datos['TotalSaldo'] > 0 && $datos['TotalSaldo'] < $datos['TotalFactura']) {
+                    $run->cellColor('DU' . $indexDiciembre, 'FFFF00');
+                }
+                if ($datos['TotalSaldo'] == 0) {
+                    $run->cellColor('DU' . $indexDiciembre, '92D050');
+                }
+                foreach ($datos['facturas_detalle'] as $detalle) {
+                    $detalle['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d', $detalle['FechaInstalacion'])->format('d-m-Y');
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('DQ' . $indexDiciembre, $detalle['Codigo'])
+                        ->setCellValue('DR' . $indexDiciembre, date('d-F-Y', strtotime($detalle['FechaInstalacion'])));
+                    $run->cellColor('DQ' . $indexDiciembre . ':DR' . $indexDiciembre, '7474FF');
+                    $indexDiciembre++;
+                }
+                $indexDiciembre++;
                 break;
             }
         }
