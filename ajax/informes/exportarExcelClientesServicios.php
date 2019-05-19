@@ -258,7 +258,7 @@ $query = "  SELECT
                 INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id
                 INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
                 LEFT JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
-                LEFT JOIN mantenedor_tipo_pago ON mantenedor_tipo_pago.id = facturas_pagos.TipoPago ";
+                LEFT JOIN mantenedor_tipo_pago ON mantenedor_tipo_pago.id = facturas_pagos.TipoPago  WHERE deleted_at IS NULL ";
 // facturas.TipoFactura != '3' AND facturas.EstatusFacturacion != '2'
 // AND facturas.EstatusFacturacion != '0' ";
 if ($startDate) {
@@ -266,13 +266,10 @@ if ($startDate) {
     $startDate = $dt->format('Y-m-d');
     $dt = \DateTime::createFromFormat('d-m-Y', $endDate);
     $endDate = $dt->format('Y-m-d');
-    $query .= " WHERE facturas.FechaFacturacion BETWEEN '" . $startDate . "' AND '" . $endDate . "'";
+    $query .= " AND facturas.FechaFacturacion BETWEEN '" . $startDate . "' AND '" . $endDate . "'";
 }
 if ($Rut) {
-    if ($startDate)
-        $query .= " AND facturas.Rut = '" . $Rut . "'";
-    else
-        $query .= " WHERE facturas.Rut = '" . $Rut . "'";
+    $query .= " AND facturas.Rut = '" . $Rut . "'";
 }
 
 $query .= "GROUP BY facturas.Id ORDER BY facturas.FechaFacturacion, Cliente";
@@ -340,7 +337,7 @@ if ($facturas) {
             $data['Cliente'] = $factura['Cliente'];
             $data['RUT'] = $factura['Rut'];
             $data['DV'] =  $factura['DV'];
-            if ($factura['NumeroDocumento'] == '') {
+            if ($factura['NumeroDocumento'] == '' || $EstatusFacturacion == 0) {
                 $factura['NumeroDocumento'] = 'No emitida';
             } else {
                 $factura['NumeroDocumento'] = $FNumeroDocumento;
