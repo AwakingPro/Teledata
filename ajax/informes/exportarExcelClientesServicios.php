@@ -348,6 +348,7 @@ if ($facturas) {
             //total saldo es el pago total
             $data['TotalSaldo'] = $TotalSaldo;
             $data['SaldoFavor'] = $SaldoFavor;
+            $data['MontoDevolucionNC'] = 0;
             $data['TipoDocumento'] = $factura['TipoDocumento'];
             if ($factura['Detalle'] == '' || $factura['Detalle'] == null)
                 $factura['Detalle'] = 'Sin Detalle';
@@ -357,7 +358,7 @@ if ($facturas) {
             // echo '<pre>'; print_r($data); echo '</pre>'; exit;
             array_push($ToReturn, $data);
             if ($EstatusFacturacion == 2) {
-                $query = "SELECT Id, NumeroDocumento, DevolucionAnulada, priceAdjustment, editTexts FROM devoluciones WHERE FacturaId = '" . $Id . "'";
+                $query = "SELECT Id, NumeroDocumento, DevolucionAnulada, DevolucionAmount, priceAdjustment, editTexts FROM devoluciones WHERE FacturaId = '" . $Id . "'";
                 $devoluciones = $run->select($query);
                 if ($devoluciones) {
                     $devolucion = $devoluciones[0];
@@ -371,9 +372,10 @@ if ($facturas) {
                     $data['DV'] =  $factura['DV'];
                     $data['NumeroDocumento'] = $FNumeroDocumento;
                     $data['FechaFacturacion'] = $factura['FechaFacturacion'];
-                    $data['TotalFactura'] = $TotalFactura;
-                    $data['TotalSaldo'] = $TotalSaldoFactura;
-                    $data['SaldoFavor'] = $SaldoFavor;
+                    $data['TotalFactura'] = $devolucion['DevolucionAmount'];
+                    $data['TotalSaldo'] = $devolucion['DevolucionAmount'];
+                    $data['SaldoFavor'] = $devolucion['DevolucionAmount'];
+                    $data['MontoDevolucionNC'] = $devolucion['DevolucionAmount'];
                     $data['TipoDocumento'] = 'NC-' . $devolucion['NumeroDocumento'] . ' | Doc. Ref';
                     if ($devolucion['priceAdjustment'] == 1) {
                         $data['TipoDocumento'] = 'NC por ajuste de precio-' . $devolucion['NumeroDocumento']. ' | Doc. Ref';
@@ -404,6 +406,7 @@ if ($facturas) {
                             $data['TotalFactura'] = $TotalFactura;
                             $data['TotalSaldo'] = $TotalSaldoFactura;
                             $data['SaldoFavor'] = $SaldoFavor;
+                            $data['MontoDevolucionNC'] = 0;
                             $data['TipoDocumento'] = 'Nota de debito';
                             $data['EstatusFacturacion'] = 3;
                             $data['NumRelacion'] = $FNumeroDocumento;
@@ -426,10 +429,26 @@ if ($facturas) {
     $contadorOctubre = 0;
     $contadorNoviembre = 0;
     $contadorDiciembre = 0;
+
+    $TotalFacturaEnero = 0;
+    $TotalFacturaFebrero = 0;
+    $TotalFacturaMarzo = 0;
+    $TotalFacturaAbril = 0;
+    $TotalFacturaMayo = 0;
+    $TotalFacturaJunio = 0;
+    $TotalFacturaJulio = 0;
+    $TotalFacturaAgosto = 0;
+    $TotalFacturaSeptiembre = 0;
+    $TotalFacturaOctubre = 0;
+    $TotalFacturaNoviembre = 0;
+    $TotalFacturaDiciembre = 0;
+
     if (!count($ToReturn)) {
         echo 'No existen datos' . count($ToReturn);
         exit;
     }
+    
+    // echo '<pre>'; print_r($ToReturn); echo '</pre>'; exit;
     foreach ($ToReturn as $datos) {
 
         if ($datos['TipoDocumento'] == 'Boleta')
@@ -453,7 +472,13 @@ if ($facturas) {
                         ->setCellValue('I' . $indexEnero, $datos['SaldoFavor'])
                         ->setCellValue('J' . $indexEnero, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
 
-                    // $Total += $data['TotalSaldo'];
+                    //resta las notas de creditos
+                    if($datos['MontoDevolucionNC'] > 0){
+                        $TotalFacturaEnero -= $datos['MontoDevolucionNC'];
+                    }else{
+                        $TotalFacturaEnero += $datos['TotalFactura'];
+                    }
+                    
                     $run->cellColor('A' . $indexEnero . ':J' . $indexEnero, 'A6A6FF');
                     if ($datos['TotalSaldo'] > 0) {
                         $run->cellColor('H' . $indexEnero, 'F28A8C');
@@ -487,7 +512,13 @@ if ($facturas) {
                         ->setCellValue('S' . $indexFebrero, $datos['SaldoFavor'])
                         ->setCellValue('T' . $indexFebrero, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
 
-                    // $Total += $data['TotalSaldo'];
+                    //resta las notas de creditos
+                    if($datos['MontoDevolucionNC'] > 0){
+                        $TotalFacturaFebrero -= $datos['MontoDevolucionNC'];
+                    }else{
+                        $TotalFacturaFebrero += $datos['TotalFactura'];
+                    }
+
                     $run->cellColor('K' . $indexFebrero . ':T' . $indexFebrero, 'A6A6FF');
                     if ($datos['TotalSaldo'] > 0) {
                         $run->cellColor('R' . $indexFebrero, 'F28A8C');
@@ -521,7 +552,13 @@ if ($facturas) {
                     ->setCellValue('AC' . $indexMarzo, $datos['SaldoFavor'])
                     ->setCellValue('AD' . $indexMarzo, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
 
-                // $Total += $data['TotalSaldo'];
+                //resta las notas de creditos
+                if($datos['MontoDevolucionNC'] > 0){
+                    $TotalFacturaMarzo -= $datos['MontoDevolucionNC'];
+                }else{
+                    $TotalFacturaMarzo += $datos['TotalFactura'];
+                }
+
                 $run->cellColor('U' . $indexMarzo . ':AD' . $indexMarzo, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('AB' . $indexMarzo, 'F28A8C');
@@ -555,7 +592,13 @@ if ($facturas) {
                     ->setCellValue('AM' . $indexAbril, $datos['SaldoFavor'])
                     ->setCellValue('AN' . $indexAbril, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
 
-                // $Total += $data['TotalSaldo'];
+                //resta las notas de creditos
+                if($datos['MontoDevolucionNC'] > 0){
+                    $TotalFacturaAbril -= $datos['MontoDevolucionNC'];
+                }else{
+                    $TotalFacturaAbril += $datos['TotalFactura'];
+                }
+
                 $run->cellColor('AE' . $indexAbril . ':AN' . $indexAbril, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('AL' . $indexAbril, 'F28A8C');
@@ -589,7 +632,13 @@ if ($facturas) {
                     ->setCellValue('AW' . $indexMayo, $datos['SaldoFavor'])
                     ->setCellValue('AX' . $indexMayo, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
 
-                // $Total += $data['TotalSaldo'];
+                 //resta las notas de creditos
+                 if($datos['MontoDevolucionNC'] > 0){
+                    $TotalFacturaMayo -= $datos['MontoDevolucionNC'];
+                }else{
+                    $TotalFacturaMayo += $datos['TotalFactura'];
+                }
+
                 $run->cellColor('AO' . $indexMayo . ':AX' . $indexMayo, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('AV' . $indexMayo, 'F28A8C');
@@ -623,7 +672,13 @@ if ($facturas) {
                     ->setCellValue('BH' . $indexJunio, $datos['SaldoFavor'])
                     ->setCellValue('BI' . $indexJunio, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
 
-                // $Total += $data['TotalSaldo'];
+                //resta las notas de creditos
+                if($datos['MontoDevolucionNC'] > 0){
+                    $TotalFacturaJunio -= $datos['MontoDevolucionNC'];
+                }else{
+                    $TotalFacturaJunio += $datos['TotalFactura'];
+                }
+
                 $run->cellColor('AZ' . $indexJunio . ':BI' . $indexJunio, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('BG' . $indexJunio, 'F28A8C');
@@ -657,7 +712,13 @@ if ($facturas) {
                     ->setCellValue('BS' . $indexJulio, $datos['SaldoFavor'])
                     ->setCellValue('BT' . $indexJulio, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
 
-                // $Total += $data['TotalSaldo'];
+                //resta las notas de creditos
+                if($datos['MontoDevolucionNC'] > 0){
+                    $TotalFacturaJulio -= $datos['MontoDevolucionNC'];
+                }else{
+                    $TotalFacturaJulio += $datos['TotalFactura'];
+                }
+
                 $run->cellColor('BK' . $indexJulio . ':BT' . $indexJulio, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('BR' . $indexJulio, 'F28A8C');
@@ -691,7 +752,13 @@ if ($facturas) {
                     ->setCellValue('CD' . $indexAgosto, $datos['SaldoFavor'])
                     ->setCellValue('CE' . $indexAgosto, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
 
-                // $Total += $data['TotalSaldo'];
+                //resta las notas de creditos
+                if($datos['MontoDevolucionNC'] > 0){
+                    $TotalFacturaAgosto -= $datos['MontoDevolucionNC'];
+                }else{
+                    $TotalFacturaAgosto += $datos['TotalFactura'];
+                }
+
                 $run->cellColor('BV' . $indexAgosto . ':CE' . $indexAgosto, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('CC' . $indexAgosto, 'F28A8C');
@@ -725,7 +792,13 @@ if ($facturas) {
                     ->setCellValue('CO' . $indexSeptiembre, $datos['SaldoFavor'])
                     ->setCellValue('CP' . $indexSeptiembre, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
 
-                // $Total += $data['TotalSaldo'];
+                //resta las notas de creditos
+                if($datos['MontoDevolucionNC'] > 0){
+                    $TotalFacturaSeptiembre -= $datos['MontoDevolucionNC'];
+                }else{
+                    $TotalFacturaSeptiembre += $datos['TotalFactura'];
+                }
+
                 $run->cellColor('CG' . $indexSeptiembre . ':CP' . $indexSeptiembre, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('CN' . $indexSeptiembre, 'F28A8C');
@@ -759,7 +832,13 @@ if ($facturas) {
                     ->setCellValue('CZ' . $indexOctubre, $datos['SaldoFavor'])
                     ->setCellValue('DA' . $indexOctubre, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
 
-                // $Total += $data['TotalSaldo'];
+                //resta las notas de creditos
+                if($datos['MontoDevolucionNC'] > 0){
+                    $TotalFacturaOctubre -= $datos['MontoDevolucionNC'];
+                }else{
+                    $TotalFacturaOctubre += $datos['TotalFactura'];
+                }
+
                 $run->cellColor('CR' . $indexOctubre . ':DA' . $indexOctubre, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('CY' . $indexOctubre, 'F28A8C');
@@ -793,7 +872,13 @@ if ($facturas) {
                     ->setCellValue('DK' . $indexNoviembre, $datos['SaldoFavor'])
                     ->setCellValue('DL' . $indexNoviembre, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
 
-                // $Total += $data['TotalSaldo'];
+                //resta las notas de creditos
+                if($datos['MontoDevolucionNC'] > 0){
+                    $TotalFacturaNoviembre -= $datos['MontoDevolucionNC'];
+                }else{
+                    $TotalFacturaNoviembre += $datos['TotalFactura'];
+                }
+
                 $run->cellColor('DC' . $indexNoviembre . ':DL' . $indexNoviembre, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('DJ' . $indexNoviembre, 'F28A8C');
@@ -827,7 +912,13 @@ if ($facturas) {
                     ->setCellValue('DV' . $indexDiciembre, $datos['SaldoFavor'])
                     ->setCellValue('DW' . $indexDiciembre, date('d-F-Y', strtotime($datos['FechaFacturacion'])));
 
-                // $Total += $data['TotalSaldo'];
+                 //resta las notas de creditos
+                 if($datos['MontoDevolucionNC'] > 0){
+                    $TotalFacturaDiciembre -= $datos['MontoDevolucionNC'];
+                }else{
+                    $TotalFacturaDiciembre += $datos['TotalFactura'];
+                }
+
                 $run->cellColor('DN' . $indexDiciembre . ':DW' . $indexDiciembre, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('DU' . $indexDiciembre, 'F28A8C');
@@ -851,8 +942,54 @@ if ($facturas) {
             }
         }
     }
-    // $objPHPExcel->setActiveSheetIndex(0)
-    // ->setCellValue('H'.$indexEnero, $Total);
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('G'.$indexEnero, $TotalFacturaEnero);
+    $run->cellColor('G' . $indexEnero, '92D050');
+
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('Q'.$indexFebrero, $TotalFacturaFebrero);
+    $run->cellColor('Q' . $indexFebrero, '92D050');
+
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('AA'.$indexMarzo, $TotalFacturaMarzo);
+    $run->cellColor('AA' . $indexMarzo, '92D050');
+
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('AK'.$indexAbril, $TotalFacturaAbril);
+    $run->cellColor('AK' . $indexAbril, '92D050');
+
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('AU'.$indexMayo, $TotalFacturaMayo);
+    $run->cellColor('AU' . $indexMayo, '92D050');
+
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('BF'.$indexJunio, $TotalFacturaJunio);
+    $run->cellColor('BF' . $indexJunio, '92D050');
+
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('BQ'.$indexJulio, $TotalFacturaJulio);
+    $run->cellColor('BQ' . $indexJulio, '92D050');
+
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('CB'.$indexAgosto, $TotalFacturaAgosto);
+    $run->cellColor('CB' . $indexAgosto, '92D050');
+
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('CM'.$indexSeptiembre, $TotalFacturaSeptiembre);
+    $run->cellColor('CM' . $indexSeptiembre, '92D050');
+
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('CX'.$indexOctubre, $TotalFacturaOctubre);
+    $run->cellColor('CX' . $indexOctubre, '92D050');
+
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('CI'.$indexNoviembre, $TotalFacturaNoviembre);
+    $run->cellColor('CI' . $indexNoviembre, '92D050');
+
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('DT'.$indexDiciembre, $TotalFacturaDiciembre);
+    $run->cellColor('DT' . $indexDiciembre, '92D050');
+
 } else {
     echo 'No existen datos para esta consulta';
     return;
