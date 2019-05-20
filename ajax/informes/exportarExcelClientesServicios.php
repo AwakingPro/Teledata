@@ -432,28 +432,40 @@ if ($facturas) {
 
     $TotalFacturaEnero = 0;
     $TotalSaldoEnero = 0;
+    $TotalSaldoFavorEnero = 0;
     $TotalFacturaFebrero = 0;
     $TotalSaldoFebrero = 0;
+    $TotalSaldoFavorFebrero = 0;
     $TotalFacturaMarzo = 0;
     $TotalSaldoMarzo = 0;
+    $TotalSaldoFavorMarzo = 0;
     $TotalFacturaAbril = 0;
     $TotalSaldoAbril = 0;
+    $TotalSaldoFavorAbril = 0;
     $TotalFacturaMayo = 0;
     $TotalSaldoMayo = 0;
+    $TotalSaldoFavorMayo = 0;
     $TotalFacturaJunio = 0;
     $TotalSaldoJunio = 0;
+    $TotalSaldoFavorJunio = 0;
     $TotalFacturaJulio = 0;
     $TotalSaldoJulio = 0;
+    $TotalSaldoFavorJulio = 0;
     $TotalFacturaAgosto = 0;
     $TotalSaldoAgosto = 0;
+    $TotalSaldoFavorAgosto = 0;
     $TotalFacturaSeptiembre = 0;
     $TotalSaldoSeptiembre = 0;
+    $TotalSaldoFavorSeptiembre = 0;
     $TotalFacturaOctubre = 0;
     $TotalSaldoOctubre = 0;
+    $TotalSaldoFavorOctubre = 0;
     $TotalFacturaNoviembre = 0;
     $TotalSaldoNoviembre = 0;
+    $TotalSaldoFavorNoviembre = 0;
     $TotalFacturaDiciembre = 0;
     $TotalSaldoDiciembre = 0;
+    $TotalSaldoFavorDiciembre = 0;
 
     if (!count($ToReturn)) {
         echo 'No existen datos' . count($ToReturn);
@@ -492,6 +504,7 @@ if ($facturas) {
                         $TotalFacturaEnero += $datos['TotalFactura'];
                         $TotalSaldoEnero   += $datos['TotalSaldo'];
                     }
+                    $TotalSaldoFavorEnero += $datos['SaldoFavor'];
                     
                     $run->cellColor('A' . $indexEnero . ':J' . $indexEnero, 'A6A6FF');
                     if ($datos['TotalSaldo'] > 0) {
@@ -534,7 +547,7 @@ if ($facturas) {
                         $TotalFacturaFebrero += $datos['TotalFactura'];
                         $TotalSaldoFebrero   += $datos['TotalSaldo'];
                     }
-
+                    $TotalSaldoFavorFebrero += $datos['SaldoFavor'];
                     $run->cellColor('K' . $indexFebrero . ':T' . $indexFebrero, 'A6A6FF');
                     if ($datos['TotalSaldo'] > 0) {
                         $run->cellColor('R' . $indexFebrero, 'F28A8C');
@@ -576,7 +589,7 @@ if ($facturas) {
                     $TotalFacturaMarzo += $datos['TotalFactura'];
                     $TotalSaldoMarzo   += $datos['TotalSaldo'];
                 }
-
+                $TotalSaldoFavorMarzo += $datos['SaldoFavor'];
                 $run->cellColor('U' . $indexMarzo . ':AD' . $indexMarzo, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('AB' . $indexMarzo, 'F28A8C');
@@ -618,7 +631,7 @@ if ($facturas) {
                     $TotalFacturaAbril += $datos['TotalFactura'];
                     $TotalSaldoAbril  += $datos['TotalSaldo'];
                 }
-
+                $TotalSaldoFavorAbril += $datos['SaldoFavor'];
                 $run->cellColor('AE' . $indexAbril . ':AN' . $indexAbril, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('AL' . $indexAbril, 'F28A8C');
@@ -660,7 +673,7 @@ if ($facturas) {
                     $TotalFacturaMayo += $datos['TotalFactura'];
                     $TotalSaldoMayo += $datos['TotalSaldo'];
                 }
-
+                $TotalSaldoFavorMayo += $datos['SaldoFavor'];
                 $run->cellColor('AO' . $indexMayo . ':AX' . $indexMayo, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('AV' . $indexMayo, 'F28A8C');
@@ -702,7 +715,7 @@ if ($facturas) {
                     $TotalFacturaJunio += $datos['TotalFactura'];
                     $TotalSaldoJunio += $datos['TotalSaldo'];
                 }
-
+                $TotalSaldoFavorJunio += $datos['SaldoFavor'];
                 $run->cellColor('AZ' . $indexJunio . ':BI' . $indexJunio, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('BG' . $indexJunio, 'F28A8C');
@@ -744,7 +757,7 @@ if ($facturas) {
                     $TotalFacturaJulio += $datos['TotalFactura'];
                     $TotalSaldoJulio += $datos['TotalSaldo'];
                 }
-
+                $TotalSaldoFavorJulio += $datos['SaldoFavor'];
                 $run->cellColor('BK' . $indexJulio . ':BT' . $indexJulio, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('BR' . $indexJulio, 'F28A8C');
@@ -786,7 +799,7 @@ if ($facturas) {
                     $TotalFacturaAgosto += $datos['TotalFactura'];
                     $TotalSaldoAgosto += $datos['TotalSaldo'];
                 }
-
+                $TotalSaldoFavorAgosto += $datos['SaldoFavor'];
                 $run->cellColor('BV' . $indexAgosto . ':CE' . $indexAgosto, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('CC' . $indexAgosto, 'F28A8C');
@@ -828,7 +841,7 @@ if ($facturas) {
                     $TotalFacturaSeptiembre += $datos['TotalFactura'];
                     $TotalSaldoSeptiembre += $datos['TotalSaldo'];
                 }
-
+                $TotalSaldoFavorSeptiembre += $datos['SaldoFavor'];
                 $run->cellColor('CG' . $indexSeptiembre . ':CP' . $indexSeptiembre, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('CN' . $indexSeptiembre, 'F28A8C');
@@ -870,7 +883,7 @@ if ($facturas) {
                     $TotalFacturaOctubre += $datos['TotalFactura'];
                     $TotalSaldoOctubre   += $datos['TotalSaldo'];
                 }
-
+                $TotalSaldoFavorOctubre += $datos['SaldoFavor'];
                 $run->cellColor('CR' . $indexOctubre . ':DA' . $indexOctubre, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('CY' . $indexOctubre, 'F28A8C');
@@ -912,7 +925,7 @@ if ($facturas) {
                     $TotalFacturaNoviembre += $datos['TotalFactura'];
                     $TotalSaldoNoviembre += $datos['TotalSaldo'];
                 }
-
+                $TotalSaldoFavorNoviembre += $datos['SaldoFavor'];
                 $run->cellColor('DC' . $indexNoviembre . ':DL' . $indexNoviembre, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('DJ' . $indexNoviembre, 'F28A8C');
@@ -954,7 +967,7 @@ if ($facturas) {
                     $TotalFacturaDiciembre += $datos['TotalFactura'];
                     $TotalSaldoDiciembre   += $datos['TotalSaldo'];
                 }
-
+                $TotalSaldoFavorDiciembre += $datos['SaldoFavor'];
                 $run->cellColor('DN' . $indexDiciembre . ':DW' . $indexDiciembre, 'A6A6FF');
                 if ($datos['TotalSaldo'] > 0) {
                     $run->cellColor('DU' . $indexDiciembre, 'F28A8C');
@@ -984,6 +997,9 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('H'.$indexEnero, $TotalSaldoEnero);
     $run->cellColor('H' . $indexEnero, 'F28A8C');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('I'.$indexEnero, $TotalSaldoFavorEnero);
+    $run->cellColor('I' . $indexEnero, 'FFFF00');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('Q'.$indexFebrero, $TotalFacturaFebrero);
@@ -991,6 +1007,9 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('R'.$indexFebrero, $TotalSaldoFebrero);
     $run->cellColor('R' . $indexFebrero, 'F28A8C');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('S'.$indexFebrero, $TotalSaldoFavorFebrero);
+    $run->cellColor('S' . $indexFebrero, 'FFFF00');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('AA'.$indexMarzo, $TotalFacturaMarzo);
@@ -998,6 +1017,9 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('AB'.$indexMarzo, $TotalSaldoMarzo);
     $run->cellColor('AB' . $indexMarzo, 'F28A8C');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('AC'.$indexMarzo, $TotalSaldoFavorMarzo);
+    $run->cellColor('AC' . $indexMarzo, 'FFFF00');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('AK'.$indexAbril, $TotalFacturaAbril);
@@ -1005,6 +1027,9 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('AL'.$indexAbril, $TotalSaldoAbril);
     $run->cellColor('AL' . $indexAbril, 'F28A8C');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('AM'.$indexAbril, $TotalSaldoFavorAbril);
+    $run->cellColor('AM' . $indexAbril, 'FFFF00');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('AU'.$indexMayo, $TotalFacturaMayo);
@@ -1012,6 +1037,9 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('AV'.$indexMayo, $TotalSaldoMayo);
     $run->cellColor('AV' . $indexMayo, 'F28A8C');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('AW'.$indexMayo, $TotalSaldoFavorMayo);
+    $run->cellColor('AW' . $indexMayo, 'FFFF00');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('BF'.$indexJunio, $TotalFacturaJunio);
@@ -1019,6 +1047,9 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('BG'.$indexJunio, $TotalSaldoJunio);
     $run->cellColor('BG' . $indexJunio, 'F28A8C');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('BH'.$indexJunio, $TotalSaldoFavorJunio);
+    $run->cellColor('BH' . $indexJunio, 'FFFF00');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('BQ'.$indexJulio, $TotalFacturaJulio);
@@ -1026,6 +1057,10 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('BR'.$indexJulio, $TotalSaldoJulio);
     $run->cellColor('BR' . $indexJulio, 'F28A8C');
+    $run->cellColor('BG' . $indexJunio, 'F28A8C');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('BS'.$indexJulio, $TotalSaldoFavorJulio);
+    $run->cellColor('BS' . $indexJulio, 'FFFF00');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('CB'.$indexAgosto, $TotalFacturaAgosto);
@@ -1033,6 +1068,9 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('CC'.$indexAgosto, $TotalSaldoAgosto);
     $run->cellColor('CC' . $indexAgosto, 'F28A8C');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('CD'.$indexAgosto, $TotalSaldoFavorAgosto);
+    $run->cellColor('CD' . $indexAgosto, 'FFFF00');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('CM'.$indexSeptiembre, $TotalFacturaSeptiembre);
@@ -1040,6 +1078,9 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('CN'.$indexSeptiembre, $TotalSaldoSeptiembre);
     $run->cellColor('CN' . $indexSeptiembre, 'F28A8C');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('CO'.$indexSeptiembre, $TotalSaldoFavorSeptiembre);
+    $run->cellColor('CO' . $indexSeptiembre, 'FFFF00');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('CX'.$indexOctubre, $TotalFacturaOctubre);
@@ -1047,6 +1088,9 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('CY'.$indexOctubre, $TotalSaldoOctubre);
     $run->cellColor('CY' . $indexOctubre, 'F28A8C');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('CZ'.$indexOctubre, $TotalSaldoFavorOctubre);
+    $run->cellColor('CZ' . $indexOctubre, 'FFFF00');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('DI'.$indexNoviembre, $TotalFacturaNoviembre);
@@ -1054,6 +1098,9 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('DJ'.$indexNoviembre, $TotalSaldoNoviembre);
     $run->cellColor('DJ' . $indexNoviembre, 'F28A8C');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('DK'.$indexNoviembre, $TotalSaldoFavorNoviembre);
+    $run->cellColor('DK' . $indexNoviembre, 'FFFF00');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('DT'.$indexDiciembre, $TotalFacturaDiciembre);
@@ -1061,6 +1108,9 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('DU'.$indexDiciembre, $TotalSaldoDiciembre);
     $run->cellColor('DU' . $indexDiciembre, 'F28A8C');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('DV'.$indexDiciembre, $TotalSaldoFavorDiciembre);
+    $run->cellColor('DV' . $indexDiciembre, 'FFFF00');
 
 } else {
     echo 'No existen datos para esta consulta';
