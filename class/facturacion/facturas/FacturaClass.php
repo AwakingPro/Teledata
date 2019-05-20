@@ -2104,7 +2104,7 @@
                             $data['Id'] = $devolucion['Id'];
                             $data['DocumentoId'] = $Id;
                             $data['Cliente'] = $factura['Cliente'];
-                            $data['NumeroDocumento'] = $devolucion['NumeroDocumento'];
+                            $data['NumeroDocumento'] = $devolucion['NumeroDocumento'].' Doc. Ref '.$factura['NumeroDocumento'];
                             $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                             $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');
                             $data['Detalle'] = '*';
