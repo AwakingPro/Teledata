@@ -529,8 +529,10 @@ if ($facturas) {
                     //resta las notas de creditos
                     if($datos['MontoDevolucionNC'] > 0){
                         $TotalFacturaFebrero -= $datos['MontoDevolucionNC'];
+                        $TotalSaldoFebrero   -= $datos['MontoDevolucionNC'];
                     }else{
                         $TotalFacturaFebrero += $datos['TotalFactura'];
+                        $TotalSaldoFebrero   += $datos['TotalSaldo'];
                     }
 
                     $run->cellColor('K' . $indexFebrero . ':T' . $indexFebrero, 'A6A6FF');
@@ -569,8 +571,10 @@ if ($facturas) {
                 //resta las notas de creditos
                 if($datos['MontoDevolucionNC'] > 0){
                     $TotalFacturaMarzo -= $datos['MontoDevolucionNC'];
+                    $TotalSaldoMarzo   -= $datos['MontoDevolucionNC'];
                 }else{
                     $TotalFacturaMarzo += $datos['TotalFactura'];
+                    $TotalSaldoMarzo   += $datos['TotalSaldo'];
                 }
 
                 $run->cellColor('U' . $indexMarzo . ':AD' . $indexMarzo, 'A6A6FF');
@@ -609,8 +613,10 @@ if ($facturas) {
                 //resta las notas de creditos
                 if($datos['MontoDevolucionNC'] > 0){
                     $TotalFacturaAbril -= $datos['MontoDevolucionNC'];
+                    $TotalSaldoAbril   -= $datos['MontoDevolucionNC'];
                 }else{
                     $TotalFacturaAbril += $datos['TotalFactura'];
+                    $TotalSaldoAbril  += $datos['TotalSaldo'];
                 }
 
                 $run->cellColor('AE' . $indexAbril . ':AN' . $indexAbril, 'A6A6FF');
@@ -649,8 +655,10 @@ if ($facturas) {
                  //resta las notas de creditos
                  if($datos['MontoDevolucionNC'] > 0){
                     $TotalFacturaMayo -= $datos['MontoDevolucionNC'];
+                    $TotalSaldoMayo   -= $datos['MontoDevolucionNC'];
                 }else{
                     $TotalFacturaMayo += $datos['TotalFactura'];
+                    $TotalSaldoMayo += $datos['TotalSaldo'];
                 }
 
                 $run->cellColor('AO' . $indexMayo . ':AX' . $indexMayo, 'A6A6FF');
@@ -689,8 +697,10 @@ if ($facturas) {
                 //resta las notas de creditos
                 if($datos['MontoDevolucionNC'] > 0){
                     $TotalFacturaJunio -= $datos['MontoDevolucionNC'];
+                    $TotalSaldoJunio   -= $datos['MontoDevolucionNC'];
                 }else{
                     $TotalFacturaJunio += $datos['TotalFactura'];
+                    $TotalSaldoJunio += $datos['TotalSaldo'];
                 }
 
                 $run->cellColor('AZ' . $indexJunio . ':BI' . $indexJunio, 'A6A6FF');
@@ -729,8 +739,10 @@ if ($facturas) {
                 //resta las notas de creditos
                 if($datos['MontoDevolucionNC'] > 0){
                     $TotalFacturaJulio -= $datos['MontoDevolucionNC'];
+                    $TotalSaldoJulio   -= $datos['MontoDevolucionNC'];
                 }else{
                     $TotalFacturaJulio += $datos['TotalFactura'];
+                    $TotalSaldoJulio += $datos['TotalSaldo'];
                 }
 
                 $run->cellColor('BK' . $indexJulio . ':BT' . $indexJulio, 'A6A6FF');
@@ -769,8 +781,10 @@ if ($facturas) {
                 //resta las notas de creditos
                 if($datos['MontoDevolucionNC'] > 0){
                     $TotalFacturaAgosto -= $datos['MontoDevolucionNC'];
+                    $TotalSaldoAgosto   -= $datos['MontoDevolucionNC'];
                 }else{
                     $TotalFacturaAgosto += $datos['TotalFactura'];
+                    $TotalSaldoAgosto += $datos['TotalSaldo'];
                 }
 
                 $run->cellColor('BV' . $indexAgosto . ':CE' . $indexAgosto, 'A6A6FF');
@@ -809,8 +823,10 @@ if ($facturas) {
                 //resta las notas de creditos
                 if($datos['MontoDevolucionNC'] > 0){
                     $TotalFacturaSeptiembre -= $datos['MontoDevolucionNC'];
+                    $TotalSaldoSeptiembre   -= $datos['MontoDevolucionNC'];
                 }else{
                     $TotalFacturaSeptiembre += $datos['TotalFactura'];
+                    $TotalSaldoSeptiembre += $datos['TotalSaldo'];
                 }
 
                 $run->cellColor('CG' . $indexSeptiembre . ':CP' . $indexSeptiembre, 'A6A6FF');
@@ -849,8 +865,10 @@ if ($facturas) {
                 //resta las notas de creditos
                 if($datos['MontoDevolucionNC'] > 0){
                     $TotalFacturaOctubre -= $datos['MontoDevolucionNC'];
+                    $TotalSaldoOctubre   -= $datos['MontoDevolucionNC'];
                 }else{
                     $TotalFacturaOctubre += $datos['TotalFactura'];
+                    $TotalSaldoOctubre   += $datos['TotalSaldo'];
                 }
 
                 $run->cellColor('CR' . $indexOctubre . ':DA' . $indexOctubre, 'A6A6FF');
@@ -889,8 +907,10 @@ if ($facturas) {
                 //resta las notas de creditos
                 if($datos['MontoDevolucionNC'] > 0){
                     $TotalFacturaNoviembre -= $datos['MontoDevolucionNC'];
+                    $TotalSaldoNoviembre     -= $datos['MontoDevolucionNC'];
                 }else{
                     $TotalFacturaNoviembre += $datos['TotalFactura'];
+                    $TotalSaldoNoviembre += $datos['TotalSaldo'];
                 }
 
                 $run->cellColor('DC' . $indexNoviembre . ':DL' . $indexNoviembre, 'A6A6FF');
@@ -929,8 +949,10 @@ if ($facturas) {
                  //resta las notas de creditos
                  if($datos['MontoDevolucionNC'] > 0){
                     $TotalFacturaDiciembre -= $datos['MontoDevolucionNC'];
+                    $TotalSaldoDiciembre   -= $datos['MontoDevolucionNC'];
                 }else{
                     $TotalFacturaDiciembre += $datos['TotalFactura'];
+                    $TotalSaldoDiciembre   += $datos['TotalSaldo'];
                 }
 
                 $run->cellColor('DN' . $indexDiciembre . ':DW' . $indexDiciembre, 'A6A6FF');
@@ -966,46 +988,79 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('Q'.$indexFebrero, $TotalFacturaFebrero);
     $run->cellColor('Q' . $indexFebrero, '92D050');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('R'.$indexFebrero, $TotalSaldoFebrero);
+    $run->cellColor('R' . $indexFebrero, 'F28A8C');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('AA'.$indexMarzo, $TotalFacturaMarzo);
     $run->cellColor('AA' . $indexMarzo, '92D050');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('AB'.$indexMarzo, $TotalSaldoMarzo);
+    $run->cellColor('AB' . $indexMarzo, 'F28A8C');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('AK'.$indexAbril, $TotalFacturaAbril);
     $run->cellColor('AK' . $indexAbril, '92D050');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('AL'.$indexAbril, $TotalSaldoAbril);
+    $run->cellColor('AL' . $indexAbril, 'F28A8C');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('AU'.$indexMayo, $TotalFacturaMayo);
     $run->cellColor('AU' . $indexMayo, '92D050');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('AV'.$indexMayo, $TotalSaldoMayo);
+    $run->cellColor('AV' . $indexMayo, 'F28A8C');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('BF'.$indexJunio, $TotalFacturaJunio);
     $run->cellColor('BF' . $indexJunio, '92D050');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('BG'.$indexJunio, $TotalSaldoJunio);
+    $run->cellColor('BG' . $indexJunio, 'F28A8C');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('BQ'.$indexJulio, $TotalFacturaJulio);
     $run->cellColor('BQ' . $indexJulio, '92D050');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('BR'.$indexJulio, $TotalSaldoJulio);
+    $run->cellColor('BR' . $indexJulio, 'F28A8C');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('CB'.$indexAgosto, $TotalFacturaAgosto);
     $run->cellColor('CB' . $indexAgosto, '92D050');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('CC'.$indexAgosto, $TotalSaldoAgosto);
+    $run->cellColor('CC' . $indexAgosto, 'F28A8C');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('CM'.$indexSeptiembre, $TotalFacturaSeptiembre);
     $run->cellColor('CM' . $indexSeptiembre, '92D050');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('CN'.$indexSeptiembre, $TotalSaldoSeptiembre);
+    $run->cellColor('CN' . $indexSeptiembre, 'F28A8C');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('CX'.$indexOctubre, $TotalFacturaOctubre);
     $run->cellColor('CX' . $indexOctubre, '92D050');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('CY'.$indexOctubre, $TotalSaldoOctubre);
+    $run->cellColor('CY' . $indexOctubre, 'F28A8C');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('DI'.$indexNoviembre, $TotalFacturaNoviembre);
     $run->cellColor('DI' . $indexNoviembre, '92D050');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('DJ'.$indexNoviembre, $TotalSaldoNoviembre);
+    $run->cellColor('DJ' . $indexNoviembre, 'F28A8C');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('DT'.$indexDiciembre, $TotalFacturaDiciembre);
     $run->cellColor('DT' . $indexDiciembre, '92D050');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('DU'.$indexDiciembre, $TotalSaldoDiciembre);
+    $run->cellColor('DU' . $indexDiciembre, 'F28A8C');
 
 } else {
     echo 'No existen datos para esta consulta';
