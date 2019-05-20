@@ -272,7 +272,7 @@ if ($Rut) {
     $query .= " AND facturas.Rut = '" . $Rut . "'";
 }
 
-$query .= "GROUP BY facturas.Id ORDER BY facturas.FechaFacturacion, Cliente";
+$query .= "GROUP BY facturas.Id ORDER BY Cliente, facturas.FechaFacturacion";
 
 // if($documentType){
 //     $query .= " AND facturas.TipoDocumento = '".$documentType."'";
