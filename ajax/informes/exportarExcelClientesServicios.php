@@ -431,17 +431,29 @@ if ($facturas) {
     $contadorDiciembre = 0;
 
     $TotalFacturaEnero = 0;
+    $TotalSaldoEnero = 0;
     $TotalFacturaFebrero = 0;
+    $TotalSaldoFebrero = 0;
     $TotalFacturaMarzo = 0;
+    $TotalSaldoMarzo = 0;
     $TotalFacturaAbril = 0;
+    $TotalSaldoAbril = 0;
     $TotalFacturaMayo = 0;
+    $TotalSaldoMayo = 0;
     $TotalFacturaJunio = 0;
+    $TotalSaldoJunio = 0;
     $TotalFacturaJulio = 0;
+    $TotalSaldoJulio = 0;
     $TotalFacturaAgosto = 0;
+    $TotalSaldoAgosto = 0;
     $TotalFacturaSeptiembre = 0;
+    $TotalSaldoSeptiembre = 0;
     $TotalFacturaOctubre = 0;
+    $TotalSaldoOctubre = 0;
     $TotalFacturaNoviembre = 0;
+    $TotalSaldoNoviembre = 0;
     $TotalFacturaDiciembre = 0;
+    $TotalSaldoDiciembre = 0;
 
     if (!count($ToReturn)) {
         echo 'No existen datos' . count($ToReturn);
@@ -475,8 +487,10 @@ if ($facturas) {
                     //resta las notas de creditos
                     if($datos['MontoDevolucionNC'] > 0){
                         $TotalFacturaEnero -= $datos['MontoDevolucionNC'];
+                        $TotalSaldoEnero   -= $datos['MontoDevolucionNC'];
                     }else{
                         $TotalFacturaEnero += $datos['TotalFactura'];
+                        $TotalSaldoEnero   += $datos['TotalSaldo'];
                     }
                     
                     $run->cellColor('A' . $indexEnero . ':J' . $indexEnero, 'A6A6FF');
@@ -945,6 +959,9 @@ if ($facturas) {
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('G'.$indexEnero, $TotalFacturaEnero);
     $run->cellColor('G' . $indexEnero, '92D050');
+    $objPHPExcel->setActiveSheetIndex(0)
+    ->setCellValue('H'.$indexEnero, $TotalSaldoEnero);
+    $run->cellColor('H' . $indexEnero, 'F28A8C');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('Q'.$indexFebrero, $TotalFacturaFebrero);
