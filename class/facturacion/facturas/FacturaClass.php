@@ -2110,7 +2110,8 @@
                             $data['Detalle'] = '*';
                             $devolucion['DevolucionAmount'] = (double)$devolucion['DevolucionAmount']; 
                             $data['TotalFactura'] = $devolucion['DevolucionAmount'];
-                            $data['TotalSaldo'] = $devolucion['DevolucionAmount'];
+                            // $data['TotalSaldo'] = $devolucion['DevolucionAmount'];
+                            $data['TotalSaldo'] = 0;
                             $data['SaldoFavor'] = $SaldoFavor;
                             $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
                             $data['Grupo'] = $factura['Grupo'];
