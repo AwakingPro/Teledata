@@ -983,8 +983,8 @@ if ($facturas) {
     $run->cellColor('CX' . $indexOctubre, '92D050');
 
     $objPHPExcel->setActiveSheetIndex(0)
-    ->setCellValue('CI'.$indexNoviembre, $TotalFacturaNoviembre);
-    $run->cellColor('CI' . $indexNoviembre, '92D050');
+    ->setCellValue('DI'.$indexNoviembre, $TotalFacturaNoviembre);
+    $run->cellColor('DI' . $indexNoviembre, '92D050');
 
     $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('DT'.$indexDiciembre, $TotalFacturaDiciembre);
