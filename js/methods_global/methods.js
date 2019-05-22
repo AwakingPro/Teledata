@@ -328,6 +328,7 @@ function alertas(type, message) {
 $.extend( $.fn.dataTable.defaults, {
 	dom: 'Bflrtip',
 	buttons: [ 'excel' ],
+	select: true,
 	fixedHeader: true,
 	paging: true,
 	iDisplayLength: 10,
