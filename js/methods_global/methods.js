@@ -326,6 +326,8 @@ function alertas(type, message) {
 
 // Opciones por defecto para las tablas
 $.extend( $.fn.dataTable.defaults, {
+	dom: 'Bflrtip',
+	buttons: [ 'excel' ],
 	fixedHeader: true,
 	paging: true,
 	iDisplayLength: 10,

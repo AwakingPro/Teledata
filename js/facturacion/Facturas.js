@@ -133,7 +133,7 @@ $(document).ready(function() {
             $('.TotalSaldoDoc').text(0);
         }
     });
-
+    //listar por clientes - rut
     function getFacturasCliente() {
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { Rut: $('select[name="rutCliente"]').selectpicker('val') }, function(data) {
             FacturasTableCliente = $('#FacturasTableCliente').DataTable({

@@ -5,6 +5,8 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Teledata</title>
+		<!-- <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> -->
+		<!-- <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"> -->
 		<link href="../css/bootstrap.min.css" rel="stylesheet">
 		<link href="../css/nifty.min.css" rel="stylesheet">
 		<link href="../css/demo/nifty-demo-icons.min.css" rel="stylesheet">
@@ -16,6 +18,8 @@
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 		<link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
+		
+		
 	</head>
 	<body>
 		<div id="container" class="effect aside-float aside-bright mainnav-sm">
@@ -82,7 +86,7 @@
 												</div>
 											</div>
 											<br><br>
-											<button id="descargarRut" class="btn btn-primary descargar">Descargar</button><br><br>
+											<!-- <button id="descargarRut" class="btn btn-primary descargar">Descargar</button><br><br> -->
 											<div class="row">
 												<div class="col-md-12">
 													<div class="table-responsive">
@@ -150,8 +154,8 @@
 													<option value="3">Notas de Crédito</option>
 												</select>
 												<br><br>
-                                                <button id="filtrar" class="btn btn-success">Filtrar</button> 
-												<button id="descargarFecha" class="btn btn-primary descargar">Descargar</button><br><br>
+                                                <button id="filtrar" class="btn btn-success" style="margin-bottom:10px;">Filtrar</button> 
+												<!-- <button id="descargarFecha" class="btn btn-primary descargar">Descargar</button><br><br> -->
                                             </div>
 											<br><br>
 											<div class="row">
@@ -218,8 +222,8 @@
 													<option value="3">Notas de Crédito</option>
 												</select>
 												<br><br>
-                                                <button id="filtrarNDocumento" class="btn btn-success">Filtrar</button> 
-												<button id="descargarNDocumento" class="btn btn-primary descargar">Descargar</button><br><br>
+                                                <button id="filtrarNDocumento" class="btn btn-success" style="margin-bottom:10px;">Filtrar</button>
+												<!-- <button id="descargarNDocumento" class="btn btn-primary descargar">Descargar</button><br><br> -->
                                             </div>
 											<br><br>
 											<div class="row">
@@ -428,16 +432,25 @@
 	<script src="../js/bootstrap.min.js"></script>
     <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 	<script src="../plugins/bootbox/bootbox.min.js"></script>
-	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
+	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+	<!-- <script src="../plugins/datatables/media/js/jquery.dataTables.js"></script> -->
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 	<script src="../js/methods_global/methods.js"></script>
 	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 	<script src="../plugins/moment/moment.js"></script>
 	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 	<script src="../js/facturacion/Facturas.js"></script>
+	<script src="../plugins/datatables/extensions/BotonExcel/jszip.js"></script>
 	<script src="../plugins/numbers/jquery.number.js"></script>
 	<script src="../plugins/sweetalert/sweetalert.min.js"></script>
 	<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
+
+	
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script>
+	<!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script> -->
+	<!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script> -->
+	<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
+	<!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script> -->
 </body>
 </html>
 
