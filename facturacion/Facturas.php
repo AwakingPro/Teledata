@@ -451,6 +451,7 @@
 	<!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script> -->
 	<script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script>
 	<!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script> -->
+	<script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script>
 </body>
 </html>
 
