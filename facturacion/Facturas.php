@@ -6,7 +6,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>Teledata</title>
 		<!-- <link href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css"> -->
-		<!-- <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"> -->
+		<!-- <link href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css"> --> 
 		<link href="../css/bootstrap.min.css" rel="stylesheet">
 		<link href="../css/nifty.min.css" rel="stylesheet">
 		<link href="../css/demo/nifty-demo-icons.min.css" rel="stylesheet">
@@ -18,6 +18,7 @@
 		<link href="../plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet">
 		<link href="../plugins/sweetalert/sweetalert.css" rel="stylesheet">
 		<link href="../css/teledata.css" rel="stylesheet">
+		
 		
 		
 	</head>

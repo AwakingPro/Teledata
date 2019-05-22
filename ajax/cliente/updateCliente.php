@@ -14,11 +14,12 @@
 	$Region = isset($_POST['Region_update']) ? trim($_POST['Region_update']) : "";
 	$TipoPago = isset($_POST['TipoPago_update']) ? trim($_POST['TipoPago_update']) : "";
 	$PoseePac = isset($_POST['PoseePac_update']) ? trim($_POST['PoseePac_update']) : "";
+	$PoseePrefactura = isset($_POST['PoseePrefactura_update']) ? trim($_POST['PoseePrefactura_update']) : "";
 	$IdCliente = isset($_POST['IdCliente']) ? trim($_POST['IdCliente']) : "";
 	$cliente_id_bsale = isset($_POST['cliente_id_bsale']) ? trim($_POST['cliente_id_bsale']) : "";
 	$stateOculto = isset($_POST['stateOculto']) ? trim($_POST['stateOculto']) : "";
 	$stateCliente = isset($_POST['stateCliente']) ? trim($_POST['stateCliente']) : "";
-	$query = "UPDATE personaempresa SET alias = '".$Alias."', nombre = '".$Nombre."', giro = '".$Giro."', direccion = '".$DireccionComercial."', correo = '".$Correo."', contacto = '".$Contacto."', comentario = '".$Comentario."', telefono = '".$Telefono."', tipo_cliente = '".$TipoCliente."', ciudad = '".$Ciudad."', region = '".$Region."', tipo_pago_bsale_id = '".$TipoPago."', posee_pac = '".$PoseePac."', state = '".$stateCliente."' WHERE id = '".$IdCliente."'";
+	$query = "UPDATE personaempresa SET alias = '".$Alias."', nombre = '".$Nombre."', giro = '".$Giro."', direccion = '".$DireccionComercial."', correo = '".$Correo."', contacto = '".$Contacto."', comentario = '".$Comentario."', telefono = '".$Telefono."', tipo_cliente = '".$TipoCliente."', ciudad = '".$Ciudad."', region = '".$Region."', tipo_pago_bsale_id = '".$TipoPago."', posee_pac = '".$PoseePac."', posee_prefactura='".$PoseePrefactura."', state = '".$stateCliente."' WHERE id = '".$IdCliente."'";
 	$run = new Method;
 	$data = $run->update($query);
 	if($stateCliente != $stateOculto){

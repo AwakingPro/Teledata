@@ -92,6 +92,9 @@
 															<div class="checkbox" style="margin: 18px auto">
 																<input id="PoseePac" name="PoseePac" class="magic-checkbox" type="checkbox">
 																<label for="PoseePac">Posee PAC</label>
+
+																<input id="PoseePrefactura" name="PoseePrefactura" class="magic-checkbox" type="checkbox">
+																<label for="PoseePrefactura">Posee Prefactura</label>
 															</div>
 														</div>
 														<div class="col-md-3 form-group">
