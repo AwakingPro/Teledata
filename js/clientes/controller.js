@@ -745,6 +745,11 @@ $(document).ready(function() {
             }else{
                 $('[name="PoseePac_update').prop('checked', false);
             }
+            if(value[0]['posee_prefactura'] == 1){
+                $('[name="PoseePrefactura_update').prop('checked',true);
+            }else{
+                $('[name="PoseePrefactura_update').prop('checked', false);
+            }
             if(value[0]['state'] == null){
                 $('[name="stateCliente"]').val('Activo sin emitir docs');
             }
