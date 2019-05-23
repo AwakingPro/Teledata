@@ -22,6 +22,18 @@
 	$query = "UPDATE personaempresa SET alias = '".$Alias."', nombre = '".$Nombre."', giro = '".$Giro."', direccion = '".$DireccionComercial."', correo = '".$Correo."', contacto = '".$Contacto."', comentario = '".$Comentario."', telefono = '".$Telefono."', tipo_cliente = '".$TipoCliente."', ciudad = '".$Ciudad."', region = '".$Region."', tipo_pago_bsale_id = '".$TipoPago."', posee_pac = '".$PoseePac."', posee_prefactura='".$PoseePrefactura."', state = '".$stateCliente."' WHERE id = '".$IdCliente."'";
 	$run = new Method;
 	$data = $run->update($query);
+
+	$query = "SELECT rut from personaempresa WHERE id = '".$IdCliente."' ";
+	$cliente = $run->select($query);
+	$RUT = $cliente[0]['rut'];
+	//si posee_prefactura, actualizo todos sus docs que aun no se han emitido a bsale
+	if($PoseePrefactura){
+		$query = "UPDATE facturas SET EstatusFacturacion = '4' WHERE EstatusFacturacion IN(0, 3) AND  Rut = '".$RUT."' ";	
+	}else{
+		$query = "UPDATE facturas SET EstatusFacturacion = '0' WHERE EstatusFacturacion = '4' AND  Rut = '".$RUT."' ";
+	}
+	echo $run->update($query);
+
 	if($stateCliente != $stateOculto){
 		if($cliente_id_bsale){
 			switch ($stateCliente) {
