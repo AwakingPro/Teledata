@@ -32,29 +32,32 @@
 	}else{
 		$query = "UPDATE facturas SET EstatusFacturacion = '0' WHERE EstatusFacturacion = '4' AND  Rut = '".$RUT."' ";
 	}
-	echo $run->update($query);
-
-	if($stateCliente != $stateOculto){
-		if($cliente_id_bsale){
-			switch ($stateCliente) {
-				case 0:
-					$metodo = 'PUT';
-					break;
-				case 1:
-					$metodo = 'DELETE';
-					break;
-				case 2:
-					exit;
-			}
-			$DatosCliente = array(
-				"id"			=> $cliente_id_bsale,
-				"state"			=> $stateCliente,
-				"metodo"		=> $metodo
-			);
-			$url = "https://api.bsale.cl/v1/clients/".$cliente_id_bsale.".json";
-			print_r($run->EditClientApiBsale($DatosCliente, $url));
-		}
-	}
+	$run->update($query);
+	
+	// if($stateCliente != $stateOculto){
+	// 	if($cliente_id_bsale){
+	// 		switch ($stateCliente) {
+	// 			//activo
+	// 			case 0:
+	// 				$metodo = 'PUT';
+	// 				break;
+	// 			//inactivo
+	// 			case 1:
+	// 				$metodo = 'DELETE';
+	// 				break;
+	// 			//activo sin emitir docs
+	// 			case 2:
+	// 				exit;
+	// 		}
+	// 		$DatosCliente = array(
+	// 			"id"			=> $cliente_id_bsale,
+	// 			"state"			=> $stateCliente,
+	// 			"metodo"		=> $metodo
+	// 		);
+	// 		$url = "https://api.bsale.cl/v1/clients/".$cliente_id_bsale.".json";
+	// 		print_r($run->EditClientApiBsale($DatosCliente, $url));
+	// 	}
+	// }
 	
 
 	// if($data){
