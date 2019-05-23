@@ -9,8 +9,8 @@ $objPHPExcel = new PHPExcel();
 $objPHPExcel->getProperties()
 ->setCreator("Cattivo")
 ->setLastModifiedBy("Cattivo")
-->setTitle("Documento Excel de Prueba")
-->setSubject("Documento Excel de Prueba")
+->setTitle("Clientes")
+->setSubject("Documento Excel de clientes")
 ->setDescription("Demostracion sobre como crear archivos de Excel desde PHP.")
 ->setKeywords("Excel Office 2007 openxml php")
 ->setCategory("Pruebas de Excel");
@@ -27,7 +27,8 @@ $objPHPExcel->setActiveSheetIndex(0)
 ->setCellValue('H1', 'Contacto')
 ->setCellValue('I1', 'Comentario')
 ->setCellValue('J1', 'Teléfono')
-->setCellValue('K1', 'Tipo de Cliente');
+->setCellValue('K1', 'Tipo de Cliente')
+->setCellValue('L1', 'Ciudad');
 
 foreach (range(0, 33) as $col) {
         $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -46,13 +47,18 @@ require_once('../../class/methods_global/methods.php');
 					p.contacto,
 					p.comentario,
 					p.telefono,
-					mt.nombre as tipo_cliente
+					mt.nombre as tipo_cliente,
+					ciudades.nombre as ciudad_nombre
 				FROM
 					personaempresa p 
 				INNER JOIN 
 					mantenedor_tipo_cliente mt 
 				ON 
 					p.tipo_cliente = mt.id
+				INNER JOIN 
+					ciudades
+				ON
+					p.ciudad = ciudades.id
 				ORDER BY
 					p.nombre';
 $run = new Method;
@@ -73,7 +79,8 @@ if (count($data) > 0) {
 		->setCellValue('H'.$index, $data[$i][7])
 		->setCellValue('I'.$index, $data[$i][8])
 		->setCellValue('J'.$index, $data[$i][9])
-		->setCellValue('K'.$index, $data[$i][10]);
+		->setCellValue('K'.$index, $data[$i][10])
+		->setCellValue('L'.$index, $data[$i][11]);
 		$index ++;
 	}
 }
