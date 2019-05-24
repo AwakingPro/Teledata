@@ -9,6 +9,14 @@
 			$run = new Method;
         }
 
+        //metodo para que aparezcan los documentos con posee_prefactura = 1, los 22 de cada mes 
+        public function generarPrefactura(){
+            $run = new Method;
+            $query = "  SELECT ";
+            $documentosPrefacturas = $run->select($query);
+        }
+
+        //metodo para verificar si un cliente tiene un doc emitido y uno vencido y enviar correo a tecnicos para el corte
         public function verificarDocumentosEmitidos(){
             $dataClient = array();
             $servicio_nombre_cliente = 'PRUEBA SISTEMA NO BORRAR';
@@ -101,6 +109,11 @@
                             personaempresa.dv as DV,
                             -- devuelve el primero que encuentre que no sea nulo.
                             COALESCE (
+                                personaempresa.posee_prefactura,
+                                0
+                            ) AS PoseePrefactura,
+                            -- devuelve el primero que encuentre que no sea nulo.
+                            COALESCE (
                                 grupo_servicio.Nombre,
                                 facturas.Grupo
                             ) AS NombreGrupo,
@@ -142,7 +155,8 @@
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['NombreGrupo'] = $factura['NombreGrupo'];
                     $data['DocumentoIdBsale'] = $factura['DocumentoIdBsale'];
-                    if($factura['EsOC']){
+                    $data['PoseePrefactura'] = $factura['PoseePrefactura'];
+                    if($factura['EsOC'] || $factura['PoseePrefactura']){
                         $query = "SELECT NumeroOC FROM facturas WHERE Rut = '".$Rut."' AND Grupo = '".$Grupo."' AND EstatusFacturacion = '0' LIMIT 1";
                         $OC = $run->select($query);
                         if($OC){
@@ -177,6 +191,11 @@
                             facturas.IVA,
                             personaempresa.nombre AS Cliente,
                             personaempresa.dv as DV,
+                             -- devuelve el primero que encuentre que no sea nulo.
+                             COALESCE (
+                                personaempresa.posee_prefactura,
+                                0
+                            ) AS PoseePrefactura,
                             COALESCE (
                                 grupo_servicio.Nombre,
                                 facturas.Grupo
@@ -211,7 +230,8 @@
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['NombreGrupo'] = $factura['NombreGrupo'];
                     $data['DocumentoIdBsale'] = $factura['DocumentoIdBsale'];
-                    if($factura['EsOC']){
+                    $data['PoseePrefactura'] = $factura['PoseePrefactura'];
+                    if($factura['EsOC'] || $factura['PoseePrefactura']){
                         if($factura['NumeroOC']){
                             $data['PermitirFactura'] = 1;
                         }else{
