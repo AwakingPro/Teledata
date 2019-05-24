@@ -33,24 +33,23 @@ $objPHPExcel->setActiveSheetIndex(0)
     ->setCellValue('B11', 'Dirección:')
     ->setCellValue('B12', 'Teléfono:')
 
-    ->setCellValue('E1', 'PREFACTURACIÓN SERVICIOS MENSUALES')
-    ->setCellValue('E2', 'N°')
-    ->setCellValue('F2', time())
+    ->setCellValue('D1', 'PREFACTURACIÓN SERVICIOS MENSUALES')
+    ->setCellValue('D2', 'N°')
+    ->setCellValue('E2', time())
 
-    ->setCellValue('E4', 'Fono:')
-    ->setCellValue('E5', 'Mail:')
+    ->setCellValue('D4', 'Fono:')
+    ->setCellValue('D5', 'Mail:')
 
-    ->setCellValue('F4', '652566600')
-    ->setCellValue('F5', 'pagos@teledata.cl')
+    ->setCellValue('E4', '652566600')
+    ->setCellValue('E5', 'pagos@teledata.cl')
 
-    ->setCellValue('A13', ' ')
-	->setCellValue('B13', 'Nº')
-	->setCellValue('C13', 'CENTRO')
-	->setCellValue('D13', 'DESCRIPCIÓN')
+	->setCellValue('A13', 'Nº')
+	->setCellValue('B13', 'CENTRO')
+	->setCellValue('C13', 'DESCRIPCIÓN')
     // ->setCellValue('E13', 'FECHA UF')
-    ->setCellValue('E13', 'VALOR PLAN UF')
-    ->setCellValue('F13', 'VALOR UF')
-    ->setCellValue('G13', 'Total Neto');
+    ->setCellValue('D13', 'VALOR PLAN UF')
+    ->setCellValue('E13', 'VALOR UF')
+    ->setCellValue('F13', 'Total Neto');
     // ->setCellValue('D19', 'Notas:');
 
 foreach (range(0, 4) as $col) {
@@ -138,7 +137,7 @@ $run = new Method;
 $facturas = $run->select($query);
 $ToReturn = array();
 if($facturas){
-    $run->cellColor('B13:G13', '318691');
+    $run->cellColor('A13:F13', '318691');
     $index = 14;
     $contador = 0;
     $totalDetalles = count($facturas);
@@ -161,13 +160,13 @@ if($facturas){
     foreach($ToReturn as $datos) {
         $contador++;
         $objPHPExcel->setActiveSheetIndex(0)
-        ->setCellValue('B'.$index, $contador)
-        ->setCellValue('C'.$index, $datos['Conexion'])
-        ->setCellValue('D'.$index, $datos['Concepto'])
+        ->setCellValue('A'.$index, $contador)
+        ->setCellValue('B'.$index, $datos['Conexion'])
+        ->setCellValue('C'.$index, $datos['Concepto'])
         // ->setCellValue('E'.$index, $datos['FechaFacturacionEs'])
-        ->setCellValue('E'.$index, $datos['ValorPlanUf'])
-        ->setCellValue('F'.$index, $datos['valorUF'])
-        ->setCellValue('G'.$index, $datos['Valor'] * $datos['Cantidad']);
+        ->setCellValue('D'.$index, $datos['ValorPlanUf'])
+        ->setCellValue('E'.$index, $datos['valorUF'])
+        ->setCellValue('F'.$index, $datos['Valor'] * $datos['Cantidad']);
         // $run->cellColor('A'.$index.':E'.$index, 'A6A6FF');
         $index++;
     }
