@@ -9,11 +9,19 @@
 			$run = new Method;
         }
 
-        //metodo para que aparezcan los documentos con posee_prefactura = 1, los 22 de cada mes 
+        //metodo para que aparezcan los documentos de cliente con posee_prefactura = 1, y sus docs con EstatusFacturacion = 4(ocultos en por lotes), para que se ejecute los 22 de cada mes 
         public function generarPrefactura(){
             $run = new Method;
-            $query = "  SELECT ";
+            $query = " SELECT * from facturas WHERE EstatusFacturacion = 4 ";
             $documentosPrefacturas = $run->select($query);
+            if($documentosPrefacturas){
+                foreach($documentosPrefacturas as $documentoPrefactura){
+                    $facturaId = $documentoPrefactura['Id'].' ';
+                    $query = " UPDATE facturas SET EstatusFacturacion = '0' WHERE Id = '".$facturaId."' ";
+                    echo $run->update($query);
+
+                }
+            }
         }
 
         //metodo para verificar si un cliente tiene un doc emitido y uno vencido y enviar correo a tecnicos para el corte
