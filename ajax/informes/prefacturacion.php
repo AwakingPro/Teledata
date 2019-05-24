@@ -47,10 +47,10 @@ $objPHPExcel->setActiveSheetIndex(0)
 	->setCellValue('B13', 'Nº')
 	->setCellValue('C13', 'CENTRO')
 	->setCellValue('D13', 'DESCRIPCIÓN')
-    ->setCellValue('E13', 'FECHA UF')
-    ->setCellValue('F13', 'VALOR PLAN UF')
-    ->setCellValue('G13', 'VALOR UF')
-    ->setCellValue('H13', 'Total Neto');
+    // ->setCellValue('E13', 'FECHA UF')
+    ->setCellValue('E13', 'VALOR PLAN UF')
+    ->setCellValue('F13', 'VALOR UF')
+    ->setCellValue('G13', 'Total Neto');
     // ->setCellValue('D19', 'Notas:');
 
 foreach (range(0, 4) as $col) {
@@ -72,8 +72,9 @@ if($Grupo == 1000){
                 facturas_detalle.Id AS detalleId,
                 facturas_detalle.Valor AS Valor_Uf,
                 ROUND((
-                    facturas_detalle.Total
+                    facturas_detalle.Valor
                 ),0) AS Valor,
+                facturas_detalle.Cantidad,
                 facturas_detalle.IdServicio as idServicio,
                 facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
                 personaempresa.nombre AS Nombre,
@@ -104,8 +105,9 @@ if($Grupo == 1000){
     facturas_detalle.Id AS detalleId,
     facturas_detalle.Valor AS Valor_Uf,
     ROUND((
-        facturas_detalle.Total
+        facturas_detalle.Valor
     ),0) AS Valor,
+    facturas_detalle.Cantidad,
     facturas_detalle.IdServicio as idServicio,
     facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
     personaempresa.nombre AS Nombre,
@@ -136,7 +138,7 @@ $run = new Method;
 $facturas = $run->select($query);
 $ToReturn = array();
 if($facturas){
-    $run->cellColor('B13:H13', '318691');
+    $run->cellColor('B13:G13', '318691');
     $index = 14;
     $contador = 0;
     $totalDetalles = count($facturas);
@@ -147,8 +149,8 @@ if($facturas){
             // $data['Concepto'] .=  ' - '.$data['Descripcion'];
         }
         $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$data['FechaFacturacion'])->format('Y/m/d');
-        $FechaFacturacionEs = \DateTime::createFromFormat('Y-m-d',$data['FechaFacturacion'])->format('d/M/Y');
-        $data['FechaFacturacionEs'] = $FechaFacturacionEs;
+        // $FechaFacturacionEs = \DateTime::createFromFormat('Y-m-d',$data['FechaFacturacion'])->format('d/M/Y');
+        // $data['FechaFacturacionEs'] = $FechaFacturacionEs;
         $FechaUfApi = $run->fechaApiSbif($FechaFacturacion);
         $valorUF = $UfClass->getValue($FechaUfApi);
         $data['valorUF'] = $valorUF;
@@ -162,10 +164,10 @@ if($facturas){
         ->setCellValue('B'.$index, $contador)
         ->setCellValue('C'.$index, $datos['Conexion'])
         ->setCellValue('D'.$index, $datos['Concepto'])
-        ->setCellValue('E'.$index, $datos['FechaFacturacionEs'])
-        ->setCellValue('F'.$index, $datos['ValorPlanUf'])
-        ->setCellValue('G'.$index, $datos['valorUF'])
-        ->setCellValue('H'.$index, "$ ".$datos['Valor']);
+        // ->setCellValue('E'.$index, $datos['FechaFacturacionEs'])
+        ->setCellValue('E'.$index, $datos['ValorPlanUf'])
+        ->setCellValue('F'.$index, $datos['valorUF'])
+        ->setCellValue('G'.$index, $datos['Valor'] * $datos['Cantidad']);
         // $run->cellColor('A'.$index.':E'.$index, 'A6A6FF');
         $index++;
     }
