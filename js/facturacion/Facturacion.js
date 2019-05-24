@@ -159,9 +159,11 @@ $(document).ready(function() {
                             "targets": 0,
                             "render": function(data, type, row) {
                                 if(row.PermitirFactura == 1){
-                                    Check = '<input name="select_check" id="select_check_' + data + '" type="checkbox" />'
+                                    Check = '<input name="select_check" id="select_check_' + data + '" type="checkbox" />';
+                                    Icono = '';
                                 }else{
-                                    Check = ''
+                                    Check = '';
+                                    Icono = '<i title="Prefacturación servicios mensuales" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-newspaper-o Prefacturacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Descargar excel prefacturación" title="" data-container="body"></i>';
                                 }
                                 return "<div style='text-align: center'>" + Check + "</div>";
                             }
@@ -176,8 +178,7 @@ $(document).ready(function() {
                         {
                             "targets": 6,
                             "render": function(data, type, row) {
-                                Icono = '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Previsualiza como quedará la factura en PDF" title="Previsualiza como quedara la factura en PDF" data-container="body"></i>'
-                                Icono += '<i title="Prefacturación servicios mensuales" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-newspaper-o Prefacturacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Descargar excel prefacturación" title="" data-container="body"></i>'
+                                Icono += '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Previsualiza como quedará la factura en PDF" title="Previsualiza como quedara la factura en PDF" data-container="body"></i>'
                                 Icono += '<i title="Detalles servicios" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarLote" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
                                 Icono += '<i title="Orden de compra" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-list-alt OC" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Orden de Compra" title="" data-container="body"></i>'
                                 Icono += '<i title="Referencia" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-info-circle Referencia" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Referencia" title="" data-container="body"></i>'
