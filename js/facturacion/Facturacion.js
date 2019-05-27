@@ -429,7 +429,7 @@ $(document).ready(function() {
         var ObjectRutId = ObjectTR.attr("rutid");
         var ObjectGroup = ObjectTR.attr("grupo");
         var ObjectType = ObjectTR.attr("tipo");
-        console.log('Rut'+ObjectRutId+' Grupo'+ObjectGroup+' Tipo'+ObjectType);
+        // console.log('Rut'+ObjectRutId+' Grupo'+ObjectGroup+' Tipo'+ObjectType);
         swal({
             title: "Deseas facturar este registro?",
             text: "Confirmar facturación!",
@@ -853,6 +853,7 @@ $(document).ready(function() {
                     timer: 3000
                 });
                 $('.modal').modal('hide');
+                getLotes();
             } else {
 
                 $.niftyNoty({
