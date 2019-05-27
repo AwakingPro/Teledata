@@ -907,7 +907,7 @@
                 $cantidadFacturas = 0;
                 $dataClient = array();
                 // $dataClient['correos'] = 'dangel@teledata.cl';
-                $dataClient['correos'] = 'sergio@teledata.cl, dangel@teledata.cl, teledatadte@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl';
+                $dataClient['correos'] = 'sergio@teledata.cl, teledatadte@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl';
 
                 foreach($Servicios as $Servicio){
                     $Id = $Servicio['Id'];
