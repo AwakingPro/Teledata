@@ -17,7 +17,8 @@
         }
 
     	public function insertDetalleTmp($Concepto,$Cantidad,$Precio,$Moneda){
-
+            // echo $Precio;
+            // exit;
             $response_array = array();
 
             $Concepto = isset($Concepto) ? trim($Concepto) : "";
@@ -31,19 +32,28 @@
 
                 $Cantidad = intval($Cantidad);
                 $Usuario = $_SESSION['idUsuario'];
-                $Precio = str_replace('.','',$Precio);
-                $Precio = floatval($Precio);
+                $Precio = str_replace(',','.',$Precio);
+                // echo $Precio;
+                // exit;
+                // $Precio = floatval($Precio);
+                
                 if($Moneda == 2){
                     $UfClass = new Uf(); 
                     $UF = $UfClass->getValue();
                     $Precio = $Precio * $UF;
+                }else{
+                    $Precio = round($Precio, 0);
                 }
-                $Precio = round($Precio,0);
+                
                 $Neto = $Precio * $Cantidad;
                 $Impuesto = $Neto * 0.19;
                 $Total = $Neto + $Impuesto;
-                $Total = round($Total,0);
+                if($Moneda != 2){
+                    $Total = round($Total,0);
+                }
                 
+                // echo "Moneda ".$Moneda.' Precio '.$Precio. " Neto ".$Neto." Impuesto ".$Impuesto." Total ".$Total."\n";
+                // exit;
                 $query = "INSERT INTO nota_venta_tmp(concepto, cantidad, precio, total, usuario_id) VALUES ('".$Concepto."','".$Cantidad."','".$Precio."','".$Total."','".$Usuario."')";
                 $id = $run->insert($query,false);
 
