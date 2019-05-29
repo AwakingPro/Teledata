@@ -278,9 +278,9 @@ if($facturas){
     // ->setCellValue('K'.$index, 'Total Saldo Favor');
     $index++;
     $objPHPExcel->setActiveSheetIndex(0)
-    ->setCellValue('F'.$index, $TotalNeto)
-    ->setCellValue('G'.$index, $TotalIVA)
-    ->setCellValue('H'.$index, $TotalTotal);
+    ->setCellValue('F'.$index, round($TotalNeto))
+    ->setCellValue('G'.$index, round($TotalIVA))
+    ->setCellValue('H'.$index, round($TotalTotal));
     // ->setCellValue('J'.$index, $TotalSaldo)
     // ->setCellValue('K'.$index, $TotalSaldoFavor);
     
