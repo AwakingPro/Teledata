@@ -26,6 +26,11 @@ if (($('#demo-dp-component .input-group.date').size() > 0) || ($('.input-dateran
 		});
 	}
 }
+
+function NumConDecimales(x) {
+	return Number.parseFloat(x).toFixed(2);
+  }
+
 $(document).on('change', '#verificarCorreo', function () {
 	 var CorreoVerificador = $('#verificarCorreo').val();
 	if(  CorreoVerificador) {
