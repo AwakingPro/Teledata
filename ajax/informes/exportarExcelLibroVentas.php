@@ -72,7 +72,7 @@ FROM
     INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
     LEFT JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
 WHERE
-    facturas.EstatusFacturacion != '0' ";
+    facturas.EstatusFacturacion != '0' AND facturas.EstatusFacturacion != '3' AND facturas.EstatusFacturacion != '4' ";
 if($startDate){
     $dt = \DateTime::createFromFormat('d-m-Y',$startDate);
     $startDate = $dt->format('Y-m-d'); 
@@ -253,8 +253,8 @@ if($facturas){
         ->setCellValue('D'.$index, $datos['NumeroDocumento'])
         ->setCellValue('E'.$index, $datos['FechaFacturacion'])
         // ->setCellValue('F'.$index, '$datos['FechaVencimiento']')
-        ->setCellValue('F'.$index, $datos['MontoNeto'])
-        ->setCellValue('G'.$index, $datos['IVA'])
+        ->setCellValue('F'.$index, round($datos['MontoNeto']))
+        ->setCellValue('G'.$index, round($datos['IVA']))
         ->setCellValue('H'.$index, $datos['TotalFactura'])
         // ->setCellValue('I'.$index, $datos['TotalSaldo'])
         // ->setCellValue('J'.$index, $datos['SaldoFavor'])
