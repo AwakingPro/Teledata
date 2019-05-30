@@ -895,7 +895,7 @@
                             INNER JOIN mantenedor_servicios ms ON s.IdServicio = ms.IdServicio
                             INNER JOIN mantenedor_tipo_factura mtf ON s.TipoFactura = mtf.id 
                         WHERE
-                            s.EstatusServicio = 1";
+                            s.EstatusServicio = 1 OR s.EstatusServicio = 2";
             $Servicios = $run->select($query);
 
             if($Servicios){
@@ -907,7 +907,7 @@
                 $cantidadFacturas = 0;
                 $dataClient = array();
                 // $dataClient['correos'] = 'dangel@teledata.cl';
-                $dataClient['correos'] = 'sergio@teledata.cl, teledatadte@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl';
+                $dataClient['correos'] = 'sergio@teledata.cl, teledatadte@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl, dangel@teledata.cl';
 
                 foreach($Servicios as $Servicio){
                     $Id = $Servicio['Id'];
@@ -916,11 +916,12 @@
                     // $PermitirFactura = $Servicio['PermitirFactura'];
                     $PermitirFactura = 1;
                     $TipoFacturacion = $Servicio['TipoFacturacion'];
-                    // FechaInicioDesactivacion y FechaFinalDesactivacion es por si tiene inactivo el servicio
-                    if(($FechaInicioDesactivacion > $Hoy OR $FechaFinalDesactivacion < $Hoy) && $PermitirFactura && $TipoFacturacion){
+                    // FechaInicioDesactivacion y FechaFinalDesactivacion es por si tiene suspendido el servicio
+                    if(($FechaInicioDesactivacion >= $Hoy OR $FechaFinalDesactivacion < $Hoy) && $PermitirFactura && $TipoFacturacion){
                         $FechaUltimoCobro = $Servicio['FechaUltimoCobro'];
                         $FechaUltimoCobro = new DateTime($FechaUltimoCobro);                        
                         $Concepto = $Servicio['Servicio'];
+                        //TipoFacturacion = 1 es mensual, = 2 podria ser para semestral, aun no se usa, el 3 es para anual
                         if($TipoFacturacion == '1'){
                             // agrego 1 mes a fecha ultimo cobro para que no genere la factura nuevamente si le cobro el servicio por 1ra vez al finalizar tarea
                             $Concepto .= ' - Mes ' . $MesFacturacion;
