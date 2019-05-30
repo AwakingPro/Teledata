@@ -48,9 +48,8 @@
                 $Neto = $Precio * $Cantidad;
                 $Impuesto = $Neto * 0.19;
                 $Total = $Neto + $Impuesto;
-                if($Moneda != 2){
-                    $Total = round($Total,0);
-                }
+                $Total = round($Total,0);
+                
                 
                 // echo "Moneda ".$Moneda.' Precio '.$Precio. " Neto ".$Neto." Impuesto ".$Impuesto." Total ".$Total."\n";
                 // exit;

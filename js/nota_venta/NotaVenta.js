@@ -290,18 +290,28 @@ $(document).ready(function() {
             cantidad = 0;
         }
         precio = $('#precio_tmp').val();
-        
         if (precio) {
-            precio = precio.replace(',00', '')
-            precio = precio.replace('.', '')
-            precio = parseFloat(precio)
+            var separador = ",";
+            // precio = precio.replace(',00', '.')
+            // precio = precio.replace('.', '')
+            precio = precio.split(separador);
+            if(precio.length == 2){
+                precio = precio[0]+'.'+precio[1];
+                precio = NumConDecimales(precio);
+            }else{
+                precio = NumConDecimales(precio);
+            }
+            
         } else {
             precio = 0;
         }
+
         moneda = $('#moneda_tmp').val()
         if (moneda == 2) {
             precio = precio * ValorUF;
-            precio = Math.round(precio);
+            // precio = Math.round(precio);
+            // precio = precio;
+            // return
         }
         valor = precio * cantidad;
         calculaIva = valor * iva_global;
@@ -312,7 +322,7 @@ $(document).ready(function() {
         } else {
             $('#insertDetalleTmp').prop('disabled', true);
         }
-        $('#total_tmp').val(formatcurrency(totalFinal));
+        $('#total_tmp').val(totalFinal);
         // $('#total_tmp').val(formatcurrency(valor))
     }
 
