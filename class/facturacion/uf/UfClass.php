@@ -54,7 +54,7 @@ class Uf {
             }
             
         }else{
-            $Value = 27565.79;
+            $Value = 27762.55;
         }
         return floatval($Value);
     }
