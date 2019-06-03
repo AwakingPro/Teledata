@@ -24,8 +24,8 @@
             }
         }
 
-        //metodo para verificar si un cliente tiene un doc emitido y uno vencido y enviar correo a tecnicos para el corte
-        public function verificarDocumentosEmitidos(){
+        // metodo para verificar si un cliente tiene un doc emitido y uno vencido y enviar correo a tecnicos para el corte de sus servicios
+        public function verificarServicios(){
             $dataClient = array();
             $servicio_nombre_cliente = 'PRUEBA SISTEMA NO BORRAR';
             $servicio_codigo_cliente = '26339939-0FSAI03';
@@ -856,7 +856,6 @@
             $run->update($queryEstatusFacturacion);
            
             $Hoy = date('Y-m-d');
-            // $dt = new DateTime('2019-04-01');
             $dt = new DateTime();
             $Anio = $dt->format('Y');
             //  las facturas que se generan cada mes son del mes anterior con el metodo generarMes disminuye 1 mes
