@@ -26,20 +26,62 @@
 
         // metodo para verificar si un cliente tiene un doc emitido y uno vencido y enviar correo a tecnicos para el corte de sus servicios
         public function verificarServicios(){
-            $dataClient = array();
-            $servicio_nombre_cliente = 'PRUEBA SISTEMA NO BORRAR';
-            $servicio_codigo_cliente = '26339939-0FSAI03';
-            $Mensaje = '<b>Cortar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
 
-            $dataClient['ClienteNombre'] = $servicio_nombre_cliente;
-            $dataClient['ServicioCodigo'] = $servicio_codigo_cliente;
-            // $dataClient['correos'] = 'atrismartelo@teledata.cl, jcarrillo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl, pagos@teledata.cl';
-            $dataClient['correos'] = 'daniel30081990@gmail.com, dangel@teledata.cl';
-            $dataClient['asunto'] = 'Actualizar Servicio '.$servicio_codigo_cliente;
-            $dataClient['MensajeCorreo'] = $Mensaje;
+            $dataClient = array();
+            $servicio_nombre_cliente = '';
+            $servicio_codigo_cliente = '';
+            $Mensaje = '';
+
             $run = new Method;
-            $respCorreo = $run->enviarCorreos(2, $dataClient);
-            echo $respCorreo;
+            $query = " SELECT
+                    servicios.Id,
+                    servicios.Rut,
+                    servicios.Codigo,
+                    servicios.FechaInicioDesactivacion,
+                    servicios.FechaFinalDesactivacion,
+                    servicios.EstatusServicio,
+                    personaempresa.nombre AS Cliente 
+                FROM
+                    servicios
+                    INNER JOIN personaempresa ON servicios.Rut = personaempresa.rut 
+                WHERE
+                    EstatusServicio = 2";
+            $servicios = $run->select($query);
+            if($servicios){
+                foreach ($servicios as $servicio) {
+                    $idServicio = $servicio['Id'];
+                    $FechaInicioDesactivacion = $servicio['FechaInicioDesactivacion'];
+                    $FechaFinalDesactivacion = $servicio['FechaFinalDesactivacion'];
+                    $servicio_nombre_cliente = $servicio['Cliente'];
+                    $servicio_codigo_cliente = $servicio['Codigo'];
+                    $servicio_asunto = '';
+                    switch ($FechaFinalDesactivacion) {
+                        case $FechaFinalDesactivacion < date('Y-m-d'):{
+                            $servicio_asunto = "Reactivar servicio ";
+                            $Mensaje = '<b>Por favor Reactivar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b><br>'. $servicio_codigo_cliente.'</b><br><br>Suspendido desde:<b>'.$FechaInicioDesactivacion.'</b> hasta:<b>'.$FechaFinalDesactivacion.'</b>';
+                            $query = "UPDATE servicios SET FechaInicioDesactivacion = NULL, 
+                                        FechaFinalDesactivacion = NULL, EstatusServicio = 1
+                                        WHERE Id = '".$idServicio."'";
+                            $update = $run->update($query);
+                            if(!$update){
+                                $Mensaje .= 'Nota: <b>No se logro actualizar el estado en la bd del ERP, por favor contacte con el equipo encargado</b><br>Saludos';
+                            }
+                            $dataClient['ClienteNombre'] = $servicio_nombre_cliente;
+                            $dataClient['ServicioCodigo'] = $servicio_codigo_cliente;
+                            $dataClient['correos'] = 'atrismartelo@teledata.cl, jcarrillo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl, pagos@teledata.cl';
+                            // $dataClient['correos'] = 'dangel@teledata.cl';
+                            $dataClient['asunto'] = $servicio_asunto.$servicio_codigo_cliente;
+                            $dataClient['MensajeCorreo'] = $Mensaje;
+                            $respCorreo = $run->enviarCorreos(2, $dataClient);
+                            echo $respCorreo;
+                                break;
+                        }
+                        default:
+                            # code...
+                            break;
+                    }
+                }
+            }
         }
     	public function showInstalaciones(){
             $run = new Method;
