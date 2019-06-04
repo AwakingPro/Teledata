@@ -68,7 +68,7 @@
                             }
                             $dataClient['ClienteNombre'] = $servicio_nombre_cliente;
                             $dataClient['ServicioCodigo'] = $servicio_codigo_cliente;
-                            $dataClient['correos'] = 'atrismartelo@teledata.cl, jcarrillo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl, pagos@teledata.cl, dangel@teledata.cl';
+                            $dataClient['correos'] = 'jcarrillo@teledata.cl, atrismartelo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl, pagos@teledata.cl, dangel@teledata.cl';
                             // $dataClient['correos'] = 'dangel@teledata.cl';
                             $dataClient['asunto'] = $servicio_asunto.$servicio_codigo_cliente;
                             $dataClient['MensajeCorreo'] = $Mensaje;
