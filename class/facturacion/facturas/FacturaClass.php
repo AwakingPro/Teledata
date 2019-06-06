@@ -2087,6 +2087,7 @@
                     foreach($detalles as $detalle){
                         $Total = $detalle['Total'];
                         $Descuento = floatval($detalle['Descuento']) / 100;
+                        $Descuento = 0;
                         $Descuento = $Total * $Descuento;
                         $Total -= $Descuento;
                         // $TotalFactura += round($Total,0);
