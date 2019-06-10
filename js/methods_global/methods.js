@@ -27,6 +27,9 @@ if (($('#demo-dp-component .input-group.date').size() > 0) || ($('.input-dateran
 	}
 }
 
+
+idUsuarioSession = $("#IdUsuarioSession").val();
+
 function NumConDecimales(x) {
 	return Number.parseFloat(x).toFixed(2);
   }
