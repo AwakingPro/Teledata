@@ -55,10 +55,13 @@
                     $servicio_nombre_cliente = $servicio['Cliente'];
                     $servicio_codigo_cliente = $servicio['Codigo'];
                     $servicio_asunto = '';
+                    $FechaInicioDesactivacionEs = \DateTime::createFromFormat('Y-m-d', $FechaInicioDesactivacion)->format('d-m-Y');
+                    $FechaFinalDesactivacionEs = \DateTime::createFromFormat('Y-m-d', $FechaFinalDesactivacion)->format('d-m-Y');
+                    
                     switch ($FechaFinalDesactivacion) {
                         case $FechaFinalDesactivacion < date('Y-m-d'):{
                             $servicio_asunto = "Reactivar servicio ";
-                            $Mensaje = '<b>Por favor Reactivar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b><br>'. $servicio_codigo_cliente.'</b><br><br>Suspendido desde:<b>'.$FechaInicioDesactivacion.'</b> hasta:<b>'.$FechaFinalDesactivacion.'</b>';
+                            $Mensaje = '<b>Por favor reactivar</b> servicio del cliente: <b>'.$servicio_nombre_cliente.'</b> código <b><br>'. $servicio_codigo_cliente.'</b><br><br>Suspendido desde:<b>'.$FechaInicioDesactivacionEs.'</b> hasta:<b>'.$FechaFinalDesactivacionEs.'</b>';
                             $query = "UPDATE servicios SET FechaInicioDesactivacion = NULL, 
                                         FechaFinalDesactivacion = NULL, EstatusServicio = 1
                                         WHERE Id = '".$idServicio."'";
@@ -74,6 +77,26 @@
                             $dataClient['MensajeCorreo'] = $Mensaje;
                             $respCorreo = $run->enviarCorreos(2, $dataClient);
                             echo $respCorreo;
+                                break;
+                        }
+                        case $FechaInicioDesactivacion == date('Y-m-d'):{
+                            $servicio_asunto = "Suspender servicio ";
+                            $Mensaje = '<b>Por favor suspender</b> servicio del cliente: <b>'.$servicio_nombre_cliente.'</b> código <b><br>'. $servicio_codigo_cliente.'</b><br><br>Suspender desde:<b>'.$FechaInicioDesactivacionEs.'</b> hasta:<b>'.$FechaFinalDesactivacionEs.'</b>';
+                            $dataClient['ClienteNombre'] = $servicio_nombre_cliente;
+                            $dataClient['ServicioCodigo'] = $servicio_codigo_cliente;
+                            $dataClient['correos'] = 'jcarrillo@teledata.cl, atrismartelo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl, pagos@teledata.cl, dangel@teledata.cl';
+                            // $dataClient['correos'] = 'dangel@teledata.cl';
+                            $dataClient['asunto'] = $servicio_asunto.$servicio_codigo_cliente;
+                            $dataClient['MensajeCorreo'] = $Mensaje;
+                            $respCorreo = $run->enviarCorreos(2, $dataClient);
+                            echo $respCorreo;
+                            $query = "UPDATE servicios SET FechaInicioDesactivacion = '".$FechaInicioDesactivacion."', 
+                                        FechaFinalDesactivacion = '".$FechaFinalDesactivacion."', EstatusServicio = 2
+                                        WHERE Id = '".$idServicio."' ";
+                            $update = $run->update($query);
+                            if(!$update){
+                                $Mensaje .= 'Nota: <b>No se logro actualizar el estado en la bd del ERP, por favor contacte con el equipo encargado</b><br>Saludos';
+                            }
                                 break;
                         }
                         default:
