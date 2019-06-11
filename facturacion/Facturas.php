@@ -411,7 +411,7 @@
 							<div class="col-md-12 div-modal-motivo">
 								<div class="form-group">
 									<label class="control-label" for="name">Motivo</label>
-									<textarea class="form-control" name="Motivo" id="Motivo" cols="20" rows="5" validate="not_null" data-nombre="Motivo"></textarea>
+									<textarea class="form-control" name="Motivo" id="Motivo" cols="20" rows="5" validate="not_null" data-nombre="Motivo" placeholder="Monto total 0"></textarea>
 								</div>
 							</div>
 							<?php
