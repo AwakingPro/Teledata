@@ -13,7 +13,7 @@
                         <option value="">Seleccione...</option>
                         <option value="1">Activo</option>
                         <option value="2">Suspendido</option>
-                        <option value="0">Cortado</option>
+                        <option value="0">Corte Comercial</option>
                     </select>
                 </div>
                 <br>
