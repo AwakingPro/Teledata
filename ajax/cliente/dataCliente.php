@@ -77,10 +77,13 @@
 					-- mantenedor_tipo_facturacion.nombre AS 'Tiempo de Facturacion',
 					servicios.Valor,
 					COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS Grupo,
-					( CASE WHEN FechaFinalDesactivacion IS NULL THEN 'Activo' WHEN FechaFinalDesactivacion = '2999-01-31' THEN 'Cortado' ELSE 'Suspendido' END ) AS Estatus,
+					( CASE WHEN servicios.EstatusServicio = '1' THEN 'Activo' 
+						   WHEN servicios.EstatusServicio = '2' THEN 'Suspendido' 
+						   WHEN servicios.EstatusServicio = '3' THEN 'Corte  comercial' 
+						   ELSE 'Término de contrato' END ) AS Estatus,
 					( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS 'Tipo de Servicio',
 					( CASE servicios.IdServicio WHEN 1 THEN arriendo_equipos_datos.Velocidad ELSE '' END ) AS 'Velocidad',
-					( CASE servicios.IdServicio WHEN 1 THEN arriendo_equipos_datos.Plan ELSE '' END ) AS 'Plan' 
+					( CASE servicios.IdServicio WHEN 1 THEN arriendo_equipos_datos.Plan ELSE '' END ) AS 'Plan'
 				FROM
 					servicios
 					INNER JOIN mantenedor_tipo_factura ON mantenedor_tipo_factura.id = servicios.TipoFactura

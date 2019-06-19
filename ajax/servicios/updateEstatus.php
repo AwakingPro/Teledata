@@ -22,17 +22,17 @@
     // $dataClient['RUT'] = $servicio_rut_dv;
     $dataClient['ClienteNombre'] = $servicio_nombre_cliente;
     $dataClient['ServicioCodigo'] = $servicio_codigo_cliente;
-    $dataClient['correos'] = 'jcarrillo@teledata.cl, atrismartelo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl';
-    // $dataClient['correos'] = 'daniel30081990@gmail.com, dangel@teledata.cl';
+    // $dataClient['correos'] = 'jcarrillo@teledata.cl, atrismartelo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl';
+    $dataClient['correos'] = 'daniel30081990@gmail.com, dangel@teledata.cl';
     $dataClient['asunto'] = 'Actualizar Servicio '.$servicio_codigo_cliente;
     
     
     $Mensaje = 'Estimados por favor ';
-    //Cortado 0, suspendido 2, activo 1
-    if(!$Activo || $Activo == 2){
+    //0-termino contrato, 1-activo, 2-suspendido, 3-Corte comercial
+    if($Activo == 0 || $Activo == 2){
         
         if($Activo == 0){
-            $Mensaje .= '<b>Cortar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
+            $Mensaje .= '<b>Términar contrato</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
         }else{
             $FechaInicioDesactivacionES = date("d-m-Y",  strtotime($FechaInicioDesactivacion));
             $FechaFinalDesactivacionES = date("d-m-Y",  strtotime($FechaFinalDesactivacion));
@@ -55,6 +55,10 @@
             return;
         }
     }else{
+        if($Activo == 3){
+            $Mensaje .= '<b>Cortar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'.
+            $servicio_codigo_cliente.'</b>';
+        }
         $FechaInicioDesactivacion = 'NULL';
         $FechaFinalDesactivacion = 'NULL';
     }
