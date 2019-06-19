@@ -79,7 +79,8 @@
 					COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS Grupo,
 					( CASE WHEN servicios.EstatusServicio = '1' THEN 'Activo' 
 						   WHEN servicios.EstatusServicio = '2' THEN 'Suspendido' 
-						   WHEN servicios.EstatusServicio = '3' THEN 'Corte  comercial' 
+						   WHEN servicios.EstatusServicio = '3' THEN 'Corte  comercial'
+						   WHEN servicios.EstatusServicio = '4' THEN 'Cambio razón social'
 						   ELSE 'Término de contrato' END ) AS Estatus,
 					( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS 'Tipo de Servicio',
 					( CASE servicios.IdServicio WHEN 1 THEN arriendo_equipos_datos.Velocidad ELSE '' END ) AS 'Velocidad',

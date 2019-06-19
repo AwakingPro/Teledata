@@ -59,6 +59,10 @@
             $Mensaje .= '<b>Cortar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'.
             $servicio_codigo_cliente.'</b>';
         }
+        if($Activo == 4){
+            $Mensaje .= '<b>Cambio razón social</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'.
+            $servicio_codigo_cliente.'</b>';
+        }
         $FechaInicioDesactivacion = 'NULL';
         $FechaFinalDesactivacion = 'NULL';
     }
