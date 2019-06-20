@@ -24,7 +24,7 @@
             }
         }
 
-        // metodo para verificar si un cliente tiene un doc emitido y uno vencido y enviar correo a tecnicos para el corte de sus servicios
+        // metodo para verificar si un cliente esta suspendido y enviar correo a tecnicos para el corte o reactivacion de sus servicios
         public function verificarServicios(){
 
             $dataClient = array();
@@ -57,22 +57,23 @@
                     $servicio_asunto = '';
                     $FechaInicioDesactivacionEs = \DateTime::createFromFormat('Y-m-d', $FechaInicioDesactivacion)->format('d-m-Y');
                     $FechaFinalDesactivacionEs = \DateTime::createFromFormat('Y-m-d', $FechaFinalDesactivacion)->format('d-m-Y');
-                    
+                    $FechaUltimoCobro = date('Y-m-01');
+                    $dataClient['ClienteNombre'] = $servicio_nombre_cliente;
+                    $dataClient['ServicioCodigo'] = $servicio_codigo_cliente;
+                    $dataClient['correos'] = 'jcarrillo@teledata.cl, atrismartelo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl, pagos@teledata.cl, esalas@teledata.cl, jpinto@teledata.cl';
+                    // $dataClient['correos'] = 'dangel@teledata.cl';
                     switch ($FechaFinalDesactivacion) {
                         case $FechaFinalDesactivacion < date('Y-m-d'):{
                             $servicio_asunto = "Reactivar servicio ";
                             $Mensaje = '<b>Por favor reactivar</b> servicio del cliente: <b>'.$servicio_nombre_cliente.'</b> código <b><br>'. $servicio_codigo_cliente.'</b><br><br>Suspendido desde:<b>'.$FechaInicioDesactivacionEs.'</b> hasta:<b>'.$FechaFinalDesactivacionEs.'</b>';
+                            
                             $query = "UPDATE servicios SET FechaInicioDesactivacion = NULL, 
-                                        FechaFinalDesactivacion = NULL, EstatusServicio = 1
+                                        FechaFinalDesactivacion = NULL, EstatusServicio = 1, FechaUltimoCobro = '".$FechaUltimoCobro."' 
                                         WHERE Id = '".$idServicio."'";
                             $update = $run->update($query);
                             if(!$update){
                                 $Mensaje .= 'Nota: <b>No se logro actualizar el estado en la bd del ERP, por favor contacte con el equipo encargado</b><br>Saludos';
                             }
-                            $dataClient['ClienteNombre'] = $servicio_nombre_cliente;
-                            $dataClient['ServicioCodigo'] = $servicio_codigo_cliente;
-                            $dataClient['correos'] = 'jcarrillo@teledata.cl, atrismartelo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl, pagos@teledata.cl, dangel@teledata.cl';
-                            // $dataClient['correos'] = 'dangel@teledata.cl';
                             $dataClient['asunto'] = $servicio_asunto.$servicio_codigo_cliente;
                             $dataClient['MensajeCorreo'] = $Mensaje;
                             $respCorreo = $run->enviarCorreos(2, $dataClient);
@@ -82,10 +83,6 @@
                         case $FechaInicioDesactivacion == date('Y-m-d'):{
                             $servicio_asunto = "Suspender servicio ";
                             $Mensaje = '<b>Por favor suspender</b> servicio del cliente: <b>'.$servicio_nombre_cliente.'</b> código <b><br>'. $servicio_codigo_cliente.'</b><br><br>Suspender desde:<b>'.$FechaInicioDesactivacionEs.'</b> hasta:<b>'.$FechaFinalDesactivacionEs.'</b>';
-                            $dataClient['ClienteNombre'] = $servicio_nombre_cliente;
-                            $dataClient['ServicioCodigo'] = $servicio_codigo_cliente;
-                            $dataClient['correos'] = 'jcarrillo@teledata.cl, atrismartelo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl, pagos@teledata.cl, dangel@teledata.cl';
-                            // $dataClient['correos'] = 'dangel@teledata.cl';
                             $dataClient['asunto'] = $servicio_asunto.$servicio_codigo_cliente;
                             $dataClient['MensajeCorreo'] = $Mensaje;
                             $respCorreo = $run->enviarCorreos(2, $dataClient);
