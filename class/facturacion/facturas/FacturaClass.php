@@ -9,7 +9,7 @@
 			$run = new Method;
         }
 
-        //metodo para que aparezcan los documentos de cliente con posee_prefactura = 1, y sus docs con EstatusFacturacion = 4(ocultos en por lotes), para que se ejecute los 22 de cada mes 
+        //metodo para que aparezcan los documentos de cliente con posee_prefactura = 1, y sus docs con EstatusFacturacion = 4(ocultos en por lotes), para que se ejecute los 25 de cada mes 
         public function generarPrefactura(){
             $run = new Method;
             $query = " SELECT * from facturas WHERE EstatusFacturacion = 4 ";
@@ -22,6 +22,92 @@
 
                 }
             }
+        }
+
+        // metodo para verificar si un cliente tiene 3 documentos emitidos sin pagar y terminar contrato
+        public function verificarDocumentosEmitidos(){
+
+            $run = new Method;
+            //busco solo clientes activo
+            $query = " SELECT rut FROM personaempresa WHERE state = '0' ";
+            $ruts = $run->select($query);
+            // echo '<pre>'; print_r($ruts); echo '</pre><br><br>';
+            foreach($ruts as $rut){
+                // echo $rut['rut']."\n";
+                $RUT = $rut['rut'];
+                //busco facturas emitidas
+                $query = " SELECT
+                    personaempresa.nombre AS Cliente,
+                    facturas.Id,
+                    facturas.NumeroDocumento,
+                    facturas.FechaFacturacion,
+                    facturas.FechaVencimiento,
+                    mantenedor_tipo_cliente.nombre AS TipoDocumento,
+                    facturas.IVA,
+                    facturas.EstatusFacturacion,
+                    clase_clientes.nombre AS ClaseCliente,
+                    IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalSaldo,
+                    mantenedor_servicios.servicio AS NombreServicio,
+                    mantenedor_tipo_facturacion.nombre AS TipoFacturacion
+                    FROM
+                    facturas
+                    INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id
+                    INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut
+                    INNER JOIN clase_clientes ON clase_clientes.id = personaempresa.clase_cliente
+                    LEFT JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
+                    LEFT JOIN servicios ON servicios.Rut = facturas.Rut
+                    LEFT JOIN mantenedor_tipo_factura ON servicios.TipoFactura = mantenedor_tipo_factura.id
+                    LEFT JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_factura.tipo_facturacion = mantenedor_tipo_facturacion.id
+                    LEFT JOIN mantenedor_servicios ON mantenedor_servicios.IdServicio = servicios.IdServicio
+                    WHERE
+                    facturas.EstatusFacturacion = '1' AND personaempresa.rut = '".$RUT."' GROUP BY facturas.Id ORDER BY Cliente";
+
+                    $facturas = $run->select($query);
+                    //entro solo si tiene 2 emitidas
+                    if(count($facturas) > 1) {
+
+                        $contadorDocs = 0;
+                        foreach($facturas as $factura){
+                            $Id = $factura['Id'];
+                            $TotalFactura = 0;
+                        
+                            $query = "SELECT Total, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
+                            $detalles = $run->select($query);
+                            foreach($detalles as $detalle){
+                                $Total = $detalle['Total'];
+                                $Descuento = floatval($detalle['Descuento']) / 100;
+                                $Descuento = $Total * $Descuento;
+                                $Total -= $Descuento;
+                                $TotalFactura += round($Total,0);
+                            }
+                            $TotalSaldo = $factura['TotalSaldo'];
+                            $Deuda = $TotalFactura - $TotalSaldo;
+                            
+                            $Id = $factura['Id'];
+                            $data = array();
+                            $data['Id'] = $Id;
+                            $data['DocumentoId'] = $Id;
+                            $data['Cliente'] = $factura['Cliente'];
+                            $data['NumeroDocumento'] = $factura['NumeroDocumento'];
+                            $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
+                            $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
+                            $data['TotalFactura'] = $TotalFactura;
+                            //total saldo es el pago total - el saldo del doc
+                            $data['Deuda'] = $Deuda;
+                            $data['TipoDocumento'] = $factura['TipoDocumento'];
+                            $data['ClaseCliente'] = $factura['ClaseCliente'];
+                            // if($factura['NombreServicio'] == '')
+                            // $factura['NombreServicio'] = 'Otros Servicios';
+                            $data['NombreServicio'] = $factura['NombreServicio'];
+                            // if($factura['TipoFacturacion'] == '')
+                            // $factura['TipoFacturacion'] = 'Otros Servicios';
+                            $data['TipoFacturacion'] = $factura['TipoFacturacion'];
+                            $data['EstatusFacturacion'] = 1;
+                            array_push($ToReturn,$data);
+                        }
+                    }
+            }
+
         }
 
         // metodo para verificar si un cliente esta suspendido y enviar correo a tecnicos para el corte o reactivacion de sus servicios
