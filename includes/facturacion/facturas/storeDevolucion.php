@@ -13,7 +13,7 @@
 
 			$DetallesSeleccionados = $_POST["DetallesSeleccionados"];				
 		}
-	} 
+	}
 	$Factura->storeDevolucion($_POST['FacturaIdDevolucion'],$_POST['Motivo'], $tipoNotaCredito, $DetallesSeleccionados);
 	
 ?>

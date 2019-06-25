@@ -1064,11 +1064,14 @@ $(document).ready(function() {
                         
                         '' + array.Codigo + '',
                         '' + array.Concepto + '',
-                        '' + formatcurrency(array.Valor) + '',
+                        // '' + formatcurrency(array.Valor) + '',
+                        '' + '<div class"input-group"><input class="form-control" name="valor_detalle" id="valor_detalle" value="'+formatcurrency(array.Valor)+'" type="text" /></div>' +'',
                     ]).draw(false).node();
 
                     $(rowNode)
                         .attr('documentDetailIdBsale', array.documentDetailIdBsale)
+                        .addClass('text-center')
+                        .attr('valorDetalle', array.Valor)
                         .addClass('text-center')
                 });
             },
@@ -1149,8 +1152,9 @@ $(document).ready(function() {
             var actualrow = $(row);
             checkbox = actualrow.find('input:checked').val();
             if (checkbox == 'on') {
-                var id = $(actualrow).attr('documentDetailIdBsale');
-                checked[i] = id;
+            var id = $(actualrow).attr('documentDetailIdBsale');
+            var valor_detalle = actualrow.find('input:text').val();
+            checked[i] = id+'-'+valor_detalle;
             }
         });
 
