@@ -2625,11 +2625,31 @@
         }
 
         public function storeDevolucion($Id, $Motivo, $tipoNotaCredito = false, $DetallesSeleccionados = false){
+            
+            $cadena_buscada   = '-';
 
             if(in_array  ('curl', get_loaded_extensions())) {
                 if($DetallesSeleccionados){
+                    //los convierto en un array
                     $DetallesSeleccionados = explode(",", $DetallesSeleccionados);
+                    //los recorro y convierto en un nuevo array asociativo
+                    $details = array();
+                    foreach($DetallesSeleccionados as $Detalle){
+                        //busco el caracter separador del idDetalle y del valor
+                        $posicion_coincidencia = strpos($Detalle, $cadena_buscada);
+                        //se puede hacer la comparacion con 'false' o 'true' y los comparadores '===' o '!=='
+                        if ($posicion_coincidencia !== false) {
+                            //extraigo el idDetalle y el valor
+                            $detalleTemporal = explode($cadena_buscada, $Detalle);
+                            $detail = array(
+                                "documentDetailId" => $detalleTemporal[0],
+                                "unitValue"        => floatval($detalleTemporal[1]), 
+                                "quantity"         => 0);
+                            array_push($details,$detail);
+                        }
+                    }
                 }
+                
                 $response_array = array();
                 $query = "  SELECT
                                 Rut,
@@ -2638,7 +2658,6 @@
                                 facturas
                             WHERE
                                 Id = '".$Id."'";
-
                 $run = new Method;
                 $Facturas = $run->select($query);
 
@@ -2650,7 +2669,7 @@
                     $Cliente = $this->getCliente($Rut);
                     if($Cliente){
                         // echo 'Dentro de storeDevolucion DetallesSeleccionados es '.$DetallesSeleccionados; echo "\n";
-                        $DevolucionBsale = $this->sendDevolucionBsale($Cliente,$DocumentoIdBsale,$Motivo,1, $tipoNotaCredito, $DetallesSeleccionados);
+                        $DevolucionBsale = $this->sendDevolucionBsale($Cliente,$DocumentoIdBsale,$Motivo,1, $tipoNotaCredito, $details);
 
                         if($DevolucionBsale['status'] == 1){
                             $DevolucionIdBsale = $DevolucionBsale['id'];
@@ -2761,6 +2780,7 @@
                         $encontrado = $run->encontrarEnArray($DetallesSeleccionados, $documentDetailId);
                         // echo "documentDetailId ".$documentDetailId." documentDetailId".$documentDetailId; echo "\n";
                         if($encontrado){
+                            // si lo encuentra poner su nuevo valor en unitValue = nuevo precio
                             // echo "entro"; echo "\n";
                             $detail = array("documentDetailId" => $documentDetailId, "unitValue" => $unitValue, "quantity" => $quantity);
                             array_push($details,$detail);
@@ -2817,8 +2837,11 @@
             }
             $variables_globales = $run->select($query);
             $access_token = $variables_globales[0]['access_token'];
-            $details = $this->getDetallesDocumentoBsale($referenceDocumentId,$access_token, $tipoNotaCredito, $DetallesSeleccionados);
-            // print_r($details);
+            if($tipoNotaCredito != 2){
+                $details = $this->getDetallesDocumentoBsale($referenceDocumentId,$access_token, $tipoNotaCredito, $DetallesSeleccionados);
+            }else{
+                $details = $DetallesSeleccionados;
+            }
             if($Cliente['provincia']){
                 $Provincia = $Cliente['provincia'];
             }else{
@@ -2891,7 +2914,6 @@
             );
             // Parsea a JSON
             $data = json_encode($array);
-
             // Agrega parámetros
             curl_setopt($session, CURLOPT_POSTFIELDS, $data);
 
