@@ -995,16 +995,18 @@
 
             echo json_encode($response_array);
         }
-        // metodo para generar facturas automaticamente el 1ro de cada mes
+        // metodo para generar facturas automaticamente el 25 de cada mes con valor uf del 1ro
         public function generarFacturas(){
             
             $run = new Method;
             
             $queryEstatusFacturacion = "UPDATE facturas SET EstatusFacturacion = '0' WHERE EstatusFacturacion = '3' ";
             $run->update($queryEstatusFacturacion);
-           
-            $Hoy = date('Y-m-d');
-            $dt = new DateTime();
+
+            $Hoy = date('Y-m-01');
+            //sumo 1 mes para que aparezcan las del mes siguiente, ya que se esta ejecutando el 25 de cada mes, y deberia de tomar el tiempo del 1 del siguiente mes
+            $Hoy = date("Y-m-01",strtotime($Hoy."+ 1 month"));
+            $dt = new DateTime($Hoy);
             $Anio = $dt->format('Y');
             //  las facturas que se generan cada mes son del mes anterior con el metodo generarMes disminuye 1 mes
             $MesFacturacion = $this->generarMes($dt);
@@ -1047,7 +1049,11 @@
 
             if($Servicios){
                 $UfClass = new Uf(); 
-                $UF = $UfClass->getValue();
+                $FechaUF = date('Y/m/01');
+                //sumo 1 mes
+                $FechaUF = date("Y/m/01",strtotime($FechaUF."+ 1 month"));
+                $FechaUfApi = $run->fechaApiSbif($FechaUF);
+                $UF = $UfClass->getValue($FechaUfApi);
                 $totalBoletas = 0;
                 $totalFacturas = 0;
                 $cantidadBoletas = 0;
@@ -1115,9 +1121,7 @@
                                 $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '".$Id."', '".$Total."', '".$Codigo."')";
                                 $detalle = $run->insert($query);
                                 if($detalle){
-                                    $PrimerDiaDelMes = date('Y-m-01');
-                                    // $PrimerDiaDelMes = date('2019-01-01');
-                                    $query = "UPDATE servicios SET FechaUltimoCobro = '".$PrimerDiaDelMes."' WHERE Id = '".$Id."'";
+                                    $query = "UPDATE servicios SET FechaUltimoCobro = '".$Hoy."' WHERE Id = '".$Id."'";
                                     $data = $run->update($query);
                                     if($TipoDocumento == '2'){
                                         $totalFacturas += $Total;
