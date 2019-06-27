@@ -212,7 +212,6 @@
 								WHERE
 									servicios.Id = '".$Id."'";
 					$Servicio = $run->select($query);
-
 					if($Servicio){
 						$Servicio = $Servicio[0];
 						$EstatusTarea = $Servicio['EstatusInstalacion'];
@@ -292,7 +291,14 @@
 								}
 		
 								// $Diasdelmes = cal_days_in_month (CAL_GREGORIAN, $Mes,$Ano);
-								$Diasdelmes = 30;
+								//si es anual los dias del mes serian 365
+								if($Servicio['TipoFactura'] == '17' || $Servicio['TipoFactura'] == '24'){
+									// echo 'Entro a anuales '.$Servicio['TipoFactura'];
+									$Diasdelmes = 365;
+								}else{
+									// echo 'entro el 30 dias '.$Servicio['TipoFacura'];
+									$Diasdelmes = 30;
+								}
 								if($Dia != $Diasdelmes){
 									if($Dia != 1){
 										$Diasporfacturar = $Diasdelmes - $Dia;
@@ -308,9 +314,17 @@
 								if($Conexion){
 									$Concepto .= ' - ' . $Conexion;
 								}
+								
 								$Valor = $Valor * $UF;
+								//vuelvo a poner 30 dias para que calcule bien el dia - precio 
+								$Diasdelmes = 30;
 								$Montodiario = $Valor / $Diasdelmes;
+								// echo 'Monto diario '.$Montodiario; echo "\n";
+								//si es anual los dias del mes serian 365
 								$Valor = $Diasporfacturar * $Montodiario;
+								// echo 'Diasporfacturar * Monto diario  '.$Diasporfacturar .' * '. $Montodiario;
+								// echo "\n";
+								// echo 'Valor '.$Valor; exit;
                                 $DescuentoValor = $Valor * ( $Descuento / 100 );
                                 $Valor -= $DescuentoValor;
 								$Impuesto = $Valor * 0.19;
