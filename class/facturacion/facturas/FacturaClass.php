@@ -637,6 +637,9 @@
                             ROUND((
                                 facturas_detalle.Total
                             ),0) AS Valor,
+                            ROUND((
+                                facturas_detalle.Valor
+                            ),0) AS Neto,
                             personaempresa.nombre AS Nombre,
                             facturas_detalle.Concepto AS Concepto,
                             facturas_detalle.Codigo,
@@ -657,8 +660,8 @@
                 $totalDetalles = count($facturas);
                 foreach($facturas as $factura){
                     $data = $factura;
-                    $Valor = $factura['Valor'];
-                    $data['Valor'] = $Valor;
+                    $data['Neto'] = $factura['Neto'];
+                    $data['Valor'] = $factura['Valor'];
                     $data['facturaId'] = $factura['facturaId'];
                     $data['detalleId'] = $data['detalleId'];
                     $data['totalDetalles'] = $totalDetalles;
