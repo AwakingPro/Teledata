@@ -2645,6 +2645,10 @@
                         if ($posicion_coincidencia !== false) {
                             //extraigo el idDetalle y el valor
                             $detalleTemporal = explode($cadena_buscada, $Detalle);
+
+                            //es importante eliminar puntos para que tome el valor real
+                            $detalleTemporal[1] = str_replace('.', '', $detalleTemporal[1]);
+
                             $detail = array(
                                 "documentDetailId" => $detalleTemporal[0],
                                 "unitValue"        => floatval($detalleTemporal[1]), 
