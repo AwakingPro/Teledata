@@ -1065,13 +1065,13 @@ $(document).ready(function() {
                         '' + array.Codigo + '',
                         '' + array.Concepto + '',
                         // '' + formatcurrency(array.Valor) + '',
-                        '' + '<div class"input-group"><input class="form-control" name="valor_detalle" id="valor_detalle" value="'+formatcurrency(array.Valor)+'" type="text" /></div>' +'',
+                        '' + '<div class"input-group"><input class="form-control" name="valor_detalle" id="valor_detalle" value="'+formatcurrency(array.Neto)+'" type="text" /></div>' +'',
                     ]).draw(false).node();
 
                     $(rowNode)
                         .attr('documentDetailIdBsale', array.documentDetailIdBsale)
                         .addClass('text-center')
-                        .attr('valorDetalle', array.Valor)
+                        .attr('valorDetalle', array.Neto)
                         .addClass('text-center')
                 });
             },
@@ -1169,6 +1169,7 @@ $(document).ready(function() {
     $('body').on('click', '#guardarDevolucion', function() {
         if(TipoNotaCredito == 2){
             FacturaDetalle = getCheckedDetalles('#TablaFacturaDetalle');
+            console.log(FacturaDetalle);
             $('#DetallesSeleccionados').val(FacturaDetalle);
             if (!FacturaDetalle.length > 0) {
                 alertas('danger', '<h5>Debe Seleccionar un Detalle de la factura</h5>');
