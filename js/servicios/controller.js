@@ -394,17 +394,24 @@ $(document).ready(function() {
 
     $(document).on('click', '#updateServ', function() {
 
+        $('#updateServ').attr('disabled', 'disabled');
         Rut = $('#Rut').val()
 
         $.postFormValues('../ajax/servicios/updateServicio.php', '#showServicio', {}, function(data) {
             if (data) {
                 servicio_id = data
+                $('.modal').modal('hide')
                 bootbox.alert('<h3 class="text-center">El servicio se actualizo con éxito.</h3>');
                 getServicios();
             } else {
                 bootbox.alert('<h3 class="text-center">Se produjo un error al actualizar</h3>');
-            }
+            }     
         });
+        setTimeout(() => {
+            $('#updateServ').removeAttr('disabled');
+        }, 1000); 
+        
+        
     });
 
     $(document).on('click', '.agregarTipoFacturacion', function() {

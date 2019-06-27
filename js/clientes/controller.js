@@ -1088,6 +1088,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '#updateServ', function() {
+        $('#updateServ').attr('disabled', 'disabled');
         $.postFormValues('../ajax/servicios/updateServicio.php', '#showServicio', {}, function(data) {
             if (data) {
                 servicio_id = data
@@ -1100,6 +1101,9 @@ $(document).ready(function() {
                 bootbox.alert('<h3 class="text-center">Se produjo un error al actualizar</h3>');
             }
         });
+        setTimeout(() => {
+            $('#updateServ').removeAttr('disabled');
+        }, 1000);
     });
 
     $(document).on('click', '.estatusServicio', function() {
