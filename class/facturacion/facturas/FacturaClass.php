@@ -1085,10 +1085,12 @@
                         }elseif($TipoFacturacion == '2'){
                             // agrego 6 meses a fecha ultimo cobro
                             $MesUltimoCobro = $this->generarMes($FechaUltimoCobro);
-                            $Concepto .= ' - Semestre '. $MesUltimoCobro . ' / ' . $MesFacturacion;
+                            $Concepto .= ' - Semestre - Periodo '. $MesUltimoCobro . ' / ' . $MesFacturacion;
                             $FechaUltimoCobro->add(new DateInterval("P6M"));
                         }else{
-                            $Concepto .= ' - Año ' . $Anio;
+                            //para que no cambie el mes del cobro anual en fechaUltimoCobro, vuelvo a llamar la funcion date
+                            $Hoy = date('Y-m-01');
+                            $Concepto .= '  Anual - Periodo ' . $Anio;
                             //agrego 1 ano a fecha ultimo cobro
                             $FechaUltimoCobro->add(new DateInterval("P1Y"));
                         }
