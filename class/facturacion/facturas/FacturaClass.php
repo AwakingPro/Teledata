@@ -614,6 +614,9 @@
                     if($data['Descripcion']){
                         $data['Concepto'] .=  ' - '.$data['Descripcion'];
                     }
+                    // if($data['Descripcion']){
+                    //     $data['Concepto'] .=  ' - '.$data['Descripcion'];
+                    // }
                     $data['Concepto'] = $data['Concepto'];
                     $data['Valor'] = $Valor;
                     $data['facturaId'] = $factura['facturaId'];
