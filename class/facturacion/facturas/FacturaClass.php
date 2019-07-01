@@ -29,7 +29,8 @@
 
             $run = new Method;
             //busco solo clientes activo
-            $query = " SELECT rut FROM personaempresa WHERE state = '0' ";
+            
+            $query = " SELECT rut FROM personaempresa WHERE state = '0'";
             $ruts = $run->select($query);
             // echo '<pre>'; print_r($ruts); echo '</pre><br><br>';
             foreach($ruts as $rut){
@@ -38,6 +39,7 @@
                 //busco facturas emitidas
                 $query = " SELECT
                     personaempresa.nombre AS Cliente,
+                    personaempresa.dv AS DV,
                     facturas.Id,
                     facturas.NumeroDocumento,
                     facturas.FechaFacturacion,
@@ -61,12 +63,15 @@
                     LEFT JOIN mantenedor_servicios ON mantenedor_servicios.IdServicio = servicios.IdServicio
                     WHERE
                     facturas.EstatusFacturacion = '1' AND personaempresa.rut = '".$RUT."' GROUP BY facturas.Id ORDER BY Cliente";
-
+                    //solo facturas emitidas sin N.C
                     $facturas = $run->select($query);
                     //entro solo si tiene 2 emitidas
+                    // echo '<pre>'; print_r($facturas); echo '</pre><br><br>'; exit;
                     if(count($facturas) > 1) {
-
-                        $contadorDocs = 0;
+                        $ToReturn = array();
+                        // echo '<pre>'; print_r($facturas); echo '</pre><br><br>'; exit;
+                        $docsVencidos = 0;
+                        
                         foreach($facturas as $factura){
                             $Id = $factura['Id'];
                             $TotalFactura = 0;
@@ -80,9 +85,13 @@
                                 $Total -= $Descuento;
                                 $TotalFactura += round($Total,0);
                             }
-                            $TotalSaldo = $factura['TotalSaldo'];
-                            $Deuda = $TotalFactura - $TotalSaldo;
                             
+                            $TotalPagado = $factura['TotalSaldo'];
+                            $Deuda = $TotalFactura - $TotalPagado;
+                            if($Deuda > 0){
+                                $docsVencidos += 1;
+                            }
+
                             $Id = $factura['Id'];
                             $data = array();
                             $data['Id'] = $Id;
@@ -94,6 +103,7 @@
                             $data['TotalFactura'] = $TotalFactura;
                             //total saldo es el pago total - el saldo del doc
                             $data['Deuda'] = $Deuda;
+
                             $data['TipoDocumento'] = $factura['TipoDocumento'];
                             $data['ClaseCliente'] = $factura['ClaseCliente'];
                             // if($factura['NombreServicio'] == '')
@@ -103,7 +113,33 @@
                             // $factura['TipoFacturacion'] = 'Otros Servicios';
                             $data['TipoFacturacion'] = $factura['TipoFacturacion'];
                             $data['EstatusFacturacion'] = 1;
-                            array_push($ToReturn,$data);
+
+                            array_push($ToReturn, $data);
+                        }
+
+                        $dataClient = array();
+                        $RUTDV = $RUT.' - '. $factura['DV'];
+                        $dataClient['ClienteNombre'] = $factura['Cliente'];
+                        $dataClient['ServicioCodigo'] = $RUTDV;
+                        //correos sin tecnicos para pruebas
+                        // $dataClient['correos'] = 'kcardenas@teledata.cl, fpezzuto@teledata.cl, jpinto@teledata.cl, cjurgens@teledata.cl';
+
+                        // $dataClient['correos'] = 'jcarrillo@teledata.cl, atrismartelo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl,  esalas@teledata.cl, jpinto@teledata.cl';
+                        $dataClient['correos'] = 'dangel@teledata.cl';
+                        switch($docsVencidos){
+                            // dos documentos emitidos se va a corte comercial
+                            case $docsVencidos == 2:
+                            $dataClient['asunto'] = 'Corte comercial cliente '.$factura['Cliente'].' RUT: '.$RUTDV;
+                            $dataClient['MensajeCorreo'] = 'Por favor hacer <b>Corte comercial</b> al cliente <b>'.$factura['Cliente'].' RUT: '.$RUTDV. ' - '. $factura['TipoDocumento'].'</b> ya que tiene '.$docsVencidos.' '.$factura['TipoDocumento'].'s emitidas y sin pagar';
+                            $respCorreo = $run->enviarCorreos(2, $dataClient);
+                            break;
+
+                            // tres documentos emitidos o más se va a término de contrato
+                            case $docsVencidos >= 3:
+                            $dataClient['asunto'] = 'Corte término de contrato cliente '.$factura['Cliente'].' RUT: '.$RUTDV;
+                            $dataClient['MensajeCorreo'] = 'Por favor hacer <b>Corte por término de contrato</b> al cliente <b>'.$factura['Cliente'].' RUT: '.$RUTDV. ' - '. $factura['TipoDocumento'].'</b> ya que tiene '.$docsVencidos.' '.$factura['TipoDocumento'].'s emitidas y sin pagar';
+                            $respCorreo = $run->enviarCorreos(2, $dataClient);
+                            break;
                         }
                     }
             }
@@ -611,9 +647,6 @@
                     $Valor = $factura['Valor'];
                     $data['idServicio'] = $factura['idServicio'];
                     $data['Codigo'] = $data['Codigo'];
-                    if($data['Descripcion']){
-                        $data['Concepto'] .=  ' - '.$data['Descripcion'];
-                    }
                     // if($data['Descripcion']){
                     //     $data['Concepto'] .=  ' - '.$data['Descripcion'];
                     // }
