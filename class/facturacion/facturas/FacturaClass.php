@@ -29,8 +29,7 @@
 
             $run = new Method;
             //busco solo clientes activo
-            
-            $query = " SELECT rut FROM personaempresa WHERE state = '0'";
+            $query = " SELECT rut FROM personaempresa WHERE state = '0' ";
             $ruts = $run->select($query);
             // echo '<pre>'; print_r($ruts); echo '</pre><br><br>';
             foreach($ruts as $rut){
@@ -65,13 +64,12 @@
                     facturas.EstatusFacturacion = '1' AND personaempresa.rut = '".$RUT."' GROUP BY facturas.Id ORDER BY Cliente";
                     //solo facturas emitidas sin N.C
                     $facturas = $run->select($query);
+                    $docsVencidos = 0;
                     //entro solo si tiene 2 emitidas
                     // echo '<pre>'; print_r($facturas); echo '</pre><br><br>'; exit;
                     if(count($facturas) > 1) {
                         $ToReturn = array();
                         // echo '<pre>'; print_r($facturas); echo '</pre><br><br>'; exit;
-                        $docsVencidos = 0;
-                        
                         foreach($facturas as $factura){
                             $Id = $factura['Id'];
                             $TotalFactura = 0;
@@ -122,10 +120,10 @@
                         $dataClient['ClienteNombre'] = $factura['Cliente'];
                         $dataClient['ServicioCodigo'] = $RUTDV;
                         //correos sin tecnicos para pruebas
-                        // $dataClient['correos'] = 'kcardenas@teledata.cl, fpezzuto@teledata.cl, jpinto@teledata.cl, cjurgens@teledata.cl';
+                        $dataClient['correos'] = 'kcardenas@teledata.cl, fpezzuto@teledata.cl, jpinto@teledata.cl, cjurgens@teledata.cl, dangel@teledata.cl';
 
                         // $dataClient['correos'] = 'jcarrillo@teledata.cl, atrismartelo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl,  esalas@teledata.cl, jpinto@teledata.cl';
-                        $dataClient['correos'] = 'dangel@teledata.cl';
+                        // $dataClient['correos'] = 'dangel@teledata.cl';
                         switch($docsVencidos){
                             // dos documentos emitidos se va a corte comercial
                             case $docsVencidos == 2:
