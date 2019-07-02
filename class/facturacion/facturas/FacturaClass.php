@@ -139,6 +139,7 @@
                             $respCorreo = $run->enviarCorreos(2, $dataClient);
                             break;
                         }
+                        $docsVencidos = 0;
                         exit;
                     }
             }
