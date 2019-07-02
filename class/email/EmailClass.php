@@ -13,9 +13,9 @@ class Email
 		// $query = "SELECT correo_prueba, clave_prueba, email_from_prueba FROM teledata_correos";
 		$remitente = $this->metodo->select($query);
 		if(count($remitente)){
-			$this->correo = $remitente[0]['correo'];
-			$this->clave = $remitente[0]['clave'];
-			$this->email_from = $remitente[0]['email_from'];
+			$this->correo = $remitente[3]['correo'];
+			$this->clave = $remitente[3]['clave'];
+			$this->email_from = $remitente[3]['email_from'];
 			// $this->correo = $remitente[0]['correo_prueba'];
 			// $this->clave = $remitente[0]['clave_prueba'];
 			// $this->email_from = $remitente[0]['email_from_prueba'];
@@ -57,7 +57,8 @@ class Email
 		}
 		// $mail->SMTPSecure = "ssl";
 		$mail->SMTPSecure = "TLS";
-		$mail->Host = "smtp.gmail.com"; 
+		$mail->Host = "smtp.gmail.com";
+		// $mail->  = "smtp.mailgun.org"; 
 		// $mail->Port = 25;  
 		$mail->Port = 587;
 		if($emisor){
@@ -66,15 +67,21 @@ class Email
 			if(count($remitente)){
 				$mail->Username = $remitente[1]['correo'];
 				$mail->Password = $remitente[1]['clave'];
+				// $mail->Username = 'postmaster@sandbox3ae422508d2f49eb98918fcc19c72735.mailgun.org';
+				// $mail->Password = 'e9b3a45851404aea042820f38c0d9e41-2416cf28-d91045f1';
 				$mail->From = $remitente[1]['email_from'];
 			}else{
 				echo 'Error al seleccionar el remitente de la bd';
 			}
 		}else{
+			// $mail->Username = 'postmaster@sandbox3ae422508d2f49eb98918fcc19c72735.mailgun.org';
+			// $mail->Password = 'e9b3a45851404aea042820f38c0d9e41-2416cf28-d91045f1';
+			// $mail->From = 'postmaster@sandbox3ae422508d2f49eb98918fcc19c72735.mailgun.org';
 			$mail->Username = $this->correo;  
 			$mail->Password = $this->clave;
 			$mail->From = $this->email_from;
 		}
+		// echo "<pre>"; echo print_r($mail); echo "</pre>";
 		$mail->FromName = "Teledata DTE";  
 		$mail->Subject = $subject;  
 		$mail->IsHTML(true);  
@@ -400,8 +407,5 @@ class Email
 			$isValid = 1;
 		}
 		return $isValid;   	
-    } 
-	
-	 
-	
+		}
 }
