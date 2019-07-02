@@ -13,9 +13,9 @@ class Email
 		// $query = "SELECT correo_prueba, clave_prueba, email_from_prueba FROM teledata_correos";
 		$remitente = $this->metodo->select($query);
 		if(count($remitente)){
-			$this->correo = $remitente[3]['correo'];
-			$this->clave = $remitente[3]['clave'];
-			$this->email_from = $remitente[3]['email_from'];
+			$this->correo = $remitente[0]['correo'];
+			$this->clave = $remitente[0]['clave'];
+			$this->email_from = $remitente[0]['email_from'];
 			// $this->correo = $remitente[0]['correo_prueba'];
 			// $this->clave = $remitente[0]['clave_prueba'];
 			// $this->email_from = $remitente[0]['email_from_prueba'];
