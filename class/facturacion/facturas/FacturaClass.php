@@ -3778,6 +3778,7 @@
                 "<html>
                     <head>
                         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+                        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
                         <style>
                         body{font-family:Open Sans;font-size:14px;}
                         table{font-size:13px;border-collapse:collapse;}
@@ -3793,12 +3794,16 @@
                             ".$Data['TipoDoc']."
                             <br>".$Data['UrlPdf']."</b><br><br>"
                             .$TipoDocumento."
-                            <br>".$UrlPdfBsale."</b><br><br>";
+                            <br> 
+                            <a href=".$UrlPdfBsale." class='btn btn-primary btn-lg' role='button'>DESCARGUE EL DOCUMENTO AQUÍ</a>
+                            </b><br><br>";
                         }else{
                             $Html .= "La ".$TipoDocumento." #".$NumeroDocumento." se genero con exito y ha sido adjuntada en este correo.
                             <br><br>
                             Puede visualizar o descargar el documento accediendo a la siguiente URL<br>
-                            <br>".$UrlPdfBsale."</b><br><br>";
+                            <br>
+                            <a href=".$UrlPdfBsale." class='btn btn-primary btn-lg' role='button'>DESCARGUE EL DOCUMENTO AQUÍ</a>
+                            </b><br><br>";
                         }
                         
                         $Html .= "<b>Para transferencia o depósitos, los datos de nuestra cuenta son:</b><br><br>
