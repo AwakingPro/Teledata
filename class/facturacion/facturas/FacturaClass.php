@@ -3780,6 +3780,103 @@
                         <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
                         <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css' integrity='sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T' crossorigin='anonymous'>
                         <style>
+                        
+                        .btn:not(:disabled):not(.disabled) {
+                            cursor: pointer;
+                        }
+                        
+                        .btn-primary:hover {
+                            color: #fff;
+                            background-color: #443a5f;
+                            border-color: #443a5f;
+                        }
+                        .btn:hover {
+                            color: #212529;
+                            text-decoration: none;
+                        }
+                        a:hover {
+                            color: #443a5f;
+                            text-decoration: underline;
+                        }
+                        .btn-lg, .btn-group-lg>.btn {
+                            padding: .5rem 1rem;
+                            font-size: 1.25rem;
+                            line-height: 1.5;
+                            border-radius: .3rem;
+                        }
+                        .btn-primary {
+                            color: #fff;
+                            background-color: #6B5B95;
+                            border-color: #6B5B95;
+                        }
+                        .btn {
+                            display: inline-block;
+                            font-weight: 400;
+                            color: #212529;
+                            text-align: center;
+                            vertical-align: middle;
+                            -webkit-user-select: none;
+                            -moz-user-select: none;
+                            -ms-user-select: none;
+                            user-select: none;
+                            background-color: transparent;
+                            border: 1px solid transparent;
+                            padding: .375rem .75rem;
+                            font-size: 1rem;
+                            line-height: 1.5;
+                            border-radius: .25rem;
+                            transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+                        }
+
+                        a {
+                            color: #6B5B95;
+                            text-decoration: none;
+                            background-color: transparent;
+                        }
+
+                        *, *::before, *::after {
+                            box-sizing: border-box;
+                        }
+
+                        body {
+                            margin: 0;
+                            font-family: -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,'Noto Sans',sans-serif,'Apple Color Emoji','Segoe UI Emoji','Segoe UI Symbol','Noto Color Emoji';
+                            font-size: 1rem;
+                            font-weight: 400;
+                            line-height: 1.5;
+                            color: #212529;
+                            text-align: left;
+                            background-color: #fff;
+                        }
+
+                        html {
+                            font-family: sans-serif;
+                            line-height: 1.15;
+                            -webkit-text-size-adjust: 100%;
+                            -ms-text-size-adjust: 100%;
+                            -ms-overflow-style: scrollbar;
+                            -webkit-tap-highlight-color: transparent;
+                        }
+                        *, *::before, *::after {
+                            box-sizing: border-box;
+                        }
+                        *, *::before, *::after {
+                            box-sizing: border-box;
+                        }
+                        ::-webkit-scrollbar {
+                            width: 8px;
+                            height: 8px;
+                        }
+                        ::-webkit-scrollbar-thumb {
+                            cursor: pointer;
+                            background: #6B5B95;
+                        }
+                        ::selection {
+                            background-color: #6B5B95;
+                            color: #fff;
+                        }
+
+
                         body{font-family:Open Sans;font-size:14px;}
                         table{font-size:13px;border-collapse:collapse;}
                         th{padding:8px;text-align:left;color:#595e62;border-bottom: 2px solid rgba(0,0,0,0.14);font-size:14px;}
