@@ -43,7 +43,11 @@
 			}
 		}
 
-		echo $Id;
+		
+		$query = " SELECT count(id) AS totalClientes from personaempresa ";
+
+		$num_clientes = $run->select($query);
+		echo $num_clientes[0]['totalClientes'];
 
 		// $query = "SELECT token_produccion as access_token FROM variables_globales";
 		// $variables_globales = $run->select($query);
