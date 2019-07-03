@@ -29,9 +29,9 @@
 
             $run = new Method;
             //busco solo clientes activo
-            $query = " SELECT rut FROM personaempresa WHERE state = '0' ";
+            $query = " SELECT rut, posee_pac FROM personaempresa WHERE state = '0' and posee_pac != 1 ";
             $ruts = $run->select($query);
-            // echo '<pre>'; print_r($ruts); echo '</pre><br><br>';
+            // echo '<pre>'; print_r($ruts); echo '</pre><br><br>'; exit;
             foreach($ruts as $rut){
                 // echo $rut['rut']."\n";
                 $RUT = $rut['rut'];
@@ -120,10 +120,10 @@
                         $dataClient['ClienteNombre'] = $factura['Cliente'];
                         $dataClient['ServicioCodigo'] = $RUTDV;
                         //correos sin tecnicos para pruebas
-                        // $dataClient['correos'] = 'kcardenas@teledata.cl, fpezzuto@teledata.cl, jpinto@teledata.cl, cjurgens@teledata.cl, dangel@teledata.cl';
+                        $dataClient['correos'] = 'kcardenas@teledata.cl, fpezzuto@teledata.cl, jpinto@teledata.cl, cjurgens@teledata.cl, dangel@teledata.cl';
 
                         // $dataClient['correos'] = 'jcarrillo@teledata.cl, atrismartelo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl,  esalas@teledata.cl, jpinto@teledata.cl';
-                        $dataClient['correos'] = 'dangel@teledata.cl';
+                        // $dataClient['correos'] = 'dangel@teledata.cl';
                         switch($docsVencidos){
                             // dos documentos emitidos se va a corte comercial
                             case $docsVencidos == 2:
@@ -140,7 +140,6 @@
                             break;
                         }
                         $docsVencidos = 0;
-                        exit;
                     }
             }
 
