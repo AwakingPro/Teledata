@@ -3795,7 +3795,7 @@
                         }
                         a:hover {
                             color: #443a5f;
-                            text-decoration: underline;
+                            text-decoration: none;
                         }
                         .btn-lg, .btn-group-lg>.btn {
                             padding: .5rem 1rem;
@@ -3828,9 +3828,7 @@
                         }
 
                         a {
-                            color: #6B5B95;
                             text-decoration: none;
-                            background-color: transparent;
                         }
 
                         *, *::before, *::after {
@@ -3891,7 +3889,7 @@
                             <br>".$Data['UrlPdf']."</b><br><br>"
                             .$TipoDocumento."
                             <br> 
-                            <a href=".$UrlPdfBsale." class='btn btn-primary btn-lg' role='button'>DESCARGUE EL DOCUMENTO AQUÍ</a>
+                            <a href=".$UrlPdfBsale." class=' btn btn-primary btn-lg ' role='button'>DESCARGUE EL DOCUMENTO AQUÍ</a>
                             </b><br><br>";
                         }else{
                             $Html .= "La ".$TipoDocumento." #".$NumeroDocumento." se genero con exito y ha sido adjuntada en este correo.
