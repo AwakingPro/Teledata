@@ -29,6 +29,8 @@ $(document).ready(function() {
         });
     }
 
+    
+
     $('select[name="Rut"]').load('../ajax/servicios/selectClientes.php', function() {
         $('select[name="Rut"]').selectpicker('refresh');
         var Parametros = window.location.search.substr(1);
@@ -155,6 +157,20 @@ $(document).ready(function() {
 
             }
         });
+    });
+
+    $('select[name="TipoFactura"]').change(function(event) {
+        var tipodocumento = $('#TipoFactura').val();
+        if(tipodocumento == 25 || tipodocumento == 26){
+            console.log(' es temporal');
+            console.log(' El valor es '+$('#TipoFactura').val());
+
+        }else{
+            
+            console.log(' El valor es '+$('#TipoFactura').val());
+        
+        }
+        
     });
 
     $('select[name="TipoServicio"]').change(function(event) {
@@ -395,8 +411,7 @@ $(document).ready(function() {
     $(document).on('click', '#updateServ', function() {
 
         $('#updateServ').attr('disabled', 'disabled');
-        Rut = $('#Rut').val()
-
+        Rut = $('#Rut').val()   
         $.postFormValues('../ajax/servicios/updateServicio.php', '#showServicio', {}, function(data) {
             if (data) {
                 servicio_id = data
@@ -409,9 +424,7 @@ $(document).ready(function() {
         });
         setTimeout(() => {
             $('#updateServ').removeAttr('disabled');
-        }, 1000); 
-        
-        
+        }, 1000);
     });
 
     $(document).on('click', '.agregarTipoFacturacion', function() {
