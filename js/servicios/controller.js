@@ -29,6 +29,8 @@ $(document).ready(function() {
         });
     }
 
+    
+
     $('select[name="Rut"]').load('../ajax/servicios/selectClientes.php', function() {
         $('select[name="Rut"]').selectpicker('refresh');
         var Parametros = window.location.search.substr(1);
@@ -155,6 +157,20 @@ $(document).ready(function() {
 
             }
         });
+    });
+
+    $('select[name="TipoFactura"]').change(function(event) {
+        var tipodocumento = $('#TipoFactura').val();
+        if(tipodocumento == 25 || tipodocumento == 26){
+            console.log(' es temporal');
+            console.log(' El valor es '+$('#TipoFactura').val());
+
+        }else{
+            
+            console.log(' El valor es '+$('#TipoFactura').val());
+        
+        }
+        
     });
 
     $('select[name="TipoServicio"]').change(function(event) {
