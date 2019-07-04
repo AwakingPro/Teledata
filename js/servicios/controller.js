@@ -395,8 +395,7 @@ $(document).ready(function() {
     $(document).on('click', '#updateServ', function() {
 
         $('#updateServ').attr('disabled', 'disabled');
-        Rut = $('#Rut').val()
-
+        Rut = $('#Rut').val()   
         $.postFormValues('../ajax/servicios/updateServicio.php', '#showServicio', {}, function(data) {
             if (data) {
                 servicio_id = data
@@ -409,9 +408,7 @@ $(document).ready(function() {
         });
         setTimeout(() => {
             $('#updateServ').removeAttr('disabled');
-        }, 1000); 
-        
-        
+        }, 1000);
     });
 
     $(document).on('click', '.agregarTipoFacturacion', function() {

@@ -1010,6 +1010,8 @@ $(document).ready(function() {
                 for (var name in array) {
                     var value = array[name];
                     if (name == "Descripcion" || name == "Direccion") {
+                        $('#showServicio').find('#' + name).val('');
+                        $('#showServicio').find('#' + name).val(value);
                         $('#showServicio').find('#' + name).text(value);
                     } else {
                         $('#showServicio').find('#' + name).val(value);
