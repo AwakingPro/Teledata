@@ -64,6 +64,7 @@ class Email
 		if($emisor){
 			$query2 = "SELECT correo, clave, email_from FROM teledata_correos";
 			$remitente = $this->metodo->select($query2);
+			print_r($remitente);
 			if(count($remitente)){
 				$mail->Username = $remitente[1]['correo'];
 				$mail->Password = $remitente[1]['clave'];
@@ -95,9 +96,9 @@ class Email
 			}
 		}
 		
-		if($mail->Send()){  
+		if($mail->Send()){
 			$ToReturn = true; 
-		}else{   
+		}else{
 		  	echo "Error al enviar, causa: " .$mail->ErrorInfo;  
 		  	$ToReturn = false;
 	  	} 

@@ -31,9 +31,16 @@
             //busco solo clientes activo
             $query = " SELECT rut, posee_pac FROM personaempresa WHERE state = '0' and posee_pac != 1 ";
             $ruts = $run->select($query);
-            // echo '<pre>'; print_r($ruts); echo '</pre><br><br>'; exit;
+            
+            // $ruts = 
+            // array (
+            //     0 => Array('rut' => 77029860), 1 => Array('rut' => 9358294), 2 => Array('rut' => 10024952),
+            //     3 => Array('rut' => 7791376), 4 => Array('rut' => 96778860), 5 => Array('rut' => 76405306),
+            //     6 => Array('rut' => 76591300));
+            // echo '<pre>'; print_r($ruts); echo '</pre><br><br>';exit;
+
             foreach($ruts as $rut){
-                // echo $rut['rut']."\n";
+                // echo $rut['rut']."\n"; exit;
                 $RUT = $rut['rut'];
                 //busco facturas emitidas
                 $query = " SELECT
@@ -124,23 +131,18 @@
 
                         // $dataClient['correos'] = 'jcarrillo@teledata.cl, atrismartelo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl,  esalas@teledata.cl, jpinto@teledata.cl';
                         // $dataClient['correos'] = 'dangel@teledata.cl';
-                        switch($docsVencidos){
-                            // dos documentos emitidos se va a corte comercial
-                            case $docsVencidos == 2:
+                         // dos documentos emitidos se va a corte comercial   
+                        if ($docsVencidos == 2) {
                             $dataClient['asunto'] = 'Corte comercial cliente '.$factura['Cliente'].' RUT: '.$RUTDV;
                             $dataClient['MensajeCorreo'] = 'Por favor hacer <b>Corte comercial</b> al cliente <b>'.$factura['Cliente'].' RUT: '.$RUTDV. ' - '. $factura['TipoDocumento'].'</b> ya que tiene '.$docsVencidos.' '.$factura['TipoDocumento'].'s emitidas y sin pagar';
                             $respCorreo = $run->enviarCorreos(2, $dataClient);
-                            break;
-
-                            // tres documentos emitidos o más se va a término de contrato
-                            case $docsVencidos >= 3:
+                        } elseif ($docsVencidos >= 3) {
+                        // tres documentos emitidos o más se va a término de contrato
                             $dataClient['asunto'] = 'Corte término de contrato cliente '.$factura['Cliente'].' RUT: '.$RUTDV;
                             $dataClient['MensajeCorreo'] = 'Por favor hacer <b>Corte por término de contrato</b> al cliente <b>'.$factura['Cliente'].' RUT: '.$RUTDV. ' - '. $factura['TipoDocumento'].'</b> ya que tiene '.$docsVencidos.' '.$factura['TipoDocumento'].'s emitidas y sin pagar';
                             $respCorreo = $run->enviarCorreos(2, $dataClient);
-                            break;
                         }
-                        $docsVencidos = 0;
-                    }
+                        }
             }
 
         }
