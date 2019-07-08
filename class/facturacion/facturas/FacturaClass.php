@@ -2262,7 +2262,7 @@
                     else{
                         $TotalSaldo = 0;
                         $Acciones = 0;
-                        $query = "SELECT  DevolucionAmount FROM devoluciones WHERE FacturaId = '".$Id."'";
+                        $query = "SELECT  DevolucionAmount, priceAdjustment FROM devoluciones WHERE FacturaId = '".$Id."'";
                         $devoluciones = $run->select($query);
                         if($devoluciones){
                             $devolucion = $devoluciones[0];
@@ -2280,7 +2280,9 @@
                             if($TotalSaldo < 0){
                                 $TotalSaldo = 0;
                             }
-                            $Acciones = 2;
+                            if($devolucion['priceAdjustment'] == 1) {
+                                $Acciones = 1;
+                            }
                         }
                     }
                     
@@ -2310,7 +2312,7 @@
                     $data['SaldoConNotaCredito'] = $SaldoConNotaCredito;
                     array_push($ToReturn,$data);
                     if($EstatusFacturacion == 2){
-                        $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount FROM devoluciones WHERE FacturaId = '".$Id."'";
+                        $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount, priceAdjustment FROM devoluciones WHERE FacturaId = '".$Id."'";
                         if($startDate){
                             $query .= " AND FechaDevolucion BETWEEN '".$startDate."' AND '".$endDate."'";
                         }
@@ -2318,7 +2320,7 @@
                         if($devoluciones){
                             $devolucion = $devoluciones[0];
                             $DevolucionAnulada = $devolucion['DevolucionAnulada'];
-                            if($DevolucionAnulada == 0){
+                            if($DevolucionAnulada == 0 || $devolucion['priceAdjustment'] == 1){
                                 $Acciones = 1;
                             }else{
                                 $Acciones = 0;
@@ -2375,6 +2377,7 @@
                     // }
                 }
             }
+            // echo "</pre>"; print_r($ToReturn); "<pre>";
             echo json_encode($ToReturn);
         }
         public function getPagos($id){
