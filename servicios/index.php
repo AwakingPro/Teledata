@@ -66,6 +66,8 @@
 														</span>
 													</div>
 													<br>
+
+													<!-- aqui -->
 													<label class="campo-cobreServicio">Tipo de Cobro de servicio</label>
 													<div class="input-group campo-cobreServicio">
 														<select id ="TipoFactura" name="TipoFactura" class="form-control selectpicker" data-live-search="true" validate="not_null" data-nombre="Tipo de Cobro">
@@ -75,6 +77,23 @@
 															<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#ModalTipoFacturacion"><i class="fa fa-plus" aria-hidden="true"></i></button>
 														</span>
 													</div>
+
+												<br>
+												<div id="divFechaActivacionTMP" style="display:none;">
+												<label>Duración del servicio</label>
+													<div class="form-group">
+														<div id="date-range">
+															<div class="input-daterange input-group" id="datepicker">
+																<input type="text" class="form-control" id="FechaInicioDesactivacion" name="FechaInicioDesactivacion" data-nombre="Fecha de Activación" />
+																<span class="input-group-addon">a</span>
+																<input type="text" class="form-control" id="FechaFinalDesactivacion" name="FechaFinalDesactivacion" data-nombre="Fecha de Activación" />
+															</div>
+														</div>
+													</div>
+												</div>
+
+
+
 													<br>
 													<div class="campo-servicio">
 														<label >Tipo de Servicio</label>
