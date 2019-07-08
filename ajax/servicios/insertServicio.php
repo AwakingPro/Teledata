@@ -44,8 +44,8 @@
 	$Moneda = isset($_POST['moneda']) ? trim($_POST['moneda']) : "";
 	$CostoInstalacionDescuento = isset($_POST['CostoInstalacionDescuento']) ? trim($_POST['CostoInstalacionDescuento']) : "0";
 	$FechaComprometidaInstalacion = isset($_POST['FechaComprometidaInstalacion']) ? trim($_POST['FechaComprometidaInstalacion']) : "";
-	$FechaInicioDesactivacion = isset($_POST['FechaInicioDesactivacion']) ? trim($_POST['FechaInicioDesactivacion']) : "";
-	$FechaFinalDesactivacion = isset($_POST['FechaFinalDesactivacion']) ? trim($_POST['FechaFinalDesactivacion']) : "";
+	$FechaInicioDesactivacion = isset($_POST['FechaInicioDesactivacionTMP']) ? trim($_POST['FechaInicioDesactivacionTMP']) : "";
+	$FechaFinalDesactivacion = isset($_POST['FechaFinalDesactivacionTMP']) ? trim($_POST['FechaFinalDesactivacionTMP']) : "";
 	
 	
 	if($TipoFactura == 25 || $TipoFactura == 26){
