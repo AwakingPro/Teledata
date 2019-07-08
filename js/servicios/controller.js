@@ -159,16 +159,20 @@ $(document).ready(function() {
         });
     });
 
+    //para cuando seleccione tipo de fac temporal
     $('select[name="TipoFactura"]').change(function(event) {
         var tipodocumento = $('#TipoFactura').val();
-        if(tipodocumento == 25 || tipodocumento == 26){
+        if(tipodocumento == 25 || tipodocumento == 26){    
+            $('#divFechaActivacionTMP').show();
+            $('input[name="FechaInicioDesactivacion"]').attr('validate', 'not_null');
+            $('input[name="FechaFinalDesactivacion"]').attr('validate', 'not_null');
             console.log(' es temporal');
             console.log(' El valor es '+$('#TipoFactura').val());
-
         }else{
-            
-            console.log(' El valor es '+$('#TipoFactura').val());
-        
+            $('#divFechaActivacionTMP').hide();
+            $('input[name="FechaInicioDesactivacion"]').removeAttr('validate')
+            $('input[name="FechaFinalDesactivacion"]').removeAttr('validate')
+            console.log('No es TMP El valor es '+$('#TipoFactura').val());
         }
         
     });
@@ -841,6 +845,7 @@ $(document).ready(function() {
         });
     });
 
+    //para tomar fecha del servicio
     $('#Activo').on('change', function() {
         if ($(this).val() == "1") {
             $('#divFechaActivacion').hide()
