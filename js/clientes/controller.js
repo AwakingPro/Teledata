@@ -1128,10 +1128,16 @@ $(document).ready(function() {
                 response = JSON.parse(response)
                 $('#FechaInicioDesactivacion').val('')
                 $('#FechaFinalDesactivacion').val('')
-                if (response.FechaFinalDesactivacion == '2999/01/31') {
+                if(response.EstatusServicio == '5') {
+                    $('#Activo').val(5)
+                    $('#divFechaActivacion').show()
+                    $('#FechaInicioDesactivacion').val(response.FechaInicioDesactivacion)
+                    $('#FechaFinalDesactivacion').val(response.FechaFinalDesactivacion)
+                    
+                } else if (response.FechaFinalDesactivacion == '2999/01/31') {
                     $('#Activo').val(0)
                     $('#divFechaActivacion').hide()
-                } else if (response.FechaFinalDesactivacion) {
+                } else if ( response.EstatusServicio != '5' && response.FechaFinalDesactivacion) {
                     $('#Activo').val(2)
                     $('#FechaInicioDesactivacion').val(response.FechaInicioDesactivacion)
                     $('#FechaFinalDesactivacion').val(response.FechaFinalDesactivacion)

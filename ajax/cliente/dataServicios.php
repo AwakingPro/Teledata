@@ -16,6 +16,7 @@
 						   WHEN servicios.EstatusServicio = '2' THEN 'Suspendido' 
 						   WHEN servicios.EstatusServicio = '3' THEN 'Corte  comercial'
 						   WHEN servicios.EstatusServicio = '4' THEN 'Cambio razón social'
+						   WHEN servicios.EstatusServicio = '5' THEN 'Servicio temporal'
 						   ELSE 'Término de contrato' END ) AS Estatus,
 						( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS 'Tipo de Servicio' 
 					FROM

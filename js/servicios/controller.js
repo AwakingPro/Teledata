@@ -164,14 +164,14 @@ $(document).ready(function() {
         var tipodocumento = $('#TipoFactura').val();
         if(tipodocumento == 25 || tipodocumento == 26){    
             $('#divFechaActivacionTMP').show();
-            $('input[name="FechaInicioDesactivacion"]').attr('validate', 'not_null');
-            $('input[name="FechaFinalDesactivacion"]').attr('validate', 'not_null');
+            $('input[name="FechaInicioDesactivacionTMP"]').attr('validate', 'not_null');
+            $('input[name="FechaFinalDesactivacionTMP"]').attr('validate', 'not_null');
             console.log(' es temporal');
             console.log(' El valor es '+$('#TipoFactura').val());
         }else{
             $('#divFechaActivacionTMP').hide();
-            $('input[name="FechaInicioDesactivacion"]').removeAttr('validate')
-            $('input[name="FechaFinalDesactivacion"]').removeAttr('validate')
+            $('input[name="FechaInicioDesactivacionTMP"]').removeAttr('validate')
+            $('input[name="FechaFinalDesactivacionTMP"]').removeAttr('validate')
             console.log('No es TMP El valor es '+$('#TipoFactura').val());
         }
         
@@ -821,7 +821,13 @@ $(document).ready(function() {
                 response = JSON.parse(response)
                 $('#FechaInicioDesactivacion').val('')
                 $('#FechaFinalDesactivacion').val('')
-                if (response.FechaFinalDesactivacion == '2999/01/31') {
+                if(response.EstatusServicio == '5') {
+                    $('#Activo').val(5)
+                    $('#divFechaActivacion').show()
+                    $('#FechaInicioDesactivacion').val(response.FechaInicioDesactivacion)
+                    $('#FechaFinalDesactivacion').val(response.FechaFinalDesactivacion)
+                    
+                } else if (response.FechaFinalDesactivacion == '2999/01/31') {
                     $('#Activo').val(0)
                     $('#divFechaActivacion').hide()
                 } else if (response.FechaFinalDesactivacion) {

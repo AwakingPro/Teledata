@@ -84,9 +84,9 @@
 													<div class="form-group">
 														<div id="date-range">
 															<div class="input-daterange input-group" id="datepicker">
-																<input type="text" class="form-control" id="FechaInicioDesactivacion" name="FechaInicioDesactivacion" data-nombre="Fecha de Activación" />
+																<input type="text" class="form-control" id="FechaInicioDesactivacionTMP" name="FechaInicioDesactivacionTMP" data-nombre="Fecha de Activación" />
 																<span class="input-group-addon">a</span>
-																<input type="text" class="form-control" id="FechaFinalDesactivacion" name="FechaFinalDesactivacion" data-nombre="Fecha de Activación" />
+																<input type="text" class="form-control" id="FechaFinalDesactivacionTMP" name="FechaFinalDesactivacionTMP" data-nombre="Fecha de Activación" />
 															</div>
 														</div>
 													</div>

@@ -2,7 +2,8 @@
 	require_once('../../class/methods_global/methods.php');
 	$query = 'SELECT
 		FechaInicioDesactivacion,
-		FechaFinalDesactivacion
+		FechaFinalDesactivacion,
+		EstatusServicio
 		FROM
 		servicios
 		WHERE
@@ -12,6 +13,7 @@
 	if (count($data) > 0) {
 		$FechaInicioDesactivacion = $data[0]['FechaInicioDesactivacion'];
 		$FechaFinalDesactivacion = $data[0]['FechaFinalDesactivacion'];
+		$EstatusServicio = $data[0]['EstatusServicio'];
         if($FechaInicioDesactivacion){
             $FechaInicioDesactivacion = DateTime::createFromFormat('Y-m-d', $FechaInicioDesactivacion)->format('Y/m/d');
         }else{
@@ -22,7 +24,7 @@
         }else{
             $FechaFinalDesactivacion = '';
         }
-		echo json_encode(array('FechaInicioDesactivacion' => $FechaInicioDesactivacion, 'FechaFinalDesactivacion' => $FechaFinalDesactivacion));
+		echo json_encode(array('FechaInicioDesactivacion' => $FechaInicioDesactivacion, 'FechaFinalDesactivacion' => $FechaFinalDesactivacion, 'EstatusServicio' => $EstatusServicio));
 	}else{
 		echo 'false';
 	}

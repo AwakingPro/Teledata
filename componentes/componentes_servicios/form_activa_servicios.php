@@ -15,6 +15,7 @@
                         <option value="2">Suspendido</option>
                         <option value="3">Corte Comercial</option>
                         <option value="4">Cambio razón social</option>
+                        <option value="5">Activo temporal</option>
                         <option value="0">Término de contrato</option>
                         
                     </select>
