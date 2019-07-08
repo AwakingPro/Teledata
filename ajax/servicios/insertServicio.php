@@ -1,6 +1,6 @@
 <?php
 	require_once('../../class/methods_global/methods.php');
-	
+
 	$run = new Method;
 	$Rut = isset($_POST['Rut']) ? trim($_POST['Rut']) : "";
 	$UltimoCodigo = $run->select("SELECT Codigo FROM servicios WHERE Rut = '".$Rut."' ORDER BY Id DESC");
@@ -44,6 +44,19 @@
 	$Moneda = isset($_POST['moneda']) ? trim($_POST['moneda']) : "";
 	$CostoInstalacionDescuento = isset($_POST['CostoInstalacionDescuento']) ? trim($_POST['CostoInstalacionDescuento']) : "0";
 	$FechaComprometidaInstalacion = isset($_POST['FechaComprometidaInstalacion']) ? trim($_POST['FechaComprometidaInstalacion']) : "";
+	$FechaInicioDesactivacion = isset($_POST['FechaInicioDesactivacion']) ? trim($_POST['FechaInicioDesactivacion']) : "";
+	$FechaFinalDesactivacion = isset($_POST['FechaFinalDesactivacion']) ? trim($_POST['FechaFinalDesactivacion']) : "";
+	
+	
+	if($TipoFactura == 25 || $TipoFactura == 26){
+		//Servicio temporal mensual
+		$EstatusServicio =	5;
+	}else{
+		//Servicio activo normal
+		$EstatusServicio = 1;
+		$FechaInicioDesactivacion = null;
+		$FechaFinalDesactivacion = null;
+	}
 
 	if(!$Descuento){
 		$Descuento = 0;
@@ -73,7 +86,8 @@
     }
 	// $PrimerDiaDelMes = date('Y-m-01');
 	$PrimerDiaDelMes = date('Y-m-d');
-	$query = "INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, Codigo, Descripcion, IdUsuarioSession, Conexion, EstatusInstalacion, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, UsuarioPppoeTeorico, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion, FechaUltimoCobro, tipo_moneda) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '".$Valor."', '".$Descuento."', '".$TipoServicio."', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Conexion."', '0', '".$FechaInstalacion."', '', '', '', '".$Direccion."', '".$Latitud."', '".$Longitud."', '".$Referencia."', '".$Contacto."', '".$Fono."', '".$PosibleEstacion."', '".$Equipamiento."', '".$SenalTeorica."', '".$UsuarioPppoeTeorico."', '0', '', '', '0', '".$CostoInstalacion."', '".$CostoInstalacionDescuento."', '0', '".$FechaComprometidaInstalacion."',NOW(),'".$PrimerDiaDelMes."', '".$Moneda."')";
+	$query = "INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, Codigo, Descripcion, IdUsuarioSession, Conexion, EstatusInstalacion, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, UsuarioPppoeTeorico, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion, FechaInicioDesactivacion, FechaFinalDesactivacion, FechaUltimoCobro, EstatusServicio, tipo_moneda) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '".$Valor."', '".$Descuento."', '".$TipoServicio."', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Conexion."', '0', '".$FechaInstalacion."', '', '', '', '".$Direccion."', '".$Latitud."', '".$Longitud."', '".$Referencia."', '".$Contacto."', '".$Fono."', '".$PosibleEstacion."', '".$Equipamiento."', '".$SenalTeorica."', '".$UsuarioPppoeTeorico."', '0', '', '', '0', '".$CostoInstalacion."', '".$CostoInstalacionDescuento."', '0', '".$FechaComprometidaInstalacion."',NOW(), '".$FechaInicioDesactivacion."', '".$FechaFinalDesactivacion."', '".$PrimerDiaDelMes."', '".$EstatusServicio."', '".$Moneda."')";
+	
 	$id = $run->insert($query);
 	if($id){
 		switch ($TipoServicio) {
@@ -139,6 +153,11 @@
 				$data = $run->update($query);
 				break;
 		}
+	}
+
+	if($EstatusServicio !=	5){
+		$query = "UPDATE servicios SET FechaInicioDesactivacion = null, FechaFinalDesactivacion = null  WHERE Id = '".$id."'";
+		$data = $run->update($query);
 	}
 
 	echo json_encode($id);
