@@ -20,6 +20,7 @@
 							WHERE
 								servicios.FechaInstalacion != '1970-01-01'
 							AND servicios.EstatusServicio = 1
+								OR servicios.EstatusServicio = 5
 						";
 						
 			if($idUsuario){
