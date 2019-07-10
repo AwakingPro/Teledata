@@ -822,7 +822,14 @@ $(document).ready(function() {
                 $('#FechaInicioDesactivacion').val('')
                 $('#FechaFinalDesactivacion').val('')
                 if(response.EstatusServicio == '5') {
-                    $('#Activo').val(5)
+                    if(response.FechaInicioDesactivacion == ''){
+                        //si es 5 pero fechas null es porque ya se suspendio
+                        $('#Activo').val(2);
+                    }else{
+                        //sigue activo temporalmente
+                        $('#Activo').val(5)
+                    }
+                    
                     $('#divFechaActivacion').show()
                     $('#FechaInicioDesactivacion').val(response.FechaInicioDesactivacion)
                     $('#FechaFinalDesactivacion').val(response.FechaFinalDesactivacion)
