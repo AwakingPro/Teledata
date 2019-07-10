@@ -655,6 +655,7 @@
                 facturas.TipoFactura = '2'
             AND facturas.Rut = '".$Rut."'
             AND facturas.Grupo = '".$Grupo."'
+            AND facturas.deleted_at IS NULL
             -- AND facturas.EstatusFacturacion = 0
             AND facturas_detalle.Valor > 0 "; 
             }
