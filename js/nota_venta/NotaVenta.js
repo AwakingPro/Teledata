@@ -21,6 +21,85 @@ $(document).ready(function() {
         }
     });
 
+    // inicio tabla detalle servicios
+    TablaFacturaDetalle = $('#TablaFacturaDetalle').DataTable({
+        paging: false,
+        iDisplayLength: 100,
+        processing: true,
+        serverSide: false,
+        bInfo: false,
+        bFilter: false,
+        order: [
+            [0, 'asc']
+        ],
+        language: {
+            processing: "Procesando ...",
+            search: 'Buscar',
+            lengthMenu: "Mostrar _MENU_ Registros",
+            info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+            infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+            infoFiltered: "(filtrada de _MAX_ registros en total)",
+            infoPostFix: "",
+            loadingRecords: "...",
+            zeroRecords: "No se encontraron registros coincidentes",
+            emptyTable: "No tiene servicios activos para cobrar",
+            paginate: {
+                first: "Primero",
+                previous: "Anterior",
+                next: "Siguiente",
+                last: "Ultimo"
+            },
+            aria: {
+                sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                sortDescending: ": habilitado para ordenar la columna en orden descendente"
+            }
+        }
+    });
+    // fin tabla detalle servicios
+    
+    
+    // inicio mostrar servicios del cliente en tabla
+    function getServiciosFacturados(RUT){
+        console.log(RUT)
+        $.ajax({
+            type: "POST",
+            url: "../includes/facturacion/facturas/getServiciosFacturados.php",
+            data: "RUT=" + RUT,
+            success: function(response) {
+                console.log(response.array.length)
+                TablaFacturaDetalle.clear().draw()
+                if(response.array.length > 0) {
+                    $.each(response.array, function(index, array) {
+                        var rowNode = TablaFacturaDetalle.row.add([
+                            '' + '<div><input class="select-checkbox" name="select_check" id="select_check_' + array.IdServicio + '" type="checkbox" /></div>' +'',
+                            
+                            '' + array.Codigo + '',
+                            '' + array.Descripcion + '',
+                            '' + formatcurrency(array.ValorUF) + '',
+                            // '' + '<div class"input-group"><input class="form-control" name="valor_detalle" id="valor_detalle" value="'+formatcurrency(array.ValorUF)+'" type="text" /></div>' +'',
+                        ]).draw(false).node();
+    
+                        $(rowNode)
+                            .attr('IdServicio', array.IdServicio)
+                            .addClass('text-center')
+                            .attr('ValorUF', array.ValorUF)
+                            .addClass('text-center')
+                            .attr('FechaUltimoCobro', array.FechaUltimoCobro)
+                            .addClass('text-center')
+                    });
+                }
+            },
+            error: function(xhr, status, error) {
+                setTimeout(function() {
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada', err.Message, 'error');
+                }, 1000);
+            }
+        });
+    }
+
+    // fin mostrar servicios del cliente en tabla
+
     DetalleTableTmp = $('#DetalleTableTmp').DataTable({
         paging: false,
         iDisplayLength: 100,
@@ -237,7 +316,8 @@ $(document).ready(function() {
 
     $('#personaempresa_id').on('change', function() {
         if ($(this).val()) {
-
+            var RUT = $(this).val();
+            getServiciosFacturados(RUT);
             datos = $('#formCliente').serialize();
 
             $.ajax({
