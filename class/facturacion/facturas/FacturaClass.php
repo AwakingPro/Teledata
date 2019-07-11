@@ -741,6 +741,42 @@
             }
         }
 
+        // mostrar servicios por clientes 
+        public function getServiciosFacturados($RUT){
+
+            $run = new Method;
+            //trae servicios activos del cliente
+            $query = "  SELECT
+                            Id, Valor AS ValorUF, Codigo, Descripcion, FechaUltimoCobro
+                        FROM
+                            Servicios 
+                        WHERE
+                            Rut = '".$RUT."' 
+                            AND EstatusFacturacion = 0 
+                            AND (EstatusServicio = 1 OR EstatusServicio = 5) ";
+            $Servicios = $run->select($query);
+            $array = array();
+            // echo "<pre>"; print_r($Servicios); echo "</pre>"; exit;
+            if($Servicios){
+                foreach($Servicios as $servicio){
+                    $data['IdServicio'] = $servicio['Id'];
+                    $data['ValorUF'] = $servicio['ValorUF'];
+                    $data['Codigo'] = $servicio['Codigo'];
+                    $data['Descripcion'] = $servicio['Descripcion'];
+                    $data['FechaUltimoCobro'] = $servicio['FechaUltimoCobro'];
+                    array_push($array,$data);
+                }
+
+                $response_array['array'] = $array;
+
+                echo json_encode($response_array);
+            }else{
+                $response_array['array'] = $array;
+                
+                echo json_encode($response_array);
+            }
+        }
+
         public function storeFactura($RutId, $Grupo, $Tipo){
 
             if(in_array  ('curl', get_loaded_extensions())) {

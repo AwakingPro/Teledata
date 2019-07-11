@@ -299,6 +299,7 @@
                                                     Manual</label>
                                             </div>
                                             <div class="clearfix"></div>
+
                                             <form id="formDetalleTmp">
                                                 <div class="col-md-3">
                                                     <div class="form-group">
@@ -351,6 +352,29 @@
                                                 </div>
                                             </form>
                                         </div>
+                                        <!-- inicio ver servicios asociados -->
+                                        <!-- <h3 class="panel-title">Seleccione los servicios que estaran asociados a esta nota de venta</h3> -->
+                                        <div class="clearfix"></div>
+                                        <div class="col-md-12" id="componenteNotaCreditoParcial" style="visibility: hidden;">
+                                            <div class="form-group">
+                                                <div class="table-responsive">
+                                                        <table id="TablaFacturaDetalle" class="table table-striped table-bordered">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th class="text-center"></th>
+                                                                    <th class="text-center">Código</th>
+                                                                    <th class="text-center">Descripción</th>
+                                                                    <th class="text-center">Valor UF</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            </tbody>
+                                                        </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- fin ver servicios asociados -->
+                                        
                                         <div class="clearfix"></div>
                                         <div class="row" style="margin-top: 10px">
                                             <div class="table-responsive">
