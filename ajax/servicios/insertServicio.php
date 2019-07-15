@@ -88,7 +88,7 @@
 	$PrimerDiaDelMes = date('Y-m-d');
 	$query = "INSERT INTO servicios (Rut, Grupo, TipoFactura, Valor, Descuento, IdServicio, Codigo, Descripcion, IdUsuarioSession, Conexion, EstatusInstalacion, FechaInstalacion, InstaladoPor, Comentario, UsuarioPppoe, Direccion, Latitud, Longitud, Referencia, Contacto, Fono, PosibleEstacion, Equipamiento, SenalTeorica, UsuarioPppoeTeorico, IdUsuarioAsignado, SenalFinal, EstacionFinal, EstatusFacturacion, CostoInstalacion, CostoInstalacionDescuento, FacturarSinInstalacion, FechaComprometidaInstalacion, FechaFacturacion, FechaInicioDesactivacion, FechaFinalDesactivacion, FechaUltimoCobro, EstatusServicio, tipo_moneda) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '".$Valor."', '".$Descuento."', '".$TipoServicio."', '".$Codigo."', '".$Descripcion."', '".$idUsuario."', '".$Conexion."', '0', '".$FechaInstalacion."', '', '', '', '".$Direccion."', '".$Latitud."', '".$Longitud."', '".$Referencia."', '".$Contacto."', '".$Fono."', '".$PosibleEstacion."', '".$Equipamiento."', '".$SenalTeorica."', '".$UsuarioPppoeTeorico."', '0', '', '', '0', '".$CostoInstalacion."', '".$CostoInstalacionDescuento."', '0', '".$FechaComprometidaInstalacion."',NOW(), '".$FechaInicioDesactivacion."', '".$FechaFinalDesactivacion."', '".$PrimerDiaDelMes."', '".$EstatusServicio."', '".$Moneda."')";
 	
-	$id = $run->insert($query);
+	echo $id = $run->insert($query);
 	if($id){
 		switch ($TipoServicio) {
 			case 1:
