@@ -54,8 +54,8 @@
 	}else{
 		//Servicio activo normal
 		$EstatusServicio = 1;
-		$FechaInicioDesactivacion = NULL;
-		$FechaFinalDesactivacion = NULL;
+		$FechaInicioDesactivacion = "NULL";
+		$FechaFinalDesactivacion = "NULL";
 	}
 
 	if(!$Descuento){
