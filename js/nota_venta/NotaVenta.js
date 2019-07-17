@@ -60,13 +60,11 @@ $(document).ready(function() {
     
     // inicio mostrar servicios del cliente en tabla
     function getServiciosFacturados(RUT){
-        console.log(RUT)
         $.ajax({
             type: "POST",
             url: "../includes/facturacion/facturas/getServiciosFacturados.php",
             data: "RUT=" + RUT,
             success: function(response) {
-                console.log(response.array.length)
                 TablaFacturaDetalle.clear().draw()
                 if(response.array.length > 0) {
                     $.each(response.array, function(index, array) {
@@ -86,6 +84,8 @@ $(document).ready(function() {
                             .addClass('text-center')
                             .attr('FechaUltimoCobro', array.FechaUltimoCobro)
                             .addClass('text-center')
+                            .attr('TipoFactura', array.TipoFactura)
+                            .addClass('text-center')
                     });
                 }
             },
@@ -97,7 +97,6 @@ $(document).ready(function() {
             }
         });
     }
-
     // fin mostrar servicios del cliente en tabla
 
     DetalleTableTmp = $('#DetalleTableTmp').DataTable({
@@ -534,10 +533,17 @@ $(document).ready(function() {
 
     $('body').on('click', '#insertNotaVenta', function() {
 
+        //envio el id servicio y la la fecha ultimo cobro para actualizarlos si es necesario
+        FacturaDetalle = getCheckedDetalles('#TablaFacturaDetalle');
+        // console.log(FacturaDetalle); return;
+        $('#ServiciosSeleccionados').val(FacturaDetalle);
         $.postFormValues('../includes/nota_venta/insertNotaVenta.php', '#formCliente', {}, function(response) {
 
             if (response.status == 1) {
-
+                TablaFacturaDetalle
+                .rows()
+                .remove()
+                .draw();
                 $.niftyNoty({
                     type: 'success',
                     icon: 'fa fa-check',
@@ -568,6 +574,16 @@ $(document).ready(function() {
                     timer: 3000
                 });
 
+            } else if (response.status == 4) {
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon: 'fa fa-check',
+                    message: 'Error al actualizar el servicio',
+                    container: 'floating',
+                    timer: 3000
+                });
+
             } else {
 
                 $.niftyNoty({
@@ -581,6 +597,22 @@ $(document).ready(function() {
             }
         });
     });
+
+    function getCheckedDetalles(idtabla) {
+        var checked = [];
+        $(idtabla+' tr ').each(function(i, row) {
+            var actualrow = $(row);
+            checkbox = actualrow.find('input:checked').val();
+            if (checkbox == 'on') {
+            var id = $(actualrow).attr('idservicio');
+            var fechaUltimoCobro = $(actualrow).attr('fechaultimocobro');
+            var tipoFactura = $(actualrow).attr('tipofactura');
+            checked[i] = id+'/'+fechaUltimoCobro+'/'+tipoFactura;
+            }
+        });
+
+        return checked;
+    }
 
     $('#cancelar').on('click', function() {
         deleteDetalles();
