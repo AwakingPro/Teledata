@@ -74,9 +74,46 @@
 
     	} 
 
-        public function insertNotaVenta($Cliente,$Fecha,$NumeroOc,$FechaOc,$SolicitadoPor){
+        public function insertNotaVenta($Cliente,$Fecha,$NumeroOc,$FechaOc,$SolicitadoPor, $ServiciosSeleccionados){
 
             $response_array = array();
+            $cadena_buscada   = '/';
+            $run = new Method;
+            $ServiciosSeleccionados = isset($ServiciosSeleccionados) ? trim($ServiciosSeleccionados) : "";
+            //si se quieren cobrar algun servicio y no volver a cobrar en por lotes hasta el proximo mes
+            if($ServiciosSeleccionados){
+                //los convierto en un array
+                $ServiciosSeleccionados = explode(",", $ServiciosSeleccionados);
+                foreach($ServiciosSeleccionados as $Servicio){
+                    //busco el caracter separador del idDetalle, Fecha y del valor
+                    $posicion_coincidencia = strpos($Servicio, $cadena_buscada);
+                    //se puede hacer la comparacion con 'false' o 'true' y los comparadores '===' o '!=='
+                    if ($posicion_coincidencia !== false) {
+                        //extraigo el idServicio y la FechaUltimoCobro
+                        $datoTemporal = explode($cadena_buscada, $Servicio);
+                        //sumo 1 mes para que no se vuelva a hacer el cobro del servicio al ejecutarse el script el 25 de cada mes
+                        $idServicio = $datoTemporal[0];
+                        $FechaUltimoCobro = $datoTemporal[1];
+                        $TipoFactura = $datoTemporal[2];
+
+                        //valido si es anual
+                        if($TipoFactura == 17 || $TipoFactura == 24){
+                            $FechaUltimoCobro = date("Y-m-01",strtotime($FechaUltimoCobro."+ 1 year"));
+                        }else{
+                            $FechaUltimoCobro = date("Y-m-01",strtotime($FechaUltimoCobro."+ 1 month"));
+                        }
+                        //Actualizo la FechaUltimoCobro de cada servicios
+                        $query = "UPDATE servicios SET FechaUltimoCobro = '".$FechaUltimoCobro."' WHERE id = '".$idServicio."'";
+                        $update = $run->update($query);
+                        if(!$update){
+                            $response_array['status'] = 4; 
+                            echo json_encode($response_array);
+                            exit;
+                        }
+                    }
+                }
+            }
+            
 
             $Cliente = isset($Cliente) ? trim($Cliente) : "";
             $Fecha = isset($Fecha) ? trim($Fecha) : "";
@@ -86,7 +123,7 @@
 
             if(!empty($Cliente) && !empty($Fecha) && !empty($SolicitadoPor)){
 
-                $run = new Method;
+                
                 $Usuario=$_SESSION['idUsuario'];
 
                 $query = "SELECT * FROM nota_venta_tmp where usuario_id = '$Usuario'";

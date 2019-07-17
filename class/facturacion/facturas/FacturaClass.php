@@ -747,7 +747,7 @@
             $run = new Method;
             //trae servicios activos del cliente
             $query = "  SELECT
-                            Id, Valor AS ValorUF, Codigo, Descripcion, FechaUltimoCobro
+                            Id, TipoFactura, Valor AS ValorUF, Codigo, Descripcion, FechaUltimoCobro
                         FROM
                             Servicios 
                         WHERE
@@ -760,6 +760,7 @@
             if($Servicios){
                 foreach($Servicios as $servicio){
                     $data['IdServicio'] = $servicio['Id'];
+                    $data['TipoFactura'] = $servicio['TipoFactura'];
                     $data['ValorUF'] = $servicio['ValorUF'];
                     $data['Codigo'] = $servicio['Codigo'];
                     $data['Descripcion'] = $servicio['Descripcion'];

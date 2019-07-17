@@ -288,6 +288,7 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <input type="hidden" id="ServiciosSeleccionados" name="ServiciosSeleccionados">
                                         </form>
                                         <div class="row" style="margin-top: 20px">
                                             <div class="col-md-2">
@@ -353,9 +354,9 @@
                                             </form>
                                         </div>
                                         <!-- inicio ver servicios asociados -->
-                                        <!-- <h3 class="panel-title">Seleccione los servicios que estaran asociados a esta nota de venta</h3> -->
+                                        <h3 class="panel-title">Seleccione los servicios que estaran asociados a esta nota de venta</h3>
                                         <div class="clearfix"></div>
-                                        <div class="col-md-12" id="componenteNotaCreditoParcial" style="visibility: hidden;">
+                                        <div class="col-md-12" id="componenteNotaCreditoParcial" >
                                             <div class="form-group">
                                                 <div class="table-responsive">
                                                         <table id="TablaFacturaDetalle" class="table table-striped table-bordered">
