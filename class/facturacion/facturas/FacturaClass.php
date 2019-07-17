@@ -749,7 +749,7 @@
             $query = "  SELECT
                             Id, TipoFactura, Valor AS ValorUF, Codigo, Descripcion, FechaUltimoCobro
                         FROM
-                            Servicios 
+                            servicios 
                         WHERE
                             Rut = '".$RUT."' 
                             AND EstatusFacturacion = 0 
