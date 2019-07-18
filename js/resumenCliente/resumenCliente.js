@@ -214,7 +214,7 @@ $(document).ready(function() {
                     { data: 'TipoDocumento' },
                     { data: 'FechaFacturacion' },
                     { data: 'FechaVencimiento' },
-                    { data: 'deuda' },
+                    { data: 'totalDoc' },
                     { data: 'saldo_doc' },
                     { data: 'pagos'}
                 ],

@@ -2199,8 +2199,9 @@
             $ToReturn = array();
             $data = array();
             $query = "  SELECT
-            (SELECT SUM( Total ) FROM facturas_detalle WHERE FacturaId = facturas.Id ) AS Total,
-            facturas.NumeroDocumento, 
+            (SELECT ROUND(SUM( Total )) FROM facturas_detalle WHERE FacturaId = facturas.Id ) AS totalDoc,
+            facturas.NumeroDocumento,
+            facturas.Id, 
             facturas.FechaFacturacion,
             facturas.FechaVencimiento,
             facturas_pagos.Detalle as Detalle,
@@ -2220,7 +2221,7 @@
         
             $run = new Method;
             $documentos = $run->select($query);
-            $Total = 0;
+            $totalDoc = 0;
             $saldo_doc = 0;
             $saldo_favor = 0;
             // echo '<pre>'; print_r($documentos); echo '</pre>'; return;
@@ -2232,14 +2233,19 @@
                     
                     $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$documento['FechaFacturacion'])->format('d-m-Y');
                     $fechaVencimiento = \DateTime::createFromFormat('Y-m-d',$documento['FechaVencimiento'])->format('d-m-Y');
-                    $saldo_doc = $documento['Total'] - $documento['Pagado'];
-                    $saldo_favor = $documento['Pagado'] - $documento['Total'];
-                    
+                    $saldo_doc = $documento['totalDoc'] - $documento['Pagado'];
+                    $saldo_favor = $documento['Pagado'] - $documento['totalDoc'];
+                    if($saldo_doc < 0){
+                        $saldo_doc = 0;
+                    }
+                    if($saldo_favor < 0){
+                        $saldo_favor = 0;
+                    }
                     $data['NumeroDocumento'] = $documento['NumeroDocumento'];
                     $data['TipoDocumento'] = $documento['tipo_Factura'];
                     $data['FechaFacturacion'] = $FechaFacturacion;
                     $data['FechaVencimiento'] = $fechaVencimiento;
-                    $data['deuda'] = $documento['Total'];
+                    $data['totalDoc'] = $documento['totalDoc'];
                     $data['saldo_doc'] = $saldo_doc;
                     $data['pagos'] = $saldo_favor;
                     array_push($ToReturn, $data ); 
