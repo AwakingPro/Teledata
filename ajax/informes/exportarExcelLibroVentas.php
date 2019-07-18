@@ -138,8 +138,6 @@ if($facturas){
         $data['MontoNeto'] = $factura['MontoNeto'];
         $data['IVA'] = $factura['MontoNeto'] * $IVA;
         $data['TotalSaldo'] = $TotalSaldo;
-        $data['SaldoFavor'] = $SaldoFavor;
-        $data['UrlPdfBsale'] = $factura['UrlPdfBsale'];
         $data['TipoDocumento'] = $factura['TipoDocumento'];
         $data['Cliente'] = $factura['Cliente'];
         $data['RUT'] = $factura['RUT'].'-'.$factura['DV'];
@@ -159,7 +157,7 @@ if($facturas){
         $data['NumRelacion'] = $NumRelacion;
         array_push($ToReturn,$data);
         if($EstatusFacturacion == 2){
-            $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada FROM devoluciones WHERE FacturaId = '".$Id."'";
+            $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount FROM devoluciones WHERE FacturaId = '".$Id."'";
             if($startDate){
                 $query .= " AND FechaDevolucion BETWEEN '".$startDate."' AND '".$endDate."'";
             }
@@ -184,13 +182,12 @@ if($facturas){
                 $data['PAC'] = $factura['PAC'];
                 $data['NumeroDocumento'] = $devolucion['NumeroDocumento'];
                 $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
-                // $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
-                $data['MontoNeto'] = $factura['MontoNeto'];
-                $data['IVA'] = $factura['MontoNeto'] * $IVA;
-                $data['TotalFactura'] = $TotalFactura;
-                $data['TotalSaldo'] = $TotalSaldoFactura;
-                $data['SaldoFavor'] = $SaldoFavor;
-                $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
+                // $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');   
+                $neto = $devolucion['DevolucionAmount'] / 1.19;     
+                $data['MontoNeto'] = $neto;
+                $data['IVA'] = $data['MontoNeto'] * $IVA;
+                $data['TotalFactura'] = $devolucion['DevolucionAmount'];
+                $data['TotalSaldo'] = $TotalSaldoFactura - $devolucion['DevolucionAmount'];
                 $data['TipoDocumento'] = 'Nota de crédito';
                 $data['Detalle'] = $factura['Detalle'];
                 $data['Acciones'] = $Acciones;
@@ -221,8 +218,6 @@ if($facturas){
                         $data['IVA'] = $factura['MontoNeto'] * $IVA;
                         $data['TotalFactura'] = $TotalFactura;
                         $data['TotalSaldo'] = $TotalSaldoFactura;
-                        $data['SaldoFavor'] = $SaldoFavor;
-                        $data['UrlPdfBsale'] = $anulacion['UrlPdfBsale'];
                         $data['TipoDocumento'] = 'Nota de debito';
                         $data['EstatusFacturacion'] = 3;
                         if($factura['InformeSII'] == 0)
@@ -242,7 +237,6 @@ if($facturas){
     $TotalIVA = 0;
     $TotalTotal = 0;
     $TotalSaldo = 0;
-    $TotalSaldoFavor = 0;
     // echo '<pre>'; print_r($ToReturn); echo '</pre>';exit;
     foreach($ToReturn as $datos) {
 
@@ -257,7 +251,6 @@ if($facturas){
         ->setCellValue('G'.$index, round($datos['IVA']))
         ->setCellValue('H'.$index, $datos['TotalFactura'])
         // ->setCellValue('I'.$index, $datos['TotalSaldo'])
-        // ->setCellValue('J'.$index, $datos['SaldoFavor'])
         // ->setCellValue('K'.$index, $datos['Detalle'])
         ->setCellValue('I'.$index, $datos['NumRelacion'])
         ->setCellValue('J'.$index, $datos['InformeSII']);
