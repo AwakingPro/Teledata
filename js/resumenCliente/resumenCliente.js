@@ -292,7 +292,7 @@ $(document).ready(function() {
                     { data: 'TipoDocumento' },
                     { data: 'FechaFacturacion' },
                     { data: 'FechaVencimiento' },
-                    { data: 'deuda' }
+                    { data: 'pagos' }
                 ],
                 destroy: true,
                 'createdRow': function(row, data, dataIndex) {
