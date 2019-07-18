@@ -2,15 +2,19 @@
     <div class="panel">
         <div class="panel-body">
             <div class="row">
-                
-                <div class="col-md-12" style="margin-top: 34px;color:#91c957; text-align:center;">
-                    <?php
+                <?php
                     $estado = $lista[0][6];
-                    if($estado == 0)
-                    $estado = 'Cliente Activo';
-                    else
-                    $estado = 'Cliente Inactivo';
-                    ?> 
+                    if($estado == 0){
+                        $estado = 'Cliente Activo';
+                        $colorEstado = '#91c957';
+                    }
+                    else{
+                        $estado = 'Cliente Inactivo';
+                        $colorEstado = 'red';
+                    }
+                ?> 
+                <div class="col-md-12" style="margin-top: 34px;color:<?php echo $colorEstado ?>; text-align:center;">
+                    
                     <h3>
                     <?php
                         echo $estado;
