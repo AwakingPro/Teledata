@@ -6,7 +6,8 @@
 							nombre,
 							correo,
 							telefono,
-							posee_pac
+							posee_pac,
+							state
 						FROM
 							personaempresa 
 						WHERE

@@ -46,7 +46,7 @@ $id_cliente = $_GET['cliente'];
 
 								<?php
 									include 'resumen/saldo.php';
-									include 'resumen/cliente-deuda.php';	
+									include 'resumen/cliente-estado.php';	
 								?>
 							</div>
 						</div>
