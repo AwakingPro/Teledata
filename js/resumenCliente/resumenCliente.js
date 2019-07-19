@@ -4,10 +4,18 @@ $(document).ready(function() {
     // $('#TableDocEmitidos').DataTable();
     // $('#TableDocPagados').DataTable();
 
+    getSaldoFavor();
     getDocsVencidos();
     getDocEmitidos();
     getDocPagados();
     getServicios();
+
+    //obtiene total de saldo a favor de un cliente por rut
+    function getSaldoFavor() { 
+        $.post('../includes/facturacion/facturas/getSaldoFavor.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
+            $('.saldoFavor').text(formatcurrency(data['totalSaldoFavor']))
+        });
+    }
 
     //obtiene total de documentos vencidos de un cliente por rut
     function getDocsVencidos() { 

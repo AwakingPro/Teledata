@@ -2039,7 +2039,7 @@
             echo json_encode($ToReturn);
         }
 
-        public function getDocsVencidos($Rut){
+        public function getSaldoFavor($Rut){
 
             $ToReturn = array();
             $data = array();
@@ -2063,12 +2063,13 @@
             INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
             INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
             WHERE
-                facturas.Rut = $Rut AND facturas.EstatusFacturacion = '1'  AND FechaVencimiento < '".$fecha_actual."' ";
+                facturas.Rut = $Rut AND facturas.EstatusFacturacion = '1' ";
 
             $run = new Method;
             $documentos = $run->select($query);
             $saldo_doc = 0;
             $totalDeuda = 0;
+            $totalsaldoFavor = 0;
             $saldo_favor = 0;
             // echo '<pre>'; print_r($documentos); echo '</pre>'; return;
             if (count($documentos) > 0) {
@@ -2100,6 +2101,7 @@
                     //si es mayor es porque aún no pago todo
                     if($saldo_doc > 0) {
                         $totalDeuda += $saldo_doc;
+                        $totalsaldoFavor += $saldo_favor;
                         $data['NumeroDocumento'] = $documento['NumeroDocumento'];
                         $data['TipoDocumento'] = $documento['TipoDocumento'];
                         $data['FechaFacturacion'] = $FechaFacturacion;
@@ -2114,9 +2116,94 @@
             }
 
             $datos = array(
-                'datos'           => $ToReturn,
-                'totalDocumentos' => count($ToReturn),
-                'totalDeuda'      => $totalDeuda
+                'datos'                 => $ToReturn,
+                'totalDocumentos'       => count($ToReturn),
+                'totalDeuda'            => $totalDeuda,
+                'totalSaldoFavor'       => $totalsaldoFavor
+            );
+            echo json_encode($datos);
+        }
+
+        public function getDocsVencidos($Rut){
+
+            $ToReturn = array();
+            $data = array();
+            $fecha_actual = date("Y-m-d");
+
+            $query = "  SELECT
+            personaempresa.nombre as Cliente,
+            facturas.Id,
+            facturas.NumeroDocumento,
+            facturas.FechaFacturacion,
+            facturas.FechaVencimiento,
+            facturas.UrlPdfBsale,
+            facturas.Grupo,
+            facturas.TipoFactura,
+            mantenedor_tipo_cliente.nombre AS TipoDocumento,
+            facturas.IVA,
+            facturas.EstatusFacturacion,
+            IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS Pagado 
+        FROM
+            facturas
+            INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
+            INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
+            WHERE
+                facturas.Rut = $Rut AND facturas.EstatusFacturacion = '1'  AND FechaVencimiento < '".$fecha_actual."' ";
+
+            $run = new Method;
+            $documentos = $run->select($query);
+            $saldo_doc = 0;
+            $totalDeuda = 0;
+            $totalsaldoFavor = 0;
+            $saldo_favor = 0;
+            // echo '<pre>'; print_r($documentos); echo '</pre>'; return;
+            if (count($documentos) > 0) {
+                foreach($documentos as $documento){   
+                    $Id = $documento['Id'];    
+                    $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$documento['FechaFacturacion'])->format('d-m-Y');
+                    $fechaVencimiento = \DateTime::createFromFormat('Y-m-d',$documento['FechaVencimiento'])->format('d-m-Y');
+                    $TotalFactura = 0;
+                    $query = "SELECT Total, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
+                    $detalles = $run->select($query);
+                    foreach($detalles as $detalle){
+                        $Total = $detalle['Total'];
+                        $Descuento = floatval($detalle['Descuento']) / 100;
+                        $Descuento = 0;
+                        $Descuento = $Total * $Descuento;
+                        $Total -= $Descuento;
+                        // $TotalFactura += round($Total,0);
+                        $TotalFactura += $Total;
+                    }
+                    $TotalFactura = round($TotalFactura,0);
+                    $saldo_doc = $TotalFactura - $documento['Pagado'];
+                    $saldo_favor = $documento['Pagado'] - $TotalFactura;
+                    if($saldo_doc < 0){
+                        $saldo_doc = 0;
+                    }
+                    if($saldo_favor < 0){
+                        $saldo_favor = 0;
+                    }
+                    //si es mayor es porque aún no pago todo
+                    if($saldo_doc > 0) {
+                        $totalDeuda += $saldo_doc;
+                        $totalsaldoFavor += $saldo_favor;
+                        $data['NumeroDocumento'] = $documento['NumeroDocumento'];
+                        $data['TipoDocumento'] = $documento['TipoDocumento'];
+                        $data['FechaFacturacion'] = $FechaFacturacion;
+                        $data['FechaVencimiento'] = $fechaVencimiento;
+                        $data['totalDoc'] = $TotalFactura;
+                        $data['saldo_doc'] = $saldo_doc;
+                        $data['pagos'] = $documento['Pagado'];
+                        $data['id_factura'] = $Id;
+                        array_push($ToReturn, $data ); 
+                    }
+                }   
+            }
+
+            $datos = array(
+                'datos'                 => $ToReturn,
+                'totalDocumentos'       => count($ToReturn),
+                'totalDeuda'            => $totalDeuda
             );
             echo json_encode($datos);
         }
