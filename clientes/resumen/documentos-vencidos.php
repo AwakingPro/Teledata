@@ -4,7 +4,8 @@
             <div class="row">
                 <div class="col-xs-5">
                     <h1 class="marginNull numberMiniPanel" style="color: #2ab4c0; margin-left: 5px;">
-                    <span class=""><?php echo $documentos_vencidos ?></span>
+                    <span class="getDocsVencidos" id="getDocsVencidos" >
+                    </span>
                     </h1>
                  </div>
                 <div class="col-xs-7">
