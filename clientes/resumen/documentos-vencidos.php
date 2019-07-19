@@ -14,7 +14,7 @@
                         Abonar Documentos
                     </h4>
                 </div>
-                <div class="col-md-12"><h2 class="marginNull textMiniPanel">Documentos Vencidos <i class="fa fa-eye verDocVencidos" title="Ver Documentos Vencidos"></i></h2></div>
+                <div class="col-md-12"><h2 class="marginNull textMiniPanel">Documento(s) Vencido(s) <i class="fa fa-eye verDocVencidos" title="Ver Documentos Vencidos"></i></h2></div>
                 <?php include 'ModalDocVencidos.php'; ?>
                 <div class="col-md-12" style="margin-top: 27px;">
                     <div class="progress">
@@ -26,7 +26,11 @@
                 <div class="col-md-6 ">
                     <h3 class="textMiniPanel">Monto Adeudado</h3>
                 </div>
-                <div class="col-md-6"><h2 class="montos">$<?php echo $monto_deuda; ?></h2></div>
+                <div class="col-md-6">
+                    <h2 class="montoAdeudado">
+                        
+                    </h2>
+                </div>
             </div>
         </div>
     </div>
