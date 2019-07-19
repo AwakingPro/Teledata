@@ -2086,8 +2086,7 @@
                         $Descuento = 0;
                         $Descuento = $Total * $Descuento;
                         $Total -= $Descuento;
-                        // $TotalFactura += round($Total,0);
-                        $TotalFactura += $Total;
+                        $TotalFactura += round($Total,0);
                     }
                     $TotalFactura = round($TotalFactura,0);
                     $saldo_doc = $TotalFactura - $documento['Pagado'];
@@ -2098,20 +2097,18 @@
                     if($saldo_favor < 0){
                         $saldo_favor = 0;
                     }
-                    //si es mayor es porque aún no pago todo
-                    if($saldo_doc > 0) {
-                        $totalDeuda += $saldo_doc;
-                        $totalsaldoFavor += $saldo_favor;
-                        $data['NumeroDocumento'] = $documento['NumeroDocumento'];
-                        $data['TipoDocumento'] = $documento['TipoDocumento'];
-                        $data['FechaFacturacion'] = $FechaFacturacion;
-                        $data['FechaVencimiento'] = $fechaVencimiento;
-                        $data['totalDoc'] = $TotalFactura;
-                        $data['saldo_doc'] = $saldo_doc;
-                        $data['pagos'] = $documento['Pagado'];
-                        $data['id_factura'] = $Id;
-                        array_push($ToReturn, $data ); 
-                    }
+                    $totalDeuda += $saldo_doc;
+                    $totalsaldoFavor += $saldo_favor;
+                    $data['NumeroDocumento'] = $documento['NumeroDocumento'];
+                    $data['TipoDocumento'] = $documento['TipoDocumento'];
+                    $data['FechaFacturacion'] = $FechaFacturacion;
+                    $data['FechaVencimiento'] = $fechaVencimiento;
+                    $data['totalDoc'] = $TotalFactura;
+                    $data['saldo_doc'] = $saldo_doc;
+                    $data['pagos'] = $documento['Pagado'];
+                    $data['id_factura'] = $Id;
+                    array_push($ToReturn, $data ); 
+                    
                 }   
             }
 
