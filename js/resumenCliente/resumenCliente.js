@@ -21,6 +21,11 @@ $(document).ready(function() {
     function getDocsVencidos() { 
         $.post('../includes/facturacion/facturas/getDocsVencidos.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
             $('.getDocsVencidos').text(data['totalDocumentos']);
+            if(data['totalDeuda'] > 0){
+                $('.montoAdeudado').css('color','red').text();
+            }else{
+                $('.montoAdeudado').css('color','#2ab4c0').text();
+            }
             $('.montoAdeudado').text(formatcurrency(data['totalDeuda']));
         });
     }
