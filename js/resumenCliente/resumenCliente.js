@@ -4,15 +4,25 @@ $(document).ready(function() {
     // $('#TableDocEmitidos').DataTable();
     // $('#TableDocPagados').DataTable();
 
+    getDocsVencidos();
     getDocEmitidos();
     getDocPagados();
     getServicios();
 
+    //obtiene total de documentos vencidos de un cliente por rut
+    function getDocsVencidos() { 
+        $.post('../includes/facturacion/facturas/getDocsVencidos.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
+            $('.getDocsVencidos').text(data['totalDocumentos']);
+        });
+    }
+    
     $(document).on('click', '.verDocVencidos', function() {
         
         $('#ModalDocVencidos').modal('show');
         
-        $.post('../includes/facturacion/facturas/filtrarDocVencidos.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
+        $.post('../includes/facturacion/facturas/getDocsVencidos.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
+            data = data['datos'];
+            console.log(data);
             TableDocVencidos = $('#TableDocVencidos').DataTable({
                 order: [
                     [0, 'desc']
@@ -27,8 +37,8 @@ $(document).ready(function() {
                     { data: 'TipoDocumento' },
                     { data: 'FechaFacturacion' },
                     { data: 'FechaVencimiento' },
-                    { data: 'deuda' },
-                    { data: 'deuda_restante' }
+                    { data: 'totalDoc' },
+                    { data: 'saldo_doc' }
                 ],
                 destroy: true,
                 'createdRow': function(row, data, dataIndex) {
@@ -200,6 +210,7 @@ $(document).ready(function() {
     function getDocEmitidos() { 
        
         $.post('../includes/facturacion/facturas/filtrarDocEmitidos.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
+            console.log('Docs emitidos '+data)
             TableDocEmitidos = $('#TableDocEmitidos').DataTable({
                 order: [
                     [0, 'desc']
@@ -276,7 +287,6 @@ $(document).ready(function() {
     }
 
     function getDocPagados() {
-        console.log($('input[name="rutCliente"]').val());
         $.post('../includes/facturacion/facturas/filtrarDocPagados.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
             TableDocPagados = $('#TableDocPagados').DataTable({
                 order: [
