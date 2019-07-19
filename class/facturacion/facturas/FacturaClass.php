@@ -2068,6 +2068,7 @@
             $run = new Method;
             $documentos = $run->select($query);
             $saldo_doc = 0;
+            $totalDeuda = 0;
             $saldo_favor = 0;
             // echo '<pre>'; print_r($documentos); echo '</pre>'; return;
             if (count($documentos) > 0) {
@@ -2098,7 +2099,7 @@
                     }
                     //si es mayor es porque aún no pago todo
                     if($saldo_doc > 0) {
-                        
+                        $totalDeuda += $saldo_doc;
                         $data['NumeroDocumento'] = $documento['NumeroDocumento'];
                         $data['TipoDocumento'] = $documento['TipoDocumento'];
                         $data['FechaFacturacion'] = $FechaFacturacion;
@@ -2113,8 +2114,9 @@
             }
 
             $datos = array(
-                'datos' => $ToReturn,
-                'totalDocumentos' => count($ToReturn)
+                'datos'           => $ToReturn,
+                'totalDocumentos' => count($ToReturn),
+                'totalDeuda'      => $totalDeuda
             );
             echo json_encode($datos);
         }

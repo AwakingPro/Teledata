@@ -13,9 +13,10 @@ $(document).ready(function() {
     function getDocsVencidos() { 
         $.post('../includes/facturacion/facturas/getDocsVencidos.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
             $('.getDocsVencidos').text(data['totalDocumentos']);
+            $('.montoAdeudado').text(formatcurrency(data['totalDeuda']));
         });
     }
-    
+
     $(document).on('click', '.verDocVencidos', function() {
         
         $('#ModalDocVencidos').modal('show');
@@ -345,7 +346,7 @@ $(document).ready(function() {
         });
     }
 
-    $('.montos').text(formatcurrency($('.montos').text()))
+    $('.montoAdeudado').text(formatcurrency($('.montoAdeudado').text()))
 
     function formatcurrency(n) {
         return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
