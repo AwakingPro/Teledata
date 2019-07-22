@@ -5,7 +5,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
-                            <table id="TableDocEmitidos" class="table table-striped table-bordered">
+                            <table id="FacturasTableCliente" class="table table-striped table-bordered FacturasTableAll">
                                 <thead>
                                     <tr>
                                         <th class="text-center">N* de Documento</th>

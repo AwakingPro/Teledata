@@ -6,7 +6,7 @@ $(document).ready(function() {
 
     getSaldoFavor();
     getDocsVencidos();
-    getDocEmitidos();
+    getFacturasCliente();
     getDocPagados();
     getServicios();
 
@@ -18,7 +18,7 @@ $(document).ready(function() {
     }
 
     //obtiene total de documentos vencidos de un cliente por rut
-    function getDocsVencidos() { 
+    function getDocsVencidos() {
         $.post('../includes/facturacion/facturas/getDocsVencidos.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
             $('.getDocsVencidos').text(data['totalDocumentos']);
             if(data['totalDeuda'] > 0){
@@ -26,7 +26,7 @@ $(document).ready(function() {
             }else{
                 $('.montoAdeudado').css('color','#2ab4c0').text();
             }
-            $('.montoAdeudado').text(formatcurrency(data['totalDeuda']));
+            $('.montoAdeudado').text('$ '+formatcurrency(data['totalDeuda']));
         });
     }
 
@@ -221,13 +221,13 @@ $(document).ready(function() {
         });
     }
 
-    function getDocEmitidos() { 
-       
-        $.post('../includes/facturacion/facturas/filtrarDocEmitidos.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
-            console.log('Docs emitidos '+data)
-            TableDocEmitidos = $('#TableDocEmitidos').DataTable({
+    //listar por clientes - rut todos sus documentos, para la tabla de ultimos docs emitidos
+    function getFacturasCliente() {
+        
+        $.post('../includes/facturacion/facturas/filtrarFacturas.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
+            FacturasTableCliente = $('#FacturasTableCliente').DataTable({
                 order: [
-                    [0, 'desc']
+                    [2, 'asc']
                 ],
                 "columnDefs": [{
                     "targets": [0],
@@ -239,39 +239,50 @@ $(document).ready(function() {
                     { data: 'TipoDocumento' },
                     { data: 'FechaFacturacion' },
                     { data: 'FechaVencimiento' },
-                    { data: 'totalDoc' },
-                    { data: 'saldo_doc' },
-                    { data: 'pagos'}
+                    { data: 'TotalFactura' },
+                    { data: 'TotalSaldo' },
+                    { data: 'SaldoFavor'}
                 ],
                 destroy: true,
                 'createdRow': function(row, data, dataIndex) {
                     $(row)
-                        .attr('id', data.id_factura)
+                        .attr('id', data.Id)
+                        .attr('TotalSaldo', data.TotalSaldo)
+                        .attr('DocumentoId', data.DocumentoId)
+                        .attr('UrlPdfBsale', data.UrlPdfBsale)
+                        .attr('NumeroDocumento', data.NumeroDocumento)
                         .addClass('text-center')
                 },
-                "columnDefs": [{
-                    "targets": 4,
-                    "render": function(data, type, row) {
-                        value = formatcurrency(data)
-                        return "<div style='text-align: center'>" + value + "</div>";
-                    }
-                }, 
-                {
-                    "targets": 5,
-                    "render": function(data, type, row) {
-                        value = formatcurrency(data)
-                        return "<div style='text-align: center'>" + value + "</div>";
-                    }
-                    
-                },
-                {
-                    "targets": 6,
-                    "render": function(data, type, row) {
-                        value = formatcurrency(data)
-                        return "<div style='text-align: center'>" + value + "</div>";
-                    }
-                    
-                }],
+                "columnDefs": [
+                    {
+                        "targets": 4,
+                        "render": function(data, type, row) {
+                            value = formatcurrency(data)
+                            return "<div style='text-align: center'>" + value + "</div>";
+                        }
+                    },
+                    {
+                        "targets": 5,
+                        "render": function(data, type, row) {
+                            value = formatcurrency(data)
+                            if (row.TipoDocumento == 'Nota de crédito') {
+                                Div = "<div style='text-align: center;color:red'>-"
+                            } else if (row.TipoDocumento == 'Nota de debito') {
+                                Div = "<div style='text-align: center;color:blue'>+"
+                            } else {
+                                Div = "<div style='text-align: center'>";
+                            }
+                            return Div + value + "</div>";
+                        }
+                    },
+                    {
+                        "targets": 6,
+                        "render": function(data, type, row) {
+                            value = formatcurrency(data)
+                            return "<div style='text-align: center'>" + value + "</div>";
+                        }
+                    },
+                ],
                 language: {
                     processing: "Procesando ...",
                     search: 'Buscar',
