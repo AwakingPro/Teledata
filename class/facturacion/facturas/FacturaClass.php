@@ -360,7 +360,6 @@
             // el 1000 es sin grupo y el 1001 es sin grupo con OC Porque ellos querian que hubieran facturas que no se agruparan
             // Y la unica manera que consegui para hacerlo fue asignarles un grupo asi
             $facturas = $run->select($query);
-
             if($facturas){
 
                 foreach($facturas as $factura){
@@ -466,7 +465,7 @@
                     array_push($ToReturn,$data);
                 }
             }
-
+            
             $response_array['array'] = $ToReturn;
             echo json_encode($response_array);
         }
@@ -2409,6 +2408,7 @@
             if($NumeroDocumento){
                 $query .= " AND facturas.NumeroDocumento = '".$NumeroDocumento."'";
             }
+            $query .= " ORDER BY MONTH(facturas.FechaFacturacion) ";
             $facturas = $run->select($query);
             if($facturas){
                 include("FacturasDetalleClass.php");
