@@ -1,14 +1,17 @@
 <div class="col-md-4">
     <div class="panel">
-        <div class="panel-bg-cover">
+        <!-- <div class="panel-bg-cover">
             <img class="img-responsive" src="../img/thumbs/img1.jpg" alt="Image">
-            
-        </div>
-        <div class="panel-media imgUser">
-            <img class="panel-media-img img-circle img-border-light" src="../img/av1.png" alt="Profile Picture">
-            
-        </div>
+        </div> -->
+
+        
+       
+
         <div class="panel-body panel-body-cliente">
+        <div class="panel-media imgUser">
+            <img class="panel-media-img img-circle img-border-light" src="../img/av1.png" alt="Imagen de perfil">
+        </div>
+        <br><br>
             <!-- <h3 class="nameUser">Teledata ERP</h3> -->
             <div class="col-md-12">
                 <label class="label-cliente">Nombre Contacto</label>
