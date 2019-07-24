@@ -16,11 +16,11 @@
                 <?php
                     $estado = $lista[0][6];
                     if($estado == 0){
-                        $estado = 'Cliente Activo';
+                        $estado = 'Activo';
                         $colorEstado = '#91c957';
                     }
                     else{
-                        $estado = 'Cliente Inactivo';
+                        $estado = 'Inactivo';
                         $colorEstado = 'red';
                     }
                 ?>
