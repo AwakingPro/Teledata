@@ -2642,7 +2642,6 @@
                         }
                     }
                 }
-            
             }
             // echo "</pre>"; print_r($ToReturn); "<pre>";
             echo json_encode($ToReturn);
