@@ -19,7 +19,7 @@
                                                         <th class="text-center">Código de Servicio</th>
                                                         <th class="text-center">Conexión</th>
                                                         <th class="text-center">Valor</th>
-                                                        <th class="text-center">Grupo</th>
+                                                        <th class="text-center">Fecha instalación</th>
                                                         <th class="text-center">Tipo de Servicio</th>
                                                         <!-- <th class="text-center">Acciones</th> -->
                                                     </tr>

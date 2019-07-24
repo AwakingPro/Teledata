@@ -119,7 +119,7 @@ $(document).ready(function() {
                     { data: 'Codigo' },
                     { data: 'Conexion' },
                     { data: 'Valor' },
-                    { data: 'Grupo' },
+                    { data: 'FechaInstalacion' },
                     { data: 'Tipo' },
                     // { data: 'Acciones' }
                 ],
@@ -174,7 +174,7 @@ $(document).ready(function() {
                     { data: 'Codigo' },
                     { data: 'Conexion' },
                     { data: 'Valor' },
-                    { data: 'Grupo' },
+                    { data: 'FechaInstalacion' },
                     { data: 'Tipo' },
                     // { data: 'Acciones' }
                 ],

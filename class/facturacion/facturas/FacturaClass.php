@@ -1844,10 +1844,7 @@
         public function getServiciosInactivos($Rut) {
             $run = new Method;
             $data = array();
-            $data2 = array();
             $total_data = array();
-            $activos = 0;
-            $vencidos = 0;
             $servicio['Tipo'] = 'Sin data';
             $data['error'] = '';
             if(isset($Rut) && $Rut != '') {
@@ -1856,6 +1853,7 @@
                 Grupo,
                 Valor,
                 Codigo,
+                FechaInstalacion,
                 EstatusServicio,
                 Conexion,
                 mantenedor_servicios.servicio as Tipo
@@ -1869,6 +1867,7 @@
                 if($total_servicios > 0) {
                     foreach($servicios as $servicio) {
                         $data['Codigo'] = $servicio['Codigo'];
+                        $data['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d',$servicio['FechaInstalacion'])->format('d-m-Y');
                         $data['Conexion'] = $servicio['Conexion'];
                         $data['Valor'] = $servicio['Valor'];
                         $data['Grupo'] = $servicio['Grupo'];
@@ -1892,10 +1891,7 @@
          public function getServiciosActivos($Rut) {
             $run = new Method;
             $data = array();
-            $data2 = array();
             $total_data = array();
-            $activos = 0;
-            $vencidos = 0;
             $servicio['Tipo'] = 'Sin data';
             $data['error'] = '';
             if(isset($Rut) && $Rut != '') {
@@ -1904,6 +1900,7 @@
                 Grupo,
                 Valor,
                 Codigo,
+                FechaInstalacion,
                 EstatusServicio,
                 Conexion,
                 mantenedor_servicios.servicio as Tipo
@@ -1917,6 +1914,7 @@
                 if($total_servicios > 0) {
                     foreach($servicios as $servicio) {
                         $data['Codigo'] = $servicio['Codigo'];
+                        $data['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d',$servicio['FechaInstalacion'])->format('d-m-Y');
                         $data['Conexion'] = $servicio['Conexion'];
                         $data['Valor'] = $servicio['Valor'];
                         $data['Grupo'] = $servicio['Grupo'];
