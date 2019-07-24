@@ -2406,7 +2406,7 @@
                 $query .= " AND facturas.TipoDocumento = '".$documentType."'";
             }
             if($NumeroDocumento){
-                $query .= " AND facturas.NumeroDocumento = '".$NumeroDocumento."'";
+                $query .= " AND facturas.NumeroDocumento = '".$NumeroDocumento."' ";
             }
             $query .= " ORDER BY facturas.FechaFacturacion DESC, MONTH(facturas.FechaFacturacion) DESC";
             $facturas = $run->select($query);
@@ -2496,15 +2496,45 @@
                     $data['EstatusFacturacion'] = 1;
                     $data['SaldoConNotaCredito'] = $SaldoConNotaCredito;
                     array_push($ToReturn,$data);
-                    if($EstatusFacturacion == 2){
-                        $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount, priceAdjustment FROM devoluciones WHERE FacturaId = '".$Id."'";
+                    if($EstatusFacturacion == 2 || $NumeroDocumento ){
+                        $query = "SELECT Id, FacturaId, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount, priceAdjustment FROM devoluciones WHERE FacturaId = '".$Id."'  ";
                         if($startDate){
                             $query .= " AND FechaDevolucion BETWEEN '".$startDate."' AND '".$endDate."'";
+                        }
+                        if($NumeroDocumento){
+                            $query .= "OR NumeroDocumento = '".$NumeroDocumento."' ";
                         }
                         $devoluciones = $run->select($query);
                         if($devoluciones){
                             $devolucion = $devoluciones[0];
                             $DevolucionAnulada = $devolucion['DevolucionAnulada'];
+                            $DevolucionFacturaId = $devolucion['FacturaId'];
+                            if($NumeroDocumento){
+                                $query = "  SELECT
+                                personaempresa.nombre as Cliente,
+                                facturas.Id,
+                                facturas.NumeroDocumento,
+                                facturas.FechaFacturacion,
+                                facturas.FechaVencimiento,
+                                facturas.UrlPdfBsale,
+                                facturas.Grupo,
+                                facturas.TipoFactura,
+                                mantenedor_tipo_cliente.nombre AS TipoDocumento,
+                                facturas.IVA,
+                                facturas.EstatusFacturacion,
+                                IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalSaldo 
+                            FROM
+                                facturas
+                                INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
+                                INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
+                            WHERE
+                                facturas.Id = '".$DevolucionFacturaId."' ";
+                            $query .= " ORDER BY facturas.FechaFacturacion DESC, MONTH(facturas.FechaFacturacion) DESC";
+                            $facturas = $run->select($query);
+                            if($facturas){
+                                $factura = $facturas[0];
+                            }
+                            }
                             if($DevolucionAnulada == 0 || $devolucion['priceAdjustment'] == 1){
                                 $Acciones = 1;
                             }else{
