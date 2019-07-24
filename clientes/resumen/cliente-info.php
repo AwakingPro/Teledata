@@ -10,9 +10,9 @@
         </div>
         <div class="panel-body panel-body-cliente">
             <!-- <h3 class="nameUser">Teledata ERP</h3> -->
-            <div class="col-md-6">
+            <div class="col-md-12">
                 <label class="label-cliente">Nombre Contacto</label>
-                <h5 class="info-cliente"><?php echo $lista[0][2]; ?></h5>
+                <h3 class="info-cliente"><?php echo $lista[0][2]; ?></h3>
                 <label class="label-cliente">Mail Contacto</label>
                 <h5 class="info-cliente"><?php echo $lista[0][3]; ?></h5>
             </div>
