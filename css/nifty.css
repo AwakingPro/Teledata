@@ -6168,7 +6168,8 @@ a.text-dark:focus {
   width: 96px;
   height: 96px;
   left: 20px;
-  top: -48px;
+  top: -38px;
+  /* top: -48px; */
 }
 .panel-media-heading {
   color: #fff;
