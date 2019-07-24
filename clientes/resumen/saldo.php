@@ -7,12 +7,12 @@
                     <span class="saldoFavor"></span>
                     </h1>
                  </div>
-                <div class="col-xs-7">
+                <!-- <div class="col-xs-7">
                     <h4 class="marginNull" style="    color: #cbd4e0;">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                         Abonar Documentos
                     </h4>
-                </div>
+                </div> -->
                 <div class="col-md-12"><h2 class="marginNull textMiniPanel">Saldo a Favor <i class="fa fa-eye"></i></h2></div>
                 <div class="col-md-12" style="margin-top: 27px;">
                     <div class="progress">

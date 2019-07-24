@@ -8,12 +8,12 @@
                     </span>
                     </h1>
                  </div>
-                <div class="col-xs-7">
+                <!-- <div class="col-xs-7">
                     <h4 class="marginNull" style="    color: #cbd4e0;">
                         <i class="fa fa-pencil" aria-hidden="true"></i>
                         Abonar Documentos
                     </h4>
-                </div>
+                </div> -->
                 <div class="col-md-12"><h2 class="marginNull textMiniPanel">Documento(s) Vencido(s) <i class="fa fa-eye verDocVencidos" title="Ver Documentos Vencidos"></i></h2></div>
                 <?php include 'ModalDocVencidos.php'; ?>
                 <div class="col-md-12" style="margin-top: 27px;">
