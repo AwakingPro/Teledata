@@ -3,10 +3,6 @@
         <!-- <div class="panel-bg-cover">
             <img class="img-responsive" src="../img/thumbs/img1.jpg" alt="Image">
         </div> -->
-
-        
-       
-
         <div class="panel-body panel-body-cliente">
         <div class="panel-media imgUser">
             <img class="panel-media-img img-circle img-border-light" src="../img/av1.png" alt="Imagen de perfil">
