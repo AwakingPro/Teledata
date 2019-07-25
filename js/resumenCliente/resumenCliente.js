@@ -13,7 +13,7 @@ $(document).ready(function() {
     //obtiene total de saldo a favor de un cliente por rut
     function getSaldoFavor() { 
         $.post('../includes/facturacion/facturas/getSaldoFavor.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
-            $('.saldoFavor').text(formatcurrency(data['totalSaldoFavor']))
+            $('.saldoFavor').text('$ ' + formatcurrency(data['totalSaldoFavor']))
         });
     }
 

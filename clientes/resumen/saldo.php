@@ -15,7 +15,7 @@
                 </div> -->
                 <div class="col-md-12">
                     <h2 class="marginNull textMiniPanel">
-                        $<span class="saldoFavor"></span>
+                        <span style="color:green;" class="saldoFavor"></span>
                         Saldo a Favor
                         <!-- <i class="fa fa-eye"></i> -->
                     </h2>
