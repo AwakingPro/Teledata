@@ -31,30 +31,27 @@ $id_cliente = $_GET['cliente'];
 						<!-- <h1>Bienvenidos a ERP Teledata</h1> -->
 					</div>
 					<div id="page-content">
+
 						<div class="row">
 							<?php
 								include 'resumen/cliente-info.php';
+								include 'resumen/documentos-extras.php';
 							?>
-							<div class="col-md-4">
+							<div class="col-md-3">
 								<?php 
 									include 'resumen/documentos-vencidos.php';
 									include 'resumen/servicios.php';
-								?>
-							</div>
-							<div class="col-md-4">
-
-								<?php
 									include 'resumen/saldo.php';
-									// include 'resumen/cliente-estado.php';	
+									// include 'resumen/cliente-estado.php'
 								?>
 							</div>
+							
 						</div>
 						<div class="row">
 							<?php
 								include 'resumen/documentos-emitidos.php';
 								include 'resumen/documentos-pagados.php';
 							?>
-							
 						</div>
 					</div>
 				</div>
