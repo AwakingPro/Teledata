@@ -10,7 +10,7 @@
 		$Rut = '';
     }
 
-    $ToReturn = $Servicios->getServiciosInactivos($Rut);
+    $ToReturn = $Servicios->getServiciosCorteComercial($Rut);
     echo $ToReturn;
 	
 ?>

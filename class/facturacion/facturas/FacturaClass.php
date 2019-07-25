@@ -1840,8 +1840,8 @@
             return $array; 
         }
 
-        //obtiene servicios inactivos
-        public function getServiciosInactivos($Rut) {
+        //obtiene servicios con fin de contrato
+        public function getServiciosFinContrato($Rut) {
             $run = new Method;
             $data = array();
             $total_data = array();
@@ -1859,7 +1859,7 @@
                 mantenedor_servicios.servicio as Tipo
                 FROM servicios
                 INNER JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
-                WHERE Rut = $Rut AND EstatusServicio != 1";
+                WHERE Rut = $Rut AND EstatusServicio = 0 ";
 
                 $servicios = $run->select($query_servicios);
                 $total_servicios =  count($servicios);
@@ -1886,6 +1886,189 @@
             return json_encode($total_data);
         }
 
+        //obtiene servicios temporales
+        public function getServiciosTemporales($Rut) {
+            $run = new Method;
+            $data = array();
+            $total_data = array();
+            $servicio['Tipo'] = 'Sin data';
+            $data['error'] = '';
+            if(isset($Rut) && $Rut != '') {
+                $query_servicios = "SELECT
+                Id,
+                Grupo,
+                Valor,
+                Codigo,
+                FechaInstalacion,
+                EstatusServicio,
+                Conexion,
+                mantenedor_servicios.servicio as Tipo
+                FROM servicios
+                INNER JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
+                WHERE Rut = $Rut AND EstatusServicio = 5 ";
+
+                $servicios = $run->select($query_servicios);
+                $total_servicios =  count($servicios);
+
+                if($total_servicios > 0) {
+                    foreach($servicios as $servicio) {
+                        $data['Codigo'] = $servicio['Codigo'];
+                        $data['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d',$servicio['FechaInstalacion'])->format('d-m-Y');
+                        $data['Conexion'] = $servicio['Conexion'];
+                        $data['Valor'] = $servicio['Valor'];
+                        $data['Grupo'] = $servicio['Grupo'];
+                        $data['Id'] = $servicio['Id'];
+                        $data['Estatus'] = $servicio['EstatusServicio'];
+                        $data['Tipo'] = $servicio['Tipo'];
+                        array_push($total_data, $data);
+                    }
+                }
+            } 
+            else 
+            {
+                $data['error'] = 'No Existe el Rut para hacer la busqueda';
+                array_push($total_data, $data);
+            }
+            return json_encode($total_data);
+        }
+
+        //obtiene servicios por cambio razon social
+        public function getServiciosCambioRazonSocial($Rut) {
+            $run = new Method;
+            $data = array();
+            $total_data = array();
+            $servicio['Tipo'] = 'Sin data';
+            $data['error'] = '';
+            if(isset($Rut) && $Rut != '') {
+                $query_servicios = "SELECT
+                Id,
+                Grupo,
+                Valor,
+                Codigo,
+                FechaInstalacion,
+                EstatusServicio,
+                Conexion,
+                mantenedor_servicios.servicio as Tipo
+                FROM servicios
+                INNER JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
+                WHERE Rut = $Rut AND EstatusServicio = 4 ";
+
+                $servicios = $run->select($query_servicios);
+                $total_servicios =  count($servicios);
+
+                if($total_servicios > 0) {
+                    foreach($servicios as $servicio) {
+                        $data['Codigo'] = $servicio['Codigo'];
+                        $data['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d',$servicio['FechaInstalacion'])->format('d-m-Y');
+                        $data['Conexion'] = $servicio['Conexion'];
+                        $data['Valor'] = $servicio['Valor'];
+                        $data['Grupo'] = $servicio['Grupo'];
+                        $data['Id'] = $servicio['Id'];
+                        $data['Estatus'] = $servicio['EstatusServicio'];
+                        $data['Tipo'] = $servicio['Tipo'];
+                        array_push($total_data, $data);
+                    }
+                }
+            } 
+            else 
+            {
+                $data['error'] = 'No Existe el Rut para hacer la busqueda';
+                array_push($total_data, $data);
+            }
+            return json_encode($total_data);
+        }
+
+        //obtiene servicios por corte comercial
+        public function getServiciosCorteComercial($Rut) {
+            $run = new Method;
+            $data = array();
+            $total_data = array();
+            $servicio['Tipo'] = 'Sin data';
+            $data['error'] = '';
+            if(isset($Rut) && $Rut != '') {
+                $query_servicios = "SELECT
+                Id,
+                Grupo,
+                Valor,
+                Codigo,
+                FechaInstalacion,
+                EstatusServicio,
+                Conexion,
+                mantenedor_servicios.servicio as Tipo
+                FROM servicios
+                INNER JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
+                WHERE Rut = $Rut AND EstatusServicio = 3 ";
+
+                $servicios = $run->select($query_servicios);
+                $total_servicios =  count($servicios);
+
+                if($total_servicios > 0) {
+                    foreach($servicios as $servicio) {
+                        $data['Codigo'] = $servicio['Codigo'];
+                        $data['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d',$servicio['FechaInstalacion'])->format('d-m-Y');
+                        $data['Conexion'] = $servicio['Conexion'];
+                        $data['Valor'] = $servicio['Valor'];
+                        $data['Grupo'] = $servicio['Grupo'];
+                        $data['Id'] = $servicio['Id'];
+                        $data['Estatus'] = $servicio['EstatusServicio'];
+                        $data['Tipo'] = $servicio['Tipo'];
+                        array_push($total_data, $data);
+                    }
+                }
+            } 
+            else 
+            {
+                $data['error'] = 'No Existe el Rut para hacer la busqueda';
+                array_push($total_data, $data);
+            }
+            return json_encode($total_data);
+        }
+
+        //obtiene servicios suspendidos
+        public function getServiciosSupendidos($Rut) {
+            $run = new Method;
+            $data = array();
+            $total_data = array();
+            $servicio['Tipo'] = 'Sin data';
+            $data['error'] = '';
+            if(isset($Rut) && $Rut != '') {
+                $query_servicios = "SELECT
+                Id,
+                Grupo,
+                Valor,
+                Codigo,
+                FechaInstalacion,
+                EstatusServicio,
+                Conexion,
+                mantenedor_servicios.servicio as Tipo
+                FROM servicios
+                INNER JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
+                WHERE Rut = $Rut AND EstatusServicio = 2 ";
+
+                $servicios = $run->select($query_servicios);
+                $total_servicios =  count($servicios);
+
+                if($total_servicios > 0) {
+                    foreach($servicios as $servicio) {
+                        $data['Codigo'] = $servicio['Codigo'];
+                        $data['FechaInstalacion'] = \DateTime::createFromFormat('Y-m-d',$servicio['FechaInstalacion'])->format('d-m-Y');
+                        $data['Conexion'] = $servicio['Conexion'];
+                        $data['Valor'] = $servicio['Valor'];
+                        $data['Grupo'] = $servicio['Grupo'];
+                        $data['Id'] = $servicio['Id'];
+                        $data['Estatus'] = $servicio['EstatusServicio'];
+                        $data['Tipo'] = $servicio['Tipo'];
+                        array_push($total_data, $data);
+                    }
+                }
+            } 
+            else 
+            {
+                $data['error'] = 'No Existe el Rut para hacer la busqueda';
+                array_push($total_data, $data);
+            }
+            return json_encode($total_data);
+        }
 
          //obtiene servicio activos
          public function getServiciosActivos($Rut) {
@@ -1933,28 +2116,43 @@
             return json_encode($total_data);
         }
 
-        //obtiene total servicio activos y inactivos
+        //obtiene total servicios con EstatusServicio = 1 activo, 2 suspendido, 3 Corte comercial, 4 Cambio razón social, 5 Servicio temporal, 0 para fin contrato cliente
         public function getServicios($Rut) {
             $run = new Method;
             $data = array();
             $total_data = array();
             $activos = 0;
-            $vencidos = 0;
+            $suspendido = 0;
+            $corteComercial = 0;
+            $cambioRazonSocial = 0;
+            $servicioTemporal = 0;
+            $finContrato = 0;
             if(isset($Rut) && $Rut != '') {
                 $query_servicios = "SELECT
-                EstatusServicio
-                FROM servicios
-                WHERE Rut = $Rut ";
-
+                EstatusServicio FROM servicios WHERE Rut = $Rut ";
                 $servicios = $run->select($query_servicios);
                 $total_servicios =  count($servicios);
-
                 if($total_servicios > 0) {
                     foreach($servicios as $servicio) {
-                        if($servicio['EstatusServicio'] == 1) {
-                            $activos+= 1;
-                        } else {
-                            $vencidos+=1;
+                        switch ($servicio['EstatusServicio']) {
+                            case 1:
+                                $activos+= 1;
+                                break;
+                            case 2:
+                                $suspendido+= 1;
+                                break;
+                            case 3:
+                                $corteComercial+= 1;
+                                break;
+                            case 4:
+                                $cambioRazonSocial+= 1;
+                                break;
+                            case 5:
+                                $servicioTemporal+= 1;
+                                break;
+                            case 0:
+                                $finContrato+= 1;
+                                break;
                         }
                     }
                     $data['error'] = '';
@@ -1968,9 +2166,12 @@
 
             }
             $data['activos'] = $activos;
-            $data['vencidos'] = $vencidos;
+            $data['suspendido'] = $suspendido;
+            $data['corteComercial'] = $corteComercial;
+            $data['cambioRazonSocial'] = $cambioRazonSocial;
+            $data['servicioTemporal'] = $servicioTemporal;
+            $data['finContrato'] = $finContrato;
             array_push($total_data, $data);
-            
             return json_encode($total_data);
         }
 

@@ -102,12 +102,232 @@ $(document).ready(function() {
         });
     });
 
-    // ver servicios inactivos
-    $(document).on('click', '.eye-inactivos', function() {
-        $('#ModalverSercInactivos').modal('show');
+    $(document).on('click', '.eye-FinContrato', function() {
+        $('#ModalverSercFinContrato').modal('show');
         
-        $.post('../includes/facturacion/facturas/getServiciosInactivos.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
-            TableSerInactivos = $('#TableSerInactivos').DataTable({
+        $.post('../includes/facturacion/facturas/getServiciosFinContrato.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
+            TableSerFinContrato = $('#TableSerFinContrato').DataTable({
+                order: [
+                    [0, 'desc']
+                ],
+                "columnDefs": [{
+                    "targets": [0],
+                    "orderable": false
+                }],
+                data: data,
+                columns: [
+                    { data: 'Codigo' },
+                    { data: 'Conexion' },
+                    { data: 'Valor' },
+                    { data: 'FechaInstalacion' },
+                    { data: 'Tipo' },
+                    // { data: 'Acciones' }
+                ],
+                destroy: true,
+                'createdRow': function(row, data, dataIndex) {
+                    $(row)
+                        .attr('id', data.Id)
+                        .addClass('text-center')
+                },
+                language: {
+                    processing: "Procesando ...",
+                    search: 'Buscar',
+                    lengthMenu: "Mostrar _MENU_ Registros",
+                    info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                    infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                    infoFiltered: "(filtrada de _MAX_ registros en total)",
+                    infoPostFix: "",
+                    loadingRecords: "...",
+                    zeroRecords: "No se encontraron registros coincidentes",
+                    emptyTable: "No hay datos disponibles en la tabla",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                    }
+                }
+            });
+            $('[data-toggle="popover"]').popover();
+            $('table').css('width', '100%');
+        });
+    });
+
+    $(document).on('click', '.eye-Temporal', function() {
+        $('#ModalverSercTemporal').modal('show');
+        
+        $.post('../includes/facturacion/facturas/getServiciosTemporales.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
+            TableSerTemporal = $('#TableSerTemporal').DataTable({
+                order: [
+                    [0, 'desc']
+                ],
+                "columnDefs": [{
+                    "targets": [0],
+                    "orderable": false
+                }],
+                data: data,
+                columns: [
+                    { data: 'Codigo' },
+                    { data: 'Conexion' },
+                    { data: 'Valor' },
+                    { data: 'FechaInstalacion' },
+                    { data: 'Tipo' },
+                    // { data: 'Acciones' }
+                ],
+                destroy: true,
+                'createdRow': function(row, data, dataIndex) {
+                    $(row)
+                        .attr('id', data.Id)
+                        .addClass('text-center')
+                },
+                language: {
+                    processing: "Procesando ...",
+                    search: 'Buscar',
+                    lengthMenu: "Mostrar _MENU_ Registros",
+                    info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                    infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                    infoFiltered: "(filtrada de _MAX_ registros en total)",
+                    infoPostFix: "",
+                    loadingRecords: "...",
+                    zeroRecords: "No se encontraron registros coincidentes",
+                    emptyTable: "No hay datos disponibles en la tabla",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                    }
+                }
+            });
+            $('[data-toggle="popover"]').popover();
+            $('table').css('width', '100%');
+        });
+    });
+
+    $(document).on('click', '.eye-cambioRazonSocial', function() {
+        $('#ModalverSercCambioRazonSocial').modal('show');
+        
+        $.post('../includes/facturacion/facturas/getServiciosCambioRazonSocial.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
+            TableSerCambioRazonSocial = $('#TableSerCambioRazonSocial').DataTable({
+                order: [
+                    [0, 'desc']
+                ],
+                "columnDefs": [{
+                    "targets": [0],
+                    "orderable": false
+                }],
+                data: data,
+                columns: [
+                    { data: 'Codigo' },
+                    { data: 'Conexion' },
+                    { data: 'Valor' },
+                    { data: 'FechaInstalacion' },
+                    { data: 'Tipo' },
+                    // { data: 'Acciones' }
+                ],
+                destroy: true,
+                'createdRow': function(row, data, dataIndex) {
+                    $(row)
+                        .attr('id', data.Id)
+                        .addClass('text-center')
+                },
+                language: {
+                    processing: "Procesando ...",
+                    search: 'Buscar',
+                    lengthMenu: "Mostrar _MENU_ Registros",
+                    info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                    infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                    infoFiltered: "(filtrada de _MAX_ registros en total)",
+                    infoPostFix: "",
+                    loadingRecords: "...",
+                    zeroRecords: "No se encontraron registros coincidentes",
+                    emptyTable: "No hay datos disponibles en la tabla",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                    }
+                }
+            });
+            $('[data-toggle="popover"]').popover();
+            $('table').css('width', '100%');
+        });
+    });
+
+    $(document).on('click', '.eye-corteComercial', function() {
+        $('#ModalverSercCorteComercial').modal('show');
+        
+        $.post('../includes/facturacion/facturas/getServiciosCorteComercial.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
+            TableSerCorteComercial = $('#TableSerCorteComercial').DataTable({
+                order: [
+                    [0, 'desc']
+                ],
+                "columnDefs": [{
+                    "targets": [0],
+                    "orderable": false
+                }],
+                data: data,
+                columns: [
+                    { data: 'Codigo' },
+                    { data: 'Conexion' },
+                    { data: 'Valor' },
+                    { data: 'FechaInstalacion' },
+                    { data: 'Tipo' },
+                    // { data: 'Acciones' }
+                ],
+                destroy: true,
+                'createdRow': function(row, data, dataIndex) {
+                    $(row)
+                        .attr('id', data.Id)
+                        .addClass('text-center')
+                },
+                language: {
+                    processing: "Procesando ...",
+                    search: 'Buscar',
+                    lengthMenu: "Mostrar _MENU_ Registros",
+                    info: "Mostrando _START_ a _END_ de _TOTAL_ Registros",
+                    infoEmpty: "Mostrando 0 a 0 de 0 Registros",
+                    infoFiltered: "(filtrada de _MAX_ registros en total)",
+                    infoPostFix: "",
+                    loadingRecords: "...",
+                    zeroRecords: "No se encontraron registros coincidentes",
+                    emptyTable: "No hay datos disponibles en la tabla",
+                    paginate: {
+                        first: "Primero",
+                        previous: "Anterior",
+                        next: "Siguiente",
+                        last: "Ultimo"
+                    },
+                    aria: {
+                        sortAscending: ": habilitado para ordenar la columna en orden ascendente",
+                        sortDescending: ": habilitado para ordenar la columna en orden descendente"
+                    }
+                }
+            });
+            $('[data-toggle="popover"]').popover();
+            $('table').css('width', '100%');
+        });
+    });
+
+    // ver servicios suspendidos
+    $(document).on('click', '.eye-suspendidos', function() {
+        $('#ModalverSercSuspendidos').modal('show');
+        
+        $.post('../includes/facturacion/facturas/getServiciosSuspendidos.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
+            TableSerSuspendidos = $('#TableSerSuspendidos').DataTable({
                 order: [
                     [0, 'desc']
                 ],
@@ -215,9 +435,13 @@ $(document).ready(function() {
 
     function getServicios() {
         $.post('../includes/facturacion/facturas/getServicios.php', { Rut: $('input[name="rutCliente"]').val() }, function(data) {
-           
+            console.log(data);
             $('.servicios-activos').html(data[0].activos);
-            $('.servicios-inactivos').html(data[0].vencidos);
+            $('.servicios-suspendidos').html(data[0].suspendido);
+            $('.servicios-corteComercial').html(data[0].corteComercial);
+            $('.servicios-cambioRazonSocial').html(data[0].cambioRazonSocial);
+            $('.servicios-Temporal').html(data[0].servicioTemporal);
+            $('.servicios-FinContrato').html(data[0].finContrato);
             $('.servicios-error').html(data[0].error);
         });
     }
