@@ -2202,170 +2202,288 @@
             echo json_encode($datos);
         }
 
-        // sin uso
-        public function filtrarDocVencidos($Rut){
-
+        public function filtrarDocsExtras($startDate,$endDate,$Rut,$documentType,$NumeroDocumento){
             $run = new Method;
             $ToReturn = array();
-            $data = array();
-            $fecha_actual = date("Y-m-d");
+            $query = "  SELECT
+                            personaempresa.nombre as Cliente,
+                            facturas.Id,
+                            facturas.NumeroDocumento,
+                            facturas.FechaFacturacion,
+                            facturas.FechaVencimiento,
+                            facturas.UrlPdfBsale,
+                            facturas.Grupo,
+                            facturas.TipoFactura,
+                            mantenedor_tipo_cliente.nombre AS TipoDocumento,
+                            facturas.IVA,
+                            facturas.EstatusFacturacion,
+                            IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalSaldo 
+                        FROM
+                            facturas
+                            INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
+                            INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut
+                        WHERE
+                            facturas.EstatusFacturacion != '0' AND facturas.EstatusFacturacion != '3' AND facturas.EstatusFacturacion != '4' ";
+            if($startDate){
+                $dt = \DateTime::createFromFormat('Y/m/d',$startDate);
+                $startDate = $dt->format('Y-m-d');
+                $dt = \DateTime::createFromFormat('Y/m/d',$endDate);
+                $endDate = $dt->format('Y-m-d');
+                $query .= " AND facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'";
+            }
+            if($Rut || $Rut == 0 && !$startDate && !$NumeroDocumento){
 
-            $query_factura = "SELECT
-            facturas.Id,
-            facturas.NumeroDocumento,
-            facturas.FechaFacturacion,
-            mantenedor_tipo_cliente.nombre AS TipoDocumento,
-            facturas.FechaVencimiento
-            FROM facturas
-            INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id
-            WHERE Rut = $Rut AND EstatusFacturacion = 1 AND FechaVencimiento < '".$fecha_actual."' ";
-
-            // echo $Rut;
-            $FacturasVencidas = $run->select($query_factura);
-            $total_facturas =  count($FacturasVencidas);
-            // echo $total_facturas;
-            $id_facturas = '';
-            $NumeroDocumento = '';
-            $FechaFacturacion = '';
-            $TipoDocumento = '';
-            $fechaVencimiento = '';
-            $factura_detalle_FacturaId = '';
-            $factura_detalle_Total = 0;
-            $monto_deuda = 0;
-            $fp_monto = 0;
-            $bandera = 0;
-
-            if($total_facturas > 0) {
-                foreach($FacturasVencidas as $factura) {
-                    $factura_detalle_Total = 0;
-                    $id_facturas = $factura['Id'];
-                    $NumeroDocumento = $factura['NumeroDocumento'];
-                    $TipoDocumento = $factura['TipoDocumento'];
+                $query .= " AND facturas.Rut = '".$Rut."'";
+            }
+            if($documentType){
+                $query .= " AND facturas.TipoDocumento = '".$documentType."'";
+            }
+            if($NumeroDocumento){
+                $query .= " AND facturas.NumeroDocumento = '".$NumeroDocumento."' ";
+            }
+            $query .= " ORDER BY facturas.FechaFacturacion DESC, MONTH(facturas.FechaFacturacion) DESC  ";
+            $facturas = $run->select($query);
+            if($facturas){
+                include("FacturasDetalleClass.php");
+                $FacturasDetalle = new FacturasDetalle(); 
+                foreach($facturas as $factura){
+                    $SaldoConNotaCredito = 0;
+                    $Id = $factura['Id'];  
+                    $EstatusFacturacion = $factura['EstatusFacturacion'];
+                    $TotalFactura = 0;
+                    $query = "SELECT IdServicio, Total, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE facturas_detalle.IdServicio = '0' AND FacturaId = '".$Id."' ";
+                    // echo $query;exit;
+                    $detalles = $run->select($query);
+                    if($detalles){
+                        // print_r($detalles);
+                        foreach($detalles as $detalle){
+                            $Total = $detalle['Total'];
+                            $Descuento = floatval($detalle['Descuento']) / 100;
+                            $Descuento = 0;
+                            $Descuento = $Total * $Descuento;
+                            $Total -= $Descuento;
+                            // $TotalFactura += round($Total,0);
+                            $TotalFactura += $Total;
+                        }
+                        $TotalFactura = round($TotalFactura,0);
+                        $SaldoFavor = 0;
+                        $TotalSaldo = $factura['TotalSaldo'];
+                        $TotalSaldo = $TotalFactura - $TotalSaldo;
+                        $SaldoFavor = $factura['TotalSaldo'] - $TotalFactura;
+                        if($SaldoFavor < 0)
+                            $SaldoFavor = 0;
+                        if($TotalSaldo < 0){
+                            $TotalSaldo = 0;
+                        }
+                        $TotalSaldoFactura = $TotalSaldo;
+                        if($EstatusFacturacion != 2){
+                            $Acciones = 1;
+                        }
+                        else{
+                            $TotalSaldo = 0;
+                            $Acciones = 0;
+                            $query = "SELECT  DevolucionAmount, priceAdjustment FROM devoluciones WHERE FacturaId = '".$Id."'";
+                            $devoluciones = $run->select($query);
+                            if($devoluciones){
+                                $devolucion = $devoluciones[0];
+                                $SaldoConNotaCredito = $TotalFactura - $devolucion['DevolucionAmount'];
+                                $TotalSaldo = $TotalFactura - (double)$devolucion['DevolucionAmount'];
+                                $query = "SELECT  Monto FROM facturas_pagos WHERE FacturaId = '".$Id."'";
+                                $pagos = $run->select($query);
+                                $TotalPagado = 0;
+                                if($pagos){
+                                    foreach ($pagos as $pago) {
+                                        $TotalPagado += $pago['Monto'];
+                                    }
+                                }
+                                $TotalSaldo = $TotalSaldo - $TotalPagado;
+                                if($TotalSaldo < 0){
+                                    $TotalSaldo = 0;
+                                }
+                                if($devolucion['priceAdjustment'] == 1) {
+                                    $Acciones = 1;
+                                }
+                            }
+                        }
+                        
+                        $Id = $factura['Id'];
+                        $data = array();
+                        $Detalle = '*';
+                        if($Rut || $Rut == 0 ){
+                            $Detalle = $FacturasDetalle->GetDetalle($Id);
+                            $Detalle = $Detalle[0]['Concepto'];
+                        }
                     
-                    $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');
-                    $fechaVencimiento = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');
-                    
-                    $query_facturas_detalle = "SELECT
-                    Id,
-                    FacturaId,
-                    Total
-                    FROM facturas_detalle
-                    WHERE FacturaId = $id_facturas ";
-                    $facturas_detalle = $run->select($query_facturas_detalle);
-                    $total_facturas_detalle = count($facturas_detalle);
-                    if($total_facturas_detalle > 0) {
-                        foreach($facturas_detalle as $factura_detalle) {
-                            $factura_detalle_FacturaId = $factura_detalle['FacturaId'];
-                            $factura_detalle_Total += $factura_detalle['Total'];
-                            $monto_deuda += $factura_detalle['Total'];
-                            // echo $factura_detalle_Total.'/';
-                            $query_facturas_pagos = "SELECT
-                            Id,
-                            FacturaId,
-                            Monto
-                            FROM facturas_pagos
-                            WHERE FacturaId = $factura_detalle_FacturaId ";
-                            // WHERE FacturaId = $factura_detalle_FacturaId AND Monto < '".$factura_detalle_Total."' ";
-                            $facturas_pagos = $run->select($query_facturas_pagos);
-                            $total_facturas_pagos = count($facturas_pagos);
-                            if($total_facturas_pagos > 0) {
-                            
-                                foreach($facturas_pagos as $factura_pago) {   
-                                    $fp_monto = $factura_pago['Monto'];
-                                    $monto_deuda = $factura_detalle_Total - $fp_monto;
-                                    if($fp_monto < $factura_detalle_Total) {
-                                        $factura_detalle_Total;
-                                        $data['pagos'] = $fp_monto;
-                                        $bandera = 0;
-                                    }  else {
-                                        $bandera = 1;
-                                    } 
-                                } //else significa que no ha pagado nada
-                            } else {
-
-                                $bandera = 0;
-                                $fp_monto = 0;
-                                $monto_deuda = $factura_detalle_Total;
+                        $data['Id'] = $Id;
+                        $data['DocumentoId'] = $Id;
+                        $data['Cliente'] = $factura['Cliente'];
+                        $data['NumeroDocumento'] = $factura['NumeroDocumento'];
+                        $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
+                        $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');
+                        $data['Detalle'] = $Detalle;  
+                        $data['TotalFactura'] = $TotalFactura;
+                        $data['TotalSaldo'] = $TotalSaldo;
+                        $data['SaldoFavor'] = $SaldoFavor;
+                        $data['UrlPdfBsale'] = $factura['UrlPdfBsale'];
+                        $data['Grupo'] = $factura['Grupo'];
+                        $data['TipoDocumento'] = $factura['TipoDocumento'];
+                        $data['Acciones'] = $Acciones;
+                        $data['EstatusFacturacion'] = 1;
+                        $data['SaldoConNotaCredito'] = $SaldoConNotaCredito;
+                        array_push($ToReturn,$data);
+                        if( $EstatusFacturacion == 2 ){
+                            $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount, priceAdjustment FROM devoluciones WHERE FacturaId = '".$Id."'  ";
+                            if($startDate){
+                                $query .= " AND FechaDevolucion BETWEEN '".$startDate."' AND '".$endDate."'";
+                            }
+                            $devoluciones = $run->select($query);
+                            if($devoluciones){
+                                $devolucion = $devoluciones[0];
+                                $DevolucionAnulada = $devolucion['DevolucionAnulada'];
+                                if($DevolucionAnulada == 0 || $devolucion['priceAdjustment'] == 1){
+                                    $Acciones = 1;
+                                }else{
+                                    $Acciones = 0;
+                                }
+                                $data = array();
+                                $data['Id'] = $devolucion['Id'];
+                                $data['DocumentoId'] = $Id;
+                                $data['Cliente'] = $factura['Cliente'];
+                                $data['NumeroDocumento'] = $devolucion['NumeroDocumento'].' Doc. Ref '.$factura['NumeroDocumento'];
+                                $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
+                                $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');
+                                $data['Detalle'] = '*';
+                                $devolucion['DevolucionAmount'] = (double)$devolucion['DevolucionAmount']; 
+                                $data['TotalFactura'] = $devolucion['DevolucionAmount'];
+                                // $data['TotalSaldo'] = $devolucion['DevolucionAmount'];
+                                $data['TotalSaldo'] = 0;
+                                $data['SaldoFavor'] = $SaldoFavor;
+                                $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
+                                $data['Grupo'] = $factura['Grupo'];
+                                $data['TipoDocumento'] = 'Nota de crédito';
+                                $data['Acciones'] = $Acciones;
+                                $data['EstatusFacturacion'] = 2;
+                                $data['SaldoConNotaCredito'] = $TotalFactura - $devolucion['DevolucionAmount'];
+                                array_push($ToReturn,$data);
+                                if($DevolucionAnulada == 1){
+                                    $DevolucionId = $devolucion['Id'];
+                                    $query = "SELECT Id, FechaAnulacion, NumeroDocumento, UrlPdfBsale FROM anulaciones WHERE DevolucionId = '".$DevolucionId."'";
+                                    $anulaciones = $run->select($query);
+                                    if($anulaciones){
+                                        $anulacion = $anulaciones[0];
+                                        $data = array();
+                                        $data['Id'] = $anulacion['Id'];
+                                        $data['DocumentoId'] = $Id;
+                                        $data['Cliente'] = $factura['Cliente'];
+                                        $data['NumeroDocumento'] = $anulacion['NumeroDocumento'];
+                                        $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
+                                        $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
+                                        $data['TotalFactura'] = $TotalFactura;
+                                        $data['TotalSaldo'] = $TotalSaldoFactura;
+                                        $data['SaldoFavor'] = $SaldoFavor;
+                                        $data['UrlPdfBsale'] = $anulacion['UrlPdfBsale'];
+                                        $data['Grupo'] = $factura['Grupo'];
+                                        $data['TipoDocumento'] = 'Nota de debito';
+                                        $data['EstatusFacturacion'] = 3;
+                                        $data['SaldoConNotaCredito'] = 0;
+                                        array_push($ToReturn,$data);
+                                    }
+                                }
                             }
                         }
                     }
-                    if($bandera != 1) {
-                        $data['NumeroDocumento'] = $NumeroDocumento;
-                        $data['TipoDocumento'] = $TipoDocumento;
-                        $data['FechaFacturacion'] = $FechaFacturacion;
-                        $data['FechaVencimiento'] = $fechaVencimiento;
-                        $data['id_factura'] = $factura_detalle_FacturaId;
-                        $data['deuda'] = $factura_detalle_Total;
-                        $data['pagos'] = $fp_monto;
-                        $data['deuda_restante'] = $monto_deuda;
-                        array_push($ToReturn, $data ); 
-                    }
-                   
-                }
-            }	
-            echo json_encode($ToReturn);
-        }
-
-        public function filtrarDocEmitidos($Rut){
-            $ToReturn = array();
-            $data = array();
-            $query = "  SELECT
-            (SELECT ROUND(SUM( Total )) FROM facturas_detalle WHERE FacturaId = facturas.Id ) AS totalDoc,
-            facturas.NumeroDocumento,
-            facturas.Id, 
-            facturas.FechaFacturacion,
-            facturas.FechaVencimiento,
-            facturas_pagos.Detalle as Detalle,
-            personaempresa.nombre AS Cliente,
-            facturas_pagos.FechaPago AS FechaPago,
-            facturas_pagos.Monto AS Pagado,
-            mt.nombre AS tipo_Factura
-
-            FROM
-                facturas
-                LEFT JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
-                LEFT JOIN personaempresa ON personaempresa.rut = facturas.Rut
-                INNER JOIN mantenedor_tipo_cliente mt ON facturas.TipoDocumento = mt.id
-            WHERE
-                facturas.Rut = $Rut AND facturas.EstatusFacturacion = '1' ";
-
-        
-            $run = new Method;
-            $documentos = $run->select($query);
-            $totalDoc = 0;
-            $saldo_doc = 0;
-            $saldo_favor = 0;
-            // echo '<pre>'; print_r($documentos); echo '</pre>'; return;
-
-
-            if (count($documentos) > 0) {
-        
-                foreach($documentos as $documento){
                     
-                    $FechaFacturacion = \DateTime::createFromFormat('Y-m-d',$documento['FechaFacturacion'])->format('d-m-Y');
-                    $fechaVencimiento = \DateTime::createFromFormat('Y-m-d',$documento['FechaVencimiento'])->format('d-m-Y');
-                    $saldo_doc = $documento['totalDoc'] - $documento['Pagado'];
-                    $saldo_favor = $documento['Pagado'] - $documento['totalDoc'];
-                    if($saldo_doc < 0){
-                        $saldo_doc = 0;
-                    }
-                    if($saldo_favor < 0){
-                        $saldo_favor = 0;
-                    }
-                    $data['NumeroDocumento'] = $documento['NumeroDocumento'];
-                    $data['TipoDocumento'] = $documento['tipo_Factura'];
-                    $data['FechaFacturacion'] = $FechaFacturacion;
-                    $data['FechaVencimiento'] = $fechaVencimiento;
-                    $data['totalDoc'] = $documento['totalDoc'];
-                    $data['saldo_doc'] = $saldo_doc;
-                    $data['pagos'] = $saldo_favor;
-                    array_push($ToReturn, $data ); 
-            
-                }   
+                }
+                // fin foreach facturas
             }
+            // por num doc para ver n de credito
+            if($NumeroDocumento){
+                $query = "SELECT Id, FacturaId, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount, priceAdjustment FROM devoluciones WHERE NumeroDocumento = '".$NumeroDocumento."'  ";
+                $devoluciones = $run->select($query);
+                if($devoluciones){
+                    $devolucion = $devoluciones[0];
+                    $DevolucionAnulada = $devolucion['DevolucionAnulada'];
+                    $DevolucionFacturaId = $devolucion['FacturaId'];
+                    $query = "  SELECT
+                        personaempresa.nombre as Cliente,
+                        facturas.Id,
+                        facturas.NumeroDocumento,
+                        facturas.FechaFacturacion,
+                        facturas.FechaVencimiento,
+                        facturas.UrlPdfBsale,
+                        facturas.Grupo,
+                        facturas.TipoFactura,
+                        mantenedor_tipo_cliente.nombre AS TipoDocumento,
+                        facturas.IVA,
+                        facturas.EstatusFacturacion,
+                        IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalSaldo 
+                    FROM
+                        facturas
+                        INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id 
+                        INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut 
+                    WHERE
+                        facturas.Id = '".$DevolucionFacturaId."' ";
+                    $query .= " ORDER BY facturas.FechaFacturacion DESC, MONTH(facturas.FechaFacturacion) DESC";
+                    $facturaDevolucion = $run->select($query);
+                    if($facturaDevolucion){
+                        $factura['NumeroDocumento'] = $facturaDevolucion[0]['NumeroDocumento'];
+                        $factura['Cliente'] = $facturaDevolucion[0]['Cliente'];
+                    }
+                    
+                    if($DevolucionAnulada == 0 || $devolucion['priceAdjustment'] == 1){
+                        $Acciones = 1;
+                    }else{
+                        $Acciones = 0;
+                    }
+                    $data = array();
+                    $data['Id'] = $devolucion['Id'];
+                    $data['DocumentoId'] = $Id;
+                    $data['Cliente'] = $factura['Cliente'];
+                    $data['NumeroDocumento'] = $devolucion['NumeroDocumento'].' Doc. Ref '.$factura['NumeroDocumento'];
+                    $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
+                    $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');
+                    $data['Detalle'] = '*';
+                    $devolucion['DevolucionAmount'] = (double)$devolucion['DevolucionAmount']; 
+                    $data['TotalFactura'] = $devolucion['DevolucionAmount'];
+                    // $data['TotalSaldo'] = $devolucion['DevolucionAmount'];
+                    $data['TotalSaldo'] = 0;
+                    $data['SaldoFavor'] = $SaldoFavor;
+                    $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
+                    $data['Grupo'] = $factura['Grupo'];
+                    $data['TipoDocumento'] = 'Nota de crédito';
+                    $data['Acciones'] = $Acciones;
+                    $data['EstatusFacturacion'] = 2;
+                    $data['SaldoConNotaCredito'] = $TotalFactura - $devolucion['DevolucionAmount'];
+                    array_push($ToReturn,$data);
+                    if($DevolucionAnulada == 1){
+                        $DevolucionId = $devolucion['Id'];
+                        $query = "SELECT Id, FechaAnulacion, NumeroDocumento, UrlPdfBsale FROM anulaciones WHERE DevolucionId = '".$DevolucionId."'";
+                        $anulaciones = $run->select($query);
+                        if($anulaciones){
+                            $anulacion = $anulaciones[0];
+                            $data = array();
+                            $data['Id'] = $anulacion['Id'];
+                            $data['DocumentoId'] = $Id;
+                            $data['Cliente'] = $factura['Cliente'];
+                            $data['NumeroDocumento'] = $anulacion['NumeroDocumento'];
+                            $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
+                            $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
+                            $data['TotalFactura'] = $TotalFactura;
+                            $data['TotalSaldo'] = $TotalSaldoFactura;
+                            $data['SaldoFavor'] = $SaldoFavor;
+                            $data['UrlPdfBsale'] = $anulacion['UrlPdfBsale'];
+                            $data['Grupo'] = $factura['Grupo'];
+                            $data['TipoDocumento'] = 'Nota de debito';
+                            $data['EstatusFacturacion'] = 3;
+                            $data['SaldoConNotaCredito'] = 0;
+                            array_push($ToReturn,$data);
+                        }
+                    }
+                }
+            }
+            // echo "</pre>"; print_r($ToReturn); "<pre>";
             echo json_encode($ToReturn);
         }
-
 
         public function filtrarFacturas($startDate,$endDate,$Rut,$documentType,$NumeroDocumento){
             $run = new Method;

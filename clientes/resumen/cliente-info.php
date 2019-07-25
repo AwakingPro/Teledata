@@ -1,4 +1,4 @@
-<div class="col-md-4">
+<div class="col-md-3">
     <div class="panel">
         <!-- <div class="panel-bg-cover">
             <img class="img-responsive" src="../img/thumbs/img1.jpg" alt="Image">
