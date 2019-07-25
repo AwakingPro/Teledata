@@ -1,19 +1,19 @@
-<div class="modal fade" role="dialog" id="ModalverSercInactivos">
+<div class="modal fade" role="dialog" id="ModalverSercTemporal">
 	<div class="modal-dialog modal-lg" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">Servicios Inactivos</h4>
+				<h4 class="modal-title">Servicios temporales</h4>
 			</div>
 			<div class="modal-body">
 				<div class="row">
                     <div class="panel">
                         <div class="panel-body">
-                            <h3 style="margin-top: 0">Servicios Inactivos</h3>
+                            <h3 style="margin-top: 0">Servicios temporales</h3>
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="table-responsive">
-                                            <table id="TableSerInactivos" class="table table-striped table-bordered">
+                                            <table id="TableSerTemporal" class="table table-striped table-bordered">
                                                 <thead>
                                                     <tr>
                                                         <th class="text-center">Código de Servicio</th>
