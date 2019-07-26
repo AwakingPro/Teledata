@@ -332,6 +332,9 @@ function alertas(type, message) {
 	});
 };
 
+//para expandir el navbar del lateral izquierdo
+$('#container').removeClass('mainnav-sm').addClass( "mainnav-in" );
+$("#container").attr( "attr", "1" );
 // Opciones por defecto para las tablas
 $.extend( $.fn.dataTable.defaults, {
 	dom: 'Bflrtip',
