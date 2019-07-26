@@ -75,6 +75,9 @@
             // Muestra Modal con select de usuarios al cual Reasignarle una tarea
             include '../componentes/componentes_tareas/modal_Reasignar.php';
 
+            // Muestra modal para cambiar estatus de servicio
+            include '../componentes/componentes_tareas/modal_EstatusProceso.php';
+
             // Muestra Modal para editar una tarea
             include '../componentes/componentes_tareas/modal_EditarTarea.php';
 

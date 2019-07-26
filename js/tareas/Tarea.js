@@ -336,7 +336,8 @@ $(document).ready(function() {
                         '' + array.Descripcion + '',
                         '' + array.Direccion + '',
                         '' + FechaComprometidaInstalacion + '',
-                        '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>' + ''
+                        '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>'
+                           + '<i title="Cambiar estatus" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil CambiarEstatus"></i>'
                     ]).draw(false).node();
 
                     $(rowNode)
@@ -349,6 +350,170 @@ $(document).ready(function() {
 
             $('body').addClass('loaded');
         }
+    });
+
+    $(document).on('click', '#guardarEstatus', function() {
+        swal({
+            title: "Cambiar estatus del servicio?",
+            text: "Va ha cambiar el estatus",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            confirmButtonText: "Si",
+            cancelButtonText: "No",
+            closeOnConfirm: true,
+            allowOutsideClick: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                $.postFormValues('../includes/tareas/updateEstatusServicio.php', '#storeEstatusServicio', {}, function(response) {
+
+                    if (response.status == 1) {
+
+                        $.niftyNoty({
+                            type: 'success',
+                            icon: 'fa fa-check',
+                            message: 'Registro Guardado Exitosamente',
+                            container: 'floating',
+                            timer: 3000
+                        });
+
+                        Row = $('#' + response.Id)[0]
+                        Usuario = $(Row).find("td").eq(0).html();
+                        Cliente = $(Row).find("td").eq(1).html();
+                        Codigo = $(Row).find("td").eq(2).html();
+                        Descripcion = $(Row).find("td").eq(3).html();
+                        FechaInstalacion = $(Row).find("td").eq(4).html();
+                        if (response.Estatus == 1) {
+
+                            var nodes = AsignadasTable.rows().nodes()
+                            if ($(nodes).filter('tr#' + response.Id).length == 1) {
+                                AsignadasTable.row(Row)
+                                    .remove()
+                                    .draw();
+                            }
+
+                            var nodesPendientesTable = PendientesTable.rows().nodes()
+                            if ($(nodesPendientesTable).filter('tr#' + response.Id).length == 1) {
+                                PendientesTable.row(Row)
+                                    .remove()
+                                    .draw();
+                            }
+
+                            Operacion = '<i title="Ver"  style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i title="Comparación" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>'
+
+                            var rowNode = FinalizadasTable.row.add([
+                                '' + Usuario + '',
+                                '' + Cliente + '',
+                                '' + Codigo + '',
+                                '' + Descripcion + '',
+                                '' + FechaInstalacion + '',
+                                '' + Operacion + '',
+                            ]).draw(false).node();
+                            $(rowNode)
+                                .attr('id', response.Id)
+                                .addClass('text-center')
+
+                        } else {
+                            var Direccion = $(Row).find("td").eq(4).html();
+                            var nodesPendientesTable = PendientesTable.rows().nodes()
+                            if ($(nodesPendientesTable).filter('tr#' + response.Id).length == 0) {
+
+                                Operacion = '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign" title="Reasignar"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" title="Editar" class="fa fa-pencil Edit"></i>'
+                                
+                                var rowNode = PendientesTable.row.add([
+                                    '' + Usuario + '',
+                                    '' + Cliente + '',
+                                    '' + Codigo + '',
+                                    '' + Descripcion + '',
+                                    '' + Direccion + '',
+                                    '' + Operacion + '',
+                                ]).draw(false).node();
+                                
+                                $(rowNode)
+                                    .attr('id', response.Id)
+                                    .addClass('text-center')
+                            }
+                        }
+
+                        $('#storeEstatusServicio')[0].reset();
+                        $('.modal').modal('hide');
+
+                    } else if (response.status == 2) {
+
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon: 'fa fa-check',
+                            message: 'Debe seleccionar un estatus',
+                            container: 'floating',
+                            timer: 3000
+                        });
+
+                    } else if (response.status == 3) {
+
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon: 'fa fa-check',
+                            message: 'La fecha de instalación no puede ser mayor a hoy',
+                            container: 'floating',
+                            timer: 3000
+                        });
+
+                    } else if (response.status == 99) {
+
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon: 'fa fa-check',
+                            message: 'Debe llenar los datos de los productos',
+                            container: 'floating',
+                            timer: 3000
+                        });
+
+                    } else {
+
+                        $.niftyNoty({
+                            type: 'danger',
+                            icon: 'fa fa-check',
+                            message: 'Ocurrió un error en el Proceso',
+                            container: 'floating',
+                            timer: 3000
+                        });
+
+                    }
+                });
+            }
+        });
+    });
+
+    $('body').on('click', '.CambiarEstatus', function() {
+
+        $('body').removeClass('loaded');
+
+        var ObjectMe = $(this);
+        
+        var ObjectTR = ObjectMe.closest("tr");
+        ObjectTR.addClass("Selected");
+        var ObjectId = ObjectTR.attr("id");
+        var ObjectCode = ObjectTR.find("td").eq(2).text();
+        $('#storeEstatusServicio').find('input[name="Id"]').val(ObjectId);
+        $('.Codigo').text(ObjectCode);
+
+        $.ajax({
+            type: "POST",
+            url: "../includes/tareas/showTarea.php",
+            data: "id=" + ObjectId,
+            success: function(response) {
+                $('select').selectpicker('refresh')
+                $('body').addClass('loaded');
+                $('#modalEstatusServicio').modal('show');
+
+            },
+            error: function(xhr, status, error) {
+                setTimeout(function() {
+                    var err = JSON.parse(xhr.responseText);
+                    swal('Solicitud no procesada', err.Message, 'error');
+                }, 1000);
+            }
+        });
     });
 
     $('#AsignarModal').click(function() {
@@ -511,7 +676,7 @@ $(document).ready(function() {
         });
     });
 
-    $('body').on('click', 'i.fa-pencil', function() {
+    $('body').on('click', 'i.fa-pencil.Edit', function() {
 
         $('body').removeClass('loaded');
 
@@ -698,7 +863,6 @@ $(document).ready(function() {
     });
 
     $('body').on('click', 'i.fa-refresh', function() {
-
         var ObjectMe = $(this);
         var ObjectTR = ObjectMe.closest("tr");
         ObjectTR.addClass("Selected");
@@ -808,7 +972,6 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.Search', function() {
-
         $('body').removeClass('loaded');
 
         var ObjectMe = $(this);
