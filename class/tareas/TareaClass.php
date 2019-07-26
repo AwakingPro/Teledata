@@ -167,6 +167,29 @@
 
 	    }
 
+		function updateEstatusServicio($Id, $Estatus){
+			$response_array = array();
+			$run = new Method;
+
+			$Estatus = isset($Estatus) ? trim($Estatus) : "";
+
+			if(!empty($Estatus)){
+
+				$query = "UPDATE servicios SET EstatusInstalacion = '$Estatus'   where Id = '$Id'";
+				$data = $run->update($query);
+				
+				$response_array['Estatus'] = $Estatus;
+				$response_array['Id'] = $Id;
+				$response_array['status'] = 1;
+				 
+	        }else{
+	            $response_array['status'] = 2;
+	        }
+
+			echo json_encode($response_array);
+			
+		}
+
 	    function storeTarea($Id, $FechaInstalacion, $InstaladoPor, $Comentario, $UsuarioPppoe, $SenalFinal, $EstacionFinal, $habilitarFacturacion, $Estatus, $actualizaFechaUltimoCobro){
 
 			$response_array = array();
