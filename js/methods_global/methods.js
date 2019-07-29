@@ -28,8 +28,16 @@ if (($('#demo-dp-component .input-group.date').size() > 0) || ($('.input-dateran
 }
 
 
-idUsuarioSession = $("#IdUsuarioSession").val();
-
+idUsuarioSession = $('#IdUsuarioSession').val();
+nivelUsuarioSession = $('#IdNivelUsuarioSession').val();
+if(nivelUsuarioSession == 4){
+	$("form :input:not(.btn)").prop("disabled", true);
+	$(".modal :input:not(.btn)").prop("disabled", true);
+	$(".btn").hide();
+	$(".destruir_sesion").show();
+	$("#actualizarCliente").hide();
+	$(".agregarDatosTecnicos").hide();
+}
 function NumConDecimales(x) {
 	return Number.parseFloat(x).toFixed(2);
   }
