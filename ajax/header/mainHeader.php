@@ -47,6 +47,7 @@ if (file_exists('../ajax/perfil/img-profile/'.$_SESSION['idUsuario'].'.jpg')) {
 						</span>
 						<div id="username" class="username hidden-xs"><?php echo $data[0][0]; ?></div>
 						<input type="hidden" id="IdUsuarioSession" value="<?php echo $_SESSION['idUsuario'] ?>">
+						<input type="hidden" id="IdNivelUsuarioSession" value="<?php echo $_SESSION['idNivel'] ?>">
 					</a>
 					<div class="dropdown-menu dropdown-menu-md dropdown-menu-right panel-default">
 						<!-- Dropdown heading  -->
@@ -66,7 +67,7 @@ if (file_exists('../ajax/perfil/img-profile/'.$_SESSION['idUsuario'].'.jpg')) {
 						<!-- Dropdown footer -->
 						<div class="pad-all text-right">
 							<!-- <a href="../index.php?doLogout=true" class="btn btn-primary"> -->
-							<a href="../destruir_sesion.php" class="btn btn-primary">
+							<a href="../destruir_sesion.php" class="btn btn-primary destruir_sesion">
 								<i class="pli-unlock"></i> Salir
 							</a>
 						</div>

@@ -765,6 +765,10 @@ $(document).ready(function() {
     }
 
     $(document).on('click', '.actualizarCliente', function() {
+        if(nivelUsuarioSession == 4){
+            bootbox.alert('<h3 class="text-center">No tiene permitido este privilegio.</h3>');
+            return;
+        }
         $.postFormValues('../ajax/cliente/updateCliente.php', '.container-form-update', {}, function(data) {
             listClientes();
             $('#editarCliente').modal('hide');
@@ -773,6 +777,12 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.delete-arriendo_equipos_datos', function() {
+        //si es soporte nivel 2 no permitir
+        if(nivelUsuarioSession == 4){
+            bootbox.alert('<h3 class="text-center">No tiene permitido este privilegio.</h3>');
+            return;
+        }
+        
         var id = $(this).attr('attr');
         bootbox.confirm({
             message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",

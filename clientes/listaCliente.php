@@ -146,7 +146,7 @@
 					<div class="row">
 						<div class="col-md-12">
 							<br>
-							<button type="button" class="btn btn-primary actualizarCliente">Actualizar</button>
+							<button type="button" class="btn btn-primary actualizarCliente" id="actualizarCliente">Actualizar</button>
 						</div>
 					</div>
 				</div>
