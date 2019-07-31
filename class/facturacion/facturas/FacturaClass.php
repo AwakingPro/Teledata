@@ -2741,7 +2741,7 @@
             if($NumeroDocumento){
                 $query .= " AND facturas.NumeroDocumento = '".$NumeroDocumento."' ";
             }
-            $query .= " ORDER BY facturas.FechaFacturacion DESC, MONTH(facturas.FechaFacturacion) DESC";
+            $query .= " ORDER BY facturas.FechaFacturacion DESC, MONTH(facturas.FechaFacturacion) DESC, facturas.NumeroDocumento DESC ";
             $facturas = $run->select($query);
             if($facturas){
                 include("FacturasDetalleClass.php");
