@@ -776,14 +776,14 @@
                 echo json_encode($response_array);
             }
         }
-
+        //envia datos para generar facturas en bsale y el erp
         public function storeFactura($RutId, $Grupo, $Tipo){
 
             if(in_array  ('curl', get_loaded_extensions())) {
 
                 $response_array = array();
                 if($Tipo == 1){
-                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.Referencia
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.NumeroHES, IFNULL(facturas.FechaHES, '1970-01-31') as FechaHES, facturas.Referencia
                                 FROM facturas 
                                 INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.Id = '".$RutId."'
@@ -797,7 +797,7 @@
                     }else{
                         $Concat = " AND facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."' AND facturas.TipoFactura = '".$Tipo."'";
                     }
-                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.Referencia
+                    $query = "  SELECT facturas_detalle.*, facturas.FechaFacturacion, facturas.Rut, facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC, facturas.NumeroHES, IFNULL(facturas.FechaHES, '1970-01-31') as FechaHES, facturas.Referencia
                                 FROM facturas 
                                 INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.EstatusFacturacion = 0
@@ -806,7 +806,7 @@
                     // $expirationDate = time() + 1728000;
                     // $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else{
-                    //else significa que se creo un servicio
+                    //costo instalacion de un servicio
                     $query = "  SELECT servicios.*, servicios.CostoInstalacion as Valor, servicios.CostoInstalacionDescuento as Descuento, ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE mantenedor_servicios.servicio END ) AS Servicio, '1' as Cantidad, 0 as NumeroOC, '1970-01-31' as FechaOC, 'Costo de instalación / Habilitación' as Concepto, 0 as Referencia
                                 FROM servicios 
                                 LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio 
@@ -821,12 +821,13 @@
                 $Detalles = $run->select($query);
                 $UfClass = new Uf(); 
                 $UF = $UfClass->getValue();
-                // $Detalles trae los datos de la tabla servicos asociados al servicios.Id
                 if($Detalles){
                     $Detalle = $Detalles[0];
                     $Rut = $Detalle['Rut'];
-                    $NumeroOC = $Detalle['NumeroOC'];
-                    $FechaOC = $Detalle['FechaOC'];
+                    $NumeroOC  = $Detalle['NumeroOC'];
+                    $FechaOC   = $Detalle['FechaOC'];
+                    $NumeroHES = $Detalle['NumeroHES'];
+                    $FechaHES  = $Detalle['FechaHES'];
                     // $Cliente trae los datos de la tabla personaempresa asociados al personaempresa.rut
                     $Cliente = $this->getCliente($Rut);
 
@@ -857,8 +858,8 @@
                             // $NumeroDocumento = '0';
                         }
                         
-                        //Para actualizar los datos del servicio con los datos de Bsale
-                        $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, FechaOC) VALUES ('".$Rut."', '".$Grupo."', '".$Tipo."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."')";
+                        //Genero un nuevo registro con los datos enviados a bsale en la tabla factura
+                        $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, FechaOC, NumeroHES, FechaHES) VALUES ('".$Rut."', '".$Grupo."', '".$Tipo."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', NOW(), NOW(), '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."', '".$NumeroHES."', '".$FechaHES."')";
                         $FacturaId = $run->insert($query);
 
                         if($FacturaId){
@@ -1520,9 +1521,9 @@
 
             echo json_encode($response_array);
         }
-        //metodo usado para facturacion y facturacion por lotes
+        //metodo usado para facturacion y facturacion por lotes hacia bsale
         public function sendFacturaBsale($Cliente,$Detalles,$UF,$Tipo,$TipoToken){
-            // si se quiere enviar datos de prueba a la api usar el token 2 para pruebas, de lo contrario la cagaras 
+            // si se quiere enviar datos de prueba a la api usar el token 2 para pruebas 
             // $TipoToken = 2;
             $run = new Method;
             if($TipoToken == 1){
@@ -1706,6 +1707,21 @@
                     $FechaOC = $dateTime->format('U'); 
                     $references = array();
                     $reference = array("number" => $NumeroOC, "referenceDate" => $FechaOC, "reason" => "Orden de Compra " . $NumeroOC, "codeSii" => 801);
+                    array_push($references,$reference);
+                }
+            }
+            if(isset($Detalle['NumeroHES'])){
+                $NumeroHES = $Detalle['NumeroHES'];
+                if($NumeroHES){
+                    $FechaHES = $Detalle['FechaHES'];
+                    if($FechaHES){
+                        $dateTime = new DateTime($FechaHES); 
+                    }else{
+                        $dateTime = new DateTime(); 
+                    } 
+                    $FechaHES = $dateTime->format('U'); 
+                    $references = array();
+                    $reference = array("number" => $NumeroHES, "referenceDate" => $FechaHES, "reason" => "Hoja Entrada de servicio " . $NumeroHES, "codeSii" => "HES");
                     array_push($references,$reference);
                 }
             }
@@ -3103,7 +3119,8 @@
         }
         public function getOC($RutId, $Grupo, $Tipo){
             if($Tipo == 1){
-                $query = "  SELECT facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
+                $query = "  SELECT facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC,
+                                   facturas.NumeroHES, IFNULL(facturas.FechaHES, '1970-01-31') as FechaHES
                             FROM facturas 
                             WHERE facturas.Id = '".$RutId."'
                             AND facturas.EstatusFacturacion = 0";
@@ -3113,13 +3130,15 @@
                 }else{
                     $Concat = " AND facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'";
                 }
-                $query = "  SELECT facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC
-                            FROM facturas 
+                $query = "  SELECT facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC,
+                                   facturas.NumeroHES, IFNULL(facturas.FechaHES, '1970-01-31') as FechaHES
+                            FROM facturas
                             WHERE facturas.TipoFactura = '".$Tipo."'
                             AND facturas.EstatusFacturacion = 0"
                             .$Concat;
             }else{
-                $query = "  SELECT 0 as NumeroOC, '1970-01-31' as FechaOC
+                $query = "  SELECT 0 as NumeroOC, '1970-01-31' as FechaOC,
+                                   0 as NumeroHES, '1970-01-31' as FechaHES
                             FROM servicios 
                             WHERE servicios.Id = '".$RutId."'
                             AND servicios.EstatusFacturacion = 0
@@ -3131,23 +3150,28 @@
                 $Detalle = $Detalles[0];
                 $NumeroOC = $Detalle['NumeroOC'];
                 $FechaOC = $Detalle['FechaOC'];
+                $NumeroHES = $Detalle['NumeroHES'];
+                $FechaHES = $Detalle['FechaHES'];
                 if(!$FechaOC OR $FechaOC == '1970-01-31'){
                     $FechaOC = '';
                 }
+                if(!$FechaHES OR $FechaHES == '1970-01-31'){
+                    $FechaHES = '';
+                }
             }
-            return array('NumeroOC' => $NumeroOC, 'FechaOC' => $FechaOC);
+            return array('NumeroOC' => $NumeroOC, 'FechaOC' => $FechaOC, 'NumeroHES' => $NumeroHES, 'FechaHES' => $FechaHES);
         }
-        public function storeOC($RutId, $Grupo, $Tipo, $NumeroOC, $FechaOC){
+        public function storeOC($RutId, $Grupo, $Tipo, $NumeroOC, $FechaOC, $NumeroHES, $FechaHES ){
             if($Tipo == 1){
-                $query = "  UPDATE facturas SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."' WHERE Id = '".$RutId."'";
+                $query = "  UPDATE facturas SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', NumeroHES = '".$NumeroHES."', FechaHES = '".$FechaHES."' WHERE Id = '".$RutId."'";
             }else if($Tipo == 2){
                 if($Grupo == 1000 OR $Grupo == 1001){
-                    $query = "  UPDATE facturas SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."' WHERE Id = '".$RutId."'";
+                    $query = "  UPDATE facturas SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', NumeroHES = '".$NumeroHES."', FechaHES = '".$FechaHES."' WHERE Id = '".$RutId."'";
                 }else{
-                    $query = "  UPDATE facturas SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."' WHERE Rut = '".$RutId."' AND Grupo = '".$Grupo."' AND TipoFactura = '".$Tipo."' AND EstatusFacturacion = 0";
+                    $query = "  UPDATE facturas SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', NumeroHES = '".$NumeroHES."', FechaHES = '".$FechaHES."' WHERE Rut = '".$RutId."' AND Grupo = '".$Grupo."' AND TipoFactura = '".$Tipo."' AND EstatusFacturacion = 0";
                 }
             }else{
-                $query = "  UPDATE servicios SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."' WHERE Id = '".$RutId."'";
+                $query = "  UPDATE servicios SET NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', NumeroHES = '".$NumeroHES."', FechaHES = '".$FechaHES."' WHERE Id = '".$RutId."'";
             }
             $run = new Method;
             $update = $run->update($query);
@@ -3920,7 +3944,7 @@
 
             // Ejecuta cURL
             $response = curl_exec($session);
-            
+
             // Cierra la sesión cURL
             curl_close($session);
             $DocumentosBsale = json_decode($response, true);
@@ -3941,6 +3965,8 @@
                 }else{
                     $TipoDocumento = 3;
                 }
+
+
                 if($TipoDocumento == 1 OR $TipoDocumento == 2){
                     $query = "SELECT Id, UrlPdfBsale, CountDTE, DocumentoIdBsale FROM facturas WHERE DocumentoIdBsale = '".$DocumentoId."'";
                     $Factura = $run->select($query);
