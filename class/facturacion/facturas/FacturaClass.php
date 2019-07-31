@@ -3925,8 +3925,8 @@
             $url='https://api.bsale.cl/v1/documents.json';
             $limitDocumentos = $run->contador(1, $url);
             //DOCUMENTOS
-            $limitDocumentos = 2300;
-            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos;
+            $limitDocumentos = 2000;
+            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=2000';
             // echo $url; exit;
             // Inicia cURL
             $session = curl_init($url);
