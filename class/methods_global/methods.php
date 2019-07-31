@@ -671,14 +671,10 @@
 
             // Ejecuta cURL
 			$response = curl_exec($session);
-			echo $code = curl_getinfo($session, CURLINFO_HTTP_CODE);
-			echo "\n";
+			// echo $code = curl_getinfo($session, CURLINFO_HTTP_CODE);
             // Cierra la sesión cURL
             curl_close($session);
 			$response = json_decode($response, true);
-			
-			echo "resultad " . var_dump($response);
-			exit;
             if($tipo == 3){
                 return $response;
             }else{

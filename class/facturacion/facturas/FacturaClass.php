@@ -3941,6 +3941,7 @@
                 'Content-Type: application/json'
             );
             curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+            // echo $code = curl_getinfo($session, CURLINFO_HTTP_CODE);
 
             // Ejecuta cURL
             $response = curl_exec($session);
