@@ -3927,7 +3927,7 @@
             //DOCUMENTOS
             
             $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos;
-            
+            echo $url; exit;
             // Inicia cURL
             $session = curl_init($url);
 
