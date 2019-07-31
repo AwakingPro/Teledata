@@ -3946,7 +3946,7 @@
 
             // Ejecuta cURL
             $response = curl_exec($session);
-
+            echo '<pre>'; print_r($response); echo '</pre>';exit;
             // Cierra la sesión cURL
             curl_close($session);
             $DocumentosBsale = json_decode($response, true);
