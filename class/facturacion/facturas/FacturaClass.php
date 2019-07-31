@@ -3925,9 +3925,9 @@
             $url='https://api.bsale.cl/v1/documents.json';
             $limitDocumentos = $run->contador(1, $url);
             //DOCUMENTOS
-            
+            $limitDocumentos = 2300;
             $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos;
-            echo $url; exit;
+            // echo $url; exit;
             // Inicia cURL
             $session = curl_init($url);
 
@@ -3941,16 +3941,16 @@
                 'Content-Type: application/json'
             );
             curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-            echo $code = curl_getinfo($session, CURLINFO_HTTP_CODE);
-            echo "\n";
+            // echo $code = curl_getinfo($session, CURLINFO_HTTP_CODE);
+            // echo "\n";
 
             // Ejecuta cURL
             $response = curl_exec($session);
-            echo '<pre>'; print_r($response); echo '</pre>';exit;
+            // echo '<pre>'; print_r($response); echo '</pre>';exit;
             // Cierra la sesión cURL
             curl_close($session);
             $DocumentosBsale = json_decode($response, true);
-            echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';exit;
+            // echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';exit;
             $dataClient = array();
             $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, dangel@teledata.cl';
             $dataClient['asunto'] = '';
