@@ -42,25 +42,38 @@
                                         <input id="fecha_update" name="fecha_update" validate="not_null" type="text" placeholder="Seleccione la fecha" class="form-control date" data-nombre="Fecha">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group">
                                         <label class="control-label" for="numero_oc_update">Numero de OC</label>
                                         <input id="numero_oc_update" name="numero_oc_update" class="form-control input-sm" data-nombre="Numero de OC">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
                                     <div class="form-group" style="padding-left:20px;padding-right:20px">
                                         <label class="control-label" for="fecha_oc_update">Fecha emisión OC</label>
                                         <input id="fecha_oc_update" name="fecha_oc_update" class="form-control input-sm" data-nombre="Fecha emisión OC">
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label class="control-label" for="numero_hes_update">Numero de HES</label>
+                                        <input id="numero_hes_update" name="numero_hes_update" class="form-control input-sm" data-nombre="Numero de HES">
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group" style="padding-left:20px;padding-right:20px">
+                                        <label class="control-label" for="fecha_hes_update">Fecha emisión HES</label>
+                                        <input id="fecha_hes_update" name="fecha_hes_update" class="form-control input-sm" data-nombre="Fecha emisión HES">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="solicitado_por_update">Solicitado Por</label>
                                         <select class="selectpicker form-control" name="solicitado_por_update" id="solicitado_por_update" data-live-search="true" data-container="body" validate="not_null" data-nombre="Solicitado Por">
                                         </select>
                                     </div>
                                 </div>
+                                
                             </form>
                             <form class="form-horizontal" id = "formDetalle">
                                 <input type="hidden" name="nota_venta_id" id="nota_venta_id">
@@ -288,6 +301,20 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="numero_hes">Numero de HES</label>
+                                                        <input id="numero_hes" name="numero_hes" class="form-control input-sm" data-nombre="Numero de HES">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="fecha_hes">Fecha emisión HES</label>
+                                                        <input id="fecha_hes" name="fecha_hes" class="form-control input-sm" data-nombre="Fecha emisión HES">
+                                                    </div>
+                                                </div>
+                                            </div>
                                             <input type="hidden" id="ServiciosSeleccionados" name="ServiciosSeleccionados">
                                         </form>
                                         <div class="row" style="margin-top: 20px">
@@ -446,6 +473,7 @@
                                                                 <th class="text-center">Cliente</th>
                                                                 <th class="text-center">Fecha</th>
                                                                 <th class="text-center">Numero de OC</th>
+                                                                <th class="text-center">Numero de HES</th>
                                                                 <th class="text-center">Solicitado Por</th>
                                                                 <th class="text-center">Total</th>
                                                                 <th class="text-center">Acción</th>

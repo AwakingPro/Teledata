@@ -29,7 +29,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header bg-gris-oscuro p-t-10 p-b-10">
-                        <h4 class="modal-title c-negro">Agregar Orden de Compra <button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
+                        <h4 class="modal-title c-negro">Agregar orden de compra y HES(Hoja entrada de servicio)<button type="button" data-dismiss="modal" class="close c-negro f-25" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button></h4>
                     </div>
                     <div class="modal-body">
                         <div class="row" style="padding:20px">
@@ -39,15 +39,28 @@
                                 <input type="hidden" name="tipoOC" id="tipoOC">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Numero de OC</label>
+                                        <label class="control-label" for="NumeroOC">Numero de OC</label>
                                         <input id="NumeroOC" name="NumeroOC" type="text" placeholder="Ingrese el numero de la OC" class="form-control input-sm" validate="not_null" data-nombre="Numero de OC">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Fecha emisión OC</label>
+                                        <label class="control-label" for="FechaOC">Fecha emisión OC</label>
                                         <input id="FechaOC" name="FechaOC" type="text" placeholder="Ingrese la fecha de la OC" class="form-control input-sm date" validate="not_null" data-nombre="Fecha emisión OC">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="NumeroHES">Número de HES</label>
+                                        <input id="NumeroHES" name="NumeroHES" type="text" placeholder="Ingrese el número de la HES" class="form-control input-sm" validate="not_null" data-nombre="Numero de HES">
+                                    </div>
+                                </div>
+                                <div class="clearfix m-b-10"></div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label" for="FechaHES">Fecha emisión HES</label>
+                                        <input id="FechaHES" name="FechaHES" type="text" placeholder="Ingrese la fecha de la HES" class="form-control input-sm date" validate="not_null" data-nombre="Fecha emisión HES">
                                     </div>
                                 </div>
                             </form>

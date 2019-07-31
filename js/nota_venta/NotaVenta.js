@@ -174,11 +174,19 @@ $(document).ready(function() {
         locale: 'es',
         format: 'DD-MM-YYYY'
     });
+    $('#fecha_hes').datetimepicker({
+        locale: 'es',
+        format: 'DD-MM-YYYY'
+    });
     $('#fecha_update').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY'
     });
     $('#fecha_oc_update').datetimepicker({
+        locale: 'es',
+        format: 'DD-MM-YYYY'
+    });
+    $('#fecha_hes_update').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY'
     });
@@ -217,6 +225,7 @@ $(document).ready(function() {
                         { data: 'cliente' },
                         { data: 'fecha' },
                         { data: 'numero_oc' },
+                        { data: 'numero_hes'},
                         { data: 'solicitado_por' },
                         { data: 'total' },
                         { data: 'id' }
@@ -235,14 +244,14 @@ $(document).ready(function() {
                             }
                         },
                         {
-                            "targets": 5,
+                            "targets": 6,
                             "render": function(data, type, row) {
                                 total = formatcurrency(data)
                                 return "<div style='text-align: center'>" + total + "</div>";
                             }
                         },
                         {
-                            "targets": 6,
+                            "targets": 7,
                             "render": function(data, type, row) {
                                 Ver = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye View"></i>';
                                 if (row.estatus_facturacion == 0) {
@@ -344,6 +353,13 @@ $(document).ready(function() {
             $('#fecha_oc').removeAttr('validate')
         } else {
             $('#fecha_oc').attr('validate', 'not_null')
+        }
+    });
+    $('#numero_hes').change(function(event) {
+        if ($(this).val() == '') {
+            $('#fecha_hes').removeAttr('validate')
+        } else {
+            $('#fecha_hes').attr('validate', 'not_null')
         }
     });
 
@@ -765,6 +781,8 @@ $(document).ready(function() {
                 $('#fecha_update').val(response.fecha)
                 $('#numero_oc_update').val(response.numero_oc)
                 $('#fecha_oc_update').val(response.fecha_oc)
+                $('#numero_hes_update').val(response.numero_hes)
+                $('#fecha_hes_update').val(response.fecha_hes)
                 $('#solicitado_por_update').val(response.solicitado_por)
                 $('.selectpicker').selectpicker('refresh');
                 $('#modalNotaVenta').modal('show')
@@ -853,6 +871,13 @@ $(document).ready(function() {
             $('#fecha_oc_update').removeAttr('validate')
         } else {
             $('#fecha_oc_update').attr('validate', 'not_null')
+        }
+    });
+    $('#numero_hes_update').change(function(event) {
+        if ($(this).val() == '') {
+            $('#fecha_hes_update').removeAttr('validate')
+        } else {
+            $('#fecha_hes_update').attr('validate', 'not_null')
         }
     });
 

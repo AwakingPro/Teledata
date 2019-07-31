@@ -74,7 +74,7 @@
 
     	} 
 
-        public function insertNotaVenta($Cliente,$Fecha,$NumeroOc,$FechaOc,$SolicitadoPor, $ServiciosSeleccionados){
+        public function insertNotaVenta($Cliente,$Fecha,$NumeroOc,$FechaOc,$SolicitadoPor, $NumeroHes, $FechaHes, $ServiciosSeleccionados){
 
             $response_array = array();
             $cadena_buscada   = '/';
@@ -119,6 +119,8 @@
             $Fecha = isset($Fecha) ? trim($Fecha) : "";
             $NumeroOc = isset($NumeroOc) ? trim($NumeroOc) : "";
             $FechaOc = isset($FechaOc) ? trim($FechaOc) : "";
+            $NumeroHes = isset($NumeroHes) ? trim($NumeroHes) : "";
+            $FechaHes = isset($FechaHes) ? trim($FechaHes) : "";
             $SolicitadoPor = isset($SolicitadoPor) ? trim($SolicitadoPor) : "";
 
             if(!empty($Cliente) && !empty($Fecha) && !empty($SolicitadoPor)){
@@ -134,13 +136,15 @@
 
                     if($FechaOc){
                         $FechaOc = DateTime::createFromFormat('d-m-Y', $FechaOc)->format('Y-m-d');
+                        $FechaHes = DateTime::createFromFormat('d-m-Y', $FechaHes)->format('Y-m-d');
                     }else{
                         $FechaOc = '1969-01-31';
+                        $FechaHes = '1969-01-31';
                     }
 
                     $Fecha = DateTime::createFromFormat('d-m-Y', $Fecha)->format('Y-m-d');
 
-                    $query = "INSERT INTO nota_venta(rut, fecha, numero_oc, fecha_oc, solicitado_por, estatus_facturacion) VALUES ('".$Cliente."','".$Fecha."','".$NumeroOc."','".$FechaOc."','".$SolicitadoPor."','0')";
+                    $query = "INSERT INTO nota_venta(rut, fecha, numero_oc, fecha_oc, solicitado_por, estatus_facturacion, numero_hes, fecha_hes) VALUES ('".$Cliente."','".$Fecha."','".$NumeroOc."','".$FechaOc."','".$SolicitadoPor."','0', '".$NumeroHes."', '".$FechaHes."')";
                     $Id = $run->insert($query);
 
                     if($Id){
@@ -155,7 +159,7 @@
                             $data = $run->insert($query);
                         }
 
-                        $array = array('id'=> $Id, 'rut' => $Cliente, 'fecha' => $Fecha, 'numero_oc' => $NumeroOc, 'solicitado_por' => $SolicitadoPor);
+                        $array = array('id'=> $Id, 'rut' => $Cliente, 'fecha' => $Fecha, 'numero_oc' => $NumeroOc, 'solicitado_por' => $SolicitadoPor, 'numero_hes' => $NumeroHes);
                         
                         $response_array['array'] = $array;
                         $response_array['status'] = 1; 
@@ -309,7 +313,9 @@
                             p.rut,
                             p.tipo_cliente,
                             nv.numero_oc,
-                            nv.fecha_oc
+                            nv.fecha_oc,
+                            nv.numero_hes,
+                            nv.fecha_hes
                         FROM
                             personaempresa p
                         INNER JOIN nota_venta nv ON p.rut = nv.rut
@@ -323,10 +329,15 @@
                 $TipoDocumento = $NotaVenta['tipo_cliente'];
                 $NumeroOC = $NotaVenta['numero_oc'];
                 $FechaOC = $NotaVenta['fecha_oc'];
+                $NumeroHES = $NotaVenta['numero_hes'];
+                $FechaHES = $NotaVenta['fecha_hes'];
                 if(!$FechaOC){
                     $FechaOC = '1969-01-31';
                 }
-                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, NumeroOC, FechaOC) VALUES ('".$Rut."', '".$Grupo."', '1', '0', NOW(), NOW(), '".$TipoDocumento."', NOW(), 0.19, '0', '', '0', '', '".$NumeroOC."', '".$FechaOC."')";
+                if(!$FechaHES){
+                    $FechaHES = '1969-01-31';
+                }
+                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale, responseMsgSiiBsale, NumeroOC, FechaOC, NumeroHES, FechaHES) VALUES ('".$Rut."', '".$Grupo."', '1', '0', NOW(), NOW(), '".$TipoDocumento."', NOW(), 0.19, '0', '', '0', '', '".$NumeroOC."', '".$FechaOC."', '".$NumeroHES."', '".$FechaHES."')";
                 $FacturaId = $run->insert($query);
                 if($FacturaId){
                     $query = "SELECT * from nota_venta_detalle where nota_venta_id = '$id'";
@@ -372,16 +383,22 @@
                 $array['rut'] = $nota_venta['rut'];                
                 $array['fecha'] = DateTime::createFromFormat('Y-m-d', $nota_venta['fecha'])->format('d-m-Y');
                 $array['numero_oc'] = $nota_venta['numero_oc'];
+                $array['numero_hes'] = $nota_venta['numero_hes'];
                 if($nota_venta['fecha_oc'] && $nota_venta['fecha_oc'] != '1969-01-31'){
                     $array['fecha_oc'] = DateTime::createFromFormat('Y-m-d', $nota_venta['fecha_oc'])->format('d-m-Y');
                 }else{
                     $array['fecha_oc'] = '';
                 }
+                if($nota_venta['fecha_hes'] && $nota_venta['fecha_hes'] != '1969-01-31'){
+                    $array['fecha_hes'] = DateTime::createFromFormat('Y-m-d', $nota_venta['fecha_hes'])->format('d-m-Y');
+                }else{
+                    $array['fecha_hes'] = '';
+                }
                 $array['solicitado_por'] = $nota_venta['solicitado_por'];
             }
             echo json_encode($array);
         }
-        public function updateNotaVenta($Cliente,$Fecha,$NumeroOc,$FechaOc,$SolicitadoPor,$Id){
+        public function updateNotaVenta($Cliente,$Fecha,$NumeroOc,$FechaOc, $NumeroHes, $FechaHes, $SolicitadoPor,$Id){
             $run = new Method;
             $response_array = array();
 
@@ -389,6 +406,8 @@
             $Fecha = isset($Fecha) ? trim($Fecha) : "";
             $NumeroOc = isset($NumeroOc) ? trim($NumeroOc) : "";
             $FechaOc = isset($FechaOc) ? trim($FechaOc) : "";
+            $NumeroHes = isset($NumeroHes) ? trim($NumeroHes) : "";
+            $FechaHes = isset($FechaHes) ? trim($FechaHes) : "";
             $SolicitadoPor = isset($SolicitadoPor) ? trim($SolicitadoPor) : "";
 
             if(!empty($Cliente) && !empty($Fecha) && !empty($SolicitadoPor)){
@@ -397,13 +416,18 @@
                 }else{
                     $FechaOc = '1969-01-31';
                 }
+                if($FechaHes){
+                    $FechaHes = DateTime::createFromFormat('d-m-Y', $FechaHes)->format('Y-m-d');
+                }else{
+                    $FechaHes = '1969-01-31';
+                }
                 $Fecha = DateTime::createFromFormat('d-m-Y', $Fecha)->format('Y-m-d');
                 
-                $query = "UPDATE nota_venta SET rut = '".$Cliente."', fecha = '".$Fecha."', numero_oc = '".$NumeroOc."', fecha_oc = '".$FechaOc."', solicitado_por = '".$SolicitadoPor."' WHERE id = '".$Id."'";
+                $query = "UPDATE nota_venta SET rut = '".$Cliente."', fecha = '".$Fecha."', numero_oc = '".$NumeroOc."', fecha_oc = '".$FechaOc."', solicitado_por = '".$SolicitadoPor."', numero_hes = '".$NumeroHes."', fecha_hes = '".$FechaHes."' WHERE id = '".$Id."'";
                 $Id = $run->update($query);
 
                 if($Id){
-                    $array = array('id'=> $Id, 'rut' => $Cliente, 'fecha' => $Fecha, 'numero_oc' => $NumeroOc, 'solicitado_por' => $SolicitadoPor);
+                    $array = array('id'=> $Id, 'rut' => $Cliente, 'fecha' => $Fecha, 'numero_oc' => $NumeroOc, 'numero_hes' => $NumeroHes, 'solicitado_por' => $SolicitadoPor);
                     
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 

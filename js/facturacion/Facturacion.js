@@ -429,7 +429,6 @@ $(document).ready(function() {
         var ObjectRutId = ObjectTR.attr("rutid");
         var ObjectGroup = ObjectTR.attr("grupo");
         var ObjectType = ObjectTR.attr("tipo");
-        // console.log('Rut'+ObjectRutId+' Grupo'+ObjectGroup+' Tipo'+ObjectType);
         swal({
             title: "Deseas facturar este registro?",
             text: "Confirmar facturación!",
@@ -826,6 +825,8 @@ $(document).ready(function() {
             success: function(response) {
                 $('#NumeroOC').val(response.NumeroOC)
                 $('#FechaOC').val(response.FechaOC)
+                $('#NumeroHES').val(response.NumeroHES)
+                $('#FechaHES').val(response.FechaHES)
                 $('#rutidOC').val(ObjectRutId)
                 $('#grupoOC').val(ObjectGroup)
                 $('#tipoOC').val(ObjectType)
