@@ -653,7 +653,7 @@
 		 function contador($tipo, $urlbsale){
             $query = "SELECT token_produccion as access_token FROM variables_globales";
             $variables_globales = self::select($query);
-            $access_token = $variables_globales[0]['access_token'];
+			$access_token = $variables_globales[0]['access_token'];
 			//Total Clientes
 			$url = $urlbsale;
             // Inicia cURL
@@ -663,17 +663,22 @@
 
             // Configura cabeceras
             $headers = array(
-                'access_token: ' . $access_token,
+				'access_token: ' . $access_token,
                 'Accept: application/json',
                 'Content-Type: application/json'
-            );
+			);
             curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
 
             // Ejecuta cURL
-            $response = curl_exec($session);
+			$response = curl_exec($session);
+			echo $code = curl_getinfo($session, CURLINFO_HTTP_CODE);
+			echo "\n";
             // Cierra la sesión cURL
             curl_close($session);
-            $response = json_decode($response, true);
+			$response = json_decode($response, true);
+			
+			echo "resultad " . var_dump($response);
+			exit;
             if($tipo == 3){
                 return $response;
             }else{
