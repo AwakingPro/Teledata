@@ -378,7 +378,7 @@
                     $data['DocumentoIdBsale'] = $factura['DocumentoIdBsale'];
                     $data['PoseePrefactura'] = $factura['PoseePrefactura'];
                     if($factura['EsOC'] || $factura['PoseePrefactura']){
-                        $query = "SELECT NumeroOC FROM facturas WHERE Rut = '".$Rut."' AND Grupo = '".$Grupo."' AND EstatusFacturacion = '0' LIMIT 1";
+                        $query = "SELECT NumeroOC FROM facturas WHERE Rut = '".$Rut."' AND Grupo = '".$Grupo."' AND EstatusFacturacion = '0' AND deleted_at IS NULL LIMIT 1 ";
                         $OC = $run->select($query);
                         if($OC){
                             $OC = $OC[0];
