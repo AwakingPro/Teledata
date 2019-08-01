@@ -3366,7 +3366,7 @@
 
                         if($DevolucionId){
               
-                            $query = "UPDATE facturas SET EstatusFacturacion = '2', FechaFacturacion = NOW() WHERE Id = '".$Id."'";
+                            $query = "UPDATE facturas SET EstatusFacturacion = '2' WHERE Id = '".$Id."'";
                             $update = $run->update($query);
                             $dataClient = array();
                             // $dataClient['correos'] = 'dangel@teledata.cl';
