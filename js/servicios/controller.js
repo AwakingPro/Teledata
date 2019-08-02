@@ -166,13 +166,10 @@ $(document).ready(function() {
             $('#divFechaActivacionTMP').show();
             $('input[name="FechaInicioDesactivacionTMP"]').attr('validate', 'not_null');
             $('input[name="FechaFinalDesactivacionTMP"]').attr('validate', 'not_null');
-            console.log(' es temporal');
-            console.log(' El valor es '+$('#TipoFactura').val());
         }else{
             $('#divFechaActivacionTMP').hide();
             $('input[name="FechaInicioDesactivacionTMP"]').removeAttr('validate')
             $('input[name="FechaFinalDesactivacionTMP"]').removeAttr('validate')
-            console.log('No es TMP El valor es '+$('#TipoFactura').val());
         }
         
     });
@@ -261,7 +258,6 @@ $(document).ready(function() {
     iva_global = 1.19;
 
     $('#CostoInstalacion').on('change', function() {
-        // CostoInstalacion = $(this).val();
         $('#CostoInstalacionPesos').text(formatcurrency(calcularDetalleTmp()));
         $('#CostoInstalacionIva').val($('#CostoInstalacion').val());
     });
@@ -289,12 +285,21 @@ $(document).ready(function() {
             calculaIva = CostoInstalacionPesos * iva_global;
             CostoInstalacionPesos = calculaIva;
         }
-        
         return CostoInstalacionPesos;
     }
-    function formatcurrency(n) {
-        return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+    // function formatcurrency(n) {
+    //     return n.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+    // }
+
+    function formatcurrency(total) {
+        var neg = false;
+        if(total < 0) {
+            neg = true;
+            total = Math.abs(total);
+        }
+        return (neg ? "-$" : '$') + parseFloat(total, 10).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1.").toString();
     }
+
     $('body').on('focus', ".date", function() {
         $('.date').datepicker({
             format: "dd-mm-yyyy",
