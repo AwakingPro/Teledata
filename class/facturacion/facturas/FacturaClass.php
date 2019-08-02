@@ -1695,6 +1695,8 @@
             $payment = array("paymentTypeId" => $Cliente['tipo_pago_bsale_id'], "amount" => $Total, "recordDate" => time());
             array_push($payments,$payment);
 
+            $references = array();
+            
             if(isset($Detalle['NumeroOC'])){
                 $NumeroOC = $Detalle['NumeroOC'];
                 if($NumeroOC){
@@ -1705,7 +1707,7 @@
                         $dateTime = new DateTime(); 
                     } 
                     $FechaOC = $dateTime->format('U'); 
-                    $references = array();
+                    
                     $reference = array("number" => $NumeroOC, "referenceDate" => $FechaOC, "reason" => "Orden de Compra " . $NumeroOC, "codeSii" => 801);
                     array_push($references,$reference);
                 }
@@ -1720,7 +1722,6 @@
                         $dateTime = new DateTime(); 
                     } 
                     $FechaHES = $dateTime->format('U'); 
-                    $references = array();
                     $reference = array("number" => $NumeroHES, "referenceDate" => $FechaHES, "reason" => "Hoja Entrada de servicio " . $NumeroHES, "codeSii" => "HES");
                     array_push($references,$reference);
                 }
