@@ -391,7 +391,7 @@
                                                                 <tr>
                                                                     <th class="text-center"></th>
                                                                     <th class="text-center">Código</th>
-                                                                    <th class="text-center">Descripción</th>
+                                                                    <th class="text-center">Descripción / Conexión</th>
                                                                     <th class="text-center">Valor UF</th>
                                                                 </tr>
                                                             </thead>
