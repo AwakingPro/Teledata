@@ -746,7 +746,7 @@
             $run = new Method;
             //trae servicios activos del cliente
             $query = "  SELECT
-                            Id, TipoFactura, Valor AS ValorUF, Codigo, Descripcion, FechaUltimoCobro
+                            Id, TipoFactura, Valor AS ValorUF, Codigo, Descripcion, Conexion, FechaUltimoCobro
                         FROM
                             servicios 
                         WHERE
@@ -762,7 +762,17 @@
                     $data['TipoFactura'] = $servicio['TipoFactura'];
                     $data['ValorUF'] = $servicio['ValorUF'];
                     $data['Codigo'] = $servicio['Codigo'];
-                    $data['Descripcion'] = $servicio['Descripcion'];
+                    
+                    if($servicio['Descripcion']){
+                        if($servicio['Conexion']){
+                            $data['Descripcion'] =  $servicio['Descripcion'] . ' - ' . $servicio['Conexion'];
+                        }else{
+                            $data['Descripcion'] =  $servicio['Descripcion'];
+                        }
+                    }else{
+                        $data['Descripcion'] = $servicio['Conexion'];
+                    }
+                    
                     $data['FechaUltimoCobro'] = $servicio['FechaUltimoCobro'];
                     array_push($array,$data);
                 }
@@ -1696,7 +1706,7 @@
             array_push($payments,$payment);
 
             $references = array();
-            
+
             if(isset($Detalle['NumeroOC'])){
                 $NumeroOC = $Detalle['NumeroOC'];
                 if($NumeroOC){
