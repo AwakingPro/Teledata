@@ -2834,7 +2834,7 @@
                     $data['SaldoConNotaCredito'] = $SaldoConNotaCredito;
                     array_push($ToReturn,$data);
                     if( $EstatusFacturacion == 2 ){
-                        $query = "SELECT Id, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount, priceAdjustment FROM devoluciones WHERE FacturaId = '".$Id."'  ";
+                        $query = "SELECT Id, Motivo, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount, priceAdjustment FROM devoluciones WHERE FacturaId = '".$Id."'  ";
                         if($startDate){
                             $query .= " AND FechaDevolucion BETWEEN '".$startDate."' AND '".$endDate."'";
                         }
@@ -2858,7 +2858,7 @@
                                 $data['NumeroDocumento'] = $devolucion['NumeroDocumento'].' Doc. Ref '.$factura['NumeroDocumento'];
                                 $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                                 $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');
-                                $data['Detalle'] = '*';
+                                $data['Detalle'] = $devolucion['Motivo'];
                                 $devolucion['DevolucionAmount'] = (double)$devolucion['DevolucionAmount']; 
                                 $data['TotalFactura'] = $devolucion['DevolucionAmount'];
                                 // $data['TotalSaldo'] = $devolucion['DevolucionAmount'];
