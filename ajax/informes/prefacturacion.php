@@ -98,6 +98,7 @@ if($Grupo == 1000){
             AND facturas.id = '".$Rut."'
             AND facturas.Grupo = '".$Grupo."'
             AND facturas.EstatusFacturacion = 0
+            AND facturas.deleted_at IS NULL
             AND facturas_detalle.Valor > 0"; 
 }else{
     $query = "  SELECT
@@ -131,6 +132,7 @@ WHERE
 AND facturas.Rut = '".$Rut."'
 AND facturas.Grupo = '".$Grupo."'
 AND facturas.EstatusFacturacion = 0
+AND facturas.deleted_at IS NULL
 AND facturas_detalle.Valor > 0"; 
 }
 $run = new Method;
@@ -157,6 +159,8 @@ if($facturas){
         array_push($ToReturn,$data);
     }
     
+    // echo "<pre>"; print_r($ToReturn); echo "</pre>"; exit;
+
     foreach($ToReturn as $datos) {
         $contador++;
         $objPHPExcel->setActiveSheetIndex(0)
