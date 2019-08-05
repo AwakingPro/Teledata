@@ -1128,5 +1128,35 @@
 			//se puede hacer la comparacion con 'false' o 'true' y los comparadores '===' o '!=='
 			return $posicion_coincidencia;
 		}
+
+		// metodo para expandir o contraer el navbar 
+		public function setEstadoMainNav($idUsuarioSession, $estado_actual){
+			$mysqli = $this->conexion();
+			if ($mysqli) {
+				if($idUsuarioSession){
+					$resultado = $mysqli->query("UPDATE usuarios set estado_navbar = '".$estado_actual."' where id = '".$idUsuarioSession."' ");
+					if(count($resultado)){
+						
+						$response = $resultado;
+					}
+				}
+			}	
+			return json_decode($response);
+		}
+
+		// metodo para obtener el ultimo estado del navbar 
+		public function getEstadoMainNav($idUsuarioSession){
+			$mysqli = $this->conexion();
+			if ($mysqli) {
+				if($idUsuarioSession){
+					$resultado = $mysqli->query("SELECT estado_navbar FROM usuarios where id = '".$idUsuarioSession."' ");
+					if(count($resultado)){
+						$resultado = $resultado->fetch_array();
+						$estado = $resultado['estado_navbar'];
+					}
+				}
+			}	
+			return json_decode($estado);
+		}
 	}
  ?>

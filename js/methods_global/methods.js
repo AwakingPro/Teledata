@@ -324,9 +324,48 @@ function alertas(type, message) {
 	});
 };
 
-//para expandir el navbar del lateral izquierdo
-$('#container').removeClass('mainnav-sm').addClass( "mainnav-in" );
-$("#container").attr( "attr", "1" );
+estado_actual = getEstadoMainNav();
+
+//metodo para obtener el estado del navbar izquierdo del erp
+function getEstadoMainNav(){
+	$.ajax({
+		type: "POST",
+		url: "../includes/global/getEstadoMainNav.php",
+		data: "idUsuarioSession="+idUsuarioSession,
+		success: function (response) {
+			if(response == 1){
+			//para expandir el navbar del lateral izquierdo
+			$('#container').removeClass('mainnav-sm').addClass( "mainnav-in" );
+			$("#container").attr( "attr", "1" );
+			}else{
+			//para minimizar el navbar del lateral izquierdo
+			$('#container').removeClass('"mainnav-in').addClass( "mainnav-sm" );
+			$("#container").attr( "attr", "" );
+			}
+			return response;	
+		}
+	});
+}
+//cambiar estado del navbar
+$(document).on('click', '.navbar-top-links', function (event) {
+	event.preventDefault();
+	estado_actual = $("#container").attr( "attr");
+	if(!estado_actual){
+		estado_actual = 0;
+	}
+	$.ajax({
+		type: "POST",
+		url: "../includes/global/setEstadoMainNav.php",
+		data: "idUsuarioSession="+idUsuarioSession+"&estado_actual="+estado_actual,
+		success: function (response) {	
+		}
+	});
+
+});
+
+// //para expandir el navbar del lateral izquierdo
+// $('#container').removeClass('mainnav-sm').addClass( "mainnav-in" );
+// $("#container").attr( "attr", "1" );
 // Opciones por defecto para las tablas
 $.extend( $.fn.dataTable.defaults, {
 	dom: 'Bflrtip',
