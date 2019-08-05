@@ -139,7 +139,7 @@ $(document).ready(function() {
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { Rut: $('select[name="rutCliente"]').selectpicker('val') }, function(data) {
             FacturasTableCliente = $('#FacturasTableCliente').DataTable({
                 order: [
-                    [2, 'asc']
+                    [1, 'desc']
                 ],
                 "columnDefs": [{
                     "targets": [0, 2],
