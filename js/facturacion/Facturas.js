@@ -142,7 +142,7 @@ $(document).ready(function() {
                     [2, 'asc']
                 ],
                 "columnDefs": [{
-                    "targets": [0],
+                    "targets": [0, 2],
                     "orderable": false
                 }],
                 data: data,
@@ -174,6 +174,20 @@ $(document).ready(function() {
                         "render": function(data, type, row) {
                             Check = '<input name="select_check" id="select_check_' + data + '" type="checkbox" />'
                             return "<div style='text-align: center'>" + Check + "</div>";
+                        }
+                    },
+                    {
+                        "targets": 3,
+                        "render": function(data, type, row) {
+                            FechaFacturacion = moment(data).format('DD-MM-YYYY');
+                            return "<td><span style='display: none;'>"+ data + "</span>"+FechaFacturacion+"</td>";
+                        }
+                    },
+                    {
+                        "targets": 4,
+                        "render": function(data, type, row) {
+                            FechaVencimiento = moment(data).format('DD-MM-YYYY');
+                            return "<td><span style='display: none;'>"+ data + "</span>"+FechaVencimiento+"</td>";
                         }
                     },
                     {
