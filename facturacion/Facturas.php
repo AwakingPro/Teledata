@@ -430,22 +430,24 @@
 		</div><!-- /.modal-dialog -->
 	</div><!-- /.modal -->
 
-	<script src="../js/jquery-2.2.1.min.js"></script>
-	<script src="../js/bootstrap.min.js"></script>
-    <script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-	<script src="../plugins/bootbox/bootbox.min.js"></script>
+	<script type="text/javascript" src="../js/jquery-2.2.1.min.js"></script>
+	<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
+	<script type="text/javascript" src="../plugins/bootbox/bootbox.min.js"></script>
 	<!-- <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script> -->
-	<script src="../plugins/datatables/media/js/jquery.dataTables.1.10.19.js"></script>
-	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
-	<script src="../js/methods_global/methods.js"></script>
-	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
-	<script src="../plugins/moment/moment.js"></script>
-	<script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-	<script src="../js/facturacion/Facturas.js"></script>
-	<script src="../plugins/datatables/extensions/BotonExcel/jszip.js"></script>
-	<script src="../plugins/numbers/jquery.number.js"></script>
-	<script src="../plugins/sweetalert/sweetalert.min.js"></script>
-	<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
+	<script type="text/javascript" src="../plugins/datatables/media/js/jquery.dataTables.1.10.19.js"></script>
+	
+	<script type="text/javascript" src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
+	<script type="text/javascript" src="../js/methods_global/methods.js"></script>
+	<script type="text/javascript" src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
+	<script type="text/javascript" src="../plugins/moment/moment.js"></script>
+	
+	<script type="text/javascript" src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
+	<script type="text/javascript" src="../js/facturacion/Facturas.js"></script>
+	<script type="text/javascript" src="../plugins/datatables/extensions/BotonExcel/jszip.js"></script>
+	<script type="text/javascript" src="../plugins/numbers/jquery.number.js"></script>
+	<script type="text/javascript" src="../plugins/sweetalert/sweetalert.min.js"></script>
+	<script type="text/javascript" src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 
 	<script type="text/javascript" src="../plugins/datatables/media/js/dataTables.buttons.min.js"></script>
 	<!-- <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script> -->
@@ -453,12 +455,12 @@
 	<!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script> -->
 	<!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script> -->
 
-	<script src="../plugins/datatables/media/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" src="../plugins/datatables/media/js/buttons.html5.min.js"></script>
 	<!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script> -->
 
 	<!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script> -->
 
-	<script src="../plugins/datatables/media/js/dataTables.select.min.js"></script>
+	<script type="text/javascript" src="../plugins/datatables/media/js/dataTables.select.min.js"></script>
 	<!-- <script src="https://cdn.datatables.net/select/1.3.0/js/dataTables.select.min.js"></script> -->
 </body>
 </html>
