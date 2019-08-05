@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     Table = $('#Table').DataTable({
-        paging: false,
+        paging: true,
         iDisplayLength: 100,
         processing: true,
         serverSide: false,  
