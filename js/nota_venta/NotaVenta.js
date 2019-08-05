@@ -717,8 +717,8 @@ $(document).ready(function() {
         var ObjectId = ObjectTR.attr("id");
 
         swal({
-            title: "Deseas generar la factura?",
-            text: "Confirmar facturación!",
+            title: "Deseas generar la nota de venta?",
+            text: "Confirmar la nota venta!",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#28a745",
