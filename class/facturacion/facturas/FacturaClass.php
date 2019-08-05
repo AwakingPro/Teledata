@@ -3047,27 +3047,6 @@
 
             return $ToReturn;
         }
-        public function getPagoNotaCredito($id){
-            $run = new Method;
-            $ToReturn = array();
-
-            $query = "  SELECT
-                            DevolucionAmount
-                        FROM
-                            devoluciones
-                        WHERE
-                            FacturaId = '".$id."'";
-            $DevolucionAmount = $run->select($query);
-            $data = array();
-            $TotalDevolucion = 0;
-            if($DevolucionAmount){
-                foreach($DevolucionAmount as $Devolucion){
-                    $TotalDevolucion = $Devolucion['DevolucionAmount'];   
-                }
-            }
-            $data['TotalDevolucion'] = (double)($TotalDevolucion);
-            return $data;
-        }
         public function storePago($FacturaId,$FechaPago,$TipoPago,$Monto,$FechaEmisionCheque,$FechaVencimientoCheque){
             $response_array = array();
             $FacturaId = $_POST['FacturaId'];
