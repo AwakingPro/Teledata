@@ -368,7 +368,7 @@
 				}else{
 					$actualizaFechaUltimoCobro = "";
 				}
-				$query = "UPDATE servicios SET FechaInstalacion = '$FechaInstalacion', InstaladoPor = '$InstaladoPor',
+				$query = "UPDATE servicios SET InstaladoPor = '$InstaladoPor',
 						Comentario = '$Comentario', UsuarioPppoe = '$UsuarioPppoe', EstacionFinal = '$EstacionFinal',
 						SenalFinal = '$SenalFinal', EstatusInstalacion = '$Estatus' ".$actualizaFechaUltimoCobro."   where Id = '$Id'";
 				$data = $run->update($query);
