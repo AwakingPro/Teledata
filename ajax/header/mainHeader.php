@@ -26,7 +26,7 @@ if (file_exists('../ajax/perfil/img-profile/'.$_SESSION['idUsuario'].'.jpg')) {
 		</div>
 		<div class="navbar-content clearfix">
 			<ul class="nav navbar-top-links pull-left">
-				<li class="tgl-menu-btn">
+				<li class="tgl-menu-btn" id="togl-menu-btn">
 					<a class="mainnav-toggle" href="#">
 						<i class="pli-view-list"></i>
 					</a>
