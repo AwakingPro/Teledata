@@ -36,12 +36,16 @@
                         <div class="row" style="padding:20px">
                             <form class="form-horizontal" id = "storeProveedor">
                                 <div class="clearfix m-b-10"></div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label class="control-label" for="rut">RUT</label>
-                                        <input id="rut" name="rut" type="text" placeholder="Ingrese el rut" class="form-control input-sm">
-                                    </div>
+
+                                <div class="col-md-10 form-group">
+                                    <label class="control-label" for="rut">RUT</label>
+                                    <input id="rut" name="rut" type="text" placeholder="Ingrese el rut" class="form-control input-sm" validate="not_null" maxlength="8">
                                 </div>
+                                <div class="col-md-2 form-group">
+                                    <label class="control-label" for="dv">Dv</label>
+                                    <input id="Dv" name="Dv" class="form-control input-sm" validate="not_null" disabled="">
+                                </div>
+
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
@@ -98,6 +102,17 @@
                                         <div class="row" style="padding:20px">
                                             <form class="form-horizontal" id = "updateProveedor">
                                                 <input type="hidden" id="id" name="id">
+                                                <div class="clearfix m-b-10"></div>
+                                                <div class="col-md-10">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="rut">Rut</label>
+                                                        <input id="rut" name="rut" type="text" placeholder="Ingrese su Rut" class="form-control input-sm">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2 form-group">
+                                                    <label class="control-label" for="DvUpdate">Dv</label>
+                                                    <input id="DvUpdate" name="DvUpdate" class="form-control input-sm" validate="not_null" disabled="">
+                                                </div>
                                                 <div class="clearfix m-b-10"></div>
                                                 <div class="col-md-12">
                                                     <div class="form-group">
@@ -166,6 +181,7 @@
                                                                                 <table id="ProveedorTable" class="table table-striped table-bordered">
                                                                                     <thead>
                                                                                         <tr>
+                                                                                            <th class="text-center">RUT-DV</th>
                                                                                             <th class="text-center">Nombre</th>
                                                                                             <th class="text-center">Dirección</th>
                                                                                             <th class="text-center">Teléfono</th>
