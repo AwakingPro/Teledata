@@ -347,7 +347,7 @@ function getEstadoMainNav(){
 	});
 }
 //cambiar estado del navbar
-$(document).on('click', '.navbar-top-links', function (event) {
+$(document).on('click', '#togl-menu-btn', function (event) {
 	event.preventDefault();
 	estado_actual = $("#container").attr( "attr");
 	if(!estado_actual){
