@@ -7,6 +7,8 @@
 
     	public function CrearProveedor($Nombre,$Direccion,$Telefono,$Contacto,$Correo,$Rut){
 
+            $run = new Method;
+            
             $response_array = array();
 
             $Nombre = isset($Nombre) ? trim($Nombre) : "";
@@ -15,6 +17,7 @@
             $Contacto = isset($Contacto) ? trim($Contacto) : "";
             $Correo = isset($Correo) ? trim($Correo) : "";
             $Rut = isset($Rut) ? trim($Rut) : "";
+            $Dv = $run->obtenerDv($Rut);
 
             if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Contacto) && !empty($Correo) && !empty($Rut)){
 
@@ -24,14 +27,14 @@
                 $this->Contacto=$Contacto;
                 $this->Correo=$Correo;
                 $this->Rut=$Rut;
+                $this->Dv=$Dv;
 
-                $query = "INSERT INTO mantenedor_proveedores(nombre, direccion, telefono, contacto, correo, rut) VALUES ('$this->Nombre', '$this->Direccion', '$this->Telefono', '$this->Contacto', '$this->Correo', '$this->Rut')";
-                $run = new Method;
+                $query = "INSERT INTO mantenedor_proveedores(nombre, direccion, telefono, contacto, correo, rut, dv) VALUES ('$this->Nombre', '$this->Direccion', '$this->Telefono', '$this->Contacto', '$this->Correo', '$this->Rut', '$this->Dv')";
                 $id = $run->insert($query);
 
                 if($id){
 
-                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono,'contacto' => $this->Contacto,'correo' => $this->Correo, 'rut' => $this->Rut);
+                    $array = array('id'=> $id, 'nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono,'contacto' => $this->Contacto,'correo' => $this->Correo, 'rut' => $this->Rut, 'dv' => $this->Dv);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -47,8 +50,8 @@
     	} 
 
 
-        function updateProveedor($Nombre,$Direccion,$Telefono,$Contacto,$Correo, $Id){
-
+        function updateProveedor($Nombre,$Direccion,$Telefono,$Contacto,$Correo, $Id, $Rut){
+            $run = new Method;
             $response_array = array();
 
             $Nombre = isset($Nombre) ? trim($Nombre) : "";
@@ -56,7 +59,8 @@
             $Telefono = isset($Telefono) ? trim($Telefono) : "";
             $Contacto = isset($Contacto) ? trim($Contacto) : "";
             $Correo = isset($Correo) ? trim($Correo) : "";
-
+            $Rut = isset($Rut) ? trim($Rut) : "";
+            $Dv = $run->obtenerDv($Rut);
             if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Contacto) && !empty($Correo)){
 
                 $this->Id=$Id;
@@ -65,14 +69,16 @@
                 $this->Telefono=$Telefono;
                 $this->Contacto=$Contacto;
                 $this->Correo=$Correo;
+                $this->Rut=$Rut;
+                $this->Dv=$Dv;
 
-                $query = "UPDATE `mantenedor_proveedores` set `nombre` = '$this->Nombre', `direccion` = '$this->Direccion', `telefono` = '$this->Telefono', `contacto` = '$this->Contacto', `correo` = '$this->Correo' where `id` = '$this->Id'";
-                $run = new Method;
+                $query = "UPDATE `mantenedor_proveedores` set `nombre` = '$this->Nombre', `direccion` = '$this->Direccion', `telefono` = '$this->Telefono', `contacto` = '$this->Contacto', `correo` = '$this->Correo', `rut` = '$this->Rut', `dv` = '$this->Dv' where `id` = '$this->Id'";
+                
                 $data = $run->update($query);
 
                 if($data){
 
-                    $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono,'contacto' => $this->Contacto,'correo' => $this->Correo, 'id' => $this->Id);
+                    $array = array('nombre' => $this->Nombre,'direccion' => $this->Direccion,'telefono' => $this->Telefono,'contacto' => $this->Contacto,'correo' => $this->Correo, 'id' => $this->Id, 'rut' => $this->Rut, 'dv' => $this->Dv);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
