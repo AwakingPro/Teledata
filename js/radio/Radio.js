@@ -11,8 +11,7 @@ $(document).ready(function(){
 
     function initialize() {
 
-        center = new google.maps.LatLng(0, 0);
-
+        center = new google.maps.LatLng(-41.3214705, -73.0138898);
         mapOptions = {
             zoom: 20,
             center: center,
@@ -118,13 +117,13 @@ $(document).ready(function(){
 
                     mapCenter = new google.maps.LatLng(latitud, longitud);
 
-                    // var marker = new google.maps.Marker({
-                    //     position: mapCenter,
-                    //     title: 'Marker title',
-                    //     map: EstacionFormMap
-                    // });
+                    var marker = new google.maps.Marker({
+                        position: mapCenter,
+                        title: 'Marker title',
+                        map: EstacionFormMap
+                    });
 
-                    // marker.setMap(EstacionFormMap);
+                    marker.setMap(EstacionFormMap);
 
                     setTimeout(function() {
                         google.maps.event.trigger(EstacionFormMap, "resize");
@@ -155,13 +154,13 @@ $(document).ready(function(){
 
                     mapCenter = new google.maps.LatLng(latitud, longitud);
 
-                    // var marker = new google.maps.Marker({
-                    //     position: mapCenter,
-                    //     title: 'Marker title',
-                    //     map: EstacionFormSiteMap
-                    // });
+                    var marker = new google.maps.Marker({
+                        position: mapCenter,
+                        title: 'Marker title',
+                        map: EstacionFormSiteMap
+                    });
 
-                    // marker.setMap(EstacionFormMap);
+                    marker.setMap(EstacionFormMap);
 
                     setTimeout(function() {
                         google.maps.event.trigger(EstacionFormSiteMap, "resize");
@@ -192,13 +191,13 @@ $(document).ready(function(){
 
                     mapCenter = new google.maps.LatLng(latitud, longitud);
 
-                    // var marker = new google.maps.Marker({
-                    //     position: mapCenter,
-                    //     title: 'Marker title',
-                    //     map: EstacionFormUpdateMap
-                    // });
+                    var marker = new google.maps.Marker({
+                        position: mapCenter,
+                        title: 'Marker title',
+                        map: EstacionFormUpdateMap
+                    });
 
-                    // marker.setMap(EstacionFormUpdateMap);
+                    marker.setMap(EstacionFormUpdateMap);
 
                     setTimeout(function() {
                         google.maps.event.trigger(EstacionFormUpdateMap, "resize");
@@ -229,13 +228,13 @@ $(document).ready(function(){
 
                     mapCenter = new google.maps.LatLng(latitud, longitud);
 
-                    // var marker = new google.maps.Marker({
-                    //     position: mapCenter,
-                    //     title: 'Marker title',
-                    //     map: EstacionFormUpdateSiteMap
-                    // });
+                    var marker = new google.maps.Marker({
+                        position: mapCenter,
+                        title: 'Marker title',
+                        map: EstacionFormUpdateSiteMap
+                    });
 
-                    // marker.setMap(EstacionFormMap);
+                    marker.setMap(EstacionFormMap);
 
                     setTimeout(function() {
                         google.maps.event.trigger(EstacionFormUpdateSiteMap, "resize");
