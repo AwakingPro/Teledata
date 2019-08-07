@@ -57,7 +57,7 @@ if(isset($_GET['rut']) && $_GET['rut'] != '') {
             (SELECT ROUND(SUM( Total )) FROM facturas_detalle WHERE FacturaId = facturas.Id ) AS totalDoc,
             facturas.NumeroDocumento,
             facturas.FechaFacturacion,
-            facturas_pagos.Detalle as Detalle,
+            mantenedor_tipo_pago.nombre as Detalle,
             personaempresa.nombre AS Cliente,
             facturas_pagos.FechaPago AS FechaPago,
             ROUND(facturas_pagos.Monto) AS Pagado,
@@ -68,6 +68,7 @@ if(isset($_GET['rut']) && $_GET['rut'] != '') {
                 LEFT JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
                 LEFT JOIN personaempresa ON personaempresa.rut = facturas.Rut
                 INNER JOIN mantenedor_tipo_cliente mt ON facturas.TipoDocumento = mt.id
+                LEFT JOIN mantenedor_tipo_pago ON mantenedor_tipo_pago.id = facturas_pagos.TipoPago
             WHERE
                 facturas.EstatusFacturacion = '1' ";
 
