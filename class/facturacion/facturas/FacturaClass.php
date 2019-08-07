@@ -2232,8 +2232,6 @@
             $saldo_doc = 0;
             $saldo_favor = 0;
             // echo '<pre>'; print_r($documentos); echo '</pre>'; return;
-
-
             if (count($documentos) > 0) {
         
                 foreach($documentos as $documento){
