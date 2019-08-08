@@ -8,12 +8,21 @@ $(document).ready(function() {
         type: "POST",
         url: "../includes/inventario/bodegas/showPersonal.php",
         success: function(response) {
+            var nombreUsuarioSession;
+
             $.each(response.array, function(index, array) {
+                if(array.id == idUsuarioSession){
+                    $('#solicitado_por').prepend('<option value="' + array.id + '">' + array.nombre + '</option>');
+                    $('#solicitado_por').val(nombreUsuarioSession);
+                }
+                
                 $('#solicitado_por').append('<option value="' + array.id + '">' + array.nombre + '</option>');
             });
             $.each(response.array, function(index, array) {
                 $('#solicitado_por_update').append('<option value="' + array.id + '">' + array.nombre + '</option>');
             });
+
+            
             setTimeout(function() {
                 $('.selectpicker').selectpicker('refresh');
             }, 500)
