@@ -314,17 +314,29 @@
                                                         <input id="fecha_hes" name="fecha_hes" class="form-control input-sm" data-nombre="Fecha emisión HES">
                                                     </div>
                                                 </div>
+
+                                                <div style="display:none;" class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label class="control-label" for="Descuento">Descuento</label>
+                                                        <div class="input-group">
+                                                            <input type="text" name="Descuento" id="Descuento" class="form-control" min="0" max="100" step="1">
+                                                            <span class="input-group-addon">%</span>
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                                    
                                             </div>
                                             <input type="hidden" id="ServiciosSeleccionados" name="ServiciosSeleccionados">
                                         </form>
                                         <div class="row" style="margin-top: 20px">
                                             <div class="col-md-2">
-                                                <label id="label_automatico" class="label_tipo form-radio form-icon form-text" for="switch_tipo">
-                                                    <input id="automatico" name="switch_tipo" type="radio" value="1" checked>
-                                                    Automático</label>
-                                                <label id="label_manual" class="label_tipo form-radio form-icon form-text" name="switch_tipo">
-                                                    <input id="manual" name="switch_tipo" type="radio" value="2">
-                                                    Manual</label>
+                                                <label id="label_automatico" class="form-radio label_tipo  form-icon form-text" for="automatico">
+                                                    <input id="automatico" class="switch_tipo" name="switch_tipo" type="radio" value="1" checked>
+                                                Automático</label>
+                                                    
+                                                <label id="label_manual" class="form-radio label_tipo  form-icon form-text" for="manual">
+                                                    <input id="manual" class="switch_tipo" name="switch_tipo" type="radio" value="2">
+                                                Manual</label>
                                             </div>
                                             <div class="clearfix"></div>
 
