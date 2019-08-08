@@ -548,13 +548,13 @@ $(document).ready(function() {
     });
 
     $('body').on('click', '#insertNotaVenta', function() {
-
+        
         //envio el id servicio y la la fecha ultimo cobro para actualizarlos si es necesario
         FacturaDetalle = getCheckedDetalles('#TablaFacturaDetalle');
         // console.log(FacturaDetalle); return;
         $('#ServiciosSeleccionados').val(FacturaDetalle);
         $.postFormValues('../includes/nota_venta/insertNotaVenta.php', '#formCliente', {}, function(response) {
-
+            $('#insertNotaVenta').attr('disabled', true);
             if (response.status == 1) {
                 TablaFacturaDetalle
                 .rows()
@@ -611,6 +611,7 @@ $(document).ready(function() {
                 });
 
             }
+            $('#insertNotaVenta').attr('disabled', false);
         });
     });
 
