@@ -53,14 +53,14 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="NumeroHES">Número de HES</label>
-                                        <input id="NumeroHES" name="NumeroHES" type="text" placeholder="Ingrese el número de la HES" class="form-control input-sm" validate="not_null" data-nombre="Numero de HES">
+                                        <input id="NumeroHES" name="NumeroHES" type="text" placeholder="Ingrese el número de la HES" class="form-control input-sm" data-nombre="Numero de HES">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="FechaHES">Fecha emisión HES</label>
-                                        <input id="FechaHES" name="FechaHES" type="text" placeholder="Ingrese la fecha de la HES" class="form-control input-sm date" validate="not_null" data-nombre="Fecha emisión HES">
+                                        <input id="FechaHES" name="FechaHES" type="text" placeholder="Ingrese la fecha de la HES" class="form-control input-sm date" data-nombre="Fecha emisión HES">
                                     </div>
                                 </div>
                             </form>
