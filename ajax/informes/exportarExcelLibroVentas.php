@@ -18,15 +18,15 @@ $objPHPExcel->getProperties()
 
 // Agregar Informacion
 $objPHPExcel->setActiveSheetIndex(0)
-	->setCellValue('A1', 'Nombre De Cliente')
+	->setCellValue('A1', 'Nombre de cliente')
     ->setCellValue('B1', 'Documento')
-    ->setCellValue('C1', 'RUT Receptor')
-	->setCellValue('D1', 'Nº Doc')
-    ->setCellValue('E1', 'Fecha Doc')
-    ->setCellValue('F1', 'Monto Neto')
+    ->setCellValue('C1', 'RUT receptor')
+	->setCellValue('D1', 'Nº doc')
+    ->setCellValue('E1', 'Fecha emisión')
+    ->setCellValue('F1', 'Monto neto')
     ->setCellValue('G1', 'IVA')
 	->setCellValue('H1', 'Monto total')
-    ->setCellValue('I1', 'Nº Relación')
+    ->setCellValue('I1', 'Nº relación')
     ->setCellValue('J1', 'Informe SII');
     
     // filtros
