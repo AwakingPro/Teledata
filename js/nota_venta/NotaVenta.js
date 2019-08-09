@@ -237,6 +237,7 @@ $(document).ready(function() {
                         { data: 'numero_hes'},
                         { data: 'solicitado_por' },
                         { data: 'total' },
+                        { data: 'total_descuento'},
                         { data: 'id' }
                     ],
                     destroy: true,
@@ -260,7 +261,7 @@ $(document).ready(function() {
                             }
                         },
                         {
-                            "targets": 7,
+                            "targets": 8,
                             "render": function(data, type, row) {
                                 Ver = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye View"></i>';
                                 if (row.estatus_facturacion == 0) {
@@ -461,6 +462,7 @@ $(document).ready(function() {
                     '' + formatcurrency(precio) + '',
                     '' + response.array.cantidad + '',
                     '' + formatcurrency(total) + '',
+                    '' + formatcurrency(response.array.descuento) + '',
                     '' + '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times deleteDetalleTmp"></i>' + '',
                 ]).draw(false).node();
 
@@ -819,6 +821,7 @@ $(document).ready(function() {
                         { data: 'precio' },
                         { data: 'cantidad' },
                         { data: 'total' },
+                        { data: 'descuento' },
                         { data: 'id' }
                     ],
                     destroy: true,
@@ -840,7 +843,7 @@ $(document).ready(function() {
                                 return "<div style='text-align: center'>" + value + "</div>";
                             }
                         },{
-                            "targets": 4,
+                            "targets": 5,
                             "render": function(data, type, row) {
                                 Editar = ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil editDetalle"></i>'
                                 Eliminar = ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times deleteDetalle"></i>'
@@ -1087,6 +1090,7 @@ $(document).ready(function() {
                 $('input[name="cantidad_update"]').val(response.cantidad);
                 $('input[name="moneda_update"]').val(1);
                 $('input[name="total_update"]').val(formatcurrency(response.total));
+                $('input[name="descuento_update"]').val(response.descuento);
                 $('input[name="moneda_update"]').selectpicker('refresh')
                 $('#modalDetalle').modal('show')
             }

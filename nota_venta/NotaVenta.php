@@ -78,7 +78,7 @@
                             <form class="form-horizontal" id = "formDetalle">
                                 <input type="hidden" name="nota_venta_id" id="nota_venta_id">
                                 <div class="row" style="margin:0">
-                                    <div class="col-md-3" style="padding-left:20px;padding-right:20px">
+                                    <div class="col-md-2" style="padding-left:20px;padding-right:20px">
                                         <div class="form-group">
                                             <div class="text-center">
                                                 <label class="control-label h5" for="concepto">Concepto</label>
@@ -121,6 +121,17 @@
                                             <input id="total" name="total" class="form-control input-sm" disabled>
                                         </div>
                                     </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group" style="padding-left:20px;padding-right:20px">
+                                            <div class="text-center">
+                                                <label class="control-label h5" for="descuento">Descuento</label>
+                                            </div>
+                                            <div class="input-group">
+                                                <input type="text" name="descuento" id="descuento" class="form-control" min="0" max="100" step="1">
+                                                <span class="input-group-addon">%</span>
+                                            </div>
+                                        </div> 
+                                    </div>
                                     <div class="col-md-1">
                                         <button type="button" id="insertDetalle" name="insertDetalle" style="margin-top: 30px" class="btn btn-success btn-icon btn-circle icon-lg fa fa-plus" disabled></button>
                                     </div>
@@ -133,6 +144,7 @@
                                                 <th class="text-center">Precio</th>
                                                 <th class="text-center">Cantidad</th>
                                                 <th class="text-center">Total I.V.A. Incluido</th>
+                                                <th class="text-center">Descuento %</th>
                                                 <th class="text-center">Acción</th>
                                             </tr>
                                         </thead>
@@ -193,6 +205,15 @@
                                         <label class="control-label h5" for="total_update">Total</label>
                                         <input id="total_update" name="total_update" class="form-control input-sm" disabled>
                                     </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label class="control-label h5" for="descuento_update">Descuento</label>
+                                        <div class="input-group">
+                                            <input type="text" name="descuento_update" id="descuento_update" class="form-control" min="0" max="100" step="1">
+                                            <span class="input-group-addon">%</span>
+                                        </div>
+                                    </div> 
                                 </div>
                             </form>
                         </div>
@@ -314,17 +335,6 @@
                                                         <input id="fecha_hes" name="fecha_hes" class="form-control input-sm" data-nombre="Fecha emisión HES">
                                                     </div>
                                                 </div>
-
-                                                <div style="display:none;" class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label class="control-label" for="Descuento">Descuento</label>
-                                                        <div class="input-group">
-                                                            <input type="text" name="Descuento" id="Descuento" class="form-control" min="0" max="100" step="1">
-                                                            <span class="input-group-addon">%</span>
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                                    
                                             </div>
                                             <input type="hidden" id="ServiciosSeleccionados" name="ServiciosSeleccionados">
                                         </form>
@@ -341,7 +351,7 @@
                                             <div class="clearfix"></div>
 
                                             <form id="formDetalleTmp">
-                                                <div class="col-md-3">
+                                                <div class="col-md-2">
                                                     <div class="form-group">
                                                         <div class="text-center">
                                                             <label class="control-label h5" for="concepto_tmp">Concepto</label>
@@ -387,11 +397,24 @@
                                                         <input id="total_tmp" name="total_tmp" class="form-control input-sm" disabled>
                                                     </div>
                                                 </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <div class="text-center">
+                                                            <label class="control-label h5" for="descuento">Descuento</label>
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <input type="text" name="descuento" id="descuento" class="form-control" min="0" max="100" step="1">
+                                                            <span class="input-group-addon">%</span>
+                                                        </div>
+                                                    </div> 
+                                                </div>
                                                 <div class="col-md-1">
                                                     <button type="button" id="insertDetalleTmp" name="insertDetalleTmp" style="margin-top: 30px" class="btn btn-success btn-icon btn-circle icon-lg fa fa-plus" disabled></button>
                                                 </div>
+                                                
                                             </form>
                                         </div>
+
                                         <!-- inicio ver servicios asociados -->
                                         <h3 class="panel-title">Seleccione los servicios que estaran asociados a esta nota de venta</h3>
                                         <div class="clearfix"></div>
@@ -426,6 +449,7 @@
                                                                 <th class="text-center">Precio</th>
                                                                 <th class="text-center">Cantidad</th>
                                                                 <th class="text-center">Total I.V.A. Incluido</th>
+                                                                <th class="text-center">Descuento %</th>
                                                                 <th class="text-center">Acción</th>
                                                             </tr>
                                                         </thead>
@@ -488,6 +512,7 @@
                                                                 <th class="text-center">Numero de HES</th>
                                                                 <th class="text-center">Solicitado Por</th>
                                                                 <th class="text-center">Total</th>
+                                                                <th class="text-center">Total Descuento %</th>
                                                                 <th class="text-center">Acción</th>
                                                             </tr>
                                                         </thead>

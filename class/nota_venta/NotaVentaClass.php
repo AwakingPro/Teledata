@@ -16,14 +16,13 @@
             $data = $run->delete($query,false);
         }
 
-    	public function insertDetalleTmp($Concepto,$Cantidad,$Precio,$Moneda){
-            // echo $Precio;
-            // exit;
+    	public function insertDetalleTmp($Concepto,$Cantidad,$Precio,$Moneda, $Descuento){
             $response_array = array();
 
             $Concepto = isset($Concepto) ? trim($Concepto) : "";
             $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
             $Precio = isset($Precio) ? trim($Precio) : "";
+            $Descuento = isset($Descuento) ? trim($Descuento) : "";
 
             if(!empty($Concepto) && !empty($Cantidad) && !empty($Precio)){
 
@@ -33,9 +32,6 @@
                 $Cantidad = intval($Cantidad);
                 $Usuario = $_SESSION['idUsuario'];
                 $Precio = str_replace(',','.',$Precio);
-                // echo $Precio;
-                // exit;
-                // $Precio = floatval($Precio);
                 
                 if($Moneda == 2){
                     $UfClass = new Uf(); 
@@ -53,12 +49,12 @@
                 
                 // echo "Moneda ".$Moneda.' Precio '.$Precio. " Neto ".$Neto." Impuesto ".$Impuesto." Total ".$Total."\n";
                 // exit;
-                $query = "INSERT INTO nota_venta_tmp(concepto, cantidad, precio, total, usuario_id) VALUES ('".$Concepto."','".$Cantidad."','".$Precio."','".$Total."','".$Usuario."')";
+                $query = "INSERT INTO nota_venta_tmp(concepto, cantidad, precio, total, usuario_id, descuento) VALUES ('".$Concepto."','".$Cantidad."','".$Precio."','".$Total."','".$Usuario."', '".$Descuento."')";
                 $id = $run->insert($query,false);
 
                 if($id){
 
-                    $array = array('id'=> $id, 'concepto' => $Concepto, 'cantidad' => $Cantidad, 'precio' => $Precio, 'total' => $Total);
+                    $array = array('id'=> $id, 'concepto' => $Concepto, 'cantidad' => $Cantidad, 'precio' => $Precio, 'total' => $Total, 'descuento' => $Descuento);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -154,12 +150,13 @@
                             $Cantidad=$detalle['cantidad'];
                             $Precio=$detalle['precio'];
                             $Total=$detalle['total'];
+                            $Descuento=$detalle['descuento'];
 
-                            $query = "INSERT INTO nota_venta_detalle(nota_venta_id, concepto, cantidad, precio, total) VALUES ('$Id','$Concepto','$Cantidad','$Precio','$Total')";
+                            $query = "INSERT INTO nota_venta_detalle(nota_venta_id, concepto, cantidad, precio, total, descuento) VALUES ('$Id','$Concepto','$Cantidad','$Precio','$Total', '$Descuento')";
                             $data = $run->insert($query);
                         }
 
-                        $array = array('id'=> $Id, 'rut' => $Cliente, 'fecha' => $Fecha, 'numero_oc' => $NumeroOc, 'solicitado_por' => $SolicitadoPor, 'numero_hes' => $NumeroHes);
+                        $array = array('id'=> $Id, 'rut' => $Cliente, 'fecha' => $Fecha, 'numero_oc' => $NumeroOc, 'solicitado_por' => $SolicitadoPor, 'numero_hes' => $NumeroHes, 'descuento' => $Descuento);
                         
                         $response_array['array'] = $array;
                         $response_array['status'] = 1; 
@@ -270,7 +267,8 @@
                             p.nombre AS cliente,
                             CONCAT( p.rut, '-', p.dv ) AS rut,
                             u.nombre AS solicitado_por,
-                            IFNULL(ROUND( ( SELECT SUM( total ) FROM nota_venta_detalle WHERE nota_venta_id = nv.id ), 0 ), 0) AS total 
+                            IFNULL(ROUND( ( SELECT SUM( total ) FROM nota_venta_detalle WHERE nota_venta_id = nv.id ), 0 ), 0) AS total,
+                            IFNULL(ROUND( ( SELECT SUM( descuento ) FROM nota_venta_detalle WHERE nota_venta_id = nv.id ), 0 ), 0) AS total_descuento 
                         FROM
                             nota_venta nv
                             INNER JOIN personaempresa p ON p.rut = nv.rut
@@ -348,8 +346,8 @@
                             $Concepto = $Detalle['concepto'];
                             $Cantidad = $Detalle['cantidad'];
                             $Total = $Detalle['total'];
-                            
-                            $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '0', '0', '".$Total."', '')";
+                            $Descuento = $Detalle['descuento'];
+                            $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo) VALUES ('".$FacturaId."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '0', '".$Total."', '')";
                             $FacturaDetalleId = $run->insert($query);
                             
                         }
@@ -460,19 +458,20 @@
                     $array['precio'] = $detalle['precio'];
                     $array['cantidad'] = $detalle['cantidad'];
                     $array['total'] = $detalle['total'];
+                    $array['descuento'] = $detalle['descuento'];
                     array_push($detalles,$array);
                 }
             }
             echo json_encode($detalles);
         }
-        public function insertDetalle($Concepto,$Cantidad,$Precio,$Moneda,$NotaVentaId){
+        public function insertDetalle($Concepto,$Cantidad,$Precio,$Moneda,$NotaVentaId, $Descuento){
             $run = new Method;
             $response_array = array();
 
             $Concepto = isset($Concepto) ? trim($Concepto) : "";
             $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
             $Precio = isset($Precio) ? trim($Precio) : "";
-
+            $Descuento = isset($Descuento) ? trim($Descuento) : "";
             if(!empty($Concepto) && !empty($Cantidad) && !empty($Precio)){
 
                 
@@ -491,12 +490,12 @@
                 $Total = $Neto + $Impuesto;
                 $Total = round($Total,0);
                 
-                $query = "INSERT INTO nota_venta_detalle(concepto, cantidad, precio, total, nota_venta_id) VALUES ('".$Concepto."','".$Cantidad."','".$Precio."','".$Total."','".$NotaVentaId."')";
+                $query = "INSERT INTO nota_venta_detalle(concepto, cantidad, precio, total, nota_venta_id, descuento) VALUES ('".$Concepto."','".$Cantidad."','".$Precio."','".$Total."','".$NotaVentaId."','".$Descuento."')";
                 $id = $run->insert($query);
 
                 if($id){
 
-                    $array = array('id'=> $id, 'concepto' => $Concepto, 'cantidad' => $Cantidad, 'precio' => $Precio, 'total' => $Total);
+                    $array = array('id'=> $id, 'concepto' => $Concepto, 'cantidad' => $Cantidad, 'precio' => $Precio, 'total' => $Total,'descuento' => $Descuento);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
@@ -527,13 +526,14 @@
             }
             echo json_encode($detalle);
         }
-        public function updateDetalle($Concepto,$Cantidad,$Precio,$Moneda,$Id){
+        public function updateDetalle($Concepto,$Cantidad,$Precio,$Moneda,$Id,$Descuento){
             $run = new Method;
             $response_array = array();
 
             $Concepto = isset($Concepto) ? trim($Concepto) : "";
             $Cantidad = isset($Cantidad) ? trim($Cantidad) : "";
             $Precio = isset($Precio) ? trim($Precio) : "";
+            $Descuento = isset($Descuento) ? trim($Descuento) : "";
 
             if(!empty($Concepto) && !empty($Cantidad) && !empty($Precio)){
                 $Cantidad = intval($Cantidad);
@@ -550,12 +550,12 @@
                 $Total = $Neto + $Impuesto;
                 $Total = round($Total,0);
                 
-                $query = "UPDATE nota_venta_detalle SET concepto = '".$Concepto."', cantidad = '".$Cantidad."', precio = '".$Precio."', total = '".$Total."' WHERE id = '".$Id."'";
+                $query = "UPDATE nota_venta_detalle SET concepto = '".$Concepto."', cantidad = '".$Cantidad."', precio = '".$Precio."', total = '".$Total."', descuento = '".$Descuento."' WHERE id = '".$Id."'";
                 $id = $run->update($query);
 
                 if($id){
 
-                    $array = array('id'=> $id, 'concepto' => $Concepto, 'cantidad' => $Cantidad, 'precio' => $Precio, 'total' => $Total);
+                    $array = array('id'=> $id, 'concepto' => $Concepto, 'cantidad' => $Cantidad, 'precio' => $Precio, 'total' => $Total, 'descuento' => $Descuento);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
