@@ -103,7 +103,8 @@
 									<option value="1">Administrador</option>
 									<option value="2">Soporte</option>
 									<option value="3">Terreno</option>
-									<option value="4">Soporte nivel 2</option>
+									<option value="4">Ver clientes</option>
+									<option value="5">Ver y editar clientes</option>
 								</select>
 							</div>
 							<div class="col-md-6 form-group">
@@ -168,7 +169,8 @@
 									<option value="1">Administrador</option>
 									<option value="2">Soporte</option>
 									<option value="3">Terreno</option>
-									<option value="4">Soporte nivel 2</option>
+									<option value="4">Ver clientes</option>
+									<option value="5">Ver y editar clientes</option>
 								</select>
 							</div>
 							<div class="col-md-6 form-group">
