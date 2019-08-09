@@ -417,6 +417,8 @@ if ($facturas) {
             }
         }
     }
+    $contadorNumero = 1;
+    $siguienteNumero = 3;
     $contadorEnero = 0;
     $contadorFebrero = 0;
     $contadorMarzo = 0;
@@ -472,8 +474,21 @@ if ($facturas) {
         exit;
     }
     
+    $RUT_temporal = '';
+    $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A' . $siguienteNumero, $contadorNumero);
     // echo '<pre>'; print_r($ToReturn); echo '</pre>'; exit;
     foreach ($ToReturn as $datos) {
+
+        if($RUT_temporal != $datos['RUT'] && $contadorNumero > 1){
+            $contadorNumero++;
+            $siguienteNumero += 2;
+            $RUT_temporal = $datos['RUT'];
+            $objPHPExcel->setActiveSheetIndex(0)
+            ->setCellValue('A' . $siguienteNumero, $contadorNumero);
+        }
+
+        $RUT_temporal = $datos['RUT'];
 
         if ($datos['TipoDocumento'] == 'Boleta')
             $datos['TipoDocumento'] = 'B';
@@ -481,13 +496,14 @@ if ($facturas) {
             $datos['TipoDocumento'] = 'F';
         if ($datos['TipoDocumento'] == 'Canje')
             $datos['TipoDocumento'] = 'C';
-
+        
         $mesEmision = date('m', strtotime($datos['FechaFacturacion']));
         switch ($mesEmision) {
+            
             case 01: {
-                    $contadorEnero++;
+                    // $contadorFebrero++;
                     $objPHPExcel->setActiveSheetIndex(0)
-                        ->setCellValue('A' . $indexEnero, $contadorEnero)
+                        // ->setCellValue('A' . $indexEnero, $contadorNumero)
                         ->setCellValue('B' . $indexEnero, $datos['Cliente'])
                         ->setCellValue('C' . $indexEnero, $datos['RUT'] . '-' . $datos['DV'])
                         ->setCellValue('F' . $indexEnero, $datos['TipoDocumento'] . '-' . $datos['NumeroDocumento'])
