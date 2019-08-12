@@ -272,7 +272,7 @@ if ($Rut) {
     $query .= " AND facturas.Rut = '" . $Rut . "'";
 }
 
-$query .= "GROUP BY facturas.Id ORDER BY Cliente, facturas.FechaFacturacion";
+$query .= "GROUP BY facturas.Id ORDER BY Cliente, facturas.FechaFacturacion ASC ";
 
 // if($documentType){
 //     $query .= " AND facturas.TipoDocumento = '".$documentType."'";
@@ -474,19 +474,19 @@ if ($facturas) {
         exit;
     }
     
-    $RUT_temporal = '';
-    $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A' . $siguienteNumero, $contadorNumero);
+    // $RUT_temporal = '';
+    // $objPHPExcel->setActiveSheetIndex(0)
+    //         ->setCellValue('A' . $siguienteNumero, $contadorNumero);
     // echo '<pre>'; print_r($ToReturn); echo '</pre>'; exit;
     foreach ($ToReturn as $datos) {
 
-        if($RUT_temporal != $datos['RUT'] && $contadorNumero > 1){
-            $contadorNumero++;
-            $siguienteNumero += 2;
-            $RUT_temporal = $datos['RUT'];
-            $objPHPExcel->setActiveSheetIndex(0)
-            ->setCellValue('A' . $siguienteNumero, $contadorNumero);
-        }
+        // if($RUT_temporal != $datos['RUT'] && $contadorNumero > 1){
+        //     $contadorNumero++;
+        //     $siguienteNumero += 2;
+        //     $RUT_temporal = $datos['RUT'];
+        //     $objPHPExcel->setActiveSheetIndex(0)
+        //     ->setCellValue('A' . $siguienteNumero, $contadorNumero);
+        // }
 
         $RUT_temporal = $datos['RUT'];
 
@@ -496,14 +496,14 @@ if ($facturas) {
             $datos['TipoDocumento'] = 'F';
         if ($datos['TipoDocumento'] == 'Canje')
             $datos['TipoDocumento'] = 'C';
-        
+            // echo '<pre>'; print_r($datos); echo '</pre>'; exit;
         $mesEmision = date('m', strtotime($datos['FechaFacturacion']));
         switch ($mesEmision) {
             
             case 01: {
-                    // $contadorFebrero++;
+                    $contadorEnero++;
                     $objPHPExcel->setActiveSheetIndex(0)
-                        // ->setCellValue('A' . $indexEnero, $contadorNumero)
+                        ->setCellValue('A' . $indexEnero, $contadorEnero)
                         ->setCellValue('B' . $indexEnero, $datos['Cliente'])
                         ->setCellValue('C' . $indexEnero, $datos['RUT'] . '-' . $datos['DV'])
                         ->setCellValue('F' . $indexEnero, $datos['TipoDocumento'] . '-' . $datos['NumeroDocumento'])
