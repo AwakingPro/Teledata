@@ -24,7 +24,7 @@
             $Precio = isset($Precio) ? trim($Precio) : "";
             $Descuento = isset($Descuento) ? trim($Descuento) : "";
 
-            if(!empty($Concepto) && !empty($Cantidad) && !empty($Precio)){
+            if(!empty($Concepto) && !empty($Cantidad) && $Precio >= 0){
 
                 
                 $run = new Method;
