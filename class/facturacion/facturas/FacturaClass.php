@@ -800,7 +800,8 @@
                                 INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.Id = '".$RutId."'
                                 AND facturas.EstatusFacturacion = 0
-                                AND facturas_detalle.Valor > 0";
+                                AND facturas_detalle.Valor >= 0
+                                AND facturas_detalle.delete_at IS NULL";
                     // $expirationDate = time() + 1728000;
                     // $FechaVencimiento = date('Y-m-d', $expirationDate);
                 }else if($Tipo == 2){
@@ -813,7 +814,8 @@
                                 FROM facturas 
                                 INNER JOIN facturas_detalle ON facturas_detalle.FacturaId = facturas.Id 
                                 WHERE facturas.EstatusFacturacion = 0
-                                AND facturas_detalle.Valor > 0"                                 
+                                AND facturas_detalle.Valor >= 0
+                                AND facturas_detalle.delete_at IS NULL"                                 
                                 .$Concat;
                     // $expirationDate = time() + 1728000;
                     // $FechaVencimiento = date('Y-m-d', $expirationDate);
@@ -1350,7 +1352,7 @@
                         AND
                             facturas.TipoFactura = 2
                         AND 
-                            facturas_detalle.Valor > 0
+                            facturas_detalle.Valor >= 0
                         AND facturas.deleted_at IS NULL
                         GROUP BY
                             facturas.Rut,
@@ -1396,7 +1398,7 @@
                         AND
                             facturas.TipoFactura = 1
                         AND 
-                            facturas_detalle.Valor > 0
+                            facturas_detalle.Valor >= 0
                         AND facturas.deleted_at IS NULL
                         GROUP BY
                             facturas.Id";
