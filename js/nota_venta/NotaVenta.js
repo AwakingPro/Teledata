@@ -422,7 +422,7 @@ $(document).ready(function() {
         calculaIva = valor * iva_global;
         totalFinal = valor + calculaIva;
         concepto = $('#concepto_tmp').val()
-        if (valor > 0 && concepto) {
+        if (valor >= 0 && concepto) {
             $('#insertDetalleTmp').prop('disabled', false);
         } else {
             $('#insertDetalleTmp').prop('disabled', true);

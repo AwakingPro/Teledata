@@ -718,7 +718,9 @@
                         INNER JOIN personaempresa ON personaempresa.rut = facturas.Rut
                         WHERE
                             facturas.Id = '".$Id."'
-                        AND facturas_detalle.Valor > 0";
+                        AND facturas_detalle.Valor >= 0
+                        AND facturas_detalle.delete_at IS NULL
+                        ";
             $facturas = $run->select($query);
             $array = array();
 
