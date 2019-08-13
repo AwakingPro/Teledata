@@ -845,15 +845,26 @@ $(document).ready(function() {
                     $('#FechaInicioDesactivacion').val(response.FechaInicioDesactivacion)
                     $('#FechaFinalDesactivacion').val(response.FechaFinalDesactivacion)
                     
-                } else if (response.FechaFinalDesactivacion == '2999/01/31') {
+                } else if (response.EstatusServicio == '0') {
                     $('#Activo').val(0)
                     $('#divFechaActivacion').hide()
-                } else if (response.FechaFinalDesactivacion) {
+                } else if (response.EstatusServicio == '2') {
                     $('#Activo').val(2)
                     $('#FechaInicioDesactivacion').val(response.FechaInicioDesactivacion)
                     $('#FechaFinalDesactivacion').val(response.FechaFinalDesactivacion)
                     $('#divFechaActivacion').show()
-                } else {
+                } else if (response.EstatusServicio == '3'){
+                    $('#Activo').val(3)
+                    $('#divFechaActivacion').hide()
+                }else if (response.EstatusServicio == '4'){
+                    $('#Activo').val(4)
+                    $('#divFechaActivacion').hide()
+                }else if (response.EstatusServicio == '5'){
+                    $('#Activo').val(5)
+                    $('#FechaInicioDesactivacion').val(response.FechaInicioDesactivacion)
+                    $('#FechaFinalDesactivacion').val(response.FechaFinalDesactivacion)
+                    $('#divFechaActivacion').show()
+                }else {
                     $('#Activo').val(1)
                     $('#divFechaActivacion').hide()
                 }
@@ -875,7 +886,7 @@ $(document).ready(function() {
             $('#divFechaActivacion').hide()
             $('input[name="FechaInicioDesactivacion"]').removeAttr('validate')
             $('input[name="FechaFinalDesactivacion"]').removeAttr('validate')
-        } else if ($(this).val() == "2") {
+        } else if ($(this).val() == "2" || $(this).val() == "5") {
             $('#divFechaActivacion').show()
             $('input[name="FechaInicioDesactivacion"]').attr('validate', 'not_null')
             $('input[name="FechaFinalDesactivacion"]').attr('validate', 'not_null')
