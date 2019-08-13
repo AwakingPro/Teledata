@@ -511,12 +511,18 @@ $(document).ready(function() {
     $(document).on('change', 'select[name="Rut"]', function() {
         servicio_rut_dv = $(this).find('option:selected').data('rut');
         $("#servicio_rut_dv").val(servicio_rut_dv);
-        
+
         servicio_nombre_cliente = $(this).find('option:selected').data('nombre-cliente');
         $("#servicio_nombre_cliente").val(servicio_nombre_cliente);
             
         getCliente($(this).val())
         getTipoDoc($(this).val())
+    });
+
+    $(document).on('click', '#fa-file-excel-o', function() {
+        url = "../ajax/servicios/excelServiciosCliente.php?rut="+$("#servicio_rut_dv").val();
+        window.open(url, '_blank');
+
     });
 
     $(document).on('click', '.listDatosTecnicos', function() {
