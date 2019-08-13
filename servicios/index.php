@@ -239,15 +239,17 @@
 									<!--Panel heading-->
 									<div class="panel-heading">
 										<h3 class="panel-title">Servicios registrados</h3>
-										<h3>
-											<i class="fa fa-file-excel-o Generate"></i>
-										</h3>
+										
 									</div>
 									<!--Panel body-->
 									<div class="panel-body">
 										<div class="row" >
 											<div class="col-md-12 form-group">
+												<h3>
+													<i title="Descargar servicios" style="cursor: pointer;" class="fa fa-file-excel-o" id="fa-file-excel-o"></i>
+												</h3>
 												<div class="dataServicios" id="tab-Servicios">
+												
 													<h4>No hay servicios</h4>
 												</div>
 											</div>

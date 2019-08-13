@@ -531,8 +531,8 @@
 							}
 							$tabla.='<td class="optionTable">
 								<i class="fa fa-power-off estatusServicio" attr="'.$id.'"  data-toggle="modal" data-target="#modalEstatus" aria-hidden="true" title="Activar/Desactivar"></i>
-								<i class="fa fa-plus listDatosTecnicos" attr="'.$id.'"  data-toggle="modal" data-target="#verServicios" aria-hidden="true" title="Ver"></i>
-								<i class="fa fa-pencil-square-o mostrarDatosTecnicos" attr="'.$id.'"  data-toggle="modal" data-target="#modalEditar" aria-hidden="true" title="Ver"></i>
+								<i class="fa fa-plus listDatosTecnicos" attr="'.$id.'"  data-toggle="modal" data-target="#verServicios" aria-hidden="true" title="Ver datos técnicos"></i>
+								<i class="fa fa-pencil-square-o mostrarDatosTecnicos" attr="'.$id.'"  data-toggle="modal" data-target="#modalEditar" aria-hidden="true" title="Editar"></i>
 								'.$eliminar.'
 								</td>';
 							$tabla.= '</tr>';
