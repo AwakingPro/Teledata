@@ -239,6 +239,9 @@
 									<!--Panel heading-->
 									<div class="panel-heading">
 										<h3 class="panel-title">Servicios registrados</h3>
+										<h3>
+											<i class="fa fa-file-excel-o Generate"></i>
+										</h3>
 									</div>
 									<!--Panel body-->
 									<div class="panel-body">
