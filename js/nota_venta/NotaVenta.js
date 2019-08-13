@@ -115,9 +115,13 @@ $(document).ready(function() {
         serverSide: false,
         bInfo: true,
         bFilter: false,
-        order: [
-            [0, 'asc']
-        ],
+        columnDefs: [
+            { targets: 'no-sort', orderable: false }
+          ],
+        colReorder: true,
+        // order: [
+        //     [0, 'asc']
+        // ],
         language: {
             processing: "Procesando ...",
             search: 'Buscar',
