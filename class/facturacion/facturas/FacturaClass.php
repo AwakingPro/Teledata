@@ -2228,7 +2228,7 @@
                 LEFT JOIN personaempresa ON personaempresa.rut = facturas.Rut
                 INNER JOIN mantenedor_tipo_cliente mt ON facturas.TipoDocumento = mt.id
             WHERE
-                facturas.Rut = $Rut AND facturas.EstatusFacturacion = '1' ";
+                facturas.Rut = $Rut AND facturas.deleted_at IS NULL ";
 
         
             $run = new Method;
