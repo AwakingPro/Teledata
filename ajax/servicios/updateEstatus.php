@@ -37,13 +37,18 @@
     
     //0-termino contrato, 1-activo, 2-suspendido, 3-Corte comercial
     if($Activo == 0){
-        $FechaInicioDesactivacion = "'".$FechaInicioSuspension."'";
+        $FechaInicioDesactivacion = "'".date("Y-m-d")."'";
         $FechaFinalDesactivacion = "'".date("2999-01-31")."'";
-        $respCobro = cobroFinContrato($Id, $FechaInicioSuspension);
-        if($respCobro != 1){
-            echo $respCobro;
-            return;
+
+        if($FechaInicioSuspension){
+            $FechaInicioDesactivacion = "'".$FechaInicioSuspension."'";
+            $respCobro = cobroFinContrato($Id, $FechaInicioSuspension);
+            if($respCobro != 1){
+                echo $respCobro;
+                return;
+            }
         }
+        
         $Mensaje .= '<b>Términar contrato</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
     }
     if($Activo == 1){
