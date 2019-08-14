@@ -55,13 +55,16 @@
         $Mensaje .= '<b>Activar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
     }
     
-    if($Activo == 2){
+    if($Activo == 2 || $Activo == 5){
 
         $FechaInicioDesactivacionES = date("d-m-Y",  strtotime($FechaInicioDesactivacion));
         $FechaFinalDesactivacionES = date("d-m-Y",  strtotime($FechaFinalDesactivacion));
-        $Mensaje .= '<b>Suspender</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. 
-        $servicio_codigo_cliente.'</b> Desde <b>'.$FechaInicioDesactivacionES .'</b> Hasta <b>'. $FechaFinalDesactivacionES.'</b>';
-    
+        if($Activo == 2){
+            $Mensaje .= '<b>Suspender</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>';
+        }else{
+            $Mensaje .= '<b>Activar temporalmente</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>';
+        }
+        $Mensaje .= $servicio_codigo_cliente.'</b> Desde <b>'.$FechaInicioDesactivacionES .'</b> Hasta <b>'. $FechaFinalDesactivacionES.'</b>';
         if($FechaInicioDesactivacion && $FechaFinalDesactivacion){
             $FechaInicioDesactivacion = DateTime::createFromFormat('Y/m/d', $FechaInicioDesactivacion);
             $FechaFinalDesactivacion = DateTime::createFromFormat('Y/m/d', $FechaFinalDesactivacion);
