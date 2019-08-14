@@ -1165,7 +1165,7 @@
                             INNER JOIN mantenedor_servicios ms ON s.IdServicio = ms.IdServicio
                             INNER JOIN mantenedor_tipo_factura mtf ON s.TipoFactura = mtf.id 
                         WHERE
-                            (s.EstatusServicio = 1 OR s.EstatusServicio = 2 OR s.EstatusServicio = 3) ";
+                            (s.EstatusServicio = 1 OR s.EstatusServicio = 2 OR s.EstatusServicio = 3 OR s.EstatusServicio = 5) ";
             $Servicios = $run->select($query);
 
             if($Servicios){
@@ -1187,11 +1187,12 @@
                     $Id = $Servicio['Id'];
                     $FechaInicioDesactivacion = $Servicio['FechaInicioDesactivacion'];
                     $FechaFinalDesactivacion = $Servicio['FechaFinalDesactivacion'];
+                    $EstatusServicio = $Servicio['EstatusServicio'];
                     // $PermitirFactura = $Servicio['PermitirFactura'];
                     $PermitirFactura = 1;
                     $TipoFacturacion = $Servicio['TipoFacturacion'];
                     // FechaInicioDesactivacion y FechaFinalDesactivacion es por si tiene suspendido el servicio
-                    if(($FechaInicioDesactivacion >= $Hoy OR $FechaFinalDesactivacion < $Hoy) && $PermitirFactura && $TipoFacturacion){
+                    if(($FechaInicioDesactivacion >= $Hoy OR $FechaFinalDesactivacion < $Hoy OR $EstatusServicio == 5) && $PermitirFactura && $TipoFacturacion){
                         $FechaUltimoCobro = $Servicio['FechaUltimoCobro'];
                         $FechaUltimoCobro = new DateTime($FechaUltimoCobro);                        
                         $Concepto = $Servicio['Servicio'];
