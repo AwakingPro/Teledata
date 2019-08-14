@@ -229,8 +229,10 @@ $(document).ready(function() {
             url: "../includes/nota_venta/getNotaVentas.php",
             success: function(response) {
                 NotaVentaTable = $('#NotaVentaTable').DataTable({
+                    destroy: true,
+                    stateSave: false,
                     order: [
-                        [0, 'asc']
+                        [2, 'desc']
                     ],
                     data: response,
                     columns: [
@@ -244,7 +246,6 @@ $(document).ready(function() {
                         { data: 'total_descuento'},
                         { data: 'id' }
                     ],
-                    destroy: true,
                     'createdRow': function(row, data, dataIndex) {
                         $(row)
                             .attr('id', data.id)
