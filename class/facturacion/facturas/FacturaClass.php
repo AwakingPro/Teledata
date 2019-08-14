@@ -4453,6 +4453,7 @@
 
                         a {
                             text-decoration: none;
+                            background-color: #FF5733;
                         }
 
                         *, *::before, *::after {
@@ -4508,7 +4509,7 @@
                     ESTIMADO(A) ".$Nombre.",<br>";
                         if( isset($MensajeCorreo) ){
                             $Html .= $MensajeCorreo . $TipoDocumento." #".$NumeroDocumento." se genero con exito y ha sido adjuntada en este correo.<br><br>
-                            Puede visualizar o descargar los documento accediendo a la siguiente URL<br>
+                            Puede visualizar o descargar los documentoS haciendo click en el boton DESCARGUE EL DOCUMENTO AQUÍ<br>
                             ".$Data['TipoDoc']."
                             <br>".$Data['UrlPdf']."</b><br><br>"
                             .$TipoDocumento."
@@ -4518,7 +4519,7 @@
                         }else{
                             $Html .= "La ".$TipoDocumento." #".$NumeroDocumento." se genero con exito y ha sido adjuntada en este correo.
                             <br><br>
-                            Puede visualizar o descargar el documento accediendo a la siguiente URL<br>
+                            Puede visualizar o descargar el documento haciendo click en el boton DESCARGUE EL DOCUMENTO AQUÍ<br>
                             <br>
                             <a href=".$UrlPdfBsale." class='btn btn-primary btn-lg' role='button'>DESCARGUE EL DOCUMENTO AQUÍ</a>
                             </b><br><br>";
