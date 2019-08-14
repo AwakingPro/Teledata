@@ -900,7 +900,7 @@ $(document).ready(function() {
             $('input[name="FechaInicioSuspension"]').removeAttr('validate')
         } else if($(this).val() == "0") {
             $('#divFechaSuspension').show();
-            $('input[name="FechaInicioSuspension"]').attr('validate', 'not_null')
+            // $('input[name="FechaInicioSuspension"]').attr('validate', 'not_null')
             $('#divFechaActivacion').hide()
             $('input[name="FechaInicioDesactivacion"]').removeAttr('validate')
             $('input[name="FechaFinalDesactivacion"]').removeAttr('validate')
