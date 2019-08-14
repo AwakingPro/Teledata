@@ -229,7 +229,6 @@ $(document).ready(function() {
             url: "../includes/nota_venta/getNotaVentas.php",
             success: function(response) {
                 NotaVentaTable = $('#NotaVentaTable').DataTable({
-                    destroy: true,
                     stateSave: false,
                     order: [
                         [2, 'desc']
@@ -255,7 +254,8 @@ $(document).ready(function() {
                             "targets": 2,
                             "render": function(data, type, row) {
                                 fecha = moment(data).format('DD-MM-YYYY');
-                                return "<div style='text-align: center'>" + fecha + "</div>";
+                                // return "<div style='text-align: center'>" + fecha + "</div>";
+                                return "<div style='text-align: center;' ><span style='display: none;'>"+ data + "</span>"+fecha+"</div>";
                             }
                         },
                         {
