@@ -132,7 +132,9 @@
 
                     if($FechaOc){
                         $FechaOc = DateTime::createFromFormat('d-m-Y', $FechaOc)->format('Y-m-d');
-                        $FechaHes = DateTime::createFromFormat('d-m-Y', $FechaHes)->format('Y-m-d');
+                        if($FechaHes){
+                            $FechaHes = DateTime::createFromFormat('d-m-Y', $FechaHes)->format('Y-m-d');
+                        }
                     }else{
                         $FechaOc = '1969-01-31';
                         $FechaHes = '1969-01-31';
