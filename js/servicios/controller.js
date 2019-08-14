@@ -848,6 +848,9 @@ $(document).ready(function() {
                 } else if (response.EstatusServicio == '0') {
                     $('#Activo').val(0)
                     $('#divFechaActivacion').hide()
+                    $('#FechaInicioSuspension').val(response.FechaInicioDesactivacion)
+                    $('#divFechaSuspension').show()
+                    
                 } else if (response.EstatusServicio == '2') {
                     $('#Activo').val(2)
                     $('#FechaInicioDesactivacion').val(response.FechaInicioDesactivacion)
@@ -882,15 +885,27 @@ $(document).ready(function() {
 
     //para tomar fecha del servicio
     $('#Activo').on('change', function() {
+        
         if ($(this).val() == "1") {
+            $('#divFechaSuspension').hide();
+            $('input[name="FechaInicioSuspension"]').removeAttr('validate')
             $('#divFechaActivacion').hide()
             $('input[name="FechaInicioDesactivacion"]').removeAttr('validate')
             $('input[name="FechaFinalDesactivacion"]').removeAttr('validate')
-        } else if ($(this).val() == "2" || $(this).val() == "5") {
+        } else if ($(this).val() == "2" || $(this).val() == "5" ) {
             $('#divFechaActivacion').show()
             $('input[name="FechaInicioDesactivacion"]').attr('validate', 'not_null')
             $('input[name="FechaFinalDesactivacion"]').attr('validate', 'not_null')
+            $('#divFechaSuspension').hide();
+            $('input[name="FechaInicioSuspension"]').removeAttr('validate')
+        } else if($(this).val() == "0") {
+            $('#divFechaSuspension').show();
+            $('input[name="FechaInicioSuspension"]').attr('validate', 'not_null')
+            $('#divFechaActivacion').hide()
+            $('input[name="FechaInicioDesactivacion"]').removeAttr('validate')
+            $('input[name="FechaFinalDesactivacion"]').removeAttr('validate')
         } else {
+            $('#divFechaSuspension').hide();
             $('#divFechaActivacion').hide()
             $('input[name="FechaInicioDesactivacion"]').val('1970/01/31')
             $('input[name="FechaFinalDesactivacion"]').val('2999/01/31')
@@ -909,13 +924,12 @@ $(document).ready(function() {
                 // bootbox.alert('<h3 class="text-center">La fecha de activación debe ser mayor al dia de hoy.</h3>');
             } else if (data == 3) {
                 alertas('danger', 'La fecha de activación es requerida.');
-                // bootbox.alert('<h3 class="text-center">La fecha de activación es requerida.</h3>');
             } else if(data == 4) {
                 alertas('danger', 'Se Actualizo, pero ocurrio un error al enviar el correo a los encargados del servicio.');
-                // bootbox.alert('<h3 class="text-center">Se Actualizo, pero ocurrio un error al enviar el correo a los encargados del servicio.</h3>');
+            } else if (data == 5) {
+                alertas('danger', 'No se pudo hacer el cobro del proporcional.');
             } else {
                 alertas('danger', 'Se produjo un error al guardar.');
-                // bootbox.alert('<h3 class="text-center">Se produjo un error al guardar.</h3>');
             }
             $('#loader_servicios').html('');
             $('.dataServicios').html('<div style="text-align:center; font-size:15px;">Cargando Servicios...</div><div class="spinner loading"></div>');
@@ -923,7 +937,6 @@ $(document).ready(function() {
                 $('#modalEstatus').modal('hide');
                 getServicios();
             }
-           
             $("#updateEstatus").attr('disabled', false);
         });
     });

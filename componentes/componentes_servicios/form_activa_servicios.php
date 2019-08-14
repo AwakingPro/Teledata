@@ -22,7 +22,7 @@
                 </div>
                 <br>
                 <div id="divFechaActivacion" style="display:none">
-                    <label>Fecha de suspensión</label>
+                    <label for="FechaInicioDesactivacion">Fecha de suspensión</label>
                     <div class="form-group">
                         <div id="date-range">
                             <div class="input-daterange input-group" id="datepicker">
@@ -33,9 +33,20 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="divFechaSuspension" style="display:none">
+                    <label for="FechaInicioSuspension">Ingrese fecha de suspensión para cobrar proporcional</label>
+                    <div class="form-group">
+                            <div class="input-daterange " id="datepicker">
+                                <input type="text" class="form-control" id="FechaInicioSuspension" name="FechaInicioSuspension" data-nombre="Fecha de suspensión" />
+                            </div>
+                    </div>
+                </div>
+
             </div>
+            
             <div class="form-group">
-                <label class="compo-grupo">Enviar correo a Técnicos</label>
+                <label for="selectEnviaCorreo" class="compo-grupo">Enviar correo a Técnicos</label>
                 <div class="compo-grupo">
                     <select id="selectEnviaCorreo" name="selectEnviaCorreo" class="form-control selectpicker" data-live-search="true">
                         <option value="1">Si</option>
