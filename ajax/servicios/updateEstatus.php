@@ -16,7 +16,7 @@
     $selectEnviaCorreo = isset($_POST['selectEnviaCorreo']) ? trim($_POST['selectEnviaCorreo']) : "";
     $FechaInicioDesactivacion = isset($_POST['FechaInicioDesactivacion']) ? trim($_POST['FechaInicioDesactivacion']) : "";
     $FechaFinalDesactivacion = isset($_POST['FechaFinalDesactivacion']) ? trim($_POST['FechaFinalDesactivacion']) : "";
-
+    $FechaInicioSuspension = isset($_POST['FechaInicioSuspension']) ? trim($_POST['FechaInicioSuspension']) : "";
     $FechaInicioDesactivacionES = date("d-m-Y",  strtotime($FechaInicioDesactivacion));
     $FechaFinalDesactivacionES = date("d-m-Y",  strtotime($FechaFinalDesactivacion));
 
@@ -37,13 +37,13 @@
     
     //0-termino contrato, 1-activo, 2-suspendido, 3-Corte comercial
     if($Activo == 0){
-        $FechaInicioDesactivacion = "'".date("Y-m-d")."'";
+        $FechaInicioDesactivacion = "'".$FechaInicioSuspension."'";
         $FechaFinalDesactivacion = "'".date("2999-01-31")."'";
-        // $respCobro = cobroFinContrato($Id);
-        // if($respCobro != 1){
-        //     echo 'entro en if '.$respCobro;
-        //     return;
-        // }
+        $respCobro = cobroFinContrato($Id, $FechaInicioSuspension);
+        if($respCobro != 1){
+            echo $respCobro;
+            return;
+        }
         $Mensaje .= '<b>Términar contrato</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
     }
     if($Activo == 1){
@@ -105,8 +105,8 @@
 	echo 1;
     exit;
 
-    //metodo para hacer cobro de los dias activos del servicios al termino de contrato
-    function cobroFinContrato($Id){
+    //metodo para hacer cobro de los dias activos del servicio al termino de contrato
+    function cobroFinContrato($Id, $FechaSuspension){
 
         $response_array = array();
         $run = new Method;
@@ -151,7 +151,12 @@
                         $Descuento = $Servicio['Descuento'];
                         $Conexion = $Servicio['Conexion'];
 
-                        $dt = new DateTime();
+                        if($FechaSuspension){
+                            $dt = new DateTime($FechaSuspension);
+                        }else{
+                            $dt = new DateTime();
+                        }
+                        
                         $Mes =  $dt->format('m');
                         $Dia =  $dt->format('d');
                         
@@ -246,7 +251,7 @@
             $response_array['Id'] = $Id;
             $response_array['status'] = 1;
         }else{
-            $response_array['status'] = 2;
+            $response_array['status'] = 5;
         }
 
         return $response_array['status'];
