@@ -245,6 +245,7 @@ $(document).ready(function() {
                         { data: 'total_descuento'},
                         { data: 'id' }
                     ],
+                    destroy: true,
                     'createdRow': function(row, data, dataIndex) {
                         $(row)
                             .attr('id', data.id)
@@ -253,7 +254,7 @@ $(document).ready(function() {
                     "columnDefs": [{
                             "targets": 2,
                             "render": function(data, type, row) {
-                                fecha = moment(data).format('DD-MM-YYYY');
+                                fecha = moment(data).format('DD-MM-YYYY')
                                 // return "<div style='text-align: center'>" + fecha + "</div>";
                                 return "<div style='text-align: center;' ><span style='display: none;'>"+ data + "</span>"+fecha+"</div>";
                             }
