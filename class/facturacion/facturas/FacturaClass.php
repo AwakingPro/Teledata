@@ -4741,7 +4741,11 @@
                         .btn:not(:disabled):not(.disabled) {
                             cursor: pointer;
                         }
-                        
+                        .btn-primary {
+                            
+                            background-color: #FF5733;
+                            
+                        }
                         .btn-primary:hover {
                             color: #fff;
                             background-color: #443a5f;
@@ -4787,6 +4791,9 @@
 
                         a {
                             text-decoration: none;
+                            
+                        }
+                        a.btn-primary {
                             background-color: #FF5733;
                         }
 
