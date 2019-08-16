@@ -83,10 +83,12 @@
 														<option value="2">Factura</option>
 														<option value="3">Notas de Crédito</option>
 													</select>
-													<br><br>
 												</div>
 											</div>
-											<br><br>
+											<br>
+											<h3>
+												<i title="Descargar excel" style="cursor: pointer;" class="fa fa-file-excel-o" id="fa-file-excel-o"></i>
+											</h3>
 											<!-- <button id="descargarRut" class="btn btn-primary descargar">Descargar</button><br><br> -->
 											<div class="row">
 												<div class="col-md-12">

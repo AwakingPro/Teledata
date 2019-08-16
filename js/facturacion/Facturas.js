@@ -133,6 +133,13 @@ $(document).ready(function() {
             $('.TotalSaldoDoc').text(0);
         }
     });
+
+    //obtener excel de documentos emitidos y pagos asociados
+    $(document).on('click', '#fa-file-excel-o', function() {
+        url = "../ajax/facturas/excelDocumentosCliente.php?rut="+$('select[name="rutCliente"]').selectpicker('val');
+        window.open(url, '_blank');
+
+    });
     //listar por clientes - rut
     function getFacturasCliente() {
         
