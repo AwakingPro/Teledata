@@ -136,7 +136,7 @@ $(document).ready(function() {
 
     //obtener excel de documentos emitidos y pagos asociados
     $(document).on('click', '#fa-file-excel-o', function() {
-        url = "../ajax/facturas/excelDocumentosCliente.php?rut="+$('select[name="rutCliente"]').selectpicker('val');
+        url = "../includes/facturacion/facturas/excelDocumentosCliente.php?rut="+$('select[name="rutCliente"]').selectpicker('val');
         window.open(url, '_blank');
 
     });
