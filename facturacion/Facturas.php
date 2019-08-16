@@ -444,18 +444,18 @@
 	
 	<script type="text/javascript" src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
 	<script type="text/javascript" src="../js/facturacion/Facturas.js"></script>
-	<script type="text/javascript" src="../plugins/datatables/extensions/BotonExcel/jszip.js"></script>
+	<!-- <script type="text/javascript" src="../plugins/datatables/extensions/BotonExcel/jszip.js"></script> -->
 	<script type="text/javascript" src="../plugins/numbers/jquery.number.js"></script>
 	<script type="text/javascript" src="../plugins/sweetalert/sweetalert.min.js"></script>
 	<script type="text/javascript" src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 
-	<script type="text/javascript" src="../plugins/datatables/media/js/dataTables.buttons.min.js"></script>
+	<!-- <script type="text/javascript" src="../plugins/datatables/media/js/dataTables.buttons.min.js"></script> -->
 	<!-- <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.5.6/js/dataTables.buttons.min.js"></script> -->
 
 	<!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.colVis.min.js"></script> -->
 	<!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.flash.min.js"></script> -->
 
-	<script type="text/javascript" src="../plugins/datatables/media/js/buttons.html5.min.js"></script>
+	<!-- <script type="text/javascript" src="../plugins/datatables/media/js/buttons.html5.min.js"></script> -->
 	<!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.html5.min.js"></script> -->
 
 	<!-- <script src="https://cdn.datatables.net/buttons/1.5.6/js/buttons.print.min.js"></script> -->
