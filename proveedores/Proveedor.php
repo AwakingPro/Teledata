@@ -181,7 +181,7 @@
                                                                                 <table id="ProveedorTable" class="table table-striped table-bordered">
                                                                                     <thead>
                                                                                         <tr>
-                                                                                            <th class="text-center">RUT-DV</th>
+                                                                                            <th class="text-center">RUT</th>
                                                                                             <th class="text-center">Nombre</th>
                                                                                             <th class="text-center">Dirección</th>
                                                                                             <th class="text-center">Teléfono</th>
