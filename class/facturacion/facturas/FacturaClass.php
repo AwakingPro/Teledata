@@ -4850,7 +4850,7 @@
                     ESTIMADO(A) ".$Nombre.",<br>";
                         if( isset($MensajeCorreo) ){
                             $Html .= $MensajeCorreo . $TipoDocumento." #".$NumeroDocumento." se genero con exito y ha sido adjuntada en este correo.<br><br>
-                            Puede visualizar o descargar los documentoS haciendo click en el boton DESCARGUE EL DOCUMENTO AQUÍ<br>
+                            Puede visualizar o descargar los documentos haciendo click en el boton DESCARGUE EL DOCUMENTO AQUÍ<br>
                             ".$Data['TipoDoc']."
                             <br>".$Data['UrlPdf']."</b><br><br>"
                             .$TipoDocumento."
