@@ -2874,8 +2874,8 @@
                                 $data['NumeroDocumento'] = $devolucion['NumeroDocumento'].' Doc. Ref '.$factura['NumeroDocumento'];
                                 // $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
                                 // $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');
-                                $data['FechaFacturacion'] = $factura['FechaFacturacion'];      
-                                $data['FechaVencimiento'] = $factura['FechaVencimiento'];
+                                $data['FechaFacturacion'] = $devolucion['FechaDevolucion'];      
+                                $data['FechaVencimiento'] = $devolucion['FechaDevolucion'];
                                 $data['Detalle'] = $devolucion['Motivo'];
                                 $devolucion['DevolucionAmount'] = (double)$devolucion['DevolucionAmount']; 
                                 $data['TotalFactura'] = $devolucion['DevolucionAmount'];
@@ -2902,8 +2902,8 @@
                                         $data['NumeroDocumento'] = $anulacion['NumeroDocumento'];
                                         // $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
                                         // $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');
-                                        $data['FechaFacturacion'] = $factura['FechaFacturacion'];      
-                                        $data['FechaVencimiento'] = $factura['FechaVencimiento'];        
+                                        $data['FechaFacturacion'] = $anulacion['FechaAnulacion'];      
+                                        $data['FechaVencimiento'] = $anulacion['FechaAnulacion'];        
                                         $data['TotalFactura'] = $TotalFactura;
                                         $data['TotalSaldo'] = $TotalSaldoFactura;
                                         $data['SaldoFavor'] = $SaldoFavor;
