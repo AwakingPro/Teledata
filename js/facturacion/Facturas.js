@@ -887,6 +887,7 @@ $(document).ready(function() {
 
 
     $('body').on('click', '#guardarPago', function() {
+        $('#guardarDevolucion').prop('disabled', 'disabled');
         $('#guardarPago').attr('disabled', 'disabled');
         $.postFormValues('../includes/facturacion/facturas/storePago.php', '#storePago', {}, function(response) {
 
@@ -1192,14 +1193,14 @@ $(document).ready(function() {
     $('body').on('click', '#guardarDevolucion', function() {
         if(TipoNotaCredito == 2){
             FacturaDetalle = getCheckedDetalles('#TablaFacturaDetalle');
-            console.log(FacturaDetalle);
             $('#DetallesSeleccionados').val(FacturaDetalle);
             if (!FacturaDetalle.length > 0) {
                 alertas('danger', '<h5>Debe Seleccionar un Detalle de la factura</h5>');
                 return;
             }
         }
-        $('#guardarDevolucion').prop('disabled', true);
+        $('#guardarDevolucion').prop('disabled', 'disabled');
+        $('#guardarDevolucion').attr('disabled', 'disabled');
         $.postFormValues('../includes/facturacion/facturas/storeDevolucion.php', '#storeDevolucion', {}, function(response) {
 
             if (response.status == 1) {
@@ -1241,6 +1242,7 @@ $(document).ready(function() {
         });
         setTimeout(function() {
             $('#guardarDevolucion').prop('disabled', false);
+            $('#guardarDevolucion').attr('disabled', false);
         }, 3000);
     });
 
