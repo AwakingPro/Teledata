@@ -3254,6 +3254,7 @@
                 $TotalIVA = 0;
                 $TotalTotal = 0;
                 $TotalSaldo = 0;
+                $TotalPagado = 0;
                 // echo '<pre>'; print_r($ToReturn); echo '</pre>';exit;
                 foreach($ToReturn as $datos) {
                     
@@ -3281,7 +3282,7 @@
                         // Agregar Informacion de pagos
                         $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('K1', 'Fecha pago')
-                        ->setCellValue('L1', 'Monto')
+                        ->setCellValue('L1', 'Monto pagado')
                         ->setCellValue('M1', 'Tipo pago')
                         ->setCellValue('N1', 'Detalle')
                         ->setCellValue('O1', 'Usuario')
@@ -3296,6 +3297,7 @@
                             ->setCellValue('O'.$index, $pago['Usuario'])
                             ->setCellValue('P'.$index, $pago['FechaEmisionCheque'])
                             ->setCellValue('Q'.$index, $pago['FechaVencimientoCheque']);
+                            $TotalPagado += $pago['Monto'];
                             $index++;
                         }
                         
@@ -3307,14 +3309,16 @@
                 $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('F'.$index, 'Total Neto')
                 ->setCellValue('G'.$index, 'Total IVA')
-                ->setCellValue('H'.$index, 'Total');
+                ->setCellValue('H'.$index, 'Total')
+                ->setCellValue('L'.$index, 'Total pagado');
                 // ->setCellValue('J'.$index, 'Total Doc')
                 // ->setCellValue('K'.$index, 'Total Saldo Favor');
                 $index++;
                 $objPHPExcel->setActiveSheetIndex(0)
                 ->setCellValue('F'.$index, round($TotalNeto))
                 ->setCellValue('G'.$index, round($TotalIVA))
-                ->setCellValue('H'.$index, round($TotalTotal));
+                ->setCellValue('H'.$index, round($TotalTotal))
+                ->setCellValue('L'.$index, round($TotalPagado));
                 // ->setCellValue('J'.$index, $TotalSaldo)
                 // ->setCellValue('K'.$index, $TotalSaldoFavor);
                 
