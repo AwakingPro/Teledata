@@ -179,21 +179,21 @@ $(document).ready(function() {
                         }
                     },
                     {
-                        "targets": 3,
+                        "targets": [3, 4],
                         "render": function(data, type, row) {
                             FechaFacturacion = moment(data).format('DD-MM-YYYY');
                             return "<td><span style='display: none;'>"+ data + "</span>"+FechaFacturacion+"</td>";
                         }
                     },
+                    // {
+                    //     "targets": 4,
+                    //     "render": function(data, type, row) {
+                    //         FechaVencimiento = moment(data).format('DD-MM-YYYY');
+                    //         return "<td><span style='display: none;'>"+ data + "</span>"+FechaVencimiento+"</td>";
+                    //     }
+                    // },
                     {
-                        "targets": 4,
-                        "render": function(data, type, row) {
-                            FechaVencimiento = moment(data).format('DD-MM-YYYY');
-                            return "<td><span style='display: none;'>"+ data + "</span>"+FechaVencimiento+"</td>";
-                        }
-                    },
-                    {
-                        "targets": 6,
+                        "targets": [6, 8],
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             return "<div style='text-align: center'>" + value + "</div>";
@@ -213,13 +213,13 @@ $(document).ready(function() {
                             return Div + value + "</div>";
                         }
                     },
-                    {
-                        "targets": 8,
-                        "render": function(data, type, row) {
-                            value = formatcurrency(data)
-                            return "<div style='text-align: center'>" + value + "</div>";
-                        }
-                    },
+                    // {
+                    //     "targets": 8,
+                    //     "render": function(data, type, row) {
+                    //         value = formatcurrency(data)
+                    //         return "<div style='text-align: center'>" + value + "</div>";
+                    //     }
+                    // },
                     {
                         "targets": 9,
                         "render": function(data, type, row) {
