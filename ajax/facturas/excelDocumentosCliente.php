@@ -284,12 +284,12 @@ if($facturas){
 }
 
 // Renombrar Hoja
-$objPHPExcel->getActiveSheet()->setTitle('Informe de Cobranza');
+$objPHPExcel->getActiveSheet()->setTitle('Informe de documentos emitidos');
 
 // Establecer la hoja activa, para que cuando se abra el documento se muestre primero.
 $objPHPExcel->setActiveSheetIndex(0);
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-header("Content-Disposition: attachment; filename=Libro de Ventas.xlsx");
+header("Content-Disposition: attachment; filename=Excel documentos emitidos.xlsx");
 header('Cache-Control: max-age=0');
 
 $objWriter = PHPExcel_IOFactory::createWriter($objPHPExcel, 'Excel2007');
