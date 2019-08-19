@@ -146,7 +146,7 @@
                     $dataClient = array();
                     $dataClient['RutExplode'] = $RutExplode;
                     $dataClient['ClienteNombre'] = $ClienteNombre;
-                    $dataClient['correos'] = 'teledatadte@teledata.cl, preinoso@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, sergio@teledata.cl';
+                    $dataClient['correos'] = 'teledatadte@teledata.cl, jpinto@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, sergio@teledata.cl, dangel@teledata.cl';
                     // $dataClient['correos'] = 'daniel30081990@gmail.com, dangel@teledata.cl';
                     $dataClient['asunto'] = 'Ingreso del Cliente: '.$ClienteNombre.' Rut: '.$ClienteRut.' de Bsale a la BD del ERP';
                     // para traer todos los count paso el 1 y la url correcta
