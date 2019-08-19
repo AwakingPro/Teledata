@@ -4302,11 +4302,17 @@
                 $DocumentoId = $DocumentoBsale['id'];
                 $document_type = $DocumentoBsale['document_type'];
                 $TipoDocumento = $document_type['id'];
+                $TipoFactura = 2;
                 if($TipoDocumento == 22){
                     $TipoDocumento = 1;
+                    //es boleta
+                    $TipoFactura = 3;
                 }else if($TipoDocumento == 5){
+                    //es factura
                     $TipoDocumento = 2;
+                    $TipoFactura = 1;
                 }else{
+
                     $TipoDocumento = 3;
                 }
 
@@ -4347,7 +4353,7 @@
                         if($Rut){
                             $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale,
                              responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, 
-                             FechaOC, CountDTE) VALUES ('".$Rut."', '".$Grupo."', '4', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', '".$FechaFacturacion."', '".$HoraFacturacion."', '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."', '".$referencesCount."')";
+                             FechaOC, CountDTE) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', '".$FechaFacturacion."', '".$HoraFacturacion."', '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."', '".$referencesCount."')";
                             $Id = $run->insert($query);
                             if($Id){
                                 $ContadorFacInserta += 1;
@@ -4468,27 +4474,27 @@
             // a TipoFactura = 1 es para facturas de servicios individuales, 2 es para facturas de servicios que pueden ser con grupo, 
             // grupo con oc, sin grupo, estas saldran en por facturacion por lotes o TipoFactura = 3 es para facturas de Instalacion individuales
             // esto es necesario para analizar de manera mas comoda los informes facturas de servicios 
-            $queryTipoFac = "SELECT * FROM facturas WHERE TipoFactura = 4";
-            $FacturaTipo = $run->select($queryTipoFac);
-            if($FacturaTipo){
-                $TotalFacs = count($FacturaTipo);
-                $dataClient['TotalTipoFac'] = $TotalFacs;
-                $dataClient['asunto'] = 'Cambiar Campo TipoFactura = 4 en la BD';
-                $dataClient['MensajeCorreo'] = 'Se encontraron '.$TotalFacs;
-                $dataClient['MensajeCorreo'] .= ' Facturas con el campo TipoFactura = 4, esto ocurre por defecto al sincronizar las facturas de bsale que no se encuentran en la BD del ERP, por favor pongase en contacto con el administrador de la BD para que modifique el valor, gracias.';
-                $dataClient['Subtitulo'] = 'Cambiar Campo(s) TipoFactura = 4 en la BD.';
-                $dataClient['Subtitulo2'] = '<h4>Uso del campo TipoFactura</h4>';
-                $dataClient['Parrafo'][0] = '<p>1 - En la tabla de facturas el TipoFactura = 1 es para facturas de servicios individuales generados por nota de venta, estas saldran en facturacion individual</p>';
-                $dataClient['Parrafo'][1] = '<p>2 - En la tabla de facturas el TipoFactura = 2 es para facturas de servicios que pueden ser con grupo, grupo con oc, sin grupo, estas saldran en facturacion por lotes</p>';
-                $dataClient['Parrafo'][2] = '<p>3 - En la tabla de facturas el TipoFactura = 3 es para facturas de Instalacion individuales generados por nota de venta, estas saldran en facturacion individual</p>';
-                $dataClient['Parrafo'][3] = '<p>4 - En la tabla de facturas el TipoFactura = 4 fue encontrada en bsale pero no en el ERP y por lo tanto fue sincronizada.</p>';	
-                $dataClient['Parrafo'][4] = '<p style="text-align:center !important;"><a href="http://teledata.cl/" target="_blank"><img style="display:center !important; float:center !important;" src="http://teledata.cl/images_web/logo-teledata-200.png" /></a></p>';
-                // echo '<pre>'; print_r($dataClient); echo '</pre>';
-                // exit;
-                $html = $run->plantillaCorreo($dataClient);
-                $dataClient['HTML'] = $html;
-                $respCorreo = $run->enviarCorreos(3, $dataClient);
-            }
+            // $queryTipoFac = "SELECT * FROM facturas WHERE TipoFactura = 4";
+            // $FacturaTipo = $run->select($queryTipoFac);
+            // if($FacturaTipo){
+            //     $TotalFacs = count($FacturaTipo);
+            //     $dataClient['TotalTipoFac'] = $TotalFacs;
+            //     $dataClient['asunto'] = 'Cambiar Campo TipoFactura = 4 en la BD';
+            //     $dataClient['MensajeCorreo'] = 'Se encontraron '.$TotalFacs;
+            //     $dataClient['MensajeCorreo'] .= ' Facturas con el campo TipoFactura = 4, esto ocurre por defecto al sincronizar las facturas de bsale que no se encuentran en la BD del ERP, por favor pongase en contacto con el administrador de la BD para que modifique el valor, gracias.';
+            //     $dataClient['Subtitulo'] = 'Cambiar Campo(s) TipoFactura = 4 en la BD.';
+            //     $dataClient['Subtitulo2'] = '<h4>Uso del campo TipoFactura</h4>';
+            //     $dataClient['Parrafo'][0] = '<p>1 - En la tabla de facturas el TipoFactura = 1 es para facturas de servicios individuales generados por nota de venta, estas saldran en facturacion individual</p>';
+            //     $dataClient['Parrafo'][1] = '<p>2 - En la tabla de facturas el TipoFactura = 2 es para facturas de servicios que pueden ser con grupo, grupo con oc, sin grupo, estas saldran en facturacion por lotes</p>';
+            //     $dataClient['Parrafo'][2] = '<p>3 - En la tabla de facturas el TipoFactura = 3 es para facturas de Instalacion individuales generados por nota de venta, estas saldran en facturacion individual</p>';
+            //     $dataClient['Parrafo'][3] = '<p>4 - En la tabla de facturas el TipoFactura = 4 fue encontrada en bsale pero no en el ERP y por lo tanto fue sincronizada.</p>';	
+            //     $dataClient['Parrafo'][4] = '<p style="text-align:center !important;"><a href="http://teledata.cl/" target="_blank"><img style="display:center !important; float:center !important;" src="http://teledata.cl/images_web/logo-teledata-200.png" /></a></p>';
+            //     // echo '<pre>'; print_r($dataClient); echo '</pre>';
+            //     // exit;
+            //     $html = $run->plantillaCorreo($dataClient);
+            //     $dataClient['HTML'] = $html;
+            //     $respCorreo = $run->enviarCorreos(3, $dataClient);
+            // }
             $dataClient['asunto'] = '';
             $dataClient['MensajeCorreo'] = '';
             $contadorDevolucion = 0;
