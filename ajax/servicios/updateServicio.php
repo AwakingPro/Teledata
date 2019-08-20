@@ -8,6 +8,7 @@
 	$Grupo = isset($_POST['Grupo']) ? trim($_POST['Grupo']) : "";
 	$Valor = isset($_POST['Valor']) ? trim($_POST['Valor']) : "0";
 	$Descuento = isset($_POST['Descuento']) ? trim($_POST['Descuento']) : "0";
+	$DescuentoTemporal = isset($_POST['selectDescuento']) ? trim($_POST['selectDescuento']) : "0";
 	$Descripcion = isset($_POST['Descripcion']) ? trim($_POST['Descripcion']) : "";
 	$Conexion = isset($_POST['Conexion']) ? trim($_POST['Conexion']) : "";
 	$Direccion = isset($_POST['Direccion']) ? trim($_POST['Direccion']) : "";
@@ -58,7 +59,7 @@
     	$FechaComprometidaInstalacion = '1969-01-31';
     }
 
-	$query = " UPDATE servicios SET Codigo = '".$Codigo."', Grupo = '".$Grupo."', TipoFactura = '".$TipoFactura."', Valor = '".$Valor."', Descuento = '".$Descuento."', Descripcion = '".$Descripcion."', Conexion = '".$Conexion."', Direccion = '".$Direccion."', Latitud = '".$Latitud."', Longitud = '".$Longitud."', Referencia = '".$Referencia."', Contacto = '".$Contacto."', Fono = '".$Fono."', PosibleEstacion = '".$PosibleEstacion."', Equipamiento = '".$Equipamiento."', SenalTeorica = '".$SenalTeorica."', UsuarioPppoeTeorico = '".$UsuarioPppoeTeorico."', FechaComprometidaInstalacion = '".$FechaComprometidaInstalacion."', CostoInstalacion = '".$CostoInstalacion."', CostoInstalacionDescuento = '".$CostoInstalacionDescuento."' WHERE Id = '".$Id."'";
+	$query = " UPDATE servicios SET Codigo = '".$Codigo."', Grupo = '".$Grupo."', TipoFactura = '".$TipoFactura."', Valor = '".$Valor."', Descuento = '".$Descuento."', Descripcion = '".$Descripcion."', Conexion = '".$Conexion."', Direccion = '".$Direccion."', Latitud = '".$Latitud."', Longitud = '".$Longitud."', Referencia = '".$Referencia."', Contacto = '".$Contacto."', Fono = '".$Fono."', PosibleEstacion = '".$PosibleEstacion."', Equipamiento = '".$Equipamiento."', SenalTeorica = '".$SenalTeorica."', UsuarioPppoeTeorico = '".$UsuarioPppoeTeorico."', FechaComprometidaInstalacion = '".$FechaComprometidaInstalacion."', CostoInstalacion = '".$CostoInstalacion."', CostoInstalacionDescuento = '".$CostoInstalacionDescuento."', descuentoTemporal = '".$DescuentoTemporal."' WHERE Id = '".$Id."'";
 	$update = $run->update($query);
 
 	echo json_encode($update);
