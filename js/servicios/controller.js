@@ -85,9 +85,9 @@ $(document).ready(function() {
 
     $('[name="Rut"]').mask("00000000");
     $('[name="Valor"]').number(true, 2, ',', '.');
-    $('[name="Descuento"]').mask('00');
+    // $('[name="Descuento"]').mask('00');
     $('[name="CostoInstalacion"]').number(true, 2, ',', '.');
-    $('[name="CostoInstalacionDescuento"]').mask('00');
+    // $('[name="CostoInstalacionDescuento"]').mask('00');
     
     $('#CostoInstalacionPesos').number(true, 2, '.', ',');
     
@@ -266,6 +266,10 @@ $(document).ready(function() {
     $('.ValorEdit, .DescuentoEdit').on('keyup change paste', function() {
         var valor = $('.ValorEdit').val();
         var descuento = $('.DescuentoEdit').val();
+        valor = valor.replace(',00', '')
+        valor = valor.replace('.', '')
+        descuento = descuento.replace(',00', '')
+        descuento = descuento.replace('.', '')
         $('#DescuentoPesosEdit').text(conviertePorcentaje(valor, descuento));
     });
 
@@ -636,7 +640,7 @@ $(document).ready(function() {
     });
 
     $(document).on('click', '.mostrarDatosTecnicos', function() {
-        
+        $('#DescuentoPesosEdit').text('$');
         $('body').removeClass('loaded');
 
         var ObjectMe = $(this);
