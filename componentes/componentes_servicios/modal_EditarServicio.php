@@ -22,13 +22,13 @@
                 <br>
                 <label class="campo-Valor">Valor</label>
                 <div class="form-group">
-                    <input id="Valor" type="text"  name="Valor" class="form-control">
+                    <input id="Valor" type="text"  name="Valor" class="form-control ValorEdit">
                 </div>
                 <br>
-                <label>Descuento</label>
+                <label>Descuento %</label>
                 <div class="input-group">
-                    <input type="text" id="Descuento" name="Descuento" class="form-control">
-                    <span class="input-group-addon">%</span>
+                    <input type="text" id="Descuento" name="Descuento" class="form-control DescuentoEdit" placeholder="Ingrese el descuento en %">
+                    <span class="input-group-addon" id="DescuentoPesosEdit">%</span>
                 </div>
                 <div class="form-group">
                     <div class="text-center" style="padding-left:20px;padding-right:20px">

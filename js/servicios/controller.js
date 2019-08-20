@@ -263,6 +263,12 @@ $(document).ready(function() {
         $('#DescuentoPesos').text(conviertePorcentaje(valor, descuento));
     });
 
+    $('.ValorEdit, .DescuentoEdit').on('keyup change paste', function() {
+        var valor = $('.ValorEdit').val();
+        var descuento = $('.DescuentoEdit').val();
+        $('#DescuentoPesosEdit').text(conviertePorcentaje(valor, descuento));
+    });
+
     //convierte el valor de la uf en el descuento a pesos
     function conviertePorcentaje(valor, descuento){
         var descuentoPesos = '';
