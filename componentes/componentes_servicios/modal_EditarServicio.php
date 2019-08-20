@@ -30,6 +30,15 @@
                     <input type="text" id="Descuento" name="Descuento" class="form-control">
                     <span class="input-group-addon">%</span>
                 </div>
+                <div class="form-group">
+                    <div class="text-center" style="padding-left:20px;padding-right:20px">
+                        <label class="control-label h5" for="selectDescuento">Descuento temporal</label>
+                    </div>
+                    <select class="selectpicker form-control" name="selectDescuento" id="descuentoTemporal"  data-live-search="true" data-container="body" validate="not_null" data-nombre="selectDescuento">
+                        <option value="1">Si</option>
+                        <option value="0">No</option>
+                    </select>
+                </div>
                 <br >
                 <br>
                 <div id="otrosServiciosEditar" style="display:none">
