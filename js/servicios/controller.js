@@ -257,6 +257,27 @@ $(document).ready(function() {
 
     iva_global = 1.19;
 
+    $('#Valor, #Descuento').on('keyup change paste', function() {
+        var valor = $('#Valor').val();
+        var descuento = $('#Descuento').val();
+        $('#DescuentoPesos').text(conviertePorcentaje(valor, descuento));
+    });
+
+    //convierte el valor de la uf en el descuento a pesos
+    function conviertePorcentaje(valor, descuento){
+        var descuentoPesos = '';
+        if(valor){
+            valor = valor * ValorUF;
+            if(descuento){
+                descuento = '0'+'.'+descuento;
+                descuentoPesos = valor * descuento
+            }
+        }else{
+            valor = 0
+        }
+        return formatcurrency(descuentoPesos);
+    }
+
     $('#CostoInstalacion').on('change', function() {
         $('#CostoInstalacionPesos').text(formatcurrency(calcularDetalleTmp()));
         $('#CostoInstalacionIva').val($('#CostoInstalacion').val());

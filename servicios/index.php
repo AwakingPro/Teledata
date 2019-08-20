@@ -106,13 +106,13 @@
 													<br>
 													<label class="campo-Valor">Valor</label>
 													<div class="form-group">
-														<input type="text"  name="Valor" class="form-control" validate="not_null" data-nombre="Valor">
+														<input type="text"  id="Valor" name="Valor" class="form-control" validate="not_null" data-nombre="Valor">
 													</div>
 													<br>
-													<label>Descuento</label>
+													<label>Descuento %</label>
 													<div class="input-group">
-														<input type="text" name="Descuento" class="form-control" min="0" max="100" step="1">
-														<span class="input-group-addon">%</span>
+														<input type="text" name="Descuento" id="Descuento" class="form-control" placeholder="Ingrese el descuento en %" min="0" max="100" step="1">
+														<span class="input-group-addon" id="DescuentoPesos">%</span>
 													</div>
 													
 													<div id="otrosServicios" style="display:none">
