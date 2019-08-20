@@ -114,6 +114,16 @@
 														<input type="text" name="Descuento" id="Descuento" class="form-control" placeholder="Ingrese el descuento en %" min="0" max="100" step="1" value="0">
 														<span class="input-group-addon" id="DescuentoPesos">%</span>
 													</div>
+
+													<div class="form-group">
+														<div class="text-center" style="padding-left:20px;padding-right:20px">
+															<label class="control-label h5" for="selectDescuento">Descuento temporal</label>
+														</div>
+														<select class="selectpicker form-control" name="selectDescuento" id="selectDescuento"  data-live-search="true" data-container="body" validate="not_null" data-nombre="selectDescuento">
+															<option value="1">Si</option>
+															<option value="0">No</option>
+														</select>
+													</div>
 													
 													<div id="otrosServicios" style="display:none">
 														<br>
@@ -206,7 +216,7 @@
 														
 														<div class="form-group">
 															<div class="text-center" style="padding-left:20px;padding-right:20px">
-																<label class="control-label h5" for="name">Moneda</label>
+																<label class="control-label h5" for="moneda">Moneda</label>
 															</div>
 															<select class="selectpicker form-control" name="moneda" id="moneda"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Moneda">
 																<option value="1">Pesos</option>
