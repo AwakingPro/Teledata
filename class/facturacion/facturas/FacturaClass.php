@@ -147,6 +147,18 @@
 
         }
 
+        // metodo para verificar si un servicio tiene descuentos temporales y se ha generado su primer documento de cobro y eliminar el descuento del servicio
+        public function verificarDescuentosTemporales(){
+            $run = new Method;
+            $query = " UPDATE servicios set Descuento = 0, descuentoTemporal = 0
+                WHERE
+                    descuentoTemporal = 1
+                    AND
+                    EstatusInstalacion = 1
+                    ";
+            // servicios descuentoTemporal = 1 y EstatusInstalacion = 1 significa que ya se genero su primer doc de cobro 
+            $servicios = $run->update($query);
+        }
         // metodo para verificar si un cliente esta suspendido y enviar correo a tecnicos para el corte o reactivacion de sus servicios
         public function verificarServicios(){
 
