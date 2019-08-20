@@ -111,7 +111,7 @@
 													<br>
 													<label>Descuento %</label>
 													<div class="input-group">
-														<input type="text" name="Descuento" id="Descuento" class="form-control" placeholder="Ingrese el descuento en %" min="0" max="100" step="1">
+														<input type="text" name="Descuento" id="Descuento" class="form-control" placeholder="Ingrese el descuento en %" min="0" max="100" step="1" value="0">
 														<span class="input-group-addon" id="DescuentoPesos">%</span>
 													</div>
 													
