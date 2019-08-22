@@ -1200,8 +1200,10 @@ $(document).ready(function() {
                 return;
             }
         }
+        $('#guardarDevolucion').hide();
         $('#guardarDevolucion').prop('disabled', 'disabled');
         $('#guardarDevolucion').attr('disabled', 'disabled');
+        
         $.postFormValues('../includes/facturacion/facturas/storeDevolucion.php', '#storeDevolucion', {}, function(response) {
 
             if (response.status == 1) {
@@ -1240,11 +1242,10 @@ $(document).ready(function() {
                 });
 
             }
-        });
-        setTimeout(function() {
             $('#guardarDevolucion').prop('disabled', false);
             $('#guardarDevolucion').attr('disabled', false);
-        }, 3000);
+            $('#guardarDevolucion').show();
+        });
     });
 
     $('#modalDevolucion').on('hidden.bs.modal', function() {
