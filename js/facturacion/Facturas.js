@@ -1036,22 +1036,29 @@ $(document).ready(function() {
                     url: "../includes/facturacion/facturas/deletePago.php",
                     type: 'POST',
                     data: "&id=" + ObjectId,
+                    beforeSend: function( ) {
+                        $('.cargando').html('<div class="spinner loading">Enviando solicitud...</div>');
+                        $(".EliminarPago").prop("disabled", true);
+                        $(".EliminarPago").attr("disabled", true);
+                        $(".EliminarPago").css({"cursor": "not-allowed", "opacity": "0.5"});
+                      },
                     success: function(response) {
-                        setTimeout(function() {
-                            if (response == 1) {
-                                swal("Éxito!", "El registro ha sido eliminado!", "success");
-                                ModalTable.row($(ObjectTR))
-                                    .remove()
-                                    .draw();
-                                getFacturas();
-                                getFacturasNDocumento();
-                                getFacturasCliente();
-                            } else if (response == 3) {
-                                swal('Solicitud no procesada', 'Este registro no puede ser eliminado porque posee otros registros asociados', 'error');
-                            } else {
-                                swal('Solicitud no procesada', 'Ha ocurrido un error, intente nuevamente por favor', 'error');
-                            }
-                        }, 1000);
+                        if (response == 1) {
+                            swal("Éxito!", "El registro ha sido eliminado!", "success");
+                            ModalTable.row($(ObjectTR))
+                                .remove()
+                                .draw();
+                            getFacturas();
+                            getFacturasNDocumento();
+                            getFacturasCliente();
+                        } else if (response == 3) {
+                            swal('Solicitud no procesada', 'Este registro no puede ser eliminado porque posee otros registros asociados', 'error');
+                        } else {
+                            swal('Solicitud no procesada', 'Ha ocurrido un error, intente nuevamente por favor', 'error');
+                        }
+                        $('.cargando').html('');
+                        $(".EliminarPago").prop("disabled", false);
+                        $(".EliminarPago").attr("disabled", false);
                     },
                     error: function() {
                         swal('Solicitud no procesada', 'Ha ocurrido un error, intente nuevamente por favor', 'error');
