@@ -181,7 +181,7 @@
 																		<th class="text-center">Acción</th>
 																	</tr>
 																</thead>
-																<tbody>
+																<tbody class="FacturasTableFechasLoader">
 																</tbody>
 															</table>
 														</div>
@@ -249,7 +249,7 @@
 																		<th class="text-center">Acción</th>
 																	</tr>
 																</thead>
-																<tbody>
+																<tbody class="FacturasTableNDocumentoLoader">
 																</tbody>
 															</table>
 														</div>
