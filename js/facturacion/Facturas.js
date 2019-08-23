@@ -142,7 +142,7 @@ $(document).ready(function() {
     });
     //listar por clientes - rut
     function getFacturasCliente() {
-        
+        $('.FacturasTableClienteLoader').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { Rut: $('select[name="rutCliente"]').selectpicker('val') }, function(data) {
             $('#FacturasTableCliente').DataTable().clear().destroy();
             FacturasTableCliente = $('#FacturasTableCliente').DataTable({
