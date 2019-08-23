@@ -1194,6 +1194,7 @@ $(document).ready(function() {
         $('.TotalSaldoDoc').text(0);
         $("#select_all").prop('checked', false);
     });
+
     $('body').on('click', '#guardarDevolucion', function() {
         if(TipoNotaCredito == 2){
             FacturaDetalle = getCheckedDetalles('#TablaFacturaDetalle');
@@ -1203,10 +1204,6 @@ $(document).ready(function() {
                 return;
             }
         }
-        $('#guardarDevolucion').hide();
-        $('#guardarDevolucion').prop('disabled', 'disabled');
-        $('#guardarDevolucion').attr('disabled', 'disabled');
-        
         $.postFormValues('../includes/facturacion/facturas/storeDevolucion.php', '#storeDevolucion', {}, function(response) {
 
             if (response.status == 1) {
@@ -1245,9 +1242,6 @@ $(document).ready(function() {
                 });
 
             }
-            $('#guardarDevolucion').prop('disabled', false);
-            $('#guardarDevolucion').attr('disabled', false);
-            $('#guardarDevolucion').show();
         });
     });
 
