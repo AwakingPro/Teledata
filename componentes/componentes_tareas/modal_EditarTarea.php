@@ -116,6 +116,9 @@
                 <div class="col-sm-12">
                     <button type="button" class="btn btn-purple" id="guardarTarea" name="guardarTarea">Guardar</button>
                 </div>
+                <div class="col-sm-12">
+                    <div class="cargando"></div>
+                </div>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
