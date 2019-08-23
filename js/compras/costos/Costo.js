@@ -34,6 +34,9 @@ $(document).ready(function(){
     $.ajax({
         type: "POST",
         url: "../includes/compras/costos/showCostos.php",
+        beforeSend: function( ) {
+            $('.TableLoader').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+          },
         success: function(response){
 
             $.each(response.array, function( index, array ) {
