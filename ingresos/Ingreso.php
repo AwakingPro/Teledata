@@ -144,6 +144,9 @@
                         <div class="col-sm-12">
                             <button type="button" class="btn btn-purple" id="guardarIngreso" name="guardarIngreso">Guardar</button>
                         </div>
+                        <div class="col-sm-12">
+                            <div class="cargando"></div>
+                        </div>
                     </div>
                 </div><!-- /.modal-content -->
             </div><!-- /.modal-dialog -->
@@ -243,6 +246,9 @@
                         </div>
                     </div><!-- /.modal-body -->
                     <div class="modal-footer p-b-20 m-b-20">
+                        <div class="col-sm-12">
+                            <div class="cargando"></div>
+                        </div>
                         <div class="col-sm-12">
                             <button type="button" class="btn btn-purple" id="actualizarIngreso" name="actualizarIngreso">Actualizar</button>
                         </div>

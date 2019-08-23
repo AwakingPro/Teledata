@@ -163,7 +163,15 @@ $.postFormValues = function (url, form, extras, callback) {
 				data: formValues,
 				processData: false,
 				contentType: false,
+				beforeSend: function( ) {
+					$('.cargando').html('<div class="spinner loading"></div>');
+					$(".btn").prop("disabled", true);
+					$(".btn").attr("disabled", true);
+				  },
 				success: function (data) {
+					$('.cargando').html('');
+					$(".btn").prop("disabled", false);
+					$('.btn').attr('disabled', false);
 					callback(data);
 				}
 			});
