@@ -484,7 +484,7 @@
                                                             <th class="text-center">Acciones</th>
                                                         </tr>
                                                     </thead>
-                                                    <tbody>
+                                                    <tbody class="IngresoTableLoader">
                                                     </tbody>
                                                 </table>
                                             </div>
