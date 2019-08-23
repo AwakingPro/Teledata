@@ -388,6 +388,9 @@
 									</thead>
 									<tbody>
 									</tbody>
+									<div class="col-sm-12">
+										<div class="cargando"></div>
+									</div>
 								</table>
 							</div>
 						</div>
