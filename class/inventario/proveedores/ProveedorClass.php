@@ -19,7 +19,7 @@
             $Rut = isset($Rut) ? trim($Rut) : "";
             $Dv = $run->obtenerDv($Rut);
 
-            if(!empty($Nombre) && !empty($Direccion)  && !empty($Telefono)  && !empty($Contacto) && !empty($Correo) && !empty($Rut)){
+            if(!empty($Nombre) && !empty($Direccion) && !empty($Contacto) && !empty($Rut)){
 
                 $this->Nombre=$Nombre;
                 $this->Direccion=$Direccion;

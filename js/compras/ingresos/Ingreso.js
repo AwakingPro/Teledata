@@ -217,17 +217,19 @@ $(document).ready(function() {
         url: "../includes/compras/ingresos/showCentroCosto.php",
         success: function(response) {
 
-            // $.each(response.array, function(index, array) {
-            //     $('.centro_costo_id').append('<option value="' + array.id + '" data-content="' + array.codigo_cuenta +' - '+ array.nombre + '"></option>');
-            // });
-
             $.each(response.array, function(index, array) {
-                $('#centro_costo_id').append('<option value="' + array.id + '" data-content="' + array.codigo_cuenta +' - '+ array.nombre + '"></option>');
+                // $('.agregar_centro_costo_id').append('<option value="' + array.id + '" data-content="' + array.codigo_cuenta +' - '+ array.nombre + '"></option>');
+                $('.centro_costo_id').append('<option value="' + array.id + '" data-content="' + array.codigo_cuenta +' - '+ array.nombre + '"></option>');
             });
 
-            $('#centro_costo_id').selectpicker('refresh');
+            // $.each(response.array, function(index, array) {
+            //     $('#centro_costo_id').append('<option value="' + array.id + '" data-content="' + array.codigo_cuenta +' - '+ array.nombre + '"></option>');
+            // });
 
-            // $('.centro_costo_id').selectpicker('refresh');
+            // $('#centro_costo_id').selectpicker('refresh');
+
+            // $('.agregar_centro_costo_id').selectpicker('refresh');
+            $('.centro_costo_id').selectpicker('refresh');
         }
     });
 
@@ -471,7 +473,7 @@ $(document).ready(function() {
                 $('.proveedor_id').append('<option value="' + response.array.id + '" data-content="' + response.array.rut + ' - ' + response.array.nombre + '"></option>');
                 $('.proveedor_id').val(response.array.id);
 
-                $('.selectpicker').selectpicker('refresh');
+                $('.proveedor_id').selectpicker('refresh');
 
                 $('#storeProveedor')[0].reset();
                 $('#modalProveedor').modal('hide');
@@ -517,7 +519,8 @@ $(document).ready(function() {
                 $('.centro_costo_id').val(response.array.id);
 
                 $('.selectpicker').selectpicker('refresh');
-
+                $('.centro_costo_id').selectpicker('refresh');
+                console.log(' entro ');
                 $('#storeCosto')[0].reset();
                 $('#modalCosto').modal('hide');
 

@@ -44,7 +44,7 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Razón Social / Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select class="form-control selectpicker proveedor_id" id="proveedor_id" name="proveedor_id" validate="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
+                                            <select class="form-control proveedor_id" id="proveedor_id" name="proveedor_id" validate="not_null"  data-live-search="true" data-nombre="Razon Social / Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
@@ -101,12 +101,12 @@
                                     <div class="form-group">
                                         <label class="control-label" for="name">Cuentas Contables - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalCosto">Crear Registro Nuevo</label></label>
                                         <div class="select">
-                                            <select data-size="5" class="form-control selectpicker centro_costo_id" id="centro_costo_id" name="centro_costo_id" validate="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
+                                            <select data-size="5" class="form-control  centro_costo_id" id="centro_costo_id" name="centro_costo_id" validate="not_null" data-live-search="true" data-nombre="Centro de Costos" data-container="body">
                                                 <option value="">Seleccione Opción</option>
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div>        
                             </form>
                         </div>
                     </div><!-- /.modal-body -->
@@ -217,15 +217,15 @@
                             <form class="form-horizontal" id = "storeProveedor">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Rut</label>
-                                        <input id="rut" name="rut" type="text" placeholder="Ingrese su rut" class="form-control input-sm">
+                                        <label class="control-label" for="name">Rut sin el DV</label>
+                                        <input id="rut" name="rut" type="text" placeholder="Ingrese rut del proveedor" class="form-control input-sm">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Nombre</label>
-                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese su nombre" class="form-control input-sm" validate="not_null" data-nombre="Nombre">
+                                        <input id="nombre" name="nombre" type="text" placeholder="Ingrese nombre del proveedor" class="form-control input-sm" validate="not_null" data-nombre="Nombre">
                                     </div>
                                 </div>
                                 <div class="clearfix m-b-10"></div>
@@ -246,7 +246,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="control-label" for="name">Contacto</label>
-                                        <input id="contacto" name="contacto" type="text" placeholder="Ingrese su contacto" class="form-control input-sm" validate="not_null" data-nombre="Contacto">
+                                        <input id="contacto" name="contacto" type="text" placeholder="Ingrese nombre de contacto" class="form-control input-sm" validate="not_null" data-nombre="Contacto">
                                     </div>
                                 </div>
                                 <!-- <div class="clearfix m-b-10"></div>
