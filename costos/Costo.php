@@ -72,6 +72,9 @@
 							<div class="col-sm-12">
 								<button type="button" class="btn btn-purple" id="guardar" name="guardar">Guardar</button>
 							</div>
+							<div class="col-sm-12">
+								<div class="text-center cargando"></div>
+							</div>
 						</div></form>
 						</div><!-- /.modal-content -->
 						</div><!-- /.modal-dialog -->
@@ -148,6 +151,7 @@
 																		<div class="table-responsive">
 																			<div class="col-md-12">
 																				<button data-toggle="modal" href="#modalStore" class="btn btn-success">Agregar</button>
+																				<hr>
 																				<table id="Table" class="table table-striped table-bordered">
 																					<thead>
 																						<tr>
