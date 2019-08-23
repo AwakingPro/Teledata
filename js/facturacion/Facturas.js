@@ -887,8 +887,6 @@ $(document).ready(function() {
 
 
     $('body').on('click', '#guardarPago', function() {
-        $('#guardarPago').prop('disabled', 'disabled');
-        $('#guardarPago').attr('disabled', 'disabled');
         $.postFormValues('../includes/facturacion/facturas/storePago.php', '#storePago', {}, function(response) {
 
             if (response == 1) {
@@ -929,8 +927,6 @@ $(document).ready(function() {
 
             }
         });
-        $('#guardarPago').prop('disabled', false);
-        $('#guardarPago').attr('disabled', false);
     });
     $('body').on('click', '.mostrarPagos', function() {
 
