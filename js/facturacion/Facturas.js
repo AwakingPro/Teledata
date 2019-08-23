@@ -412,7 +412,7 @@ $(document).ready(function() {
     });
     // filtrar por N Documento
     function getFacturasNDocumento() {
-
+        $('.FacturasTableNDocumentoLoader').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
         var NumeroDocumento = $('[name="NumeroDocumento"]').val();
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { NumeroDocumento: NumeroDocumento }, function(data) {
             FacturasTableNDocumento = $('#FacturasTableNDocumento').DataTable({
@@ -594,7 +594,7 @@ $(document).ready(function() {
         var startDate = $("#date-range .input-daterange input[name='start']").val();
         var endDate = $("#date-range .input-daterange input[name='end']").val();
         var documentType = $("#documentType").val();
-
+        $('.FacturasTableFechasLoader').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { startDate: startDate, endDate: endDate, documentType: documentType }, function(data) {
             FacturasTableFechas = $('#FacturasTableFechas').DataTable({
                 order: [
