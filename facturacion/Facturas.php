@@ -352,6 +352,9 @@
 				</div><!-- /.modal-body -->
 				<div class="modal-footer p-b-20 m-b-20">
 					<div class="col-sm-12">
+						<div class="cargando"></div>
+					</div>
+					<div class="col-sm-12">
 						<button type="button" class="btn btn-purple" id="guardarPago" name="guardarPago">Guardar</button>
 					</div>
 				</div>
