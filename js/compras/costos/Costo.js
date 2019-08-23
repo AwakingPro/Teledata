@@ -68,8 +68,8 @@ $(document).ready(function(){
                 $('.personal_id').append('<option value="'+array.id+'" data-content="'+array.nombre+'"></option>');
             });
 
-            $('.selectpicker').selectpicker('render');
-            $('.selectpicker').selectpicker('refresh');
+            $('.personal_id').selectpicker('render');
+            $('.personal_id').selectpicker('refresh');
         
         }
     });
@@ -85,8 +85,11 @@ $(document).ready(function(){
                 type: "POST",
                 url: "../includes/compras/costos/storeCosto.php",
                 data:data,
+                beforeSend: function( ) {
+                    $('.cargando').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+                  },
                 success: function(response){
-
+                    $('.cargando').html('');
                     if(response.status == 1){
 
                         $.niftyNoty({

@@ -16,7 +16,7 @@
             $Telefono = isset($Telefono) ? trim($Telefono) : "";
             $Codigo_Cuenta = isset($Codigo_Cuenta) ? trim($Codigo_Cuenta) : "";
 
-            if(!empty($Nombre) && !empty($Personal)&& !empty($Codigo_Cuenta)){
+            if(!empty($Nombre) && !empty($Personal)){
 
                 $this->Nombre=$Nombre;
                 $this->Personal=$Personal;
