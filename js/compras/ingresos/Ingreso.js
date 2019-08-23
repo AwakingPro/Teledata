@@ -750,20 +750,22 @@ $(document).ready(function() {
                     url: "../includes/compras/ingresos/deletePago.php",
                     type: 'POST',
                     data: "&id=" + ObjectId,
+                    beforeSend: function( ) {
+                        $('.TablePagosLoader').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+                      },
                     success: function(response) {
-                        setTimeout(function() {
-                            if (response == 1) {
-                                swal("Éxito!", "El registro ha sido eliminado!", "success");
-                                ModalTable.row($(ObjectTR))
-                                    .remove()
-                                    .draw();
-                                showIngresos();
-                            } else if (response == 3) {
-                                swal('Solicitud no procesada', 'Este registro no puede ser eliminado porque posee otros registros asociados', 'error');
-                            } else {
-                                swal('Solicitud no procesada', 'Ha ocurrido un error, intente nuevamente por favor', 'error');
-                            }
-                        }, 1000);
+                        $('.TablePagosLoader').html('');
+                        if (response == 1) {
+                            swal("Éxito!", "El registro ha sido eliminado!", "success");
+                            ModalTable.row($(ObjectTR))
+                                .remove()
+                                .draw();
+                            showIngresos();
+                        } else if (response == 3) {
+                            swal('Solicitud no procesada', 'Este registro no puede ser eliminado porque posee otros registros asociados', 'error');
+                        } else {
+                            swal('Solicitud no procesada', 'Ha ocurrido un error, intente nuevamente por favor', 'error');
+                        }
                     },
                     error: function() {
                         swal('Solicitud no procesada', 'Ha ocurrido un error, intente nuevamente por favor', 'error');
