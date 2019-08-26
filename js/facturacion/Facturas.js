@@ -150,7 +150,7 @@ $(document).ready(function() {
                     [3, 'desc']
                 ],
                 "columnDefs": [{
-                    "targets": [0, 2],
+                    "targets": [0, 1],
                     "orderable": false
                 }],
                 // stateSave: false,
@@ -192,13 +192,6 @@ $(document).ready(function() {
                             return "<td><span style='display: none;'>"+ data + "</span>"+FechaFacturacion+"</td>";
                         }
                     },
-                    // {
-                    //     "targets": 4,
-                    //     "render": function(data, type, row) {
-                    //         FechaVencimiento = moment(data).format('DD-MM-YYYY');
-                    //         return "<td><span style='display: none;'>"+ data + "</span>"+FechaVencimiento+"</td>";
-                    //     }
-                    // },
                     {
                         "targets": [6, 8],
                         "render": function(data, type, row) {
@@ -220,13 +213,6 @@ $(document).ready(function() {
                             return Div + value + "</div>";
                         }
                     },
-                    // {
-                    //     "targets": 8,
-                    //     "render": function(data, type, row) {
-                    //         value = formatcurrency(data)
-                    //         return "<div style='text-align: center'>" + value + "</div>";
-                    //     }
-                    // },
                     {
                         "targets": 9,
                         "render": function(data, type, row) {
@@ -417,10 +403,10 @@ $(document).ready(function() {
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { NumeroDocumento: NumeroDocumento }, function(data) {
             FacturasTableNDocumento = $('#FacturasTableNDocumento').DataTable({
                 order: [
-                    [8, 'asc']
+                    [3, 'desc']
                 ],
                 "columnDefs": [{
-                    "targets": [0],
+                    "targets": [0, 1],
                     "orderable": false
                 }],
                 data: data,
@@ -455,7 +441,14 @@ $(document).ready(function() {
                         }
                     },
                     {
-                        "targets": 6,
+                        "targets": [3, 4],
+                        "render": function(data, type, row) {
+                            FechaFacturacion = moment(data).format('DD-MM-YYYY');
+                            return "<td><span style='display: none;'>"+ data + "</span>"+FechaFacturacion+"</td>";
+                        }
+                    },
+                    {
+                        "targets": [6, 8],
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             return "<div style='text-align: center'>" + value + "</div>";
@@ -473,13 +466,6 @@ $(document).ready(function() {
                                 Div = "<div style='text-align: center'>";
                             }
                             return Div + value + "</div>";
-                        }
-                    },
-                    {
-                        "targets": 8,
-                        "render": function(data, type, row) {
-                            value = formatcurrency(data)
-                            return "<div style='text-align: center'>" + value + "</div>";
                         }
                     },
                     {
@@ -601,7 +587,7 @@ $(document).ready(function() {
                     [3, 'desc']
                 ],
                 "columnDefs": [{
-                    "targets": [0, 2],
+                    "targets": [0, 1],
                     "orderable": false
                 }],
                 data: data,
