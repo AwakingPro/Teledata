@@ -2934,7 +2934,7 @@
             }
             // por num doc para ver n de credito
             if($NumeroDocumento){
-                $query = "SELECT Id, FacturaId, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount, priceAdjustment FROM devoluciones WHERE NumeroDocumento = '".$NumeroDocumento."'  ";
+                $query = "SELECT Id, FacturaId, FechaDevolucion, NumeroDocumento, UrlPdfBsale, DevolucionAnulada, DevolucionAmount, priceAdjustment FROM devoluciones WHERE NumeroDocumento = '".$NumeroDocumento."'  ORDER BY FechaDevolucion DESC, MONTH(FechaDevolucion) DESC, NumeroDocumento DESC ";
                 $devoluciones = $run->select($query);
                 if($devoluciones){
                     $devolucion = $devoluciones[0];
@@ -2976,8 +2976,10 @@
                     $data['DocumentoId'] = $Id;
                     $data['Cliente'] = $factura['Cliente'];
                     $data['NumeroDocumento'] = $devolucion['NumeroDocumento'].' Doc. Ref '.$factura['NumeroDocumento'];
-                    $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
-                    $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');
+                    // $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');        
+                    // $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$devolucion['FechaDevolucion'])->format('d-m-Y');
+                    $data['FechaFacturacion'] = $devolucion['FechaDevolucion'];      
+                    $data['FechaVencimiento'] = $devolucion['FechaDevolucion'];  
                     $data['Detalle'] = '*';
                     $devolucion['DevolucionAmount'] = (double)$devolucion['DevolucionAmount']; 
                     $data['TotalFactura'] = $devolucion['DevolucionAmount'];
@@ -3002,8 +3004,10 @@
                             $data['DocumentoId'] = $Id;
                             $data['Cliente'] = $factura['Cliente'];
                             $data['NumeroDocumento'] = $anulacion['NumeroDocumento'];
-                            $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
-                            $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
+                            // $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');        
+                            // $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$anulacion['FechaAnulacion'])->format('d-m-Y');    
+                            $data['FechaFacturacion'] = $anulacion['FechaAnulacion'];        
+                            $data['FechaVencimiento'] = $anulacion['FechaAnulacion'];     
                             $data['TotalFactura'] = $TotalFactura;
                             $data['TotalSaldo'] = $TotalSaldoFactura;
                             $data['SaldoFavor'] = $SaldoFavor;
