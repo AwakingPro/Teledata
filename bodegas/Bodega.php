@@ -77,7 +77,7 @@
 								<div class="clearfix m-b-10"></div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label class="control-label" for="name">Responsable</label>
+										<label class="control-label" for="personal_id">Responsable</label>
 										<div class="select">
 											<select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
 											</select>
@@ -90,6 +90,9 @@
 						<div class="modal-footer p-b-20 m-b-20">
 							<div class="col-sm-12">
 								<button type="button" class="btn btn-purple" id="guardarBodega" name="guardarBodega">Guardar</button>
+							</div>
+							<div class="col-sm-12">
+								<div class="text-center cargando"></div>
 							</div>
 						</div></form>
 						</div><!-- /.modal-content -->
@@ -160,6 +163,9 @@
 										<div class="modal-footer p-b-20 m-b-20">
 											<div class="col-sm-12">
 												<button type="button" class="btn btn-purple" id="actualizarBodega" name="actualizarBodega">Actualizar</button>
+											</div>
+											<div class="col-sm-12">
+												<div class="text-center cargando"></div>
 											</div>
 										</div></form>
 										</div><!-- /.modal-content -->

@@ -96,8 +96,13 @@ $(document).ready(function(){
                 type: "POST",
                 url: "../includes/inventario/bodegas/storeBodega.php",
                 data:data,
+                beforeSend: function( ) {
+                    $('#guardarBodega').attr('disabled', 'disabled');
+                    $('.cargando').html('<div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div>');
+                  },
                 success: function(response){
-
+                    $('.cargando').html('');
+                    $('#guardarBodega').attr('disabled', false);
                     if(response.status == 1){
 
                         $.niftyNoty({
@@ -202,8 +207,13 @@ $(document).ready(function(){
                 type: "POST",
                 url: "../includes/inventario/bodegas/updateBodega.php",
                 data:data,
+                beforeSend: function( ) {
+                    $('#actualizarBodega').attr('disabled', 'disabled');
+                    $('.cargando').html('<div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div>');
+                  },
                 success: function(response){
-
+                    $('#actualizarBodega').attr('disabled', false);
+                    $('.cargando').html('');
                     if(response.status == 1){
 
                         $.niftyNoty({
