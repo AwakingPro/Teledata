@@ -213,7 +213,7 @@ $(document).ready(function(){
                                 .draw();
                         }else if(response.status == 3){
                             setTimeout(function() {
-                                swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee otros registros asociados','error');
+                                swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee marcas asociados','error');
                                 Table.draw();
                             }, 1000);
                         }else{
