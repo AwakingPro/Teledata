@@ -84,7 +84,6 @@ $(document).ready(function(){
                             container : 'floating',
                             timer : 3000
                         });
-                        console.log(array)
                         var rowNode = Table.row.add([
                             ''+response.array.rut+'-'+response.array.dv+'',
                             ''+response.array.nombre+'',
@@ -178,21 +177,38 @@ $(document).ready(function(){
         var ObjectTR = ObjectMe.closest("tr");
         ObjectTR.addClass("Selected");
         var ObjectId = ObjectTR.attr("id");
-        var ObjectRut = ObjectTR.attr("rut");
-        var ObjectDv = ObjectTR.attr("Dv");
+        // var ObjectRut = ObjectTR.attr("rut");
+        // var ObjectDv = ObjectTR.attr("Dv");
+        $.ajax({
+            url: "../includes/inventario/proveedores/showProveedor.php",
+            type: 'POST',
+            data:"&id="+ObjectId,
+            success:function(response){
+                $('#updateProveedor').find('input[name="rut"]').val(response.array[0].rut);
+                $('#updateProveedor').find('input[name="DvUpdate"]').val(response.array[0].dv);
+                $('#updateProveedor').find('input[name="nombre"]').val(response.array[0].nombre);
+                $('#updateProveedor').find('textarea[name="direccion"]').text(response.array[0].direccion);
+                $('#updateProveedor').find('input[name="telefono"]').val(response.array[0].telefono);
+                $('#updateProveedor').find('input[name="contacto"]').val(response.array[0].contacto);
+                $('#updateProveedor').find('input[name="correo"]').val(response.array[0].correo);
+            },
+            error:function(){
+                swal('Solicitud no procesada para ver el proveedor','Ha ocurrido un error, intente nuevamente por favor','error');
+            }
+        });
         var ObjectName = ObjectTR.find("td").eq(1).text();
         var ObjectAddress = ObjectTR.find("td").eq(2).text();
         var ObjectTelephone = ObjectTR.find("td").eq(3).text();
         var ObjectContact = ObjectTR.find("td").eq(4).text();
         var ObjectEmail = ObjectTR.find("td").eq(5).text();
         $('#updateProveedor').find('input[name="id"]').val(ObjectId);
-        $('#updateProveedor').find('input[name="rut"]').val(ObjectRut);
-        $('#updateProveedor').find('input[name="DvUpdate"]').val(ObjectDv);
-        $('#updateProveedor').find('input[name="nombre"]').val(ObjectName);
-        $('#updateProveedor').find('textarea[name="direccion"]').text(ObjectAddress);
-        $('#updateProveedor').find('input[name="telefono"]').val(ObjectTelephone);
-        $('#updateProveedor').find('input[name="contacto"]').val(ObjectContact);
-        $('#updateProveedor').find('input[name="correo"]').val(ObjectEmail);
+        // $('#updateProveedor').find('input[name="rut"]').val(response.array[0].rut);
+        // $('#updateProveedor').find('input[name="DvUpdate"]').val(ObjectDv);
+        // $('#updateProveedor').find('input[name="nombre"]').val(ObjectName);
+        // $('#updateProveedor').find('textarea[name="direccion"]').text(ObjectAddress);
+        // $('#updateProveedor').find('input[name="telefono"]').val(ObjectTelephone);
+        // $('#updateProveedor').find('input[name="contacto"]').val(ObjectContact);
+        // $('#updateProveedor').find('input[name="correo"]').val(ObjectEmail);
 
         $('#ProveedorFormUpdate').modal('show');
   
@@ -227,7 +243,7 @@ $(document).ready(function(){
                             timer : 3000
                         });
 
-                        
+
                         ObjectTR = $("#"+response.array.id);
                         ObjectTR.find("td").eq(0).html(response.array.rut+'-'+response.array.dv);
                         ObjectTR.find("td").eq(1).html(response.array.nombre);

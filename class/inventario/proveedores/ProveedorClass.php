@@ -135,6 +135,15 @@
             echo json_encode($response_array);
 
         }
+        function showProveedor($id){
+            $query = " SELECT * FROM mantenedor_proveedores where id = '".$id."' ";
+            $run = new Method;
+            $data = $run->select($query);
+            $response_array['array'] = $data;
+
+            echo json_encode($response_array);
+
+        }
 
     }
 
