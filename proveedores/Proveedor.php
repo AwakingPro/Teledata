@@ -88,6 +88,9 @@
                             <div class="col-sm-12">
                                 <button type="button" class="btn btn-purple" id="guardarProveedor" name="guardarProveedor">Guardar</button>
                             </div>
+                            <div class="col-sm-12">
+								<div class="text-center cargando"></div>
+							</div>
                         </div></form>
                         </div><!-- /.modal-content -->
                         </div><!-- /.modal-dialog -->
@@ -154,6 +157,9 @@
                                         <div class="modal-footer p-b-20 m-b-20">
                                             <div class="col-sm-12">
                                                 <button type="button" class="btn btn-purple" id="actualizarProveedor" name="actualizarProveedor">Actualizar</button>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <div class="text-center cargando"></div>
                                             </div>
                                         </div></form>
                                         </div><!-- /.modal-content -->

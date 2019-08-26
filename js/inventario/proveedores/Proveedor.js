@@ -68,8 +68,13 @@ $(document).ready(function(){
                 type: "POST",
                 url: "../includes/inventario/proveedores/storeProveedor.php",
                 data:data,
+                beforeSend: function( ) {
+                    $('#guardarProveedor').attr('disabled', 'disabled');
+                    $('.cargando').html('<div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div>');
+                  },
                 success: function(response){
-
+                    $('.cargando').html('');
+                    $('#guardarProveedor').attr('disabled', false);
                     if(response.status == 1){
 
                         $.niftyNoty({
@@ -205,8 +210,13 @@ $(document).ready(function(){
                 type: "POST",
                 url: "../includes/inventario/proveedores/updateProveedor.php",
                 data:data,
+                beforeSend: function( ) {
+                    $('#actualizarProveedor').attr('disabled', 'disabled');
+                    $('.cargando').html('<div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div>');
+                  },
                 success: function(response){
-
+                    $('.cargando').html('');
+                    $('#actualizarProveedor').attr('disabled', false);
                     if(response.status == 1){
 
                         $.niftyNoty({
