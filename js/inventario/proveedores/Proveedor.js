@@ -287,19 +287,20 @@ $(document).ready(function(){
                     url: "../includes/inventario/proveedores/deleteProveedor.php",
                     type: 'POST',
                     data:"&id="+ObjectId,
+                    beforeSend: function( ) {
+                        $('.TableLoader').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+                      },
                     success:function(response){
-                        setTimeout(function() {
-                            if(response.status == 1){
-                                swal("Éxito!","El registro ha sido eliminado!","success");
-                                Table.row($(ObjectTR))
-                                    .remove()
-                                    .draw();
-                            }else if(response.status == 3){
-                                swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee otros registros asociados','error');
-                            }else{
-                                swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
-                            }
-                        }, 1000);  
+                        if(response.status == 1){
+                            swal("Éxito!","El registro ha sido eliminado!","success");
+                            Table.row($(ObjectTR))
+                                .remove()
+                                .draw();
+                        }else if(response.status == 3){
+                            swal('Solicitud no procesada','Este registro no puede ser eliminado porque posee otros registros asociados','error');
+                        }else{
+                            swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
+                        }
                     },
                     error:function(){
                         swal('Solicitud no procesada','Ha ocurrido un error, intente nuevamente por favor','error');
