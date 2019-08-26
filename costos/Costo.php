@@ -44,7 +44,7 @@
 								<div class="clearfix m-b-10"></div>
 								<div class="col-md-12">
 									<div class="form-group">
-										<label class="control-label" for="name">Responsable</label>
+										<label class="control-label" for="personal_id">Responsable</label>
 										<div class="select">
 											<select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
 											</select>
@@ -98,9 +98,9 @@
 												<div class="clearfix m-b-10"></div>
 												<div class="col-md-12">
 													<div class="form-group">
-														<label class="control-label" for="name">Responsable</label>
+														<label class="control-label" for="personal_id">Responsable</label>
 														<div class="select">
-															<select class="selectpicker form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
+															<select class=" form-control personal_id" name="personal_id" id="personal_id"  data-live-search="true" data-container="body">
 															</select>
 														</div>
 													</div>
@@ -123,6 +123,9 @@
 										</div>
 										</div><!-- /.modal-body -->
 										<div class="modal-footer p-b-20 m-b-20">
+											<div class="col-sm-12">
+												<div class="text-center cargando"></div>
+											</div>
 											<div class="col-sm-12">
 												<button type="button" class="btn btn-purple" id="update" name="update">Actualizar</button>
 											</div>

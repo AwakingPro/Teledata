@@ -75,10 +75,9 @@ $(document).ready(function(){
     });
 
     $('body').on('click', '#guardar', function () {
-
         var data = $('#formStore').serialize();
         var array = $('#formStore').serializeArray();
-
+        
         if(ValidarString(array[0].value, 'Nombre') && ValidarCorreo(array[2].value) && ValidarString(array[3].value, 'Comentario')){
 
             $.ajax({
@@ -86,10 +85,12 @@ $(document).ready(function(){
                 url: "../includes/compras/costos/storeCosto.php",
                 data:data,
                 beforeSend: function( ) {
-                    $('.cargando').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+                    $('#guardar').attr('disabled', 'disabled');
+                    $('.cargando').html('<div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div>');
                   },
                 success: function(response){
                     $('.cargando').html('');
+                    $('#guardar').attr('disabled', false);
                     if(response.status == 1){
 
                         $.niftyNoty({
@@ -180,8 +181,13 @@ $(document).ready(function(){
                 type: "POST",
                 url: "../includes/compras/costos/updateCosto.php",
                 data:data,
+                beforeSend: function( ) {
+                    $('#update').attr('disabled', 'disabled');
+                    $('.cargando').html('<div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div>');
+                  },
                 success: function(response){
-
+                    $('#update').attr('disabled', false);
+                    $('.cargando').html('');
                     if(response.status == 1){
 
                         $.niftyNoty({
