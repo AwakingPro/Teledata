@@ -153,7 +153,7 @@ $(document).ready(function() {
                     "targets": [0, 2],
                     "orderable": false
                 }],
-                stateSave: false,
+                // stateSave: false,
                 data: data,
                 columns: [
                     { data: 'Id' },
@@ -598,10 +598,10 @@ $(document).ready(function() {
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { startDate: startDate, endDate: endDate, documentType: documentType }, function(data) {
             FacturasTableFechas = $('#FacturasTableFechas').DataTable({
                 order: [
-                    [8, 'asc']
+                    [3, 'desc']
                 ],
                 "columnDefs": [{
-                    "targets": [0],
+                    "targets": [0, 2],
                     "orderable": false
                 }],
                 data: data,
@@ -637,7 +637,14 @@ $(document).ready(function() {
                         }
                     },
                     {
-                        "targets": 6,
+                        "targets": [3, 4],
+                        "render": function(data, type, row) {
+                            FechaFacturacion = moment(data).format('DD-MM-YYYY');
+                            return "<td><span style='display: none;'>"+ data + "</span>"+FechaFacturacion+"</td>";
+                        }
+                    },
+                    {
+                        "targets": [6, 8],
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
                             return "<div style='text-align: center'>" + value + "</div>";
@@ -657,13 +664,13 @@ $(document).ready(function() {
                             return Div + value + "</div>";
                         }
                     },
-                    {
-                        "targets": 8,
-                        "render": function(data, type, row) {
-                            value = formatcurrency(data)
-                            return "<div style='text-align: center'>" + value + "</div>";
-                        }
-                    },
+                    // {
+                    //     "targets": 8,
+                    //     "render": function(data, type, row) {
+                    //         value = formatcurrency(data)
+                    //         return "<div style='text-align: center'>" + value + "</div>";
+                    //     }
+                    // },
                     {
                         "targets": 10,
                         "render": function(data, type, row) {
