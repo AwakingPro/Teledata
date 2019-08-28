@@ -359,7 +359,7 @@
                         INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.id 
                         LEFT JOIN grupo_servicio ON grupo_servicio.IdGrupo = facturas.Grupo
                         WHERE
-                            facturas_detalle.Valor > 0
+                            facturas_detalle.Valor >= 0
                         AND facturas.TipoFactura = '2'
                         AND facturas.EstatusFacturacion = '0'
                         AND (facturas.Grupo != 1000 && facturas.Grupo != 1001)
@@ -477,7 +477,8 @@
                     array_push($ToReturn,$data);
                 }
             }
-            
+            // echo '<pre>'; print_r($ToReturn); '</pre>';
+            // exit;
             $response_array['array'] = $ToReturn;
             echo json_encode($response_array);
         }
@@ -1375,7 +1376,7 @@
             $facturas = $run->select($query);
             foreach($facturas as $factura){
                 $Valor = $factura['Valor'];
-                if($factura['TipoDocumento'] == '2'){
+                if($factura['TipoDocumento'] == '2' || $factura['TipoDocumento'] == ''){
                     $totalFacturas += $Valor;
                     $cantidadFacturas++;
                 }else if($factura['TipoDocumento'] == '1'){
