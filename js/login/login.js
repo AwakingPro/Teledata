@@ -5,7 +5,11 @@ $(document).ready(function(){
 			values = $.parseJSON(data);
 			if (values[0] ==true) {
 				window.location = values[1];
-			}else{
+			}else if(values[0] == 2){
+				$('.load').html('');
+				bootbox.alert('<h3 class="text-center">Ya existe una sessión con este usuario</h3>');
+			}
+			else{
 				$('.load').html('');
 				bootbox.alert('<h3 class="text-center">Usuario o Contraseña incorrectos</h3>');
 			}
