@@ -6,9 +6,13 @@
 	}else{
 		$documentType = '';
 	}
-	if(isset($_POST['startDate'])){
+	if(isset($_POST['startDate']) && $_POST['startDate'] != '' && isset($_POST['endDate']) && $_POST['endDate'] != ''){
 		$startDate = $_POST['startDate'];
+		$dt = \DateTime::createFromFormat('d-m-Y',$startDate);
+		$startDate = $dt->format('Y-m-d');
 		$endDate = $_POST['endDate'];
+		$dt = \DateTime::createFromFormat('d-m-Y',$endDate);
+		$endDate = $dt->format('Y-m-d');
 	}else{
 		$startDate = '';
 		$endDate = '';
