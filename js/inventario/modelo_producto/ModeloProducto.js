@@ -70,14 +70,15 @@ $(document).ready(function(){
 
         var data = $('#storeModeloProducto').serialize();
         var array = $('#storeModeloProducto').serializeArray();
-        console.log(array);
+        var selectedCountry = $('#storeModeloProducto').find("option:selected").text();
+        console.log(selectedCountry);
 
         if(ValidarString(array[0].value, 'Marca') && ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Descripción')){
 
             $.ajax({
                 type: "POST",
                 url: "../includes/inventario/modelo_producto/storeModeloProducto.php",
-                data:data,
+                data:data+'&nombreMarca='+selectedCountry,
                 success: function(response){
 
                     if(response.status == 1){
@@ -93,7 +94,7 @@ $(document).ready(function(){
                         MarcaProducto = $('#marca_producto_id option[value="'+response.array.marca_producto_id+'"]').first().data('content');
 
                         var rowNode = Table.row.add([
-                            ''+MarcaProducto+'',
+                            ''+response.array.marca_producto_id+'',
                             ''+response.array.nombre+'',
                             ''+response.array.descripcion+'',
                             ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
@@ -232,6 +233,9 @@ $(document).ready(function(){
                     url: "../includes/inventario/modelo_producto/deleteModeloProducto.php",
                     type: 'POST',
                     data:"&id="+ObjectId,
+                    beforeSend: function( ) {
+                        $('.TableLoader').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+                      },
                     success:function(response){
                         setTimeout(function() {
                             if(response.status == 1){

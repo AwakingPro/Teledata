@@ -5,10 +5,10 @@
 
     class ModeloProducto{
 
-    	public function CrearModeloProducto($MarcaProducto,$Nombre,$Descripcion){
+    	public function CrearModeloProducto($MarcaProducto, $nombreMarca, $Nombre,$Descripcion){
 
             $response_array = array();
-
+            $nombreMarca = isset($nombreMarca) ? trim($nombreMarca) : "";
             $MarcaProducto = isset($MarcaProducto) ? trim($MarcaProducto) : "";
             $Nombre = isset($Nombre) ? trim($Nombre) : "";
             $Descripcion = isset($Descripcion) ? trim($Descripcion) : "";
@@ -25,7 +25,7 @@
 
                 if($id){
 
-                    $array = array('id'=> $id, 'marca_producto_id' => $this->MarcaProducto, 'nombre' => $this->Nombre, 'descripcion' => $this->Descripcion);
+                    $array = array('id'=> $id, 'marca_producto_id' => $nombreMarca, 'nombre' => $this->Nombre, 'descripcion' => $this->Descripcion);
 
                     $response_array['array'] = $array;
                     $response_array['status'] = 1; 
