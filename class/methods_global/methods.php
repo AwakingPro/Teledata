@@ -1158,5 +1158,37 @@
 			}	
 			return json_decode($estado);
 		}
+		// metodo para actualizar la ultima vez que se recargo la pagina
+		public function setTiempoUltimaRecarga($idUsuarioSession, $tiempoUltimaRecarga){
+			$mysqli = $this->conexion();
+			if ($mysqli) {
+				if($idUsuarioSession){
+					$resultado = $mysqli->query("UPDATE usuarios set tiempoUltimaRecarga = '".$tiempoUltimaRecarga."' where id = '".$idUsuarioSession."' ");
+					if(count($resultado)){
+						$response = $resultado;
+					}
+				}
+			}	
+			return json_decode($response);
+		}
+
+		// metodo para obtener la ultima vez que se recargo la pagina 
+		public function getTiempoUltimaRecarga($idUsuarioSession){
+			$mysqli = $this->conexion();
+			if ($mysqli) {
+				if($idUsuarioSession){
+					$resultado = $mysqli->query("SELECT tiempoUltimaRecarga FROM usuarios where id = '".$idUsuarioSession."' ");
+					if(count($resultado)){
+						$resultado = $resultado->fetch_array();
+						//le sumo 1 hora a la ultima session para luego comparar con la hora actual
+						$nuevaHora = strtotime ( '+1 hour' , strtotime ( $resultado['tiempoUltimaRecarga']) ) ;
+						//convierto time unix a formato legible
+						$nuevaHora = date ( 'H:i:s' , $nuevaHora); 
+						$tiempo = $nuevaHora;
+					}
+				}
+			}
+			return json_encode($tiempo);
+		}
 	}
  ?>

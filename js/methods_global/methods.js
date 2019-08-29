@@ -38,6 +38,53 @@ if(nivelUsuarioSession == 4){
 	$("#actualizarCliente").hide();
 	$(".agregarDatosTecnicos").hide();
 }
+
+setTiempoUltimaRecarga();
+//esto sera para verificar si realizo actividad en la pagina actualizamos la hora de ultima accion en usuarios
+$(document).click(function(){
+	setTiempoUltimaRecarga();
+})
+
+//verifica cada minuto
+setInterval(function(){
+	getTiempoUltimaRecarga();
+}, 5000);
+
+//metodo para actualizar el tiempo de la última de recarga
+function setTiempoUltimaRecarga(){
+	var tiempoActual = myTimer();
+	$.ajax({
+		type: "POST",
+		url: "../includes/global/setTiempoUltimaRecarga.php",
+		data: "idUsuarioSession="+idUsuarioSession+"&tiempoUltimaRecarga="+tiempoActual,
+		success: function (response) {
+			var tiempoUsuario = response;
+		}
+	});
+}
+
+//metodo para obtener el tiempo de la última de recarga
+function getTiempoUltimaRecarga(){
+	$.ajax({
+		type: "POST",
+		url: "../includes/global/getTiempoUltimaRecarga.php",
+		data: "idUsuarioSession="+idUsuarioSession,
+		success: function (response) {
+			var tiempoUsuario = response;
+			var tiempoActual = myTimer();
+			if(Date.parse("1-1-2000 " + tiempoActual) > Date.parse("1-1-2000 " + tiempoUsuario)){
+				window.location = '../destruir_sesion.php'
+			}
+		}
+	});
+}
+//obtener hora:minutos:segundos actuales
+function myTimer() {
+	var d = new Date();
+	var t = d.toLocaleTimeString();
+	return t;
+  }
+
 function NumConDecimales(x) {
 	return Number.parseFloat(x).toFixed(2);
   }
