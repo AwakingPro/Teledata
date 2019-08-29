@@ -18,25 +18,12 @@ $(document).ready(function() {
     $('select[name="rutCliente"]').load('../ajax/servicios/selectClientes.php', function() {
         $('select[name="rutCliente"]').selectpicker();
     });
-
-    $('.number').number(true, 0, ',', '.');
-    $('.date').datetimepicker({
-        locale: 'es',
-        format: 'DD-MM-YYYY'
-    });
+    
+    calendarioES();
 
     $('#FacturasTableCliente').DataTable();
     $('#FacturasTableFechas').DataTable();
     $('#FacturasTableNDocumento').DataTable();
-
-    $('.input-daterange').datepicker({
-        format: "dd-mm-yyyy",
-        weekStart: 1,
-        todayBtn: "linked",
-        autoclose: true,
-        todayHighlight: true,
-        language: 'es'
-    });
 
     $('.row-por-fechas').hide();
     $('.row-por-clientes').hide();
@@ -50,7 +37,17 @@ $(document).ready(function() {
         $('.row-por-NFactura').slideUp('slow');
         $('.row-por-fechas').slideDown('slow');
     });
-
+    function calendarioES(){
+        $('.input-daterange').datepicker({
+            format: "dd-mm-yyyy",
+            weekStart: 1,
+            todayBtn: "linked",
+            autoclose: true,
+            todayHighlight: true,
+            language: 'es'
+        });
+    }
+    
     $(document).on('click', '.select-por-cliente', function() {
         $('.TotalSaldoDoc').text(0);
         $(".select_all").prop('checked', false);

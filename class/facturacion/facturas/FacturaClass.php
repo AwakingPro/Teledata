@@ -2752,10 +2752,6 @@
                         WHERE
                             facturas.EstatusFacturacion != '0' AND facturas.EstatusFacturacion != '3' AND facturas.EstatusFacturacion != '4' ";
             if($startDate){
-                $dt = \DateTime::createFromFormat('Y/m/d',$startDate);
-                $startDate = $dt->format('Y-m-d');
-                $dt = \DateTime::createFromFormat('Y/m/d',$endDate);
-                $endDate = $dt->format('Y-m-d');
                 $query .= " AND facturas.FechaFacturacion BETWEEN '".$startDate."' AND '".$endDate."'";
             }
             if($Rut || $Rut == 0 && !$startDate && !$NumeroDocumento){
