@@ -9,7 +9,7 @@
 						servicios.Codigo AS 'Codigo de Servicios',
 						servicios.Conexion AS 'Conexión',
 						servicios.Valor,
-						servicios.FechaInstalacion AS 'Fecha Instalación',
+						DATE_FORMAT(servicios.FechaInstalacion, '%d-%m-%Y')  AS 'Fecha Instalación',
 						-- COALESCE ( grupo_servicio.Nombre, servicios.Grupo ) AS Grupo,
 						-- ( CASE WHEN FechaFinalDesactivacion IS NULL THEN 'Activo' WHEN FechaFinalDesactivacion = '2999-01-31' THEN 'Cortado' ELSE 'Suspendido' END ) AS Estatus,
 						( CASE WHEN servicios.EstatusServicio = '1' THEN 'Activo' 
