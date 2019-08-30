@@ -45,11 +45,12 @@ $(document).click(function(){
 	setTiempoUltimaRecarga();
 })
 
+
+getTiempoUltimaRecarga();
 //verifica cada hora
 setInterval(function(){
 	getTiempoUltimaRecarga();
 }, 3600000);
-
 //metodo para actualizar el tiempo de la última de recarga
 function setTiempoUltimaRecarga(){
 	var tiempoActual = myTimer();
