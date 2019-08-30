@@ -191,6 +191,9 @@ $(document).ready(function(){
                     url: "../includes/clase_cliente/deleteClase.php",
                     type: 'POST',
                     data:"&id="+ObjectId,
+                    beforeSend: function( ) {
+                        $('.TableLoader').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+                      },
                     success:function(response){
                         setTimeout(function() {
                             if(response.status == 1){
