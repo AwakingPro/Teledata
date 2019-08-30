@@ -70,15 +70,14 @@ $(document).ready(function(){
 
         var data = $('#storeModeloProducto').serialize();
         var array = $('#storeModeloProducto').serializeArray();
-        var selectedCountry = $('#storeModeloProducto').find("option:selected").text();
-        console.log(selectedCountry);
+        var nombreMarca = $('#storeModeloProducto').find("option:selected").text();
 
         if(ValidarString(array[0].value, 'Marca') && ValidarString(array[1].value, 'Nombre') && ValidarString(array[2].value, 'Descripción')){
 
             $.ajax({
                 type: "POST",
                 url: "../includes/inventario/modelo_producto/storeModeloProducto.php",
-                data:data+'&nombreMarca='+selectedCountry,
+                data:data+'&nombreMarca='+nombreMarca,
                 success: function(response){
 
                     if(response.status == 1){

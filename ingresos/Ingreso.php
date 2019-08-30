@@ -63,7 +63,7 @@
                                 <div class="clearfix m-b-10"></div>
                                 <div class="col-md-12 nuevo">
                                     <div class="form-group">
-                                        <label class="control-label" for="name">Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
+                                        <label class="control-label" for="proveedor_id">Proveedor - <label style="cursor:pointer" class="label label-purple" data-toggle="modal" href="#modalProveedor">Crear Registro Nuevo</label></label>
                                         <div class="select">
                                             <select class="form-control proveedor_id proveedor" id="proveedor_id" name="proveedor_id" validate="not_null"  data-live-search="true" data-nombre="Proveedor" data-container="body">
                                                 <option value="">Seleccione Opción</option>
@@ -495,7 +495,7 @@
                                                                 <th class="text-center">Acción</th>
                                                             </tr>
                                                         </thead>
-                                                        <tbody>
+                                                        <tbody class="TableLoader">
                                                         </tbody>
                                                     </table>
                                                 </div>
