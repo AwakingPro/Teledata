@@ -191,7 +191,12 @@ $(document).ready(function(){
 
 
     $('body').on('click', '#guardarIngreso', function () {
-
+        
+        var nombreProveedor = $('#storeIngreso').find('.proveedor option:selected').text();
+        var nombreModelo = $('#storeIngreso').find('.modelo option:selected').text();
+        var nombreBodega = $('#storeIngreso').find('.bodega option:selected').text();
+        console.log(nombreBodega);
+        
         $.postFormValues('../includes/inventario/ingresos/storeIngreso.php', '#storeIngreso', {}, function(response){
 
             if(response.status == 1){
@@ -203,7 +208,7 @@ $(document).ready(function(){
                     container : 'floating',
                     timer : 3000
                 });
-
+                
                 $.each(response.array, function( index, array ) {
 
                     Modelo = $('#modelo_producto_id option[value="'+array.modelo_producto_id+'"]').first().data('content');
@@ -224,15 +229,15 @@ $(document).ready(function(){
                     var rowNode = Table.row.add([
                         ''+array.fecha_compra+'',
                         ''+array.fecha_ingreso+'',
-                        ''+Proveedor+'',
+                        ''+nombreProveedor+'',
                         ''+array.numero_factura+'',
-                        ''+Modelo+'',
+                        ''+nombreModelo+'',
                         ''+array.cantidad+'',
                         ''+array.numero_serie+'',
                         ''+array.mac_address+'',
                         ''+estado+'',
                         ''+array.valor+'',
-                        ''+Bodega+'',
+                        ''+nombreBodega+'',
                         ''+'<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-search Find"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Update"></i>' + ' <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-times Remove"></i>'+'',
                     ]).draw(false).node();
 
@@ -356,7 +361,8 @@ $(document).ready(function(){
 
 
     $('body').on('click', '#actualizarIngreso', function () {
-
+        var nombreProveedor = $('#updateIngreso').find('.proveedor option:selected').text();
+        var nombreModelo = $('#updateIngreso').find('.modelo option:selected').text();
         $.postFormValues('../includes/inventario/ingresos/updateIngreso.php', '#updateIngreso', {}, function(response){
                     
             if(response.status == 1){
@@ -385,9 +391,9 @@ $(document).ready(function(){
                 ObjectTR.data('estado', response.array.estado)
                 ObjectTR.find("td").eq(0).html(response.array.fecha_compra);
                 ObjectTR.find("td").eq(1).html(response.array.fecha_ingreso);
-                ObjectTR.find("td").eq(2).html(Proveedor);
+                ObjectTR.find("td").eq(2).html(nombreProveedor);
                 ObjectTR.find("td").eq(3).html(response.array.numero_factura);
-                ObjectTR.find("td").eq(4).html(Modelo);
+                ObjectTR.find("td").eq(4).html(nombreModelo);
                 ObjectTR.find("td").eq(5).html(response.array.cantidad);
                 ObjectTR.find("td").eq(6).html(response.array.numero_serie);
                 ObjectTR.find("td").eq(7).html(response.array.mac_address);
@@ -439,6 +445,9 @@ $(document).ready(function(){
                     url: "../includes/inventario/ingresos/deleteIngreso.php",
                     type: 'POST',
                     data:"&id="+ObjectId,
+                    beforeSend: function( ) {
+                        $('.TableLoader').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
+                      },
                     success:function(response){
                         setTimeout(function() {
                             if(response.status == 1){
@@ -629,7 +638,10 @@ $(document).ready(function(){
     });
 
     $('body').on('click', '#guardarProveedor', function () {
-
+        var nombreProveedor = $('#storeIngreso').find('.proveedor option:selected').text();
+        var nombreModelo = $('#storeIngreso').find('.modelo option:selected').text();
+        var nombreBodega = $('#storeIngreso').find('.bodega option:selected').text();
+        console.log(nombreBodega);
         $.postFormValues('../includes/inventario/proveedores/storeProveedor.php', '#storeProveedor', {}, function(response){
 
             if(response.status == 1){
