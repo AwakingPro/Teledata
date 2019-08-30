@@ -3,7 +3,7 @@
 	$run = new Method;
 	$query = "SELECT
 	tickets.IdTickets as '#',
-	tickets.FechaCreacion as Fecha,
+	DATE_FORMAT(tickets.FechaCreacion, '%d-%m-%Y') as Fecha,
 	clase_tickets.Nombre as Clase,
 	CONCAT(personaempresa.rut, ' - ', personaempresa.nombre) AS Cliente,
 	origen_tickets.Nombre as Origen,
