@@ -37,6 +37,16 @@ $(document).ready(function() {
         $('.row-por-NFactura').slideUp('slow');
         $('.row-por-fechas').slideDown('slow');
     });
+    $('body').on('focus', ".date", function() {
+        $('.date').datepicker({
+            format: "dd-mm-yyyy",
+            weekStart: 1,
+            todayBtn: "linked",
+            autoclose: true,
+            todayHighlight: true,
+            language: 'es'
+        });
+    });
     function calendarioES(){
         $('.input-daterange').datepicker({
             format: "dd-mm-yyyy",
