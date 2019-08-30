@@ -65,6 +65,7 @@ function setTiempoUltimaRecarga(){
 
 //metodo para obtener el tiempo de la última de recarga
 function getTiempoUltimaRecarga(){
+	console.log(' Actualizo ');
 	$.ajax({
 		type: "POST",
 		url: "../includes/global/getTiempoUltimaRecarga.php",
