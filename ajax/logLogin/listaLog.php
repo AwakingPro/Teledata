@@ -2,7 +2,7 @@
 	require_once('../../class/methods_global/methods.php');
 	$query = "	SELECT
 					Usuario,
-					Fecha,
+					DATE_FORMAT(Fecha, '%d-%m-%Y : %r') as Fecha,
 					Proceso 
 				FROM
 					log_login 
