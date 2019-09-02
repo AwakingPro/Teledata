@@ -2,7 +2,7 @@
 	require_once('../../class/methods_global/methods.php');
 	$query = "	SELECT
 					u.nombre AS 'Usuario',
-					l.Fecha,
+					DATE_FORMAT(l.Fecha, '%d-%m-%Y') as Fecha,
 					l.TipoOperacion,
 					l.QUERY 
 				FROM
