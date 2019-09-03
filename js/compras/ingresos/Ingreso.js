@@ -44,6 +44,7 @@ $(document).ready(function() {
     //CONFIGURACION DEL SELECTPICKER, DATETIMEPICKER Y DATA-MASK
 
     $('.selectpicker').selectpicker();
+    $('.selectpicker').selectpicker('refresh');
     $('.date').datetimepicker({
         locale: 'es',
         format: 'DD-MM-YYYY'
