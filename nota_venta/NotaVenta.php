@@ -127,7 +127,7 @@
                                                 <label class="control-label h5" for="descuento">Descuento</label>
                                             </div>
                                             <div class="input-group">
-                                                <input type="text" name="descuento" id="descuento" class="form-control" min="0" max="100" step="1">
+                                                <input type="text" name="descuento" id="descuento" class="form-control" min="0" max="100" step="1" value="0">
                                                 <span class="input-group-addon">%</span>
                                             </div>
                                         </div> 
@@ -403,7 +403,7 @@
                                                             <label class="control-label h5" for="descuento">Descuento</label>
                                                         </div>
                                                         <div class="input-group">
-                                                            <input type="text" name="descuento" id="descuento" class="form-control" min="0" max="100" step="1">
+                                                            <input type="text" name="descuento" id="descuento" class="form-control" min="0" max="100" step="1" value="0">
                                                             <span class="input-group-addon">%</span>
                                                         </div>
                                                     </div> 
