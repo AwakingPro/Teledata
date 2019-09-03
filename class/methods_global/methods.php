@@ -523,7 +523,7 @@
 									$count++;
 								}
 							}
-							if($count){
+							if(!$count){
 								$eliminar = '<i class="fa fa-times eliminarServicio" attr="'.$id.'" aria-hidden="true" title="eliminar"></i>';
 							}else{
 								$eliminar = '';
