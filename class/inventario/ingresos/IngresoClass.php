@@ -255,22 +255,29 @@
             echo json_encode($response_array);
         }
 
-        function showIngreso(){
+        function showIngreso($startDate,$endDate){
 
-            $query = '  SELECT    inventario_ingresos.*, 
-                                mantenedor_modelo_producto.nombre as modelo, 
-                                mantenedor_marca_producto.nombre as marca, 
-                                mantenedor_tipo_producto.nombre as tipo, 
-                                mantenedor_proveedores.nombre as proveedor 
-                        FROM inventario_ingresos 
-                        INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id 
-                        INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id 
-                        INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id 
-                        LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id';
-
+        $query = "  SELECT    inventario_ingresos.*, 
+                            mantenedor_modelo_producto.nombre as modelo, 
+                            mantenedor_marca_producto.nombre as marca, 
+                            mantenedor_tipo_producto.nombre as tipo, 
+                            mantenedor_proveedores.nombre as proveedor 
+                    FROM inventario_ingresos 
+                    INNER JOIN mantenedor_modelo_producto ON inventario_ingresos.modelo_producto_id = mantenedor_modelo_producto.id 
+                    INNER JOIN mantenedor_marca_producto ON mantenedor_modelo_producto.marca_producto_id = mantenedor_marca_producto.id 
+                    INNER JOIN mantenedor_tipo_producto ON mantenedor_marca_producto.tipo_producto_id = mantenedor_tipo_producto.id 
+                    LEFT JOIN mantenedor_proveedores ON inventario_ingresos.proveedor_id = mantenedor_proveedores.id ";
+            if ($startDate) {
+                
+                $dt = \DateTime::createFromFormat('d-m-Y', $startDate);
+                $startDate = $dt->format('Y-m-d');
+                $dt = \DateTime::createFromFormat('d-m-Y', $endDate);
+                $endDate = $dt->format('Y-m-d');
+                $query .= " WHERE inventario_ingresos.fecha_compra BETWEEN '".$startDate."' AND '".$endDate."' ";
+            }
             $run = new Method;
             $data = $run->select($query);
-
+            
             $array = array();
 
             foreach($data as $row){
