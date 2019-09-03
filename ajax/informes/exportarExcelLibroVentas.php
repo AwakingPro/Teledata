@@ -254,9 +254,14 @@ if($facturas){
         // ->setCellValue('K'.$index, $datos['Detalle'])
         ->setCellValue('I'.$index, $datos['NumRelacion'])
         ->setCellValue('J'.$index, $datos['InformeSII']);
-        $TotalNeto += $datos['MontoNeto'];
-        $TotalIVA += $datos['IVA'];
-        $TotalTotal += $datos['TotalFactura'];
+
+        // si no es n.c sumo su neto, iva y total
+        if($datos['EstatusFacturacion'] != '2'){
+            $TotalNeto += $datos['MontoNeto'];
+            $TotalIVA += $datos['IVA'];
+            $TotalTotal += $datos['TotalFactura'];
+        }
+        
         // $TotalSaldo += $datos['TotalSaldo'];
         // $TotalSaldoFavor += $datos['SaldoFavor'];
         $index++;

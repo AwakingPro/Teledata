@@ -11,8 +11,8 @@
 				WHERE
 					TipoOperacion != 'select' 
 				ORDER BY
-					l.Fecha DESC 
-					LIMIT 5000";
+					l.Fecha DESC"; 
+					// LIMIT 5000";
 	$run = new Method;
 	$lista = $run->listViewSingle($query);
 	echo $lista;
