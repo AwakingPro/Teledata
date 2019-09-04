@@ -37,11 +37,11 @@
     
     //0-termino contrato, 1-activo, 2-suspendido, 3-Corte comercial
     if($Activo == 0){
-        $FechaInicioDesactivacion = "'".date("Y-m-d")."'";
-        $FechaFinalDesactivacion = "'".date("2999-01-31")."'";
+        $FechaInicioDesactivacion = date("Y-m-d");
+        $FechaFinalDesactivacion = date("2999-01-31");
 
         if($FechaInicioSuspension){
-            $FechaInicioDesactivacion = "'".$FechaInicioSuspension."'";
+            $FechaInicioDesactivacion = $FechaInicioSuspension;
             $respCobro = cobroFinContrato($Id, $FechaInicioSuspension);
             if($respCobro != 1){
                 echo $respCobro;
@@ -73,8 +73,8 @@
                 echo 2;
                 return;
             }else{
-                $FechaInicioDesactivacion = "'".$FechaInicioDesactivacion->format('Y-m-d')."'";
-                $FechaFinalDesactivacion = "'".$FechaFinalDesactivacion->format('Y-m-d')."'";
+                $FechaInicioDesactivacion = $FechaInicioDesactivacion->format('Y-m-d');
+                $FechaFinalDesactivacion = $FechaFinalDesactivacion->format('Y-m-d');
             }
         }else{
             echo 3;
