@@ -3473,8 +3473,8 @@
         }
         public function getOC($RutId, $Grupo, $Tipo){
             if($Tipo == 1){
-                $query = "  SELECT facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC,
-                                   facturas.NumeroHES, IFNULL(facturas.FechaHES, '1970-01-31') as FechaHES
+                $query = "  SELECT facturas.NumeroOC, IFNULL(facturas.FechaOC, '31-01-1970') as FechaOC,
+                                   facturas.NumeroHES, IFNULL(facturas.FechaHES, '31-01-1970') as FechaHES
                             FROM facturas 
                             WHERE facturas.Id = '".$RutId."'
                             AND facturas.EstatusFacturacion = 0";
@@ -3484,15 +3484,15 @@
                 }else{
                     $Concat = " AND facturas.Rut = '".$RutId."' AND facturas.Grupo = '".$Grupo."'";
                 }
-                $query = "  SELECT facturas.NumeroOC, IFNULL(facturas.FechaOC, '1970-01-31') as FechaOC,
-                                   facturas.NumeroHES, IFNULL(facturas.FechaHES, '1970-01-31') as FechaHES
+                $query = "  SELECT facturas.NumeroOC, IFNULL(facturas.FechaOC, '31-01-1970') as FechaOC,
+                                   facturas.NumeroHES, IFNULL(facturas.FechaHES, '31-01-1970') as FechaHES
                             FROM facturas
                             WHERE facturas.TipoFactura = '".$Tipo."'
                             AND facturas.EstatusFacturacion = 0"
                             .$Concat;
             }else{
-                $query = "  SELECT 0 as NumeroOC, '1970-01-31' as FechaOC,
-                                   0 as NumeroHES, '1970-01-31' as FechaHES
+                $query = "  SELECT 0 as NumeroOC, '31-01-1970' as FechaOC,
+                                   0 as NumeroHES, '31-01-1970' as FechaHES
                             FROM servicios 
                             WHERE servicios.Id = '".$RutId."'
                             AND servicios.EstatusFacturacion = 0
@@ -3506,11 +3506,19 @@
                 $FechaOC = $Detalle['FechaOC'];
                 $NumeroHES = $Detalle['NumeroHES'];
                 $FechaHES = $Detalle['FechaHES'];
-                if(!$FechaOC OR $FechaOC == '1970-01-31'){
+                if(!$FechaOC OR $FechaOC == '31-01-1970'){
                     $FechaOC = '';
+                }else{
+                    $dt = \DateTime::createFromFormat('Y-m-d',$FechaOC);
+                    $FechaOC = $dt->format('d-m-Y'); 
+                
                 }
-                if(!$FechaHES OR $FechaHES == '1970-01-31'){
+                if(!$FechaHES OR $FechaHES == '31-01-1970'){
                     $FechaHES = '';
+                }else{
+                    $dt = \DateTime::createFromFormat('Y-m-d',$FechaHES);
+                    $FechaHES = $dt->format('d-m-Y');
+                
                 }
             }
             return array('NumeroOC' => $NumeroOC, 'FechaOC' => $FechaOC, 'NumeroHES' => $NumeroHES, 'FechaHES' => $FechaHES);
