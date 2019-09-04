@@ -4343,85 +4343,153 @@
             $dataClient['MensajeCorreo'] = '';
             $ContadorFacActualiza = 0;
             $ContadorFacInserta = 0;
-            foreach($DocumentosBsale['next'] as $nextUrl){
-                // paginarEndPointBsale($DocumentosBsale['next'], $access_token)
-                echo $DocumentosBsale['count']; exit;
-                foreach($DocumentosBsale['items'] as $DocumentoBsale){
-                    $DocumentoId = $DocumentoBsale['id'];
-                    $document_type = $DocumentoBsale['document_type'];
-                    $TipoDocumento = $document_type['id'];
-                    $TipoFactura = 2;
-                    if($TipoDocumento == 22){
-                        $TipoDocumento = 1;
-                        //es boleta
-                        $TipoFactura = 3;
-                    }else if($TipoDocumento == 5){
-                        //es factura
-                        $TipoDocumento = 2;
-                        $TipoFactura = 1;
-                    }else{
-    
-                        $TipoDocumento = 3;
-                    }
-    
-    
-                    if($TipoDocumento == 1 OR $TipoDocumento == 2){
-                        $query = "SELECT Id, UrlPdfBsale, CountDTE, DocumentoIdBsale FROM facturas WHERE DocumentoIdBsale = '".$DocumentoId."'";
-                        $Factura = $run->select($query);
-                        // echo '<pre>'; print_r($Factura); echo '</pre>';exit;
-                        if(!$Factura){
-                            $UrlPdf = $DocumentoBsale['urlPdf'];
-                            $informedSii = $DocumentoBsale['informedSii'];
-                            $responseMsgSii = $DocumentoBsale['responseMsgSii'];
-                            $NumeroDocumento = $DocumentoBsale['number'];
-                            // $FechaFacturacion = date('Y-m-d', $DocumentoBsale['emissionDate']);
-                            $FechaFacturacion = gmdate('Y-m-d', $DocumentoBsale['emissionDate']);
-                            // $HoraFacturacion = date('H:i:s', $DocumentoBsale['emissionDate']);
-                            $HoraFacturacion = gmdate('H:i:s', $DocumentoBsale['emissionDate']);
-                            // $FechaVencimiento = date('Y-m-d', $DocumentoBsale['expirationDate']);
-                            $FechaVencimiento = gmdate('Y-m-d', $DocumentoBsale['expirationDate']);
-                            $references = $DocumentoBsale['references'];
-                            $references = $references['items'];
-                            $referencesCount = count($references);
-                            if($references){
-                                foreach($references as $reference){
-                                    $NumeroOC = $reference['number'];
-                                    $FechaOC = date('Y-m-d',$reference['referenceDate']);
-                                }
-                                $Grupo = 1001;
-                            }else{
-                                $Grupo = 1000;
-                                $NumeroOC = '';
-                                $FechaOC = '1970-01-31';
+            
+            // paginarEndPointBsale($url, $access_token);
+            echo $DocumentosBsale['next'];
+            echo "\n";
+            echo $DocumentosBsale['count'];
+            exit;
+            foreach($DocumentosBsale['items'] as $DocumentoBsale){
+                $DocumentoId = $DocumentoBsale['id'];
+                $document_type = $DocumentoBsale['document_type'];
+                $TipoDocumento = $document_type['id'];
+                $TipoFactura = 2;
+                if($TipoDocumento == 22){
+                    $TipoDocumento = 1;
+                    //es boleta
+                    $TipoFactura = 3;
+                }else if($TipoDocumento == 5){
+                    //es factura
+                    $TipoDocumento = 2;
+                    $TipoFactura = 1;
+                }else{
+
+                    $TipoDocumento = 3;
+                }
+
+
+                if($TipoDocumento == 1 OR $TipoDocumento == 2){
+                    $query = "SELECT Id, UrlPdfBsale, CountDTE, DocumentoIdBsale FROM facturas WHERE DocumentoIdBsale = '".$DocumentoId."'";
+                    $Factura = $run->select($query);
+                    // echo '<pre>'; print_r($Factura); echo '</pre>';exit;
+                    if(!$Factura){
+                        $UrlPdf = $DocumentoBsale['urlPdf'];
+                        $informedSii = $DocumentoBsale['informedSii'];
+                        $responseMsgSii = $DocumentoBsale['responseMsgSii'];
+                        $NumeroDocumento = $DocumentoBsale['number'];
+                        // $FechaFacturacion = date('Y-m-d', $DocumentoBsale['emissionDate']);
+                        $FechaFacturacion = gmdate('Y-m-d', $DocumentoBsale['emissionDate']);
+                        // $HoraFacturacion = date('H:i:s', $DocumentoBsale['emissionDate']);
+                        $HoraFacturacion = gmdate('H:i:s', $DocumentoBsale['emissionDate']);
+                        // $FechaVencimiento = date('Y-m-d', $DocumentoBsale['expirationDate']);
+                        $FechaVencimiento = gmdate('Y-m-d', $DocumentoBsale['expirationDate']);
+                        $references = $DocumentoBsale['references'];
+                        $references = $references['items'];
+                        $referencesCount = count($references);
+                        if($references){
+                            foreach($references as $reference){
+                                $NumeroOC = $reference['number'];
+                                $FechaOC = date('Y-m-d',$reference['referenceDate']);
                             }
-                            $client = $DocumentoBsale['client'];
-                            $code = $client['code'];
-                            $Explode = explode('-',$code);
-                            $Rut = $Explode[0];
-                            if($Rut){
-                                $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale,
-                                 responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, 
-                                 FechaOC, CountDTE) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', '".$FechaFacturacion."', '".$HoraFacturacion."', '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."', '".$referencesCount."')";
-                                $Id = $run->insert($query);
-                                if($Id){
-                                    $ContadorFacInserta += 1;
-                                    $dataClient['asunto'] = 'Sincronización de Documento desde bsale a la BD del ERP ';
-                                    $dataClient['MensajeCorreo'] .= 'Se ha insertado el Doc Rut: <b>'.$code.'</b> N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.<br><br><br>';
-                                    $details = $DocumentoBsale['details'];
-                                    $details = $details['items'];
-                                    foreach($details as $detail){
-                                        $documentDetailIdBsale = $detail['id'];
-                                        $Valor = $detail['netUnitValue'];
-                                        $Cantidad = $detail['quantity'];
-                                        $variant = $detail['variant'];
-                                        $Concepto = $variant['description'];
-                                        $Descuento = 0;
-                                        $Total = $detail['totalAmount'];
-                                        $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo, documentDetailIdBsale) VALUES ('".$Id."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '0', '".$Total."', '', '".$documentDetailIdBsale."')";
-                                        $FacturaDetalleId = $run->insert($query);
+                            $Grupo = 1001;
+                        }else{
+                            $Grupo = 1000;
+                            $NumeroOC = '';
+                            $FechaOC = '1970-01-31';
+                        }
+                        $client = $DocumentoBsale['client'];
+                        $code = $client['code'];
+                        $Explode = explode('-',$code);
+                        $Rut = $Explode[0];
+                        if($Rut){
+                            $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale,
+                                responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, 
+                                FechaOC, CountDTE) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', '".$FechaFacturacion."', '".$HoraFacturacion."', '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."', '".$referencesCount."')";
+                            $Id = $run->insert($query);
+                            if($Id){
+                                $ContadorFacInserta += 1;
+                                $dataClient['asunto'] = 'Sincronización de Documento desde bsale a la BD del ERP ';
+                                $dataClient['MensajeCorreo'] .= 'Se ha insertado el Doc Rut: <b>'.$code.'</b> N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.<br><br><br>';
+                                $details = $DocumentoBsale['details'];
+                                $details = $details['items'];
+                                foreach($details as $detail){
+                                    $documentDetailIdBsale = $detail['id'];
+                                    $Valor = $detail['netUnitValue'];
+                                    $Cantidad = $detail['quantity'];
+                                    $variant = $detail['variant'];
+                                    $Concepto = $variant['description'];
+                                    $Descuento = 0;
+                                    $Total = $detail['totalAmount'];
+                                    $query = "INSERT INTO facturas_detalle(FacturaId, Concepto, Valor, Cantidad, Descuento, IdServicio, Total, Codigo, documentDetailIdBsale) VALUES ('".$Id."', '".$Concepto."', '".$Valor."', '".$Cantidad."', '".$Descuento."', '0', '".$Total."', '', '".$documentDetailIdBsale."')";
+                                    $FacturaDetalleId = $run->insert($query);
+                                }
+                                //si existen references, exiten dte_code y los inserta
+                                if($references){
+                                    foreach($references as $reference){
+                                        $dte_code = $reference['dte_code'];
+                                        $dte_code = $dte_code['href'];
+                                        // el 3 es para traer datos de https://api.bsale.cl/v1/dte_codes/20.json y obtener info del dte_code
+                                        // $dte_code = self::countDocumentos(3, $dte_code);
+                                        $dte_code = $run->contador(3, $dte_code);
+                                        $url = $dte_code['href'];
+                                        $dtecodeID = $dte_code['id'];
+                                        $name = $dte_code['name'];
+                                        $codeSii = $dte_code['codeSii'];
+                                        $state = $dte_code['state'];
+                                        $query = "INSERT INTO dte_code(url, dte_code_id, name, codeSii, state, FacturaId, DocumentoIdBsale) VALUES ('".$url."', '".$dtecodeID."', '".$name."', '".$codeSii."', '".$state."', '".$Id."', '".$DocumentoId."')";
+                                        $FacturaDTEId = $run->insert($query);
                                     }
+                                }
+                            }
+                        }
+                    }else{
+                        $Id = $Factura[0]['Id'];
+                        $UrlPdf = $Factura[0]['UrlPdfBsale'];
+                        $DocumentoIdBsale = $Factura[0]['DocumentoIdBsale'];
+                        $NumeroDocumento = $DocumentoBsale['number'];
+                        //actualizo los datos de las facturas en la bd
+                        
+                        $informedSii = $DocumentoBsale['informedSii'];
+                        $responseMsgSii = $DocumentoBsale['responseMsgSii'];
+                        $FechaFacturacion = gmdate('Y-m-d', $DocumentoBsale['emissionDate']);
+                        $FechaVencimiento = gmdate('Y-m-d', $DocumentoBsale['expirationDate']);
+                        $references = $DocumentoBsale['references'];
+                        $references = $references['items'];
+                        $referencesCount = count($references);
+                        if($references){
+                            foreach($references as $reference){
+                                $NumeroOC = $reference['number'];
+                                $FechaOC = date('Y-m-d',$reference['referenceDate']);
+                            }
+                        }else{
+                            $NumeroOC = '';
+                            $FechaOC = '1970-01-31';
+                        }
+                        $client = $DocumentoBsale['client'];
+                        $code = $client['code'];
+                        $Explode = explode('-',$code);
+                        $Rut = $Explode[0];
+                        if($Rut){
+                            $query = "UPDATE facturas set informedSiiBsale = '".$informedSii."', responseMsgSiiBsale = '".$responseMsgSii."',  FechaFacturacion = '".$FechaFacturacion."',
+                                    FechaVencimiento = '".$FechaVencimiento."', NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', CountDTE = '".$referencesCount."'
+                                    WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' ";
+                            $update = $run->update2($query);
+                            //envia correo al actualizar facturas
+                            // if($update){
+                            //     $ContadorFacActualiza += 1;
+                            //     $dataClient['asunto'] = 'Sincronización de Documento desde bsale a la BD del ERP ';
+                            //     $dataClient['MensajeCorreo'] .= 'Se ha actualizado el Doc Rut: <b>'.$code.'</b> N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.<br><br><br>';
+                            // }
+                            $query = "SELECT COUNT(*) AS `totalDTE` FROM dte_code WHERE DocumentoIdBsale = '".$DocumentoId."' ";
+                            $TotalDTE = $run->select($query);
+                            $totalDTE = $TotalDTE[0]['totalDTE'];
+                            if($referencesCount != $totalDTE){
+                                $query = "DELETE FROM dte_code WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' ";
+                                $delete = $run->delete($query, false);
+                                if($delete && $referencesCount > 0 ){
                                     //si existen references, exiten dte_code y los inserta
                                     if($references){
+                                        
                                         foreach($references as $reference){
                                             $dte_code = $reference['dte_code'];
                                             $dte_code = $dte_code['href'];
@@ -4439,80 +4507,15 @@
                                     }
                                 }
                             }
-                        }else{
-                            $Id = $Factura[0]['Id'];
-                            $UrlPdf = $Factura[0]['UrlPdfBsale'];
-                            $DocumentoIdBsale = $Factura[0]['DocumentoIdBsale'];
-                            $NumeroDocumento = $DocumentoBsale['number'];
-                            //actualizo los datos de las facturas en la bd
-                            
-                            $informedSii = $DocumentoBsale['informedSii'];
-                            $responseMsgSii = $DocumentoBsale['responseMsgSii'];
-                            $FechaFacturacion = gmdate('Y-m-d', $DocumentoBsale['emissionDate']);
-                            $FechaVencimiento = gmdate('Y-m-d', $DocumentoBsale['expirationDate']);
-                            $references = $DocumentoBsale['references'];
-                            $references = $references['items'];
-                            $referencesCount = count($references);
-                            if($references){
-                                foreach($references as $reference){
-                                    $NumeroOC = $reference['number'];
-                                    $FechaOC = date('Y-m-d',$reference['referenceDate']);
-                                }
-                            }else{
-                                $NumeroOC = '';
-                                $FechaOC = '1970-01-31';
-                            }
-                            $client = $DocumentoBsale['client'];
-                            $code = $client['code'];
-                            $Explode = explode('-',$code);
-                            $Rut = $Explode[0];
-                            if($Rut){
-                                $query = "UPDATE facturas set informedSiiBsale = '".$informedSii."', responseMsgSiiBsale = '".$responseMsgSii."',  FechaFacturacion = '".$FechaFacturacion."',
-                                        FechaVencimiento = '".$FechaVencimiento."', NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', CountDTE = '".$referencesCount."'
-                                        WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' ";
-                                $update = $run->update2($query);
-                                //envia correo al actualizar facturas
-                                // if($update){
-                                //     $ContadorFacActualiza += 1;
-                                //     $dataClient['asunto'] = 'Sincronización de Documento desde bsale a la BD del ERP ';
-                                //     $dataClient['MensajeCorreo'] .= 'Se ha actualizado el Doc Rut: <b>'.$code.'</b> N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.<br><br><br>';
-                                // }
-                                $query = "SELECT COUNT(*) AS `totalDTE` FROM dte_code WHERE DocumentoIdBsale = '".$DocumentoId."' ";
-                                $TotalDTE = $run->select($query);
-                                $totalDTE = $TotalDTE[0]['totalDTE'];
-                                if($referencesCount != $totalDTE){
-                                    $query = "DELETE FROM dte_code WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' ";
-                                    $delete = $run->delete($query, false);
-                                    if($delete && $referencesCount > 0 ){
-                                        //si existen references, exiten dte_code y los inserta
-                                        if($references){
-                                            
-                                            foreach($references as $reference){
-                                                $dte_code = $reference['dte_code'];
-                                                $dte_code = $dte_code['href'];
-                                                // el 3 es para traer datos de https://api.bsale.cl/v1/dte_codes/20.json y obtener info del dte_code
-                                                // $dte_code = self::countDocumentos(3, $dte_code);
-                                                $dte_code = $run->contador(3, $dte_code);
-                                                $url = $dte_code['href'];
-                                                $dtecodeID = $dte_code['id'];
-                                                $name = $dte_code['name'];
-                                                $codeSii = $dte_code['codeSii'];
-                                                $state = $dte_code['state'];
-                                                $query = "INSERT INTO dte_code(url, dte_code_id, name, codeSii, state, FacturaId, DocumentoIdBsale) VALUES ('".$url."', '".$dtecodeID."', '".$name."', '".$codeSii."', '".$state."', '".$Id."', '".$DocumentoId."')";
-                                                $FacturaDTEId = $run->insert($query);
-                                            }
-                                        }
-                                    }
-                                }
-                            }
                         }
-                        
-                        if($Id){   
-                            // $this->almacenarDocumento($Id,1,$UrlPdf);
-                        }
+                    }
+                    
+                    if($Id){   
+                        // $this->almacenarDocumento($Id,1,$UrlPdf);
                     }
                 }
             }
+            
 
             if($ContadorFacActualiza || $ContadorFacInserta){
                 $respCorreo = $run->enviarCorreos(2, $dataClient);
