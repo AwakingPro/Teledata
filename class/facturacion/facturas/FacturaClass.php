@@ -4347,11 +4347,15 @@
             // paginarEndPointBsale($url, $access_token);
             echo $DocumentosBsale['next'];
             $totalDocumentos = $DocumentosBsale['count'];
-            while($totalDocumentos){
+            while($totalDocumentos > 0){
                 echo $totalDocumentos;
                 echo "\n";
-                $totalDocumentos-= 25;
-                
+                if($totalDocumentos < 100){
+                    $totalDocumentos -= 1;
+                }else{
+                    $totalDocumentos -= 25;
+                }
+
             }
             exit;
             while($totalDocumentos){
