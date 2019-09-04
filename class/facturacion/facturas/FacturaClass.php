@@ -4312,7 +4312,7 @@
             // Cierra la sesión cURL
             curl_close($session);
             $DocumentosBsale = json_decode($response, true);
-            // echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';exit;
+            echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';exit;
             $dataClient = array();
             $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, dangel@teledata.cl';
             $dataClient['asunto'] = '';
