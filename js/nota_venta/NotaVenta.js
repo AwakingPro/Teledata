@@ -490,6 +490,16 @@ $(document).ready(function() {
                     timer: 3000
                 });
 
+            } else if (response.status == 3) {
+
+                $.niftyNoty({
+                    type: 'danger',
+                    icon: 'fa fa-check',
+                    message: 'El precio debe ser mayor a 0',
+                    container: 'floating',
+                    timer: 3000
+                });
+
             } else {
 
                 $.niftyNoty({

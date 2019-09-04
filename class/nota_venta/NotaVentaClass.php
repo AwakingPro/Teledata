@@ -24,44 +24,46 @@
             $Precio = isset($Precio) ? trim($Precio) : "";
             $Descuento = isset($Descuento) ? trim($Descuento) : "";
 
-            if(!empty($Concepto) && !empty($Cantidad) && $Precio >= 0){
+            if(!empty($Concepto) && !empty($Cantidad)){
 
-                
-                $run = new Method;
+                if($Precio > 0){
+                    $run = new Method;
 
-                $Cantidad = intval($Cantidad);
-                $Usuario = $_SESSION['idUsuario'];
-                $Precio = str_replace(',','.',$Precio);
-                
-                if($Moneda == 2){
-                    $UfClass = new Uf(); 
-                    $UF = $UfClass->getValue();
-                    $Precio = $Precio * $UF;
+                    $Cantidad = intval($Cantidad);
+                    $Usuario = $_SESSION['idUsuario'];
+                    $Precio = str_replace(',','.',$Precio);
+                    
+                    if($Moneda == 2){
+                        $UfClass = new Uf(); 
+                        $UF = $UfClass->getValue();
+                        $Precio = $Precio * $UF;
+                    }else{
+                        $Precio = round($Precio, 0);
+                    }
+                    
+                    $Neto = $Precio * $Cantidad;
+                    $Impuesto = $Neto * 0.19;
+                    $Total = $Neto + $Impuesto;
+                    $Total = round($Total,0);
+                    
+                    
+                    // echo "Moneda ".$Moneda.' Precio '.$Precio. " Neto ".$Neto." Impuesto ".$Impuesto." Total ".$Total."\n";
+                    // exit;
+                    $query = "INSERT INTO nota_venta_tmp(concepto, cantidad, precio, total, usuario_id, descuento) VALUES ('".$Concepto."','".$Cantidad."','".$Precio."','".$Total."','".$Usuario."', '".$Descuento."')";
+                    $id = $run->insert($query,false);
+
+                    if($id){
+
+                        $array = array('id'=> $id, 'concepto' => $Concepto, 'cantidad' => $Cantidad, 'precio' => $Precio, 'total' => $Total, 'descuento' => $Descuento);
+
+                        $response_array['array'] = $array;
+                        $response_array['status'] = 1; 
+                    }else{
+                        $response_array['status'] = 0; 
+                    }
                 }else{
-                    $Precio = round($Precio, 0);
+                    $response_array['status'] = 3;
                 }
-                
-                $Neto = $Precio * $Cantidad;
-                $Impuesto = $Neto * 0.19;
-                $Total = $Neto + $Impuesto;
-                $Total = round($Total,0);
-                
-                
-                // echo "Moneda ".$Moneda.' Precio '.$Precio. " Neto ".$Neto." Impuesto ".$Impuesto." Total ".$Total."\n";
-                // exit;
-                $query = "INSERT INTO nota_venta_tmp(concepto, cantidad, precio, total, usuario_id, descuento) VALUES ('".$Concepto."','".$Cantidad."','".$Precio."','".$Total."','".$Usuario."', '".$Descuento."')";
-                $id = $run->insert($query,false);
-
-                if($id){
-
-                    $array = array('id'=> $id, 'concepto' => $Concepto, 'cantidad' => $Cantidad, 'precio' => $Precio, 'total' => $Total, 'descuento' => $Descuento);
-
-                    $response_array['array'] = $array;
-                    $response_array['status'] = 1; 
-                }else{
-                    $response_array['status'] = 0; 
-                }
-            
             }else{
                 $response_array['status'] = 2; 
             }
