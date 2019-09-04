@@ -40,7 +40,7 @@ $(document).ready(function() {
     $('.selectpicker').selectpicker();
     $('.date').datetimepicker({
         locale: 'es',
-        format: 'YYYY-MM-DD',
+        format: 'DD-MM-YYYY',
         defaultDate: new Date()
     });
     $(".number").mask("0000000000");
