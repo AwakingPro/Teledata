@@ -4276,6 +4276,30 @@
             }
             
         }
+        // metodo para paginar endpoint bsale
+        public function paginarEndPointBsale($url, $access_token){
+            // Inicia cURL
+            $session = curl_init($url);
+
+            // Indica a cURL que retorne data
+            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+            // Configura cabeceras
+            $headers = array(
+                'access_token: ' . $access_token,
+                'Accept: application/json',
+                'Content-Type: application/json'
+            );
+            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+            // echo $code = curl_getinfo($session, CURLINFO_HTTP_CODE);
+            // echo "\n";
+
+            // Ejecuta cURL
+            $response = curl_exec($session);
+            // Cierra la sesión cURL
+            curl_close($session);
+            return $DocumentosBsale = json_decode($response, true);
+        }
         // metodo para sincronizar fac de bsale al ERP
         public function sincronizarConBsale(){
             $run = new Method;
@@ -4284,7 +4308,7 @@
             $access_token = $variables_globales[0]['access_token'];
             // para traer todos los documentos se pasa el 1
             // $limitDocumentos = self::countDocumentos(1, '');
-            $url='https://api.bsale.cl/v1/documents.json';
+            // $url='https://api.bsale.cl/v1/documents.json';
             // $limitDocumentos = $run->contador(1, $url);
             //DOCUMENTOS
             // $limitDocumentos = 10;
@@ -4309,7 +4333,6 @@
 
             // Ejecuta cURL
             $response = curl_exec($session);
-            // echo '<pre>'; print_r($response); echo '</pre>';exit;
             // Cierra la sesión cURL
             curl_close($session);
             $DocumentosBsale = json_decode($response, true);
@@ -4320,9 +4343,9 @@
             $dataClient['MensajeCorreo'] = '';
             $ContadorFacActualiza = 0;
             $ContadorFacInserta = 0;
-            while($DocumentosBsale['next']){
-                echo $DocumentosBsale['next'];
-                exit;
+            foreach($DocumentosBsale['next'] as $nextUrl){
+                // paginarEndPointBsale($DocumentosBsale['next'], $access_token)
+                echo $DocumentosBsale['count']; exit;
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
                     $DocumentoId = $DocumentoBsale['id'];
                     $document_type = $DocumentoBsale['document_type'];
