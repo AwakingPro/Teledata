@@ -4352,6 +4352,10 @@
             
             while($DocumentosBsale['next'] != ''){
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
+                    echo "\n";
+                    echo $client = $DocumentoBsale['client'];
+                    echo "\n";
+                    
                     $DocumentoId = $DocumentoBsale['id'];
                     $document_type = $DocumentoBsale['document_type'];
                     $TipoDocumento = $document_type['id'];
