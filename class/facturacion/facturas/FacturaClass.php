@@ -4351,22 +4351,6 @@
             $ContadorFacInserta = 0;
             
             while($DocumentosBsale['next'] != ''){
-                //este sera despues de recorrer el primer next y asi sucesivamente
-                echo "\n";
-                echo $DocumentosBsale['next'];
-                if($DocumentosBsale['next'] != ''){
-                    //tipo = 3 trae todos los datos
-                    $DocumentosBsale = $run->contador(3, $DocumentosBsale['next']);
-                }else{
-                    $DocumentosBsale['next'] = '';
-                }
-                
-                echo "\n";
-            }
-            echo $DocumentosBsale['next'];
-            exit;
-            // while($totalDocumentos){
-            //     echo $totalDocumentos; exit;
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
                     $DocumentoId = $DocumentoBsale['id'];
                     $document_type = $DocumentoBsale['document_type'];
@@ -4533,8 +4517,19 @@
                         }
                     }
                 }
-
-            // }
+                //este sera despues de recorrer el primer next y asi sucesivamente de 25 en 25
+                echo "\n";
+                echo $DocumentosBsale['next'];
+                if($DocumentosBsale['next'] != ''){
+                    //tipo = 3 trae todos los datos
+                    $DocumentosBsale = $run->contador(3, $DocumentosBsale['next']);
+                }else{
+                    $DocumentosBsale['next'] = '';
+                }
+                
+                echo "\n";
+            }
+            echo $DocumentosBsale['next'];
 
             if($ContadorFacActualiza || $ContadorFacInserta){
                 $respCorreo = $run->enviarCorreos(2, $dataClient);
