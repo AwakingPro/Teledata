@@ -4353,15 +4353,17 @@
             while($DocumentosBsale['next'] != ''){
                 //este sera despues de recorrer el primer next y asi sucesivamente
                 echo "\n";
+                echo $DocumentosBsale['next'];
                 if($DocumentosBsale['next'] != ''){
                     //tipo = 3 trae todos los datos
                     $DocumentosBsale = $run->contador(3, $DocumentosBsale['next']);
                 }else{
                     $DocumentosBsale['next'] = '';
                 }
-                echo $DocumentosBsale['next'];
+                
                 echo "\n";
             }
+            echo $DocumentosBsale['next'];
             exit;
             // while($totalDocumentos){
             //     echo $totalDocumentos; exit;
