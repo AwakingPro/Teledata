@@ -4311,10 +4311,10 @@
             // para traer todos los documentos se pasa el 3
             $url='https://api.bsale.cl/v1/documents.json';
             //trae el total docs
-            $totalDocumentos = $run->contador(1, $url);
-            echo $totalDocumentos;
-            echo "\n";
-            exit;
+            // $totalDocumentos = $run->contador(1, $url);
+            // echo $totalDocumentos;
+            // echo "\n";
+            // exit;
             //DOCUMENTOS
             $limitDocumentos = 25;
             $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=25';
