@@ -4313,9 +4313,9 @@
             echo $totalDocumentos;
             echo "\n";
             //DOCUMENTOS
-            // $limitDocumentos = 10;
+            $limitDocumentos = $totalDocumentos;
             // paginarEndPointBsale($url, $access_token);
-            // $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=10';
+            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos;
             // echo $url; exit;
             // Inicia cURL
             $session = curl_init($url);
@@ -4339,7 +4339,7 @@
             curl_close($session);
             $DocumentosBsale = json_decode($response, true);
             //tipo = 3 trae todos los datos
-            $DocumentosBsale = $run->contador(3, $url);
+            // $DocumentosBsale = $run->contador(3, $url);
             // echo $totalDocumentos;
             // echo "\n";
             echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';exit;
