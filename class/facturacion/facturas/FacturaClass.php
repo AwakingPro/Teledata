@@ -4308,11 +4308,14 @@
             $access_token = $variables_globales[0]['access_token'];
             // para traer todos los documentos se pasa el 1
             // $limitDocumentos = self::countDocumentos(1, '');
-            // $url='https://api.bsale.cl/v1/documents.json';
-            // $limitDocumentos = $run->contador(1, $url);
+            $url='https://api.bsale.cl/v1/documents.json';
+            $totalDocumentos = $run->contador(1, $url);
+            echo $totalDocumentos;
+            exit;
             //DOCUMENTOS
             // $limitDocumentos = 10;
             $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]';
+            paginarEndPointBsale($url, $access_token);
             // $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=10';
             // echo $url; exit;
             // Inicia cURL
@@ -4347,7 +4350,7 @@
             // paginarEndPointBsale($url, $access_token);
             echo $DocumentosBsale['next'];
             $totalDocumentos = $DocumentosBsale['count'];
-            while($totalDocumentos > 0){
+            while($DocumentosBsale['next']){
                 echo $totalDocumentos;
                 echo "\n";
                 if($totalDocumentos < 100){
