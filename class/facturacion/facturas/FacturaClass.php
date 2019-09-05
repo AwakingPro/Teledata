@@ -127,7 +127,7 @@
                         $dataClient['ClienteNombre'] = $factura['Cliente'];
                         $dataClient['ServicioCodigo'] = $RUTDV;
                         //correos sin tecnicos para pruebas
-                        $dataClient['correos'] = 'kcardenas@teledata.cl, fpezzuto@teledata.cl, jpinto@teledata.cl, cjurgens@teledata.cl, dangel@teledata.cl';
+                        $dataClient['correos'] = 'kcardenas@teledata.cl, fpezzuto@teledata.cl, dangel@teledata.cl';
 
                         // $dataClient['correos'] = 'jcarrillo@teledata.cl, atrismartelo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl,  esalas@teledata.cl, jpinto@teledata.cl';
                         // $dataClient['correos'] = 'dangel@teledata.cl';
