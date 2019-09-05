@@ -4311,11 +4311,10 @@
             $url='https://api.bsale.cl/v1/documents.json';
             $totalDocumentos = $run->contador(1, $url);
             echo $totalDocumentos;
-            exit;
+            echo "\n";
             //DOCUMENTOS
             // $limitDocumentos = 10;
-            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]';
-            paginarEndPointBsale($url, $access_token);
+            // paginarEndPointBsale($url, $access_token);
             // $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=10';
             // echo $url; exit;
             // Inicia cURL
@@ -4339,7 +4338,11 @@
             // Cierra la sesión cURL
             curl_close($session);
             $DocumentosBsale = json_decode($response, true);
-            // echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';exit;
+            //tipo = 3 trae todos los datos
+            $DocumentosBsale = $run->contador(3, $url);
+            // echo $totalDocumentos;
+            // echo "\n";
+            echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';exit;
             $dataClient = array();
             $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, dangel@teledata.cl';
             $dataClient['asunto'] = '';
