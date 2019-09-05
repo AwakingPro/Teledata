@@ -4310,12 +4310,12 @@
             // $limitDocumentos = self::countDocumentos(1, '');
             $url='https://api.bsale.cl/v1/documents.json';
             $totalDocumentos = $run->contador(1, $url);
-            echo $totalDocumentos;
-            echo "\n";
+            // echo $totalDocumentos;
+            // echo "\n";
             //DOCUMENTOS
-            $limitDocumentos = $totalDocumentos;
+            $limitDocumentos = 1000;
             // paginarEndPointBsale($url, $access_token);
-            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos;
+            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=3000';
             // echo $url; exit;
             // Inicia cURL
             $session = curl_init($url);
@@ -4344,7 +4344,7 @@
             // echo "\n";
             echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';exit;
             $dataClient = array();
-            $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, cjurgens@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, dangel@teledata.cl';
+            $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, dangel@teledata.cl';
             $dataClient['asunto'] = '';
             $dataClient['MensajeCorreo'] = '';
             $ContadorFacActualiza = 0;
