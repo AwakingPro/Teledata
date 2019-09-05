@@ -4351,12 +4351,13 @@
             $ContadorFacInserta = 0;
             
             while($DocumentosBsale['next'] != ''){
+                echo "\n";
+                echo $DocumentosBsale['next'];
+                echo "\n";
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
                     echo "\n";
                     echo $client = $DocumentoBsale['client'];
-                    echo print_r($client);
                     echo "\n";
-
                     $DocumentoId = $DocumentoBsale['id'];
                     $document_type = $DocumentoBsale['document_type'];
                     $TipoDocumento = $document_type['id'];
@@ -4523,19 +4524,15 @@
                     }
                 }
                 //este sera despues de recorrer el primer next y asi sucesivamente de 25 en 25
-                echo "\n";
-                echo $DocumentosBsale['next'];
                 if($DocumentosBsale['next'] != ''){
                     //tipo = 3 trae todos los datos
+                    $DocumentosBsale['next'] .= '&expand=[references,client,details]';
                     $DocumentosBsale = $run->contador(3, $DocumentosBsale['next']);
                 }else{
                     $DocumentosBsale['next'] = '';
                 }
-                
-                echo "\n";
             }
-            echo $DocumentosBsale['next'];
-
+            
             if($ContadorFacActualiza || $ContadorFacInserta){
                 $respCorreo = $run->enviarCorreos(2, $dataClient);
                 // echo 'Insert Fac O Upd '.$respCorreo; echo "\n";
