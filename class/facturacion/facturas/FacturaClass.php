@@ -4312,8 +4312,9 @@
             $url='https://api.bsale.cl/v1/documents.json';
             //trae el total docs
             $totalDocumentos = $run->contador(1, $url);
-            // echo $totalDocumentos;
-            // echo "\n";
+            echo $totalDocumentos;
+            echo "\n";
+            exit;
             //DOCUMENTOS
             // $limitDocumentos = 1000;
             // $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=3000';
@@ -4350,9 +4351,6 @@
             $ContadorFacInserta = 0;
             
             while($DocumentosBsale['next'] != ''){
-                
-                
-
                 //este sera despues de recorrer el primer next y asi sucesivamente
                 echo "\n";
                 if($DocumentosBsale['next'] != ''){
