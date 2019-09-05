@@ -4342,7 +4342,7 @@
             // $DocumentosBsale = $run->contador(3, $url);
             // echo $totalDocumentos;
             // echo "\n";
-            echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';exit;
+            // echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';exit;
             $dataClient = array();
             $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, dangel@teledata.cl';
             $dataClient['asunto'] = '';
@@ -4351,21 +4351,21 @@
             $ContadorFacInserta = 0;
             
             // paginarEndPointBsale($url, $access_token);
-            echo $DocumentosBsale['next'];
-            $totalDocumentos = $DocumentosBsale['count'];
-            while($DocumentosBsale['next']){
-                echo $totalDocumentos;
-                echo "\n";
-                if($totalDocumentos < 100){
-                    $totalDocumentos -= 1;
-                }else{
-                    $totalDocumentos -= 25;
-                }
+            // echo $DocumentosBsale['next'];
+            // $totalDocumentos = $DocumentosBsale['count'];
+            // while($DocumentosBsale['next']){
+            //     echo $totalDocumentos;
+            //     echo "\n";
+            //     if($totalDocumentos < 100){
+            //         $totalDocumentos -= 1;
+            //     }else{
+            //         $totalDocumentos -= 25;
+            //     }
 
-            }
-            exit;
-            while($totalDocumentos){
-                echo $totalDocumentos; exit;
+            // }
+            // exit;
+            // while($totalDocumentos){
+            //     echo $totalDocumentos; exit;
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
                     $DocumentoId = $DocumentoBsale['id'];
                     $document_type = $DocumentoBsale['document_type'];
@@ -4533,7 +4533,7 @@
                     }
                 }
 
-            }
+            // }
 
             if($ContadorFacActualiza || $ContadorFacInserta){
                 $respCorreo = $run->enviarCorreos(2, $dataClient);
