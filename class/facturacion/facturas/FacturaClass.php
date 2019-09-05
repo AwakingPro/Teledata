@@ -4308,14 +4308,15 @@
             $access_token = $variables_globales[0]['access_token'];
             // para traer todos los documentos se pasa el 1
             // $limitDocumentos = self::countDocumentos(1, '');
+            // para traer todos los documentos se pasa el 3
             $url='https://api.bsale.cl/v1/documents.json';
+            //trae el total docs
             $totalDocumentos = $run->contador(1, $url);
             // echo $totalDocumentos;
             // echo "\n";
             //DOCUMENTOS
-            $limitDocumentos = 1000;
-            // paginarEndPointBsale($url, $access_token);
-            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=3000';
+            // $limitDocumentos = 1000;
+            // $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=3000';
             // echo $url; exit;
             // Inicia cURL
             $session = curl_init($url);
@@ -4338,8 +4339,6 @@
             // Cierra la sesión cURL
             curl_close($session);
             $DocumentosBsale = json_decode($response, true);
-            //tipo = 3 trae todos los datos
-            // $DocumentosBsale = $run->contador(3, $url);
             // echo $totalDocumentos;
             // echo "\n";
             // echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';exit;
@@ -4350,20 +4349,23 @@
             $ContadorFacActualiza = 0;
             $ContadorFacInserta = 0;
             
-            // paginarEndPointBsale($url, $access_token);
-            // echo $DocumentosBsale['next'];
-            // $totalDocumentos = $DocumentosBsale['count'];
-            // while($DocumentosBsale['next']){
-            //     echo $totalDocumentos;
-            //     echo "\n";
-            //     if($totalDocumentos < 100){
-            //         $totalDocumentos -= 1;
-            //     }else{
-            //         $totalDocumentos -= 25;
-            //     }
+            while($DocumentosBsale['next'] != ''){
+                
+                
 
-            // }
-            // exit;
+                //este sera despues de recorrer el primer next y asi sucesivamente
+                echo "\n";
+                if($DocumentosBsale['next'] != ''){
+                    //tipo = 3 trae todos los datos
+                    $DocumentosBsale = $run->contador(3, $url);
+                    $DocumentosBsale['next'] = $DocumentosBsale['next'];
+                }else{
+                    $DocumentosBsale['next'] = '';
+                }
+                echo $DocumentosBsale['next'];
+                echo "\n";
+            }
+            exit;
             // while($totalDocumentos){
             //     echo $totalDocumentos; exit;
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
