@@ -4526,8 +4526,7 @@
                 //este sera despues de recorrer el primer next y asi sucesivamente de 25 en 25
                 if($DocumentosBsale['next'] != ''){
                     //tipo = 3 trae todos los datos
-                    $DocumentosBsale['next'] .= '&expand=[references,client,details]';
-                    $DocumentosBsale = $run->contador(3, $DocumentosBsale['next']);
+                    $DocumentosBsale = $run->contador(3, $DocumentosBsale['next'].'&expand=[references,client,details]');
                 }else{
                     $DocumentosBsale['next'] = '';
                 }
