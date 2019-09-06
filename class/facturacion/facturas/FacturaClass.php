@@ -9,6 +9,22 @@
 			$run = new Method;
         }
 
+        public function VerDocumentosOcultos(){
+            $run = new Method;
+            $query = " SELECT * from facturas WHERE EstatusFacturacion = 3 ";
+            $documentosOcultos = $run->select($query);
+            if($documentosOcultos){
+                echo '<pre>'; echo print_r($documentosOcultos); echo '</pre>';
+                exit;
+                foreach($documentosOcultos as $documentoOculto){
+                    $facturaId = $documentoOculto['Id'];
+                    $query = " UPDATE facturas SET EstatusFacturacion = '0' WHERE Id = '".$facturaId."' ";
+                    echo $run->update($query);
+
+                }
+            }
+        }
+
         //metodo para que aparezcan los documentos de cliente con posee_prefactura = 1, y sus docs con EstatusFacturacion = 4(ocultos en por lotes), para que se ejecute los 25 de cada mes 
         public function generarPrefactura(){
             $run = new Method;
@@ -16,7 +32,7 @@
             $documentosPrefacturas = $run->select($query);
             if($documentosPrefacturas){
                 foreach($documentosPrefacturas as $documentoPrefactura){
-                    $facturaId = $documentoPrefactura['Id'].' ';
+                    $facturaId = $documentoPrefactura['Id'];
                     $query = " UPDATE facturas SET EstatusFacturacion = '0' WHERE Id = '".$facturaId."' ";
                     echo $run->update($query);
 
