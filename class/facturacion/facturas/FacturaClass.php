@@ -4309,7 +4309,7 @@
             // para traer todos los documentos se pasa el 1
             // $limitDocumentos = self::countDocumentos(1, '');
             // para traer todos los documentos se pasa el 3
-            $url='https://api.bsale.cl/v1/documents.json';
+            $url='https://api.bsale.cl/v1/documents.json?limit=25&offset=2625';
             //trae el total docs
             // $totalDocumentos = $run->contador(1, $url);
             // echo $totalDocumentos;
@@ -4356,7 +4356,7 @@
                 echo "\n";
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
                     echo "\n";
-                    echo $client = $DocumentoBsale['client'];
+                    echo '<pre>'; print_r($DocumentoBsale['client']); echo '</pre>';
                     echo "\n";
                     $DocumentoId = $DocumentoBsale['id'];
                     $document_type = $DocumentoBsale['document_type'];
@@ -4526,7 +4526,7 @@
                 //este sera despues de recorrer el primer next y asi sucesivamente de 25 en 25
                 if($DocumentosBsale['next'] != ''){
                     //tipo = 3 trae todos los datos
-                    $DocumentosBsale = $run->contador(3, $DocumentosBsale['next'].'&expand=[references,client,details]');
+                    $DocumentosBsale = $run->contador(3, $DocumentosBsale['next'].='&expand=[references,client,details]');
                 }else{
                     $DocumentosBsale['next'] = '';
                 }
