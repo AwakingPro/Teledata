@@ -4306,19 +4306,9 @@
             $query = "SELECT token_produccion as access_token FROM variables_globales";
             $variables_globales = $run->select($query);
             $access_token = $variables_globales[0]['access_token'];
-            // para traer todos los documentos se pasa el 1
-            // $limitDocumentos = self::countDocumentos(1, '');
-            // para traer todos los documentos se pasa el 3
-            $url='https://api.bsale.cl/v1/documents.json?limit=25&offset=2625';
-            //trae el total docs
-            // $totalDocumentos = $run->contador(1, $url);
-            // echo $totalDocumentos;
-            // echo "\n";
-            // exit;
             //DOCUMENTOS
             $limitDocumentos = 25;
             $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=0';
-            // echo $url; exit;
             // Inicia cURL
             $session = curl_init($url);
 
@@ -4332,17 +4322,12 @@
                 'Content-Type: application/json'
             );
             curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-            // echo $code = curl_getinfo($session, CURLINFO_HTTP_CODE);
-            // echo "\n";
 
             // Ejecuta cURL
             $response = curl_exec($session);
             // Cierra la sesión cURL
             curl_close($session);
             $DocumentosBsale = json_decode($response, true);
-            // echo $totalDocumentos;
-            // echo "\n";
-            // echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';exit;
             $dataClient = array();
             $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, dangel@teledata.cl';
             $dataClient['asunto'] = '';
@@ -4351,13 +4336,7 @@
             $ContadorFacInserta = 0;
             
             while($DocumentosBsale['next'] != ''){
-                echo "\n";
-                echo $DocumentosBsale['next'];
-                echo "\n";
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
-                    echo "\n";
-                    echo '<pre>'; print_r($DocumentoBsale['client']); echo '</pre>';
-                    echo "\n";
                     $DocumentoId = $DocumentoBsale['id'];
                     $document_type = $DocumentoBsale['document_type'];
                     $TipoDocumento = $document_type['id'];
@@ -4379,7 +4358,6 @@
                     if($TipoDocumento == 1 OR $TipoDocumento == 2){
                         $query = "SELECT Id, UrlPdfBsale, CountDTE, DocumentoIdBsale FROM facturas WHERE DocumentoIdBsale = '".$DocumentoId."'";
                         $Factura = $run->select($query);
-                        // echo '<pre>'; print_r($Factura); echo '</pre>';exit;
                         if(!$Factura){
                             $UrlPdf = $DocumentoBsale['urlPdf'];
                             $informedSii = $DocumentoBsale['informedSii'];
