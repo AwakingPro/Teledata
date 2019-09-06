@@ -36,10 +36,25 @@ class Uf {
                 $punto = $this->encontrar($decimales, $findme);
                 if($punto['verificacion'] == true){
                     // if es mayor a 50 el decimal, sumo 1
-                    if($coma['Value'][1] >= 50){
-                        $redondeo = $punto['Value'][1]+1;
+                    if($coma['Value'][1] >= 100){
+                        // echo "\n";
+                        // echo "entro en if";
+                        // $lonDecimales = strlen($punto['Value'][1]);
+                        // if($lonDecimales >= 3){
+                        //     echo ' if el valor tiene '. $lonDecimales . ' su valor '.$punto['Value'][1];
+                        // }else{
+                        //     echo ' else el valor tiene '. $lonDecimales . ' su valor '.$punto['Value'][1];
+                        // }
+                        // echo "\n";
+                        $redondeo = $punto['Value'][1]+=$coma['Value'][1];
                         $Value = $punto['Value'][0].$redondeo;
+                        // echo ' valor final '.$Value;
+                        // exit;
                     }else{
+                        // echo "\n";
+                        // echo "entro en else";
+                        // echo $punto['Value'][0];
+                        // exit;
                         $Value = $punto['Value'][0].$punto['Value'][1];
                     }
                 }
@@ -56,8 +71,10 @@ class Uf {
         }else{
             $Value = 27762.55;
         }
+        // $Value = 28004;
         return floatval($Value);
     }
+    
     //funcion para buscar un caracter dentro de los valores dados
     function encontrar($Value, $findme){
         //busco el punto o coma dentro de $Value
