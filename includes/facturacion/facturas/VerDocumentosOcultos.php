@@ -6,5 +6,5 @@
     // include('../../../class/email/EmailClass.php');
 	include("../../../class/facturacion/facturas/FacturaClass.php");
 	$Factura = new Factura();
-	echo $Factura->VerDocumentosOcultos();
+	echo $Factura->verDocumentosOcultos();
 ?>
