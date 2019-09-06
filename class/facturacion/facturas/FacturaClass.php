@@ -9,7 +9,7 @@
 			$run = new Method;
         }
 
-        public function VerDocumentosOcultos(){
+        public function verDocumentosOcultos(){
             $run = new Method;
             $query = " SELECT * from facturas WHERE EstatusFacturacion = 3 ";
             $documentosOcultos = $run->select($query);
