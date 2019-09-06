@@ -14,8 +14,6 @@
             $query = " SELECT * from facturas WHERE EstatusFacturacion = 3 ";
             $documentosOcultos = $run->select($query);
             if($documentosOcultos){
-                echo '<pre>'; echo print_r($documentosOcultos); echo '</pre>';
-                exit;
                 foreach($documentosOcultos as $documentoOculto){
                     $facturaId = $documentoOculto['Id'];
                     $query = " UPDATE facturas SET EstatusFacturacion = '0' WHERE Id = '".$facturaId."' ";
