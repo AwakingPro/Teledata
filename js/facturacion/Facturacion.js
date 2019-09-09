@@ -178,8 +178,7 @@ $(document).ready(function() {
                         {
                             "targets": 6,
                             "render": function(data, type, row) {
-                                // Icono += '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Previsualiza como quedará la factura en PDF" title="Previsualiza como quedara la factura en PDF" data-container="body"></i>'
-                                Icono += '<i title="Detalles servicios" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarLote" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
+                                Icono = '<i title="Detalles servicios" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarLote" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
                                 if(row.Grupo != 1){
                                     Icono += '<i title="Orden de compra" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-list-alt OC" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Orden de Compra" title="" data-container="body"></i>'
                                 }
@@ -199,6 +198,9 @@ $(document).ready(function() {
                                 }
                                 if(IdUsuarioSession == 109 || IdUsuarioSession == 116 || IdUsuarioSession == 104){
                                     Icono += '<i title="Eliminar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar la factura" title="" data-container="body"></i>'
+                                }
+                                if(IdUsuarioSession == 116){
+                                    Icono += '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Previsualiza como quedará la factura en PDF" title="Previsualiza como quedara la factura en PDF" data-container="body"></i>'
                                 }
                                 return "<div style='text-align: center'>" + Icono + "</div>";
                             }
@@ -276,7 +278,6 @@ $(document).ready(function() {
                         {
                             "targets": 5,
                             "render": function(data, type, row) {
-                                // Icono = '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar"  data-container="body"></i>'
                                 Icono = '<i title="Detalles servicio" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarInstalacion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar"  data-container="body"></i>'
                                 //temporal
                                 //comentar el prop y sustituir el not-allowed por pointer de Facturar luego de que se puedan enviar correos 
@@ -284,6 +285,9 @@ $(document).ready(function() {
                                 Icono += '<i title="Facturar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar"  data-container="body"></i>'
                                 if(IdUsuarioSession == 109 || IdUsuarioSession == 116 || IdUsuarioSession == 104){
                                     Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>'
+                                }
+                                if(IdUsuarioSession == 116){
+                                    Icono += '<i title="Ver en PDF" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar"  data-container="body"></i>'
                                 }
                                 return "<div style='text-align: center'>" + Icono + "</div>";
                             }
@@ -366,7 +370,6 @@ $(document).ready(function() {
 
                             "targets": 5,
                             "render": function(data, type, row) {
-                                // Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
                                 Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarIndividual" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
                                 if(row.Grupo != 1){
                                     Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-list-alt OC" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Agregar Orden de Compra" title="" data-container="body"></i>'
@@ -378,6 +381,9 @@ $(document).ready(function() {
                                 Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-money Facturar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Facturar" title="" data-container="body"></i>'
                                 if(IdUsuarioSession == 109 || IdUsuarioSession == 116 || IdUsuarioSession == 104){
                                     Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-trash Eliminar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar" title="" data-container="body"></i>'
+                                }
+                                if(IdUsuarioSession == 116){
+                                    Icono += '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-file-pdf-o Prefactura" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i>'
                                 }
                                 return "<div style='text-align: center'>" + Icono + "</div>";
                             }
