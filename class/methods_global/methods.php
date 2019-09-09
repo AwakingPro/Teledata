@@ -375,7 +375,6 @@
 					$tabla = "<table class='table table-striped table-hover tabeData'><thead><tr>";
 					for ($i=0; $i < count($fields) ; $i++) {
 						$tabla.="<th>".$fields[$i]."</th>";
-						$tabla.="<th>Accion</th>";
 					}
 					$tabla.="</tr></thead><tbody>";
 					while ($fila = $resultado->fetch_array(MYSQLI_NUM)) {
@@ -386,7 +385,6 @@
 							$tabla.= '<tr>';
 							foreach ($rows[$i] as $clave => $valor) {
 								$tabla.="<td>".$valor."</td>";
-								$tabla.="<td>accion</td>";
 							}
 							$tabla.= '</tr>';
 						}
