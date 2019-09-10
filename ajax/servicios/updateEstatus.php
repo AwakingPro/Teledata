@@ -52,6 +52,8 @@
         $Mensaje .= '<b>Términar contrato</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
     }
     if($Activo == 1){
+        $FechaInicioDesactivacion = NULL;
+        $FechaFinalDesactivacion = NULL;
         $Mensaje .= '<b>Activar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
     }
     
