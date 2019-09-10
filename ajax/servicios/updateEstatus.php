@@ -52,8 +52,6 @@
         $Mensaje .= '<b>Términar contrato</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
     }
     if($Activo == 1){
-        $FechaInicioDesactivacion = NULL;
-        $FechaFinalDesactivacion = NULL;
         $Mensaje .= '<b>Activar</b> Servicio del Cliente: <b>'.$servicio_nombre_cliente.'</b> código <b>'. $servicio_codigo_cliente.'</b>';
     }
     
@@ -96,10 +94,15 @@
 
     $dataClient['MensajeCorreo'] = $Mensaje;
     $FechaUltimoCobro = date('Y-m-01');
-	$query = "UPDATE servicios SET FechaInicioDesactivacion = '".$FechaInicioDesactivacion."', 
-              FechaFinalDesactivacion = '".$FechaFinalDesactivacion."', EstatusServicio = $Activo, FechaUltimoCobro = '".$FechaUltimoCobro."'
+    if($Activo == 1){
+        $query = "UPDATE servicios SET FechaInicioDesactivacion = NULL, 
+              FechaFinalDesactivacion = NULL, EstatusServicio = $Activo, FechaUltimoCobro = '".$FechaUltimoCobro."'
               WHERE Id = '".$Id."' ";
-    // echo $query; exit;
+    }else{
+        $query = "UPDATE servicios SET FechaInicioDesactivacion = '".$FechaInicioDesactivacion."', 
+        FechaFinalDesactivacion = '".$FechaFinalDesactivacion."', EstatusServicio = $Activo, FechaUltimoCobro = '".$FechaUltimoCobro."'
+        WHERE Id = '".$Id."' ";
+    }
     $update = $run->update($query);
     
     if($update > 0){
