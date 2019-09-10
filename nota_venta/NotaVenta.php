@@ -79,10 +79,10 @@
                                 <input type="hidden" name="nota_venta_id" id="nota_venta_id">
                                 <div class="row" style="margin:0">
                                     <div class="col-md-2" style="padding-left:20px;padding-right:20px">
-                                        <div class="form-group">
-                                            <div class="text-center">
-                                                <label class="control-label h5" for="concepto">Concepto</label>
-                                            </div>
+                                        <label class="form-group">
+                                            <label class="text-center">
+                                                <label class="control-label h5" for="concepto">Glosa de venta</label>
+                                            </label>
                                             <input id="concepto" name="concepto" class="form-control input-sm" validate="not_null" data-nombre="Concepto">
                                         </div>
                                     </div>
@@ -175,7 +175,7 @@
                                 <input type="hidden" name="detalle_id" id="detalle_id">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label h5" for="concepto_update">Concepto</label>
+                                        <label class="control-label h5" for="concepto_update">Glosa de venta</label>
                                         <input id="concepto_update" name="concepto_update" class="form-control input-sm" validate="not_null" data-nombre="Concepto">
                                     </div>
                                 </div>
@@ -354,7 +354,7 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <div class="text-center">
-                                                            <label class="control-label h5" for="concepto_tmp">Concepto</label>
+                                                            <label class="control-label h5" for="concepto_tmp">Glosa de venta</label>
                                                         </div>
                                                         <div id="concepto_container">
                                                             <select class="selectpicker form-control" name="concepto_tmp" id="concepto_tmp"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Concepto">
