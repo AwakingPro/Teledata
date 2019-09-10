@@ -416,7 +416,7 @@
                                         </div>
 
                                         <!-- inicio ver servicios asociados -->
-                                        <h3 class="panel-title">Seleccione los servicios que estaran asociados a esta nota de venta</h3>
+                                        <h3 class="panel-title">Seleccione los servicios que estaran asociados y no saldran en por lotes este mes</h3>
                                         <div class="clearfix"></div>
                                         <div class="col-md-12" id="componenteNotaCreditoParcial" >
                                             <div class="form-group">
