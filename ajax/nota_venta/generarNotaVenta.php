@@ -21,7 +21,7 @@
 	}
 	$query = "SELECT * FROM nota_venta where id = '$id'";
 	$nota_venta = $run->select($query);
-
+	
 	if (count($nota_venta) > 0) {
 
 		// Crea un nuevo objeto PHPExcel
@@ -59,7 +59,13 @@
 
 		if (count($cliente) > 0) {
 			$index = 2;
+			$dt = \DateTime::createFromFormat('Y-m-d',$nota_venta[0]['fecha']);
+			$nota_venta[0]['fecha'] = $dt->format('d-m-Y');
 
+			$idResponsable = $nota_venta[0]['solicitado_por'];
+			
+			$query = " SELECT * FROM usuarios where id = '".$idResponsable."' ";
+			$responsable = $run->select($query);
 			$objPHPExcel->setActiveSheetIndex(0)
 			->setCellValue('A'.$index, $cliente[0]['nombre'])
 			->setCellValue('B'.$index, $cliente[0]['rut'])
@@ -68,13 +74,13 @@
 			->setCellValue('E'.$index, $cliente[0]['direccion'])
 			->setCellValue('F'.$index, $nota_venta[0]['fecha'])
 			->setCellValue('G'.$index, $nota_venta[0]['numero_oc'])
-			->setCellValue('H'.$index, $nota_venta[0]['solicitado_por']);
+			->setCellValue('H'.$index, $responsable[0]['nombre']);
 		}
 
 		$index = 5;
 
 		$objPHPExcel->setActiveSheetIndex(0)
-			->setCellValue('A'.$index, 'Concepto')
+			->setCellValue('A'.$index, 'Glosa de venta')
 			->setCellValue('B'.$index, 'Cantidad')
 			->setCellValue('C'.$index, 'Precio')
 			->setCellValue('D'.$index, 'Total');
