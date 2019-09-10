@@ -31,8 +31,8 @@
     
     $Mensaje = 'Estimados por favor ';
     if($FechaInicioDesactivacion == ''){
-        $FechaInicioDesactivacion = 'NULL';
-        $FechaFinalDesactivacion = 'NULL';
+        $FechaInicioDesactivacion = NULL;
+        $FechaFinalDesactivacion = NULL;
     }
     
     //0-termino contrato, 1-activo, 2-suspendido, 3-Corte comercial
