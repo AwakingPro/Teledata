@@ -570,6 +570,13 @@ $(document).ready(function() {
                 },
                 "columnDefs": [
                     {
+                        "targets": [2, 3],
+                        "render": function(data, type, row) {
+                            FechaFacturacion = moment(data).format('DD-MM-YYYY');
+                            return "<td><span style='display: none;'>"+ data + "</span>"+FechaFacturacion+"</td>";
+                        }
+                    },
+                    {
                         "targets": 4,
                         "render": function(data, type, row) {
                             value = formatcurrency(data)
