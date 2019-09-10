@@ -82,6 +82,7 @@ $id_cliente = $_GET['cliente'];
 	<script src="../js/methods_global/methods.js"></script>
 	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
+	<script type="text/javascript" src="../plugins/moment/moment.js"></script>
 	<!-- <script src="../js/bienvenida/controller.js"></script> -->
 	<script src="../js/resumenCliente/resumenCliente.js"></script>
 </body>
