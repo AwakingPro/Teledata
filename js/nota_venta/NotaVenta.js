@@ -1165,7 +1165,7 @@ $(document).ready(function() {
         $.postFormValues('../includes/nota_venta/updateDetalle.php', '#formDetalleUpdate', {}, function(response) {
 
             if (response.status == 1) {
-
+                getNotaVentas();
                 $.niftyNoty({
                     type: 'success',
                     icon: 'fa fa-check',
