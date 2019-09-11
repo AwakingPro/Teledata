@@ -131,19 +131,19 @@
 			$index = $index + 2;
 
 			$objPHPExcel->setActiveSheetIndex(0)
-			->setCellValue('E'.$index, 'Neto')
+			->setCellValue('E'.$index, 'Total neto')
 			->setCellValue('F'.$index, $neto);
 
 			$index++;
 
 			$objPHPExcel->setActiveSheetIndex(0)
-			->setCellValue('E'.$index, 'I.V.A.')
+			->setCellValue('E'.$index, 'total I.V.A.')
 			->setCellValue('F'.$index, $iva);
 
 			$index++;
 
 			$objPHPExcel->setActiveSheetIndex(0)
-			->setCellValue('E'.$index, 'Total')
+			->setCellValue('E'.$index, 'Total I.V.A incluido')
 			->setCellValue('F'.$index, $total);
 
 			$index++;
