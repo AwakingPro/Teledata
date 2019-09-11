@@ -468,6 +468,13 @@
                     $array['concepto'] = $detalle['concepto'];
                     $array['precio'] = $detalle['precio'];
                     $array['cantidad'] = $detalle['cantidad'];
+                    if($detalle['descuento']){
+                        $DescuentoPunto  = '0.';
+                        $DescuentoPunto .= $detalle['descuento'];
+                        $DescuentoTotal = $detalle['total'] * $DescuentoPunto;
+                        $Total = $detalle['total'] - $DescuentoTotal;
+                        $detalle['total'] = round($Total,0);
+                    }
                     $array['total'] = $detalle['total'];
                     $array['descuento'] = $detalle['descuento'];
                     array_push($detalles,$array);
