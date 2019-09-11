@@ -82,7 +82,7 @@
 		$objPHPExcel->setActiveSheetIndex(0)
 			->setCellValue('A'.$index, 'Glosa de venta')
 			->setCellValue('B'.$index, 'Cantidad')
-			->setCellValue('C'.$index, 'Precio')
+			->setCellValue('C'.$index, 'Precio neto')
 			->setCellValue('D'.$index, 'Total')
 			->setCellValue('E'.$index, 'Descuento');
 
@@ -107,7 +107,7 @@
 				$impuesto = $neto_tmp * floatval(0.19);
 				$neto = $neto + $neto_tmp;
 				$iva = $iva + $impuesto;
-				
+
 				if($detalle['descuento']){
 					$DescuentoPunto  = '0.';
 					$DescuentoPunto .= $detalle['descuento'];
