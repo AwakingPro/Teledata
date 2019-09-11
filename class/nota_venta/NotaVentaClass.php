@@ -52,6 +52,13 @@
                     $query = "INSERT INTO nota_venta_tmp(concepto, cantidad, precio, total, usuario_id, descuento) VALUES ('".$Concepto."','".$Cantidad."','".$Precio."','".$Total."','".$Usuario."', '".$Descuento."')";
                     $id = $run->insert($query,false);
 
+                    if($Descuento){
+                        $DescuentoPunto  = '0.';
+                        $DescuentoPunto .= $Descuento;
+                        $DescuentoTotal = $Total * $DescuentoPunto;
+                        $Total = $Total - $DescuentoTotal;
+                        $Total = round($Total,0);
+                    }
                     if($id){
 
                         $array = array('id'=> $id, 'concepto' => $Concepto, 'cantidad' => $Cantidad, 'precio' => $Precio, 'total' => $Total, 'descuento' => $Descuento);
