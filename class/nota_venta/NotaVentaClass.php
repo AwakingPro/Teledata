@@ -285,8 +285,30 @@
                             INNER JOIN personaempresa p ON p.rut = nv.rut
                             INNER JOIN usuarios u ON u.id = nv.solicitado_por";
             $data = $run->select($query);
-
-            echo json_encode($data);
+            // echo '<pre>'; print_r($data); '</pre>';
+            // exit;
+            $dataConvertida = array();
+            foreach($data as $dato){
+                // if($dato['total_descuento']){
+                //     $DescuentoPunto  = '0.';
+                //     $DescuentoPunto .= $dato['total_descuento'];
+                //     $DescuentoTotal = $dato['total'] * $DescuentoPunto;
+                //     $Total = $dato['total'] - $DescuentoTotal;
+                //     $dato['total'] = round($Total,0);
+                // }
+                $dato['rut']             = $dato['rut']; 
+                $dato['cliente']         = $dato['cliente']; 
+                $dato['fecha']           = $dato['fecha']; 
+                $dato['numero_oc']       = $dato['numero_oc']; 
+                $dato['numero_hes']      = $dato['numero_hes'];
+                $dato['solicitado_por']  = $dato['solicitado_por']; 
+                $dato['total']           = $dato['total']; 
+                $dato['total_descuento'] = $dato['total_descuento'];
+                $dato['id']              = $dato['id']; 
+                
+                array_push($dataConvertida, $dato);
+            }
+            echo json_encode($dataConvertida);
 
         }
 
