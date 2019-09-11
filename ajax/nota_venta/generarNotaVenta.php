@@ -83,11 +83,12 @@
 			->setCellValue('A'.$index, 'Glosa de venta')
 			->setCellValue('B'.$index, 'Cantidad')
 			->setCellValue('C'.$index, 'Precio')
-			->setCellValue('D'.$index, 'Total');
+			->setCellValue('D'.$index, 'Total')
+			->setCellValue('E'.$index, 'Descuento');
 
 		$index = 7;
 
-		$query = "SELECT * FROM nota_venta_detalle where nota_venta_id = '$id'";
+		$query = "SELECT * FROM nota_venta_detalle where nota_venta_id = '$id' ";
 		$run = new Method;
 		$nota_venta_detalle = $run->select($query);
 
@@ -115,7 +116,8 @@
 				->setCellValue('A'.$index, $detalle['concepto'])
 				->setCellValue('B'.$index, $detalle['cantidad'])
 				->setCellValue('C'.$index, floatval($detalle['precio']))
-				->setCellValue('D'.$index, floatval($detalle['total']));
+				->setCellValue('D'.$index, floatval($detalle['total']))
+				->setCellValue('E'.$index, floatval($detalle['descuento']));
 				$index++;
 			}
 
