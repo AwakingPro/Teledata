@@ -262,12 +262,6 @@ $(document).ready(function() {
                         {
                             "targets": 6,
                             "render": function(data, type, row) {
-                                if(row.total_descuento > 0){
-                                    var descuentoPunto = '0.';
-                                    descuentoPunto = descuentoPunto + row.total_descuento;
-                                    DescuentoTotal = row.total * descuentoPunto;
-                                    data = parseInt(row.total) - parseInt(DescuentoTotal);  
-                                }
                                 total = formatcurrency(data)
                                 return "<div style='text-align: center'>" + total + "</div>";
                             }
