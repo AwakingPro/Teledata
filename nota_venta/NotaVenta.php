@@ -89,7 +89,7 @@
                                     <div class="col-md-2">
                                         <div class="form-group" style="padding-left:20px;padding-right:20px">
                                             <div class="text-center">
-                                                <label class="control-label h5" for="precio">Precio</label>
+                                                <label class="control-label h5" for="precio">Precio neto</label>
                                             </div>
                                             <input id="precio" name="precio" class="form-control input-sm number" validate="not_null" data-nombre="Precio">
                                         </div>
@@ -116,7 +116,7 @@
                                     <div class="col-md-2">
                                         <div class="form-group" style="padding-left:20px;padding-right:20px">
                                             <div class="text-center">
-                                                <label class="control-label h5" for="total">Total</label>
+                                                <label class="control-label h5" for="total">Total neto</label>
                                             </div>
                                             <input id="total" name="total" class="form-control input-sm" disabled>
                                         </div>
@@ -141,7 +141,7 @@
                                         <thead>
                                             <tr>
                                                 <th class="text-center">Concepto</th>
-                                                <th class="text-center">Precio</th>
+                                                <th class="text-center">Precio neto</th>
                                                 <th class="text-center">Cantidad</th>
                                                 <th class="text-center">Total I.V.A. Incluido</th>
                                                 <th class="text-center">Descuento %</th>
@@ -181,7 +181,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label h5" for="precio_update">Precio</label>
+                                        <label class="control-label h5" for="precio_update">Precio neto</label>
                                         <input id="precio_update" name="precio_update" class="form-control input-sm number" validate="not_null" data-nombre="Precio">
                                     </div>
                                 </div>
@@ -202,7 +202,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label h5" for="total_update">Total</label>
+                                        <label class="control-label h5" for="total_update">Total neto</label>
                                         <input id="total_update" name="total_update" class="form-control input-sm" disabled>
                                     </div>
                                 </div>
@@ -446,7 +446,7 @@
                                                         <thead>
                                                             <tr>
                                                                 <th class="text-center">Concepto</th>
-                                                                <th class="text-center">Precio</th>
+                                                                <th class="text-center">Precio neto</th>
                                                                 <th class="text-center">Cantidad</th>
                                                                 <th class="text-center">Total I.V.A. Incluido</th>
                                                                 <th class="text-center">Descuento %</th>
