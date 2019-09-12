@@ -8,6 +8,7 @@
 
 	$query = " INSERT INTO usuarios (usuario, nombre, clave, nivel, cargo, email, sexo, tipo_usuario) 
 	VALUES ('".$usuario."', '".$nombre."', '".$clave."', '".$privilegio."', '".$_POST['cargo']."', '".$correo."', '', '".$privilegio."')";
+	echo $query;
 	$run = new Method;
 	$data = $run->insert($query);
 	echo $data;
