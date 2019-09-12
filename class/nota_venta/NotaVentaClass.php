@@ -37,6 +37,7 @@
                         $UfClass = new Uf(); 
                         $UF = $UfClass->getValue();
                         $Precio = $Precio * $UF;
+                        $Precio = round($Precio, 0);
                     }else{
                         $Precio = round($Precio, 0);
                     }
