@@ -580,6 +580,7 @@
                             facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
                             servicios.Id,
                             servicios.Codigo,
+                            servicios.Descuento,
                             ( CASE servicios.tipo_moneda WHEN 2 THEN ROUND(( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0)
                             ELSE ROUND(( servicios.CostoInstalacion  - ( ( servicios.CostoInstalacion  ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0) END ) AS Valor,
                             -- ROUND((
@@ -621,6 +622,7 @@
                     $data['detalleId'] = $servicio['detalleId'];
                     $data['detalleIdBsale'] = $servicio['detalleIdBsale'];
                     $data['totalDetalles'] = $totalDetalles;
+                    $data['Descuento'] = $servicio['Descuento'];
                     array_push($array,$data);
                 }
 

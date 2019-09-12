@@ -532,6 +532,7 @@ $(document).ready(function() {
                         '' + array.Codigo + '',
                         '' + array.Nombre + '',
                         '' + formatcurrency(array.Valor) + '',
+                        '' + array.Descuento + '',
                         '' + '<i  id='+array.detalleId+' '+StyleEliminarDetalle+' '+desabilitar+' tipo='+3+' facturaId='+array.facturaId+' class="fa fa-trash '+EliminarDetalle+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + ''
                     ]).draw(false).node();
 
