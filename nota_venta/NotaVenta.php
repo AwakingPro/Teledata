@@ -202,7 +202,7 @@
                                 </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="control-label h5" for="total_update">Total neto</label>
+                                        <label class="control-label h5" for="total_update">Total neto sin descuento</label>
                                         <input id="total_update" name="total_update" class="form-control input-sm" disabled>
                                     </div>
                                 </div>
