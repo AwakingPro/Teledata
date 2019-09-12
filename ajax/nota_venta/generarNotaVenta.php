@@ -107,7 +107,7 @@
 				$impuesto = $neto_tmp * floatval(0.19);
 				$neto = $neto + $neto_tmp;
 				$iva = $iva + $impuesto;
-				$iva = round($iva, 0);
+				$iva = round($iva);
 
 				if($detalle['descuento']){
 					$DescuentoPunto  = '0.';
