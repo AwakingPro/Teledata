@@ -137,7 +137,7 @@ $.ajax({
 		$('.ValorUF').text('Cargando...');
       },
 	success: function (response) {
-		response = Math.round(response)
+		// response = Math.round(response)
 		$('.ValorUF').text(response)
 		ValorUF = response
 	}
