@@ -733,6 +733,7 @@
                             ROUND((
                                 facturas_detalle.Valor
                             ),0) AS Neto,
+                            facturas_detalle.Descuento as Descuento,
                             personaempresa.nombre AS Nombre,
                             facturas_detalle.Concepto AS Concepto,
                             facturas_detalle.Codigo,
@@ -755,6 +756,13 @@
                 $totalDetalles = count($facturas);
                 foreach($facturas as $factura){
                     $data = $factura;
+                    if($factura['Descuento']){
+                        $DescuentoPunto  = '0.';
+                        $DescuentoPunto .= $factura['Descuento'];
+                        $DescuentoTotal = $factura['Valor'] * $DescuentoPunto;
+                        $Total = $factura['Valor'] - $DescuentoTotal;
+                        $factura['Valor'] = round($Total,0);
+                    }
                     $data['Neto'] = $factura['Neto'];
                     $data['Valor'] = $factura['Valor'];
                     $data['facturaId'] = $factura['facturaId'];
