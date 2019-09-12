@@ -48,9 +48,11 @@ class Uf {
                         //     echo ' else el valor tiene '. $lonDecimales . ' su valor '.$punto['Value'][1];
                         // }
                         // echo "\n";
-                        
-                        $redondeo = $punto['Value'][1]+=$coma['Value'][1];
-                        $Value = $coma['Value'][0] .','. $coma['Value'][1];
+                        $Value = $punto['Value'][0].''. $punto['Value'][1].'.'.$coma['Value'][1];
+                        // echo $Value;
+                       
+                        // $redondeo = $punto['Value'][1]+=$coma['Value'][1];
+                        // $Value = $coma['Value'][0] .','. $coma['Value'][1];
                         // echo $Value;
                         // exit;
                         // $Value = $punto['Value'][0];
