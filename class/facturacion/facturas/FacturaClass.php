@@ -765,6 +765,7 @@
                     }
                     $data['Neto'] = $factura['Neto'];
                     $data['Valor'] = $factura['Valor'];
+                    $data['Descuento'] = $factura['Descuento'];
                     $data['facturaId'] = $factura['facturaId'];
                     $data['detalleId'] = $data['detalleId'];
                     $data['totalDetalles'] = $totalDetalles;
