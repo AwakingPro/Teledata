@@ -4414,8 +4414,6 @@
             do{
                 echo $DocumentosBsale['next'];
                 echo "\n";
-                echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';
-                echo "\n";
                 
                 // echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';
                 // echo "\n";
