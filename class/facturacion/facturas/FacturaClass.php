@@ -4412,13 +4412,11 @@
             $ContadorFacInserta = 0;
             
             do{
-                $buscada = 'https://api.bsale.cl/v1/documents.json?limit=700&offset=3500';
-                if($buscada == $DocumentosBsale['next']){
-                    echo $DocumentosBsale['next'];
-                    echo "\n";
-                    echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';
-                    echo "\n";
-                }
+                echo $DocumentosBsale['next'];
+                echo "\n";
+                echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';
+                echo "\n";
+                
                 // echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';
                 // echo "\n";
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
