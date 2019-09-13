@@ -4411,7 +4411,7 @@
             $ContadorFacActualiza = 0;
             $ContadorFacInserta = 0;
             
-            while($DocumentosBsale['next'] != ''){
+            do{
                 echo $DocumentosBsale['next'];
                 echo "\n";
                 // echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';
@@ -4588,7 +4588,7 @@
                 }else{
                     $DocumentosBsale['next'] = '';
                 }
-            }
+            }while($DocumentosBsale['next'] != '');
             
             if($ContadorFacActualiza || $ContadorFacInserta){
                 $respCorreo = $run->enviarCorreos(2, $dataClient);
