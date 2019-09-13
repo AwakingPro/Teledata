@@ -4413,6 +4413,8 @@
             $ContadorFacInserta = 0;
             
             while($DocumentosBsale['next'] != ''){
+                echo '<pre>'; pirnt_r($DocumentosBsale); echo '</pre>';
+                echo "\n";
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
                     $DocumentoId = $DocumentoBsale['id'];
                     $document_type = $DocumentoBsale['document_type'];
@@ -4431,7 +4433,7 @@
                         $TipoDocumento = 3;
                     }
     
-    
+                    
                     if($TipoDocumento == 1 OR $TipoDocumento == 2){
                         $query = "SELECT Id, UrlPdfBsale, CountDTE, DocumentoIdBsale FROM facturas WHERE DocumentoIdBsale = '".$DocumentoId."'";
                         $Factura = $run->select($query);
