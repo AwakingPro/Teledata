@@ -1122,7 +1122,6 @@
                                 $FacturaBsale = $this->sendFacturaBsale($Cliente,$Detalles,$UF,2,1);
 
                                 if($FacturaBsale['status'] == 1){
-                                    $FacturaBsale['urlPdf'] .= '&123456';
                                     $UrlPdf = $FacturaBsale['urlPdf'];
                                     $DocumentoId = $FacturaBsale['id'];
                                     $informedSii = $FacturaBsale['informedSii'];
