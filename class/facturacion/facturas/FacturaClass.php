@@ -651,7 +651,8 @@
                     $IVA = $servicio['Valor'] * 0.19;
                     $Valor += round($IVA,0);
                     // $data['Valor'] = $Valor;
-                    $data['Valor'] = $servicio['Valor'];
+                    $data['Valor'] = $servicio['Valor'] + $IVA;
+                    $data['Valor'] = round($data['Valor']);
                     if(!isset($servicio['facturaId'])){
                         $servicio['facturaId'] = 0;
                     }
