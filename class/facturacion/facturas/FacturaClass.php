@@ -4412,7 +4412,7 @@
             $ContadorFacInserta = 0;
             
             while($DocumentosBsale['next'] != ''){
-                echo '<pre>'; pirnt_r($DocumentosBsale); echo '</pre>';
+                echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';
                 echo "\n";
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
                     $DocumentoId = $DocumentoBsale['id'];
