@@ -4586,8 +4586,6 @@
                 if(isset($DocumentosBsale['next'])){
                     //tipo = 3 trae todos los datos
                     $DocumentosBsale = $run->contador(3, $DocumentosBsale['next'].='&expand=[references,client,details]');
-                }else{
-                    $DocumentosBsale['next'] = '';
                 }
             }while($DocumentosBsale['next'] != '');
             
