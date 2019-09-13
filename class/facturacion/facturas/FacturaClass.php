@@ -4414,9 +4414,10 @@
             do{
                 echo $DocumentosBsale['next'];
                 echo "\n";
-                
-                // echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';
-                // echo "\n";
+                if($DocumentosBsale['next'] == 'https://api.bsale.cl/v1/documents.json?limit=25&offset=3525'){
+                    echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';
+                    echo "\n";
+                }
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
                     $DocumentoId = $DocumentoBsale['id'];
                     $document_type = $DocumentoBsale['document_type'];
@@ -4587,7 +4588,7 @@
                     //tipo = 3 trae todos los datos
                     $DocumentosBsale = $run->contador(3, $DocumentosBsale['next'].='&expand=[references,client,details]');
                 }
-            }while($DocumentosBsale['next'] != '');
+            }while(isset($DocumentosBsale['next']));
             
             if($ContadorFacActualiza || $ContadorFacInserta){
                 $respCorreo = $run->enviarCorreos(2, $dataClient);
