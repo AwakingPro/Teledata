@@ -4414,11 +4414,11 @@
             do{
                 echo $DocumentosBsale['next'];
                 echo "\n";
-                if($DocumentosBsale['next'] == 'https://api.bsale.cl/v1/documents.json?limit=25&offset=3525'){
-                    echo '<pre>'; print_r($DocumentosBsale); echo '</pre>';
-                    echo "\n";
-                }
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
+                    if($DocumentoBsale['number'] == 1822){
+                        echo '<pre>'; print_r($DocumentosBsale['items']); echo '</pre>';
+                        echo "\n";
+                    }
                     $DocumentoId = $DocumentoBsale['id'];
                     $document_type = $DocumentoBsale['document_type'];
                     $TipoDocumento = $document_type['id'];
