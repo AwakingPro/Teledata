@@ -612,6 +612,14 @@
             if($servicios){
                 $totalDetalles = count($servicios);
                 foreach($servicios as $servicio){
+                    if($servicio['Descuento']){
+                        $servicio['Descuento'] = round($servicio['Descuento'], 0);
+                        $DescuentoPunto  = '0.';
+                        $DescuentoPunto .= $servicio['Descuento'];
+                        $DescuentoTotal = $servicio['Valor'] * $DescuentoPunto;
+                        $Total = $servicio['Valor'] - $DescuentoTotal;
+                        $servicio['Valor'] = round($Total,0);
+                    }
                     $data = $servicio;
                     $Valor = $servicio['Valor'];
                     $IVA = $servicio['Valor'] * 0.19;
@@ -641,6 +649,7 @@
                             ROUND((
                                 facturas_detalle.Total
                             ),0) AS Valor,
+                            facturas_detalle.Descuento as Descuento,
                             facturas_detalle.IdServicio as idServicio,
                             facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
                             personaempresa.nombre AS Nombre,
@@ -666,6 +675,7 @@
                 ROUND((
                     facturas_detalle.Total
                 ),0) AS Valor,
+                facturas_detalle.Descuento as Descuento,
                 facturas_detalle.IdServicio as idServicio,
                 facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
                 personaempresa.nombre AS Nombre,
@@ -702,6 +712,13 @@
             if($facturas){
                 $totalDetalles = count($facturas);
                 foreach($facturas as $factura){
+                    if($factura['Descuento']){
+                        $DescuentoPunto  = '0.';
+                        $DescuentoPunto .= $factura['Descuento'];
+                        $DescuentoTotal = $factura['Valor'] * $DescuentoPunto;
+                        $Total = $factura['Valor'] - $DescuentoTotal;
+                        $factura['Valor'] = round($Total,0);
+                    }
                     $data = $factura;
                     $Valor = $factura['Valor'];
                     $data['idServicio'] = $factura['idServicio'];

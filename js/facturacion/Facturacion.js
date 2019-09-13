@@ -605,6 +605,7 @@ $(document).ready(function() {
                         '' + array.Codigo + '',
                         '' + array.Concepto + '',
                         '' + formatcurrency(array.Valor) + '',
+                        '' + array.Descuento + '',
                         '' + '<i  id='+array.detalleId+' '+StyleEliminarDetalle+' '+desabilitar+' tipo='+2+' facturaId='+array.facturaId+' class="fa fa-trash '+EliminarDetalle+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + 
                              '<i  id='+array.idServicio+' '+StyleUndoServicio+' '+' tipo='+2+' facturaId='+array.facturaId+' class="fa fa-undo '+UndoServicio+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + ''
                         
