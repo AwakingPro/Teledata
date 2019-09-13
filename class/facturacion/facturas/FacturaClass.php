@@ -4386,10 +4386,9 @@
             //DOCUMENTOS
             $limitDocumentos = 25;
             $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=0'
-            $session = '';
             // Inicia cURL
             $session = curl_init($url);
-            
+
             // Indica a cURL que retorne data
             curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
