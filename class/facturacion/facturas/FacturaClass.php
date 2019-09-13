@@ -577,7 +577,6 @@
             $query = "  SELECT
                             facturas_detalle.Id AS detalleId,
                             facturas_detalle.FacturaId AS facturaId,
-                            facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
                             servicios.Id,
                             servicios.Codigo,
                             servicios.Descuento,
@@ -608,7 +607,34 @@
 
             $servicios = $run->select($query);
             $array = array();
-
+            //si no existen facturas detalles, tomo la info del servicio
+            if(!count($servicios)){
+                $query = "  SELECT
+                            servicios.Id,
+                            servicios.Codigo,
+                            servicios.Descuento,
+                            ( CASE servicios.tipo_moneda WHEN 2 THEN ROUND(( servicios.CostoInstalacion * '".$UF."' - ( ( servicios.CostoInstalacion * '".$UF."' ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0)
+                            ELSE ROUND(( servicios.CostoInstalacion  - ( ( servicios.CostoInstalacion  ) * ( servicios.CostoInstalacionDescuento / 100 ) ) ),0) END ) AS Valor,
+                            -- ROUND((
+                            --     servicios.CostoInstalacion  - 
+                            --     (( servicios.CostoInstalacion ) * (  servicios.CostoInstalacionDescuento / 100 ))), 0) AS Valor,
+                            -- ( CASE servicios.IdServicio WHEN 7 THEN servicios.NombreServicioExtra ELSE servicios.Descripcion END ) AS Nombre,
+                            ( CASE  WHEN servicios.Descripcion = '' THEN 'Costo de instalación / Habilitación' ELSE servicios.Descripcion END ) AS Nombre,
+                            mantenedor_tipo_factura.descripcion AS Descripcion
+                        FROM
+                            servicios
+                        LEFT JOIN mantenedor_servicios ON servicios.IdServicio = mantenedor_servicios.IdServicio
+                        LEFT JOIN mantenedor_tipo_factura ON mantenedor_tipo_factura.id = servicios.TipoFactura
+                        WHERE
+                            servicios.Id = '".$Id."'
+                        AND (
+                            servicios.EstatusInstalacion = 1
+                            OR servicios.FacturarSinInstalacion = 1
+                        )
+                        AND servicios.EstatusFacturacion = 0
+                        AND servicios.CostoInstalacion > 0";
+                        $servicios = $run->select($query);
+            }
             if($servicios){
                 $totalDetalles = count($servicios);
                 foreach($servicios as $servicio){
@@ -626,16 +652,22 @@
                     $Valor += round($IVA,0);
                     // $data['Valor'] = $Valor;
                     $data['Valor'] = $servicio['Valor'];
+                    if(!isset($servicio['facturaId'])){
+                        $servicio['facturaId'] = 0;
+                    }
+                    if(!isset($servicio['detalleId'])){
+                        $servicio['detalleId'] = 0;
+                    }
                     $data['facturaId'] = $servicio['facturaId'];
                     $data['detalleId'] = $servicio['detalleId'];
-                    $data['detalleIdBsale'] = $servicio['detalleIdBsale'];
                     $data['totalDetalles'] = $totalDetalles;
                     $data['Descuento'] = $servicio['Descuento'];
                     array_push($array,$data);
                 }
 
                 $response_array['array'] = $array;
-
+                // echo '<pre>'; print_r($array); '</pre>';
+                // exit;
                 echo json_encode($response_array);
             }
         }

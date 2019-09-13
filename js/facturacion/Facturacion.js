@@ -519,7 +519,7 @@ $(document).ready(function() {
                     var StyleEliminarDetalle;
                     var desabilitar;
                     var EliminarDetalle;
-                    if(!array.detalleIdBsale && array.totalDetalles > 1){
+                    if(array.totalDetalles > 1){
                         StyleEliminarDetalle = 'style="cursor: pointer; margin: 0 10px; font-size:15px;" ';
                         desabilitar = '';
                         EliminarDetalle = 'EliminarDetalle';
