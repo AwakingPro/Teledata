@@ -4378,6 +4378,8 @@
         }
         // metodo para sincronizar fac de bsale al ERP
         public function sincronizarConBsale(){
+            
+	        ini_set('max_execution_time', 300);
             $run = new Method;
             $query = "SELECT token_produccion as access_token FROM variables_globales";
             $variables_globales = $run->select($query);
