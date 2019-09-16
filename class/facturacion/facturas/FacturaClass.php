@@ -4410,7 +4410,8 @@
             $dataClient['MensajeCorreo'] = '';
             $ContadorFacActualiza = 0;
             $ContadorFacInserta = 0;
-            
+            echo $DocumentosBsale['next'];
+            echo "\n";
             do{
                 echo $DocumentosBsale['next'];
                 echo "\n";
@@ -4588,10 +4589,16 @@
                 if(isset($DocumentosBsale['next'])){
                     //tipo = 3 trae todos los datos
                     $DocumentosBsale = $run->contador(3, $DocumentosBsale['next'].='&expand=[references,client,details]');
-                    echo $DocumentosBsale['next'];
+                    if($DocumentosBsale['next'] == 'https://api.bsale.cl/v1/documents.json?limit=700&offset=3500'){
+                        echo '<pre>'; print_r($DocumentosBsale['items']); echo '</pre>';
+                        echo "\n";
+                    }else{
+                        echo $DocumentosBsale['next'];
+                        echo "n";
+                    }
                     echo "\n";
                 }
-            }while(isset($DocumentosBsale['next']));
+            }while( isset($DocumentosBsale['next']) );
             
             if($ContadorFacActualiza || $ContadorFacInserta){
                 $respCorreo = $run->enviarCorreos(2, $dataClient);
