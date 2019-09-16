@@ -4416,10 +4416,6 @@
                 echo $DocumentosBsale['next'];
                 echo "\n";
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
-                    if($DocumentoBsale['number'] == 1822){
-                        echo '<pre>'; print_r($DocumentosBsale['items']); echo '</pre>';
-                        echo "\n";
-                    }
                     $DocumentoId = $DocumentoBsale['id'];
                     $document_type = $DocumentoBsale['document_type'];
                     $TipoDocumento = $document_type['id'];
@@ -4590,6 +4586,8 @@
                     //tipo = 3 trae todos los datos
                     $DocumentosBsale = $run->contador(3, $DocumentosBsale['next'].='&expand=[references,client,details]');
                     if($DocumentosBsale['next'] == 'https://api.bsale.cl/v1/documents.json?limit=700&offset=3500'){
+                        echo $DocumentosBsale['next'];
+                        echo "\n";
                         echo '<pre>'; print_r($DocumentosBsale['items']); echo '</pre>';
                         echo "\n";
                     }else{
