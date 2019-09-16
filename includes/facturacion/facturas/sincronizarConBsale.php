@@ -3,7 +3,7 @@
 	require("/var/www/html/Teledata/plugins/PHPMailer-master/class.smtp.php");
 	include("/var/www/html/Teledata/class/email/EmailClass.php");
 	include("/var/www/html/Teledata/class/facturacion/facturas/FacturaClass.php");
-	ini_set('max_execution_time', 480);
+	ini_set('max_execution_time', 0);
 	// require("../../../plugins/PHPMailer-master/class.phpmailer.php");
 	// require("../../../plugins/PHPMailer-master/class.smtp.php");
 	// include('../../../class/email/EmailClass.php');
