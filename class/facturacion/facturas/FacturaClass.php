@@ -4383,8 +4383,8 @@
             $variables_globales = $run->select($query);
             $access_token = $variables_globales[0]['access_token'];
             //DOCUMENTOS
-            $limitDocumentos = 700;
-            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=0';
+            $limitDocumentos = 2000;
+            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos;
             // Inicia cURL
             $session = curl_init($url);
 
@@ -4585,16 +4585,6 @@
                 if(isset($DocumentosBsale['next'])){
                     //tipo = 3 trae todos los datos
                     $DocumentosBsale = $run->contador(3, $DocumentosBsale['next'].='&expand=[references,client,details]');
-                    if($DocumentosBsale['next'] == 'https://api.bsale.cl/v1/documents.json?limit=700&offset=3500'){
-                        echo $DocumentosBsale['next'];
-                        echo "\n";
-                        echo '<pre>'; print_r($DocumentosBsale['items']); echo '</pre>';
-                        echo "\n";
-                    }else{
-                        echo $DocumentosBsale['next'];
-                        echo "n";
-                    }
-                    echo "\n";
                 }
             }while( isset($DocumentosBsale['next']) );
             
