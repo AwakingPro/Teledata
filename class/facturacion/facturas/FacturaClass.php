@@ -4386,7 +4386,7 @@
             $access_token = $variables_globales[0]['access_token'];
             //DOCUMENTOS
             $limitDocumentos = 700;
-            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos;
+            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=3500';
             // Inicia cURL
             $session = curl_init($url);
 
