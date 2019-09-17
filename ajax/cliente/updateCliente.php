@@ -23,53 +23,67 @@
 	$response_array = array();
 	
 	if($cliente_id_bsale){
-		$query = "UPDATE personaempresa SET alias = '".$Alias."', nombre = '".$Nombre."', giro = '".$Giro."', direccion = '".$DireccionComercial."', correo = '".$Correo."', contacto = '".$Contacto."', comentario = '".$Comentario."', telefono = '".$Telefono."', tipo_cliente = '".$TipoCliente."', ciudad = '".$Ciudad."', region = '".$Region."', tipo_pago_bsale_id = '".$TipoPago."', posee_pac = '".$PoseePac."', posee_prefactura='".$PoseePrefactura."', state = '".$stateCliente."' WHERE id = '".$IdCliente."'";
-		$run = new Method;
-		$data = $run->update($query);
-	
-		$query = "SELECT rut from personaempresa WHERE id = '".$IdCliente."' ";
-		$cliente = $run->select($query);
-		$RUT = $cliente[0]['rut'];
-		//si posee_prefactura, actualizo todos sus docs que aun no se han emitido a bsale
-		if($PoseePrefactura){
-			$query = "UPDATE facturas SET EstatusFacturacion = '4' WHERE EstatusFacturacion IN(0, 3) AND  Rut = '".$RUT."' ";	
-		}else{
-			$query = "UPDATE facturas SET EstatusFacturacion = '0' WHERE EstatusFacturacion = '4' AND  Rut = '".$RUT."' ";
+		switch ($stateCliente) {
+			//activo
+			case 0:
+				$metodo = 'PUT';
+				break;
+			//inactivo
+			case 1:
+				$metodo = 'DELETE';
+				break;
+			//activo sin emitir docs
+			case 2:
+				exit;
 		}
-		$run->update($query);
-
-		$response_array = array(
-			"Message" => " El cliente se actualizo con éxito en la bd, pero aun no tiene documentos emitidos y por tanto no existe en bsale hasta que se emitan sus documentos",
-			"status"  =>  1
+		$DatosCliente = array(
+			"id"			=> $cliente_id_bsale,
+			"company"		=> $Nombre,
+			"state"			=> $stateCliente,
+			"address" 		=> $DireccionComercial,
+			"activity"		=> $Giro,
+			"metodo"		=> $metodo
 		);
+		$url = "https://api.bsale.cl/v1/clients/".$cliente_id_bsale.".json";
 
-		if($cliente_id_bsale){
-			switch ($stateCliente) {
-				//activo
-				case 0:
-					$metodo = 'PUT';
-					break;
-				//inactivo
-				case 1:
-					$metodo = 'DELETE';
-					break;
-				//activo sin emitir docs
-				case 2:
-					exit;
+		$respuestaAPI = $run->EditClientApiBsale($DatosCliente, $url);
+		if($respuestaAPI){
+			$cliente_id_bsale = $respuestaAPI['id'];
+			$href 		 	  = $respuestaAPI['href'];
+
+			$query = "UPDATE personaempresa SET alias = '".$Alias."', nombre = '".$Nombre."', giro = '".$Giro."', direccion = '".$DireccionComercial."', correo = '".$Correo."', contacto = '".$Contacto."', comentario = '".$Comentario."', telefono = '".$Telefono."', tipo_cliente = '".$TipoCliente."', cliente_id_bsale = '".$cliente_id_bsale."', ciudad = '".$Ciudad."', region = '".$Region."', tipo_pago_bsale_id = '".$TipoPago."', posee_pac = '".$PoseePac."', posee_prefactura='".$PoseePrefactura."', state = '".$stateCliente."', href = '".$href."' WHERE id = '".$IdCliente."'";
+			$run = new Method;
+			$data = $run->update($query);
+			if(!$data){
+				$response_array = array(
+					"Message" => " Se actualizo en bsale, pero ocurrio un error al actualizar el cliente en la bd del ERP",
+					"status"  => 0
+				);
+				echo json_encode($response_array);
+				return;
 			}
-			$DatosCliente = array(
-				"id"			=> $cliente_id_bsale,
-				"company"		=> $Nombre,
-				"state"			=> $stateCliente,
-				"address" 		=> $DireccionComercial,
-				"activity"		=> $Giro,
-				"metodo"		=> $metodo
+			$query = "SELECT rut from personaempresa WHERE id = '".$IdCliente."' ";
+			$cliente = $run->select($query);
+			$RUT = $cliente[0]['rut'];
+			//si posee_prefactura, actualizo todos sus docs que aun no se han emitido a bsale
+			if($PoseePrefactura){
+				$query = "UPDATE facturas SET EstatusFacturacion = '4' WHERE EstatusFacturacion IN(0, 3) AND  Rut = '".$RUT."' ";	
+			}else{
+				$query = "UPDATE facturas SET EstatusFacturacion = '0' WHERE EstatusFacturacion = '4' AND  Rut = '".$RUT."' ";
+			}
+			$data = $run->update($query);
+			if(!$data){
+				$response_array = array(
+					"Message" => " Se actualizo en bsale, pero ocurrio un error al actualizar los estados de facturacion de las facturas",
+					"status"  => 0
+				);
+				echo json_encode($response_array);
+				return;
+			}
+			$response_array = array(
+				"Message" => " El cliente ha sido actualizado con éxito",
+				"status"  =>  1
 			);
-			$url = "https://api.bsale.cl/v1/clients/".$cliente_id_bsale.".json";
-
-			$respuestaAPI = $run->EditClientApiBsale($DatosCliente, $url);
-			echo print_r($respuestaAPI);
-			exit;
 		}
 		echo json_encode($response_array);
 		return;
