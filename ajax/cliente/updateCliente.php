@@ -34,7 +34,7 @@
 				break;
 			//activo sin emitir docs
 			case 2:
-				exit;
+			exit;
 		}
 		$DatosCliente = array(
 			"id"			=> $cliente_id_bsale,
