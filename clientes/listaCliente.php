@@ -80,7 +80,7 @@
 					<div class="row">
 						<div class="col-md-6 form-group">
 							<label> Razón social / Cliente</label>
-							<input name="Nombre_update" class="form-control" readonly="readonly">
+							<input name="Nombre_update" class="form-control">
 							<input type="hidden" name="cliente_id_bsale" class="form-control">
 							<input type="hidden" name="stateOculto" class="form-control">
 						</div>
