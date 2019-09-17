@@ -701,11 +701,14 @@
 			$metodo = $datos['metodo'];
 			$datosEnvio = array(
 				"id"			=> $datos['id'],
-				"state"			=> $datos['state']
+				"state"			=> $datos['state'],
+				"company"		=> $datos['company'],
+				"address" 		=> $datos['address'],
+				"activity"		=> $datos['activity']
 			);
 			$query = "SELECT token_produccion as access_token FROM variables_globales";
             $variables_globales = self::select($query);
-            $access_token = $variables_globales[0]['access_token'];
+			$access_token = $variables_globales[0]['access_token'];
             // Inicia cURL
             $session = curl_init($url);
 
@@ -721,12 +724,10 @@
             curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
 			curl_setopt($session, CURLOPT_CUSTOMREQUEST, $metodo);
 			$datosEnvioEncode = json_encode($datosEnvio);
-			
 			curl_setopt($session, CURLOPT_POSTFIELDS, $datosEnvioEncode);
 
             // Ejecuta cURL
             $response = curl_exec($session);
-            
             // Cierra la sesión cURL
             curl_close($session);
             return $response = json_decode($response, true);

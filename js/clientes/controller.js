@@ -770,9 +770,15 @@ $(document).ready(function() {
             return;
         }
         $.postFormValues('../ajax/cliente/updateCliente.php', '.container-form-update', {}, function(data) {
-            listClientes();
-            $('#editarCliente').modal('hide');
-            bootbox.alert('<h3 class="text-center">El cliente se actualizo con éxito.</h3>');
+            var resp = JSON.parse(data);
+            if(resp['status'] == 1){
+                listClientes();
+                $('#editarCliente').modal('hide');
+                bootbox.alert('<h3 class="text-center">'+resp['Message']+'</h3>');
+            }else if(resp['status'] == 0){
+                $('#editarCliente').modal('hide');
+                bootbox.alert('<h3 class="text-center">'+resp['Message']+'</h3>');
+            }
         });
     });
 
