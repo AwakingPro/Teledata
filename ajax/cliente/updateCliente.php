@@ -45,14 +45,14 @@
 			"metodo"		=> $metodo
 		);
 		$url = "https://api.bsale.cl/v1/clients/".$cliente_id_bsale.".json";
-
+		$run = new Method;
 		$respuestaAPI = $run->EditClientApiBsale($DatosCliente, $url);
 		if($respuestaAPI){
 			$cliente_id_bsale = $respuestaAPI['id'];
 			$href 		 	  = $respuestaAPI['href'];
 
 			$query = "UPDATE personaempresa SET alias = '".$Alias."', nombre = '".$Nombre."', giro = '".$Giro."', direccion = '".$DireccionComercial."', correo = '".$Correo."', contacto = '".$Contacto."', comentario = '".$Comentario."', telefono = '".$Telefono."', tipo_cliente = '".$TipoCliente."', cliente_id_bsale = '".$cliente_id_bsale."', ciudad = '".$Ciudad."', region = '".$Region."', tipo_pago_bsale_id = '".$TipoPago."', posee_pac = '".$PoseePac."', posee_prefactura='".$PoseePrefactura."', state = '".$stateCliente."', href = '".$href."' WHERE id = '".$IdCliente."'";
-			$run = new Method;
+			
 			$data = $run->update($query);
 			if(!$data){
 				$response_array = array(
