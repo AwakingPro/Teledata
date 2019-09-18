@@ -64,16 +64,16 @@ function setTiempoUltimaRecarga(){
 	});
 }
 
-//metodo para obtener el tiempo de la última de recarga
+//metodo para obtener el tiempo transcurrido de inactividad
 function getTiempoUltimaRecarga(){
 	$.ajax({
 		type: "POST",
 		url: "../includes/global/getTiempoUltimaRecarga.php",
 		data: "idUsuarioSession="+idUsuarioSession,
 		success: function (response) {
-			var tiempoUsuario = response;
-			var tiempoActual = myTimer();
-			if(Date.parse("1-1-2000 " + tiempoActual) > Date.parse("1-1-2000 " + tiempoUsuario)){
+			var tiempoTranscurrido = response;
+			console.log('Horas transcurridas '+tiempoTranscurrido);
+			if(tiempoTranscurrido >= 1){
 				window.location = '../destruir_sesion.php'
 			}
 		}
@@ -81,9 +81,8 @@ function getTiempoUltimaRecarga(){
 }
 //obtener hora:minutos:segundos actuales
 function myTimer() {
-	var d = new Date();
-	var t = d.toLocaleTimeString();
-	return t;
+	//envio el tiempo en formato unix
+	return Date.now();
   }
 
 function NumConDecimales(x) {
