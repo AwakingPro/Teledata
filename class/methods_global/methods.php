@@ -1158,7 +1158,7 @@
 			}	
 			return json_decode($estado);
 		}
-		// metodo para actualizar la ultima vez que se recargo la pagina
+		// metodo para actualizar el tiempo cuando el usuario ejecuto alguna accion en el ERP
 		public function setTiempoUltimaRecarga($idUsuarioSession, $tiempoUltimaRecarga){
 			$mysqli = $this->conexion();
 			if ($mysqli) {
@@ -1180,15 +1180,15 @@
 					$resultado = $mysqli->query("SELECT tiempoUltimaRecarga FROM usuarios where id = '".$idUsuarioSession."' ");
 					if(count($resultado)){
 						$resultado = $resultado->fetch_array();
-						//le sumo 1 hora a la ultima session para luego comparar con la hora actual
-						$nuevaHora = strtotime ( '+1 hour' , strtotime ( $resultado['tiempoUltimaRecarga']) ) ;
-						//convierto time unix a formato legible
-						$nuevaHora = date ( 'H:i:s' , $nuevaHora); 
-						$tiempo = $nuevaHora;
+						$fechaAntigua = date('Y-m-d H:i:s',$resultado['tiempoUltimaRecarga']/1000);
+						$fechaAntigua = new DateTime( $fechaAntigua);
+						$fechaActual  = new DateTime("now");
+						$intervalo = $fechaAntigua->diff($fechaActual);
+						$horasTranscurridas = $intervalo->h;				
 					}
 				}
 			}
-			return json_encode($tiempo);
+			return json_encode($horasTranscurridas);
 		}
 	}
  ?>
