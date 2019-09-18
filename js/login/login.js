@@ -7,7 +7,7 @@ $(document).ready(function(){
 				window.location = values[1];
 			}else if(values[0] == 2){
 				$('.load').html('');
-				bootbox.alert('<h3 class="text-center">Ya existe una sessión con este usuario</h3>');
+				bootbox.alert('<h3 class="text-center">Ya existe una sesión con este usuario</h3>');
 			}
 			else{
 				$('.load').html('');
