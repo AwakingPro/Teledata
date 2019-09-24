@@ -47,6 +47,8 @@ $(document).click(function(){
 
 
 //verifica cada hora
+getTiempoUltimaRecarga();
+
 setInterval(function(){
 	getTiempoUltimaRecarga();
 }, 60000);

@@ -1177,7 +1177,7 @@
 			$mysqli = $this->conexion();
 			if ($mysqli) {
 				if($idUsuarioSession){
-					$resultado = $mysqli->query("SELECT tiempoUltimaRecarga FROM usuarios where id = '".$idUsuarioSession."' ");
+					$resultado = $mysqli->query("SELECT tiempoUltimaRecarga FROM usuarios where id = '".$idUsuarioSession."' AND estaLogin = 1 ");
 					if(count($resultado)){
 						$resultado = $resultado->fetch_array();
 						$fechaAntigua = date('Y-m-d H:i:s',$resultado['tiempoUltimaRecarga']/1000);
