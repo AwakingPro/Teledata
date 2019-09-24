@@ -240,116 +240,175 @@ $(document).ready(function() {
     }else{
         idUsuario = 0
     }
-    $.ajax({
-        type: "POST",
-        data:{idUsuario:idUsuario},
-        url: "../includes/tareas/showServicios.php",
-        beforeSend: function( ) {
-            $('.PorHacerTableBody').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Cargando datos ...</div><div class="spinner loading"></div></td></tr>');
-            $('.AsignadasTableBody').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Cargando datos ...</div><div class="spinner loading"></div></td></tr>');
-            $('.PendientesTableBody').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Cargando datos ...</div><div class="spinner loading"></div></td></tr>');
-            $('.FinalizadasTableBody').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Cargando datos ...</div><div class="spinner loading"></div></td></tr>');
-          },
-        success: function(response) {
-            PorHacerTable.clear().draw();
-            AsignadasTable.clear().draw();
-            PendientesTable.clear().draw();
-            FinalizadasTable.clear().draw();
-            $.each(response.array, function(index, array) {
 
-                if (array.Usuario) {
-                    Usuario = array.Usuario
-                } else {
-                    Usuario = ''
-                }
 
-                if (array.EstatusInstalacion == 1) {
+    recargarTablas();
+    function recargarTablas(){
+        $.ajax({
+            type: "POST",
+            data:{idUsuario:idUsuario},
+            url: "../includes/tareas/showServicios.php",
+            beforeSend: function( ) {
+                $('.PorHacerTableBody').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Cargando datos ...</div><div class="spinner loading"></div></td></tr>');
+                $('.AsignadasTableBody').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Cargando datos ...</div><div class="spinner loading"></div></td></tr>');
+                $('.PendientesTableBody').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Cargando datos ...</div><div class="spinner loading"></div></td></tr>');
+                $('.FinalizadasTableBody').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Cargando datos ...</div><div class="spinner loading"></div></td></tr>');
+            },
+            success: function(response) {
+                PorHacerTable.clear().draw();
+                AsignadasTable.clear().draw();
+                PendientesTable.clear().draw();
+                FinalizadasTable.clear().draw();
+                $.each(response.array, function(index, array) {
 
-                    var rowNode = FinalizadasTable.row.add([
-                        '' + Usuario + '',
-                        '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
-                        '' + array.Codigo + '',
-                        '' + array.Descripcion + '',
-                        '' + array.FechaInstalacion + '',
-                        '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i title="Comparación" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>' + '',
-                    ]).draw(false).node();
-
-                    $(rowNode)
-                        .attr('id', array.Id)
-                        .addClass('text-center')
-
-                } else if (array.EstatusInstalacion == 2) {
-
-                    var rowNode = PendientesTable.row.add([
-                        '' + Usuario + '',
-                        '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
-                        '' + array.Codigo + '',
-                        '' + array.Descripcion + '',
-                        '' + array.Direccion + '',
-                        '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign" title="Reasignar"></i> <i title="Editar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
-                    ]).draw(false).node();
-
-                    $(rowNode)
-                        .attr('id', array.Id)
-                        .addClass('text-center')
-
-                    var rowNode = AsignadasTable.row.add([
-                        '' + Usuario + '',
-                        '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
-                        '' + array.Codigo + '',
-                        '' + array.Descripcion + '',
-                        '' + array.Direccion + '',
-                        '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i title="Reasignar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i title="Editar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
-                    ]).draw(false).node();
-
-                    $(rowNode)
-                        .attr('id', array.Id)
-                        .addClass('text-center')
-
-                } else if (array.EstatusInstalacion == 3) {
-
-                    var rowNode = AsignadasTable.row.add([
-                        '' + Usuario + '',
-                        '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
-                        '' + array.Codigo + '',
-                        '' + array.Descripcion + '',
-                        '' + array.Direccion + '',
-                        '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i title="Reasignar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i title="Editar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
-                    ]).draw(false).node();
-
-                    $(rowNode)
-                        .attr('id', array.Id)
-                        .addClass('text-center')
-
-                } else {
-
-                    if (array.FechaComprometidaInstalacion && array.FechaComprometidaInstalacion != '0000-00-00' && array.FechaComprometidaInstalacion != '1969-01-31') {
-                        FechaComprometidaInstalacion = moment(array.FechaComprometidaInstalacion).format('DD-MM-YYYY');
+                    if (array.Usuario) {
+                        Usuario = array.Usuario
                     } else {
-                        FechaComprometidaInstalacion = ''
+                        Usuario = ''
                     }
 
-                    var rowNode = PorHacerTable.row.add([
-                        '' + '<input name="select_check" id="select_check_"' + array.Id + ' type="checkbox" />' + '',
-                        '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
-                        '' + array.Codigo + '',
-                        '' + array.Descripcion + '',
-                        '' + array.Direccion + '',
-                        '' + FechaComprometidaInstalacion + '',
-                        '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>'
-                           + '<i title="Cambiar estatus" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil CambiarEstatus"></i>'
-                    ]).draw(false).node();
+                    if (array.EstatusInstalacion == 1) {
 
-                    $(rowNode)
-                        .attr('id', array.Id)
-                        .addClass('text-center')
-                }
+                        var rowNode = FinalizadasTable.row.add([
+                            '' + Usuario + '',
+                            '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
+                            '' + array.Codigo + '',
+                            '' + array.Descripcion + '',
+                            '' + array.FechaInstalacion + '',
+                            '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>' +
+                            ' <i title="Comparación" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>' +
+                            '<i title="Cambiar estatus" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil CambiarEstatus"></i>'
+                        ]).draw(false).node();
+
+                        $(rowNode)
+                            .attr('id', array.Id)
+                            .addClass('text-center')
+
+                    } else if (array.EstatusInstalacion == 2) {
+
+                        var rowNode = PendientesTable.row.add([
+                            '' + Usuario + '',
+                            '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
+                            '' + array.Codigo + '',
+                            '' + array.Descripcion + '',
+                            '' + array.Direccion + '',
+                            '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign" title="Reasignar"></i> <i title="Editar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
+                        ]).draw(false).node();
+
+                        $(rowNode)
+                            .attr('id', array.Id)
+                            .addClass('text-center')
+
+                        var rowNode = AsignadasTable.row.add([
+                            '' + Usuario + '',
+                            '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
+                            '' + array.Codigo + '',
+                            '' + array.Descripcion + '',
+                            '' + array.Direccion + '',
+                            '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i title="Reasignar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i title="Editar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
+                        ]).draw(false).node();
+
+                        $(rowNode)
+                            .attr('id', array.Id)
+                            .addClass('text-center')
+
+                    } else if (array.EstatusInstalacion == 3) {
+
+                        var rowNode = AsignadasTable.row.add([
+                            '' + Usuario + '',
+                            '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
+                            '' + array.Codigo + '',
+                            '' + array.Descripcion + '',
+                            '' + array.Direccion + '',
+                            '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i title="Reasignar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-refresh Assign"></i> <i title="Editar" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil Edit"></i>' + '',
+                        ]).draw(false).node();
+
+                        $(rowNode)
+                            .attr('id', array.Id)
+                            .addClass('text-center')
+
+                    } else {
+
+                        if (array.FechaComprometidaInstalacion && array.FechaComprometidaInstalacion != '0000-00-00' && array.FechaComprometidaInstalacion != '1969-01-31') {
+                            FechaComprometidaInstalacion = moment(array.FechaComprometidaInstalacion).format('DD-MM-YYYY');
+                        } else {
+                            FechaComprometidaInstalacion = ''
+                        }
+
+                        var rowNode = PorHacerTable.row.add([
+                            '' + '<input name="select_check" id="select_check_"' + array.Id + ' type="checkbox" />' + '',
+                            '' + '<span style="cursor: pointer;" attrId = "' + array.IdPersonaEmpresa + '" class="dataClienteTable">' + array.Cliente + '</span>' + '',
+                            '' + array.Codigo + '',
+                            '' + array.Descripcion + '',
+                            '' + array.Direccion + '',
+                            '' + FechaComprometidaInstalacion + '',
+                            '' + '<i title="Ver" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i>'
+                            + '<i title="Cambiar estatus" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-pencil CambiarEstatus"></i>'
+                        ]).draw(false).node();
+
+                        $(rowNode)
+                            .attr('id', array.Id)
+                            .addClass('text-center')
+                    }
 
 
-            });
+                });
 
-            $('body').addClass('loaded');
-        }
+                $('body').addClass('loaded');
+            }
+        });
+    }
+    $('body').on('click', '.devolverPendientes', function() {
+        var ObjectMe = $(this);
+        var ObjectTR = ObjectMe.closest("tr");
+        var ObjectidServicio = $(this).attr("id");
+
+        swal({
+            title: "Seguro quieres devolver este servicio a ?",
+            text: "Confirmar!",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#28a745",
+            confirmButtonText: "Devolver a proceso pendientes!",
+            cancelButtonText: "Cancelar",
+            showLoaderOnConfirm: true,
+            closeOnConfirm: false
+        }, function(isConfirm) {
+            if (isConfirm) {
+                $.ajax({
+                    type: "POST",
+                    url: "../includes/serviciosControlador/devolverTareaServicioControlador.php",
+                    data: "idServicio=" + ObjectidServicio +"&idFactura="+ idFactura+"&TipoFactura="+ObjectType,
+                    success: function(response) {
+                        if (response.status == 1) {
+                            ModalTable.row($(ObjectTR))
+                                .draw();
+                            if (ObjectType == 1) {
+                                getIndividuales();
+                            }
+                            else if (ObjectType == 2) {
+                                getLotes();
+                            } else {
+                                getInstalaciones();
+                            }
+
+                            getTotales();
+                            $('[data-toggle="popover"]').popover();
+                            swal("Ã‰xito!", "El Servicio ha sido Restituido a procesos pendientes!", "success");
+
+                        }else {
+                            swal('Solicitud no procesada', response.Message, 'error');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        setTimeout(function() {
+                            var err = JSON.parse(xhr.responseText);
+                            swal('Solicitud no procesada', err.Message, 'error');
+                        }, 1000);
+                    }
+                });
+            }
+        });
     });
 
     $(document).on('click', '#guardarEstatus', function() {
@@ -496,7 +555,6 @@ $(document).ready(function() {
         var ObjectCode = ObjectTR.find("td").eq(2).text();
         $('#storeEstatusServicio').find('input[name="Id"]').val(ObjectId);
         $('.Codigo').text(ObjectCode);
-
         $.ajax({
             type: "POST",
             url: "../includes/tareas/showTarea.php",
@@ -505,6 +563,14 @@ $(document).ready(function() {
                 $('select').selectpicker('refresh')
                 $('body').addClass('loaded');
                 $('#modalEstatusServicio').modal('show');
+                Row = $('#' + ObjectId);
+                var nodes = FinalizadasTable.rows().nodes();
+
+                FinalizadasTable.row(Row)
+                    .remove()
+                    .draw();
+
+                recargarTablas();
 
             },
             error: function(xhr, status, error) {
@@ -776,8 +842,8 @@ $(document).ready(function() {
                                     .remove()
                                     .draw();
                             }
-
                             Operacion = '<i title="Ver"  style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye Search"></i> <i title="Comparación" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-exchange Compare"></i>'
+
 
                             var rowNode = FinalizadasTable.row.add([
                                 '' + Usuario + '',
