@@ -2909,11 +2909,17 @@
                     }
                     
                     $Id = $factura['Id'];
+                    $Detalles = ' ';
                     $data = array();
-                    $Detalle = '*';
                     if($Rut || $Rut == 0 ){
-                        $Detalle = $FacturasDetalle->GetDetalle($Id);
-                        $Detalle = $Detalle[0]['Concepto'];
+                        $queryDetalles = $FacturasDetalle->GetDetalle($Id);
+                        if(count($queryDetalles)){
+                            foreach($queryDetalles as $Detalle){
+                                $Detalles .= ' *'.$Detalle['Concepto'];
+                            }
+                        }else{
+                            $Detalles = 'Sin detalle';
+                        }
                     }
                    
                     $data['Id'] = $Id;
@@ -2924,7 +2930,7 @@
                     // $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');
                     $data['FechaFacturacion'] = $factura['FechaFacturacion'];      
                     $data['FechaVencimiento'] = $factura['FechaVencimiento'];
-                    $data['Detalle'] = $Detalle;  
+                    $data['Detalle'] = $Detalles;
                     $data['TotalFactura'] = $TotalFactura;
                     $data['TotalSaldo'] = $TotalSaldo;
                     $data['SaldoFavor'] = $SaldoFavor;
