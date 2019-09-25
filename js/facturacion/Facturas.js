@@ -153,12 +153,14 @@ $(document).ready(function() {
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { Rut: $('select[name="rutCliente"]').selectpicker('val') }, function(data) {
             $('#FacturasTableCliente').DataTable().clear().destroy();
             FacturasTableCliente = $('#FacturasTableCliente').DataTable({
+                bAutoWidth: false,
                 order: [
                     [3, 'desc']
                 ],
                 "columnDefs": [{
                     "targets": [0, 1],
-                    "orderable": false
+                    "orderable": false,
+                    "width": "1000px", targets: 5
                 }],
                 // stateSave: false,
                 data: data,
@@ -409,12 +411,14 @@ $(document).ready(function() {
         var NumeroDocumento = $('[name="NumeroDocumento"]').val();
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { NumeroDocumento: NumeroDocumento }, function(data) {
             FacturasTableNDocumento = $('#FacturasTableNDocumento').DataTable({
+                bAutoWidth: false,
                 order: [
                     [3, 'desc']
                 ],
                 "columnDefs": [{
                     "targets": [0, 1],
-                    "orderable": false
+                    "orderable": false,
+                    "width": "1000px", targets: 5
                 }],
                 data: data,
                 columns: [
@@ -590,12 +594,14 @@ $(document).ready(function() {
         $('.FacturasTableFechasLoader').html('<tr class="odd"><td valign="top" colspan="12" class="dataTables_empty"><div style="text-align:center; font-size:15px;">Enviando Solicitud...</div><div class="spinner loading"></div></td></tr>');
         $.post('../includes/facturacion/facturas/filtrarFacturas.php', { startDate: startDate, endDate: endDate, documentType: documentType }, function(data) {
             FacturasTableFechas = $('#FacturasTableFechas').DataTable({
+                bAutoWidth: false,
                 order: [
                     [3, 'desc']
                 ],
                 "columnDefs": [{
                     "targets": [0, 1],
-                    "orderable": false
+                    "orderable": false,
+                    "width": "1000px", targets: 5
                 }],
                 data: data,
                 columns: [
