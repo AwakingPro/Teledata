@@ -160,7 +160,7 @@
                                                         <th class="text-center">Cliente</th>
                                                         <th class="text-center">RUT - DV</th>
                                                         <th class="text-center">Grupo Factura</th>
-                                                        <th class="text-center">Total con I.V.A</th>
+                                                        <th class="text-center">Total con I.V.A sin descuento</th>
                                                         <th class="text-center">Acción</th>
                                                     </tr>
                                                 </thead>
