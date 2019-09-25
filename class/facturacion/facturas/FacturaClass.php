@@ -1443,6 +1443,8 @@
                         AND 
                             facturas_detalle.Valor >= 0
                         AND facturas.deleted_at IS NULL
+                        AND ( facturas.TipoDocumento = 2 OR
+                             facturas.TipoDocumento = 1)
                         GROUP BY
                             facturas.Rut,
                             facturas.Grupo,
