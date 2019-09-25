@@ -1453,7 +1453,7 @@
             $facturas = $run->select($query);
             foreach($facturas as $factura){
                 $Valor = $factura['Valor'];
-                if($factura['TipoDocumento'] == '2' || $factura['TipoDocumento'] == ''){
+                if($factura['TipoDocumento'] == '2'){
                     $totalFacturas += $Valor;
                     $cantidadFacturas++;
                 }else if($factura['TipoDocumento'] == '1'){
