@@ -402,7 +402,8 @@
                     $data['UrlPdfBsale'] = '';
                     $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
                     $data['Neto'] = $factura['Neto'];
-                    $data['IVA'] = $factura['IVA'];
+                    $data['IVA'] = $factura['Neto'] * $factura['IVA'];
+                    $data['IVA'] = round($data['IVA'], 0);
                     $data['Valor'] = $factura['Valor'];
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['NombreGrupo'] = $factura['NombreGrupo'];

@@ -171,7 +171,7 @@ $(document).ready(function() {
                             }
                         },
                         {
-                            "targets": [5,7],
+                            "targets": [5, 6, 7],
                             "render": function(data, type, row) {
                                 value = formatcurrency(data)
                                 return "<div style='text-align: center'>" + value + "</div>";
