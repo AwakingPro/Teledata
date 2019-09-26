@@ -664,7 +664,6 @@ $(document).ready(function() {
                     var rowNode = ModalTable.row.add([
                         '' + array.Nombre + '',
                         '' + array.Concepto + '',
-                        '' + formatcurrency(array.Neto) + '',
                         '' + formatcurrency(array.Valor) + '',
                         '' + array.Descuento             +'',
                         '' + '<i  id='+array.detalleId+' '+StyleEliminarDetalle+' '+desabilitar+' tipo='+1+' facturaId='+array.facturaId+' class="fa fa-trash '+EliminarDetalle+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + ''
