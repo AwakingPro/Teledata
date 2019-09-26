@@ -101,7 +101,7 @@
                         <input id="UsuarioPppoeTeorico" type="text" name="UsuarioPppoeTeorico" class="form-control">
                     </div>
                     <br class="campo-usuarioPPPoE">
-                    <label class="campo-equipamiento">Equipamiento Sugerido</label>
+                    <label class="campo-equipamiento">Equipamiento</label>
                     <div class="form-group campo-equipamiento">
                         <input id="Equipamiento" type="text" name="Equipamiento" class="form-control">
                     </div>
