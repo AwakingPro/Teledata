@@ -107,7 +107,7 @@
                     </div>
                     <label class="url-graficos" for="UrlGraficos">Url graficos</label>
                     <div class="form-group url-graficos">
-                        <input id="UrlGraficos" type="url" name="UrlGraficos" class="form-control">
+                        <input id="UrlGraficos" type="url" name="UrlGraficos" class="form-control" placeholder="http://dominio.com">
                     </div>
                     <br class="campo-equipamiento">
                     <label class="campo-señalTeorica">Señal Teorica</label>
