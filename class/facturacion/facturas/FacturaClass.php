@@ -324,6 +324,8 @@
                     $data['Cliente'] = $servicio['Cliente'];        
                     $data['UrlPdfBsale'] = ''; 
                     $data['Tipo'] = 1;
+                    $data['Neto'] = $Valor - $IVA;
+                    $data['IVA'] = $IVA;
                     $data['Valor'] = $Valor; 
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $servicio['TipoDocumento']; 

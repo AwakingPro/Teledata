@@ -243,6 +243,8 @@
                                                             <th class="text-center">Cliente</th>
                                                             <th class="text-center">Rut</th>
                                                             <th class="text-center">Grupo Factura</th>
+                                                            <th class="text-center">Neto</th>
+                                                            <th class="text-center">I.V.A 19%</th>
                                                             <th class="text-center">Total</th>
                                                             <th class="text-center">Acción</th>
                                                         </tr>
