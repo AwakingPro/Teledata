@@ -105,6 +105,10 @@
                     <div class="form-group campo-equipamiento">
                         <input id="Equipamiento" type="text" name="Equipamiento" class="form-control">
                     </div>
+                    <label class="url-graficos" for="UrlGraficos">Url graficos</label>
+                    <div class="form-group url-graficos">
+                        <input id="UrlGraficos" type="url" name="UrlGraficos" class="form-control">
+                    </div>
                     <br class="campo-equipamiento">
                     <label class="campo-señalTeorica">Señal Teorica</label>
                     <div class="form-group campo-señalTeorica">
