@@ -35,8 +35,8 @@
         $FechaFinalDesactivacion = NULL;
     }
     
-    //0-termino contrato, 1-activo, 2-suspendido, 3-Corte comercial
-    if($Activo == 0){
+    //0-termino contrato, 1-activo, 2-suspendido, 3-Corte comercial 4-cambio razon social
+    if($Activo == 0 || $Activo == 4){
         $FechaInicioDesactivacion = date("Y-m-d");
         $FechaFinalDesactivacion = date("2999-01-31");
 
