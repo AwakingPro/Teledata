@@ -347,6 +347,9 @@
                             ROUND(SUM(
                                 facturas_detalle.Total
                             ),0) AS Valor,
+                            ROUND(SUM(
+                                facturas_detalle.Valor
+                            ),0) AS Neto,
                             facturas.Rut,
                             facturas.Grupo,
                             facturas.EstatusFacturacion,
@@ -398,6 +401,8 @@
                     $data['Cliente'] = $factura['Cliente'];   
                     $data['UrlPdfBsale'] = '';
                     $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
+                    $data['Neto'] = $factura['Neto'];
+                    $data['IVA'] = $factura['IVA'];
                     $data['Valor'] = $factura['Valor'];
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
                     $data['NombreGrupo'] = $factura['NombreGrupo'];
@@ -428,6 +433,9 @@
                             IFNULL(ROUND(SUM(
                                 facturas_detalle.Total
                             ),0),0) AS Valor,
+                            IFNULL(ROUND(SUM(
+                                facturas_detalle.Valor
+                            ),0),0) AS Neto,
                             facturas.Id,
                             facturas.Rut,
                             facturas.Grupo,
@@ -472,6 +480,8 @@
                     $data['Grupo'] = $factura['Grupo'];   
                     $data['Cliente'] = $factura['Cliente'];
                     $data['UrlPdfBsale'] = '';
+                    $data['Neto'] = $factura['Neto'];
+                    $data['IVA'] = $factura['IVA'];
                     $data['Valor'] = $Valor;
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $factura['TipoDocumento'];
@@ -682,6 +692,9 @@
                             ROUND((
                                 facturas_detalle.Total
                             ),0) AS Valor,
+                            ROUND((
+                                facturas_detalle.Valor
+                            ),0) AS Neto,
                             facturas_detalle.Descuento as Descuento,
                             facturas_detalle.IdServicio as idServicio,
                             facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
@@ -708,6 +721,9 @@
                 ROUND((
                     facturas_detalle.Total
                 ),0) AS Valor,
+                ROUND((
+                    facturas_detalle.Valor
+                ),0) AS Neto,
                 facturas_detalle.Descuento as Descuento,
                 facturas_detalle.IdServicio as idServicio,
                 facturas_detalle.documentDetailIdBsale AS detalleIdBsale,
@@ -760,6 +776,7 @@
                     //     $data['Concepto'] .=  ' - '.$data['Descripcion'];
                     // }
                     $data['Concepto'] = $data['Concepto'];
+                    $data['Neto'] = $factura['Neto'];
                     $data['Valor'] = $Valor;
                     $data['facturaId'] = $factura['facturaId'];
                     $data['detalleId'] = $factura['detalleId'];

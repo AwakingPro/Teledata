@@ -13,7 +13,8 @@
                                     <tr>
                                         <th class="text-center">Nombre</th>
                                         <th class="text-center">Descripción</th>
-                                        <th class="text-center">Valor con I.V.A</th>
+                                        <th class="text-center">Neto</th>
+                                        <th class="text-center">Total con descuento</th>
                                         <th clas="text-center">Descuento %</th>
                                         <th class="text-center">Acción</th>
                                     </tr>

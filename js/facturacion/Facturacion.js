@@ -143,6 +143,8 @@ $(document).ready(function() {
                         { data: 'Cliente' },
                         { data: 'Rut' },
                         { data: 'NombreGrupo' },
+                        { data: 'Neto' },
+                        { data: 'IVA' },
                         { data: 'Valor' },
                         { data: 'EstatusFacturacion' }
                     ],
@@ -169,14 +171,14 @@ $(document).ready(function() {
                             }
                         },
                         {
-                            "targets": 5,
+                            "targets": [5,7],
                             "render": function(data, type, row) {
                                 value = formatcurrency(data)
                                 return "<div style='text-align: center'>" + value + "</div>";
                             }
                         },
                         {
-                            "targets": 6,
+                            "targets": 8,
                             "render": function(data, type, row) {
                                 Icono = '<i title="Detalles servicios" style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarLote" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
                                 if(row.Grupo != 1){
@@ -604,6 +606,7 @@ $(document).ready(function() {
                     var rowNode = ModalTable.row.add([
                         '' + array.Codigo + '',
                         '' + array.Concepto + '',
+                        '' + formatcurrency(array.Neto) + '',
                         '' + formatcurrency(array.Valor) + '',
                         '' + array.Descuento + '',
                         '' + '<i  id='+array.detalleId+' '+StyleEliminarDetalle+' '+desabilitar+' tipo='+2+' facturaId='+array.facturaId+' class="fa fa-trash '+EliminarDetalle+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + 
