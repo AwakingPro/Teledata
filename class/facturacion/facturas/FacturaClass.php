@@ -517,6 +517,9 @@
                             ROUND(SUM(
                                 facturas_detalle.Total
                             ),0) AS Valor,
+                            ROUND(SUM(
+                                facturas_detalle.Valor
+                            ),0) AS Neto,
                             facturas.Id,
                             facturas.Rut,
                             facturas.Grupo,
@@ -556,6 +559,9 @@
                     $data['Cliente'] = $factura['Cliente'];   
                     $data['UrlPdfBsale'] = '';
                     $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
+                    $data['Neto'] = $factura['Neto'];
+                    $data['IVA'] = $factura['Neto'] * $factura['IVA'];
+                    $data['IVA'] = round($data['IVA'], 0);
                     $data['Valor'] = $Valor;
                     $data['EstatusFacturacion'] = 0;
                     $data['TipoDocumento'] = $factura['TipoDocumento'];

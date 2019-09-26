@@ -350,6 +350,8 @@ $(document).ready(function() {
                         { data: 'Cliente' },
                         { data: 'Rut' },
                         { data: 'NombreGrupo' },
+                        { data: 'Neto' },
+                        { data: 'IVA' },
                         { data: 'Valor' },
                         { data: 'EstatusFacturacion' }
                     ],
@@ -362,7 +364,7 @@ $(document).ready(function() {
                             .addClass('text-center')
                     },
                     "columnDefs": [{
-                            "targets": 4,
+                            "targets": [4, 5, 6],
                             "render": function(data, type, row) {
                                 value = formatcurrency(data)
                                 return "<div style='text-align: center'>" + value + "</div>";
@@ -370,7 +372,7 @@ $(document).ready(function() {
                         },
                         {
 
-                            "targets": 5,
+                            "targets": 7,
                             "render": function(data, type, row) {
                                 Icono = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye VisualizarIndividual" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Ver Detalles" title="" data-container="body"></i>'
                                 if(row.Grupo != 1){
@@ -662,6 +664,7 @@ $(document).ready(function() {
                     var rowNode = ModalTable.row.add([
                         '' + array.Nombre + '',
                         '' + array.Concepto + '',
+                        '' + formatcurrency(array.Neto) + '',
                         '' + formatcurrency(array.Valor) + '',
                         '' + array.Descuento             +'',
                         '' + '<i  id='+array.detalleId+' '+StyleEliminarDetalle+' '+desabilitar+' tipo='+1+' facturaId='+array.facturaId+' class="fa fa-trash '+EliminarDetalle+'" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Eliminar"  data-container="body"></i>' + ''
