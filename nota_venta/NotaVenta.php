@@ -357,7 +357,7 @@
                                                             <label class="control-label h5" for="concepto_tmp">Glosa de venta</label>
                                                         </div>
                                                         <div id="concepto_container">
-                                                            <select class="selectpicker form-control" name="concepto_tmp" id="concepto_tmp"  data-live-search="true" data-container="body" validate="not_null" data-nombre="Concepto">
+                                                            <select class="selectpicker form-control" name="concepto_tmp" id="concepto_tmp"  data-live-search="true" data-container="body" data-nombre="Concepto">
                                                             </select>
                                                         </div>
                                                     </div>
