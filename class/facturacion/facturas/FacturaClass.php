@@ -1383,9 +1383,9 @@
                 $dataClient['Parrafo'][2] = '';
                 $dataClient['Parrafo'][3] = '';               
                 $dataClient['Parrafo'][4] = '<p style="text-align:center !important;"><a href="http://teledata.cl/" target="_blank"><img style="display:center !important; float:center !important;" src="http://teledata.cl/images_web/logo-teledata-200.png" /></a></p>';
-                $html = $run->plantillaCorreo($dataClient);
-                $dataClient['HTML'] = $html;
-                $respCorreo = $run->enviarCorreos(3, $dataClient);
+//                $html = $run->plantillaCorreo($dataClient);
+//                $dataClient['HTML'] = $html;
+//                $respCorreo = $run->enviarCorreos(3, $dataClient);
             }
 
             $response_array['status'] = 1;
