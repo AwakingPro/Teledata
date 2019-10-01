@@ -39,17 +39,17 @@ if(nivelUsuarioSession == 4){
 	$(".agregarDatosTecnicos").hide();
 }
 
-setTiempoUltimaRecarga();
+// setTiempoUltimaRecarga();
 //esto sera para verificar si realizo actividad en la pagina actualizamos la hora de ultima accion en usuarios
-$(document).click(function(){
-	setTiempoUltimaRecarga();
-})
+// $(document).click(function(){
+// 	setTiempoUltimaRecarga();
+// })
 
 
 //verifica cada minuto si paso la hora
-setInterval(function(){
-	getTiempoUltimaRecarga();
-}, 60000);
+// setInterval(function(){
+// 	getTiempoUltimaRecarga();
+// }, 60000);
 //metodo para actualizar el tiempo de la última de recarga
 function setTiempoUltimaRecarga(){
 	var tiempoActual = myTimer();
