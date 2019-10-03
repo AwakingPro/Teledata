@@ -151,8 +151,12 @@
                     }
 
                     $Fecha = DateTime::createFromFormat('d-m-Y', $Fecha)->format('Y-m-d');
+                    if(!$FechaHes){
+                        $query = "INSERT INTO nota_venta(rut, fecha, numero_oc, fecha_oc, solicitado_por, estatus_facturacion, numero_hes, fecha_hes) VALUES ('".$Cliente."','".$Fecha."','".$NumeroOc."','".$FechaOc."','".$SolicitadoPor."','0', '".$NumeroHes."', null)";
+                    }else{
+                        $query = "INSERT INTO nota_venta(rut, fecha, numero_oc, fecha_oc, solicitado_por, estatus_facturacion, numero_hes, fecha_hes) VALUES ('".$Cliente."','".$Fecha."','".$NumeroOc."','".$FechaOc."','".$SolicitadoPor."','0', '".$NumeroHes."', '".$FechaHes."')";
+                    }
 
-                    $query = "INSERT INTO nota_venta(rut, fecha, numero_oc, fecha_oc, solicitado_por, estatus_facturacion, numero_hes, fecha_hes) VALUES ('".$Cliente."','".$Fecha."','".$NumeroOc."','".$FechaOc."','".$SolicitadoPor."','0', '".$NumeroHes."', '".$FechaHes."')";
                     $Id = $run->insert($query);
 
                     if($Id){
