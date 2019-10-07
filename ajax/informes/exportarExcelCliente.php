@@ -29,7 +29,8 @@ $objPHPExcel->setActiveSheetIndex(0)
 ->setCellValue('J1', 'Región ordinal')
 ->setCellValue('K1', 'Ciudad')
 ->setCellValue('L1', 'Provincia')
-->setCellValue('M1', 'Servicios');
+->setCellValue('M1', 'Servicios')
+->setCellValue('N1', 'Estado servicio');
 
 foreach (range(0, 33) as $col) {
         $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -118,14 +119,35 @@ if (count($data) > 0) {
 			->setCellValue('L'.$index, $dato['provincia']);
 
 			$Rut = $dato['rut'];
-			$query = "SELECT Codigo FROM servicios s
+			$query = "SELECT Codigo, EstatusServicio FROM servicios s
 						WHERE s.Rut = '".$Rut."'  ";
 			$servicios = $run->select($query);
 			foreach ($servicios as $servicio) {
+			    $EstatusServicio = $servicio['EstatusServicio'];
+			    if ($EstatusServicio == 0){
+			        $EstatusServicio = 'Término de Contrato';
+
+                }else if($EstatusServicio == 1){
+                    $EstatusServicio = 'Activo';
+                }else if($EstatusServicio == 2){
+                    $EstatusServicio = 'Suspendido';
+                }else if($EstatusServicio == 3){
+                    $EstatusServicio = 'Corte comercial';
+                }else if($EstatusServicio == 4){
+                    $EstatusServicio = 'Cambio razón social';
+                }else if($EstatusServicio == 5){
+                    $EstatusServicio = 'Servicio temporal';
+                }else{
+                    $EstatusServicio = 'Estado no encontrado';
+                }
+
 				$servicio['Codigo'];
 				$objPHPExcel->setActiveSheetIndex(0)
-					->setCellValue('M' . $index, $servicio['Codigo']);
-				$run->cellColor('M' . $index, '7474FF');
+                    ->setCellValue('M' . $index, $servicio['Codigo']);
+                $run->cellColor('M' . $index, '7474FF');
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('N' . $index, $EstatusServicio);
+                $run->cellColor('N' . $index, '7474FF');
 				$index++;
 			}
 			$index ++;
