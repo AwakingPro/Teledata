@@ -122,35 +122,56 @@ if (count($data) > 0) {
 			$query = "SELECT Codigo, EstatusServicio FROM servicios s
 						WHERE s.Rut = '".$Rut."'  ";
 			$servicios = $run->select($query);
-			foreach ($servicios as $servicio) {
-			    $EstatusServicio = $servicio['EstatusServicio'];
-			    if ($EstatusServicio == 0){
-			        $EstatusServicio = 'Término de Contrato';
+//            echo count($servicios);
+//            exit;
+			if(count($servicios) >= 1){
 
-                }else if($EstatusServicio == 1){
-                    $EstatusServicio = 'Activo';
-                }else if($EstatusServicio == 2){
-                    $EstatusServicio = 'Suspendido';
-                }else if($EstatusServicio == 3){
-                    $EstatusServicio = 'Corte comercial';
-                }else if($EstatusServicio == 4){
-                    $EstatusServicio = 'Cambio razón social';
-                }else if($EstatusServicio == 5){
-                    $EstatusServicio = 'Servicio temporal';
-                }else{
-                    $EstatusServicio = 'Estado no encontrado';
+                foreach ($servicios as $servicio) {
+                    $EstatusServicio = $servicio['EstatusServicio'];
+                    if ($EstatusServicio == 0){
+                        $run->cellColor('N' . $index, 'FF0000');
+                        $EstatusServicio = 'Término de Contrato';
+
+                    }else if($EstatusServicio == 1){
+                        $run->cellColor('N' . $index, '27a434');
+                        $EstatusServicio = 'Activo';
+                    }else if($EstatusServicio == 2){
+                        $run->cellColor('N' . $index, 'ffff00');
+                        $EstatusServicio = 'Suspendido';
+                    }else if($EstatusServicio == 3){
+                        $run->cellColor('N' . $index, 'de4c8a');
+                        $EstatusServicio = 'Corte comercial';
+                    }else if($EstatusServicio == 4){
+                        $run->cellColor('N' . $index, 'ff8000');
+                        $EstatusServicio = 'Cambio razón social';
+                    }else if($EstatusServicio == 5){
+                        $run->cellColor('N' . $index, '00FF00');
+                        $EstatusServicio = 'Servicio temporal';
+                    }else{
+                        $run->cellColor('N' . $index, '454545');
+                        $EstatusServicio = 'Estado no encontrado';
+                    }
+
+                    $servicio['Codigo'];
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('M' . $index, $servicio['Codigo']);
+                    $run->cellColor('M' . $index, '7474FF');
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('N' . $index, $EstatusServicio);
+
+                    $index++;
                 }
 
-				$servicio['Codigo'];
-				$objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('M' . $index, $servicio['Codigo']);
-                $run->cellColor('M' . $index, '7474FF');
+            }else{
                 $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue('N' . $index, $EstatusServicio);
-                $run->cellColor('N' . $index, '7474FF');
-				$index++;
-			}
-			$index ++;
+                    ->setCellValue('M' . $index, 'Sin servicio');
+                $run->cellColor('M' . $index, 'FF0000');
+                $objPHPExcel->setActiveSheetIndex(0)
+                    ->setCellValue('N' . $index, 'Sin estado');
+                    $run->cellColor('N' . $index, 'FF0000');
+            }
+            $index ++;
+
 	}
 
 }else {
