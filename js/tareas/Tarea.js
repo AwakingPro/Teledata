@@ -414,7 +414,7 @@ $(document).ready(function() {
     $(document).on('click', '#guardarEstatus', function() {
         swal({
             title: "Cambiar estatus del servicio?",
-            text: "Va ha cambiar el estatus",
+            text: "Va a cambiar el estatus",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: "#28a745",

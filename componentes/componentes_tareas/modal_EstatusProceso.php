@@ -11,7 +11,7 @@
                         <div class="clearfix m-b-10"></div>
                         <div class="col-md-12">
                             <div class="form-group">
-                                <label class="control-label" for="EstatusServicio">Camiar estatus del servicio</label>
+                                <label class="control-label" for="EstatusServicio">Cambiar estatus del servicio</label>
                                 <div class="select">
                                     <select class="selectpicker form-control" name="EstatusServicio" id="EstatusServicio"  data-live-search="true" data-container="body">
                                         <option value = "1">Finalizado</option>
