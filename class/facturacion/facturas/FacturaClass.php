@@ -3001,7 +3001,7 @@
                                 $data['TotalFactura'] = $devolucion['DevolucionAmount'];
                                 // $data['TotalSaldo'] = $devolucion['DevolucionAmount'];
                                 $data['TotalSaldo'] = 0;
-                                $data['SaldoFavor'] = $SaldoFavor;
+                                $data['SaldoFavor'] = 0;
                                 $data['UrlPdfBsale'] = $devolucion['UrlPdfBsale'];
                                 $data['Grupo'] = $factura['Grupo'];
                                 $data['TipoDocumento'] = 'Nota de crédito';
