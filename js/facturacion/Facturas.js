@@ -229,7 +229,7 @@ $(document).ready(function() {
                                 Folder = 'facturas';
                                 if (row.Acciones == 1) {
                                     Devolucion = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-undo Devolucion" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Generar Nota de Crédito" title="" data-container="body"></i>'
-                                    if (row.TotalSaldo != '0' && (idUsuarioSession == 104 || idUsuarioSession == 109 || idUsuarioSession == 119 || idUsuarioSession == 130) ) {
+                                    if (row.TotalSaldo != '0' && (idUsuarioSession == 104 || idUsuarioSession == 109 || idUsuarioSession == 119 || idUsuarioSession == 130 || idUsuarioSession == 116) ) {
                                         Abonar = '<i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-plus Abonar" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Abonar" title="" data-container="body"></i>'
                                     } else {
                                         Abonar = ''

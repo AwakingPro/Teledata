@@ -2928,7 +2928,8 @@
                             if($TotalSaldo < 0){
                                 $TotalSaldo = 0;
                             }
-                            if($devolucion['priceAdjustment'] == 1 && $TotalSaldo ) {
+                            if($devolucion['priceAdjustment'] == 1 ) {
+                                $TotalFactura = $SaldoConNotaCredito;
                                 $Acciones = 1;
                             }
                         }
