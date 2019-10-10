@@ -2930,6 +2930,7 @@
                             }
                             if($devolucion['priceAdjustment'] == 1 ) {
                                 $TotalFactura = $SaldoConNotaCredito;
+                                $SaldoFavor = $TotalPagado - $SaldoConNotaCredito;
                                 $Acciones = 1;
                             }
                         }
