@@ -30,7 +30,8 @@ $objPHPExcel->setActiveSheetIndex(0)
 ->setCellValue('K1', 'Ciudad')
 ->setCellValue('L1', 'Provincia')
 ->setCellValue('M1', 'Servicios')
-->setCellValue('N1', 'Estado servicio');
+->setCellValue('N1', 'Estado servicio')
+->setCellValue('O1', 'Valor UF');
 
 foreach (range(0, 33) as $col) {
         $objPHPExcel->getActiveSheet()->getColumnDimensionByColumn($col)->setAutoSize(true);
@@ -152,14 +153,15 @@ if (count($data) > 0) {
                         $EstatusServicio = 'Estado no encontrado';
                     }
 
-                    $EstatusServicio .= ' | Valor UF '.$servicio['Valor'];
-
                     $servicio['Codigo'];
                     $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('M' . $index, $servicio['Codigo']);
 //                    $run->cellColor('M' . $index, '7474FF');
                     $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('N' . $index, $EstatusServicio);
+
+                    $objPHPExcel->setActiveSheetIndex(0)
+                        ->setCellValue('O' . $index, $servicio['Valor']);
 
                     $index++;
                 }
@@ -171,9 +173,9 @@ if (count($data) > 0) {
                 $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('N' . $index, 'Sin estado');
                     $run->cellColor('N' . $index, 'FF0000');
-                $index++;
+//                $index++;
             }
-            $index ++;
+//            $index ++;
 
 	}
 
