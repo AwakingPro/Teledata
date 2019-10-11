@@ -119,7 +119,7 @@ if (count($data) > 0) {
 			->setCellValue('L'.$index, $dato['provincia']);
 
 			$Rut = $dato['rut'];
-			$query = "SELECT Codigo, EstatusServicio FROM servicios s
+			$query = "SELECT Codigo, Valor, EstatusServicio FROM servicios s
 						WHERE s.Rut = '".$Rut."'  ";
 			$servicios = $run->select($query);
 //            echo count($servicios);
@@ -133,7 +133,7 @@ if (count($data) > 0) {
                         $EstatusServicio = 'Término de Contrato';
 
                     }else if($EstatusServicio == 1){
-                        $run->cellColor('N' . $index, '27a434');
+//                        $run->cellColor('N' . $index, '27a434');
                         $EstatusServicio = 'Activo';
                     }else if($EstatusServicio == 2){
                         $run->cellColor('N' . $index, 'ffff00');
@@ -152,10 +152,12 @@ if (count($data) > 0) {
                         $EstatusServicio = 'Estado no encontrado';
                     }
 
+                    $EstatusServicio .= ' | Valor UF '.$servicio['Valor'];
+
                     $servicio['Codigo'];
                     $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('M' . $index, $servicio['Codigo']);
-                    $run->cellColor('M' . $index, '7474FF');
+//                    $run->cellColor('M' . $index, '7474FF');
                     $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('N' . $index, $EstatusServicio);
 
@@ -169,6 +171,7 @@ if (count($data) > 0) {
                 $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('N' . $index, 'Sin estado');
                     $run->cellColor('N' . $index, 'FF0000');
+                $index++;
             }
             $index ++;
 
