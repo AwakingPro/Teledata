@@ -15,6 +15,7 @@ $(document).ready(function() {
         }
     });
 
+
     $('select[name="rutCliente"]').load('../ajax/servicios/selectClientes.php', function() {
         $('select[name="rutCliente"]').selectpicker();
     });
@@ -104,6 +105,15 @@ $(document).ready(function() {
         });
         return TotalSaldoDoc;
     }
+
+    $(document).on('click', '#verPDF', function() {
+
+        var href = $(this).data('url');
+        var timestamp = Math.floor(+new Date()/1000);
+        href += '&'+timestamp;
+        window.open(href, 'target_blank');
+
+    });
 
     $('#select_all').on('click', function() {
         var rows = FacturasTableCliente.rows({ 'search': 'applied' }).nodes();
@@ -278,7 +288,7 @@ $(document).ready(function() {
                             }
                             if (data != '') {
                                 Pdf = row.UrlPdfBsale;
-                                Pdf = '<a href="'+Pdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
+                                Pdf = '<a id="verPDF" data-URL="'+Pdf+'"  ><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
                                 // Pdf = '<a href="../facturacion/' + Folder + '/' + data + '.pdf" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
                             } else {
                                 Pdf = '';
@@ -535,7 +545,7 @@ $(document).ready(function() {
                             }
                             if (data != '') {
                                 Pdf = row.UrlPdfBsale;
-                                Pdf = '<a href="'+Pdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
+                                Pdf = '<a id="verPDF" data-URL="'+Pdf+'"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
                                 // Pdf = '<a href="../facturacion/' + Folder + '/' + data + '.pdf" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
                             } else {
                                 Pdf = '';
@@ -725,7 +735,7 @@ $(document).ready(function() {
                             }
                             if (data != '') {
                                 Pdf = row.UrlPdfBsale;
-                                Pdf = '<a href="'+Pdf+'" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
+                                Pdf = '<a id="verPDF" data-URL="'+Pdf+'"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
                                 // Pdf = '<a href="../facturacion/' + Folder + '/' + data + '.pdf" target="_blank"><i style="cursor: pointer; margin: 0 10px; font-size:15px;" class="fa fa-eye" data-trigger="hover" data-toggle="popover" data-placement="top" data-content="Visualizar" title="" data-container="body"></i></a>';
                             } else {
                                 Pdf = '';
