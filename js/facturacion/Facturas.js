@@ -111,7 +111,7 @@ $(document).ready(function() {
         var href = $(this).data('url');
         var timestamp = Math.floor(+new Date()/1000);
         href += '&'+timestamp;
-        window.open(href, 'target_blank');
+        window.open(href, '_blank');
 
     });
 
