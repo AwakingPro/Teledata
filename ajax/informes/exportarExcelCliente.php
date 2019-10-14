@@ -132,23 +132,28 @@ if (count($data) > 0) {
                     if ($EstatusServicio == 0){
                         $run->cellColor('N' . $index, 'FF0000');
                         $EstatusServicio = 'Término de Contrato';
-
-                    }else if($EstatusServicio == 1){
-//                        $run->cellColor('N' . $index, '27a434');
+                    }
+                    if($EstatusServicio == 1){
+                        $run->cellColor('N' . $index, 'ffffff');
                         $EstatusServicio = 'Activo';
-                    }else if($EstatusServicio == 2){
+                    }
+                    if($EstatusServicio == 2){
                         $run->cellColor('N' . $index, 'ffff00');
                         $EstatusServicio = 'Suspendido';
-                    }else if($EstatusServicio == 3){
+                    }
+                    if($EstatusServicio == 3){
                         $run->cellColor('N' . $index, 'de4c8a');
                         $EstatusServicio = 'Corte comercial';
-                    }else if($EstatusServicio == 4){
+                    }
+                    if($EstatusServicio == 4){
                         $run->cellColor('N' . $index, 'ff8000');
                         $EstatusServicio = 'Cambio razón social';
-                    }else if($EstatusServicio == 5){
+                    }
+                    if($EstatusServicio == 5){
                         $run->cellColor('N' . $index, '00FF00');
                         $EstatusServicio = 'Servicio temporal';
-                    }else{
+                    }
+                    if($EstatusServicio == ''){
                         $run->cellColor('N' . $index, '454545');
                         $EstatusServicio = 'Estado no encontrado';
                     }
@@ -156,7 +161,7 @@ if (count($data) > 0) {
                     $servicio['Codigo'];
                     $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('M' . $index, $servicio['Codigo']);
-//                    $run->cellColor('M' . $index, '7474FF');
+//
                     $objPHPExcel->setActiveSheetIndex(0)
                         ->setCellValue('N' . $index, $EstatusServicio);
 
@@ -169,7 +174,7 @@ if (count($data) > 0) {
             }else{
                 $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('M' . $index, 'Sin servicio');
-                $run->cellColor('M' . $index, 'FF0000');
+                
                 $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('N' . $index, 'Sin estado');
                     $run->cellColor('N' . $index, 'FF0000');
