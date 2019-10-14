@@ -281,6 +281,58 @@
                 }
             }
         }
+
+
+        // metodo para verificar si un cliente y sus servicios estan todos inactivos y inactivar al cliente
+        public function inactivarClientes(){
+
+            $run = new Method;
+            $query = " SELECT
+                    rut AS rut
+                FROM
+                    personaempresa
+                WHERE
+                    personaempresa.state != 1
+                    ";
+            // state == 1 esta ya inactivo
+            $clientes = $run->select($query);
+//             echo "<pre>"; print_r($clientes); echo "</pre>"; exit;
+            if($clientes){
+                foreach ($clientes as $cliente) {
+                    $rut = $cliente['rut'];
+                    $query = " SELECT
+                              count(servicios.EstatusServicio) as TotalServicios
+                                FROM
+                                    servicios
+                                WHERE
+                                    rut = '".$rut."' ";
+                    $totalServicios = $run->select($query);
+                    if(count($totalServicios)){
+                        $totalServicios = $totalServicios[0]['TotalServicios'];
+//                        echo "<pre>"; print_r($totalServicios); echo "</pre>"; exit;
+                        $query = " SELECT
+                            Id as IdInactivo,
+                            Codigo,
+                            count(servicios.EstatusServicio) as TotalInactivo
+                        FROM
+                            servicios
+                        WHERE
+                            Rut = '".$rut."' AND EstatusServicio = 0 GROUP BY IdInactivo";
+                        $ServiciosInactivos = $run->select($query);
+
+                        if( count($ServiciosInactivos) ){
+                            if($totalServicios == count($ServiciosInactivos)){
+                                $query = "UPDATE personaempresa SET state = '1' WHERE rut = '".$rut."'";
+                                $update = $run->update($query);
+                                echo ' se actualizo rut '. $rut.' total inactivos '. $totalServicios; echo " \n";
+                            }
+                        }
+                    }
+
+                }
+            }
+        }
+
     	public function showInstalaciones(){
             $run = new Method;
             $UfClass = new Uf(); 
