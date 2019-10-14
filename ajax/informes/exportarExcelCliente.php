@@ -174,11 +174,11 @@ if (count($data) > 0) {
             }else{
                 $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('M' . $index, 'Sin servicio');
-                
+
                 $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue('N' . $index, 'Sin estado');
-                    $run->cellColor('N' . $index, 'FF0000');
-//                $index++;
+                    $run->cellColor('N' . $index, 'F44611');
+                $index++;
             }
 //            $index ++;
 
