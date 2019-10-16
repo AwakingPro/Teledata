@@ -157,6 +157,7 @@
                             $respCorreo = $run->enviarCorreos(2, $dataClient);
                         }
                         }
+                        exit;
             }
 
         }
