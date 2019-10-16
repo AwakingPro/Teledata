@@ -70,6 +70,8 @@ class Email
 				// $mail->Username = 'postmaster@sandbox3ae422508d2f49eb98918fcc19c72735.mailgun.org';
 				// $mail->Password = 'e9b3a45851404aea042820f38c0d9e41-2416cf28-d91045f1';
 				$mail->From = $remitente[1]['email_from'];
+				print_r($mail);
+				exit;
 			}else{
 				echo 'Error al seleccionar el remitente de la bd';
 			}
