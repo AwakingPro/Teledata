@@ -835,7 +835,7 @@
 			if($TipoCorreo == 3){
 				$Html = $Data['HTML'];
 			}
-			$ToReturn = $Email->SendMail($Html, $Asunto, $correos);
+			$ToReturn = $Email->SendMail($Html, $Asunto, $correos, false , true);
             return $ToReturn;
 		}
 		
