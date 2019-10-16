@@ -101,11 +101,11 @@
         <script src="../plugins/bootstrap-select/i18n/defaults-es_CL.min.js"></script>
         <script src="../plugins/moment/moment.js"></script>
         <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-        <script src="../js/methods_global/methods.js"></script>
+        <script src="../js/methods_global/methods.js?v=<?php echo (rand()); ?>"></script>
         <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
         <script src="../plugins/numbers/jquery.number.min.js"></script>
         <script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
-        <script src="../js/tareas/Tarea.js"></script>
+        <script src="../js/tareas/Tarea.js?v=<?php echo (rand()); ?>"></script>
     </body>
 </html>

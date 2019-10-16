@@ -58,9 +58,9 @@
 	<script src="../plugins/bootbox/bootbox.min.js"></script>
 	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
-	<script src="../js/methods_global/methods.js"></script>
+	<script src="../js/methods_global/methods.js?v=<?php echo (rand()); ?>"></script>
 	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
-	<script src="../js/tickets/controller.js"></script>
+	<script src="../js/tickets/controller.js?v=<?php echo (rand()); ?>"></script>
 </body>
 </html>
 <div class="modal fade" id="tiempoPrioridad">

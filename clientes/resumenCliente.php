@@ -79,11 +79,11 @@ $id_cliente = $_GET['cliente'];
 	</div>
 	<script src="../js/jquery-2.2.1.min.js"></script>
 	<script src="../js/bootstrap.min.js"></script>
-	<script src="../js/methods_global/methods.js"></script>
+	<script src="../js/methods_global/methods.js?v=<?php echo (rand()); ?>"></script>
 	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
 	<script type="text/javascript" src="../plugins/moment/moment.js"></script>
 	<!-- <script src="../js/bienvenida/controller.js"></script> -->
-	<script src="../js/resumenCliente/resumenCliente.js"></script>
+	<script src="../js/resumenCliente/resumenCliente.js?v=<?php echo (rand()); ?>"></script>
 </body>
 </html>

@@ -166,10 +166,10 @@
 		<script src="../plugins/bootbox/bootbox.min.js"></script>
 		<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 		<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
-		<script src="../js/methods_global/methods.js"></script>
+		<script src="../js/methods_global/methods.js?v=<?php echo (rand()); ?>"></script>
 		<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 		<script src="../plugins/jcrop/js/jquery.Jcrop.min.js" type="text/javascript"></script>
 		<script src="../plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
-		<script src="../js/perfil/controller.js"></script>
+		<script src="../js/perfil/controller.js?v=<?php echo (rand()); ?>"></script>
 	</body>
 </html>

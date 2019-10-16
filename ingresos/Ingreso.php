@@ -592,9 +592,9 @@
     <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
     <script src="../plugins/moment/moment.js"></script>
     <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-    <script src="../js/methods_global/methods.js"></script>
+    <script src="../js/methods_global/methods.js?v=<?php echo (rand()); ?>"></script>
     <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
     <script src="../plugins/numbers/jquery.number.min.js"></script>
-    <script src="../js/inventario/ingresos/Ingreso.js"></script>
+    <script src="../js/inventario/ingresos/Ingreso.js?v=<?php echo (rand()); ?>"></script>
 </body>
 </html>

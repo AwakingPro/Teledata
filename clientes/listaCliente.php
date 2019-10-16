@@ -286,14 +286,14 @@
 	<script src="../plugins/sweetalert/sweetalert.min.js"></script>
 	<script src="../plugins/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="../plugins/datatables/media/js/dataTables.bootstrap.js"></script>
-	<script src="../js/methods_global/methods.js"></script>
-	<script src="../js/methods_global/mapaEdit.js"></script>
+	<script src="../js/methods_global/methods.js?v=<?php echo (rand()); ?>"></script>
+	<script src="../js/methods_global/mapaEdit.js?v=<?php echo (rand()); ?>"></script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
 	<script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 	<script src="../plugins/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
 	<script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 	<script src="../plugins/numbers/jquery.number.js"></script>
 	<script src="../plugins/pace/pace.min.js"></script>
-	<script src="../js/clientes/controller.js"></script>
+	<script src="../js/clientes/controller.js?v=<?php echo (rand()); ?>"></script>
 </body>
 </html>
