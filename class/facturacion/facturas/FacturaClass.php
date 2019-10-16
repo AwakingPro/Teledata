@@ -218,7 +218,7 @@
                     $dataClient['ClienteNombre'] = $servicio_nombre_cliente;
                     $dataClient['ServicioCodigo'] = $servicio_codigo_cliente;
                     $dataClient['correos'] = 'jcarrillo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl, pagos@teledata.cl, esalas@teledata.cl';
-                    // $dataClient['correos'] = 'dangel@teledata.cl';
+//                     $dataClient['correos'] = 'dangel@teledata.cl';
                     //si existe fecha es porque el temporal aun no finalizo
                     if($FechaFinalDesactivacion){
                         switch ($FechaFinalDesactivacion) {
