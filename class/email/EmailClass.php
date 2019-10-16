@@ -13,9 +13,9 @@ class Email
 		// $query = "SELECT correo_prueba, clave_prueba, email_from_prueba FROM teledata_correos";
 		$remitente = $this->metodo->select($query);
 		if(count($remitente)){
-			$this->correo = $remitente[0]['correo'];
-			$this->clave = $remitente[0]['clave'];
-			$this->email_from = $remitente[0]['email_from'];
+			$this->correo = $remitente[1]['correo'];
+			$this->clave = $remitente[1]['clave'];
+			$this->email_from = $remitente[1]['email_from'];
 			// $this->correo = $remitente[0]['correo_prueba'];
 			// $this->clave = $remitente[0]['clave_prueba'];
 			// $this->email_from = $remitente[0]['email_from_prueba'];
@@ -71,9 +71,6 @@ class Email
 				// $mail->Username = 'postmaster@sandbox3ae422508d2f49eb98918fcc19c72735.mailgun.org';
 				// $mail->Password = 'e9b3a45851404aea042820f38c0d9e41-2416cf28-d91045f1';
 				$mail->From = $remitente[1]['email_from'];
-				echo 'entro';
-				echo $mail->Username;
-
 			}else{
 				echo 'Error al seleccionar el remitente de la bd';
 			}
