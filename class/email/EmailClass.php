@@ -65,6 +65,7 @@ class Email
 			$query2 = "SELECT correo, clave, email_from FROM teledata_correos";
 			$remitente = $this->metodo->select($query2);
 			if(count($remitente)){
+                $mail->FromName = "Teledata Servicios";
 				$mail->Username = $remitente[1]['correo'];
 				$mail->Password = $remitente[1]['clave'];
 				// $mail->Username = 'postmaster@sandbox3ae422508d2f49eb98918fcc19c72735.mailgun.org';
@@ -80,12 +81,13 @@ class Email
 			// $mail->Username = 'postmaster@sandbox3ae422508d2f49eb98918fcc19c72735.mailgun.org';
 			// $mail->Password = 'e9b3a45851404aea042820f38c0d9e41-2416cf28-d91045f1';
 			// $mail->From = 'postmaster@sandbox3ae422508d2f49eb98918fcc19c72735.mailgun.org';
-			$mail->Username = $this->correo;  
+            $mail->FromName = "Teledata DTE";
+            $mail->Username = $this->correo;
 			$mail->Password = $this->clave;
 			$mail->From = $this->email_from;
 		}
 		// echo "<pre>"; echo print_r($mail); echo "</pre>";
-		$mail->FromName = "Teledata DTE";  
+
 		$mail->Subject = $subject;  
 		$mail->IsHTML(true);  
 		$mail->MsgHTML($html); 
