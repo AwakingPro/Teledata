@@ -141,10 +141,10 @@
                         $dataClient['ClienteNombre'] = $factura['Cliente'];
                         $dataClient['ServicioCodigo'] = $RUTDV;
                         //correos sin tecnicos para pruebas
-//                        $dataClient['correos'] = 'kcardenas@teledata.cl, fpezzuto@teledata.cl';
+                        $dataClient['correos'] = 'kcardenas@teledata.cl, fpezzuto@teledata.cl';
 
                         // $dataClient['correos'] = 'jcarrillo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl,  esalas@teledata.cl';
-                         $dataClient['correos'] = 'dangel@teledata.cl';
+//                         $dataClient['correos'] = 'dangel@teledata.cl';
                          // dos documentos emitidos se va a corte comercial   
                         if ($docsVencidos == 2) {
                             $dataClient['asunto'] = 'Corte comercial cliente '.$factura['Cliente'].' RUT: '.$RUTDV;
@@ -157,7 +157,6 @@
                             $respCorreo = $run->enviarCorreos(2, $dataClient);
                         }
                         }
-                        exit;
             }
 
         }
