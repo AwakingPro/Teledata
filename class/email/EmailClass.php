@@ -72,7 +72,7 @@ class Email
 				$mail->From = $remitente[1]['email_from'];
 				echo 'entro';
 				echo $mail->Username;
-				
+
 			}else{
 				echo 'Error al seleccionar el remitente de la bd';
 			}
