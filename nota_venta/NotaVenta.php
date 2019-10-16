@@ -1,4 +1,5 @@
-<?php require_once('../class/methods_global/methods.php'); ?>
+<?php require_once('../class/methods_global/methods.php');
+?>
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -561,9 +562,9 @@
 <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
 <script src="../plugins/moment/moment.js"></script>
 <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js"></script>
-<script src="../js/methods_global/methods.js"></script>
+<script src="../js/methods_global/methods.js?v=<?php echo (rand()); ?>"></script>
 <script src="../plugins/jquery-mask/jquery.mask.min.js"></script>
 <script src="../plugins/numbers/jquery.number.min.js"></script>
-<script src="../js/nota_venta/NotaVenta.js"></script>
+<script src="../js/nota_venta/NotaVenta.js?v=<?php echo (rand()); ?>"></script>
 </body>
 </html>

@@ -597,8 +597,8 @@
         <script src="../plugins/sweetalert/sweetalert.min.js"></script>
         <script src="../plugins/bootstrap-select/bootstrap-select.min.js"></script>
         <script src="../plugins/bootbox/bootbox.min.js"></script>
-        <script src="../js/methods_global/methods.js"></script>
-        <script src="../js/radio/Radio.js"></script>
+        <script src="../js/methods_global/methods.js?v=<?php echo (rand()); ?>"></script>
+        <script src="../js/radio/Radio.js?v=<?php echo (rand()); ?>"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD7_zeAQWpASmr8DYdsCq1PsLxLr5Ig0_8" type="text/javascript"></script>
     </body>
 </html>
