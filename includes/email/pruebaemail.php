@@ -145,8 +145,8 @@ if(isset($email_clear) && $email_clear != '' && check_email($email_clear))
             foreach($ArrayCopiados as $copiado){
                 $mail->addCC($copiado);
             }
-            echo '<pre>'; echo print_r($mail); echo '</pre>';
-            exit;
+//            echo '<pre>'; echo print_r($mail); echo '</pre>';
+//            exit;
             $totalEnvios = 1;
             $tope = 0;
 //            echo 'username '.$mail->Username . ' password '.$mail->Password .' Email from '. $mail->From;
