@@ -4,8 +4,12 @@ require("../../plugins/PHPMailer-master/class.smtp.php");
 include('../../class/email/EmailClass.php');
 include('../../class/methods_global/methods.php');
 
-echo 'Curl: ', function_exists('curl_version') ? 'Enabled' . "\xA" : 'Disabled' . "\xA";
-exit;
+if(in_array  ('curl', get_loaded_extensions())) {
+    echo ' curl exist';
+}else{
+    echo ' curl no exitste';
+}
+
 $message = '';
 $name = '';
 $email = '';
