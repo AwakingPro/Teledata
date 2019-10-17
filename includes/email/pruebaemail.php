@@ -4,6 +4,8 @@ require("../../plugins/PHPMailer-master/class.smtp.php");
 include('../../class/email/EmailClass.php');
 include('../../class/methods_global/methods.php');
 
+echo 'Curl: ', function_exists('curl_version') ? 'Enabled' . "\xA" : 'Disabled' . "\xA";
+exit;
 $message = '';
 $name = '';
 $email = '';
