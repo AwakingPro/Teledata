@@ -69,7 +69,6 @@ $(document).ready(function() {
 					});
 				});
 			}else{
-				console.log(data);
 				bootbox.alert('<h3 class="text-center">Se produjo un error al guardar</h3>');
 			}
 		});
@@ -77,6 +76,8 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.delete-usuarios', function(event) {
+        bootbox.alert('<h3 class="text-center">Acción inhabilitada temporalmente</h3>');
+        return;
 		var id = $(this).attr('attr');
 		bootbox.confirm({
 			message: "<h3 class='text-center'>Esta seguro de querer eliminar los datos</h3>",
