@@ -66,12 +66,12 @@ class Email
 			$query2 = "SELECT correo, clave, email_from, host FROM teledata_correos";
 			$remitente = $this->metodo->select($query2);
 			if(count($remitente)){
-
+                $mail->Host = $remitente[3]['host'];
                 $mail->FromName = "Teledata Servicios";
 				$mail->Username = $remitente[3]['correo'];
 				$mail->Password = $remitente[3]['clave'];
 				$mail->From = $remitente[3]['email_from'];
-                $mail->Host = $remitente[3]['host'];
+
 
 			}else{
 				echo 'Error al seleccionar el remitente de la bd';
