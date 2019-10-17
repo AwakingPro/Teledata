@@ -4,11 +4,6 @@ require("../../plugins/PHPMailer-master/class.smtp.php");
 include('../../class/email/EmailClass.php');
 include('../../class/methods_global/methods.php');
 
-if(in_array  ('curl', get_loaded_extensions())) {
-    echo ' curl exist';
-}else{
-    echo ' curl no exitste';
-}
 
 $message = '';
 $name = '';
@@ -150,8 +145,8 @@ if(isset($email_clear) && $email_clear != '' && check_email($email_clear))
             foreach($ArrayCopiados as $copiado){
                 $mail->addCC($copiado);
             }
-//            echo '<pre>'; echo print_r($mail); echo '</pre>';
-//            exit;
+            echo '<pre>'; echo print_r($mail); echo '</pre>';
+            exit;
             $totalEnvios = 1;
             $tope = 0;
 //            echo 'username '.$mail->Username . ' password '.$mail->Password .' Email from '. $mail->From;
