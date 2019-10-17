@@ -121,7 +121,7 @@ if(isset($email_clear) && $email_clear != '' && check_email($email_clear))
             //El puerto 587 es soportado por la mayoría de los servidores SMTP y es útil para conexiones no encriptadas (sin TLS)
 
 	            //Sets SMTP password
-            $mail->setFrom('dangel@teledata.cl', 'no-reply Contacto Teledata email masivo');
+//            $mail->setFrom('dangel@teledata.cl', 'no-reply Contacto Teledata email masivo');
 //            $mail->setFrom('no-reply@amazonaws.com', 'no-reply Contacto Teledata email masivo con aws');
             $mail->From = $remitente[3]['email_from'];					//Sets the From email address for the message
             $mail->FromName = $name_clear;				//Sets the From name of the message
