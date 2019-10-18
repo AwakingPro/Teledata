@@ -101,8 +101,8 @@ if(isset($email_clear) && $email_clear != '' && check_email($email_clear))
                             ';
             $mail->IsSMTP();	                            //Sets Mailer to send message using SMTP
             $mail->SMTPAuth = true;							//Sets SMTP authentication. Utilizes the Username and Password variables
-//            $mail->Port = '587';							//Sets the default SMTP server port
-            $mail->Port = '465';
+            $mail->Port = '587';							//Sets the default SMTP server port
+//            $mail->Port = '465';
 //            $mail->SMTPSecure = 'TLS';		                //Definmos la seguridad como TLS
             $mail->SMTPSecure = 'ssl';
             $mail->Mailer = "smtp";
@@ -114,7 +114,7 @@ if(isset($email_clear) && $email_clear != '' && check_email($email_clear))
             // 0 = off (producción)
             // 1 = client messages
             // 2 = client and server messages
-            $mail->SMTPDebug  = true;
+//            $mail->SMTPDebug  = true;
             $mail->CharSet = 'UTF-8';
 //            $mail->Host = 'smtp.gmail.com';
 //            $mail->Host = 'email-smtp.us-east-1.amazonaws.com';
