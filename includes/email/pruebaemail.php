@@ -130,7 +130,7 @@ if(isset($email_clear) && $email_clear != '' && check_email($email_clear))
             $mail->FromName = $name_clear;				//Sets the From name of the message
             $destinatario = 'daniel30081990@gmail.com';
             $ArrayCopiados = array();
-            $copiados = 'daniel30081990@gmail.com, dangel@teledata.cl';
+            $copiados = 'danielgeekcompras@gmail.com, dangel@teledata.cl';
             $ArrayCopiados = explode(", ", $copiados);
 
 
