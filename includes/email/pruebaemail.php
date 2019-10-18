@@ -10,6 +10,7 @@ $name = '';
 $email = '';
 $mensaje = '';
 $metodo = new Method;
+
 $mail = new PHPMailer(true);
 $query = "SELECT correo, clave, email_from, host FROM teledata_correos";
 // $query = "SELECT correo_prueba, clave_prueba, email_from_prueba FROM teledata_correos";
@@ -153,17 +154,23 @@ if(isset($email_clear) && $email_clear != '' && check_email($email_clear))
 //            echo 'username '.$mail->Username . ' password '.$mail->Password .' Email from '. $mail->From;
 //            exit;
             while($tope < $totalEnvios){
-                if($mail->Send())								//Send an Email. Return true on success or false on error
-                {
-                    $tope++;
-                    echo $message = '<div class="alert alert-success text-center">' ."Email N°" . $tope . " enviado Exitosamente.".'</div><hr><div class="alert alert-info">'.$message_muestra.'</div>';
-                    // echo $json;
-                    //            unlink($path);
-                }
-                else
-                {
-                    echo $message = '<div class="alert alert-danger text-center">Error al intentar enviar el email</div>';
-                    exit;
+                try {
+                    if($mail->Send())								//Send an Email. Return true on success or false on error
+                    {
+                        $tope++;
+                        echo $message = '<div class="alert alert-success text-center">' ."Email N°" . $tope . " enviado Exitosamente.".'</div><hr><div class="alert alert-info">'.$message_muestra.'</div>';
+                        // echo $json;
+                        //            unlink($path);
+                    }
+                    else
+                    {
+                        echo $message = '<div class="alert alert-danger text-center">Error al intentar enviar el email</div>';
+                        exit;
+                    }
+                }catch (phpmailerException $e) {
+                    echo $e->errorMessage(); //Pretty error messages from PHPMailer
+                } catch (Exception $e) {
+                    echo $e->getMessage(); //Boring error messages from anything else!
                 }
 
             }
