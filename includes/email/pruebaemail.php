@@ -108,7 +108,7 @@ if(isset($email_clear) && $email_clear != '' && check_email($email_clear))
 ////            TLS Wrapper puerto 465 o 2465
             $mail->Port = '465';
 ////            $mail->Port = '2465';
-//            $mail->SMTPSecure = 'TLS';		                //Definmos la seguridad como TLS
+            $mail->SMTPSecure = 'TLS';		                //Definmos la seguridad como TLS
 //            $mail->SMTPSecure = 'ssl';
             $mail->Mailer = "smtp";
             $mail->SMTPOptions = array(
