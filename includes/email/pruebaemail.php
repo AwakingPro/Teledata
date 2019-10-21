@@ -102,9 +102,12 @@ if(isset($email_clear) && $email_clear != '' && check_email($email_clear))
                             ';
             $mail->IsSMTP();	                            //Sets Mailer to send message using SMTP
             $mail->SMTPAuth = true;							//Sets SMTP authentication. Utilizes the Username and Password variables
-            $mail->Port = '587';							//Sets the default SMTP server port
-//            $mail->Port = '465';
-            $mail->SMTPSecure = 'TLS';		                //Definmos la seguridad como TLS
+//            STARTTLS puerto 25, 587 o 2587
+//            $mail->Port = '2587';							//Sets the default SMTP server port
+////            TLS Wrapper puerto 465 o 2465
+            $mail->Port = '465';
+////            $mail->Port = '2465';
+//            $mail->SMTPSecure = 'TLS';		                //Definmos la seguridad como TLS
 //            $mail->SMTPSecure = 'ssl';
             $mail->Mailer = "smtp";
             $mail->SMTPOptions = array(
@@ -164,7 +167,7 @@ if(isset($email_clear) && $email_clear != '' && check_email($email_clear))
                     }
                     else
                     {
-                        echo $message = '<div class="alert alert-danger text-center">Error al intentar enviar el email</div>';
+                        echo $message = '<div class="alert alert-danger text-center">Error al intentar enviar el email'. $mail->ErrorInfo.'</div>';
                         exit;
                     }
                 }catch (phpmailerException $e) {
