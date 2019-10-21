@@ -24,7 +24,7 @@
     // $dataClient['RUT'] = $servicio_rut_dv;
     $dataClient['ClienteNombre'] = $servicio_nombre_cliente;
     $dataClient['ServicioCodigo'] = $servicio_codigo_cliente;
-    $dataClient['correos'] = 'jcarrillo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl, esalas@teledata.cl, dangel@teledata.cl';
+    $dataClient['correos'] = 'jcarrillo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl, esalas@teledata.cl';
 //     $dataClient['correos'] = 'dangel@teledata.cl';
     $dataClient['asunto'] = 'Actualizar Servicio '.$servicio_codigo_cliente;
     
