@@ -4,6 +4,7 @@ require("../../plugins/PHPMailer-master/class.smtp.php");
 include('../../class/email/EmailClass.php');
 include('../../class/methods_global/methods.php');
 
+ini_set('max_execution_time', 30); //240 segundos = 4 minutos
 
 $message = '';
 $name = '';
