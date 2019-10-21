@@ -101,12 +101,12 @@ if(isset($email_clear) && $email_clear != '' && check_email($email_clear))
                                     </tr>
                                 </table>
                             ';
-            $mail->IsSMTP();	                            //Sets Mailer to send message using SMTP
+//            $mail->IsSMTP();	                            //Sets Mailer to send message using SMTP
             $mail->SMTPAuth = true;							//Sets SMTP authentication. Utilizes the Username and Password variables
 //            STARTTLS puerto 25, 587 o 2587
 //            $mail->Port = '2587';							//Sets the default SMTP server port
 ////            TLS Wrapper puerto 465 o 2465
-            $mail->Port = '465';
+            $mail->Port = '587';
 ////            $mail->Port = '2465';
             $mail->SMTPSecure = 'TLS';		                //Definmos la seguridad como TLS
 //            $mail->SMTPSecure = 'ssl';
