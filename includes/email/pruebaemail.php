@@ -4,8 +4,8 @@ require("../../plugins/PHPMailer-master/class.smtp.php");
 include('../../class/email/EmailClass.php');
 include('../../class/methods_global/methods.php');
 
-//phpinfo();
-
+phpinfo();
+exit;
 
 
 
