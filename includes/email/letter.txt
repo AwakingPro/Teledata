@@ -1,0 +1,4 @@
+From: dangel@teledata.cl
+Subject: Probando SendMail
+
+Este es el contenido del correo
