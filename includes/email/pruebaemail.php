@@ -4,7 +4,10 @@ require("../../plugins/PHPMailer-master/class.smtp.php");
 include('../../class/email/EmailClass.php');
 include('../../class/methods_global/methods.php');
 
-ini_set('max_execution_time', 30); //240 segundos = 4 minutos
+//phpinfo();
+
+
+
 
 $message = '';
 $name = '';
@@ -17,10 +20,10 @@ $query = "SELECT correo, clave, email_from, host FROM teledata_correos";
 // $query = "SELECT correo_prueba, clave_prueba, email_from_prueba FROM teledata_correos";
 $remitente = $metodo->select($query);
 if(count($remitente)){
-    $mail->Username = $remitente[3]['correo'];
-    $mail->Password = $remitente[3]['clave'];
-    $mail->From = $remitente[3]['email_from'];
-    $mail->Host = $remitente[3]['host'];
+    $mail->Username = $remitente[2]['correo'];
+    $mail->Password = $remitente[2]['clave'];
+    $mail->From = $remitente[2]['email_from'];
+    $mail->Host = $remitente[2]['host'];
 }else{
     echo 'Error al seleccionar el remitente de la bd';
 }
