@@ -113,6 +113,7 @@
             $Total -= $Descuento;
             $TotalFactura += round($Total,0);
         }
+        //lo que pago
         $TotalSaldo = $factura['TotalSaldo'];
         $Deuda = $TotalFactura - $TotalSaldo;
 
@@ -122,6 +123,10 @@
             $Deuda -= $TotalDevolucion ;
         }
 
+        if($factura['EstatusFacturacion'] == '2' && $priceAdjustment != 1){
+
+            $Deuda -= $TotalDevolucion;
+        }
 
         $Id = $factura['Id'];
         $data = array();
@@ -142,14 +147,15 @@
         // if($factura['TipoFacturacion'] == '')
         // $factura['TipoFacturacion'] = 'Otros Servicios';
         $data['TipoFacturacion'] = $factura['TipoFacturacion'];
-        $data['EstatusFacturacion'] = 1;
+        $data['EstatusFacturacion'] = $factura['EstatusFacturacion'];
         array_push($ToReturn,$data);
     }
     $TotalDocAcumulado = 0;
     $TotalDeudaAcumulada = 0;
-    // echo "<pre>"; print_r($ToReturn); echo "</pre>"; exit;
+//     echo "<pre>"; print_r($ToReturn); echo "</pre>"; exit;
     foreach($ToReturn as $datos) {
-    if($datos['Deuda'] > 0){
+    if($datos['Deuda'] > 0 ){
+//        echo "<pre>"; print_r($ToReturn); echo "</pre>"; exit;
         $objPHPExcel->setActiveSheetIndex(0)
         ->setCellValue('A'.$index, $datos['Cliente'])
         ->setCellValue('B'.$index, $datos['TipoDocumento'])
