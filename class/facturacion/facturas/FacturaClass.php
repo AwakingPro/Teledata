@@ -1346,7 +1346,6 @@
                 $cantidadFacturas = 0;
                 $dataClient = array();
                 // $dataClient['correos'] = 'dangel@teledata.cl';
-                $dataClient['correos'] = 'sergio@teledata.cl, teledatadte@teledata.cl, fpezzuto@teledata.cl, kcardenas@teledata.cl, dangel@teledata.cl';
 
                 foreach($Servicios as $Servicio){
                     $Id = $Servicio['Id'];
@@ -1358,7 +1357,8 @@
                     $TipoFacturacion = $Servicio['TipoFacturacion'];
                     // FechaInicioDesactivacion y FechaFinalDesactivacion es por si tiene suspendido el servicio
                     // $EstatusServicio = 5 es temporal y = 3 es corte comercial
-                    if(($FechaInicioDesactivacion >= $Hoy OR $FechaFinalDesactivacion < $Hoy OR $EstatusServicio == 5 OR $EstatusServicio == 3) && $PermitirFactura && $TipoFacturacion){
+
+                    if(($FechaInicioDesactivacion >= $Hoy OR $FechaFinalDesactivacion < $Hoy OR $EstatusServicio == 5 OR $EstatusServicio == 3) && $PermitirFactura && $TipoFacturacion && $Servicio['Id'] != 974){
                         $FechaUltimoCobro = $Servicio['FechaUltimoCobro'];
                         $FechaUltimoCobro = new DateTime($FechaUltimoCobro);                        
                         $Concepto = $Servicio['Servicio'];
