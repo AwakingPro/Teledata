@@ -1358,7 +1358,7 @@
                     // FechaInicioDesactivacion y FechaFinalDesactivacion es por si tiene suspendido el servicio
                     // $EstatusServicio = 5 es temporal y = 3 es corte comercial
 
-                    if(($FechaInicioDesactivacion >= $Hoy OR $FechaFinalDesactivacion < $Hoy OR $EstatusServicio == 5 OR $EstatusServicio == 3) && $PermitirFactura && $TipoFacturacion && $Servicio['Id'] != 974){
+                    if(($FechaInicioDesactivacion >= $Hoy OR $FechaFinalDesactivacion < $Hoy OR $EstatusServicio == 5) && $PermitirFactura && $TipoFacturacion){
                         $FechaUltimoCobro = $Servicio['FechaUltimoCobro'];
                         $FechaUltimoCobro = new DateTime($FechaUltimoCobro);                        
                         $Concepto = $Servicio['Servicio'];
