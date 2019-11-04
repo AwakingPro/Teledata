@@ -2891,6 +2891,7 @@
                             personaempresa.nombre as Cliente,
                             facturas.Id,
                             facturas.NumeroDocumento,
+                            facturas.TipoDocumento,
                             facturas.FechaFacturacion,
                             facturas.FechaVencimiento,
                             facturas.UrlPdfBsale,
@@ -2930,18 +2931,27 @@
                     $IVA = $factura['IVA'];  
                     $EstatusFacturacion = $factura['EstatusFacturacion'];
                     $TotalFactura = 0;
-                    $query = "SELECT Total, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
+                    $query = "SELECT Valor as TotalSinIVA, Total as TotalConIVA, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
                     $detalles = $run->select($query);
                     foreach($detalles as $detalle){
-                        $Total = $detalle['Total'];
+                        if($factura['TipoDocumento'] == 'Boleta'){
+                            $Total = $detalle['TotalConIVA'];
+                        }else{
+                            $Total = $detalle['TotalSinIVA'];
+                        }
                         $Descuento = floatval($detalle['Descuento']) / 100;
                         $Descuento = 0;
                         $Descuento = $Total * $Descuento;
                         $Total -= $Descuento;
-                        // $TotalFactura += round($Total,0);
-                        $TotalFactura += $Total;
+                         $TotalFactura += round($Total,0);
                     }
+
                     $TotalFactura = round($TotalFactura,0);
+                    if($factura['TipoDocumento'] == 'Factura'){
+                        $IVA = $TotalFactura * $IVA;
+                        $TotalFactura = $TotalFactura + round($IVA, 0);
+                    }
+
                     $SaldoFavor = 0;
                     $TotalSaldo = $factura['TotalSaldo'];
                     $TotalSaldo = $TotalFactura - $TotalSaldo;
