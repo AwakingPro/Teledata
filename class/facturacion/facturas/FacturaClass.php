@@ -4478,46 +4478,46 @@
         }
         // metodo para sincronizar fac de bsale al ERP
         public function sincronizarConBsale(){
-            
-	        ini_set('max_execution_time', 0);
+
+            ini_set('max_execution_time', 0);
             set_time_limit(8800);
             $run = new Method;
+            $query = "SELECT rut, dv  FROM personaempresa";
+            $rutsClientes = $run->select($query);
             $query = "SELECT token_produccion as access_token FROM variables_globales";
             $variables_globales = $run->select($query);
+
             $access_token = $variables_globales[0]['access_token'];
             //DOCUMENTOS
-            $limitDocumentos = 600;
-            $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit='.$limitDocumentos.'&offset=3000';
-            // Inicia cURL
-            $session = curl_init($url);
-
-            // Indica a cURL que retorne data
-            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
-
-            // Configura cabeceras
-            $headers = array(
-                'access_token: ' . $access_token,
-                'Accept: application/json',
-                'Content-Type: application/json'
-            );
-            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
-
-            // Ejecuta cURL
-            $response = curl_exec($session);
-            // Cierra la sesión cURL
-            curl_close($session);
-            $DocumentosBsale = json_decode($response, true);
             $dataClient = array();
-            $dataClient['correos'] = 'teledatadte@teledata.cl, kcardenas@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, dangel@teledata.cl';
+            $dataClient['correos'] = 'teledatadte@teledata.cl, fpezzuto@teledata.cl, esalas@teledata.cl, cvalenzuela@teledata.cl, dangel@teledata.cl';
             $dataClient['asunto'] = '';
             $dataClient['MensajeCorreo'] = '';
             $ContadorFacActualiza = 0;
             $ContadorFacInserta = 0;
-            echo $DocumentosBsale['next'];
-            echo "\n";
-            do{
-                echo $DocumentosBsale['next'];
-                echo "\n";
+            foreach($rutsClientes as $rutCliente){
+                $clienteCode = $rutCliente['rut'].'-'.$rutCliente['dv'];
+                $url='https://api.bsale.cl/v1/documents.json?expand=[references,client,details]&limit=300&clientcode='.$clienteCode;
+                // Inicia cURL
+                $session = curl_init($url);
+
+                // Indica a cURL que retorne data
+                curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+                // Configura cabeceras
+                $headers = array(
+                    'access_token: ' . $access_token,
+                    'Accept: application/json',
+                    'Content-Type: application/json'
+                );
+                curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+                // Ejecuta cURL
+                $response = curl_exec($session);
+                // Cierra la sesión cURL
+                curl_close($session);
+                $DocumentosBsale = json_decode($response, true);
+
                 foreach($DocumentosBsale['items'] as $DocumentoBsale){
                     $DocumentoId = $DocumentoBsale['id'];
                     $document_type = $DocumentoBsale['document_type'];
@@ -4532,11 +4532,10 @@
                         $TipoDocumento = 2;
                         $TipoFactura = 1;
                     }else{
-    
+
                         $TipoDocumento = 3;
                     }
-    
-                    
+
                     if($TipoDocumento == 1 OR $TipoDocumento == 2){
                         $query = "SELECT Id, UrlPdfBsale, CountDTE, DocumentoIdBsale FROM facturas WHERE DocumentoIdBsale = '".$DocumentoId."'";
                         $Factura = $run->select($query);
@@ -4553,7 +4552,7 @@
                             $FechaVencimiento = gmdate('Y-m-d', $DocumentoBsale['expirationDate']);
                             $references = $DocumentoBsale['references'];
                             $references = $references['items'];
-                            $referencesCount = count($references);
+
                             if($references){
                                 foreach($references as $reference){
                                     $NumeroOC = $reference['number'];
@@ -4571,8 +4570,8 @@
                             $Rut = $Explode[0];
                             if($Rut){
                                 $query = "INSERT INTO facturas(Rut, Grupo, TipoFactura, EstatusFacturacion, DocumentoIdBsale, UrlPdfBsale, informedSiiBsale,
-                                    responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, 
-                                    FechaOC, CountDTE) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', '".$FechaFacturacion."', '".$HoraFacturacion."', '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."', '".$referencesCount."')";
+                                responseMsgSiiBsale, FechaFacturacion, HoraFacturacion, TipoDocumento, FechaVencimiento, IVA, NumeroDocumento, NumeroOC, 
+                                FechaOC) VALUES ('".$Rut."', '".$Grupo."', '".$TipoFactura."', '1', '".$DocumentoId."', '".$UrlPdf."', '".$informedSii."', '".$responseMsgSii."', '".$FechaFacturacion."', '".$HoraFacturacion."', '".$TipoDocumento."', '".$FechaVencimiento."', 0.19, '".$NumeroDocumento."', '".$NumeroOC."', '".$FechaOC."')";
                                 $Id = $run->insert($query);
                                 if($Id){
                                     $ContadorFacInserta += 1;
@@ -4616,7 +4615,7 @@
                             $DocumentoIdBsale = $Factura[0]['DocumentoIdBsale'];
                             $NumeroDocumento = $DocumentoBsale['number'];
                             //actualizo los datos de las facturas en la bd
-                            
+
                             $informedSii = $DocumentoBsale['informedSii'];
                             $responseMsgSii = $DocumentoBsale['responseMsgSii'];
                             $FechaFacturacion = gmdate('Y-m-d', $DocumentoBsale['emissionDate']);
@@ -4639,8 +4638,8 @@
                             $Rut = $Explode[0];
                             if($Rut){
                                 $query = "UPDATE facturas set informedSiiBsale = '".$informedSii."', responseMsgSiiBsale = '".$responseMsgSii."',  FechaFacturacion = '".$FechaFacturacion."',
-                                        FechaVencimiento = '".$FechaVencimiento."', NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', CountDTE = '".$referencesCount."'
-                                        WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' ";
+                                    FechaVencimiento = '".$FechaVencimiento."', NumeroOC = '".$NumeroOC."', FechaOC = '".$FechaOC."', CountDTE = '".$referencesCount."'
+                                    WHERE DocumentoIdBsale = '".$DocumentoIdBsale."' ";
                                 $update = $run->update2($query);
                                 //envia correo al actualizar facturas
                                 // if($update){
@@ -4657,7 +4656,7 @@
                                     if($delete && $referencesCount > 0 ){
                                         //si existen references, exiten dte_code y los inserta
                                         if($references){
-                                            
+
                                             foreach($references as $reference){
                                                 $dte_code = $reference['dte_code'];
                                                 $dte_code = $dte_code['href'];
@@ -4677,50 +4676,47 @@
                                 }
                             }
                         }
-                        
-                        if($Id){   
+
+                        if($Id){
                             // $this->almacenarDocumento($Id,1,$UrlPdf);
                         }
                     }
                 }
                 //este sera despues de recorrer el primer next y asi sucesivamente de 25 en 25
-
                 if(isset($DocumentosBsale['next'])){
-                    //tipo = 3 trae todos los datos
-                    $DocumentosBsale = $run->contador(3, $DocumentosBsale['next'].='&expand=[references,client,details]');
+                    $DocumentosBsale['next'] .= '&expand=[references,client,details]&limit=300&clientcode='.$clienteCode;
+                    echo 'url next '.$DocumentosBsale['next'];
+                    echo "\n";
+
+                    $url=$DocumentosBsale['next'];
+
+                    // Inicia cURL
+                    $session = curl_init($url);
+
+                    // Indica a cURL que retorne data
+                    curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+
+                    // Configura cabeceras
+                    $headers = array(
+                        'access_token: ' . $access_token,
+                        'Accept: application/json',
+                        'Content-Type: application/json'
+                    );
+                    curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+
+                    // Ejecuta cURL
+                    $response = curl_exec($session);
+                    // Cierra la sesión cURL
+                    curl_close($session);
+                    $DocumentosBsale = json_decode($response, true);
                 }
-            }while( isset($DocumentosBsale['next']) );
-            
+            }
+            // fin foreach ruts
             if($ContadorFacActualiza || $ContadorFacInserta){
-                $respCorreo = $run->enviarCorreos(2, $dataClient);
+                $respCorreo = $run->enviarCorreos(4, $dataClient);
                 // echo 'Insert Fac O Upd '.$respCorreo; echo "\n";
             }
 
-            // para saber si existen facturas desde bsale con TipoFactura = 4 significa que deben actualizar ese campo
-            // a TipoFactura = 1 es para facturas de servicios individuales, 2 es para facturas de servicios que pueden ser con grupo, 
-            // grupo con oc, sin grupo, estas saldran en por facturacion por lotes o TipoFactura = 3 es para facturas de Instalacion individuales
-            // esto es necesario para analizar de manera mas comoda los informes facturas de servicios 
-            // $queryTipoFac = "SELECT * FROM facturas WHERE TipoFactura = 4";
-            // $FacturaTipo = $run->select($queryTipoFac);
-            // if($FacturaTipo){
-            //     $TotalFacs = count($FacturaTipo);
-            //     $dataClient['TotalTipoFac'] = $TotalFacs;
-            //     $dataClient['asunto'] = 'Cambiar Campo TipoFactura = 4 en la BD';
-            //     $dataClient['MensajeCorreo'] = 'Se encontraron '.$TotalFacs;
-            //     $dataClient['MensajeCorreo'] .= ' Facturas con el campo TipoFactura = 4, esto ocurre por defecto al sincronizar las facturas de bsale que no se encuentran en la BD del ERP, por favor pongase en contacto con el administrador de la BD para que modifique el valor, gracias.';
-            //     $dataClient['Subtitulo'] = 'Cambiar Campo(s) TipoFactura = 4 en la BD.';
-            //     $dataClient['Subtitulo2'] = '<h4>Uso del campo TipoFactura</h4>';
-            //     $dataClient['Parrafo'][0] = '<p>1 - En la tabla de facturas el TipoFactura = 1 es para facturas de servicios individuales generados por nota de venta, estas saldran en facturacion individual</p>';
-            //     $dataClient['Parrafo'][1] = '<p>2 - En la tabla de facturas el TipoFactura = 2 es para facturas de servicios que pueden ser con grupo, grupo con oc, sin grupo, estas saldran en facturacion por lotes</p>';
-            //     $dataClient['Parrafo'][2] = '<p>3 - En la tabla de facturas el TipoFactura = 3 es para facturas de Instalacion individuales generados por nota de venta, estas saldran en facturacion individual</p>';
-            //     $dataClient['Parrafo'][3] = '<p>4 - En la tabla de facturas el TipoFactura = 4 fue encontrada en bsale pero no en el ERP y por lo tanto fue sincronizada.</p>';	
-            //     $dataClient['Parrafo'][4] = '<p style="text-align:center !important;"><a href="http://teledata.cl/" target="_blank"><img style="display:center !important; float:center !important;" src="http://teledata.cl/images_web/logo-teledata-200.png" /></a></p>';
-            //     // echo '<pre>'; print_r($dataClient); echo '</pre>';
-            //     // exit;
-            //     $html = $run->plantillaCorreo($dataClient);
-            //     $dataClient['HTML'] = $html;
-            //     $respCorreo = $run->enviarCorreos(3, $dataClient);
-            // }
             $dataClient['asunto'] = '';
             $dataClient['MensajeCorreo'] = '';
             $contadorDevolucion = 0;
@@ -4773,16 +4769,16 @@
                         $query = "INSERT INTO devoluciones(FacturaId, DevolucionIdBsale, DocumentoIdBsale, UrlPdfBsale, Motivo, FechaDevolucion, HoraDevolucion, NumeroDocumento, DevolucionAmount) VALUES ('".$FacturaId."', '".$DevolucionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."','".$Motivo."', '".$FechaDevolucion."', '".$HoraDevolucion."','".$NumeroDocumento."', '".$DevolucionAmount."')";
                         // echo $query; echo "\n";
                         $DevolucionId = $run->insert($query);
-                        if($DevolucionId){  
+                        if($DevolucionId){
                             $contadorDevolucion += 1;
-                            $dataClient['MensajeCorreo'] .= 'Insertada | Se ha sincronizado la Nota de Crédito N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.<br><br><br>';
-    
+                            $dataClient['MensajeCorreo'] .= 'Insertada / Se ha sincronizado la Nota de Crédito N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos concuerden con los reales.</b> <br> Gracias.<br><br><br>';
+
                             $query = "UPDATE facturas SET EstatusFacturacion = 2 WHERE Id = '".$FacturaId."'";
                             $update = $run->update($query);
                         }else{
                             $contadorErrorDevolucion += 1;
                             $dataClient['MensajeCorreo'] .= 'Ocurrio un Error al tratar de insertar la Nota de Crédito N Doc:<b>'.$NumeroDocumento.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor Notificar el inconveniente.</b> <br> Gracias.<br><br><br>';
-                            
+
                         }
                     }
                 }else{
@@ -4799,61 +4795,61 @@
                     //     $dataClient['MensajeCorreo'] .= 'Actualizada | Nota de Crédito N Doc:<b>'.$NumeroDocumento.'</b> se ha actualizo el Monto <b>'.$DevolucionAmount.'</b> desde Bsale a la BD del ERP <br> PDF Doc Bsale:'. $UrlPdf.' <br> <b> Por favor verificar que los datos son correctos.</b> <br> Gracias.<br><br><br>';
                     // }
                 }
-                if($FacturaId){   
+                if($FacturaId){
                     // $this->almacenarDocumento($FacturaId,2,$UrlPdf);
                 }
             }
             if($contadorDevolucion || $contadorErrorDevolucion || $contadorActulizaDevolucion){
-                $respCorreo = $run->enviarCorreos(2, $dataClient);
+                $respCorreo = $run->enviarCorreos(4, $dataClient);
                 // echo '$contadorDevolucion || $contadorErrorDevolucion || $contadorActulizaDevolucion '.$respCorreo; echo "\n";
             }
-            
+
 
             //NOTAS DE DEBITO
             /*
-            $url='https://api.bsale.cl/v1/documents.json?documenttypeid=17';
+                $url='https://api.bsale.cl/v1/documents.json?documenttypeid=17';
 
-            // Inicia cURL
-            $session = curl_init($url);
+                // Inicia cURL
+                $session = curl_init($url);
 
-            // Indica a cURL que retorne data
-            curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
+                // Indica a cURL que retorne data
+                curl_setopt($session, CURLOPT_RETURNTRANSFER, true);
 
-            // Configura cabeceras
-            $headers = array(
-                'access_token: ' . $access_token,
-                'Accept: application/json',
-                'Content-Type: application/json'
-            );
-            curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
+                // Configura cabeceras
+                $headers = array(
+                    'access_token: ' . $access_token,
+                    'Accept: application/json',
+                    'Content-Type: application/json'
+                );
+                curl_setopt($session, CURLOPT_HTTPHEADER, $headers);
 
-            // Ejecuta cURL
-            $response = curl_exec($session);
+                // Ejecuta cURL
+                $response = curl_exec($session);
 
-            // Cierra la sesión cURL
-            curl_close($session);
-            $DocumentosBsale = json_decode($response, true);
+                // Cierra la sesión cURL
+                curl_close($session);
+                $DocumentosBsale = json_decode($response, true);
 
-            foreach($DocumentosBsale['items'] as $DocumentoBsale){
-                $DocumentoId = $DocumentoBsale['id'];
-                $query = "SELECT Id, UrlPdfBsale FROM anulaciones WHERE DocumentoIdBsale = '".$DocumentoId."'";
-                $NotaDebito = $run->select($query);
-                if(!$NotaDebito){
-                    $UrlPdf = $DocumentoBsale['urlPdf'];
-                    $NumeroDocumento = $DocumentoBsale['number'];
-                    $FechaAnulacion = date('Y-m-d', $DocumentoBsale['emissionDate']);
-                    $HoraAnulacion = date('H:i:s', $DocumentoBsale['emissionDate']);
-                    $query = "INSERT INTO anulaciones(DevolucionId, AnulacionIdBsale, DocumentoIdBsale, UrlPdfBsale, FechaAnulacion, HoraAnulacion, NumeroDocumento) VALUES ('".$Id."', '".$AnulacionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."', '".$FechaAnulacion."', '".$HoraAnulacion."','".$NumeroDocumento."')";
-                    $Id = $run->insert($query);
-                }else{
-                    $Id = $Factura[0]['Id'];
-                    $UrlPdf = $Factura[0]['UrlPdfBsale'];
+                foreach($DocumentosBsale['items'] as $DocumentoBsale){
+                    $DocumentoId = $DocumentoBsale['id'];
+                    $query = "SELECT Id, UrlPdfBsale FROM anulaciones WHERE DocumentoIdBsale = '".$DocumentoId."'";
+                    $NotaDebito = $run->select($query);
+                    if(!$NotaDebito){
+                        $UrlPdf = $DocumentoBsale['urlPdf'];
+                        $NumeroDocumento = $DocumentoBsale['number'];
+                        $FechaAnulacion = date('Y-m-d', $DocumentoBsale['emissionDate']);
+                        $HoraAnulacion = date('H:i:s', $DocumentoBsale['emissionDate']);
+                        $query = "INSERT INTO anulaciones(DevolucionId, AnulacionIdBsale, DocumentoIdBsale, UrlPdfBsale, FechaAnulacion, HoraAnulacion, NumeroDocumento) VALUES ('".$Id."', '".$AnulacionIdBsale."', '".$DocumentoIdBsale."', '".$UrlPdf."', '".$FechaAnulacion."', '".$HoraAnulacion."','".$NumeroDocumento."')";
+                        $Id = $run->insert($query);
+                    }else{
+                        $Id = $Factura[0]['Id'];
+                        $UrlPdf = $Factura[0]['UrlPdfBsale'];
+                    }
+                    if($Id){
+                        $this->almacenarDocumento($Id,3,$UrlPdf);
+                    }
                 }
-                if($Id){   
-                    $this->almacenarDocumento($Id,3,$UrlPdf);
-                }
-            }
-            */
+                */
         }
         public function almacenarDocumento($DocumentoId,$Tipo,$UrlPdf){
             if($Tipo == 1){
