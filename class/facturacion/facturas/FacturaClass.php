@@ -4684,7 +4684,7 @@
                 }
                 //este sera despues de recorrer el primer next y asi sucesivamente de 25 en 25
                 if(isset($DocumentosBsale['next'])){
-                    $DocumentosBsale['next'] .= '&expand=[references,client,details]&limit=300&clientcode='.$clienteCode;
+                    $DocumentosBsale['next'] = $DocumentosBsale['next']. '&expand=[references,client,details]&limit=300&clientcode='.$clienteCode;
                     echo 'url next '.$DocumentosBsale['next'];
                     echo "\n";
 
