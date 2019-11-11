@@ -143,8 +143,8 @@
                     $dataClient['ClienteNombre'] = $factura['Cliente'];
                     $dataClient['ServicioCodigo'] = $RUTDV;
                     //correos sin tecnicos para pruebas
-//                    $dataClient['correos'] = 'fpezzuto@teledata.cl, dangel@teledata.cl';
-                    $dataClient['correos'] = 'dangel@teledata.cl';
+                    $dataClient['correos'] = 'fpezzuto@teledata.cl, dangel@teledata.cl';
+//                    $dataClient['correos'] = 'dangel@teledata.cl';
 
                     // $dataClient['correos'] = 'jcarrillo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl,  esalas@teledata.cl';
 //                         $dataClient['correos'] = 'dangel@teledata.cl';
@@ -153,13 +153,11 @@
                         $dataClient['asunto'] = 'Corte comercial cliente '.$factura['Cliente'].' RUT: '.$RUTDV;
                         $dataClient['MensajeCorreo'] = 'Por favor hacer <b>Corte comercial</b> al cliente <b>'.$factura['Cliente'].' RUT: '.$RUTDV. ' - '. $factura['TipoDocumento'].'</b> ya que tiene '.$docsVencidos.' '.$factura['TipoDocumento'].'s emitidas y sin pagar <hr>'.$MensajeDocumentosPorPagar;
                         $respCorreo = $run->enviarCorreos(2, $dataClient);
-                        exit;
                     } elseif ($docsVencidos >= 3) {
                         // tres documentos emitidos o más se va a término de contrato
                         $dataClient['asunto'] = 'Corte término de contrato cliente '.$factura['Cliente'].' RUT: '.$RUTDV;
                         $dataClient['MensajeCorreo'] = 'Por favor hacer <b>Corte por término de contrato</b> al cliente <b>'.$factura['Cliente'].' RUT: '.$RUTDV. ' - '. $factura['TipoDocumento'].'</b> ya que tiene '.$docsVencidos.' '.$factura['TipoDocumento'].'s emitidas y sin pagar <hr>' .$MensajeDocumentosPorPagar;
                         $respCorreo = $run->enviarCorreos(2, $dataClient);
-                        exit;
                     }
                 }
             }
