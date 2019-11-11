@@ -1333,7 +1333,7 @@
                             INNER JOIN mantenedor_servicios ms ON s.IdServicio = ms.IdServicio
                             INNER JOIN mantenedor_tipo_factura mtf ON s.TipoFactura = mtf.id 
                         WHERE
-                            (s.EstatusServicio = 1 OR s.EstatusServicio = 2 OR s.EstatusServicio = 3 OR s.EstatusServicio = 5) ";
+                            (s.EstatusServicio = 1 OR s.EstatusServicio = 3 OR s.EstatusServicio = 5) ";
             $Servicios = $run->select($query);
 
             if($Servicios){
