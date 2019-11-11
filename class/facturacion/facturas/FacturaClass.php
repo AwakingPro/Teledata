@@ -291,7 +291,7 @@
                 FROM
                     personaempresa
                 WHERE
-                    personaempresa.state != 1
+                    (personaempresa.state != 1 OR personaempresa.state IS NULL)
                     ";
             // state == 1 esta ya inactivo
             $clientes = $run->select($query);
