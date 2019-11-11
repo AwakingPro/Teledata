@@ -153,14 +153,15 @@
                         $dataClient['asunto'] = 'Corte comercial cliente '.$factura['Cliente'].' RUT: '.$RUTDV;
                         $dataClient['MensajeCorreo'] = 'Por favor hacer <b>Corte comercial</b> al cliente <b>'.$factura['Cliente'].' RUT: '.$RUTDV. ' - '. $factura['TipoDocumento'].'</b> ya que tiene '.$docsVencidos.' '.$factura['TipoDocumento'].'s emitidas y sin pagar <hr>'.$MensajeDocumentosPorPagar;
                         $respCorreo = $run->enviarCorreos(2, $dataClient);
+                        exit;
                     } elseif ($docsVencidos >= 3) {
                         // tres documentos emitidos o más se va a término de contrato
                         $dataClient['asunto'] = 'Corte término de contrato cliente '.$factura['Cliente'].' RUT: '.$RUTDV;
                         $dataClient['MensajeCorreo'] = 'Por favor hacer <b>Corte por término de contrato</b> al cliente <b>'.$factura['Cliente'].' RUT: '.$RUTDV. ' - '. $factura['TipoDocumento'].'</b> ya que tiene '.$docsVencidos.' '.$factura['TipoDocumento'].'s emitidas y sin pagar <hr>' .$MensajeDocumentosPorPagar;
                         $respCorreo = $run->enviarCorreos(2, $dataClient);
+                        exit;
                     }
                 }
-                exit;
             }
 
         }
