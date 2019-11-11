@@ -133,7 +133,7 @@
                         if($Deuda > 0){
                             $docsVencidos += 1;
                             //mensaje para info sobre cada doc que debe
-                            $MensajeDocumentosPorPagar .= 'Num doc <b>'.$factura['NumeroDocumento'] . '</b> Fecha Venc <b>'.$data['FechaVencimiento'] .'</b> Total Doc <b>'.$TotalFactura . '</b> Deuda <b style"color:red;">'.$Deuda.'</b><br>';
+                            $MensajeDocumentosPorPagar .= 'Num doc <b>'.$factura['NumeroDocumento'] . '</b> Fecha Venc <b>'.$data['FechaVencimiento'] .'</b> Total Doc <b>'.$TotalFactura . '</b> Deuda <b style="color:red;">'.$Deuda.'</b><br>';
                         }
                         array_push($ToReturn, $data);
                     }
