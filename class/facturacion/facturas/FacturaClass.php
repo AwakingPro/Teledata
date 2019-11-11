@@ -82,7 +82,7 @@
                     LEFT JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_factura.tipo_facturacion = mantenedor_tipo_facturacion.id
                     LEFT JOIN mantenedor_servicios ON mantenedor_servicios.IdServicio = servicios.IdServicio
                     WHERE
-                    facturas.EstatusFacturacion = '1' AND personaempresa.rut = '".$RUT."' AND facturas.FechaVencimiento < CURDATE() GROUP BY facturas.Id ORDER BY Cliente";
+                    facturas.EstatusFacturacion = '1' AND personaempresa.rut = '".$RUT."' AND facturas.FechaVencimiento < CURDATE() AND personaempresa.clase_cliente != 3  GROUP BY facturas.Id ORDER BY Cliente";
                 //solo facturas emitidas sin N.C
                 $facturas = $run->select($query);
                 $docsVencidos = 0;
@@ -133,7 +133,7 @@
                         if($Deuda > 0){
                             $docsVencidos += 1;
                             //mensaje para info sobre cada doc que debe
-                            $MensajeDocumentosPorPagar .= 'Num doc <b>'.$factura['NumeroDocumento'] . '</b> Fecha Venc <b>'.$data['FechaVencimiento'] .'</b> Total Doc <b>'.$TotalFactura . '</b> Deuda <b>'.$Deuda.'</b><br>';
+                            $MensajeDocumentosPorPagar .= 'Num doc <b>'.$factura['NumeroDocumento'] . '</b> Fecha Venc <b>'.$data['FechaVencimiento'] .'</b> Total Doc <b>'.$TotalFactura . '</b> Deuda <b style"color:red;">'.$Deuda.'</b><br>';
                         }
                         array_push($ToReturn, $data);
                     }
@@ -143,8 +143,8 @@
                     $dataClient['ClienteNombre'] = $factura['Cliente'];
                     $dataClient['ServicioCodigo'] = $RUTDV;
                     //correos sin tecnicos para pruebas
-                    $dataClient['correos'] = 'fpezzuto@teledata.cl, dangel@teledata.cl';
-//                    $dataClient['correos'] = 'dangel@teledata.cl';
+//                    $dataClient['correos'] = 'fpezzuto@teledata.cl, dangel@teledata.cl';
+                    $dataClient['correos'] = 'dangel@teledata.cl';
 
                     // $dataClient['correos'] = 'jcarrillo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl,  esalas@teledata.cl';
 //                         $dataClient['correos'] = 'dangel@teledata.cl';
@@ -160,6 +160,7 @@
                         $respCorreo = $run->enviarCorreos(2, $dataClient);
                     }
                 }
+                exit;
             }
 
         }
