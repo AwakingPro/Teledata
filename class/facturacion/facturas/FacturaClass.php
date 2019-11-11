@@ -38,15 +38,15 @@
             }
         }
 
-        // metodo para verificar si un cliente tiene 3 documentos emitidos sin pagar y terminar contrato
+        // metodo para verificar si un cliente tiene 2, o 3 documentos emitidos sin pagar
         public function verificarDocumentosEmitidos(){
 
             $run = new Method;
             //busco solo clientes activo
             $query = " SELECT rut, posee_pac FROM personaempresa WHERE state = '0' and posee_pac != 1 ";
             $ruts = $run->select($query);
-            
-            // $ruts = 
+
+            // $ruts =
             // array (
             //     0 => Array('rut' => 77029860), 1 => Array('rut' => 9358294), 2 => Array('rut' => 10024952),
             //     3 => Array('rut' => 7791376), 4 => Array('rut' => 96778860), 5 => Array('rut' => 76405306),
@@ -82,81 +82,84 @@
                     LEFT JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_factura.tipo_facturacion = mantenedor_tipo_facturacion.id
                     LEFT JOIN mantenedor_servicios ON mantenedor_servicios.IdServicio = servicios.IdServicio
                     WHERE
-                    facturas.EstatusFacturacion = '1' AND personaempresa.rut = '".$RUT."' GROUP BY facturas.Id ORDER BY Cliente";
-                    //solo facturas emitidas sin N.C
-                    $facturas = $run->select($query);
-                    $docsVencidos = 0;
-                    //entro solo si tiene 2 emitidas
+                    facturas.EstatusFacturacion = '1' AND personaempresa.rut = '".$RUT."' AND facturas.FechaVencimiento < CURDATE() GROUP BY facturas.Id ORDER BY Cliente";
+                //solo facturas emitidas sin N.C
+                $facturas = $run->select($query);
+                $docsVencidos = 0;
+                $MensajeDocumentosPorPagar = '';
+                //entro solo si tiene 2 emitidas
+                // echo '<pre>'; print_r($facturas); echo '</pre><br><br>'; exit;
+                if(count($facturas) > 1) {
+                    $ToReturn = array();
                     // echo '<pre>'; print_r($facturas); echo '</pre><br><br>'; exit;
-                    if(count($facturas) > 1) {
-                        $ToReturn = array();
-                        // echo '<pre>'; print_r($facturas); echo '</pre><br><br>'; exit;
-                        foreach($facturas as $factura){
-                            $Id = $factura['Id'];
-                            $TotalFactura = 0;
-                        
-                            $query = "SELECT Total, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
-                            $detalles = $run->select($query);
-                            foreach($detalles as $detalle){
-                                $Total = $detalle['Total'];
-                                $Descuento = floatval($detalle['Descuento']) / 100;
-                                $Descuento = $Total * $Descuento;
-                                $Total -= $Descuento;
-                                $TotalFactura += round($Total,0);
-                            }
-                            
-                            $TotalPagado = $factura['TotalSaldo'];
-                            $Deuda = $TotalFactura - $TotalPagado;
-                            if($Deuda > 0){
-                                $docsVencidos += 1;
-                            }
+                    foreach($facturas as $factura){
+                        $Id = $factura['Id'];
+                        $TotalFactura = 0;
 
-                            $Id = $factura['Id'];
-                            $data = array();
-                            $data['Id'] = $Id;
-                            $data['DocumentoId'] = $Id;
-                            $data['Cliente'] = $factura['Cliente'];
-                            $data['NumeroDocumento'] = $factura['NumeroDocumento'];
-                            $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');        
-                            $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');        
-                            $data['TotalFactura'] = $TotalFactura;
-                            //total saldo es el pago total - el saldo del doc
-                            $data['Deuda'] = $Deuda;
+                        $query = "SELECT Total, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$Id."'";
+                        $detalles = $run->select($query);
+                        foreach($detalles as $detalle){
+                            $Total = $detalle['Total'];
+                            $Descuento = floatval($detalle['Descuento']) / 100;
+                            $Descuento = $Total * $Descuento;
+                            $Total -= $Descuento;
+                            $TotalFactura += round($Total,0);
 
-                            $data['TipoDocumento'] = $factura['TipoDocumento'];
-                            $data['ClaseCliente'] = $factura['ClaseCliente'];
-                            // if($factura['NombreServicio'] == '')
-                            // $factura['NombreServicio'] = 'Otros Servicios';
-                            $data['NombreServicio'] = $factura['NombreServicio'];
-                            // if($factura['TipoFacturacion'] == '')
-                            // $factura['TipoFacturacion'] = 'Otros Servicios';
-                            $data['TipoFacturacion'] = $factura['TipoFacturacion'];
-                            $data['EstatusFacturacion'] = 1;
-
-                            array_push($ToReturn, $data);
                         }
 
-                        $dataClient = array();
-                        $RUTDV = $RUT.' - '. $factura['DV'];
-                        $dataClient['ClienteNombre'] = $factura['Cliente'];
-                        $dataClient['ServicioCodigo'] = $RUTDV;
-                        //correos sin tecnicos para pruebas
-                        $dataClient['correos'] = 'kcardenas@teledata.cl, fpezzuto@teledata.cl';
+                        $TotalPagado = $factura['TotalSaldo'];
+                        $Deuda = $TotalFactura - $TotalPagado;
 
-                        // $dataClient['correos'] = 'jcarrillo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl,  esalas@teledata.cl';
+                        $Id = $factura['Id'];
+                        $data = array();
+                        $data['Id'] = $Id;
+                        $data['DocumentoId'] = $Id;
+                        $data['Cliente'] = $factura['Cliente'];
+                        $data['NumeroDocumento'] = $factura['NumeroDocumento'];
+                        $data['FechaFacturacion'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaFacturacion'])->format('d-m-Y');
+                        $data['FechaVencimiento'] = \DateTime::createFromFormat('Y-m-d',$factura['FechaVencimiento'])->format('d-m-Y');
+                        $data['TotalFactura'] = $TotalFactura;
+                        //total saldo es el pago total - el saldo del doc
+                        $data['Deuda'] = $Deuda;
+                        $data['TipoDocumento'] = $factura['TipoDocumento'];
+                        $data['ClaseCliente'] = $factura['ClaseCliente'];
+                        // if($factura['NombreServicio'] == '')
+                        // $factura['NombreServicio'] = 'Otros Servicios';
+                        $data['NombreServicio'] = $factura['NombreServicio'];
+                        // if($factura['TipoFacturacion'] == '')
+                        // $factura['TipoFacturacion'] = 'Otros Servicios';
+                        $data['TipoFacturacion'] = $factura['TipoFacturacion'];
+                        $data['EstatusFacturacion'] = 1;
+                        if($Deuda > 0){
+                            $docsVencidos += 1;
+                            //mensaje para info sobre cada doc que debe
+                            $MensajeDocumentosPorPagar .= 'Num doc <b>'.$factura['NumeroDocumento'] . '</b> Fecha Venc <b>'.$data['FechaVencimiento'] .'</b> Total Doc <b>'.$TotalFactura . '</b> Deuda <b>'.$Deuda.'</b><br>';
+                        }
+                        array_push($ToReturn, $data);
+                    }
+
+                    $dataClient = array();
+                    $RUTDV = $RUT.' - '. $factura['DV'];
+                    $dataClient['ClienteNombre'] = $factura['Cliente'];
+                    $dataClient['ServicioCodigo'] = $RUTDV;
+                    //correos sin tecnicos para pruebas
+                    $dataClient['correos'] = 'fpezzuto@teledata.cl, dangel@teledata.cl';
+//                    $dataClient['correos'] = 'dangel@teledata.cl';
+
+                    // $dataClient['correos'] = 'jcarrillo@teledata.cl, rmontoya@teledata.cl, fpezzuto@teledata.cl, pagos@teledata.cl, kcardenas@teledata.cl,  esalas@teledata.cl';
 //                         $dataClient['correos'] = 'dangel@teledata.cl';
-                         // dos documentos emitidos se va a corte comercial   
-                        if ($docsVencidos == 2) {
-                            $dataClient['asunto'] = 'Corte comercial cliente '.$factura['Cliente'].' RUT: '.$RUTDV;
-                            $dataClient['MensajeCorreo'] = 'Por favor hacer <b>Corte comercial</b> al cliente <b>'.$factura['Cliente'].' RUT: '.$RUTDV. ' - '. $factura['TipoDocumento'].'</b> ya que tiene '.$docsVencidos.' '.$factura['TipoDocumento'].'s emitidas y sin pagar';
-                            $respCorreo = $run->enviarCorreos(2, $dataClient);
-                        } elseif ($docsVencidos >= 3) {
+                    // dos documentos emitidos se va a corte comercial
+                    if ($docsVencidos == 2) {
+                        $dataClient['asunto'] = 'Corte comercial cliente '.$factura['Cliente'].' RUT: '.$RUTDV;
+                        $dataClient['MensajeCorreo'] = 'Por favor hacer <b>Corte comercial</b> al cliente <b>'.$factura['Cliente'].' RUT: '.$RUTDV. ' - '. $factura['TipoDocumento'].'</b> ya que tiene '.$docsVencidos.' '.$factura['TipoDocumento'].'s emitidas y sin pagar <hr>'.$MensajeDocumentosPorPagar;
+                        $respCorreo = $run->enviarCorreos(2, $dataClient);
+                    } elseif ($docsVencidos >= 3) {
                         // tres documentos emitidos o más se va a término de contrato
-                            $dataClient['asunto'] = 'Corte término de contrato cliente '.$factura['Cliente'].' RUT: '.$RUTDV;
-                            $dataClient['MensajeCorreo'] = 'Por favor hacer <b>Corte por término de contrato</b> al cliente <b>'.$factura['Cliente'].' RUT: '.$RUTDV. ' - '. $factura['TipoDocumento'].'</b> ya que tiene '.$docsVencidos.' '.$factura['TipoDocumento'].'s emitidas y sin pagar';
-                            $respCorreo = $run->enviarCorreos(2, $dataClient);
-                        }
-                        }
+                        $dataClient['asunto'] = 'Corte término de contrato cliente '.$factura['Cliente'].' RUT: '.$RUTDV;
+                        $dataClient['MensajeCorreo'] = 'Por favor hacer <b>Corte por término de contrato</b> al cliente <b>'.$factura['Cliente'].' RUT: '.$RUTDV. ' - '. $factura['TipoDocumento'].'</b> ya que tiene '.$docsVencidos.' '.$factura['TipoDocumento'].'s emitidas y sin pagar <hr>' .$MensajeDocumentosPorPagar;
+                        $respCorreo = $run->enviarCorreos(2, $dataClient);
+                    }
+                }
             }
 
         }
