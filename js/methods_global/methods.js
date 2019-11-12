@@ -27,7 +27,6 @@ if (($('#demo-dp-component .input-group.date').size() > 0) || ($('.input-dateran
 	}
 }
 
-
 idUsuarioSession = $('#IdUsuarioSession').val();
 nivelUsuarioSession = $('#IdNivelUsuarioSession').val();
 if(nivelUsuarioSession == 4){
@@ -39,18 +38,22 @@ if(nivelUsuarioSession == 4){
 	$(".agregarDatosTecnicos").hide();
 }
 
-// setTiempoUltimaRecarga();
+setTiempoUltimaRecarga();
 //esto sera para verificar si realizo actividad en la pagina actualizamos la hora de ultima accion en usuarios
-// $(document).click(function(){
-// 	setTiempoUltimaRecarga();
-// })
+$(document).click(function(){
+	setTiempoUltimaRecarga();
+})
 
 
-//verifica cada minuto si paso la hora
-// setInterval(function(){
-// 	getTiempoUltimaRecarga();
-// }, 60000);
-//metodo para actualizar el tiempo de la última de recarga
+//verifica cada minuto si paso la hora, menos con e.s y d
+setInterval(function(){
+    if(idUsuarioSession == '108' || idUsuarioSession == '116'){
+        console.log(idUsuarioSession)
+    }else{
+        getTiempoUltimaRecarga();
+    }
+}, 6000);
+//metodo para actualizar el tiempo de la última recarga
 function setTiempoUltimaRecarga(){
 	var tiempoActual = myTimer();
 	$.ajax({
