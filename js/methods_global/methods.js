@@ -52,7 +52,7 @@ setInterval(function(){
     }else{
         getTiempoUltimaRecarga();
     }
-}, 6000);
+}, 60000);
 //metodo para actualizar el tiempo de la última recarga
 function setTiempoUltimaRecarga(){
 	var tiempoActual = myTimer();
