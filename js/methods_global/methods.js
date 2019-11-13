@@ -47,7 +47,7 @@ $(document).click(function(){
 
 //verifica cada minuto si paso la hora, menos con e.s y d
 setInterval(function(){
-    if(idUsuarioSession == '108' || idUsuarioSession == '116'){
+    if(idUsuarioSession == '108'){
         console.log(idUsuarioSession)
     }else{
         getTiempoUltimaRecarga();
