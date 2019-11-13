@@ -1286,9 +1286,9 @@
         }
         // metodo para generar facturas automaticamente el 25 de cada mes con valor uf del 1ro
         public function generarFacturas(){
-            
+
             $run = new Method;
-            
+
             $queryEstatusFacturacion = "UPDATE facturas SET EstatusFacturacion = '0' WHERE EstatusFacturacion = '3' ";
             $run->update($queryEstatusFacturacion);
 
@@ -1337,33 +1337,118 @@
             $Servicios = $run->select($query);
 
             if($Servicios){
-                $UfClass = new Uf(); 
+                $UfClass = new Uf();
                 $FechaUF = date('Y/m/01');
                 //sumo 1 mes
                 $FechaUF = date("Y/m/01",strtotime($FechaUF."+ 1 month"));
                 $FechaUfApi = $run->fechaApiSbif($FechaUF);
                 $UF = $UfClass->getValue($FechaUfApi);
-                $totalBoletas = 0;
-                $totalFacturas = 0;
-                $cantidadBoletas = 0;
-                $cantidadFacturas = 0;
-                $dataClient = array();
-                // $dataClient['correos'] = 'dangel@teledata.cl';
 
                 foreach($Servicios as $Servicio){
+//                echo '<pre>'; echo print_r($Servicios); echo '</pre>';exit;
                     $Id = $Servicio['Id'];
+                    //esta bandera siempre sera 1 solo podria cambiar cuando el servicio tiene corte comercial y más de 3 docs emitidos
+                    $PermitirFactura = 1;
                     $FechaInicioDesactivacion = $Servicio['FechaInicioDesactivacion'];
                     $FechaFinalDesactivacion = $Servicio['FechaFinalDesactivacion'];
                     $EstatusServicio = $Servicio['EstatusServicio'];
+                    $RUT = $Servicio['Rut'];
+                    //if es corte comercial tengo que comprobar que no tenga mas de 3 vencidas
+                    if($EstatusServicio == 3){
+
+//                    $RUT = '6229765';
+//                    echo '<pre>'; echo print_r($Servicios); echo '</pre>';
+                        //busco facturas emitidas
+                        $query = " SELECT
+                    personaempresa.nombre AS Cliente,
+                    personaempresa.dv AS DV,
+                    facturas.Id,
+                    facturas.NumeroDocumento,
+                    facturas.FechaFacturacion,
+                    facturas.FechaVencimiento,
+                    mantenedor_tipo_cliente.nombre AS TipoDocumento,
+                    facturas.IVA,
+                    facturas.EstatusFacturacion,
+                    clase_clientes.nombre AS ClaseCliente,
+                    IFNULL( ( SELECT SUM( Monto ) FROM facturas_pagos WHERE FacturaId = facturas.Id ), 0 ) AS TotalSaldo,
+                    mantenedor_servicios.servicio AS NombreServicio,
+                    mantenedor_tipo_facturacion.nombre AS TipoFacturacion
+                    FROM
+                    facturas
+                    INNER JOIN mantenedor_tipo_cliente ON facturas.TipoDocumento = mantenedor_tipo_cliente.Id
+                    INNER JOIN personaempresa ON facturas.Rut = personaempresa.rut
+                    INNER JOIN clase_clientes ON clase_clientes.id = personaempresa.clase_cliente
+                    LEFT JOIN facturas_pagos ON facturas_pagos.FacturaId = facturas.Id
+                    LEFT JOIN servicios ON servicios.Rut = facturas.Rut
+                    LEFT JOIN mantenedor_tipo_factura ON servicios.TipoFactura = mantenedor_tipo_factura.id
+                    LEFT JOIN mantenedor_tipo_facturacion ON mantenedor_tipo_factura.tipo_facturacion = mantenedor_tipo_facturacion.id
+                    LEFT JOIN mantenedor_servicios ON mantenedor_servicios.IdServicio = servicios.IdServicio
+                    WHERE
+                    facturas.EstatusFacturacion = '1' AND personaempresa.rut = '".$RUT."' AND facturas.FechaVencimiento < CURDATE()  GROUP BY facturas.Id ORDER BY Cliente";
+                        //solo facturas emitidas sin N.C y que esten vencidas
+
+                        $facturasCortesComerciales = $run->select($query);
+                        $docsVencidos = 0;
+                        //entro solo si tiene 2 emitidas
+//                     echo '<pre>'; print_r($facturasCortesComerciales); echo '</pre><br><br>'; exit;
+                        if(count($facturasCortesComerciales) > 1) {
+
+                            $ToReturn = array();
+                            // echo '<pre>'; print_r($facturas); echo '</pre><br><br>'; exit;
+                            foreach($facturasCortesComerciales as $facturaCorteComercial){
+                                $IdDetalleCorteComercial = $facturaCorteComercial['Id'];
+                                $TotalFactura = 0;
+
+                                $query = "SELECT Total, (Descuento + IFNULL((SELECT SUM(Porcentaje) FROM descuentos_aplicados WHERE IdDetalle = facturas_detalle.Id),0)) as Descuento FROM facturas_detalle WHERE FacturaId = '".$IdDetalleCorteComercial."'";
+                                $detalles = $run->select($query);
+                                foreach($detalles as $detalle){
+                                    $Total = $detalle['Total'];
+                                    $Descuento = floatval($detalle['Descuento']) / 100;
+                                    $Descuento = $Total * $Descuento;
+                                    $Total -= $Descuento;
+                                    $TotalFactura += round($Total,0);
+                                }
+                                $TotalPagado = $facturaCorteComercial['TotalSaldo'];
+                                $Deuda = $TotalFactura - $TotalPagado;
+                                //if la deuda es menor o igual a 100 pesos la tomo como pagada y no entro al if
+                                if($Deuda > 500){
+                                    $docsVencidos += 1;
+                                }
+                            }
+
+                            $RUTDV = $RUT.' - '. $facturaCorteComercial['DV'];
+                            // tiene tiene 3 docs vencidos sin pagar o más no permitir factura
+                            if ($docsVencidos >= 3) {
+                                $PermitirFactura = 0;
+                            }else{
+                                // tiene menos de 3 docs sin pagar, si permitir
+                                $PermitirFactura = 1;
+                                //limpio las fechas para cortes comercial de lo contratio no las dejara pasar en el siguiente if
+                                $FechaInicioDesactivacion = '';
+                                $FechaFinalDesactivacion = '';
+//                                echo 'Corte término de contrato cliente '.$facturaCorteComercial['Cliente'].' RUT: '.$RUTDV;
+//                                echo "\n";
+//                                echo 'Por favor hacer <b> Corte por término de contrato</b> al cliente <b>' . $facturaCorteComercial['Cliente']. ' RUT: '.$RUTDV. ' - '. $facturaCorteComercial['TipoDocumento'].'</b> ya que tiene '.$docsVencidos.' '.$facturaCorteComercial['TipoDocumento'].'s emitidas y sin pagar <hr>';
+//                                echo "\n";
+//                                echo 'Tiene '.$docsVencidos .' docs vencidos / permitir = '.$PermitirFactura;
+//                                echo "\n";
+//                                echo "\n";
+                            }
+                        }
+                    }
+                    //fin si es corte comercial Estatus = 3
+
                     // $PermitirFactura = $Servicio['PermitirFactura'];
-                    $PermitirFactura = 1;
+
                     $TipoFacturacion = $Servicio['TipoFacturacion'];
                     // FechaInicioDesactivacion y FechaFinalDesactivacion es por si tiene suspendido el servicio
                     // $EstatusServicio = 5 es temporal y = 3 es corte comercial
-
+                    //si es corte comercial solo generar sus documentos si no tiene 3 o más vencidos y sin pagar
+                    //aqui poner el codigo para traer ruts y recorrer las facturas y ver si tiene una deuda de 2 o menos con corte comercial sin pagar y asi dejarlo pasar
                     if(($FechaInicioDesactivacion >= $Hoy OR $FechaFinalDesactivacion < $Hoy OR $EstatusServicio == 5) && $PermitirFactura && $TipoFacturacion){
+
                         $FechaUltimoCobro = $Servicio['FechaUltimoCobro'];
-                        $FechaUltimoCobro = new DateTime($FechaUltimoCobro);                        
+                        $FechaUltimoCobro = new DateTime($FechaUltimoCobro);
                         $Concepto = $Servicio['Servicio'];
                         //TipoFacturacion = 1 es mensual, = 2 podria ser para semestral, aun no se usa, el 3 es para anual
                         if($TipoFacturacion == '1'){
@@ -1382,7 +1467,7 @@
                             //agrego 1 ano a fecha ultimo cobro
                             $FechaUltimoCobro->add(new DateInterval("P1Y"));
                         }
-                          // luego de agregar un mes, 6 meses o 1 año al ultimo cobro, comprueba si es <= a hoy
+                        // luego de agregar un mes, 6 meses o 1 año al ultimo cobro, comprueba si es <= a hoy
                         // toca cobrar, paso 1 mes
                         if($FechaUltimoCobro <= $dt){
                             $Rut = $Servicio['Rut'];
@@ -1400,6 +1485,7 @@
                                 $Facturas[$Rut.'-'.$Grupo] = $FacturaId;
                             }
                             if($FacturaId){
+
                                 $Codigo = $Servicio['Codigo'];
                                 $Valor = $Servicio['Valor'];
                                 $Valor = $Valor * $UF;
@@ -1416,31 +1502,11 @@
                                 if($detalle){
                                     $query = "UPDATE servicios SET FechaUltimoCobro = '".$Hoy."' WHERE Id = '".$Id."'";
                                     $data = $run->update($query);
-                                    if($TipoDocumento == '2'){
-                                        $totalFacturas += $Total;
-                                        $cantidadFacturas++;
-                                    }else if($TipoDocumento == '1'){
-                                        $totalBoletas += $Total;
-                                        $cantidadBoletas++;
-                                    }
                                 }
                             }
                         }
                     }
                 }
-                $dataClient['asunto'] = 'Resumen de tarea automática para generar docs por lotes - Fecha '.date('d-m-Y');
-                $dataClient['MensajeCorreo'] = ' Si existe alguna anomalía en los datos contacte al equipo encargado, gracias.';
-                $dataClient['Subtitulo'] = 'Se encontraron '.$cantidadFacturas.' Facturas por un total de $'.$totalFacturas;
-                $dataClient['Subtitulo'] .= ' y '.$cantidadBoletas.' Boletas por un total de $'.$totalBoletas;
-                $dataClient['Subtitulo2'] = '';
-                $dataClient['Parrafo'][0] = '';
-                $dataClient['Parrafo'][1] = '';
-                $dataClient['Parrafo'][2] = '';
-                $dataClient['Parrafo'][3] = '';               
-                $dataClient['Parrafo'][4] = '<p style="text-align:center !important;"><a href="http://teledata.cl/" target="_blank"><img style="display:center !important; float:center !important;" src="http://teledata.cl/images_web/logo-teledata-200.png" /></a></p>';
-//                $html = $run->plantillaCorreo($dataClient);
-//                $dataClient['HTML'] = $html;
-//                $respCorreo = $run->enviarCorreos(3, $dataClient);
             }
 
             $response_array['status'] = 1;
