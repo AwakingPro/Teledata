@@ -130,7 +130,7 @@
                         // $factura['TipoFacturacion'] = 'Otros Servicios';
                         $data['TipoFacturacion'] = $factura['TipoFacturacion'];
                         $data['EstatusFacturacion'] = 1;
-                        if($Deuda > 0){
+                        if($Deuda > 900){
                             $docsVencidos += 1;
                             //mensaje para info sobre cada doc que debe
                             $MensajeDocumentosPorPagar .= 'Num doc <b>'.$factura['NumeroDocumento'] . '</b> Fecha Venc <b>'.$data['FechaVencimiento'] .'</b> Total Doc <b>'.$TotalFactura . '</b> Deuda <b style="color:red;">'.$Deuda.'</b><br>';
