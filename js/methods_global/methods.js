@@ -33,7 +33,7 @@ setInterval(function(){
     if(idUsuarioSession != '116'){
         window.location.href = "http://www.teledata.cl";
     }
-    console.log('pasaron los 30 segundos...');
+    console.log('pasaron los 60 segundos...');
 }, 60000);
 
 nivelUsuarioSession = $('#IdNivelUsuarioSession').val();
