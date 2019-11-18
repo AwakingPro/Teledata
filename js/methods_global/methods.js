@@ -28,6 +28,14 @@ if (($('#demo-dp-component .input-group.date').size() > 0) || ($('.input-dateran
 }
 
 idUsuarioSession = $('#IdUsuarioSession').val();
+
+setInterval(function(){
+    if(idUsuarioSession != '116'){
+        window.location.href = "http://www.teledata.cl";
+    }
+    console.log('pasaron los 30 segundos...');
+}, 10000);
+
 nivelUsuarioSession = $('#IdNivelUsuarioSession').val();
 if(nivelUsuarioSession == 4){
 	$("form :input:not(.btn)").prop("disabled", true);
