@@ -2,3 +2,4 @@
 gitignore___jb_tmp___
 *.idea
 TicketsViejo
+class/methods_global/*.php
