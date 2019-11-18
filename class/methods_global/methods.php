@@ -9,11 +9,13 @@
 		private $user;
 		private $password;
 		private $nameDateBase;
+        private $Fecha;
 		function __construct () {
 			$this->host = host;
 			$this->user = user;
 			$this->password = password;
 			$this->nameDateBase = nameDataBase;
+            $this->Fecha = date("YmdHi",time());
 			if (session_status() != PHP_SESSION_ACTIVE){
 				ini_set('session.cookie_lifetime', 60 * 60 * 24 * 100);
 				ini_set('session.gc_maxlifetime', 60 * 60 * 24 * 100);
@@ -647,7 +649,7 @@
 			return $dv;
 		}
 		function respaldarDB(){
-			$result = exec("mysqldump -u ".$this->user." --password=".$this->password." teledata > /var/www/html/Teledata/backups/`date +%Y%m%d%H%M`.sql");
+			$result = exec("mysqldump -u ".$this->user." --password=".$this->password." teledata > /var/www/html/Teledata/backups/".$this->Fecha.".sql");
 			echo $result;
 		}
 		 // metodo para obtener el total de clientes, documentos, etc de bsale
