@@ -1,4 +1,6 @@
 
+class/methods_global/*
+backups/*
 gitignore___jb_tmp___
 *.idea
 TicketsViejo
