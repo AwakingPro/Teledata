@@ -34,7 +34,7 @@ setInterval(function(){
         window.location.href = "http://www.teledata.cl";
     }
     console.log('pasaron los 30 segundos...');
-}, 10000);
+}, 20000);
 
 nivelUsuarioSession = $('#IdNivelUsuarioSession').val();
 if(nivelUsuarioSession == 4){
